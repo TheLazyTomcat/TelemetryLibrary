@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryRecipientAux</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="unit">Unit TelemetryRecipientAux</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td>Types</td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+Telemetry recipient auxiliary routines.</p>
+<p>
+*******************************************************************************    
+
+<p><code>TelemetryRecipientAux</code>
+
+<p>©František Milt, all rights reserved.
+
+<p>This unit contains auxiliary functions used by <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> class, but they can be used independently too.<br> Most of them (in fact, at the moment all of them) are intended to return human readable (i.e. textual representation) of binary data returned by game events and channels.
+
+<p>Last change: 2013-10-08
+
+<p>Change List:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>2013-10-08 - First stable version.</p></li>
+</ul>
+
+<p>
+
+<p>*******************************************************************************</p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li>scssdk</li><li>scssdk_value</li><li>scssdk_telemetry_event</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientAux.html#SCSValueTypeToStr">SCSValueTypeToStr</a></b>(SCSValueType: scs_value_type_t): String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientAux.html#SCSValueTypeFromStr">SCSValueTypeFromStr</a></b>(Str: String): scs_value_type_t;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientAux.html#SCSValueToStr">SCSValueToStr</a></b>(const Value: scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientAux.html#SCSValueLocalizedToStr">SCSValueLocalizedToStr</a></b>(Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientAux.html#TelemetryEventFrameStartToStr">TelemetryEventFrameStartToStr</a></b>(const Data: scs_telemetry_frame_start_t; TypeName: Boolean = False): String;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientAux.html#TelemetryEventConfigurationToStr">TelemetryEventConfigurationToStr</a></b>(const Data: scs_telemetry_configuration_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryRecipientAux.html#cSCSValueTypeIdentifiers">cSCSValueTypeIdentifiers</a></b>: Array[0..12] of String =
+    ('none','bool','s32','u32','u64','float','double','fvector','dvector',
+     'euler','fplacement','dplacement','string');</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCSValueTypeToStr"></a><code>Function <b>SCSValueTypeToStr</b>(SCSValueType: scs_value_type_t): String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns identifier of given SCS value type.</p>
+<p>
+ Identifiers are not defined by the API, for details about naming individual types refer to function implementation.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>SCSValueType</dt>
+<dd>Value type.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual identifier of given value type.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCSValueTypeFromStr"></a><code>Function <b>SCSValueTypeFromStr</b>(Str: String): scs_value_type_t;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns value type given by identifier.</p>
+<p>
+ If identifier is not recognized, then SCS_VALUE_TYPE_INVALID is returned.<br> Function is case-insensitive.<br> Identifiers are not defined by the API, for details about naming individual types refer to function implementation.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Str</dt>
+<dd>Textual identifier of value type.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Value type with name corresponding to passed textual identifier.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCSValueToStr"></a><code>Function <b>SCSValueToStr</b>(const Value: scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of scs_value_t structure.</p>
+<p>
+ When type of the value is not known, an empty string is returned.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>Actual value to be converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifier is added to output string.</dd>
+<dt>ShowDescriptions</dt>
+<dd>When set, fileds descriptors are shown in component values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of given value.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCSValueLocalizedToStr"></a><code>Function <b>SCSValueLocalizedToStr</b>(Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p>
+<p>
+
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>Actual value to be converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifier is added to output string.</dd>
+<dt>ShowDescriptions</dt>
+<dd>When set, fileds descriptors are shown in component values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of given value.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TelemetryEventFrameStartToStr"></a><code>Function <b>TelemetryEventFrameStartToStr</b>(const Data: scs_telemetry_frame_start_t; TypeName: Boolean = False): String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of scs_telemetry_frame_start_t structure.</p>
+<p>
+
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Data</dt>
+<dd>Structure to be converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual fields are added to output string.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of given structure.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TelemetryEventConfigurationToStr"></a><code>Function <b>TelemetryEventConfigurationToStr</b>(const Data: scs_telemetry_configuration_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of scs_telemetry_configuration_t structure.</p>
+<p>
+
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Data</dt>
+<dd>Structure to be converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptions</dt>
+<dd>When set, fileds descriptors are shown in component values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of given structure.</p></td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cSCSValueTypeIdentifiers"></a><code><b>cSCSValueTypeIdentifiers</b>: Array[0..12] of String =
+    ('none','bool','s32','u32','u64','float','double','fvector','dvector',
+     'euler','fplacement','dplacement','string');</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Table of identifiers for individual value types (scs_value_type_t). Index of each string corresponds to value type number this string is identifying.</p>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2013-10-08
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2013-10-08
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

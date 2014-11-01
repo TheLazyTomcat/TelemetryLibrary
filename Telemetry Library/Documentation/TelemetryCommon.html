@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryCommon</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="unit">Unit TelemetryCommon</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+Types, constants, routines, etc. used troughout the Telemetry library.</p>
+<p>
+<hr>    
+
+<p><b>TelemetryCommon</b>
+
+<p>©František Milt, all rights reserved.
+
+<p>This file is intended to provide types, constants, routines, etc. used throughout the Telemetry library (that is, in more than one unit).
+
+<p>Last change: 2014-05-05
+
+<p>Change List:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>2013-10-04 - First stable version.</p></li>
+  <li><p>2014-04-06 - <a class="normal" href="TelemetryCommon.TGameSupportInfo.html#GameID">TGameSupportInfo.GameID</a> and <a class="normal" href="TelemetryCommon.scs_value_localized_t.html#StringData">scs_value_localized_t.StringData</a> fields type changed to <code>TelemetryString</code>.</p></li>
+  <li><p>2014-04-18 - <a class="normal" href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> constant moved to <a class="normal" href="TelemetryIDs.html">TelemetryIDs</a> unit.</p></li>
+  <li><p>2014-04-20 - Added following types:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a></p></li>
+  <li><p><a class="normal" href="TelemetryCommon.html#p_scs_named_value_localized_t">p_scs_named_value_localized_t</a></p></li>
+  <li><p><a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a></p></li>
+  <li><p><a class="normal" href="TelemetryCommon.html#p_scs_telemetry_configuration_localized_t">p_scs_telemetry_configuration_localized_t</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-04-20 - Functions <a class="normal" href="TelemetryConversions.html#scs_value_localized">scs_value_localized</a> and <a class="normal" href="TelemetryConversions.html#scs_value">scs_value</a> moved to <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> unit.</p></li>
+  <li><p>2014-05-05 - <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder added.</p></li>
+</ul>
+
+<p>
+
+<p><hr></p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.TMulticastEvent.html"><code>TMulticastEvent</code></a></td>
+<td class="itemdesc">Placeholder intended to complete the classes hierarchy tree in documentation.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.TGameSupportInfo.html"><code>TGameSupportInfo</code></a></td>
+<td class="itemdesc">Structure used internally in tables that keeps informations about supported games and their versions.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.scs_value_localized_t.html"><code>scs_value_localized_t</code></a></td>
+<td class="itemdesc">Structure used to store content of <code>scs_value_t</code> variable.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.scs_named_value_localized_t.html"><code>scs_named_value_localized_t</code></a></td>
+<td class="itemdesc">Structure used to store content of <code>scs_named_value_t</code> variable.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html"><code>scs_telemetry_configuration_localized_t</code></a></td>
+<td class="itemdesc">Structure used to store content of <code>scs_telemetry_configuration_t</code> variable.</td>
+</tr>
+</table>
+<a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PGameSupportInfo">PGameSupportInfo</a></b> = &circ;<a  href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#p_scs_value_localized_t">p_scs_value_localized_t</a></b> = &circ;<a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#p_scs_named_value_localized_t">p_scs_named_value_localized_t</a></b> = &circ;<a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#p_scs_telemetry_configuration_localized_t">p_scs_telemetry_configuration_localized_t</a></b> = &circ;<a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#cEmptySCSValue">cEmptySCSValue</a></b>: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#cEmptySCSValueLocalized">cEmptySCSValueLocalized</a></b>: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> = (ValueType: SCS_VALUE_TYPE_INVALID);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PGameSupportInfo"></a><code><b>PGameSupportInfo</b> = &circ;<a  href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="p_scs_value_localized_t"></a><code><b>p_scs_value_localized_t</b> = &circ;<a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="p_scs_named_value_localized_t"></a><code><b>p_scs_named_value_localized_t</b> = &circ;<a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="p_scs_telemetry_configuration_localized_t"></a><code><b>p_scs_telemetry_configuration_localized_t</b> = &circ;<a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p>
+</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptySCSValue"></a><code><b>cEmptySCSValue</b>: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Constant containing an empty <code>scs_value_t</code> structure, or, more precisely, structure with invalid value type.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptySCSValueLocalized"></a><code><b>cEmptySCSValueLocalized</b>: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> = (ValueType: SCS_VALUE_TYPE_INVALID);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Constant containing an empty <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure (invalid value type).</p>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2013-10-04
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2014-05-05
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

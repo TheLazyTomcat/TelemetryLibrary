@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryToTextConverter</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryLogBinaryToTextConverter"></a><h1 class="cio">Class TTelemetryLogBinaryToTextConverter</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryLogBinaryToTextConverter = class(<a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryFileParser.html">TTelemetryLogBinaryFileParser</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Converts given binary log file to a text log file.</p>
+<p>
+ Implemented as descendant of <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryFileParser.html">TTelemetryLogBinaryFileParser</a> class. It creates internal text logger and uses own methods to pass parsed data to it. It also creates dummy telemetry recipient using data from API information section because it is required by text logger.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html">TTelemetryLogBinaryStreamParser</a></li>
+<li class="ancestor"><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryFileParser.html">TTelemetryLogBinaryFileParser</a></li>
+<li class="thisitem">TTelemetryLogBinaryToTextConverter</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#fOutFileName">fOutFileName</a></b>:     String;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#fDummyRecipient">fDummyRecipient</a></b>:  <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#fTextLogger">fTextLogger</a></b>:      <a  href="TelemetryLogText.TTelemetryLogText.html">TTelemetryLogText</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnDataLog">DoOnDataLog</a></b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnTextLog">DoOnTextLog</a></b>(Sender: TObject; Time: TDateTime; const Text: String); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnLog">DoOnLog</a></b>(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnEventRegister">DoOnEventRegister</a></b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnEventUnregister">DoOnEventUnregister</a></b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnEvent">DoOnEvent</a></b>(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnChannelRegister">DoOnChannelRegister</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnChannelUnregister">DoOnChannelUnregister</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnChannel">DoOnChannel</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnConfig">DoOnConfig</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#Create">Create</a></b>(FileName: String; OutFileName: String = '');</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#Convert">Convert</a></b>; virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#OutFileName">OutFileName</a></b>: String read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#fOutFileName">fOutFileName</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOutFileName"></a><code><b>fOutFileName</b>:     String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#OutFileName">OutFileName</a> property for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fDummyRecipient"></a><code><b>fDummyRecipient</b>:  <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Telemetry recipient created for internal text logger. Parametres (telemetry version, etc.) required to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#Create">create</a> this object are obtained from input log file API information section.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fTextLogger"></a><code><b>fTextLogger</b>:      <a  href="TelemetryLogText.TTelemetryLogText.html">TTelemetryLogText</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object used to write text output.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnDataLog"></a><code>procedure <b>DoOnDataLog</b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnDataLog">TTelemetryLogBinaryStreamParser.DoOnDataLog</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnTextLog"></a><code>procedure <b>DoOnTextLog</b>(Sender: TObject; Time: TDateTime; const Text: String); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnTextLog">TTelemetryLogBinaryStreamParser.DoOnTextLog</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnLog"></a><code>procedure <b>DoOnLog</b>(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnLog">TTelemetryLogBinaryStreamParser.DoOnLog</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnEventRegister"></a><code>procedure <b>DoOnEventRegister</b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnEventRegister">TTelemetryLogBinaryStreamParser.DoOnEventRegister</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnEventUnregister"></a><code>procedure <b>DoOnEventUnregister</b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnEventUnregister">TTelemetryLogBinaryStreamParser.DoOnEventUnregister</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnEvent"></a><code>procedure <b>DoOnEvent</b>(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnEvent">TTelemetryLogBinaryStreamParser.DoOnEvent</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnChannelRegister"></a><code>procedure <b>DoOnChannelRegister</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnChannelRegister">TTelemetryLogBinaryStreamParser.DoOnChannelRegister</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnChannelUnregister"></a><code>procedure <b>DoOnChannelUnregister</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnChannelUnregister">TTelemetryLogBinaryStreamParser.DoOnChannelUnregister</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnChannel"></a><code>procedure <b>DoOnChannel</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnChannel">TTelemetryLogBinaryStreamParser.DoOnChannel</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnConfig"></a><code>procedure <b>DoOnConfig</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Passes received data to approprite text logger method.<br> See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnConfig">TTelemetryLogBinaryStreamParser.DoOnConfig</a> for other functions of this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(FileName: String; OutFileName: String = '');</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.
+
+<p>Creates dummy recipient and text logger.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FileName</dt>
+<dd>Name of the input log file. Must contain valid file name, but it is not mandatory to assign full file path.</dd>
+<dt>OutFileName</dt>
+<dd>Name of output text file. When left empty, then name of output file is created by appending <code>.LOG</code> extension to the name of the input file.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class destructor.
+
+<p>Frees all internal objects.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Convert"></a><code>procedure <b>Convert</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Runs the conversions. Calls <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#ReadAllLogEntries">ReadAllLogEntries</a> method.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OutFileName"></a><code>property <b>OutFileName</b>: String read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#fOutFileName">fOutFileName</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Name of the output file, that is a file to which the text log is written.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

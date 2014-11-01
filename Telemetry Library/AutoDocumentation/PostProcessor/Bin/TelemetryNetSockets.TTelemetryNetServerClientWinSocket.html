@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryNetSockets: Class TTelemetryNetServerClientWinSocket</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryNetServerClientWinSocket"></a><h1 class="cio">Class TTelemetryNetServerClientWinSocket</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryNetSockets.html">TelemetryNetSockets</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryNetServerClientWinSocket = class(TServerClientWinSocket)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Descendant of TServerClientWinSocket used in server as client socket.</p>
+<p>
+ It implements incoming and outgoing buffers and set of state flags used in communication. Each client connecting to the server spawns instance of this class and this object is then used for server-client communication and client management.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TServerClientWinSocket</li>
+<li class="thisitem">TTelemetryNetServerClientWinSocket</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fCircularPacketsBuffer">fCircularPacketsBuffer</a></b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fIncomingStream">fIncomingStream</a></b>:        <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fUniqueIdentificator">fUniqueIdentificator</a></b>:   TGUID;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fWaitingForPassword">fWaitingForPassword</a></b>:    Boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fReadyToWork">fReadyToWork</a></b>:           Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fAdminRights">fAdminRights</a></b>:           Boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fSuperAdminRights">fSuperAdminRights</a></b>:      Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fOnStatusChange">fOnStatusChange</a></b>:        TNotifyEvent;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetWaitingForPassword">SetWaitingForPassword</a></b>(Value: Boolean);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetReadyToWork">SetReadyToWork</a></b>(Value: Boolean);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetAdminRights">SetAdminRights</a></b>(Value: Boolean);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetSuperAdminRights">SetSuperAdminRights</a></b>(Value: Boolean);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#Create">Create</a></b>(Socket: TSocket; ServerWinSocket: TServerWinSocket);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#CanSendPacket">CanSendPacket</a></b>(Packet: <a  href="TelemetryNetPackets.TPacketBuffer.html">TPacketBuffer</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#CanReceivePacket">CanReceivePacket</a></b>(Packet: <a  href="TelemetryNetPackets.TPacketBuffer.html">TPacketBuffer</a>): Boolean; virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#CircularPacketsBuffer">CircularPacketsBuffer</a></b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a> read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fCircularPacketsBuffer">fCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#IncomingStream">IncomingStream</a></b>: <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a> read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fIncomingStream">fIncomingStream</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#UniqueIdentificator">UniqueIdentificator</a></b>: TGUID read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fUniqueIdentificator">fUniqueIdentificator</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#WaitingForPassword">WaitingForPassword</a></b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fWaitingForPassword">fWaitingForPassword</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetWaitingForPassword">SetWaitingForPassword</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#ReadyToWork">ReadyToWork</a></b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fReadyToWork">fReadyToWork</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetReadyToWork">SetReadyToWork</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#AdminRights">AdminRights</a></b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fAdminRights">fAdminRights</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetAdminRights">SetAdminRights</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SuperAdminRights">SuperAdminRights</a></b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fSuperAdminRights">fSuperAdminRights</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetSuperAdminRights">SetSuperAdminRights</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a></b>: TNotifyEvent read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fOnStatusChange">fOnStatusChange</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fOnStatusChange">fOnStatusChange</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fCircularPacketsBuffer"></a><code><b>fCircularPacketsBuffer</b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#CircularPacketsBuffer">CircularPacketsBuffer</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fIncomingStream"></a><code><b>fIncomingStream</b>:        <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#IncomingStream">IncomingStream</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fUniqueIdentificator"></a><code><b>fUniqueIdentificator</b>:   TGUID;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#UniqueIdentificator">UniqueIdentificator</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fWaitingForPassword"></a><code><b>fWaitingForPassword</b>:    Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#WaitingForPassword">WaitingForPassword</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fReadyToWork"></a><code><b>fReadyToWork</b>:           Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#ReadyToWork">ReadyToWork</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fAdminRights"></a><code><b>fAdminRights</b>:           Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#AdminRights">AdminRights</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fSuperAdminRights"></a><code><b>fSuperAdminRights</b>:      Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SuperAdminRights">SuperAdminRights</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnStatusChange"></a><code><b>fOnStatusChange</b>:        TNotifyEvent;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Holds reference to <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event handler.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="SetWaitingForPassword"></a><code>procedure <b>SetWaitingForPassword</b>(Value: Boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Setter for <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#WaitingForPassword">WaitingForPassword</a> property.<br> When passed value differs from value of <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fWaitingForPassword">fWaitingForPassword</a>, then <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>New value to be stored in <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fWaitingForPassword">fWaitingForPassword</a>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="SetReadyToWork"></a><code>procedure <b>SetReadyToWork</b>(Value: Boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Setter for <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#ReadyToWork">ReadyToWork</a> property.<br> When passed value differs from value of <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fReadyToWork">fReadyToWork</a>, then <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>New value to be stored in <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fReadyToWork">fReadyToWork</a>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="SetAdminRights"></a><code>procedure <b>SetAdminRights</b>(Value: Boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Setter for <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#AdminRights">AdminRights</a> property.<br> When passed value differs from value of <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fAdminRights">fAdminRights</a>, then <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>New value to be stored in <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fAdminRights">fAdminRights</a>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="SetSuperAdminRights"></a><code>procedure <b>SetSuperAdminRights</b>(Value: Boolean);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Setter for <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SuperAdminRights">SuperAdminRights</a> property.<br> When passed value differs from value of <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fSuperAdminRights">fSuperAdminRights</a>, then <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>New value to be stored in <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fSuperAdminRights">fSuperAdminRights</a>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Socket: TSocket; ServerWinSocket: TServerWinSocket);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object constructor.<br> <b>Note:</b> This object has altered order in which it calls events (it prevents calling of OnClientConnect event). Refer to constructor implementation for details.<br> For details about parent class and parameters of this method, refer to delphi help/documentation, TServerClientWinSocket class.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object destructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CanSendPacket"></a><code>Function <b>CanSendPacket</b>(Packet: <a  href="TelemetryNetPackets.TPacketBuffer.html">TPacketBuffer</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Checks whether this socket client can send passed packet or not. It depends on packet type and state of the client (e.g. it is is ready to work, has admin rights, etc.).<br> For detailed definitions, refer to method implementation.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Packet</dt>
+<dd>Packet for which we need to know if this socket can send it.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when socket can send given packet, <code>False</code> otherwise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CanReceivePacket"></a><code>Function <b>CanReceivePacket</b>(Packet: <a  href="TelemetryNetPackets.TPacketBuffer.html">TPacketBuffer</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Checks whether this socket client can receive passed packet or not. It depends on packet type and state of the client (e.g. it is is ready to work, has admin rights, etc.).<br> For detailed definitions, refer to method implementation.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Packet</dt>
+<dd>Packet for which we need to know if this socket can receive it.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when socket can receive given packet, <code>False</code> otherwise.</p></td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="CircularPacketsBuffer"></a><code>property <b>CircularPacketsBuffer</b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a> read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fCircularPacketsBuffer">fCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Circular items buffer used to store outgoing packets that cannot be send immediately.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="IncomingStream"></a><code>property <b>IncomingStream</b>: <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a> read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fIncomingStream">fIncomingStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object used to buffer incoming data and process them into usable packets. Use this object event OnPacket to actually receive packets.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="UniqueIdentificator"></a><code>property <b>UniqueIdentificator</b>: TGUID read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fUniqueIdentificator">fUniqueIdentificator</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Unique identificator of client connection. It is automatically generated in constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="WaitingForPassword"></a><code>property <b>WaitingForPassword</b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fWaitingForPassword">fWaitingForPassword</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetWaitingForPassword">SetWaitingForPassword</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Value of <code>True</code> means the client is connected but is not logged to the server and must send login packet (password) - when different packet is received, it is assumed the client does not know right password and is immediately disconnected. <code>False</code> means it has logged successfuly.<br> When set to different value then it already has, <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ReadyToWork"></a><code>property <b>ReadyToWork</b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fReadyToWork">fReadyToWork</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetReadyToWork">SetReadyToWork</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>True</code> means the client is ready to fully communicate with server. It is set to <code>True</code> only after client sends ready packet - meaning client decides whether it is ready, not the server.<br> When set to different value then it already has, <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="AdminRights"></a><code>property <b>AdminRights</b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fAdminRights">fAdminRights</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetAdminRights">SetAdminRights</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indicates wheather client has administrative rights.<br> When set to different value then it already has, <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SuperAdminRights"></a><code>property <b>SuperAdminRights</b>: Boolean read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fSuperAdminRights">fSuperAdminRights</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SetSuperAdminRights">SetSuperAdminRights</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indicates wheather client has super-administrator rights.<br> When set to different value then it already has, <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#OnStatusChange">OnStatusChange</a> event is called.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnStatusChange"></a><code>property <b>OnStatusChange</b>: TNotifyEvent read <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fOnStatusChange">fOnStatusChange</a> write <a  href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#fOnStatusChange">fOnStatusChange</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called whenever status of this socket changes (properties <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#WaitingForPassword">WaitingForPassword</a>, <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#ReadyToWork">ReadyToWork</a>, <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#AdminRights">AdminRights</a> and <a class="normal" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html#SuperAdminRights">SuperAdminRights</a>).</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

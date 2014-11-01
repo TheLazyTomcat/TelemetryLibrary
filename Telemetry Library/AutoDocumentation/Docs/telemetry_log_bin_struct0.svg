@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="755.1261"
+   height="208.37878"
+   id="svg2"
+   inkscape:label="Pozadí"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="telemetry_log_bin_struct0.svg"
+   inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+   inkscape:export-xdpi="89.836403"
+   inkscape:export-ydpi="89.836403">
+  <defs
+     id="defs3">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective9" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.5700118"
+     inkscape:cx="376.5576"
+     inkscape:cy="147.43629"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="744"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-27.037014,-331.02051)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2815"
+       width="750.19849"
+       height="39.801529"
+       x="29.964636"
+       y="351.5426"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 110.53425,350.7182 c 0,38.68698 0,41.45034 0,41.45034"
+       id="path3589"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3591"
+       d="m 603.73804,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 264.66043,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3593"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3595"
+       d="m 295.48567,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 326.31091,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3597"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3599"
+       d="m 357.13614,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3603"
+       d="m 387.96138,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 418.78663,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3605"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 449.61186,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3609"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 480.43709,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3611"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3613"
+       d="m 511.26232,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 542.08755,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3615"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3617"
+       d="m 572.91279,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3623"
+       d="m 203.00997,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 233.8352,350.7182 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3625"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="30.741699"
+       y="338.62012"
+       id="text3627"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3629"
+         x="30.741699"
+         y="338.62012">File header</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3631"
+       y="338.62012"
+       x="302.7247"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       xml:space="preserve"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3635"
+         x="302.7247"
+         y="338.62012">Stream of blocks</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="608.2851"
+       y="338.62012"
+       id="text3637"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3641"
+         x="608.2851"
+         y="338.62012">Table of blocks offsets</tspan></text>
+    <rect
+       inkscape:export-ydpi="89.389038"
+       inkscape:export-xdpi="89.389038"
+       y="455.89688"
+       x="29.037014"
+       height="41.656773"
+       width="206.07545"
+       id="rect3647"
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png" />
+    <path
+       id="path3649"
+       d="m 121.12421,456.00009 c 0,38.68698 0,41.45034 0,41.45034"
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3651"
+       y="443.90201"
+       x="114.15677"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       xml:space="preserve"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3655"
+         x="114.15677"
+         y="443.90201">Block</tspan></text>
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 171.59385,83.281223 28.239883,147.84019"
+       id="path3659"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 202.85575,82.575226 234.72979,147.3843"
+       id="path3661"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="31.555111"
+       y="518.03168"
+       id="text3663"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3667"
+         x="31.555111"
+         y="518.03168">Block header</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3669"
+       y="518.03168"
+       x="134.63069"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       xml:space="preserve"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3673"
+         x="134.63069"
+         y="518.03168">Block payload</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3675"
+       width="447.87418"
+       height="39.886517"
+       x="332.28894"
+       y="456.78201"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 404.93503,456.00009 c 0,38.68698 0,41.45034 0,41.45034"
+       id="path3677"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="473.66156"
+       y="443.90201"
+       id="text3679"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3695"
+         x="473.66156"
+         y="443.90201">Table of blocks offsets</tspan></text>
+    <path
+       id="path3683"
+       d="M 602.2155,391.54892 332.52463,456.85821"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3685"
+       d="m 779.42076,390.84293 0,65.8095"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3687"
+       y="518.03168"
+       x="306.18796"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       xml:space="preserve"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3719"
+         x="306.18796"
+         y="518.03168">Termination block</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="504.57318"
+       y="518.03168"
+       id="text3691"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3721"
+         x="504.57318"
+         y="518.03168">Array of offsets</tspan></text>
+    <path
+       id="path3697"
+       d="m 719.80972,456.00009 c 0,38.68698 0,41.45034 0,41.45034"
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 750.1676,456.00009 c 0,38.68698 0,41.45034 0,41.45034"
+       id="path3699"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3701"
+       d="m 436.42249,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3703"
+       d="m 467.90996,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 499.39743,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3705"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 530.88491,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3707"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 562.37235,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3709"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3711"
+       d="m 593.85985,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3713"
+       d="m 625.34727,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       id="path3715"
+       d="m 656.83478,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 688.32222,456.00009 c 0,38.68699 0,41.45034 0,41.45034"
+       id="path3717"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3723"
+       y="539.20593"
+       x="681.07251"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       xml:space="preserve"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3727"
+         x="681.07251"
+         y="539.20593">Control number</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="717.07831"
+       y="518.03754"
+       id="text3729"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"><tspan
+         sodipodi:role="line"
+         id="tspan3733"
+         x="717.07831"
+         y="518.03754">Count</tspan></text>
+    <path
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 766.00682,478.27761 0,50.54989"
+       id="path3735"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-ydpi="89.389038"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:export-ydpi="89.389038"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       id="path2872"
+       d="m 172.30733,350.7182 c 0,38.68698 0,41.45034 0,41.45034"
+       style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       inkscape:export-ydpi="89.389038"
+       inkscape:export-xdpi="89.389038"
+       inkscape:export-filename="E:\Programy\My Components, Classes and Units\Headers Translation\ETS2 Telemetry\Dev\Telemetry Library\AutoDocumentation\Docs\tlb_struct_0.png"
+       sodipodi:linespacing="125%"
+       id="text2874"
+       y="338.62012"
+       x="139.90701"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan2878"
+         x="139.90701"
+         y="338.62012">API informations</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0.5"
+       d="M 123.52517,9.9880288 112.80416,41.653568"
+       id="path2880"
+       transform="translate(27.037014,331.02051)"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryVersionObjects: Class TTelemetryVersionPrepareObject</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryVersionPrepareObject"></a><h1 class="cio">Class TTelemetryVersionPrepareObject</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryVersionObjects.html">TelemetryVersionObjects</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryVersionPrepareObject = class(<a class="normal" href="TelemetryVersionObjects.TTelemetryVersionObject.html">TTelemetryVersionObject</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Common ancestor for all classes that needs to be prepared for selected telemetry and/or game version.</p>
+<p>
+
+
+<p>Methods beginning with <code>Prepare_</code> are called to prepare created object for specific telemetry/game version.<br> Each telemetry/game version has its own method, even if no action is needed. For each version, all lower or equal version methods are called in ascending order (every method calls its predecessor at the beginning of its own code). For example, for version 1.2, methods 1_0, 1_1 and 1_2 would be called.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a></li>
+<li class="ancestor"><a class="normal" href="TelemetryVersionObjects.TTelemetryVersionObject.html">TTelemetryVersionObject</a></li>
+<li class="thisitem">TTelemetryVersionPrepareObject</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Telemetry_1_0">Prepare_Telemetry_1_0</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_0">Prepare_Game_eut2_1_0</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_1">Prepare_Game_eut2_1_1</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_2">Prepare_Game_eut2_1_2</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_3">Prepare_Game_eut2_1_3</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_4">Prepare_Game_eut2_1_4</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_5">Prepare_Game_eut2_1_5</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_6">Prepare_Game_eut2_1_6</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_7">Prepare_Game_eut2_1_7</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_8">Prepare_Game_eut2_1_8</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_9">Prepare_Game_eut2_1_9</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForTelemetryVersion">PrepareForTelemetryVersion</a></b>(TelemetryVersion: scs_u32_t): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForGameVersion">PrepareForGameVersion</a></b>(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareFor">PrepareFor</a></b>(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForParam">PrepareForParam</a></b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; virtual;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Telemetry_1_0"></a><code>procedure <b>Prepare_Telemetry_1_0</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for telemetry 1.0.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_0"></a><code>procedure <b>Prepare_Game_eut2_1_0</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.0.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_1"></a><code>procedure <b>Prepare_Game_eut2_1_1</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.1.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_0">Prepare_Game_eut2_1_0</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_2"></a><code>procedure <b>Prepare_Game_eut2_1_2</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.2.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_1">Prepare_Game_eut2_1_1</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_3"></a><code>procedure <b>Prepare_Game_eut2_1_3</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.3.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_2">Prepare_Game_eut2_1_2</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_4"></a><code>procedure <b>Prepare_Game_eut2_1_4</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.4.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_3">Prepare_Game_eut2_1_3</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_5"></a><code>procedure <b>Prepare_Game_eut2_1_5</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.5.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_4">Prepare_Game_eut2_1_4</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_6"></a><code>procedure <b>Prepare_Game_eut2_1_6</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.6.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_5">Prepare_Game_eut2_1_5</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_7"></a><code>procedure <b>Prepare_Game_eut2_1_7</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.7.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_6">Prepare_Game_eut2_1_6</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_8"></a><code>procedure <b>Prepare_Game_eut2_1_8</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.8.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_7">Prepare_Game_eut2_1_7</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_9"></a><code>procedure <b>Prepare_Game_eut2_1_9</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.9.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_8">Prepare_Game_eut2_1_8</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PrepareForTelemetryVersion"></a><code>Function <b>PrepareForTelemetryVersion</b>(TelemetryVersion: scs_u32_t): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Performs any preparations necessary to support required telemetry version.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>TelemetryVersion</dt>
+<dd>Version of telemetry for which the object should be prepared.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when preparation for given version were done successfully, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PrepareForGameVersion"></a><code>Function <b>PrepareForGameVersion</b>(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Performs preparations necessary to support required game and its version.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>GameName</dt>
+<dd>Name of the game.</dd>
+<dt>GameID</dt>
+<dd>Game identifier.</dd>
+<dt>GameVersion</dt>
+<dd>Version of game.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when preparation for given game and its version were done successfully, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PrepareFor"></a><code>Function <b>PrepareFor</b>(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Performs preparations necessary to support required telemetry version and game and its version.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>TelemetryVersion</dt>
+<dd>Version of telemetry for which the object should be prepared.</dd>
+<dt>GameName</dt>
+<dd>Name of the game.</dd>
+<dt>GameID</dt>
+<dd>Game identifier.</dd>
+<dt>GameVersion</dt>
+<dd>Version of game.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when preparation for given telemetry version and game and its version were done successfully, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PrepareForParam"></a><code>Function <b>PrepareForParam</b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Performs preparations necessary to support required telemetry version and game and its version.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>TelemetryVersion</dt>
+<dd>Version of telemetry for which the object should be prepared.</dd>
+<dt>Parameters</dt>
+<dd>Structure containing other necessary game and version informations.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when preparation for given telemetry version and game and its version were done successfully, otherwise <code>False</code>.</p></td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:25</em>
+</span>
+
+</body>
+</html>

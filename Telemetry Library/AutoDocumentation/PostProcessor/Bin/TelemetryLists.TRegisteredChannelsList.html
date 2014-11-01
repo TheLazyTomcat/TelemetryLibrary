@@ -1,0 +1,597 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLists: Class TRegisteredChannelsList</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TRegisteredChannelsList"></a><h1 class="cio">Class TRegisteredChannelsList</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLists.html">TelemetryLists</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TRegisteredChannelsList = class(<a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+List used to store contexts of registered channels.</p>
+<p>
+
+
+<p>When new channel is registered in the telemetry API, it is registered with context which is actually pointer to a variable of <a class="normal" href="TelemetryLists.TChannelContext.html">TChannelContext</a> structure. This variable is at the same time added as a new item into this list.<br> When channel is unregistered, context it is bound to is removed from this list.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
+<li class="thisitem">TRegisteredChannelsList</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#GetChannelContext">GetChannelContext</a></b>(Index: Integer): <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#GetChannelInfo">GetChannelInfo</a></b>(Index: Integer): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Clear">Clear</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(Name: String; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">IndexOf</a></b>(ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Add">Add</a></b>(ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Add">Add</a></b>(Recipient: TObject; Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: <a  href="TelemetryLists.html#TItemID">TItemID</a> = 0): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Add">Add</a></b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: <a  href="TelemetryLists.html#TItemID">TItemID</a> = 0): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Remove">Remove</a></b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Remove">Remove</a></b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Remove">Remove</a></b>(ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Delete">Delete</a></b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredChannelsList.html#CreateContext">CreateContext</a></b>(Recipient: TObject; Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: <a  href="TelemetryLists.html#TItemID">TItemID</a> = 0): <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TRegisteredChannelsList.html#FreeContext">FreeContext</a></b>(var ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>); virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Contexts">Contexts</a></b>[Index:Integer]: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a> read <a  href="TelemetryLists.TRegisteredChannelsList.html#GetChannelContext">GetChannelContext</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TRegisteredChannelsList.html#Channels">Channels</a></b>[Index:Integer]: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a> read <a  href="TelemetryLists.TRegisteredChannelsList.html#GetChannelInfo">GetChannelInfo</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetChannelContext"></a><code>Function <b>GetChannelContext</b>(Index: Integer): <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#Contexts">Contexts</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Pointer to requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetChannelInfo"></a><code>Function <b>GetChannelInfo</b>(Index: Integer): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#Channels">Channels</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after items deletion.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Name: String; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for context created for channel with appropriate name and index. When the context is not found, -1 is returned.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the requested channel.</dd>
+<dt>Index</dt>
+<dd>Index of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of context with requested channel, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for context created for channel with appropriate ID and index. When the context is not found, -1 is returned.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of the requested channel.</dd>
+<dt>Index</dt>
+<dd>Index of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of context with requested channel, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for context created for channel with appropriate name, index and value type. When the context is not found, -1 is returned.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the requested channel.</dd>
+<dt>Index</dt>
+<dd>Index of the requested channel.</dd>
+<dt>ValueType</dt>
+<dd>Type of value of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of context with requested channel, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for context created for channel with appropriate ID, index and value type. When the context is not found, -1 is returned.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of the requested channel.</dd>
+<dt>Index</dt>
+<dd>Index of the requested channel.</dd>
+<dt>ValueType</dt>
+<dd>Type of value of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of context with requested channel, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for context created for channel with appropriate name, index, value type and flags. When the context is not found, -1 is returned.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the requested channel.</dd>
+<dt>Index</dt>
+<dd>Index of the requested channel.</dd>
+<dt>ValueType</dt>
+<dd>Type of value of the requested channel.</dd>
+<dt>Flags</dt>
+<dd>Registering flags of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of context with requested channel, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for context created for channel with appropriate ID, index, value type and flags. When the context is not found, -1 is returned.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of the requested channel.</dd>
+<dt>Index</dt>
+<dd>Index of the requested channel.</dd>
+<dt>ValueType</dt>
+<dd>Type of value of the requested channel.</dd>
+<dt>Flags</dt>
+<dd>Registering flags of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of context with requested channel, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list given context. When the context is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ChannelContext</dt>
+<dd>Requested channel context.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of requested context, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds new context into the list. &quot;ChannelContext&quot; parameter must not be <code>Nil</code>, otherwise an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ChannelContext</dt>
+<dd>Pointer to channel context that has to be added to the list.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new context was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Recipient: TObject; Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: <a  href="TelemetryLists.html#TItemID">TItemID</a> = 0): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates and adds new context into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>     
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient registering this new context.</dd>
+<dt>Name</dt>
+<dd>Name of the registered channel (ID is calculated from it).</dd>
+<dt>Index</dt>
+<dd>Index of registered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of registered channel.</dd>
+<dt>Flags</dt>
+<dd>Registering flags.</dd>
+<dt>IndexConfigID</dt>
+<dd>ID of index configuration to which the registered channel is bound.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new context was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: <a  href="TelemetryLists.html#TItemID">TItemID</a> = 0): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Creates and adds new context into the list. Created context has &quot;Recipient&quot; field set to <code>Nil</code>.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>    
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the registered channel (ID is calculated from it).</dd>
+<dt>Index</dt>
+<dd>Index of registered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of registered channel.</dd>
+<dt>Flags</dt>
+<dd>Registering flags.</dd>
+<dt>IndexConfigID</dt>
+<dd>ID of index configuration to which the registered channel is bound.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new context was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(Name: String; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Removes context created for given channel from the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the registered channel whose context has to be removed.</dd>
+<dt>Index</dt>
+<dd>Index of registered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of registered channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of item that was removed, -1 when context with requested channel was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Removes context created for given channel from the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of the registered channel whose context has to be removed.</dd>
+<dt>Index</dt>
+<dd>Index of registered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of registered channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of item that was removed, -1 when context with requested channel was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Removes given context from the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ChannelContext</dt>
+<dd>Context to be removed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of item that was removed, -1 when requested context was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Delete"></a><code>procedure <b>Delete</b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes context at position given by &quot;Index&quot; parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be deleted.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CreateContext"></a><code>Function <b>CreateContext</b>(Recipient: TObject; Name: String; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: <a  href="TelemetryLists.html#TItemID">TItemID</a> = 0): <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This method creates new channel context variable, fills it from parameters and returns pointer to this variable. It is used when registering new telemetry channel, because actual context is needed for this registration, but cannot be added to this list before the registration is complete.<br> Sequence of actions taken during registration is as follows: </p>
+
+<ul class="compact_spacing">
+  <li><p>Context is created using this function.</p></li>
+  <li><p>Registration in API is attempted.</p></li>
+  <li><p>When successful, context is added to this list.</p></li>
+  <li><p>When unsuccessful, context is freed using <a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#FreeContext">FreeContext</a> method.</p></li>
+</ul>
+
+<p>
+
+<p>     
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient registering created context.</dd>
+<dt>Name</dt>
+<dd>Name of the registered channel (ID is calculated from it).</dd>
+<dt>Index</dt>
+<dd>Index of registered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of registered channel.</dd>
+<dt>Flags</dt>
+<dd>Registering flags.</dd>
+<dt>IndexConfigID</dt>
+<dd>ID of index configuration to which registered channel is bound.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Pointer to created channel context.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="FreeContext"></a><code>procedure <b>FreeContext</b>(var ChannelContext: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a>); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Frees memory allocated for channel context and sets this pointer to <code>Nil</code>.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ChannelContext</dt>
+<dd>Pointer to channel context to be freed.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Contexts"></a><code>property <b>Contexts</b>[Index:Integer]: <a  href="TelemetryLists.html#PChannelContext">PChannelContext</a> read <a  href="TelemetryLists.TRegisteredChannelsList.html#GetChannelContext">GetChannelContext</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it for direct access to individual stored <code>contexts</code>.<br> Unlike <a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#Channels">Channels</a>[] property, you can use returned pointer to change values of stored items.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Channels"></a><code>property <b>Channels</b>[Index:Integer]: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a> read <a  href="TelemetryLists.TRegisteredChannelsList.html#GetChannelInfo">GetChannelInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it to obtain values of individual stored items.<br> This property does not return whole context structure, only its &quot;ChannelInfo&quot; field.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:30</em>
+</span>
+
+</body>
+</html>

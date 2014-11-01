@@ -1,0 +1,1 @@
+brcc32 -fo ..\Data.res   Data.rc

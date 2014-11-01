@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryNetHashing</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="unit">Unit TelemetryNetHashing</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td>Constants</td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+Hashing types and functions.</p>
+<p>
+*******************************************************************************    
+
+<p><code>TelemetryNetHashing</code>
+
+<p>©František Milt, all rights reserved.
+
+<p>This file contains types definitions, constants, routines, etc. used for hashing (e.g. password hashing).
+
+<p>Last change: 2013-10-08
+
+<p>Change List:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>2013-10-08 - First stable version.</p></li>
+</ul>
+
+<p>
+
+<p>*******************************************************************************</p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>CRC32</li><li>MD5</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetHashing.html#HashCRC32">HashCRC32</a></b>(Str: String): <a  href="TelemetryNetHashing.html#TCRC32Hash">TCRC32Hash</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetHashing.html#HashMD5">HashMD5</a></b>(Str: String): <a  href="TelemetryNetHashing.html#TMD5Hash">TMD5Hash</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetHashing.html#IsTextHash">IsTextHash</a></b>(Text: String; HashType: <a  href="TelemetryNetHashing.html#THashType">THashType</a>; Hash: Pointer): Boolean;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryNetHashing.html#THashType">THashType</a></b> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryNetHashing.html#TCRC32Hash">TCRC32Hash</a></b> = CRC32.TCRC32;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryNetHashing.html#PCRC32Hash">PCRC32Hash</a></b> = &circ;<a  href="TelemetryNetHashing.html#TCRC32Hash">TCRC32Hash</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryNetHashing.html#TMD5Hash">TMD5Hash</a></b> = MD5.TMD5Hash;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryNetHashing.html#PMD5Hash">PMD5Hash</a></b> = &circ;<a  href="TelemetryNetHashing.html#TMD5Hash">TMD5Hash</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="HashCRC32"></a><code>Function <b>HashCRC32</b>(Str: String): <a  href="TelemetryNetHashing.html#TCRC32Hash">TCRC32Hash</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Computes CRC32 hash (checksum) of ansi version of given string.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Str</dt>
+<dd>String to be hashed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">CRC32 hash of passed string.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="HashMD5"></a><code>Function <b>HashMD5</b>(Str: String): <a  href="TelemetryNetHashing.html#TMD5Hash">TMD5Hash</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Computes MD5 hash of ansi version of given string.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Str</dt>
+<dd>String to be hashed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">MD5 hash of passed string.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="IsTextHash"></a><code>Function <b>IsTextHash</b>(Text: String; HashType: <a  href="TelemetryNetHashing.html#THashType">THashType</a>; Hash: Pointer): Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Checks whether given hash is the same as hash of given string.<br> When used hash function is not known or any error occurs, function returns <code>False</code>.    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Text</dt>
+<dd>String controled for hash.</dd>
+<dt>HashType</dt>
+<dd>Type of hashing function used to create hash.</dd>
+<dt>Hash</dt>
+<dd>Pointer to actual hash.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when hash fits, otherwise <code>False</code>.</p></td></tr>
+</table>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="THashType"></a><code><b>THashType</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Used to distinguish function used for hashing.</p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+htUnknown: &nbsp;</li>
+<li>
+htCRC32: &nbsp;</li>
+<li>
+htMD5: &nbsp;</li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TCRC32Hash"></a><code><b>TCRC32Hash</b> = CRC32.TCRC32;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PCRC32Hash"></a><code><b>PCRC32Hash</b> = &circ;<a  href="TelemetryNetHashing.html#TCRC32Hash">TCRC32Hash</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TMD5Hash"></a><code><b>TMD5Hash</b> = MD5.TMD5Hash;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PMD5Hash"></a><code><b>PMD5Hash</b> = &circ;<a  href="TelemetryNetHashing.html#TMD5Hash">TMD5Hash</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2013-10-08
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2013-10-08
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryNetLists: Class TClientsList</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TClientsList"></a><h1 class="cio">Class TClientsList</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryNetLists.html">TelemetryNetLists</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TClientsList = class(<a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+List used in client with admin rights to store informations about connected clients.</p>
+<p>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
+<li class="thisitem">TClientsList</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TClientsList.html#GetClientInfoPointer">GetClientInfoPointer</a></b>(Index: Integer): <a  href="TelemetryNetLists.html#PClientInfo">PClientInfo</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TClientsList.html#GetClientInfo">GetClientInfo</a></b>(Index: Integer): <a  href="TelemetryNetLists.TClientInfo.html">TClientInfo</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetLists.TClientsList.html#Clear">Clear</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TClientsList.html#IndexOf">IndexOf</a></b>(Identificator: TGUID): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TClientsList.html#Add">Add</a></b>(Identificator: TGUID; Address: String; Port: Word; WaitingForPassword,ReadyToWork,AdminRights,SuperAdminRights: Boolean): Integer; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TClientsList.html#Remove">Remove</a></b>(Identificator: TGUID): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetLists.TClientsList.html#Delete">Delete</a></b>(Index: Integer); virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetLists.TClientsList.html#Pointers">Pointers</a></b>[Index:Integer]: <a  href="TelemetryNetLists.html#PClientInfo">PClientInfo</a> read <a  href="TelemetryNetLists.TClientsList.html#GetClientInfoPointer">GetClientInfoPointer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetLists.TClientsList.html#Clients">Clients</a></b>[Index:Integer]: <a  href="TelemetryNetLists.TClientInfo.html">TClientInfo</a> read <a  href="TelemetryNetLists.TClientsList.html#GetClientInfo">GetClientInfo</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetClientInfoPointer"></a><code>Function <b>GetClientInfoPointer</b>(Index: Integer): <a  href="TelemetryNetLists.html#PClientInfo">PClientInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryNetLists.TClientsList.html#Pointers">Pointers</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Pointer to requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetClientInfo"></a><code>Function <b>GetClientInfo</b>(Index: Integer): <a  href="TelemetryNetLists.TClientInfo.html">TClientInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryNetLists.TClientsList.html#Clients">Clients</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after items deletion.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Identificator: TGUID): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for client with appropriate identificator. When the client is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Identificator</dt>
+<dd>Requested client identificator.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of requested event, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Identificator: TGUID; Address: String; Port: Word; WaitingForPassword,ReadyToWork,AdminRights,SuperAdminRights: Boolean): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds new client record into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>      
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Identificator</dt>
+<dd>Client identificator.</dd>
+<dt>Address</dt>
+<dd>Remote address.</dd>
+<dt>Port</dt>
+<dd>Remote port.</dd>
+<dt>WaitingForPassword</dt>
+<dd>Indicates whether server is waiting for client to login.</dd>
+<dt>ReadyToWork</dt>
+<dd>Indicates whether client is ready for full communication exchange.</dd>
+<dt>AdminRights</dt>
+<dd>Indicates whether client has administrative rights.</dd>
+<dt>SuperAdminRights</dt>
+<dd>Indicates whether client has superadministrative rights.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new item was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(Identificator: TGUID): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Removes client with given identificator from the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Identificator</dt>
+<dd>Indentificator of client that has to be removed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of client that was removed, -1 when requested client was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Delete"></a><code>procedure <b>Delete</b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes client at position given by &quot;Index&quot; parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of client that has to be deleted.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Pointers"></a><code>property <b>Pointers</b>[Index:Integer]: <a  href="TelemetryNetLists.html#PClientInfo">PClientInfo</a> read <a  href="TelemetryNetLists.TClientsList.html#GetClientInfoPointer">GetClientInfoPointer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it for direct access to individual stored items.<br> Unlike <a class="normal" href="TelemetryNetLists.TClientsList.html#Clients">Clients</a>[] property, you can use returned pointer to change values of stored items.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clients"></a><code>property <b>Clients</b>[Index:Integer]: <a  href="TelemetryNetLists.TClientInfo.html">TClientInfo</a> read <a  href="TelemetryNetLists.TClientsList.html#GetClientInfo">GetClientInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

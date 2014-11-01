@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   inkscape:label="Pozadí"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="test.svg">
+  <defs
+     id="defs3">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective9" />
+    <inkscape:perspective
+       id="perspective3607"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3636"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3667"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3667-8"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3708"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3736"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3736-7"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3736-2"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3936"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3992"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4019"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4019-9"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4019-98"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4082"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4114"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4146"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4176"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4253"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4275"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4316"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4340"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4362"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4384"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4406"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.89047377"
+     inkscape:cx="447.07416"
+     inkscape:cy="258.54056"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="744"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.43771911;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4198"
+       width="808.56232"
+       height="48.562283"
+       x="50.718857"
+       y="758.08105"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <g
+       id="g3886"
+       transform="translate(67.680353,192.02239)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="570.88501"
+         x="-12.135131"
+         height="83.909561"
+         width="798.90955"
+         id="rect3597"
+         style="fill:#63ff51;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.09044254;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3591"
+         y="617.93158"
+         x="253.38434"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="617.93158"
+           x="253.38434"
+           id="tspan3624"
+           sodipodi:role="line">TTelemetryRecipient</tspan></text>
+    </g>
+    <g
+       id="g3891"
+       transform="translate(88.597633,151.03013)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         ry="0"
+         y="791.87238"
+         x="-33.057312"
+         height="58.919361"
+         width="798.91937"
+         id="rect2817"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.08063817;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3591-1"
+         y="826.42383"
+         x="273.36136"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="826.42383"
+           x="273.36136"
+           id="tspan3595-7"
+           sodipodi:role="line">Telemetry API</tspan></text>
+    </g>
+    <g
+       id="g3822"
+       transform="matrix(1.0577538,0,0,0.99955936,103.42704,193.59567)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="634.60364"
+         x="181.64044"
+         height="68.915108"
+         width="518.9151"
+         id="rect3626"
+         style="fill:#a7f9ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.08489454;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3591-4"
+         y="674.15302"
+         x="282.64291"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="674.15302"
+           x="282.64291"
+           id="tspan3624-0"
+           sodipodi:role="line">TTelemetryInfoProvider</tspan></text>
+    </g>
+    <g
+       id="g3861"
+       transform="translate(113.651,192.2622)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="690.72797"
+         x="189.4771"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596249;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655"
+         y="710.99451"
+         x="220.91162"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="710.99451"
+           x="220.91162"
+           id="tspan3657"
+           sodipodi:role="line">TKnownEventsList</tspan></text>
+    </g>
+    <g
+       id="g3856"
+       transform="translate(126.17971,192.2622)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="690.72797"
+         x="359.44839"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653-9"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596249;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-4"
+         y="710.99182"
+         x="384.2872"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="710.99182"
+           x="384.2872"
+           id="tspan3657-8"
+           sodipodi:role="line">TKnownChannelsList</tspan></text>
+    </g>
+    <g
+       id="g3851"
+       transform="translate(148.15483,190.0476)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="692.94257"
+         x="519.97327"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653-2"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596237;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-45"
+         y="712.14832"
+         x="548.10992"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="712.14832"
+           x="548.10992"
+           id="tspan3657-5"
+           sodipodi:role="line">TKnownConfigsList</tspan></text>
+    </g>
+    <g
+       id="g3866"
+       transform="translate(61.641603,235.50408)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="502.48608"
+         x="8.9863853"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653-1"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596249;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7"
+         y="521.69183"
+         x="23.931644"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="521.69183"
+           x="23.931644"
+           id="tspan3657-1"
+           sodipodi:role="line">TRegisteredEventsList</tspan></text>
+    </g>
+    <g
+       id="g3871"
+       transform="translate(58.721705,237.71868)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="500.27148"
+         x="193.90628"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653-1-1"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596249;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-5"
+         y="519.47723"
+         x="202.25583"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="519.47723"
+           x="202.25583"
+           id="tspan3657-1-2"
+           sodipodi:role="line">TRegisteredChannelsList</tspan></text>
+    </g>
+    <g
+       id="g3876"
+       transform="translate(115.88695,233.2868)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="504.70337"
+         x="369.74103"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653-1-6"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596237;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-1"
+         y="524.96722"
+         x="374.79272"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="524.96722"
+           x="374.79272"
+           id="tspan3657-1-4"
+           sodipodi:role="line">TStoredChannelValuesList</tspan></text>
+    </g>
+    <g
+       id="g3881"
+       transform="translate(106.59655,238.82595)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="499.16422"
+         x="561.53143"
+         height="33.744038"
+         width="168.74403"
+         id="rect3653-1-3"
+         style="fill:#fffea6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.25596249;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2"
+         y="518.37"
+         x="586.37024"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="518.37"
+           x="586.37024"
+           id="tspan3657-1-21"
+           sodipodi:role="line">TStoredConfigsList</tspan></text>
+    </g>
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926"
+       width="5"
+       height="95"
+       x="165"
+       y="847.36218"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <g
+       id="g4293"
+       transform="translate(3.8717423e-6,150)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         ry="0"
+         y="272.9025"
+         x="55.540318"
+         height="58.919361"
+         width="798.91937"
+         id="rect2817-8"
+         style="fill:#00016a;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.08063817;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3591-1-5"
+         y="309.76843"
+         x="405.02539"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="309.76843"
+           x="405.02539"
+           id="tspan3595-7-7"
+           sodipodi:role="line">Network</tspan></text>
+    </g>
+    <g
+       id="g4298"
+       transform="translate(3.8717423e-6,150)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="392.862"
+         x="55.499798"
+         height="159.0004"
+         width="799.00037"
+         id="rect3969"
+         style="fill:#51a0ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.99959928;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3591-1-5-8"
+         y="527.34656"
+         x="318.13107"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="527.34656"
+           x="318.13107"
+           id="tspan4009"
+           sodipodi:role="line">TTelemetryNetServer</tspan></text>
+    </g>
+    <g
+       id="g4429"
+       transform="translate(-15.718463,120.80982)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="402.19827"
+         x="676.36438"
+         height="33.708176"
+         width="178.70818"
+         id="rect3653-1-3-5"
+         style="fill:#fcf903;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.29182518;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2-2"
+         y="422.4469"
+         x="725.97235"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="422.4469"
+           x="725.97235"
+           id="tspan3657-1-21-9"
+           sodipodi:role="line">TAddressList</tspan></text>
+    </g>
+    <g
+       id="g4434"
+       transform="translate(-11.783346,159.0177)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="446.49042"
+         x="672.42926"
+         height="33.708176"
+         width="178.70818"
+         id="rect3653-1-3-3"
+         style="fill:#a6ffca;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.29182518;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2-8"
+         y="466.73636"
+         x="688.68799"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="466.73636"
+           x="688.68799"
+           id="tspan3657-1-21-6"
+           sodipodi:role="line">TCircularChannelsBuffer</tspan></text>
+    </g>
+    <g
+       id="g4439"
+       transform="translate(-14.611102,158.61819)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="491.88992"
+         x="675.25702"
+         height="33.708176"
+         width="178.70818"
+         id="rect3653-1-3-6"
+         style="fill:#a6ffca;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.29182518;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2-23"
+         y="511.07776"
+         x="682.09229"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="511.07776"
+           x="682.09229"
+           id="tspan3657-1-21-8"
+           sodipodi:role="line">TDefferedOperationsBuffer</tspan></text>
+    </g>
+    <g
+       id="g4303"
+       transform="translate(3.8717423e-6,150)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="437.85944"
+         x="65.497246"
+         height="54.005505"
+         width="579.00549"
+         id="rect4072"
+         style="fill:#bdff37;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.99449432;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3591-1-5-8-2"
+         y="471.02917"
+         x="276.73828"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="471.02917"
+           x="276.73828"
+           id="tspan4099"
+           sodipodi:role="line">TServerSocket</tspan></text>
+    </g>
+    <g
+       id="g4230"
+       transform="translate(-2.0113841,170.69809)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="397.17569"
+         x="77.522888"
+         height="33.976906"
+         width="148.9769"
+         id="rect4101"
+         style="fill:#ff8d37;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.023;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2-2-2"
+         y="417.63657"
+         x="102.8148"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="417.63657"
+           x="102.8148"
+           id="tspan4136"
+           sodipodi:role="line">Client socket 1</tspan></text>
+    </g>
+    <g
+       id="g4235"
+       transform="translate(-1.1526481,171.4149)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="396.45883"
+         x="236.6642"
+         height="33.976906"
+         width="148.9769"
+         id="rect4101-5"
+         style="fill:#ff8d37;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.02309453;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2-2-2-7"
+         y="416.91971"
+         x="262.00714"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           y="416.91971"
+           x="262.00714"
+           id="tspan4166"
+           sodipodi:role="line">Client socket 2</tspan></text>
+    </g>
+    <g
+       id="g4240"
+       transform="matrix(1.000154,0,0,1,-36.246745,169.87951)"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778">
+      <rect
+         y="398.00577"
+         x="476.6734"
+         height="33.976906"
+         width="148.9769"
+         id="rect4101-5-2"
+         style="fill:#ff8d37;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3655-7-2-2-2-7-7"
+         y="418.38608"
+         x="501.55978"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         xml:space="preserve"><tspan
+           id="tspan4196"
+           sodipodi:role="line"
+           x="501.55978"
+           y="418.38608">Client socket N</tspan></text>
+    </g>
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926-2"
+       width="5"
+       height="55"
+       x="450"
+       y="702.36218"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+       x="392.57422"
+       y="577.97546"
+       id="text4289"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778"><tspan
+         sodipodi:role="line"
+         id="tspan4291"
+         x="392.57422"
+         y="577.97546">...</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926-2-0"
+       width="5"
+       height="80"
+       x="610"
+       y="507.36218"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       id="rect4330"
+       width="470"
+       height="5"
+       x="145"
+       y="502.36218"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926-2-0-8"
+       width="5"
+       height="60"
+       x="510"
+       y="507.36218"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926-2-0-8-9"
+       width="5"
+       height="60"
+       x="305"
+       y="507.36218"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926-2-0-8-9-2"
+       width="5"
+       height="60"
+       x="145"
+       y="507.36218"
+       inkscape:export-filename="D:\Documents and Settings\František Milt\Plocha\rect3926-2-0-8-8.png"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3926-2-0-8-8"
+       width="5"
+       height="20"
+       x="452.5"
+       y="482.36218"
+       inkscape:export-xdpi="113.77778"
+       inkscape:export-ydpi="113.77778" />
+  </g>
+</svg>

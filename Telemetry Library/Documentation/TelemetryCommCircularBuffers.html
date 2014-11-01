@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryCommCircularBuffers</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="unit">Unit TelemetryCommCircularBuffers</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+Provides classes implemented as one way circular buffer.</p>
+<p>
+<hr>    
+
+<p><b>TelemetryCommCircularBuffers</b>
+
+<p>©František Milt, all rights reserved.
+
+<p>Classes in this unit (for details, refer to declaration of individual class): </p>
+
+<pre class="preformatted">
+  TCircularItemsBuffer
+   |- TCircularChannelsBuffer
+   |- TDefferedOperationsBuffer
+</pre>
+
+<p> Last change: 2014-05-16
+
+<p>Change List:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>2014-05-16 - First stable version.</p></li>
+</ul>
+
+<p>
+
+<p><hr></p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryIDs.html">TelemetryIDs</a></li><li><a  href="TelemetryConversions.html">TelemetryConversions</a></li><li><a  href="TelemetryLists.html">TelemetryLists</a></li><li>MulticastEvent</li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TMulticastCircularBufferItemNotifyEvent.html"><code>TMulticastCircularBufferItemNotifyEvent</code></a></td>
+<td class="itemdesc">Class used to manage multicast event called by circular buffer on item operations.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TCircularBufferItem.html"><code>TCircularBufferItem</code></a></td>
+<td class="itemdesc">Structure used as array item in all circular buffers.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TCircularBufferTraversalInfo.html"><code>TCircularBufferTraversalInfo</code></a></td>
+<td class="itemdesc">Structure used when traversing items in circular buffers.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TCircularItemsBuffer.html"><code>TCircularItemsBuffer</code></a></td>
+<td class="itemdesc">Ancestor class for other circular buffer classes.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TCircularChannelsBuffer.html"><code>TCircularChannelsBuffer</code></a></td>
+<td class="itemdesc">Used to store buffered channels.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TChannelRegisterAllOperationInfo.html"><code>TChannelRegisterAllOperationInfo</code></a></td>
+<td class="itemdesc">Structure used in <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> to hold parameters for <code>dotChannelRegisterAll</code> operation type.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TDefferedOperation.html"><code>TDefferedOperation</code></a></td>
+<td class="itemdesc">Used as item in <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> to store operations and their parameters.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html"><code>TDefferedOperationsBuffer</code></a></td>
+<td class="itemdesc">Used to store deferred operations and their parameters.</td>
+</tr>
+</table>
+<a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommCircularBuffers.html#TCircularBufferItemNotifyEvent">TCircularBufferItemNotifyEvent</a></b> = procedure(Sender: TObject; Item: Pointer) of object;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommCircularBuffers.html#TDefferedOperationType">TDefferedOperationType</a></b> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommCircularBuffers.html#PDefferedOperation">PDefferedOperation</a></b> = &circ;<a  href="TelemetryCommCircularBuffers.TDefferedOperation.html">TDefferedOperation</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommCircularBuffers.html#def_CircularChannelsBuffer_BufferSize">def_CircularChannelsBuffer_BufferSize</a></b> = 500;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommCircularBuffers.html#def_DefferedOperationsBuffer_BufferSize">def_DefferedOperationsBuffer_BufferSize</a></b> = 500;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TCircularBufferItemNotifyEvent"></a><code><b>TCircularBufferItemNotifyEvent</b> = procedure(Sender: TObject; Item: Pointer) of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event type used in circular buffers on item operations (drop, addition, etc.). <code>Item</code> parameter contains pointer to data field of affected item.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TDefferedOperationType"></a><code><b>TDefferedOperationType</b> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Type used in <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> denoting what type of operation was deffered and has to be executed later.
+
+<p>                </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+dotNone: No operation is deffered.</li>
+<li>
+dotEventReg: Event registration is deffered.</li>
+<li>
+dotEventUnreg: Event unregistration is deffered.</li>
+<li>
+dotEventRegByIndex: Event registration by index is deffered.</li>
+<li>
+dotEventUnregIndex: Event unregistration on index is deffered.</li>
+<li>
+dotEventUnregByIndex: Event unregistration by index is deffered.</li>
+<li>
+dotEventRegAll: Registration of all known events is deffered.</li>
+<li>
+dotEventUnregAll: Unregistration of all registered events is deffered.</li>
+<li>
+dotChannelReg: Channel registration is deffered.</li>
+<li>
+dotChannelUnreg: Channel unregistration is deffered.</li>
+<li>
+dotChannelRegAll: Registration of all known channels is deffered.</li>
+<li>
+dotChannelUnregAll: Unregistration of all registered channels is deffered.</li>
+<li>
+dotChannelRegByIndex: Channel registration by index is deffered.</li>
+<li>
+dotChannelUnregIndex: Channel unregistration on index is deffered.</li>
+<li>
+dotChannelUnregByIndex: Channel unregistration by index is deffered.</li>
+<li>
+dotChannelRegByName: Channel registration by name is deffered.</li>
+<li>
+dotChannelUnregByName: Channel unregistration by name is deffered.</li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PDefferedOperation"></a><code><b>PDefferedOperation</b> = &circ;<a  href="TelemetryCommCircularBuffers.TDefferedOperation.html">TDefferedOperation</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperation.html">TDefferedOperation</a> structure.</p>
+</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="def_CircularChannelsBuffer_BufferSize"></a><code><b>def_CircularChannelsBuffer_BufferSize</b> = 500;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Default size of the channels buffer (number of channels it can store).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="def_DefferedOperationsBuffer_BufferSize"></a><code><b>def_DefferedOperationsBuffer_BufferSize</b> = 500;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Default size of the deffered operations buffer (number of operations it can hold).</p>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2014-05-16
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2014-05-16
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

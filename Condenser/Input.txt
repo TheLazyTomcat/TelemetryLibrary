@@ -1,0 +1,11 @@
+..\Telemetry API Headers\scssdk.pas
+..\Telemetry API Headers\scssdk_value.pas
+..\Telemetry API Headers\scssdk_telemetry_event.pas
+..\Telemetry API Headers\scssdk_telemetry_channel.pas
+..\Telemetry API Headers\scssdk_telemetry.pas
+..\Telemetry API Headers\common\scssdk_telemetry_common_configs.pas
+..\Telemetry API Headers\common\scssdk_telemetry_common_channels.pas
+..\Telemetry API Headers\common\scssdk_telemetry_trailer_common_channels.pas
+..\Telemetry API Headers\common\scssdk_telemetry_truck_common_channels.pas
+..\Telemetry API Headers\eurotrucks2\scssdk_eut2.pas
+..\Telemetry API Headers\eurotrucks2\scssdk_telemetry_eut2.pas

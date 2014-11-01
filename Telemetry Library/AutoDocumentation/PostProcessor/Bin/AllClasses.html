@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: All Classes, Interfaces, Objects and Records</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="allitems">All Classes, Interfaces, Objects and Records</h1>
+<table class="itemstable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemunit">Unit</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Structure used to store content of scs_value_t variable.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetLists.TAddressList.html">TAddressList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetLists.html">TelemetryNetLists</a></td>
+<td class="itemdesc"><p>List used to store addresses that can or cannot, depending on list mode, connect to the server.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TArrayItem.html">TArrayItem</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Structure used as array item in all circular buffers.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TBufferedChannel.html">TBufferedChannel</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Used as item in <a class="normal" href="TelemetryNetCircularBuffers.TCircularChannelsBuffer.html">TCircularChannelsBuffer</a> to store passed channels data.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TChannelContext.html">TChannelContext</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TChannelInfo.html">TChannelInfo</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure holding informations about registered channel.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TChannelRegisterAllOperationInfo.html">TChannelRegisterAllOperationInfo</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Structure used in <a class="normal" href="TelemetryNetCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> to hold parameters for <code>dotChannelUnregisterAll</code> operation type.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TCircularChannelsBuffer.html">TCircularChannelsBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Used to store buffered channels.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TCircularItemsBuffer.html">TCircularItemsBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Parent class for other circular buffer classes.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p><code>TCircularPacketsBuffer</code> serves as per-connection outgoing buffer.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetLists.TClientInfo.html">TClientInfo</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetLists.html">TelemetryNetLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryNetLists.TClientsList.html">TClientsList</a> class to store informations about clients.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetLists.TClientsList.html">TClientsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetLists.html">TelemetryNetLists</a></td>
+<td class="itemdesc"><p>List used in client with admin rights to store informations about connected clients.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Parent class for all other list classes in <a class="normal" href="TelemetryLists.html">TelemetryLists</a> unit.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TDefferedOperation.html">TDefferedOperation</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Used as item in <a class="normal" href="TelemetryNetCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> to store operations and their parameters.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetCircularBuffers.html">TelemetryNetCircularBuffers</a></td>
+<td class="itemdesc"><p>Used to store deferred operations and their parametters.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TEventContext.html">TEventContext</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TEventInfo.html">TEventInfo</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure holding informations about registered event.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Structure used internally in tables that keeps informations about supported games and their versions.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetIncomingStream.html">TelemetryNetIncomingStream</a></td>
+<td class="itemdesc"><p><code>TIncomingStream</code> serves as per-connection buffer for incoming data.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> class.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p> List used to store informations about known telemetry channels.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfig.html">TKnownConfig</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p> List used to store informations about known telemetry configurations.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownEvent.html">TKnownEvent</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a> class.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p> List used to store informations about known telemetry events.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPackets.TPacketBuffer.html">TPacketBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPackets.html">TelemetryNetPackets</a></td>
+<td class="itemdesc"><p>Record used for manipulation with packets (passing, saving, ...).</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPackets.TPacketHeader.html">TPacketHeader</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPackets.html">TelemetryNetPackets</a></td>
+<td class="itemdesc"><p>Packet header structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TRegisteredChannelsList.html">TRegisteredChannelsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>List used to store contexts of registered channels.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>List used to store contexts of registered events.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TStoredChannel.html">TStoredChannel</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TStoredChannelValuesList.html">TStoredChannelValuesList</a>.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TStoredChannelValuesList.html">TStoredChannelValuesList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>List used to store channels values obtained from API calls.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TStoredConfig.html">TStoredConfig</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TStoredConfigsList.html">TStoredConfigsList</a>.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TStoredConfigsList.html">TStoredConfigsList</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>List used to store configuration values obtained from API calls.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryVersionObject.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryVersionObject.html">TelemetryVersionObject</a></td>
+<td class="itemdesc"><p>These four methods: </p>
+
+<pre class="preformatted">
+    HighestSupportedTelemetryVersion
+    SupportsTelemetryVersion
+    SupportsGameVersion
+    SupportsTelemetryAndGameVersion</pre>
+
+<p> ...can and actually must be called directly on class.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryInfoProvider.html">TelemetryInfoProvider</a></td>
+<td class="itemdesc"><p><code>TTelemetryInfoProvider</code> class provide lists of all known game events, channels and configurations along with some methods operating on them.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetClient.TTelemetryNetClient.html">TTelemetryNetClient</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetClient.html">TelemetryNetClient</a></td>
+<td class="itemdesc"><p>&nbsp;</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetSockets.TTelemetryNetClientSocket.html">TTelemetryNetClientSocket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetSockets.html">TelemetryNetSockets</a></td>
+<td class="itemdesc"><p>Reimplementation of TClientSocket class.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html">TTelemetryNetClientWinSocket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetSockets.html">TelemetryNetSockets</a></td>
+<td class="itemdesc"><p>Class used as connection endpoint in client socket.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetServer.TTelemetryNetServer.html">TTelemetryNetServer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetServer.html">TelemetryNetServer</a></td>
+<td class="itemdesc"><p>Telemetry server class.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetSockets.TTelemetryNetServerClientWinSocket.html">TTelemetryNetServerClientWinSocket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetSockets.html">TelemetryNetSockets</a></td>
+<td class="itemdesc"><p>Descendant of TServerClientWinSocket used in server as client socket.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
+<td class="itemdesc"><p><code>TTelemetryRecipient</code> is used as a main way to control the telemetry API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryVersionObject.TTelemetryVersionObject.html">TTelemetryVersionObject</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryVersionObject.html">TelemetryVersionObject</a></td>
+<td class="itemdesc"><p>     </p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryVersionObject.TTelemetryVersionPrepareObject.html">TTelemetryVersionPrepareObject</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryVersionObject.html">TelemetryVersionObject</a></td>
+<td class="itemdesc"><p>Methods beginning with Prepare_ are called to prepare created object for specific telemetry/game version.<br> Each telemetry/game version has its own method, even if no action is needed.</p></td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

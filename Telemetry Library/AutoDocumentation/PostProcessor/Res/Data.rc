@@ -1,0 +1,3 @@
+con_template RCDATA "content_template.txt"
+nav_template RCDATA "navigation_template.txt"
+index RCDATA "index.txt"			

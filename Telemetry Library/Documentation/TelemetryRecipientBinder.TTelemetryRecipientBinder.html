@@ -1,0 +1,446 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryRecipientBinder: Class TTelemetryRecipientBinder</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryRecipientBinder"></a><h1 class="cio">Class TTelemetryRecipientBinder</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryRecipientBinder.html">TelemetryRecipientBinder</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryRecipientBinder = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Class designed as a base for any class that is intended to bind itself to telemetry recipient events.</p>
+<p>
+ It has predefined abstract methods that can be assigned as handlers to recipient events one by one (when you want full control over what and when is called), or at once using <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> method (<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> must be assigned for this to work).
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">TTelemetryRecipientBinder</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fRecipient">fRecipient</a></b>:                 <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fDeassignHandlersOnDestroy">fDeassignHandlersOnDestroy</a></b>: Boolean;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#GetWorkingRecipient">GetWorkingRecipient</a></b>(Sender: TObject; out Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Create">Create</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> = nil);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a></b>: Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#DeassignHandlers">DeassignHandlers</a></b>: Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#LogHandler">LogHandler</a></b>(Sender: TObject; LogType: scs_log_type_t; const LogText: String); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventRegisterHandler">EventRegisterHandler</a></b>(Sender: TObject; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventUnregisterHandler">EventUnregisterHandler</a></b>(Sender: TObject; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventHandler">EventHandler</a></b>(Sender: TObject; Event: scs_event_t; Data: Pointer); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelRegisterHandler">ChannelRegisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelHandler">ChannelHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a></b>: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> read <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fRecipient">fRecipient</a> write <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fRecipient">fRecipient</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#DeassignHandlersOnDestroy">DeassignHandlersOnDestroy</a></b>: Boolean read <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fDeassignHandlersOnDestroy">fDeassignHandlersOnDestroy</a> write <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fDeassignHandlersOnDestroy">fDeassignHandlersOnDestroy</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fRecipient"></a><code><b>fRecipient</b>:                 <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fDeassignHandlersOnDestroy"></a><code><b>fDeassignHandlersOnDestroy</b>: Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#DeassignHandlersOnDestroy">DeassignHandlersOnDestroy</a> for details.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetWorkingRecipient"></a><code>Function <b>GetWorkingRecipient</b>(Sender: TObject; out Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method used to get valid telemetry recipient for work.<br> When <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property is assigned, then it is returned in output parameter <code>Recipient</code>, when not, check whether object passed in parameter <code>Sender</code> is of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> (or its descendant) and when it is, then this object is returned, otherwise output parameter contains <code>Nil</code>.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object suggested as working telemetry recipient.</dd>
+<dt>Recipient</dt>
+<dd>Output variable containing either valid telemetry recipient or <code>Nil</code>.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when output parameter <code>Recipient</code> contains valid telemetry recipient, <code>False</code> otherwise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> = nil);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient that operates on API. When you assign this parameter, it will be assigned to <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property and handlers will be assigned to its events using <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> method.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class destructor.
+
+<p>Calls method <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#DeassignHandlers">DeassignHandlers</a> when <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#DeassignHandlersOnDestroy">DeassignHandlersOnDestroy</a> property is <code>True</code>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="AssignHandlers"></a><code>Function <b>AssignHandlers</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns appropriate *Handler methods as handlers of Recipent events.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> is assigned and all handlers were assigned to its event, <code>False</code> otherwise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="DeassignHandlers"></a><code>Function <b>DeassignHandlers</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deassigns handlers of <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> events.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> is assigned and all handlers were deassigned, <code>False</code> otherwise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogHandler"></a><code>procedure <b>LogHandler</b>(Sender: TObject; LogType: scs_log_type_t; const LogText: String); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnLog">OnLog</a> event.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling this method.</dd>
+<dt>LogType</dt>
+<dd>Type of log written into game log.</dd>
+<dt>LogText</dt>
+<dd>Actual text written into game log.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventRegisterHandler"></a><code>procedure <b>EventRegisterHandler</b>(Sender: TObject; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnEventRegister">OnEventRegister</a> event.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling this method.</dd>
+<dt>Event</dt>
+<dd>Game event identification number.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventUnregisterHandler"></a><code>procedure <b>EventUnregisterHandler</b>(Sender: TObject; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnEventUnregister">OnEventUnregister</a> event.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling this method.</dd>
+<dt>Event</dt>
+<dd>Game event identification number.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Sender: TObject; Event: scs_event_t; Data: Pointer); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnEvent">OnEvent</a> event.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling this method.</dd>
+<dt>Event</dt>
+<dd>Game event identification number.</dd>
+<dt>Data</dt>
+<dd>Pointer to data accompanying the event. Can be <code>Nil</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelRegisterHandler"></a><code>procedure <b>ChannelRegisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelRegister">OnChannelRegister</a> event.
+
+<p>     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling this method.</dd>
+<dt>Name</dt>
+<dd>Name of registered channel.</dd>
+<dt>ID</dt>
+<dd>ID of registered channel.</dd>
+<dt>Index</dt>
+<dd>Index of registered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of registered channel.</dd>
+<dt>Flags</dt>
+<dd>Registration flags.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelUnregisterHandler"></a><code>procedure <b>ChannelUnregisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelUnregister">OnChannelUnregister</a> event.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling called this method.</dd>
+<dt>Name</dt>
+<dd>Name of unregistered channel.</dd>
+<dt>ID</dt>
+<dd>ID of unregistered channel.</dd>
+<dt>Index</dt>
+<dd>Index of unregistered channel.</dd>
+<dt>ValueType</dt>
+<dd>Value type of unregistered channel.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnChannel">OnChannel</a> event.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that that is calling this method.</dd>
+<dt>Name</dt>
+<dd>Name of the channel.</dd>
+<dt>ID</dt>
+<dd>ID of the channel.</dd>
+<dt>Index</dt>
+<dd>Index of the channel.</dd>
+<dt>Value</dt>
+<dd>Actual value of the channel. Can be <code>Nil</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that can be assigned to recipent <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnConfig">OnConfig</a> event.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that is calling called this method.</dd>
+<dt>Name</dt>
+<dd>Name of the config.</dd>
+<dt>ID</dt>
+<dd>ID of the config.</dd>
+<dt>Index</dt>
+<dd>Index of the config.</dd>
+<dt>Value</dt>
+<dd>Actual value of the config.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Recipient"></a><code>property <b>Recipient</b>: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> read <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fRecipient">fRecipient</a> write <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fRecipient">fRecipient</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reference to recipient that operates on telemetry API. Not initialized, it is assigned in constructor. Can be <code>Nil</code>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DeassignHandlersOnDestroy"></a><code>property <b>DeassignHandlersOnDestroy</b>: Boolean read <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fDeassignHandlersOnDestroy">fDeassignHandlersOnDestroy</a> write <a  href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#fDeassignHandlersOnDestroy">fDeassignHandlersOnDestroy</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+When <code>True</code>, the destructor calls method <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#DeassignHandlers">DeassignHandlers</a>.<br> Initialized to <code>True</code>.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

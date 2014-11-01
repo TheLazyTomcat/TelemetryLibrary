@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryNetSockets: Class TTelemetryNetClientWinSocket</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryNetClientWinSocket"></a><h1 class="cio">Class TTelemetryNetClientWinSocket</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryNetSockets.html">TelemetryNetSockets</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryNetClientWinSocket = class(TClientWinSocket)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Class used as connection endpoint in client socket.</p>
+<p>
+ It replaces original socket of class TClientWinSocket, because there is no way to implement needed buffers into in.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TClientWinSocket</li>
+<li class="thisitem">TTelemetryNetClientWinSocket</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#fCircularPacketsBuffer">fCircularPacketsBuffer</a></b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#fIncomingStream">fIncomingStream</a></b>:        <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#Create">Create</a></b>(ASocket: TSocket);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#CircularPacketsBuffer">CircularPacketsBuffer</a></b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a> read <a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#fCircularPacketsBuffer">fCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#IncomingStream">IncomingStream</a></b>: <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a> read <a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#fIncomingStream">fIncomingStream</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fCircularPacketsBuffer"></a><code><b>fCircularPacketsBuffer</b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#CircularPacketsBuffer">CircularPacketsBuffer</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fIncomingStream"></a><code><b>fIncomingStream</b>:        <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#IncomingStream">IncomingStream</a> property.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(ASocket: TSocket);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object destructor.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="CircularPacketsBuffer"></a><code>property <b>CircularPacketsBuffer</b>: <a  href="TelemetryNetCircularBuffers.TCircularPacketsBuffer.html">TCircularPacketsBuffer</a> read <a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#fCircularPacketsBuffer">fCircularPacketsBuffer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Circular items buffer used to store outgoing packets that cannot be send immediately.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="IncomingStream"></a><code>property <b>IncomingStream</b>: <a  href="TelemetryNetIncomingStream.TIncomingStream.html">TIncomingStream</a> read <a  href="TelemetryNetSockets.TTelemetryNetClientWinSocket.html#fIncomingStream">fIncomingStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object used to buffer incoming data and process them into usable packets. Use this object event OnPacket to actually receive packets.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

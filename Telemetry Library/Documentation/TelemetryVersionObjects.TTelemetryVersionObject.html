@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryVersionObjects: Class TTelemetryVersionObject</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryVersionObject"></a><h1 class="cio">Class TTelemetryVersionObject</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryVersionObjects.html">TelemetryVersionObjects</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryVersionObject = class(<a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Common ancestor for all classes that needs to be checked for version support before creation of an instance.</p>
+<p>
+
+
+<p>This class implements all methods from <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a>. Used as an ancestor for classes that supports exactly the same versions set as this class.<br> All methods must be called directly on class. They are intended to be used to check whether the class supports required telemetry and game version before instantiation (creation of class instance).
+
+<p>Supported versions as of 2014-10-23: </p>
+
+<ul class="compact_spacing">
+  <li><p>Telemetry 1.0</p></li>
+  <li><p>eut2 1.0</p></li>
+  <li><p>eut2 1.1</p></li>
+  <li><p>eut2 1.2</p></li>
+  <li><p>eut2 1.3</p></li>
+  <li><p>eut2 1.4</p></li>
+  <li><p>eut2 1.5</p></li>
+  <li><p>eut2 1.6</p></li>
+  <li><p>eut2 1.7</p></li>
+  <li><p>eut2 1.8</p></li>
+  <li><p>eut2 1.9</p></li>
+</ul>
+
+<p>
+
+<p>      </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a></li>
+<li class="thisitem">TTelemetryVersionObject</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#HighestSupportedTelemetryVersion">HighestSupportedTelemetryVersion</a></b>: scs_u32_t; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#HighestSupportedGameVersion">HighestSupportedGameVersion</a></b>(GameID: TelemetryString): scs_u32_t; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#SupportsTelemetryVersion">SupportsTelemetryVersion</a></b>(TelemetryVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#SupportsTelemetryMajorVersion">SupportsTelemetryMajorVersion</a></b>(TelemetryVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#SupportsGameVersion">SupportsGameVersion</a></b>(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#SupportsTelemetryAndGameVersion">SupportsTelemetryAndGameVersion</a></b>(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionObject.html#SupportsTelemetryAndGameVersionParam">SupportsTelemetryAndGameVersionParam</a></b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; override;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="HighestSupportedTelemetryVersion"></a><code>class Function <b>HighestSupportedTelemetryVersion</b>: scs_u32_t; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#HighestSupportedTelemetryVersion">TTelemetryAbstractVersionObject.HighestSupportedTelemetryVersion</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="HighestSupportedGameVersion"></a><code>class Function <b>HighestSupportedGameVersion</b>(GameID: TelemetryString): scs_u32_t; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#HighestSupportedGameVersion">TTelemetryAbstractVersionObject.HighestSupportedGameVersion</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SupportsTelemetryVersion"></a><code>class Function <b>SupportsTelemetryVersion</b>(TelemetryVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsTelemetryVersion">TTelemetryAbstractVersionObject.SupportsTelemetryVersion</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SupportsTelemetryMajorVersion"></a><code>class Function <b>SupportsTelemetryMajorVersion</b>(TelemetryVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsTelemetryMajorVersion">TTelemetryAbstractVersionObject.SupportsTelemetryMajorVersion</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SupportsGameVersion"></a><code>class Function <b>SupportsGameVersion</b>(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsGameVersion">TTelemetryAbstractVersionObject.SupportsGameVersion</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SupportsTelemetryAndGameVersion"></a><code>class Function <b>SupportsTelemetryAndGameVersion</b>(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsTelemetryAndGameVersion">TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersion</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SupportsTelemetryAndGameVersionParam"></a><code>class Function <b>SupportsTelemetryAndGameVersionParam</b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsTelemetryAndGameVersionParam">TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersionParam</a>.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:25</em>
+</span>
+
+</body>
+</html>

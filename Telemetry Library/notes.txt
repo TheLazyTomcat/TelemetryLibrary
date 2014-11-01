@@ -1,0 +1,4 @@
+add per channel/event user data
+check/reimplement utf8string comparisons
+check use of TelemetrySameStr/Text (switch assumeASCII...)
+declare library-wide PtrInt and PtrUInt (in telemetryCommon), use them where appropriate

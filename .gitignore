@@ -1,0 +1,5 @@
+Thumbs.db
+*.dcu
+*.~*
+Telemetry Library/AutoDocumentation/PasDoc/*
+Telemetry Library/AutoDocumentation/GraphViz/*

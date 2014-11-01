@@ -1,0 +1,917 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: All Functions and Procedures</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="allitems">All Functions and Procedures</h1>
+<table class="itemstable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemunit">Unit</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket">BuildPacket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates complete initialized packet of given ID with payload consisting of one string value.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket">BuildPacket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Returns complete initialized no-payload packet of given ID.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket">BuildPacket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates complete initialized packet of given ID with payload consisting of one 32bit integer value.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CHANGE_PASSWORD">BuildPacket_TN_PACKET_ADMIN_CHANGE_PASSWORD</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CHANGE_PASSWORD">TN_PACKET_ADMIN_CHANGE_PASSWORD</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_ALL">BuildPacket_TN_PACKET_ADMIN_CLIENT_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_ALL">TN_PACKET_ADMIN_CLIENT_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_ALL_GET">BuildPacket_TN_PACKET_ADMIN_CLIENT_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_ALL_GET">TN_PACKET_ADMIN_CLIENT_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_CHANGE">BuildPacket_TN_PACKET_ADMIN_CLIENT_CHANGE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_CHANGE">TN_PACKET_ADMIN_CLIENT_CHANGE</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_CONNECTED">BuildPacket_TN_PACKET_ADMIN_CLIENT_CONNECTED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_CONNECTED">TN_PACKET_ADMIN_CLIENT_CONNECTED</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_CONNECTING">BuildPacket_TN_PACKET_ADMIN_CLIENT_CONNECTING</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_CONNECTING">TN_PACKET_ADMIN_CLIENT_CONNECTING</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_COUNT">BuildPacket_TN_PACKET_ADMIN_CLIENT_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_COUNT">TN_PACKET_ADMIN_CLIENT_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_COUNT_GET">BuildPacket_TN_PACKET_ADMIN_CLIENT_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_COUNT_GET">TN_PACKET_ADMIN_CLIENT_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_DISCONNECTED">BuildPacket_TN_PACKET_ADMIN_CLIENT_DISCONNECTED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_DISCONNECTED">TN_PACKET_ADMIN_CLIENT_DISCONNECTED</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_INDEX">BuildPacket_TN_PACKET_ADMIN_CLIENT_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_INDEX">TN_PACKET_ADMIN_CLIENT_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_INDEX_ALL_GET">BuildPacket_TN_PACKET_ADMIN_CLIENT_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_INDEX_ALL_GET">TN_PACKET_ADMIN_CLIENT_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_INDEX_GET">BuildPacket_TN_PACKET_ADMIN_CLIENT_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_INDEX_GET">TN_PACKET_ADMIN_CLIENT_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_OPERATION">BuildPacket_TN_PACKET_ADMIN_CLIENT_OPERATION</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_OPERATION">TN_PACKET_ADMIN_CLIENT_OPERATION</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_CLIENT_REJECTED">BuildPacket_TN_PACKET_ADMIN_CLIENT_REJECTED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_CLIENT_REJECTED">TN_PACKET_ADMIN_CLIENT_REJECTED</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_ADD">BuildPacket_TN_PACKET_ADMIN_LIST_ADD</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_ADD">TN_PACKET_ADMIN_LIST_ADD</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_ALL">BuildPacket_TN_PACKET_ADMIN_LIST_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_ALL">TN_PACKET_ADMIN_LIST_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_ALL_GET">BuildPacket_TN_PACKET_ADMIN_LIST_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_ALL_GET">TN_PACKET_ADMIN_LIST_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_CHANGE">BuildPacket_TN_PACKET_ADMIN_LIST_CHANGE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_CHANGE">TN_PACKET_ADMIN_LIST_CHANGE</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_CLEAR">BuildPacket_TN_PACKET_ADMIN_LIST_CLEAR</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_CLEAR">TN_PACKET_ADMIN_LIST_CLEAR</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_COUNT">BuildPacket_TN_PACKET_ADMIN_LIST_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_COUNT">TN_PACKET_ADMIN_LIST_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_COUNT_GET">BuildPacket_TN_PACKET_ADMIN_LIST_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_COUNT_GET">TN_PACKET_ADMIN_LIST_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_DELETE">BuildPacket_TN_PACKET_ADMIN_LIST_DELETE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_DELETE">TN_PACKET_ADMIN_LIST_DELETE</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_INDEX">BuildPacket_TN_PACKET_ADMIN_LIST_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_INDEX">TN_PACKET_ADMIN_LIST_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_INDEX_ALL_GET">BuildPacket_TN_PACKET_ADMIN_LIST_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_INDEX_ALL_GET">TN_PACKET_ADMIN_LIST_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_INDEX_GET">BuildPacket_TN_PACKET_ADMIN_LIST_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_INDEX_GET">TN_PACKET_ADMIN_LIST_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_RELOAD">BuildPacket_TN_PACKET_ADMIN_LIST_RELOAD</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_RELOAD">TN_PACKET_ADMIN_LIST_RELOAD</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_REMOVE">BuildPacket_TN_PACKET_ADMIN_LIST_REMOVE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_REMOVE">TN_PACKET_ADMIN_LIST_REMOVE</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_LIST_SAVE">BuildPacket_TN_PACKET_ADMIN_LIST_SAVE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_LIST_SAVE">TN_PACKET_ADMIN_LIST_SAVE</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_PARAM_SET">BuildPacket_TN_PACKET_ADMIN_PARAM_SET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_PARAM_SET">TN_PACKET_ADMIN_PARAM_SET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_PARAM_SET">BuildPacket_TN_PACKET_ADMIN_PARAM_SET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_PARAM_SET">TN_PACKET_ADMIN_PARAM_SET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_PARAM_SET">BuildPacket_TN_PACKET_ADMIN_PARAM_SET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_PARAM_SET">TN_PACKET_ADMIN_PARAM_SET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_PARAM_SET">BuildPacket_TN_PACKET_ADMIN_PARAM_SET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_PARAM_SET">TN_PACKET_ADMIN_PARAM_SET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_PASSWORD">BuildPacket_TN_PACKET_ADMIN_PASSWORD</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_PASSWORD">TN_PACKET_ADMIN_PASSWORD</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ADMIN_SEND_MESSAGE">BuildPacket_TN_PACKET_ADMIN_SEND_MESSAGE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ADMIN_SEND_MESSAGE">TN_PACKET_ADMIN_SEND_MESSAGE</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_BYE">BuildPacket_TN_PACKET_BYE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_BYE">TN_PACKET_BYE</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_CHANNEL">BuildPacket_TN_PACKET_CHANNEL_CHANNEL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_CHANNEL">TN_PACKET_CHANNEL_CHANNEL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_CHANNEL">BuildPacket_TN_PACKET_CHANNEL_CHANNEL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_CHANNEL">TN_PACKET_CHANNEL_CHANNEL</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_CHANNEL_BUFFERED">BuildPacket_TN_PACKET_CHANNEL_CHANNEL_BUFFERED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_CHANNEL_BUFFERED">TN_PACKET_CHANNEL_CHANNEL_BUFFERED</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_ALL">BuildPacket_TN_PACKET_CHANNEL_KNOWN_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_ALL">TN_PACKET_CHANNEL_KNOWN_ALL</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_ALL_GET">BuildPacket_TN_PACKET_CHANNEL_KNOWN_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_ALL_GET">TN_PACKET_CHANNEL_KNOWN_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_COUNT">BuildPacket_TN_PACKET_CHANNEL_KNOWN_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_COUNT">TN_PACKET_CHANNEL_KNOWN_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_COUNT_GET">BuildPacket_TN_PACKET_CHANNEL_KNOWN_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_COUNT_GET">TN_PACKET_CHANNEL_KNOWN_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_INDEX">BuildPacket_TN_PACKET_CHANNEL_KNOWN_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_INDEX">TN_PACKET_CHANNEL_KNOWN_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_INDEX_ALL_GET">BuildPacket_TN_PACKET_CHANNEL_KNOWN_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_INDEX_ALL_GET">TN_PACKET_CHANNEL_KNOWN_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_KNOWN_INDEX_GET">BuildPacket_TN_PACKET_CHANNEL_KNOWN_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_KNOWN_INDEX_GET">TN_PACKET_CHANNEL_KNOWN_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REG">BuildPacket_TN_PACKET_CHANNEL_REG</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REG">TN_PACKET_CHANNEL_REG</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED">BuildPacket_TN_PACKET_CHANNEL_REGISTERED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED">TN_PACKET_CHANNEL_REGISTERED</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_ALL">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_ALL">TN_PACKET_CHANNEL_REGISTERED_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_ALL_GET">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_ALL_GET">TN_PACKET_CHANNEL_REGISTERED_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_COUNT">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_COUNT">TN_PACKET_CHANNEL_REGISTERED_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_COUNT_GET">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_COUNT_GET">TN_PACKET_CHANNEL_REGISTERED_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_INDEX">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_INDEX">TN_PACKET_CHANNEL_REGISTERED_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET">TN_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REGISTERED_INDEX_GET">BuildPacket_TN_PACKET_CHANNEL_REGISTERED_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REGISTERED_INDEX_GET">TN_PACKET_CHANNEL_REGISTERED_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_REG_ALL">BuildPacket_TN_PACKET_CHANNEL_REG_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_REG_ALL">TN_PACKET_CHANNEL_REG_ALL</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_STORED_SEND_ALL">BuildPacket_TN_PACKET_CHANNEL_STORED_SEND_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_STORED_SEND_ALL">TN_PACKET_CHANNEL_STORED_SEND_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_UNREG">BuildPacket_TN_PACKET_CHANNEL_UNREG</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_UNREG">TN_PACKET_CHANNEL_UNREG</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CHANNEL_UNREG_ALL">BuildPacket_TN_PACKET_CHANNEL_UNREG_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CHANNEL_UNREG_ALL">TN_PACKET_CHANNEL_UNREG_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_CONFIG">BuildPacket_TN_PACKET_CONFIG_CONFIG</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_CONFIG">TN_PACKET_CONFIG_CONFIG</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_ALL">BuildPacket_TN_PACKET_CONFIG_KNOWN_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_ALL">TN_PACKET_CONFIG_KNOWN_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_ALL_GET">BuildPacket_TN_PACKET_CONFIG_KNOWN_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_ALL_GET">TN_PACKET_CONFIG_KNOWN_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_COUNT">BuildPacket_TN_PACKET_CONFIG_KNOWN_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_COUNT">TN_PACKET_CONFIG_KNOWN_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_COUNT_GET">BuildPacket_TN_PACKET_CONFIG_KNOWN_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_COUNT_GET">TN_PACKET_CONFIG_KNOWN_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_INDEX">BuildPacket_TN_PACKET_CONFIG_KNOWN_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_INDEX">TN_PACKET_CONFIG_KNOWN_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_INDEX_ALL_GET">BuildPacket_TN_PACKET_CONFIG_KNOWN_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_INDEX_ALL_GET">TN_PACKET_CONFIG_KNOWN_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_KNOWN_INDEX_GET">BuildPacket_TN_PACKET_CONFIG_KNOWN_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_KNOWN_INDEX_GET">TN_PACKET_CONFIG_KNOWN_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED">BuildPacket_TN_PACKET_CONFIG_STORED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED">TN_PACKET_CONFIG_STORED</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_ALL">BuildPacket_TN_PACKET_CONFIG_STORED_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_ALL">TN_PACKET_CONFIG_STORED_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_ALL_GET">BuildPacket_TN_PACKET_CONFIG_STORED_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_ALL_GET">TN_PACKET_CONFIG_STORED_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_COUNT">BuildPacket_TN_PACKET_CONFIG_STORED_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_COUNT">TN_PACKET_CONFIG_STORED_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_COUNT_GET">BuildPacket_TN_PACKET_CONFIG_STORED_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_COUNT_GET">TN_PACKET_CONFIG_STORED_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_INDEX">BuildPacket_TN_PACKET_CONFIG_STORED_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_INDEX">TN_PACKET_CONFIG_STORED_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_INDEX_ALL_GET">BuildPacket_TN_PACKET_CONFIG_STORED_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_INDEX_ALL_GET">TN_PACKET_CONFIG_STORED_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_CONFIG_STORED_INDEX_GET">BuildPacket_TN_PACKET_CONFIG_STORED_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_CONFIG_STORED_INDEX_GET">TN_PACKET_CONFIG_STORED_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_ERROR">BuildPacket_TN_PACKET_ERROR</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_ERROR">TN_PACKET_ERROR</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_EVENT">BuildPacket_TN_PACKET_EVENT_EVENT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_EVENT">TN_PACKET_EVENT_EVENT</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_EVENT">BuildPacket_TN_PACKET_EVENT_EVENT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_EVENT">TN_PACKET_EVENT_EVENT</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_ALL">BuildPacket_TN_PACKET_EVENT_KNOWN_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_ALL">TN_PACKET_EVENT_KNOWN_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_ALL_GET">BuildPacket_TN_PACKET_EVENT_KNOWN_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_ALL_GET">TN_PACKET_EVENT_KNOWN_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_COUNT">BuildPacket_TN_PACKET_EVENT_KNOWN_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_COUNT">TN_PACKET_EVENT_KNOWN_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_COUNT_GET">BuildPacket_TN_PACKET_EVENT_KNOWN_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_COUNT_GET">TN_PACKET_EVENT_KNOWN_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_INDEX">BuildPacket_TN_PACKET_EVENT_KNOWN_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_INDEX">TN_PACKET_EVENT_KNOWN_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_INDEX_ALL_GET">BuildPacket_TN_PACKET_EVENT_KNOWN_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_INDEX_ALL_GET">TN_PACKET_EVENT_KNOWN_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_KNOWN_INDEX_GET">BuildPacket_TN_PACKET_EVENT_KNOWN_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_KNOWN_INDEX_GET">TN_PACKET_EVENT_KNOWN_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REG">BuildPacket_TN_PACKET_EVENT_REG</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REG">TN_PACKET_EVENT_REG</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED">BuildPacket_TN_PACKET_EVENT_REGISTERED</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED">TN_PACKET_EVENT_REGISTERED</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_ALL">BuildPacket_TN_PACKET_EVENT_REGISTERED_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_ALL">TN_PACKET_EVENT_REGISTERED_ALL</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_ALL_GET">BuildPacket_TN_PACKET_EVENT_REGISTERED_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_ALL_GET">TN_PACKET_EVENT_REGISTERED_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_COUNT">BuildPacket_TN_PACKET_EVENT_REGISTERED_COUNT</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_COUNT">TN_PACKET_EVENT_REGISTERED_COUNT</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_COUNT_GET">BuildPacket_TN_PACKET_EVENT_REGISTERED_COUNT_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_COUNT_GET">TN_PACKET_EVENT_REGISTERED_COUNT_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_INDEX">BuildPacket_TN_PACKET_EVENT_REGISTERED_INDEX</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_INDEX">TN_PACKET_EVENT_REGISTERED_INDEX</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_INDEX_ALL_GET">BuildPacket_TN_PACKET_EVENT_REGISTERED_INDEX_ALL_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_INDEX_ALL_GET">TN_PACKET_EVENT_REGISTERED_INDEX_ALL_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REGISTERED_INDEX_GET">BuildPacket_TN_PACKET_EVENT_REGISTERED_INDEX_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REGISTERED_INDEX_GET">TN_PACKET_EVENT_REGISTERED_INDEX_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_REG_ALL">BuildPacket_TN_PACKET_EVENT_REG_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_REG_ALL">TN_PACKET_EVENT_REG_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_UNREG">BuildPacket_TN_PACKET_EVENT_UNREG</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_UNREG">TN_PACKET_EVENT_UNREG</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_EVENT_UNREG_ALL">BuildPacket_TN_PACKET_EVENT_UNREG_ALL</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_UNREG_ALL">TN_PACKET_EVENT_UNREG_ALL</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_HI">BuildPacket_TN_PACKET_HI</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_HI">TN_PACKET_HI</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_LOG_LOG">BuildPacket_TN_PACKET_LOG_LOG</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_LOG_LOG">TN_PACKET_LOG_LOG</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_MESSAGE">BuildPacket_TN_PACKET_MESSAGE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_MESSAGE">TN_PACKET_MESSAGE</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PACKET">BuildPacket_TN_PACKET_PACKET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PACKET">TN_PACKET_PACKET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PARAM">BuildPacket_TN_PACKET_PARAM</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PARAM">TN_PACKET_PARAM</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PARAM">BuildPacket_TN_PACKET_PARAM</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PARAM">TN_PACKET_PARAM</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PARAM">BuildPacket_TN_PACKET_PARAM</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PARAM">TN_PACKET_PARAM</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PARAM">BuildPacket_TN_PACKET_PARAM</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PARAM">TN_PACKET_PARAM</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PARAM_GET">BuildPacket_TN_PACKET_PARAM_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PARAM_GET">TN_PACKET_PARAM_GET</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PING">BuildPacket_TN_PACKET_PING</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PING">TN_PACKET_PING</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_PING_RESPONSE">BuildPacket_TN_PACKET_PING_RESPONSE</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_PING_RESPONSE">TN_PACKET_PING_RESPONSE</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_READY">BuildPacket_TN_PACKET_READY</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_READY">TN_PACKET_READY</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_RIGHTS_ADMIN">BuildPacket_TN_PACKET_RIGHTS_ADMIN</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_RIGHTS_ADMIN">TN_PACKET_RIGHTS_ADMIN</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_RIGHTS_ADMIN_REQUEST">BuildPacket_TN_PACKET_RIGHTS_ADMIN_REQUEST</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_RIGHTS_ADMIN_REQUEST">TN_PACKET_RIGHTS_ADMIN_REQUEST</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_RIGHTS_SUPERADMIN">BuildPacket_TN_PACKET_RIGHTS_SUPERADMIN</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_RIGHTS_SUPERADMIN">TN_PACKET_RIGHTS_SUPERADMIN</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_RIGHTS_SUPERADMIN_REQUEST">BuildPacket_TN_PACKET_RIGHTS_SUPERADMIN_REQUEST</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_RIGHTS_SUPERADMIN_REQUEST">TN_PACKET_RIGHTS_SUPERADMIN_REQUEST</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_SUPERADMIN_ADMIN_PASSWORD">BuildPacket_TN_PACKET_SUPERADMIN_ADMIN_PASSWORD</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_SUPERADMIN_ADMIN_PASSWORD">TN_PACKET_SUPERADMIN_ADMIN_PASSWORD</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_SUPERADMIN_CHANGE_ADMIN_PASSWORD">BuildPacket_TN_PACKET_SUPERADMIN_CHANGE_ADMIN_PASSWORD</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_SUPERADMIN_CHANGE_ADMIN_PASSWORD">TN_PACKET_SUPERADMIN_CHANGE_ADMIN_PASSWORD</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_TELEMETRY_VERSION">BuildPacket_TN_PACKET_TELEMETRY_VERSION</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_TELEMETRY_VERSION">TN_PACKET_TELEMETRY_VERSION</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_TELEMETRY_VERSION_GET">BuildPacket_TN_PACKET_TELEMETRY_VERSION_GET</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_TELEMETRY_VERSION_GET">TN_PACKET_TELEMETRY_VERSION_GET</a> packet.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#BuildPacket_TN_PACKET_VERSION">BuildPacket_TN_PACKET_VERSION</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Creates and returns complete <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_VERSION">TN_PACKET_VERSION</a> packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#CheckPacketPayloadSize">CheckPacketPayloadSize</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Checks whether passed packet payload is large enough for its type id.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.html#GetItemID">GetItemID</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Function to get identificator of passed item name.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.html#GetMasterID">GetMasterID</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Function used to calculate master identification number which is used in <a class="normal" href="TelemetryLists.TStoredChannelValuesList.html">TStoredChannelValuesList</a>.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPackets.html#GetPacketHeader">GetPacketHeader</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPackets.html">TelemetryNetPackets</a></td>
+<td class="itemdesc"><p>Function used to obtain packet header from passed packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPackets.html#GetPacketIDPrefix">GetPacketIDPrefix</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPackets.html">TelemetryNetPackets</a></td>
+<td class="itemdesc"><p>Function to extracting prefix number from packet ID number.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#GetPayloadAddress">GetPayloadAddress</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Returns address of payload in memory image of given packet.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetHashing.html#HashCRC32">HashCRC32</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetHashing.html">TelemetryNetHashing</a></td>
+<td class="itemdesc"><p>Computes CRC32 hash (checksum) of ansi version of given string.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetHashing.html#HashMD5">HashMD5</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetHashing.html">TelemetryNetHashing</a></td>
+<td class="itemdesc"><p>Computes MD5 hash of ansi version of given string.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetHashing.html#IsTextHash">IsTextHash</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetHashing.html">TelemetryNetHashing</a></td>
+<td class="itemdesc"><p>Checks whether given hash is the same as hash of given string.<br> When used hash function is not known or any error occurs, function returns <code>False</code>.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#MinimalPacketPayloadSize">MinimalPacketPayloadSize</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Returns minimal packet payload size.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#PacketEventConfigurationToStr">PacketEventConfigurationToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Returns textual representation of data in <a class="normal" href="TelemetryNetPackets.html#TN_PACKET_EVENT_EVENT">TN_PACKET_EVENT_EVENT</a> packet for SCS_TELEMETRY_EVENT_configuration event.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutBoolean">Payload_ReadoutBoolean</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads boolean value (one byte) from packet payload.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutByte">Payload_ReadoutByte</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads one byte from packet payload.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutDouble">Payload_ReadoutDouble</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 64bit floating point value from packet payload.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutInt64">Payload_ReadoutInt64</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 64bit integer value from packet payload.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutInteger">Payload_ReadoutInteger</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 32bit integer value from packet payload.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutSingle">Payload_ReadoutSingle</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 32bit floating point value from packet payload.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Payload_ReadoutString">Payload_ReadoutString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads string from packet payload.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#PreparePacket">PreparePacket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Function used for packet preparation.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadBoolean">Ptr_ReadBoolean</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads Boolean value (1byte) from general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadBuffer">Ptr_ReadBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads buffer from general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadByte">Ptr_ReadByte</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads one byte from general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadDouble">Ptr_ReadDouble</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads 64bit floating point value from general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadInt64">Ptr_ReadInt64</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads 64bit integer value from general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadInteger">Ptr_ReadInteger</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads 32bit integer value from general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutBoolean">Ptr_ReadoutBoolean</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads boolean value (one byte) from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutByte">Ptr_ReadoutByte</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads one byte from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutDouble">Ptr_ReadoutDouble</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 64bit floating point value from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutInt64">Ptr_ReadoutInt64</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 64bit integer value from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutInteger">Ptr_ReadoutInteger</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 32bit integer value from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutSingle">Ptr_ReadoutSingle</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads 32bit floating point value from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#Ptr_ReadoutString">Ptr_ReadoutString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Reads string from general memory location given by pointer.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadSingle">Ptr_ReadSingle</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads 32bit floating point value from general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_ReadString">Ptr_ReadString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads string from general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteBoolean">Ptr_WriteBoolean</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes Boolean value (1byte) to general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteBuffer">Ptr_WriteBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes buffer to general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteByte">Ptr_WriteByte</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes one byte to general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteDouble">Ptr_WriteDouble</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes 64bit floating point value to general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteInt64">Ptr_WriteInt64</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes 64bit integer value to general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteInteger">Ptr_WriteInteger</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes 32bit integer value to general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteSingle">Ptr_WriteSingle</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes 32bit floating point value to general memory location.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Ptr_WriteString">Ptr_WriteString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes string to general memory location.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#ReusePacket">ReusePacket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Use to change packets ID and reuse it.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsResolving.html#ReusePacket">ReusePacket</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsResolving.html">TelemetryNetPacketsResolving</a></td>
+<td class="itemdesc"><p>Use to change packets ID and store new data to it.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryRecipientAux.html#SCSValueLocalizedToStr">SCSValueLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipientAux.html">TelemetryRecipientAux</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryRecipientAux.html#SCSValueToStr">SCSValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipientAux.html">TelemetryRecipientAux</a></td>
+<td class="itemdesc"><p>Returns textual representation of scs_value_t structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryRecipientAux.html#SCSValueTypeFromStr">SCSValueTypeFromStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipientAux.html">TelemetryRecipientAux</a></td>
+<td class="itemdesc"><p>Returns value type given by identifier.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryRecipientAux.html#SCSValueTypeToStr">SCSValueTypeToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipientAux.html">TelemetryRecipientAux</a></td>
+<td class="itemdesc"><p>Returns identifier of given SCS value type.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.html#scs_value">scs_value</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Functions for conversion from localized structure to normal scs_value_t structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.html#scs_value_localized">scs_value_localized</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Functions for conversion from normal scs_value_t structure to its localized counterpart (<a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>).</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#SizeOfPacketString">SizeOfPacketString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Returns number of bytes required for given string to be stored in packet payload.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Stream_ReadBuffer">Stream_ReadBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads buffer from stream.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Stream_ReadInteger">Stream_ReadInteger</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads 32bit integer value from stream.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Stream_ReadString">Stream_ReadString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Reads string from stream.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Stream_WriteBuffer">Stream_WriteBuffer</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes buffer into stream.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Stream_WriteInteger">Stream_WriteInteger</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes 32bit integer value into stream.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryNetPacketsBuilding.html#Stream_WriteString">Stream_WriteString</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryNetPacketsBuilding.html">TelemetryNetPacketsBuilding</a></td>
+<td class="itemdesc"><p>Writes string into stream.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryRecipientAux.html#TelemetryEventConfigurationToStr">TelemetryEventConfigurationToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipientAux.html">TelemetryRecipientAux</a></td>
+<td class="itemdesc"><p>Returns textual representation of scs_telemetry_configuration_t structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryRecipientAux.html#TelemetryEventFrameStartToStr">TelemetryEventFrameStartToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryRecipientAux.html">TelemetryRecipientAux</a></td>
+<td class="itemdesc"><p>Returns textual representation of scs_telemetry_frame_start_t structure.</p></td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

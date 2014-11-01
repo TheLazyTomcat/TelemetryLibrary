@@ -1,0 +1,464 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLists: Class TKnownChannelsList</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TKnownChannelsList"></a><h1 class="cio">Class TKnownChannelsList</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLists.html">TelemetryLists</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TKnownChannelsList = class(<a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+ List used to store informations about known telemetry channels.</p>
+<p>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
+<li class="thisitem">TKnownChannelsList</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#GetKnownChannelPointer">GetKnownChannelPointer</a></b>(Index: Integer): <a  href="TelemetryLists.html#PKnownChannel">PKnownChannel</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#GetKnownChannel">GetKnownChannel</a></b>(Index: Integer): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#Clear">Clear</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#IndexOf">IndexOf</a></b>(Name: String): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#IndexOf">IndexOf</a></b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(OldChannel, Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''): Integer; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Remove">Remove</a></b>(Name: String): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#Delete">Delete</a></b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#ChannelIndexConfigID">ChannelIndexConfigID</a></b>(Name: String): <a  href="TelemetryLists.html#TItemID">TItemID</a>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#ChannelNameToID">ChannelNameToID</a></b>(Name: String): <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#ChannelIDToName">ChannelIDToName</a></b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>): String; virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TKnownChannelsList.html#Pointers">Pointers</a></b>[Index:Integer]: <a  href="TelemetryLists.html#PKnownChannel">PKnownChannel</a> read <a  href="TelemetryLists.TKnownChannelsList.html#GetKnownChannelPointer">GetKnownChannelPointer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TKnownChannelsList.html#Channels">Channels</a></b>[Index:Integer]: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> read <a  href="TelemetryLists.TKnownChannelsList.html#GetKnownChannel">GetKnownChannel</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetKnownChannelPointer"></a><code>Function <b>GetKnownChannelPointer</b>(Index: Integer): <a  href="TelemetryLists.html#PKnownChannel">PKnownChannel</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLists.TKnownChannelsList.html#Pointers">Pointers</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Pointer to requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetKnownChannel"></a><code>Function <b>GetKnownChannel</b>(Index: Integer): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for Events[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after items deletion.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Name: String): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for channel with given name (case-sensitive). When the channel is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of channel with requested name, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for channel with given ID. When channel with that ID is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of channel whose index is requested.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of channel with requested ID, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds new known channel into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>     
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of added channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryType</dt>
+<dd>Secondary type of value for this channel.</dd>
+<dt>TertiaryType</dt>
+<dd>Tertiary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether added channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new channel was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces channel at position given by &quot;Index&quot; parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>      </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be replaced.</dd>
+<dt>Name</dt>
+<dd>Name of replacement channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryType</dt>
+<dd>Secondary type of value for this channel.</dd>
+<dt>TertiaryType</dt>
+<dd>Tertiary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(OldChannel, Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces channel with name given by &quot;OldChannel&quot; parameter. When this channel is not found in the list, nothing happens and the method returns -1.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>      
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>OldEvent</dt>
+<dd>Identificatio number of event that has to be replaced.</dd>
+<dt>Name</dt>
+<dd>Name of replacement channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryType</dt>
+<dd>Secondary type of value for this channel.</dd>
+<dt>TertiaryType</dt>
+<dd>Tertiary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of channel that was replaced, -1 when old channel was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; Name: String; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: String = ''): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Inserts new channel at position given by &quot;Index&quot; parameter. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> is increased by one and all existing items from given position (included) up are moved higher. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>&gt; - passed index can be higher than current highest index, if so, item is added at the end of the list), and exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful insertion.
+
+<p>      
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Position where the new event should be inserted.</dd>
+<dt>Name</dt>
+<dd>Name of inserted channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryType</dt>
+<dd>Secondary type of value for this channel.</dd>
+<dt>TertiaryType</dt>
+<dd>Tertiary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Actual position where the new channel was inserted.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(Name: String): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Removes channel with given name from the list. When this channel is not found in the list, method returns -1 and nothing is removed.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the channel that has to be removed from the list.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of item that was removed, -1 when requested channel was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Delete"></a><code>procedure <b>Delete</b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes channel at position given by &quot;Index&quot; parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be deleted.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelIndexConfigID"></a><code>Function <b>ChannelIndexConfigID</b>(Name: String): <a  href="TelemetryLists.html#TItemID">TItemID</a>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns IndexConfigID for channel with name given in &quot;Name&quot; parameter. When such channel is not found in the list, ID with value 0x00000000 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">ID of index-configuration for requested channel.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelNameToID"></a><code>Function <b>ChannelNameToID</b>(Name: String): <a  href="TelemetryLists.html#TChannelID">TChannelID</a>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns ID for passed channel name.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of chanel for which you want an ID.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">ID of passed channel name.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelIDToName"></a><code>Function <b>ChannelIDToName</b>(ID: <a  href="TelemetryLists.html#TChannelID">TChannelID</a>): String; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns name of channel with the same ID as is passed in &quot;ID&quot; prameter. This method actually searches through the list for channel with appropriate ID. When such channel is not found, an empty string is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of requested channel.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Name of the channel with appropriate ID.</p></td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Pointers"></a><code>property <b>Pointers</b>[Index:Integer]: <a  href="TelemetryLists.html#PKnownChannel">PKnownChannel</a> read <a  href="TelemetryLists.TKnownChannelsList.html#GetKnownChannelPointer">GetKnownChannelPointer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it for direct access to individual stored items.<br> Unlike <a class="normal" href="TelemetryLists.TKnownChannelsList.html#Channels">Channels</a>[] property, you can use returned pointer to change values of stored items.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Channels"></a><code>property <b>Channels</b>[Index:Integer]: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> read <a  href="TelemetryLists.TKnownChannelsList.html#GetKnownChannel">GetKnownChannel</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:30</em>
+</span>
+
+</body>
+</html>

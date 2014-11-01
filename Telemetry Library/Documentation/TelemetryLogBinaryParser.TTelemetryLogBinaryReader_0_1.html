@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryReader_0_1</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryLogBinaryReader_0_1"></a><h1 class="cio">Class TTelemetryLogBinaryReader_0_1</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryLogBinaryReader_0_1 = class(<a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html">TTelemetryLogBinaryReader</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Internal reader class used to read file of structure 0 and 1.</p>
+<p>
+ <b>Note</b> - when reading payload af a block, the position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> advances exactly by a value stored in a block header as payload size, no more, no less.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html">TTelemetryLogBinaryReader</a></li>
+<li class="thisitem">TTelemetryLogBinaryReader_0_1</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#fBlocksOffsets">fBlocksOffsets</a></b>: Array of LongWord;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#GetLogCount">GetLogCount</a></b>: Integer; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#GetLogEntry">GetLogEntry</a></b>(Index: Integer): <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#GetFlagValue">GetFlagValue</a></b>(Flags, FlagMask: Byte): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlocksOffsets">ReadBlocksOffsets</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockHeader">ReadBlockHeader</a></b>(var BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Invalid">ReadBlockPayload_Invalid</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Generic">ReadBlockPayload_Generic</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Text">ReadBlockPayload_Text</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Log">ReadBlockPayload_Log</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_EventReg">ReadBlockPayload_EventReg</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_EventUnreg">ReadBlockPayload_EventUnreg</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Event">ReadBlockPayload_Event</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_ChannelReg">ReadBlockPayload_ChannelReg</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_ChannelUnreg">ReadBlockPayload_ChannelUnreg</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Channel">ReadBlockPayload_Channel</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Config">ReadBlockPayload_Config</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlockPayload_Termination">ReadBlockPayload_Termination</a></b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlock">ReadBlock</a></b>: Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#StartReading">StartReading</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#EndReading">EndReading</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadNextLogEntry">ReadNextLogEntry</a></b>(IncreaseLogCounter: Boolean = True): Boolean; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadLogEntry">ReadLogEntry</a></b>(Index: Integer): Boolean; override;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fBlocksOffsets"></a><code><b>fBlocksOffsets</b>: Array of LongWord;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array that is loaded with blocks offsets. Used only for structure 0.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetLogCount"></a><code>Function <b>GetLogCount</b>: Integer; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogCount">LogCount</a> property. Returns length of <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#fBlocksOffsets">fBlocksOffsets</a> array.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetLogEntry"></a><code>Function <b>GetLogEntry</b>(Index: Integer): <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogEntries">LogEntries</a> array property. It find and accesses individual entries by offsets stored in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#fBlocksOffsets">fBlocksOffsets</a> array. See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogEntries">LogEntries</a> property for other informations.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetFlagValue"></a><code>Function <b>GetFlagValue</b>(Flags, FlagMask: Byte): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns value of flag selected by flag mask and stored in <code>Flags</code>.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Flags</dt>
+<dd>Set of flags storing required flag value.</dd>
+<dt>FlagMask</dt>
+<dd>Number determining at which bit should the value be read.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Value of the selected flag.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlocksOffsets"></a><code>procedure <b>ReadBlocksOffsets</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads table of block offsets when reading structure 0. <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> position is not changed in this method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockHeader"></a><code>Function <b>ReadBlockHeader</b>(var BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads block header at current <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> position.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Invalid"></a><code>Function <b>ReadBlockPayload_Invalid</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of invalid block.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Generic"></a><code>Function <b>ReadBlockPayload_Generic</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of generic block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Text"></a><code>Function <b>ReadBlockPayload_Text</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of text block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Log"></a><code>Function <b>ReadBlockPayload_Log</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of log block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_EventReg"></a><code>Function <b>ReadBlockPayload_EventReg</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of game event registration block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_EventUnreg"></a><code>Function <b>ReadBlockPayload_EventUnreg</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of game event unregistration block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Event"></a><code>Function <b>ReadBlockPayload_Event</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of game event block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_ChannelReg"></a><code>Function <b>ReadBlockPayload_ChannelReg</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of channel registration block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_ChannelUnreg"></a><code>Function <b>ReadBlockPayload_ChannelUnreg</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of channel unregistration block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Channel"></a><code>Function <b>ReadBlockPayload_Channel</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of channel block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Config"></a><code>Function <b>ReadBlockPayload_Config</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of config block and passes it to appropriate event.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the payload was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlockPayload_Termination"></a><code>Function <b>ReadBlockPayload_Termination</b>(BlockHeader: <a  href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads payload of termination block. Allways returns <code>False</code> as reading should terminate at this block.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadBlock"></a><code>Function <b>ReadBlock</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads block at current <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> position.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the block was read successfuly and when there can be another block after the actually read, <code>False</code> othewise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="StartReading"></a><code>procedure <b>StartReading</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#StartReading">TTelemetryLogBinaryReader.StartReading</a>. Calls <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlocksOffsets">ReadBlocksOffsets</a> when readed file is of structure 0.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EndReading"></a><code>procedure <b>EndReading</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#EndReading">TTelemetryLogBinaryReader.EndReading</a>. Empties the table of block offsets.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadNextLogEntry"></a><code>Function <b>ReadNextLogEntry</b>(IncreaseLogCounter: Boolean = True): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadNextLogEntry">TTelemetryLogBinaryReader.ReadNextLogEntry</a>. Internally calls <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html#ReadBlock">ReadBlock</a> method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadLogEntry"></a><code>Function <b>ReadLogEntry</b>(Index: Integer): Boolean; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadLogEntry">TTelemetryLogBinaryReader.ReadLogEntry</a>.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

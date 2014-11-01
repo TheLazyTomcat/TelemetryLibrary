@@ -1,0 +1,1788 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryStreamParser</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryLogBinaryStreamParser"></a><h1 class="cio">Class TTelemetryLogBinaryStreamParser</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryLogBinaryStreamParser = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Class designed to parse a stream containing binary log.</p>
+<p>
+ It is designed as a stream parsers, meaning it reads over the input stream and when it runs into a valid log, it reads it, processes it when possible and calls appropriate event to which it passes all processed data. For example, when it finds entry containing information about channel registration, it reads it and calls event <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLog">OnChannelRegisterLog</a> (or similar alternative). These events have the same signature as events used by telemetry recipient, so you can bind the same handlers to them.<br> Parsers internally uses appropriate readers to read files with differnt structures.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">TTelemetryLogBinaryStreamParser</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fStream">fStream</a></b>:                          TStream;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fLogReader">fLogReader</a></b>:                       <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html">TTelemetryLogBinaryReader</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a></b>:                        <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLog">fOnDataTimeLog</a></b>:                   <a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLog">fOnTextTimeLog</a></b>:                   <a  href="TelemetryLogBinaryParser.html#TTextTimeLogEvent">TTextTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLog">fOnLogTimeLog</a></b>:                    <a  href="TelemetryLogBinaryParser.html#TLogTimeLogEvent">TLogTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLog">fOnEventRegisterTimeLog</a></b>:          <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLog">fOnEventUnregisterTimeLog</a></b>:        <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLog">fOnEventTimeLog</a></b>:                  <a  href="TelemetryLogBinaryParser.html#TEventTimeLogEvent">TEventTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLog">fOnChannelRegisterTimeLog</a></b>:        <a  href="TelemetryLogBinaryParser.html#TChannelRegisterTimeLogEvent">TChannelRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLog">fOnChannelUnregisterTimeLog</a></b>:      <a  href="TelemetryLogBinaryParser.html#TChannelUnregisterTimeLogEvent">TChannelUnregisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLog">fOnChannelTimeLog</a></b>:                <a  href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLog">fOnConfigTimeLog</a></b>:                 <a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLog">fOnDataLog</a></b>:                       <a  href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLog">fOnTextLog</a></b>:                       <a  href="TelemetryLogBinaryParser.html#TTextLogEvent">TTextLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLog">fOnLogLog</a></b>:                        <a  href="TelemetryRecipient.html#TLogEvent">TLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLog">fOnEventRegisterLog</a></b>:              <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLog">fOnEventUnregisterLog</a></b>:            <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLog">fOnEventLog</a></b>:                      <a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLog">fOnChannelRegisterLog</a></b>:            <a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLog">fOnChannelUnregisterLog</a></b>:          <a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLog">fOnChannelLog</a></b>:                    <a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLog">fOnConfigLog</a></b>:                     <a  href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLogMulti">fOnDataTimeLogMulti</a></b>:              <a  href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html">TMulticastDataTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLogMulti">fOnTextTimeLogMulti</a></b>:              <a  href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html">TMulticastTextTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLogMulti">fOnLogTimeLogMulti</a></b>:               <a  href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html">TMulticastLogTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLogMulti">fOnEventRegisterTimeLogMulti</a></b>:     <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLogMulti">fOnEventUnregisterTimeLogMulti</a></b>:   <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLogMulti">fOnEventTimeLogMulti</a></b>:             <a  href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html">TMulticastEventTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLogMulti">fOnChannelRegisterTimeLogMulti</a></b>:   <a  href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html">TMulticastChannelRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLogMulti">fOnChannelUnregisterTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html">TMulticastChannelUnregisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLogMulti">fOnChannelTimeLogMulti</a></b>:           <a  href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html">TMulticastChannelTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLogMulti">fOnConfigTimeLogMulti</a></b>:            <a  href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html">TMulticastConfigTimeLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLogMulti">fOnDataLogMulti</a></b>:                  <a  href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html">TMulticastDataLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLogMulti">fOnTextLogMulti</a></b>:                  <a  href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html">TMulticastTextLogEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLogMulti">fOnLogLogMulti</a></b>:                   <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLogMulti">fOnEventRegisterLogMulti</a></b>:         <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLogMulti">fOnEventUnregisterLogMulti</a></b>:       <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLogMulti">fOnEventLogMulti</a></b>:                 <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLogMulti">fOnChannelRegisterLogMulti</a></b>:       <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLogMulti">fOnChannelUnregisterLogMulti</a></b>:     <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLogMulti">fOnChannelLogMulti</a></b>:               <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLogMulti">fOnConfigLogMulti</a></b>:                <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogCount">GetLogCount</a></b>: Integer;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogCounter">GetLogCounter</a></b>: Integer;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogEntry">GetLogEntry</a></b>(Index: Integer): <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#ReadFileHeader">ReadFileHeader</a></b>(var FileInfo: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnDataLog">DoOnDataLog</a></b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnTextLog">DoOnTextLog</a></b>(Sender: TObject; Time: TDateTime; const Text: String); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnLog">DoOnLog</a></b>(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnEventRegister">DoOnEventRegister</a></b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnEventUnregister">DoOnEventUnregister</a></b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnEvent">DoOnEvent</a></b>(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnChannelRegister">DoOnChannelRegister</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnChannelUnregister">DoOnChannelUnregister</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnChannel">DoOnChannel</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnConfig">DoOnConfig</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Create">Create</a></b>(Stream: TStream);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#ReadNextLogEntry">ReadNextLogEntry</a></b>: Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#ReadAllLogEntries">ReadAllLogEntries</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#ReadLogEntry">ReadLogEntry</a></b>(Index: Integer): Boolean; virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogEntries">LogEntries</a></b>[Index:Integer]: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogEntry">GetLogEntry</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fStream">fStream</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogCount">LogCount</a></b>: Integer read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogCount">GetLogCount</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogCounter">LogCounter</a></b>: Integer read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogCounter">GetLogCounter</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataTimeLog">OnDataTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLog">fOnDataTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLog">fOnDataTimeLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextTimeLog">OnTextTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TTextTimeLogEvent">TTextTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLog">fOnTextTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLog">fOnTextTimeLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogTimeLog">OnLogTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TLogTimeLogEvent">TLogTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLog">fOnLogTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLog">fOnLogTimeLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterTimeLog">OnEventRegisterTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLog">fOnEventRegisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLog">fOnEventRegisterTimeLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterTimeLog">OnEventUnregisterTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLog">fOnEventUnregisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLog">fOnEventUnregisterTimeLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventTimeLog">OnEventTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TEventTimeLogEvent">TEventTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLog">fOnEventTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLog">fOnEventTimeLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterTimeLog">OnChannelRegisterTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TChannelRegisterTimeLogEvent">TChannelRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLog">fOnChannelRegisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLog">fOnChannelRegisterTimeLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterTimeLog">OnChannelUnregisterTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TChannelUnregisterTimeLogEvent">TChannelUnregisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLog">fOnChannelUnregisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLog">fOnChannelUnregisterTimeLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelTimeLog">OnChannelTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLog">fOnChannelTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLog">fOnChannelTimeLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigTimeLog">OnConfigTimeLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLog">fOnConfigTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLog">fOnConfigTimeLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataLog">OnDataLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLog">fOnDataLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLog">fOnDataLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextLog">OnTextLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TTextLogEvent">TTextLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLog">fOnTextLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLog">fOnTextLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogLog">OnLogLog</a></b>: <a  href="TelemetryRecipient.html#TLogEvent">TLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLog">fOnLogLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLog">fOnLogLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterLog">OnEventRegisterLog</a></b>: <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLog">fOnEventRegisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLog">fOnEventRegisterLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterLog">OnEventUnregisterLog</a></b>: <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLog">fOnEventUnregisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLog">fOnEventUnregisterLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventLog">OnEventLog</a></b>: <a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLog">fOnEventLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLog">fOnEventLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLog">OnChannelRegisterLog</a></b>: <a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLog">fOnChannelRegisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLog">fOnChannelRegisterLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterLog">OnChannelUnregisterLog</a></b>: <a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLog">fOnChannelUnregisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLog">fOnChannelUnregisterLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelLog">OnChannelLog</a></b>: <a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLog">fOnChannelLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLog">fOnChannelLog</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigLog">OnConfigLog</a></b>: <a  href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLog">fOnConfigLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLog">fOnConfigLog</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataTimeLogMulti">OnDataTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html">TMulticastDataTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLogMulti">fOnDataTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextTimeLogMulti">OnTextTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html">TMulticastTextTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLogMulti">fOnTextTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogTimeLogMulti">OnLogTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html">TMulticastLogTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLogMulti">fOnLogTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterTimeLogMulti">OnEventRegisterTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLogMulti">fOnEventRegisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterTimeLogMulti">OnEventUnregisterTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLogMulti">fOnEventUnregisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventTimeLogMulti">OnEventTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html">TMulticastEventTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLogMulti">fOnEventTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterTimeLogMulti">OnChannelRegisterTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html">TMulticastChannelRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLogMulti">fOnChannelRegisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterTimeLogMulti">OnChannelUnregisterTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html">TMulticastChannelUnregisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLogMulti">fOnChannelUnregisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelTimeLogMulti">OnChannelTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html">TMulticastChannelTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLogMulti">fOnChannelTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigTimeLogMulti">OnConfigTimeLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html">TMulticastConfigTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLogMulti">fOnConfigTimeLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataLogMulti">OnDataLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html">TMulticastDataLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLogMulti">fOnDataLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextLogMulti">OnTextLogMulti</a></b>: <a  href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html">TMulticastTextLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLogMulti">fOnTextLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogLogMulti">OnLogLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLogMulti">fOnLogLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterLogMulti">OnEventRegisterLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLogMulti">fOnEventRegisterLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterLogMulti">OnEventUnregisterLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLogMulti">fOnEventUnregisterLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventLogMulti">OnEventLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLogMulti">fOnEventLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLogMulti">OnChannelRegisterLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLogMulti">fOnChannelRegisterLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterLogMulti">OnChannelUnregisterLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLogMulti">fOnChannelUnregisterLogMulti</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelLogMulti">OnChannelLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLogMulti">fOnChannelLogMulti</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigLogMulti">OnConfigLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLogMulti">fOnConfigLogMulti</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fStream"></a><code><b>fStream</b>:                          TStream;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a> property for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fLogReader"></a><code><b>fLogReader</b>:                       <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html">TTelemetryLogBinaryReader</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Internal reader used to read files with different structures. Managed automatically. Crated in constructor as an instance of one of the <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html">TTelemetryLogBinaryReader</a> descendants. Actual class used depends on structure of readed file.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fFileInfo"></a><code><b>fFileInfo</b>:                        <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#FileInfo">FileInfo</a> property for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnDataTimeLog"></a><code><b>fOnDataTimeLog</b>:                   <a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataTimeLog">OnDataTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnTextTimeLog"></a><code><b>fOnTextTimeLog</b>:                   <a  href="TelemetryLogBinaryParser.html#TTextTimeLogEvent">TTextTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextTimeLog">OnTextTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnLogTimeLog"></a><code><b>fOnLogTimeLog</b>:                    <a  href="TelemetryLogBinaryParser.html#TLogTimeLogEvent">TLogTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogTimeLog">OnLogTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventRegisterTimeLog"></a><code><b>fOnEventRegisterTimeLog</b>:          <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterTimeLog">OnEventRegisterTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventUnregisterTimeLog"></a><code><b>fOnEventUnregisterTimeLog</b>:        <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterTimeLog">OnEventUnregisterTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventTimeLog"></a><code><b>fOnEventTimeLog</b>:                  <a  href="TelemetryLogBinaryParser.html#TEventTimeLogEvent">TEventTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventTimeLog">OnEventTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelRegisterTimeLog"></a><code><b>fOnChannelRegisterTimeLog</b>:        <a  href="TelemetryLogBinaryParser.html#TChannelRegisterTimeLogEvent">TChannelRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterTimeLog">OnChannelRegisterTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelUnregisterTimeLog"></a><code><b>fOnChannelUnregisterTimeLog</b>:      <a  href="TelemetryLogBinaryParser.html#TChannelUnregisterTimeLogEvent">TChannelUnregisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterTimeLog">OnChannelUnregisterTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelTimeLog"></a><code><b>fOnChannelTimeLog</b>:                <a  href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelTimeLog">OnChannelTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnConfigTimeLog"></a><code><b>fOnConfigTimeLog</b>:                 <a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigTimeLog">OnConfigTimeLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnDataLog"></a><code><b>fOnDataLog</b>:                       <a  href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataLog">OnDataLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnTextLog"></a><code><b>fOnTextLog</b>:                       <a  href="TelemetryLogBinaryParser.html#TTextLogEvent">TTextLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextLog">OnTextLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnLogLog"></a><code><b>fOnLogLog</b>:                        <a  href="TelemetryRecipient.html#TLogEvent">TLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogLog">OnLogLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventRegisterLog"></a><code><b>fOnEventRegisterLog</b>:              <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterLog">OnEventRegisterLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventUnregisterLog"></a><code><b>fOnEventUnregisterLog</b>:            <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterLog">OnEventUnregisterLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventLog"></a><code><b>fOnEventLog</b>:                      <a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventLog">OnEventLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelRegisterLog"></a><code><b>fOnChannelRegisterLog</b>:            <a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLog">OnChannelRegisterLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelUnregisterLog"></a><code><b>fOnChannelUnregisterLog</b>:          <a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterLog">OnChannelUnregisterLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelLog"></a><code><b>fOnChannelLog</b>:                    <a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelLog">OnChannelLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnConfigLog"></a><code><b>fOnConfigLog</b>:                     <a  href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigLog">OnConfigLog</a> event handler.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnDataTimeLogMulti"></a><code><b>fOnDataTimeLogMulti</b>:              <a  href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html">TMulticastDataTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataTimeLogMulti">OnDataTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnTextTimeLogMulti"></a><code><b>fOnTextTimeLogMulti</b>:              <a  href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html">TMulticastTextTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextTimeLogMulti">OnTextTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnLogTimeLogMulti"></a><code><b>fOnLogTimeLogMulti</b>:               <a  href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html">TMulticastLogTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogTimeLogMulti">OnLogTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventRegisterTimeLogMulti"></a><code><b>fOnEventRegisterTimeLogMulti</b>:     <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterTimeLogMulti">OnEventRegisterTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventUnregisterTimeLogMulti"></a><code><b>fOnEventUnregisterTimeLogMulti</b>:   <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterTimeLogMulti">OnEventUnregisterTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventTimeLogMulti"></a><code><b>fOnEventTimeLogMulti</b>:             <a  href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html">TMulticastEventTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventTimeLogMulti">OnEventTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelRegisterTimeLogMulti"></a><code><b>fOnChannelRegisterTimeLogMulti</b>:   <a  href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html">TMulticastChannelRegisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterTimeLogMulti">OnChannelRegisterTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelUnregisterTimeLogMulti"></a><code><b>fOnChannelUnregisterTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html">TMulticastChannelUnregisterTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterTimeLogMulti">OnChannelUnregisterTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelTimeLogMulti"></a><code><b>fOnChannelTimeLogMulti</b>:           <a  href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html">TMulticastChannelTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelTimeLogMulti">OnChannelTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnConfigTimeLogMulti"></a><code><b>fOnConfigTimeLogMulti</b>:            <a  href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html">TMulticastConfigTimeLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigTimeLogMulti">OnConfigTimeLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnDataLogMulti"></a><code><b>fOnDataLogMulti</b>:                  <a  href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html">TMulticastDataLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnDataLogMulti">OnDataLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnTextLogMulti"></a><code><b>fOnTextLogMulti</b>:                  <a  href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html">TMulticastTextLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnTextLogMulti">OnTextLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnLogLogMulti"></a><code><b>fOnLogLogMulti</b>:                   <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnLogLogMulti">OnLogLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventRegisterLogMulti"></a><code><b>fOnEventRegisterLogMulti</b>:         <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventRegisterLogMulti">OnEventRegisterLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventUnregisterLogMulti"></a><code><b>fOnEventUnregisterLogMulti</b>:       <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventUnregisterLogMulti">OnEventUnregisterLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnEventLogMulti"></a><code><b>fOnEventLogMulti</b>:                 <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnEventLogMulti">OnEventLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelRegisterLogMulti"></a><code><b>fOnChannelRegisterLogMulti</b>:       <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLogMulti">OnChannelRegisterLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelUnregisterLogMulti"></a><code><b>fOnChannelUnregisterLogMulti</b>:     <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelUnregisterLogMulti">OnChannelUnregisterLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnChannelLogMulti"></a><code><b>fOnChannelLogMulti</b>:               <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelLogMulti">OnChannelLogMulti</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnConfigLogMulti"></a><code><b>fOnConfigLogMulti</b>:                <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object managing multicast <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnConfigLogMulti">OnConfigLogMulti</a> event.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetLogCount"></a><code>Function <b>GetLogCount</b>: Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogCount">LogCount</a> property. Gets the value from internal reader object.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetLogCounter"></a><code>Function <b>GetLogCounter</b>: Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogCounter">LogCounter</a> property. Gets the value from internal reader object.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetLogEntry"></a><code>Function <b>GetLogEntry</b>(Index: Integer): <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogEntries">LogEntries</a> array property. Gets actual value from internal reader object.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ReadFileHeader"></a><code>procedure <b>ReadFileHeader</b>(var FileInfo: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Read file hader and API informations from current <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a> position and returns them in <code>FileInfo</code> parameter.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FileInfo</dt>
+<dd>Output value containing read data.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnDataLog"></a><code>procedure <b>DoOnDataLog</b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnData* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnDataLog">OnDataLog</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnTextLog"></a><code>procedure <b>DoOnTextLog</b>(Sender: TObject; Time: TDateTime; const Text: String); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnText* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnTextLog">OnTextLog</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnLog"></a><code>procedure <b>DoOnLog</b>(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnLog* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnLogLog">OnLogLog</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnEventRegister"></a><code>procedure <b>DoOnEventRegister</b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnEventRegister* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnEventRegister">OnEventRegister</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnEventUnregister"></a><code>procedure <b>DoOnEventUnregister</b>(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnEventUnregister* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnEventUnregister">OnEventUnregisterg</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnEvent"></a><code>procedure <b>DoOnEvent</b>(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnEvent* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnEvent">OnEvent</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnChannelRegister"></a><code>procedure <b>DoOnChannelRegister</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnChannelRegister* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnChannelRegister">OnChannelRegister</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnChannelUnregister"></a><code>procedure <b>DoOnChannelUnregister</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnChannelUnregister* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnChannelUnregister">OnChannelUnregister</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnChannel"></a><code>procedure <b>DoOnChannel</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnChannel* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnChannel">OnChannel</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DoOnConfig"></a><code>procedure <b>DoOnConfig</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method managing OnConfig* events calling.<br> Parameters are passed to event(s) calls with no change.<br> This method is assigned in constructor to internal reader <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnConfig">OnConfig</a> event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Stream: TStream);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.
+
+<p>Creates all automatically managed objects, reads file header (by calling method <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#ReadFileHeader">ReadFileHeader</a>) and assigns handlers to internal reader events.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Stream</dt>
+<dd>Stream from which the parser will read. Must not be <code>Nil</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class destructor.
+
+<p>Frees all automatically managed objects.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadNextLogEntry"></a><code>Function <b>ReadNextLogEntry</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads next log entry from current position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a>. Read data are processed and passed to appropriate event.<br> Calls internal readers <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadNextLogEntry">ReadNextLogEntry</a> method.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when log was read successfuly, <code>False</code> otherwise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadAllLogEntries"></a><code>procedure <b>ReadAllLogEntries</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads all log entries from current position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a>.<br> Calls internal readers <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadAllLogEntries">ReadAllLogEntries</a> method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReadLogEntry"></a><code>Function <b>ReadLogEntry</b>(Index: Integer): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads log entry selected by passed index. Works only for structures that supports non-sequential reading (eg. structure 0).<br> Calls internal readers <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadLogEntry">ReadLogEntry</a> method.<br> Position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a> is not changed in this method.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested log entry.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the entry was read successfuly, <code>False</code> otherwise.</p></td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEntries"></a><code>property <b>LogEntries</b>[Index:Integer]: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogEntry">GetLogEntry</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped to log entries - that is, each item in this array corresponds to one log entry.<br> When you try to access item that is out of allowed boundary or the reading fails, then it returns <a class="normal" href="TelemetryLogBinaryParser.html#cInvalidLogEntry">cInvalidLogEntry</a>.<br> Works only for structures that supports non-sequential reading.<br> <b>Warning</b> - you have to manually free returned pointer (you can use procedure <a class="normal" href="TelemetryLogBinaryParser.html#LogEntryFree">LogEntryFree</a> for that purpose).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Stream"></a><code>property <b>Stream</b>: TStream read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fStream">fStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains reference to a stream that is used to read the log. Not initialized, filled in constructor.<br> <b>Warning</b> - do not change properties of this object!</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Information about file that is being read. Filled in constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LogCount"></a><code>property <b>LogCount</b>: Integer read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogCount">GetLogCount</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains number of log entries in input. Works only for structures that supports non-sequential reading.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LogCounter"></a><code>property <b>LogCounter</b>: Integer read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogCounter">GetLogCounter</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains number of logs read so far.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnDataTimeLog"></a><code>property <b>OnDataTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLog">fOnDataTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLog">fOnDataTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass unprocessed data with time when parser finds log with data of unknown structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnTextTimeLog"></a><code>property <b>OnTextTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TTextTimeLogEvent">TTextTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLog">fOnTextTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLog">fOnTextTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass text with time when parser finds log containing only text or log containing data which can be expressed as text.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnLogTimeLog"></a><code>property <b>OnLogTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TLogTimeLogEvent">TLogTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLog">fOnLogTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLog">fOnLogTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser fings log containing informations about a write to game log.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventRegisterTimeLog"></a><code>property <b>OnEventRegisterTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLog">fOnEventRegisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLog">fOnEventRegisterTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about game event registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventUnregisterTimeLog"></a><code>property <b>OnEventUnregisterTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLog">fOnEventUnregisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLog">fOnEventUnregisterTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about game event unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventTimeLog"></a><code>property <b>OnEventTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TEventTimeLogEvent">TEventTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLog">fOnEventTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLog">fOnEventTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about game event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelRegisterTimeLog"></a><code>property <b>OnChannelRegisterTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TChannelRegisterTimeLogEvent">TChannelRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLog">fOnChannelRegisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLog">fOnChannelRegisterTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about channel registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelUnregisterTimeLog"></a><code>property <b>OnChannelUnregisterTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TChannelUnregisterTimeLogEvent">TChannelUnregisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLog">fOnChannelUnregisterTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLog">fOnChannelUnregisterTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about channel unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelTimeLog"></a><code>property <b>OnChannelTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLog">fOnChannelTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLog">fOnChannelTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about channel value.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnConfigTimeLog"></a><code>property <b>OnConfigTimeLog</b>: <a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLog">fOnConfigTimeLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLog">fOnConfigTimeLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data with time when parser finds log containing informations about config value.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnDataLog"></a><code>property <b>OnDataLog</b>: <a  href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLog">fOnDataLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLog">fOnDataLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass unprocessed data when parser finds log with data of unknown structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnTextLog"></a><code>property <b>OnTextLog</b>: <a  href="TelemetryLogBinaryParser.html#TTextLogEvent">TTextLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLog">fOnTextLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLog">fOnTextLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass text when parser finds log containing only text or log containing data which can be expressed as text.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnLogLog"></a><code>property <b>OnLogLog</b>: <a  href="TelemetryRecipient.html#TLogEvent">TLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLog">fOnLogLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLog">fOnLogLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser fings log containing informations about a write to game log.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventRegisterLog"></a><code>property <b>OnEventRegisterLog</b>: <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLog">fOnEventRegisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLog">fOnEventRegisterLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser finds log containing informations about game event registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventUnregisterLog"></a><code>property <b>OnEventUnregisterLog</b>: <a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLog">fOnEventUnregisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLog">fOnEventUnregisterLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read time when parser finds log containing informations about game event unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventLog"></a><code>property <b>OnEventLog</b>: <a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLog">fOnEventLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLog">fOnEventLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser finds log containing informations about game event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelRegisterLog"></a><code>property <b>OnChannelRegisterLog</b>: <a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLog">fOnChannelRegisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLog">fOnChannelRegisterLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser finds log containing informations about channel registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelUnregisterLog"></a><code>property <b>OnChannelUnregisterLog</b>: <a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLog">fOnChannelUnregisterLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLog">fOnChannelUnregisterLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser finds log containing informations about channel unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelLog"></a><code>property <b>OnChannelLog</b>: <a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLog">fOnChannelLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLog">fOnChannelLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser finds log containing informations about channel value.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnConfigLog"></a><code>property <b>OnConfigLog</b>: <a  href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLog">fOnConfigLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLog">fOnConfigLog</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event called to pass read data when parser finds log containing informations about config value.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnDataTimeLogMulti"></a><code>property <b>OnDataTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html">TMulticastDataTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataTimeLogMulti">fOnDataTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass unprocessed data with time when parser finds log with data of unknown structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnTextTimeLogMulti"></a><code>property <b>OnTextTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html">TMulticastTextTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextTimeLogMulti">fOnTextTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass text with time when parser finds log containing only text or log containing data which can be expressed as text.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnLogTimeLogMulti"></a><code>property <b>OnLogTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html">TMulticastLogTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogTimeLogMulti">fOnLogTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser fings log containing informations about a write to game log.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventRegisterTimeLogMulti"></a><code>property <b>OnEventRegisterTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterTimeLogMulti">fOnEventRegisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about game event registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventUnregisterTimeLogMulti"></a><code>property <b>OnEventUnregisterTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterTimeLogMulti">fOnEventUnregisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about game event unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventTimeLogMulti"></a><code>property <b>OnEventTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html">TMulticastEventTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventTimeLogMulti">fOnEventTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about game event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelRegisterTimeLogMulti"></a><code>property <b>OnChannelRegisterTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html">TMulticastChannelRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterTimeLogMulti">fOnChannelRegisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about channel registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelUnregisterTimeLogMulti"></a><code>property <b>OnChannelUnregisterTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html">TMulticastChannelUnregisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterTimeLogMulti">fOnChannelUnregisterTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about channel unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelTimeLogMulti"></a><code>property <b>OnChannelTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html">TMulticastChannelTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelTimeLogMulti">fOnChannelTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about channel registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnConfigTimeLogMulti"></a><code>property <b>OnConfigTimeLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html">TMulticastConfigTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigTimeLogMulti">fOnConfigTimeLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser finds log containing informations about config value.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnDataLogMulti"></a><code>property <b>OnDataLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html">TMulticastDataLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnDataLogMulti">fOnDataLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass unprocessed data when parser finds log with data of unknown structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnTextLogMulti"></a><code>property <b>OnTextLogMulti</b>: <a  href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html">TMulticastTextLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnTextLogMulti">fOnTextLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass text when parser finds log containing only text or log containing data which can be expressed as text.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnLogLogMulti"></a><code>property <b>OnLogLogMulti</b>: <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnLogLogMulti">fOnLogLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data with time when parser fings log containing informations about a write to game log.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventRegisterLogMulti"></a><code>property <b>OnEventRegisterLogMulti</b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventRegisterLogMulti">fOnEventRegisterLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about game event registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventUnregisterLogMulti"></a><code>property <b>OnEventUnregisterLogMulti</b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventUnregisterLogMulti">fOnEventUnregisterLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about game event unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnEventLogMulti"></a><code>property <b>OnEventLogMulti</b>: <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnEventLogMulti">fOnEventLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about game event.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelRegisterLogMulti"></a><code>property <b>OnChannelRegisterLogMulti</b>: <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelRegisterLogMulti">fOnChannelRegisterLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about channel registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelUnregisterLogMulti"></a><code>property <b>OnChannelUnregisterLogMulti</b>: <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelUnregisterLogMulti">fOnChannelUnregisterLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about channel unregistration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnChannelLogMulti"></a><code>property <b>OnChannelLogMulti</b>: <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnChannelLogMulti">fOnChannelLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about channel registration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnConfigLogMulti"></a><code>property <b>OnConfigLogMulti</b>: <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fOnConfigLogMulti">fOnConfigLogMulti</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Muticast event called to pass read data when parser finds log containing informations about config value.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLists: Class TKnownEventsList</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TKnownEventsList"></a><h1 class="cio">Class TKnownEventsList</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLists.html">TelemetryLists</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TKnownEventsList = class(<a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+ List used to store informations about known telemetry events.</p>
+<p>
+
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
+<li class="thisitem">TKnownEventsList</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#GetKnownEventPointer">GetKnownEventPointer</a></b>(Index: Integer): <a  href="TelemetryLists.html#PKnownEvent">PKnownEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#GetKnownEvent">GetKnownEvent</a></b>(Index: Integer): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownEventsList.html#Clear">Clear</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#IndexOf">IndexOf</a></b>(Event: scs_event_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#IndexOf">IndexOf</a></b>(Name: String): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#Add">Add</a></b>(Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownEventsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#Replace">Replace</a></b>(OldEvent, Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#Insert">Insert</a></b>(Index: Integer; Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#Remove">Remove</a></b>(Event: scs_event_t): Integer; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownEventsList.html#Delete">Delete</a></b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#IsValid">IsValid</a></b>(Event: scs_event_t): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownEventsList.html#IsUtility">IsUtility</a></b>(Event: scs_event_t): Boolean; virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TKnownEventsList.html#Pointers">Pointers</a></b>[Index:Integer]: <a  href="TelemetryLists.html#PKnownEvent">PKnownEvent</a> read <a  href="TelemetryLists.TKnownEventsList.html#GetKnownEventPointer">GetKnownEventPointer</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TKnownEventsList.html#Events">Events</a></b>[Index:Integer]: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> read <a  href="TelemetryLists.TKnownEventsList.html#GetKnownEvent">GetKnownEvent</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetKnownEventPointer"></a><code>Function <b>GetKnownEventPointer</b>(Index: Integer): <a  href="TelemetryLists.html#PKnownEvent">PKnownEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLists.TKnownEventsList.html#Pointers">Pointers</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Pointer to requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetKnownEvent"></a><code>Function <b>GetKnownEvent</b>(Index: Integer): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Getter for <a class="normal" href="TelemetryLists.TKnownEventsList.html#Events">Events</a>[] property.<br> When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of requested item.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Requested item.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after items deletion.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Event: scs_event_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for given event. When the event is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Event whose index is requested.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of requested event, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(Name: String): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for event with given name (case-insensitive). When event with that name is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of the event whose index is requested.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of event with requested name, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds new known game event into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Event identification number.</dd>
+<dt>Name</dt>
+<dd>Name of added event.</dd>
+<dt>Valid</dt>
+<dd>Flag denoting whether added event is marked as valid.</dd>
+<dt>Utility</dt>
+<dd>Flag denoting whether added event is marked as utility.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new event was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces event at position given by &quot;Index&quot; parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be replaced.</dd>
+<dt>Event</dt>
+<dd>Replacement event identification number.</dd>
+<dt>Name</dt>
+<dd>Name of replacement event.</dd>
+<dt>Valid</dt>
+<dd>Flag denoting whether replacement event is marked as valid.</dd>
+<dt>Utility</dt>
+<dd>Flag denoting whether replacement event is marked as utility.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(OldEvent, Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces event given by &quot;OldEvent&quot; parameter. When this old event is not found in the list, nothing happens and the method returns -1.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>    
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>OldEvent</dt>
+<dd>Identificatio number of event that has to be replaced.</dd>
+<dt>Event</dt>
+<dd>Replacement event identification number.</dd>
+<dt>Name</dt>
+<dd>Name of replacement event.</dd>
+<dt>Valid</dt>
+<dd>Flag denoting whether replacement event is marked as valid.</dd>
+<dt>Utility</dt>
+<dd>Flag denoting whether replacement event is marked as utility.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of event that was replaced, -1 when such event was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; Event: scs_event_t; Name: String; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Inserts new event at position given by &quot;Index&quot; parameter. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> is increased by one and all existing items from given position (included) up are moved higher. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>&gt; - passed index can be higher than current highest index, if so, item is added at the end of the list), and exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful insertion.
+
+<p>    
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Position where the new event should be inserted.</dd>
+<dt>Event</dt>
+<dd>Event identification number.</dd>
+<dt>Name</dt>
+<dd>Name of event.</dd>
+<dt>Valid</dt>
+<dd>Flag denoting whether event is marked as valid.</dd>
+<dt>Utility</dt>
+<dd>Flag denoting whether event is marked as utility.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Actual position where the new event was inserted.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(Event: scs_event_t): Integer; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Removes given event from the list. When this event is not found in the list, method returns -1 and nothing is removed.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Identification number of event that has to be removed from the list.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of item that was removed, -1 when requested event was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Delete"></a><code>procedure <b>Delete</b>(Index: Integer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes event at position given by &quot;Index&quot; parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be deleted.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IsValid"></a><code>Function <b>IsValid</b>(Event: scs_event_t): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> when given event is valid, <code>False</code> when it is not valid or when that event is not in list.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Identification number of requested event.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Validity of requested event.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IsUtility"></a><code>Function <b>IsUtility</b>(Event: scs_event_t): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> when given event is marked as Utility, <code>False</code> when it is not or when not found in the list.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Identification number of requested event.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Utility state of requested event.</p></td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Pointers"></a><code>property <b>Pointers</b>[Index:Integer]: <a  href="TelemetryLists.html#PKnownEvent">PKnownEvent</a> read <a  href="TelemetryLists.TKnownEventsList.html#GetKnownEventPointer">GetKnownEventPointer</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it for direct access to individual stored items.<br> Unlike <a class="normal" href="TelemetryLists.TKnownEventsList.html#Events">Events</a>[] property, you can use returned pointer to change values of stored items.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Events"></a><code>property <b>Events</b>[Index:Integer]: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> read <a  href="TelemetryLists.TKnownEventsList.html#GetKnownEvent">GetKnownEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:30</em>
+</span>
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryWriter</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryLogBinaryWriter"></a><h1 class="cio">Class TTelemetryLogBinaryWriter</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLogBinary.html">TelemetryLogBinary</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryLogBinaryWriter = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Base class for all writers used to write binary logs.</p>
+<p>
+ This class is intended as sort of template (common ancestor) for all writer classes. These classes are used internaly to write different binary log structures, and should not be used outside of loggers. All descendants must implement all abstract methods. They also may add some new methods, but they should be used in loggers wery carefully and only if really needed.<br> Log* methods all have <code>Recipient</code> parameter. This parameter must contain reference to a valid telemetry recipient, as its methods can be used in descendant classes for conversions or to obtain informations required to write a log.<br> All writing is done to current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">TTelemetryLogBinaryWriter</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a></b>:          TStream;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fFileInfo">fFileInfo</a></b>:        <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveMinimized">fSaveMinimized</a></b>:   Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveItemIDOnly">fSaveItemIDOnly</a></b>:  Boolean;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Create">Create</a></b>(Stream: TStream; FileInfo: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#StartWriting">StartWriting</a></b>; virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">LogData</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: Integer); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogText">LogText</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Text: TelemetryString); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogLog">LogLog</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; LogType: scs_log_type_t; const LogText: String); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogEventRegister">LogEventRegister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogEventUnregister">LogEventUnregister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogEvent">LogEvent</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t; Data: Pointer); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogChannelRegister">LogChannelRegister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogChannelUnregister">LogChannelUnregister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogChannel">LogChannel</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogConfig">LogConfig</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#EndWriting">EndWriting</a></b>; virtual; abstract;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveMinimized">SaveMinimized</a></b>: Boolean read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveMinimized">fSaveMinimized</a> write <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveMinimized">fSaveMinimized</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveItemIDOnly">SaveItemIDOnly</a></b>: Boolean read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveItemIDOnly">fSaveItemIDOnly</a> write <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveItemIDOnly">fSaveItemIDOnly</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fStream"></a><code><b>fStream</b>:          TStream;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> property for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fFileInfo"></a><code><b>fFileInfo</b>:        <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#FileInfo">FileInfo</a> property for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fSaveMinimized"></a><code><b>fSaveMinimized</b>:   Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveMinimized">SaveMinimized</a> property for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fSaveItemIDOnly"></a><code><b>fSaveItemIDOnly</b>:  Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveItemIDOnly">SaveItemIDOnly</a> property for details.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Stream: TStream; FileInfo: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Stream</dt>
+<dd>Stream to which the writer will write the log. Must not be <code>Nil</code>. It must have file header and API information already written in and position must be set directly after them (not at the start of the Stream!).</dd>
+<dt>FileInfo</dt>
+<dd>Informations about output file. It must be completely filled by logger that is creating current instance in order for this class to work properly. When not filled, the behavior of this class is not defined.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="StartWriting"></a><code>procedure <b>StartWriting</b>; virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that must be called before any log is written. Its job is to prepare anything that is necesary for actual logging (variables initialization, ...).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: Integer); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing generic data, that is, data without predefined structure.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Data</dt>
+<dd>Pointer to data to be written. Must not be <code>Nil</code>.</dd>
+<dt>Size</dt>
+<dd>Size of the data in bytes.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogText"></a><code>procedure <b>LogText</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Text: TelemetryString); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing any text.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Text</dt>
+<dd>Text to be written. Can be empty.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogLog"></a><code>procedure <b>LogLog</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; LogType: scs_log_type_t; const LogText: String); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write informations about a write to game log (console).
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>LogType</dt>
+<dd>Type of log written into game log (error, warning, ...).</dd>
+<dt>LogText</dt>
+<dd>Actual text written into game log.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEventRegister"></a><code>procedure <b>LogEventRegister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about game event registration.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Event</dt>
+<dd>Event identifier number.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEventUnregister"></a><code>procedure <b>LogEventUnregister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about game event unregistration.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Event</dt>
+<dd>Event identifier number.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEvent"></a><code>procedure <b>LogEvent</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t; Data: Pointer); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about game event.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Event</dt>
+<dd>Event identifier number.</dd>
+<dt>Data</dt>
+<dd>Pointer to data appended to currently logged event. Can be <code>Nil</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogChannelRegister"></a><code>procedure <b>LogChannelRegister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about channel registration.
+
+<p>     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Name</dt>
+<dd>Name of registered telemetry channel.</dd>
+<dt>ID</dt>
+<dd>ID of registered telemetry chanenl.</dd>
+<dt>Index</dt>
+<dd>Index of registered telemetry channel.</dd>
+<dt>ValueType</dt>
+<dd>Type of value of registered telemetry channel.</dd>
+<dt>Flags</dt>
+<dd>Registration flags.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogChannelUnregister"></a><code>procedure <b>LogChannelUnregister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about channel unregistration.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Name</dt>
+<dd>Name of unregistered telemetry channel.</dd>
+<dt>ID</dt>
+<dd>ID of unregistered telemetry chanenl.</dd>
+<dt>Index</dt>
+<dd>Index of unregistered telemetry channel.</dd>
+<dt>ValueType</dt>
+<dd>Type of value of unregistered telemetry channel.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogChannel"></a><code>procedure <b>LogChannel</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about received channel value.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Name</dt>
+<dd>Name of logged telemetry channel.</dd>
+<dt>ID</dt>
+<dd>ID of logged telemetry chanenl.</dd>
+<dt>Index</dt>
+<dd>Index of logged telemetry channel.</dd>
+<dt>Value</dt>
+<dd>Actual value of logged telemetry channel. Can be <code>Nil</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogConfig"></a><code>procedure <b>LogConfig</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method intended to write log containing informations about received config value.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Telemetry recipient. Must contain valid object.</dd>
+<dt>Name</dt>
+<dd>Name of logged config value.</dd>
+<dt>ID</dt>
+<dd>ID of logged config value.</dd>
+<dt>Index</dt>
+<dd>Index of logged config value.</dd>
+<dt>Value</dt>
+<dd>Actual value of logged config value.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EndWriting"></a><code>procedure <b>EndWriting</b>; virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method that must be called before destruction of instance. Its job is to free any allocated resources, write any buffered values or simply anything that has to be saved after the last log is written.</p>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Stream"></a><code>property <b>Stream</b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains reference to a stream that is used for to write log. Not initialized, filled in constructor.<br> <b>Warning</b> - do not change properties of this object!</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Information about file that is being written. Filled in constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SaveMinimized"></a><code>property <b>SaveMinimized</b>: Boolean read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveMinimized">fSaveMinimized</a> write <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveMinimized">fSaveMinimized</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Determines whether some values are stored minimized. Refer to functions with parameter <code>Minimize(d)</code> in unit <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> (eg. <a class="normal" href="TelemetryStreaming.html#Ptr_Write_scs_value">Ptr_Write_scs_value</a>) and to binary output documentation for details.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SaveItemIDOnly"></a><code>property <b>SaveItemIDOnly</b>: Boolean read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveItemIDOnly">fSaveItemIDOnly</a> write <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fSaveItemIDOnly">fSaveItemIDOnly</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Determines whether item names are stored as full strings or only as IDs. Refer to functions with parameter <code>ItemIDOnly</code> in unit <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> (eg. <a class="normal" href="TelemetryStreaming.html#Ptr_Write_scs_named_value">Ptr_Write_scs_named_value</a>) and to binary output documentation for details.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>

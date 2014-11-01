@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryNetLists: Class TAddressList</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TAddressList"></a><h1 class="cio">Class TAddressList</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryNetLists.html">TelemetryNetLists</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TAddressList = class(TStringList)</code></p>
+<h2 class="description">Description</h2>
+<p>
+List used to store addresses that can or cannot, depending on list mode, connect to the server.</p>
+<p>
+ Addresses are stored as strings. All comparisons are case insensitive.
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+<p></p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TStringList</li>
+<li class="thisitem">TAddressList</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetLists.TAddressList.html#fListMode">fListMode</a></b>:      <a  href="TelemetryNetLists.html#TAddressListMode">TAddressListMode</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryNetLists.TAddressList.html#fFileName">fFileName</a></b>:  String;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryNetLists.TAddressList.html#Create">Create</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TAddressList.html#ClientCanConnect">ClientCanConnect</a></b>(Address: String): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryNetLists.TAddressList.html#ClientIsInList">ClientIsInList</a></b>(Address: String): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetLists.TAddressList.html#SaveToFile">SaveToFile</a></b>(const FileName: String = ''); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryNetLists.TAddressList.html#LoadFromFile">LoadFromFile</a></b>(const FileName: String = ''); override;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetLists.TAddressList.html#ListMode">ListMode</a></b>: <a  href="TelemetryNetLists.html#TAddressListMode">TAddressListMode</a> read <a  href="TelemetryNetLists.TAddressList.html#fListMode">fListMode</a> write <a  href="TelemetryNetLists.TAddressList.html#fListMode">fListMode</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryNetLists.TAddressList.html#FileName">FileName</a></b>: String read <a  href="TelemetryNetLists.TAddressList.html#fFileName">fFileName</a> write <a  href="TelemetryNetLists.TAddressList.html#fFileName">fFileName</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fListMode"></a><code><b>fListMode</b>:      <a  href="TelemetryNetLists.html#TAddressListMode">TAddressListMode</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetLists.TAddressList.html#ListMode">ListMode</a> property.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fFileName"></a><code><b>fFileName</b>:  String;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryNetLists.TAddressList.html#FileName">FileName</a> property.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Object constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ClientCanConnect"></a><code>Function <b>ClientCanConnect</b>(Address: String): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Use this function to check, whether client on given address can or cannot connect.<br> Result of this function depends on <a class="normal" href="TelemetryNetLists.TAddressList.html#ListMode">ListMode</a> property value. When <a class="normal" href="TelemetryNetLists.TAddressList.html#ListMode">ListMode</a> is set to invalid/unknown value, this function returns <code>False</code>.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Address</dt>
+<dd>Address of connecting client as string.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when client is allowed to connect, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ClientIsInList"></a><code>Function <b>ClientIsInList</b>(Address: String): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Indicates whether given address is listed (case insensitive).
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Address</dt>
+<dd>Address to be checked in string format.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when address if found in list, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SaveToFile"></a><code>procedure <b>SaveToFile</b>(const FileName: String = ''); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Saves entire list to text file (one address per line).<br> When &quot;FileName&quot; parameter is set to an empty string, then the name of file to which the list is saved is taken from <a class="normal" href="TelemetryNetLists.TAddressList.html#FileName">FileName</a> property.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FileName</dt>
+<dd>Name of file (fully qualified path) to which the list will be saved.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LoadFromFile"></a><code>procedure <b>LoadFromFile</b>(const FileName: String = ''); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Clears the list and loads new content from text file.<br> When &quot;FileName&quot; parameter is set to an empty string, then the name of file from which the list is loaded is taken from <a class="normal" href="TelemetryNetLists.TAddressList.html#FileName">FileName</a> property.
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FileName</dt>
+<dd>Name of file (fully qualified path) from which the list will be loaded.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ListMode"></a><code>property <b>ListMode</b>: <a  href="TelemetryNetLists.html#TAddressListMode">TAddressListMode</a> read <a  href="TelemetryNetLists.TAddressList.html#fListMode">fListMode</a> write <a  href="TelemetryNetLists.TAddressList.html#fListMode">fListMode</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Property determining how the list will evaluate whether client can ot cannot connect (see <a class="normal" href="TelemetryNetLists.TAddressList.html#ClientCanConnect">ClientCanConnect</a> method for details). For available values and behaviour for each of them, refer to <a class="normal" href="TelemetryNetLists.html#TAddressListMode">TAddressListMode</a> enumerated type.<br> Initialized to lmBlackList.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FileName"></a><code>property <b>FileName</b>: String read <a  href="TelemetryNetLists.TAddressList.html#fFileName">fFileName</a> write <a  href="TelemetryNetLists.TAddressList.html#fFileName">fFileName</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+File name used in <a class="normal" href="TelemetryNetLists.TAddressList.html#SaveToFile">SaveToFile</a> and <a class="normal" href="TelemetryNetLists.TAddressList.html#LoadFromFile">LoadFromFile</a> methods. Refer to them for details.<br> Initialized in following way: </p>
+
+<pre class="longcode">
+    ExtractFilePath(GetModuleName(hInstance)) + def_AddressListFileName;</pre>
+
+<p> ...where <code>def_AddressListFileName</code> is string constant of value &quot;address.list.txt&quot; (without quotes). It means the file would be located in the same folder as executable or library compiled with this unit.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2013-10-18 17:02:31</em>
+</span>
+
+</body>
+</html>

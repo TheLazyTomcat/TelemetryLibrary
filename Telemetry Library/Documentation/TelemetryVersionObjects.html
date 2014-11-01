@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryVersionObjects</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="unit">Unit TelemetryVersionObjects</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td>Types</td><td>Constants</td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+Base classes for objects that are checked for telemetry and game version support.</p>
+<p>
+<hr>    
+
+<p><b>TelemetryVersionObjects</b>
+
+<p>©František Milt, all rights reserved.
+
+<p>Classes in this unit (for details, refer to declaration of individual class): </p>
+
+<pre class="preformatted">
+  TTelemetryAbstractVersionObject
+   |- TTelemetryVersionObject
+       |- TTelemetryVersionPrepareObject
+</pre>
+
+<p>
+
+<p>Last change: 2014-10-23
+
+<p>Change List:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>2013-10-17 - First stable version.</p></li>
+  <li><p>2014-04-06 - Type of parameters <code>GameName</code> and <code>GameID</code> in method <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForGameVersion">TTelemetryVersionPrepareObject.PrepareForGameVersion</a> changed to <code>TelemetryString</code>.</p></li>
+  <li><p>2014-04-06 - Added support for eut2 1.8.</p></li>
+  <li><p>2014-05-01 - Added method <a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#HighestSupportedGameVersion">TTelemetryAbstractVersionObject.HighestSupportedGameVersion</a> and its variants in descendant classes.</p></li>
+  <li><p>2014-10-23 - Added support for eut2 1.9.</p></li>
+  <li><p>2014-10-23 - Repaired bug in implementation of method <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionObject.html#HighestSupportedGameVersion">TTelemetryVersionObject.HighestSupportedGameVersion</a>.</p></li>
+  <li><p>2014-10-23 - Following methods were moved to public section:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForTelemetryVersion">TTelemetryVersionPrepareObject.PrepareForTelemetryVersion</a></p></li>
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForGameVersion">TTelemetryVersionPrepareObject.PrepareForGameVersion</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-10-23 - Added following methods:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareFor">TTelemetryVersionPrepareObject.PrepareFor</a></p></li>
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForParam">TTelemetryVersionPrepareObject.PrepareForParam</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-10-23 - Type of parameter <code>GameID</code> in following methods changed to <code>TelemetryString</code>:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#HighestSupportedGameVersion">TTelemetryAbstractVersionObject.HighestSupportedGameVersion</a></p></li>
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsGameVersion">TTelemetryAbstractVersionObject.SupportsGameVersion</a></p></li>
+  <li><p><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html#SupportsTelemetryAndGameVersion">TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersion</a></p></li>
+</ul>
+
+<p></p></li>
+</ul>
+
+<p>
+
+<p><hr></p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryStrings.html">TelemetryStrings</a></li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html"><code>TTelemetryAbstractVersionObject</code></a></td>
+<td class="itemdesc">Common, fully abstract ancestor for all classes that needs to be checked for version support before creation of an instance.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryVersionObjects.TTelemetryVersionObject.html"><code>TTelemetryVersionObject</code></a></td>
+<td class="itemdesc">Common ancestor for all classes that needs to be checked for version support before creation of an instance.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html"><code>TTelemetryVersionPrepareObject</code></a></td>
+<td class="itemdesc">Common ancestor for all classes that needs to be prepared for selected telemetry and/or game version.</td>
+</tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2013-10-17
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2014-10-23
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:25</em>
+</span>
+
+</body>
+</html>

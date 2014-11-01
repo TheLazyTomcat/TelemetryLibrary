@@ -1,0 +1,655 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLists</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<h1 class="unit">Unit TelemetryLists</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="description">Description</h2>
+<p>
+List classes used in Telemetry library.</p>
+<p>
+<hr>    
+
+<p><b>TelemetryLists</b>
+
+<p>©František Milt, all rights reserved.
+
+<p>Classes in this unit (for details, refer to declaration of individual class): </p>
+
+<pre class="preformatted">
+  TCustomTelemetryList
+   |- TKnownEventsList
+   |- TKnownChannelsList
+   |- TKnownConfigsList
+   |- TRegisteredEventsList
+   |- TRegisteredChannelsList
+   |- TStoredConfigsList
+   |- TStoredChannelsValuesList
+</pre>
+
+<p> Last change: 2014-06-07
+
+<p>Change List:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>2013-10-04 - First stable version.</p></li>
+  <li><p>2014-04-07 - Type of parameter <code>Item</code> in function <a class="normal" href="TelemetryIDs.html#GetItemID">GetItemID</a> changed to <code>TelemetryString</code>.</p></li>
+  <li><p>2014-04-07 - Field type changed to <code>TelemetryString</code> in following cases:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryLists.TKnownEvent.html#Name">TKnownEvent.Name</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannel.html#Name">TKnownChannel.Name</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannel.html#IndexConfig">TKnownChannel.IndexConfig</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfig.html#Name">TKnownConfig.Name</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TChannelInfo.html#Name">TChannelInfo.Name</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredConfig.html#Name">TStoredConfig.Name</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredChannel.html#Name">TStoredChannel.Name</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-04-07 - Type of parameters <code>Name</code> and <code>IndexConfig</code> changed to <code>TelemetryString</code> in following methods: </p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryLists.TKnownEventsList.html#IndexOf">TKnownEventsList.IndexOf</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownEventsList.html#Add">TKnownEventsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownEventsList.html#ReplaceIndex">TKnownEventsList.ReplaceIndex</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownEventsList.html#Replace">TKnownEventsList.Replace</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownEventsList.html#Insert">TKnownEventsList.Insert</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#IndexOf">TKnownChannelsList.IndexOf</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#Add">TKnownChannelsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">TKnownChannelsList.ReplaceIndex</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#Replace">TKnownChannelsList.Replace</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#Insert">TKnownChannelsList.Insert</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#Remove">TKnownChannelsList.Remove</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#ChannelIndexConfigID">TKnownChannelsList.ChannelIndexConfigID</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#ChannelNameToID">TKnownChannelsList.ChannelNameToID</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#IndexOf">TKnownConfigsList.IndexOf</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#Add">TKnownConfigsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#ReplaceIndex">TKnownConfigsList.ReplaceIndex</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#Replace">TKnownConfigsList.Replace</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#Insert">TKnownConfigsList.Insert</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#Remove">TKnownConfigsList.Remove</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#IsBinded">TKnownConfigsList.IsBinded</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#IsIndexed">TKnownConfigsList.IsIndexed</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#ConfigNameToID">TKnownConfigsList.ConfigNameToID</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#IndexOf">TRegisteredChannelsList.IndexOf</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#Add">TRegisteredChannelsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#Remove">TRegisteredChannelsList.Remove</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#CreateContext">TRegisteredChannelsList.CreateContext</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredConfigsList.html#IndexOf">TStoredConfigsList.IndexOf</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredConfigsList.html#Add">TStoredConfigsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredConfigsList.html#Remove">TStoredConfigsList.Remove</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredConfigsList.html#ChangeConfigValue">TStoredConfigsList.ChangeConfigValue</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html#IndexOf">TStoredChannelsValuesList.IndexOf</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html#StoreChannelValue">TStoredChannelsValuesList.StoreChannelValue</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-04-07 - Result type changed to <code>TelemetryString</code> for following methods:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryLists.TKnownChannelsList.html#ChannelIDToName">TKnownChannelsList.ChannelIDToName</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TKnownConfigsList.html#ConfigIDToName">TKnownConfigsList.ConfigIDToName</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-04-11 - Added multicast event <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChangeMulti">TCustomTelemetryList.OnChangeMulti</a>.</p></li>
+  <li><p>2014-04-13 - Name of the class <code>TStoredChannelValuesList</code> changed to <code>TStoredChannelsValuesList</code>.</p></li>
+  <li><p>2014-04-14 - <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class now stores fully qualified configuration value names instead of just attribute names.</p></li>
+  <li><p>2014-04-15 - Declarations of following types were moved to unit <a class="normal" href="TelemetryIDs.html">TelemetryIDs</a>:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryIDs.html#TItemID">TItemID</a></p></li>
+  <li><p><a class="normal" href="TelemetryIDs.html#PItemID">PItemID</a></p></li>
+  <li><p><a class="normal" href="TelemetryIDs.html#TChannelID">TChannelID</a></p></li>
+  <li><p><a class="normal" href="TelemetryIDs.html#PChannelID">PChannelID</a></p></li>
+  <li><p><a class="normal" href="TelemetryIDs.html#TConfigID">TConfigID</a></p></li>
+  <li><p><a class="normal" href="TelemetryIDs.html#PConfigID">PConfigID</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-04-15 - Function <a class="normal" href="TelemetryIDs.html#GetItemID">GetItemID</a> was moved to unit <a class="normal" href="TelemetryIDs.html">TelemetryIDs</a>.</p></li>
+  <li><p>2014-05-04 - Following callback functions were added:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryLists.html#GetChannelIDFromName">GetChannelIDFromName</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.html#GetChannelNameFromID">GetChannelNameFromID</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.html#GetConfigIDFromName">GetConfigIDFromName</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.html#GetConfigNameFromID">GetConfigNameFromID</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-06-07 - Added field <code>MaxIndex</code> to <a class="normal" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> record.</p></li>
+</ul>
+
+<p>
+
+<p><hr></p>
+<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>Classes</li><li>MulticastEvent</li><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryIDs.html">TelemetryIDs</a></li><li><a  href="TelemetryConversions.html">TelemetryConversions</a></li><li><a  href="TelemetryStrings.html">TelemetryStrings</a></li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TCustomTelemetryList.html"><code>TCustomTelemetryList</code></a></td>
+<td class="itemdesc">Ancestor class for all other list classes in <a class="normal" href="TelemetryLists.html">TelemetryLists</a> unit.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TKnownEvent.html"><code>TKnownEvent</code></a></td>
+<td class="itemdesc">Structure used as an item in <a class="normal" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a> class.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TKnownEventsList.html"><code>TKnownEventsList</code></a></td>
+<td class="itemdesc"> List used to store informations about known telemetry events.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TKnownChannel.html"><code>TKnownChannel</code></a></td>
+<td class="itemdesc">Structure used as an item in <a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> class.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TKnownChannelsList.html"><code>TKnownChannelsList</code></a></td>
+<td class="itemdesc"> List used to store informations about known telemetry channels.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TKnownConfig.html"><code>TKnownConfig</code></a></td>
+<td class="itemdesc">Structure used as item in <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TKnownConfigsList.html"><code>TKnownConfigsList</code></a></td>
+<td class="itemdesc"> List used to store informations about known telemetry configurations values.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TEventInfo.html"><code>TEventInfo</code></a></td>
+<td class="itemdesc">Structure holding informations about registered event.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TEventContext.html"><code>TEventContext</code></a></td>
+<td class="itemdesc">Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TRegisteredEventsList.html"><code>TRegisteredEventsList</code></a></td>
+<td class="itemdesc">List used to store contexts of registered events.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TChannelInfo.html"><code>TChannelInfo</code></a></td>
+<td class="itemdesc">Structure holding informations about registered channel.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TChannelContext.html"><code>TChannelContext</code></a></td>
+<td class="itemdesc">Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TRegisteredChannelsList.html"><code>TRegisteredChannelsList</code></a></td>
+<td class="itemdesc">List used to store contexts of registered channels.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TStoredConfig.html"><code>TStoredConfig</code></a></td>
+<td class="itemdesc">Structure used as item in <a class="normal" href="TelemetryLists.TStoredConfigsList.html">TStoredConfigsList</a>.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TStoredConfigsList.html"><code>TStoredConfigsList</code></a></td>
+<td class="itemdesc">List used to store configuration values obtained from API calls.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TStoredChannel.html"><code>TStoredChannel</code></a></td>
+<td class="itemdesc">Structure used to store channel value obtained form API.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryLists.TStoredChannelMasterID.html"><code>TStoredChannelMasterID</code></a></td>
+<td class="itemdesc">Structure used as item in <a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a>.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLists.TStoredChannelsValuesList.html"><code>TStoredChannelsValuesList</code></a></td>
+<td class="itemdesc">List used to store channels values obtained from API calls.</td>
+</tr>
+</table>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.html#GetMasterID">GetMasterID</a></b>(ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t): <a  href="TelemetryLists.html#TMasterID">TMasterID</a>; register;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.html#GetChannelIDFromName">GetChannelIDFromName</a></b>(const Name: TelemetryString; KnownChannels: Pointer): <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.html#GetChannelNameFromID">GetChannelNameFromID</a></b>(ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; KnownChannels: Pointer): TelemetryString;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.html#GetConfigIDFromName">GetConfigIDFromName</a></b>(const Name: TelemetryString; KnownConfigs: Pointer): <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.html#GetConfigNameFromID">GetConfigNameFromID</a></b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; KnownConfigs: Pointer): TelemetryString;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PKnownEvent">PKnownEvent</a></b> = &circ;<a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PKnownChannel">PKnownChannel</a></b> = &circ;<a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PKnownConfig">PKnownConfig</a></b> = &circ;<a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PEventInfo">PEventInfo</a></b> = &circ;<a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PEventContext">PEventContext</a></b> = &circ;<a  href="TelemetryLists.TEventContext.html">TEventContext</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PChannelInfo">PChannelInfo</a></b> = &circ;<a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PChannelContext">PChannelContext</a></b> = &circ;<a  href="TelemetryLists.TChannelContext.html">TChannelContext</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PStoredConfig">PStoredConfig</a></b> = &circ;<a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#TMasterID">TMasterID</a></b> = LongWord;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PStoredChannel">PStoredChannel</a></b> = &circ;<a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#PStoredChannelMasterID">PStoredChannelMasterID</a></b> = &circ;<a  href="TelemetryLists.TStoredChannelMasterID.html">TStoredChannelMasterID</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#cEmptyKnownEvent">cEmptyKnownEvent</a></b>: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> =
+   (Event:    SCS_TELEMETRY_EVENT_invalid;
+    Name:     '';
+    Valid:    False;
+    Utility:  False);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#cEmptyKnownChannel">cEmptyKnownChannel</a></b>: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> =
+   (Name:           '';
+    ID:             0;
+    PrimaryType:    SCS_VALUE_TYPE_INVALID;
+    SecondaryType:  SCS_VALUE_TYPE_INVALID;
+    TertiaryType:   SCS_VALUE_TYPE_INVALID;
+    Indexed:        False;
+    IndexConfig:    '';
+    IndexConfigID:  0;
+    MaxIndex:       SCS_U32_NIL);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#cEmptyKnownConfig">cEmptyKnownConfig</a></b>: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a> =
+   (Name:       '';
+    ID:         0;
+    ValueType:  SCS_VALUE_TYPE_INVALID;
+    Indexed:    False;
+    Binded:     False);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#cEmptyEventInfo">cEmptyEventInfo</a></b>: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a> =
+   (Event:    SCS_TELEMETRY_EVENT_invalid;
+    Utility:  False);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#cEmptyChannelInfo">cEmptyChannelInfo</a></b>: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a> =
+   (Name:           '';
+    ID:             0;
+    Index:          SCS_U32_NIL;
+    ValueType:      SCS_VALUE_TYPE_INVALID;
+    Flags:          0;
+    IndexConfigID:  0);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#cEmptyStoredConfig">cEmptyStoredConfig</a></b>: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a> =
+   (Name:   '';
+    ID:     0;
+    Index:  SCS_U32_NIL;
+    Value: (
+      ValueType:  SCS_VALUE_TYPE_INVALID;
+      BinaryData: (
+        _type: SCS_VALUE_TYPE_INVALID);
+      StringData: '');
+    Binded: True);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetMasterID"></a><code>Function <b>GetMasterID</b>(ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t): <a  href="TelemetryLists.html#TMasterID">TMasterID</a>; register;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Function used to calculate master identification number which is used in <a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a>.</p>
+<p>
+<br> This number is used in searching and sorting algorithms and is calculated from channel ID, Index and ValueType.<br> At the moment, it is calculated by the formula:<br> </p>
+
+<pre class="longcode">MasterID := (ID <span class="pascal_keyword">xor</span> <span class="pascal_keyword">Index</span>) <span class="pascal_keyword">xor</span> <span class="pascal_keyword">not</span> ValueType;</pre>
+
+<p>
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>Channel ID.</dd>
+<dt>Index</dt>
+<dd>Channel index.</dd>
+<dt>ValueType</dt>
+<dd>Channel ValueType.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Master identification number.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetChannelIDFromName"></a><code>Function <b>GetChannelIDFromName</b>(const Name: TelemetryString; KnownChannels: Pointer): <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Function intended as callback for streaming functions, converting channel name to ID.</p>
+<p>
+ <code>UserData</code> passed to streaming function along with this callback must contain valid <a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> object.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Channel name to be converted to ID.</dd>
+<dt>KnownChannels</dt>
+<dd><a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> object that will be used for actual conversion.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Channel ID obtained from passed name.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetChannelNameFromID"></a><code>Function <b>GetChannelNameFromID</b>(ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; KnownChannels: Pointer): TelemetryString;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Function intended as callback for streaming functions, converting channel ID to name.</p>
+<p>
+ <code>UserData</code> passed to streaming function along with this callback must contain valid <a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> object.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>Channel ID to be converted to name.</dd>
+<dt>KnownChannels</dt>
+<dd><a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> object that will be used for actual conversion.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Channel name obtained from passed ID.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetConfigIDFromName"></a><code>Function <b>GetConfigIDFromName</b>(const Name: TelemetryString; KnownConfigs: Pointer): <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Function intended as callback for streaming functions, converting config name to ID.</p>
+<p>
+ <code>UserData</code> passed to streaming function along with this callback must contain valid <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> object.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Config name to be converted to ID.</dd>
+<dt>KnownChannels</dt>
+<dd><a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> object that will be used for actual conversion.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Config ID obtained from passed name.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="GetConfigNameFromID"></a><code>Function <b>GetConfigNameFromID</b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; KnownConfigs: Pointer): TelemetryString;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Function intended as callback for streaming functions, converting ID to config name.</p>
+<p>
+ <code>UserData</code> passed to streaming function along with this callback must contain valid <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> object.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>Config ID to be converted to name.</dd>
+<dt>KnownChannels</dt>
+<dd><a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> object that will be used for actual conversion.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Config name obtained from passed ID.</p></td></tr>
+</table>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PKnownEvent"></a><code><b>PKnownEvent</b> = &circ;<a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PKnownChannel"></a><code><b>PKnownChannel</b> = &circ;<a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PKnownConfig"></a><code><b>PKnownConfig</b> = &circ;<a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TKnownConfig.html">TKnownConfig</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PEventInfo"></a><code><b>PEventInfo</b> = &circ;<a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TEventInfo.html">TEventInfo</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PEventContext"></a><code><b>PEventContext</b> = &circ;<a  href="TelemetryLists.TEventContext.html">TEventContext</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TEventContext.html">TEventContext</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PChannelInfo"></a><code><b>PChannelInfo</b> = &circ;<a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TChannelInfo.html">TChannelInfo</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PChannelContext"></a><code><b>PChannelContext</b> = &circ;<a  href="TelemetryLists.TChannelContext.html">TChannelContext</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TChannelContext.html">TChannelContext</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PStoredConfig"></a><code><b>PStoredConfig</b> = &circ;<a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TStoredConfig.html">TStoredConfig</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TMasterID"></a><code><b>TMasterID</b> = LongWord;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identification number used in <a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a> for faster searching.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PStoredChannel"></a><code><b>PStoredChannel</b> = &circ;<a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryLists.TStoredChannel.html">TStoredChannel</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PStoredChannelMasterID"></a><code><b>PStoredChannelMasterID</b> = &circ;<a  href="TelemetryLists.TStoredChannelMasterID.html">TStoredChannelMasterID</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to TStoredChannelSorted structure.</p>
+</td></tr>
+</table>
+<h3 class="detail">Constants</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptyKnownEvent"></a><code><b>cEmptyKnownEvent</b>: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> =
+   (Event:    SCS_TELEMETRY_EVENT_invalid;
+    Name:     '';
+    Valid:    False;
+    Utility:  False);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty <a class="normal" href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptyKnownChannel"></a><code><b>cEmptyKnownChannel</b>: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> =
+   (Name:           '';
+    ID:             0;
+    PrimaryType:    SCS_VALUE_TYPE_INVALID;
+    SecondaryType:  SCS_VALUE_TYPE_INVALID;
+    TertiaryType:   SCS_VALUE_TYPE_INVALID;
+    Indexed:        False;
+    IndexConfig:    '';
+    IndexConfigID:  0;
+    MaxIndex:       SCS_U32_NIL);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty <a class="normal" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptyKnownConfig"></a><code><b>cEmptyKnownConfig</b>: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a> =
+   (Name:       '';
+    ID:         0;
+    ValueType:  SCS_VALUE_TYPE_INVALID;
+    Indexed:    False;
+    Binded:     False);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty <a class="normal" href="TelemetryLists.TKnownConfig.html">TKnownConfig</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptyEventInfo"></a><code><b>cEmptyEventInfo</b>: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a> =
+   (Event:    SCS_TELEMETRY_EVENT_invalid;
+    Utility:  False);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty <a class="normal" href="TelemetryLists.TEventInfo.html">TEventInfo</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptyChannelInfo"></a><code><b>cEmptyChannelInfo</b>: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a> =
+   (Name:           '';
+    ID:             0;
+    Index:          SCS_U32_NIL;
+    ValueType:      SCS_VALUE_TYPE_INVALID;
+    Flags:          0;
+    IndexConfigID:  0);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty <a class="normal" href="TelemetryLists.TEventInfo.html">TEventInfo</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="cEmptyStoredConfig"></a><code><b>cEmptyStoredConfig</b>: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a> =
+   (Name:   '';
+    ID:     0;
+    Index:  SCS_U32_NIL;
+    Value: (
+      ValueType:  SCS_VALUE_TYPE_INVALID;
+      BinaryData: (
+        _type: SCS_VALUE_TYPE_INVALID);
+      StringData: '');
+    Binded: True);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty <a class="normal" href="TelemetryLists.TStoredConfig.html">TStoredConfig</a> structure.</p>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2013-10-04
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2014-06-07
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+</span>
+
+</body>
+</html>
