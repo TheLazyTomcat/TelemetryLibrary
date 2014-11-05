@@ -3,7 +3,7 @@
           or stream.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-06)
-@lastmod(2014-05-06)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryStreaming))
 
@@ -35,10 +35,19 @@
         events, channels and configs).)
 )
 
-  Last change:  2014-05-06
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
-    @item(2014-05-06 - First stable version.))
+    @item(2014-05-06 - First stable version.)
+    @item(2014-11-02 - Small implementation changes.)
+    @item(2014-11-05 - Type of result changed from signed to unsigned integer in
+                       functions returning number of written/read bytes or size
+                       of some structure or required memory (there is too many
+                       such functions to list them here).)
+    @item(2014-11-05 - Type of parameters @code(Size) and @code(BytesRead)
+                       changed from signed to unsigned integer in all functions
+                       with those parameters (there is too many such functions
+                       to list them here).))
 
 @html(<hr>)}
 unit TelemetryStreaming;
@@ -61,7 +70,7 @@ uses
 {$ENDIF}
 
 {==============================================================================}
-{    Unit public types                                                         }
+{   Unit public types                                                          }
 {==============================================================================}
 
 type
@@ -86,7 +95,7 @@ type
   TIDNameFunc = Function(ID: TItemID; UserData: Pointer): TelemetryString;
 
 {==============================================================================}
-{    Unit Functions and procedures declarations                                }
+{   Unit Functions and procedures declarations                                 }
 {==============================================================================}
 
 {
@@ -99,10 +108,10 @@ type
 
   @returns Size required for storing passed string in general memory.
 }
-Function SizeOfString(const Str: UTF8String = ''): Integer;
+Function SizeOfString(const Str: UTF8String = ''): LongWord;
 
 {==============================================================================}
-{    Simple varibles storing and loading (memory)                              }
+{   Simple varibles storing and loading (memory)                               }
 {==============================================================================}
 {
   @abstract(Writes string to general memory location.)
@@ -124,7 +133,7 @@ Function SizeOfString(const Str: UTF8String = ''): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): Integer;
+Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -139,7 +148,7 @@ Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advanc
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): Integer;
+Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -153,7 +162,7 @@ Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boole
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): Integer;
+Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -167,7 +176,7 @@ Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boo
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): Integer;
+Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -181,7 +190,7 @@ Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boole
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean = True): Integer;
+Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -195,7 +204,7 @@ Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean = True): Integer;
+Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -209,7 +218,7 @@ Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean =
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boolean = True): Integer;
+Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -223,7 +232,7 @@ Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boole
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean = True): Integer;
+Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -237,7 +246,7 @@ Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boolean = True): Integer;
+Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -251,7 +260,7 @@ Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boole
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean = True): Integer;
+Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -265,7 +274,7 @@ Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): Integer;
+Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -279,7 +288,7 @@ Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boo
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): Integer;
+Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -293,7 +302,7 @@ Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boole
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean = True): Integer;
+Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -307,7 +316,7 @@ Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean =
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = True): Integer;
+Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -322,7 +331,7 @@ Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = T
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -337,7 +346,7 @@ Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: Integer; 
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //==============================================================================
 
@@ -433,7 +442,7 @@ Function Ptr_ReadoutBoolean(var Source: Pointer; Advance: Boolean = True): Boole
 Function Ptr_ReadoutByte(var Source: Pointer; Advance: Boolean = True): Byte;
 
 {==============================================================================}
-{    Simple varibles storing and loading (stream)                              }
+{   Simple varibles storing and loading (stream)                               }
 {==============================================================================}
 
 {
@@ -445,7 +454,7 @@ Function Ptr_ReadoutByte(var Source: Pointer; Advance: Boolean = True): Byte;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteString(Stream: TStream; const Str: UTF8String): Integer;
+Function Stream_WriteString(Stream: TStream; const Str: UTF8String): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -457,7 +466,7 @@ Function Stream_WriteString(Stream: TStream; const Str: UTF8String): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadString(Stream: TStream; out Str: UTF8String): Integer;
+Function Stream_ReadString(Stream: TStream; out Str: UTF8String): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -480,7 +489,7 @@ Function Stream_ReadoutString(Stream: TStream): UTF8String;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteInteger(Stream: TStream; Value: LongInt): Integer;
+Function Stream_WriteInteger(Stream: TStream; Value: LongInt): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -492,7 +501,7 @@ Function Stream_WriteInteger(Stream: TStream; Value: LongInt): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): Integer;
+Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -515,7 +524,7 @@ Function Stream_ReadoutInteger(Stream: TStream): LongInt;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteInt64(Stream: TStream; Value: Int64): Integer;
+Function Stream_WriteInt64(Stream: TStream; Value: Int64): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -527,7 +536,7 @@ Function Stream_WriteInt64(Stream: TStream; Value: Int64): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadInt64(Stream: TStream; out Value: Int64): Integer;
+Function Stream_ReadInt64(Stream: TStream; out Value: Int64): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -550,7 +559,7 @@ Function Stream_ReadoutInt64(Stream: TStream): Int64;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteSingle(Stream: TStream; Value: Single): Integer;
+Function Stream_WriteSingle(Stream: TStream; Value: Single): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -562,7 +571,7 @@ Function Stream_WriteSingle(Stream: TStream; Value: Single): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadSingle(Stream: TStream; out Value: Single): Integer;
+Function Stream_ReadSingle(Stream: TStream; out Value: Single): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -585,7 +594,7 @@ Function Stream_ReadoutSingle(Stream: TStream): Single;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteDouble(Stream: TStream; Value: Double): Integer;
+Function Stream_WriteDouble(Stream: TStream; Value: Double): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -597,7 +606,7 @@ Function Stream_WriteDouble(Stream: TStream; Value: Double): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadDouble(Stream: TStream; out Value: Double): Integer;
+Function Stream_ReadDouble(Stream: TStream; out Value: Double): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -620,7 +629,7 @@ Function Stream_ReadoutDouble(Stream: TStream): Double;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): Integer;
+Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -632,7 +641,7 @@ Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): Integer;
+Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -655,7 +664,7 @@ Function Stream_ReadoutBoolean(Stream: TStream): Boolean;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteByte(Stream: TStream; Value: Byte): Integer;
+Function Stream_WriteByte(Stream: TStream; Value: Byte): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -667,7 +676,7 @@ Function Stream_WriteByte(Stream: TStream; Value: Byte): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_ReadByte(Stream: TStream; out Value: Byte): Integer;
+Function Stream_ReadByte(Stream: TStream; out Value: Byte): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -691,7 +700,7 @@ Function Stream_ReadoutByte(Stream: TStream): Byte;
 
   @returns Number of bytes written.
 }
-Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: Integer): Integer;
+Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: LongWord): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -704,10 +713,10 @@ Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: Integer): Integ
 
   @returns Number of bytes read.
 }
-Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: Integer): Integer;
+Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: LongWord): LongWord;
 
 {==============================================================================}
-{    SDK types storing and loading                                             }
+{   SDK types storing and loading                                              }
 {==============================================================================}
 
 {
@@ -721,7 +730,7 @@ Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: Integer): Integer;
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): Integer;
+Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -767,7 +776,7 @@ Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False): Integer;
+Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -788,7 +797,7 @@ Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size:
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): Integer;
+Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -804,7 +813,7 @@ Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boo
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): Integer;
+Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -820,7 +829,7 @@ Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;
+Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;
 
 //------------------------------------------------------------------------------
 
@@ -836,7 +845,7 @@ Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: Integer; Adva
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): Integer;
+Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -850,7 +859,7 @@ Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: B
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): Integer;
+Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -864,7 +873,7 @@ Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimize
 
   @returns Output value.
 }
-Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False): scs_value_t;
+Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): scs_value_t;
 
 //==============================================================================
 
@@ -879,7 +888,7 @@ Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: Integer; Minim
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolean = False): Integer;
+Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -905,7 +914,7 @@ Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolea
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_value_localized_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False): Integer;
+Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_value_localized_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -926,7 +935,7 @@ Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_valu
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_localized_t; Minimize: Boolean = False): Integer;
+Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_localized_t; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -943,7 +952,7 @@ Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_locali
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False): Integer;
+Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -960,7 +969,7 @@ Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False): scs_value_localized_t;
+Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): scs_value_localized_t;
 
 //------------------------------------------------------------------------------
 
@@ -976,7 +985,7 @@ Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: Int
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_localized_t; Minimize: Boolean = False): Integer;
+Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_localized_t; Minimize: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -990,7 +999,7 @@ Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_loca
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_localized_t; Minimized: Boolean = False): Integer;
+Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_localized_t; Minimized: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1004,7 +1013,7 @@ Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_l
 
   @returns Output value.
 }
-Function Stream_Readout_scs_value_localized(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False): scs_value_localized_t;
+Function Stream_Readout_scs_value_localized(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): scs_value_localized_t;
 
 //==============================================================================
 
@@ -1021,7 +1030,7 @@ Function Stream_Readout_scs_value_localized(Stream: TStream; out BytesRead: Inte
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1065,7 +1074,7 @@ Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = Fals
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1094,7 +1103,7 @@ Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_va
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1119,7 +1128,7 @@ Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; M
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1144,7 +1153,7 @@ Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_valu
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 
 //------------------------------------------------------------------------------
 
@@ -1169,7 +1178,7 @@ Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: Integer
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1191,7 +1200,7 @@ Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t;
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1213,7 +1222,7 @@ Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value
 
   @returns Output value.
 }
-Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 
 //==============================================================================
 
@@ -1230,7 +1239,7 @@ Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: Integer;
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1266,7 +1275,7 @@ Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Mini
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1295,7 +1304,7 @@ Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: sc
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1320,7 +1329,7 @@ Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1345,7 +1354,7 @@ Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 
 //------------------------------------------------------------------------------
 
@@ -1371,7 +1380,7 @@ Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRea
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1393,7 +1402,7 @@ Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_name
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1415,7 +1424,7 @@ Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_n
 
   @returns Output value.
 }
-Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 
 //==============================================================================
 
@@ -1432,7 +1441,7 @@ Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1488,7 +1497,7 @@ Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; 
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1520,7 +1529,7 @@ Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: 
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1548,7 +1557,7 @@ Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_tele
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1576,7 +1585,7 @@ Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: sc
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
 
 //------------------------------------------------------------------------------
 
@@ -1603,7 +1612,7 @@ Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesR
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1627,7 +1636,7 @@ Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_te
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1651,7 +1660,7 @@ Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs
 
   @returns Output value.
 }
-Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
 
 //==============================================================================
 
@@ -1668,7 +1677,7 @@ Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRe
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1706,7 +1715,7 @@ Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configu
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1737,7 +1746,7 @@ Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointe
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1765,7 +1774,7 @@ Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1793,7 +1802,7 @@ Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
 
 //------------------------------------------------------------------------------
 
@@ -1820,7 +1829,7 @@ Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; 
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1844,7 +1853,7 @@ Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Val
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1868,10 +1877,10 @@ Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out 
 
   @returns Output value.
 }
-Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
 
 {==============================================================================}
-{    Telemetry library types storing and loading                               }
+{   Telemetry library types storing and loading                                }
 {==============================================================================}
 
 {
@@ -1882,7 +1891,7 @@ Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; o
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_KnownEvent(Value: TKnownEvent): Integer;
+Function Size_KnownEvent(Value: TKnownEvent): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1910,7 +1919,7 @@ Function Size_KnownEvent(Value: TKnownEvent): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1929,7 +1938,7 @@ Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_KnownEvent(out Ptr: Pointer; Value: TKnownEvent): Integer;
+Function Ptr_Store_KnownEvent(out Ptr: Pointer; Value: TKnownEvent): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1943,7 +1952,7 @@ Function Ptr_Store_KnownEvent(out Ptr: Pointer; Value: TKnownEvent): Integer;
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_KnownEvent(var Source: Pointer; out Value: TKnownEvent; Advance: Boolean = True): Integer;
+Function Ptr_Read_KnownEvent(var Source: Pointer; out Value: TKnownEvent; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1957,7 +1966,7 @@ Function Ptr_Read_KnownEvent(var Source: Pointer; out Value: TKnownEvent; Advanc
 
   @returns Output value.
 }
-Function Ptr_Readout_KnownEvent(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TKnownEvent;
+Function Ptr_Readout_KnownEvent(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TKnownEvent;
 
 //------------------------------------------------------------------------------
 
@@ -1971,7 +1980,7 @@ Function Ptr_Readout_KnownEvent(var Source: Pointer; out BytesRead: Integer; Adv
 
   @returns Number of bytes written.
 }
-Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): Integer;
+Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1983,7 +1992,7 @@ Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): Integer;
+Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -1995,7 +2004,7 @@ Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): Intege
 
   @returns Output value.
 }
-Function Stream_Readout_KnownEvent(Stream: TStream; out BytesRead: Integer): TKnownEvent;
+Function Stream_Readout_KnownEvent(Stream: TStream; out BytesRead: LongWord): TKnownEvent;
 
 //==============================================================================
 
@@ -2007,7 +2016,7 @@ Function Stream_Readout_KnownEvent(Stream: TStream; out BytesRead: Integer): TKn
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_KnownChannel(Value: TKnownChannel): Integer;
+Function Size_KnownChannel(Value: TKnownChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2040,7 +2049,7 @@ Function Size_KnownChannel(Value: TKnownChannel): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2059,7 +2068,7 @@ Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; 
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_KnownChannel(out Ptr: Pointer; Value: TKnownChannel): Integer;
+Function Ptr_Store_KnownChannel(out Ptr: Pointer; Value: TKnownChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2073,7 +2082,7 @@ Function Ptr_Store_KnownChannel(out Ptr: Pointer; Value: TKnownChannel): Integer
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_KnownChannel(var Source: Pointer; out Value: TKnownChannel; Advance: Boolean = True): Integer;
+Function Ptr_Read_KnownChannel(var Source: Pointer; out Value: TKnownChannel; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2087,7 +2096,7 @@ Function Ptr_Read_KnownChannel(var Source: Pointer; out Value: TKnownChannel; Ad
 
   @returns Output value.
 }
-Function Ptr_Readout_KnownChannel(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TKnownChannel;
+Function Ptr_Readout_KnownChannel(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TKnownChannel;
 
 //------------------------------------------------------------------------------
 
@@ -2101,7 +2110,7 @@ Function Ptr_Readout_KnownChannel(var Source: Pointer; out BytesRead: Integer; A
 
   @returns Number of bytes written.
 }
-Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): Integer;
+Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2113,7 +2122,7 @@ Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): Integ
 
   @returns Number of bytes read.
 }
-Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): Integer;
+Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2125,7 +2134,7 @@ Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): In
 
   @returns Output value.
 }
-Function Stream_Readout_KnownChannel(Stream: TStream; out BytesRead: Integer): TKnownChannel;
+Function Stream_Readout_KnownChannel(Stream: TStream; out BytesRead: LongWord): TKnownChannel;
 
 //==============================================================================
 
@@ -2137,7 +2146,7 @@ Function Stream_Readout_KnownChannel(Stream: TStream; out BytesRead: Integer): T
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_KnownConfig(Value: TKnownConfig): Integer;
+Function Size_KnownConfig(Value: TKnownConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2166,7 +2175,7 @@ Function Size_KnownConfig(Value: TKnownConfig): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2185,7 +2194,7 @@ Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Si
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_KnownConfig(out Ptr: Pointer; Value: TKnownConfig): Integer;
+Function Ptr_Store_KnownConfig(out Ptr: Pointer; Value: TKnownConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2199,7 +2208,7 @@ Function Ptr_Store_KnownConfig(out Ptr: Pointer; Value: TKnownConfig): Integer;
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_KnownConfig(var Source: Pointer; out Value: TKnownConfig; Advance: Boolean = True): Integer;
+Function Ptr_Read_KnownConfig(var Source: Pointer; out Value: TKnownConfig; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2213,7 +2222,7 @@ Function Ptr_Read_KnownConfig(var Source: Pointer; out Value: TKnownConfig; Adva
 
   @returns Output value.
 }
-Function Ptr_Readout_KnownConfig(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TKnownConfig;
+Function Ptr_Readout_KnownConfig(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TKnownConfig;
 
 //------------------------------------------------------------------------------
 
@@ -2227,7 +2236,7 @@ Function Ptr_Readout_KnownConfig(var Source: Pointer; out BytesRead: Integer; Ad
 
   @returns Number of bytes written.
 }
-Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): Integer;
+Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2239,7 +2248,7 @@ Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): Integer
 
   @returns Number of bytes read.
 }
-Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): Integer;
+Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2251,7 +2260,7 @@ Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): Inte
 
   @returns Output value.
 }
-Function Stream_Readout_KnownConfig(Stream: TStream; out BytesRead: Integer): TKnownConfig;
+Function Stream_Readout_KnownConfig(Stream: TStream; out BytesRead: LongWord): TKnownConfig;
 
 //==============================================================================
 
@@ -2263,7 +2272,7 @@ Function Stream_Readout_KnownConfig(Stream: TStream; out BytesRead: Integer): TK
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_EventInfo(Value: TEventInfo): Integer;
+Function Size_EventInfo(Value: TEventInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2289,7 +2298,7 @@ Function Size_EventInfo(Value: TEventInfo): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2308,7 +2317,7 @@ Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: 
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_EventInfo(out Ptr: Pointer; Value: TEventInfo): Integer;
+Function Ptr_Store_EventInfo(out Ptr: Pointer; Value: TEventInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2322,7 +2331,7 @@ Function Ptr_Store_EventInfo(out Ptr: Pointer; Value: TEventInfo): Integer;
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_EventInfo(var Source: Pointer; out Value: TEventInfo; Advance: Boolean = True): Integer;
+Function Ptr_Read_EventInfo(var Source: Pointer; out Value: TEventInfo; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2336,7 +2345,7 @@ Function Ptr_Read_EventInfo(var Source: Pointer; out Value: TEventInfo; Advance:
 
   @returns Output value.
 }
-Function Ptr_Readout_EventInfo(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TEventInfo;
+Function Ptr_Readout_EventInfo(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TEventInfo;
 
 //------------------------------------------------------------------------------
 
@@ -2350,7 +2359,7 @@ Function Ptr_Readout_EventInfo(var Source: Pointer; out BytesRead: Integer; Adva
 
   @returns Number of bytes written.
 }
-Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): Integer;
+Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2362,7 +2371,7 @@ Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): Integer;
 
   @returns Number of bytes read.
 }
-Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): Integer;
+Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2374,7 +2383,7 @@ Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): Integer;
 
   @returns Output value.
 }
-Function Stream_Readout_EventInfo(Stream: TStream; out BytesRead: Integer): TEventInfo;
+Function Stream_Readout_EventInfo(Stream: TStream; out BytesRead: LongWord): TEventInfo;
 
 //==============================================================================
 
@@ -2386,7 +2395,7 @@ Function Stream_Readout_EventInfo(Stream: TStream; out BytesRead: Integer): TEve
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_ChannelInfo(Value: TChannelInfo): Integer;
+Function Size_ChannelInfo(Value: TChannelInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2416,7 +2425,7 @@ Function Size_ChannelInfo(Value: TChannelInfo): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2435,7 +2444,7 @@ Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Si
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_ChannelInfo(out Ptr: Pointer; Value: TChannelInfo): Integer;
+Function Ptr_Store_ChannelInfo(out Ptr: Pointer; Value: TChannelInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2449,7 +2458,7 @@ Function Ptr_Store_ChannelInfo(out Ptr: Pointer; Value: TChannelInfo): Integer;
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_ChannelInfo(var Source: Pointer; out Value: TChannelInfo; Advance: Boolean = True): Integer;
+Function Ptr_Read_ChannelInfo(var Source: Pointer; out Value: TChannelInfo; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2463,7 +2472,7 @@ Function Ptr_Read_ChannelInfo(var Source: Pointer; out Value: TChannelInfo; Adva
 
   @returns Output value.
 }
-Function Ptr_Readout_ChannelInfo(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TChannelInfo;
+Function Ptr_Readout_ChannelInfo(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TChannelInfo;
 
 //------------------------------------------------------------------------------
 
@@ -2477,7 +2486,7 @@ Function Ptr_Readout_ChannelInfo(var Source: Pointer; out BytesRead: Integer; Ad
 
   @returns Number of bytes written.
 }
-Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): Integer;
+Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2489,7 +2498,7 @@ Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): Integer
 
   @returns Number of bytes read.
 }
-Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): Integer;
+Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2501,7 +2510,7 @@ Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): Inte
 
   @returns Output value.
 }
-Function Stream_Readout_ChannelInfo(Stream: TStream; out BytesRead: Integer): TChannelInfo;
+Function Stream_Readout_ChannelInfo(Stream: TStream; out BytesRead: LongWord): TChannelInfo;
 
 //==============================================================================
 
@@ -2513,7 +2522,7 @@ Function Stream_Readout_ChannelInfo(Stream: TStream; out BytesRead: Integer): TC
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_StoredConfig(Value: TStoredConfig): Integer;
+Function Size_StoredConfig(Value: TStoredConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2545,7 +2554,7 @@ Function Size_StoredConfig(Value: TStoredConfig): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2564,7 +2573,7 @@ Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; 
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_StoredConfig(out Ptr: Pointer; Value: TStoredConfig): Integer;
+Function Ptr_Store_StoredConfig(out Ptr: Pointer; Value: TStoredConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2578,7 +2587,7 @@ Function Ptr_Store_StoredConfig(out Ptr: Pointer; Value: TStoredConfig): Integer
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_StoredConfig(var Source: Pointer; out Value: TStoredConfig; Advance: Boolean = True): Integer;
+Function Ptr_Read_StoredConfig(var Source: Pointer; out Value: TStoredConfig; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2592,7 +2601,7 @@ Function Ptr_Read_StoredConfig(var Source: Pointer; out Value: TStoredConfig; Ad
 
   @returns Output value.
 }
-Function Ptr_Readout_StoredConfig(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TStoredConfig;
+Function Ptr_Readout_StoredConfig(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TStoredConfig;
 
 //------------------------------------------------------------------------------
 
@@ -2606,7 +2615,7 @@ Function Ptr_Readout_StoredConfig(var Source: Pointer; out BytesRead: Integer; A
 
   @returns Number of bytes written.
 }
-Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): Integer;
+Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2618,7 +2627,7 @@ Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): Integ
 
   @returns Number of bytes read.
 }
-Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): Integer;
+Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2630,7 +2639,7 @@ Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): In
 
   @returns Output value.
 }
-Function Stream_Readout_StoredConfig(Stream: TStream; out BytesRead: Integer): TStoredConfig;
+Function Stream_Readout_StoredConfig(Stream: TStream; out BytesRead: LongWord): TStoredConfig;
 
 
 //==============================================================================
@@ -2643,7 +2652,7 @@ Function Stream_Readout_StoredConfig(Stream: TStream; out BytesRead: Integer): T
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_StoredChannel(Value: TStoredChannel): Integer;
+Function Size_StoredChannel(Value: TStoredChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2674,7 +2683,7 @@ Function Size_StoredChannel(Value: TStoredChannel): Integer;
 
   @returns Number of bytes written.
 }
-Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel; Size: LongWord; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2693,7 +2702,7 @@ Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel
   @returns(Number of bytes allocated for storing (you can use this value to free
            allocated memory).)
 }
-Function Ptr_Store_StoredChannel(out Ptr: Pointer; Value: TStoredChannel): Integer;
+Function Ptr_Store_StoredChannel(out Ptr: Pointer; Value: TStoredChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2707,7 +2716,7 @@ Function Ptr_Store_StoredChannel(out Ptr: Pointer; Value: TStoredChannel): Integ
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_StoredChannel(var Source: Pointer; out Value: TStoredChannel; Advance: Boolean = True): Integer;
+Function Ptr_Read_StoredChannel(var Source: Pointer; out Value: TStoredChannel; Advance: Boolean = True): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2721,7 +2730,7 @@ Function Ptr_Read_StoredChannel(var Source: Pointer; out Value: TStoredChannel; 
 
   @returns Output value.
 }
-Function Ptr_Readout_StoredChannel(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TStoredChannel;
+Function Ptr_Readout_StoredChannel(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TStoredChannel;
 
 //------------------------------------------------------------------------------
 
@@ -2735,7 +2744,7 @@ Function Ptr_Readout_StoredChannel(var Source: Pointer; out BytesRead: Integer; 
 
   @returns Number of bytes written.
 }
-Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): Integer;
+Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2747,7 +2756,7 @@ Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): Int
 
   @returns Number of bytes read.
 }
-Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): Integer;
+Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): LongWord;
 
 //------------------------------------------------------------------------------
 
@@ -2759,7 +2768,7 @@ Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): 
 
   @returns Output value.
 }
-Function Stream_Readout_StoredChannel(Stream: TStream; out BytesRead: Integer): TStoredChannel;
+Function Stream_Readout_StoredChannel(Stream: TStream; out BytesRead: LongWord): TStoredChannel;
 
 implementation
 
@@ -2767,161 +2776,161 @@ uses
   SysUtils, Windows;
 
 {==============================================================================}
-{    Unit Functions and procedures implementation                              }
+{   Unit Functions and procedures implementation                               }
 {==============================================================================}
 
-Function SizeOfString(const Str: UTF8String = ''): Integer;
+Function SizeOfString(const Str: UTF8String = ''): LongWord;
 begin
 Result := SizeOf(Integer){string length} + Length(Str) * SizeOf(TUTF8Char);
 end;
 
 {==============================================================================}
-{    Simple varibles storing and loading (memory)                              }
+{   Simple varibles storing and loading (memory)                               }
 {==============================================================================}
 
-Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): Integer;
+Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): LongWord;
 begin
 PInteger(Destination)^ := Length(Str);
-CopyMemory(Pointer(NativeInt(Destination) + SizeOf(Integer)),PUTF8Char(Str),
+CopyMemory(Pointer(PtrUInt(Destination) + SizeOf(Integer)),PUTF8Char(Str),
            Length(Str) * SizeOf(TUTF8Char));
 Result := SizeOf(Integer) + (Length(Str) * SizeOf(TUTF8Char));
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): Integer;
+Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): LongWord;
 begin
 SetLength(Str,PInteger(Source)^ div SizeOf(TUTF8Char));
-CopyMemory(PUTF8Char(Str),Pointer(NativeInt(Source) + SizeOf(Integer)),
+CopyMemory(PUTF8Char(Str),Pointer(PtrUInt(Source) + SizeOf(Integer)),
            Length(Str) * SizeOf(TUTF8Char));
 Result := SizeOf(Integer) + (Length(Str) * SizeOf(TUTF8Char));
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): Integer;
+Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): LongWord;
 begin
 PLongInt(Destination)^ := Value;
 Result := SizeOf(Value);
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): Integer;
+Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): LongWord;
 begin
 Value := PLongInt(Source)^;
 Result := SizeOf(Value);
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean = True): Integer;
+Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean = True): LongWord;
 begin
 PInt64(Destination)^ := Value;
 Result := SizeOf(Value);
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean = True): Integer;
+Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean = True): LongWord;
 begin
 Value := PInt64(Source)^;
 Result := SizeOf(Value);
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boolean = True): Integer;
+Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boolean = True): LongWord;
 begin
 PSingle(Destination)^ := Value;
 Result := SizeOf(Value);
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean = True): Integer;
+Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean = True): LongWord;
 begin
 Value := PSingle(Source)^;
 Result := SizeOf(Value);
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boolean = True): Integer;
+Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boolean = True): LongWord;
 begin
 PDouble(Destination)^ := Value;
 Result := SizeOf(Value);
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean = True): Integer;
+Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean = True): LongWord;
 begin
 Value := PDouble(Source)^;
 Result := SizeOf(Value);
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): Integer;
+Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): LongWord;
 begin
 PBoolean(Destination)^ := Value;
 Result := SizeOf(Value);
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): Integer;
+Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): LongWord;
 begin
 Value := PBoolean(Source)^;
 Result := SizeOf(Value);
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean = True): Integer;
+Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean = True): LongWord;
 begin
 PByte(Destination)^ := Value;
 Result := SizeOf(Value);
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = True): Integer;
+Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = True): LongWord;
 begin
 Value := PByte(Source)^;
 Result := SizeOf(Value);
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: LongWord; Advance: Boolean = True): LongWord;
 begin
 CopyMemory(Destination,@Buffer,Size);
 Result := Size;
-If Advance then Destination := Pointer(NativeInt(Destination) + Result);
+If Advance then Destination := Pointer(PtrUInt(Destination) + Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: LongWord; Advance: Boolean = True): LongWord;
 begin
 CopyMemory(@Buffer,Source,Size);
 Result := Size;
-If Advance then Source := Pointer(NativeInt(Source) + Result);
+If Advance then Source := Pointer(PtrUInt(Source) + Result);
 end;
 
 //==============================================================================
@@ -2972,10 +2981,10 @@ Ptr_ReadByte(Source,Result,Advance);
 end;
 
 {==============================================================================}
-{    Simple varibles storing and loading (stream)                              }
+{   Simple varibles storing and loading (stream)                               }
 {==============================================================================}
 
-Function Stream_WriteString(Stream: TStream; const Str: UTF8String): Integer;
+Function Stream_WriteString(Stream: TStream; const Str: UTF8String): LongWord;
 var
   StringBytes: Integer;
 begin
@@ -2987,7 +2996,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadString(Stream: TStream; out Str: UTF8String): Integer;
+Function Stream_ReadString(Stream: TStream; out Str: UTF8String): LongWord;
 var
   StringBytes: Integer;
 begin
@@ -3006,14 +3015,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteInteger(Stream: TStream; Value: LongInt): Integer;
+Function Stream_WriteInteger(Stream: TStream; Value: LongInt): LongWord;
 begin
 Result := Stream.Write(Value,SizeOf(Value));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): Integer;
+Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): LongWord;
 begin
 Result := Stream.Read(Value,SizeOf(Value));
 end;
@@ -3027,14 +3036,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteInt64(Stream: TStream; Value: Int64): Integer;
+Function Stream_WriteInt64(Stream: TStream; Value: Int64): LongWord;
 begin
 Result := Stream.Write(Value,SizeOf(Value));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadInt64(Stream: TStream; out Value: Int64): Integer;
+Function Stream_ReadInt64(Stream: TStream; out Value: Int64): LongWord;
 begin
 Result := Stream.Read(Value,SizeOf(Value));
 end;
@@ -3048,14 +3057,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteSingle(Stream: TStream; Value: Single): Integer;
+Function Stream_WriteSingle(Stream: TStream; Value: Single): LongWord;
 begin
 Result := Stream.Write(Value,SizeOf(Value));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadSingle(Stream: TStream; out Value: Single): Integer;
+Function Stream_ReadSingle(Stream: TStream; out Value: Single): LongWord;
 begin
 Result := Stream.Read(Value,SizeOf(Value));
 end;
@@ -3069,14 +3078,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteDouble(Stream: TStream; Value: Double): Integer;
+Function Stream_WriteDouble(Stream: TStream; Value: Double): LongWord;
 begin
 Result := Stream.Write(Value,SizeOf(Value));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadDouble(Stream: TStream; out Value: Double): Integer;
+Function Stream_ReadDouble(Stream: TStream; out Value: Double): LongWord;
 begin
 Result := Stream.Read(Value,SizeOf(Value));
 end;
@@ -3090,14 +3099,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): Integer;
+Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): LongWord;
 begin
 Result := Stream.Write(Value,SizeOf(Value));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): Integer;
+Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): LongWord;
 begin
 Result := Stream.Read(Value,SizeOf(Value));
 end;
@@ -3111,14 +3120,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteByte(Stream: TStream; Value: Byte): Integer;
+Function Stream_WriteByte(Stream: TStream; Value: Byte): LongWord;
 begin
 Result := Stream.Write(Value,SizeOf(Value));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadByte(Stream: TStream; out Value: Byte): Integer;
+Function Stream_ReadByte(Stream: TStream; out Value: Byte): LongWord;
 begin
 Result := Stream.Read(Value,SizeOf(Value));
 end;
@@ -3132,23 +3141,23 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: Integer): Integer;
+Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: LongWord): LongWord;
 begin
 Result := Stream.Write(Buffer,Size);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: Integer): Integer;
+Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: LongWord): LongWord;
 begin
 Result := Stream.Read(Buffer,Size);
 end;
 
 {==============================================================================}
-{    SDK types storing and loading                                             }
+{   SDK types storing and loading                                              }
 {==============================================================================}
 
-Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): Integer;
+Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): LongWord;
 begin
 If Value._type = SCS_VALUE_TYPE_string then
   Result := SizeOf(scs_value_type_t) + SizeOfString(APIStringToTelemetryString(Value.value_string.value))
@@ -3178,7 +3187,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False): Integer;
+Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -3220,7 +3229,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): Integer;
+Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): LongWord;
 begin
 Result := Size_scs_value(Value,Minimize);
 Ptr := AllocMem(Result);
@@ -3229,7 +3238,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): Integer;
+Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): LongWord;
 var
   WorkPtr:  Pointer;
   TempStr:  TelemetryString;
@@ -3272,14 +3281,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;
+Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;
 begin
 BytesRead := Ptr_Read_scs_value(Source,Result,Advance,Minimized);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): Integer;
+Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): LongWord;
 begin
 If Value._type = SCS_VALUE_TYPE_string then
   begin
@@ -3313,7 +3322,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): Integer;
+Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): LongWord;
 var
   TempStr:  TelemetryString;
 begin
@@ -3353,14 +3362,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False): scs_value_t;
+Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): scs_value_t;
 begin
 BytesRead := Stream_Read_scs_value(Stream,Result,Minimized);
 end;
 
 //==============================================================================
 
-Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolean = False): Integer;
+Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolean = False): LongWord;
 begin
 If Value.ValueType = SCS_VALUE_TYPE_string then
   Result := SizeOf(scs_value_type_t) + SizeOfString(Value.StringData)
@@ -3390,7 +3399,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_value_localized_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False): Integer;
+Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_value_localized_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -3436,7 +3445,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_localized_t; Minimize: Boolean = False): Integer;
+Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_localized_t; Minimize: Boolean = False): LongWord;
 begin
 Result := Size_scs_value_localized(Value,Minimize);
 Ptr := AllocMem(Result);
@@ -3445,7 +3454,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False): Integer;
+Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -3489,14 +3498,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False): scs_value_localized_t;
+Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): scs_value_localized_t;
 begin
 BytesRead := Ptr_Read_scs_value_localized(Source,Result,Advance,Minimized);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_localized_t; Minimize: Boolean = False): Integer;
+Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_localized_t; Minimize: Boolean = False): LongWord;
 begin
 If Value.ValueType = SCS_VALUE_TYPE_string then
   begin
@@ -3534,7 +3543,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_localized_t; Minimized: Boolean = False): Integer;
+Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_localized_t; Minimized: Boolean = False): LongWord;
 begin
 Result := Stream_ReadInteger(Stream,Integer(Value.ValueType));
 If Value.ValueType = SCS_VALUE_TYPE_string then
@@ -3574,14 +3583,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_value_localized(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False): scs_value_localized_t;
+Function Stream_Readout_scs_value_localized(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): scs_value_localized_t;
 begin
 BytesRead := Stream_Read_scs_value_localized(Stream,Result,Minimized);
 end;
 
 //==============================================================================
 
-Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 begin
 If ItemIDOnly then
   Result := SizeOf(TItemID) + SizeOf(scs_u32_t) + Size_scs_value(Value.value,Minimize)
@@ -3593,7 +3602,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -3613,7 +3622,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 begin
 Result := Size_scs_named_value(Value,Minimize,ItemIDOnly);
 Ptr := AllocMem(Result);
@@ -3622,7 +3631,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:  Pointer;
   TempStr:  TelemetryString;
@@ -3646,14 +3655,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 begin
 BytesRead := Ptr_Read_scs_named_value(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 begin
 If ItemIDOnly and Assigned(NameIDFunc) then
   Result := Stream_WriteInteger(Stream,NameIDFunc(APIStringToTelemetryString(Value.name),UserData))
@@ -3665,7 +3674,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   TempStr:  TelemetryString;
   TempID:   TItemID;
@@ -3686,14 +3695,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 begin
 BytesRead := Stream_Read_scs_named_value(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //==============================================================================
 
-Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 begin
 If ItemIDOnly then
   Result := SizeOf(TItemID) + SizeOf(scs_u32_t) + Size_scs_value_localized(Value.Value,Minimize)
@@ -3703,7 +3712,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -3723,7 +3732,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 begin
 Result := Size_scs_named_value_localized(Value,Minimize,ItemIDOnly);
 Ptr := AllocMem(Result);
@@ -3732,7 +3741,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:  Pointer;
   TempID:   TItemID;
@@ -3752,14 +3761,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 begin
 BytesRead := Ptr_Read_scs_named_value_localized(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 begin
 If ItemIDOnly and Assigned(NameIDFunc) then
   Result := Stream_WriteInteger(Stream,NameIDFunc(Value.Name,UserData))
@@ -3771,7 +3780,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   TempID: TItemID;
 begin
@@ -3788,14 +3797,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 begin
 BytesRead := Stream_Read_scs_named_value_localized(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //==============================================================================
 
-Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 var
   CurrAttrPtr:  p_scs_named_value_t;
 begin
@@ -3811,7 +3820,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:      Pointer;
   ConfigID:     TelemetryString;
@@ -3858,7 +3867,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 begin
 Result := Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly);
 Ptr := AllocMem(Result);
@@ -3867,7 +3876,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:      Pointer;
   ConfigID:     TelemetryString;
@@ -3902,14 +3911,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
 begin
 BytesRead := Ptr_Read_scs_telemetry_configuration(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 var
   ConfigID:     TelemetryString;
   Count:        Integer;
@@ -3953,7 +3962,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   ConfigID:     TelemetryString;
   TempStr:      TelemetryString;
@@ -3985,14 +3994,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
 begin
 BytesRead := Stream_Read_scs_telemetry_configuration(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //==============================================================================
 
-Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): Integer;
+Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;
 var
   i: Integer;
 begin
@@ -4004,7 +4013,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: Integer; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:  Pointer;
   i:        Integer;
@@ -4037,7 +4046,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 begin
 Result := Size_scs_telemetry_configuration_localized(Value,Minimize,ItemIDOnly);
 Ptr := AllocMem(Result);
@@ -4046,7 +4055,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   WorkPtr:  Pointer;
   TempStr:  TelemetryString;
@@ -4071,14 +4080,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
 begin
 BytesRead := Ptr_Read_scs_telemetry_configuration_localized(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): LongWord;
 var
   i:        Integer;
   TempStr:  TelemetryString;
@@ -4104,7 +4113,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): Integer;
+Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): LongWord;
 var
   TempStr:  TelemetryString;
   i,Count:  Integer;
@@ -4126,23 +4135,23 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: Integer; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
 begin
 BytesRead := Stream_Read_scs_telemetry_configuration_localized(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,Userdata);
 end;
 
 {==============================================================================}
-{    Telemetry library types storing and loading                               }
+{   Telemetry library types storing and loading                                }
 {==============================================================================}
 
-Function Size_KnownEvent(Value: TKnownEvent): Integer;
+Function Size_KnownEvent(Value: TKnownEvent): LongWord;
 begin
 Result := SizeOf(scs_event_t) + SizeOfString(Value.Name) + 2 * SizeOf(Boolean);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4160,7 +4169,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_KnownEvent(out Ptr: Pointer; Value: TKnownEvent): Integer;
+Function Ptr_Store_KnownEvent(out Ptr: Pointer; Value: TKnownEvent): LongWord;
 begin
 Result := Size_KnownEvent(Value);
 Ptr := AllocMem(Result);
@@ -4169,7 +4178,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_KnownEvent(var Source: Pointer; out Value: TKnownEvent; Advance: Boolean = True): Integer;
+Function Ptr_Read_KnownEvent(var Source: Pointer; out Value: TKnownEvent; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4183,14 +4192,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_KnownEvent(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TKnownEvent;
+Function Ptr_Readout_KnownEvent(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TKnownEvent;
 begin
 BytesRead := Ptr_Read_KnownEvent(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): Integer;
+Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): LongWord;
 begin
 Result := Stream_WriteInteger(Stream,Value.Event);
 Inc(Result,Stream_WriteString(Stream,Value.Name));
@@ -4200,7 +4209,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): Integer;
+Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): LongWord;
 begin
 Result := Stream_ReadInteger(Stream,Integer(Value.Event));
 Inc(Result,Stream_ReadString(Stream,UTF8String(Value.Name)));
@@ -4210,14 +4219,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_KnownEvent(Stream: TStream; out BytesRead: Integer): TKnownEvent;
+Function Stream_Readout_KnownEvent(Stream: TStream; out BytesRead: LongWord): TKnownEvent;
 begin
 BytesRead := Stream_Read_KnownEvent(Stream,Result);
 end;
 
 //==============================================================================
 
-Function Size_KnownChannel(Value: TKnownChannel): Integer;
+Function Size_KnownChannel(Value: TKnownChannel): LongWord;
 begin
 Result := SizeOfString(Value.Name) + SizeOf(TChannelID) + 3 * SizeOf(scs_value_type_t) +
           SizeOf(Boolean) + SizeOf(TConfigID) + SizeOfString(Value.IndexConfig) + SizeOf(scs_u32_t);
@@ -4225,7 +4234,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4248,7 +4257,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_KnownChannel(out Ptr: Pointer; Value: TKnownChannel): Integer;
+Function Ptr_Store_KnownChannel(out Ptr: Pointer; Value: TKnownChannel): LongWord;
 begin
 Result := Size_KnownChannel(Value);
 Ptr := AllocMem(Result);
@@ -4257,7 +4266,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_KnownChannel(var Source: Pointer; out Value: TKnownChannel; Advance: Boolean = True): Integer;
+Function Ptr_Read_KnownChannel(var Source: Pointer; out Value: TKnownChannel; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4276,14 +4285,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_KnownChannel(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TKnownChannel;
+Function Ptr_Readout_KnownChannel(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TKnownChannel;
 begin
 BytesRead := Ptr_Read_KnownChannel(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): Integer;
+Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): LongWord;
 begin
 Result := Stream_WriteString(Stream,Value.Name);
 Inc(Result,Stream_WriteInteger(Stream,Value.ID));
@@ -4298,7 +4307,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): Integer;
+Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): LongWord;
 begin
 Result := Stream_ReadString(Stream,UTF8String(Value.Name));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.ID)));
@@ -4313,21 +4322,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_KnownChannel(Stream: TStream; out BytesRead: Integer): TKnownChannel;
+Function Stream_Readout_KnownChannel(Stream: TStream; out BytesRead: LongWord): TKnownChannel;
 begin
 BytesRead := Stream_Read_KnownChannel(Stream,Result);
 end;
 
 //==============================================================================
 
-Function Size_KnownConfig(Value: TKnownConfig): Integer;
+Function Size_KnownConfig(Value: TKnownConfig): LongWord;
 begin
 Result := SizeOfString(Value.Name) + SizeOf(TConfigID) + SizeOf(scs_value_type_t) + 2* SizeOf(Boolean);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4346,7 +4355,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_KnownConfig(out Ptr: Pointer; Value: TKnownConfig): Integer;
+Function Ptr_Store_KnownConfig(out Ptr: Pointer; Value: TKnownConfig): LongWord;
 begin
 Result := Size_KnownConfig(Value);
 Ptr := AllocMem(Result);
@@ -4355,7 +4364,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_KnownConfig(var Source: Pointer; out Value: TKnownConfig; Advance: Boolean = True): Integer;
+Function Ptr_Read_KnownConfig(var Source: Pointer; out Value: TKnownConfig; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4370,14 +4379,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_KnownConfig(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TKnownConfig;
+Function Ptr_Readout_KnownConfig(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TKnownConfig;
 begin
 BytesRead := Ptr_Read_KnownConfig(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): Integer;
+Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): LongWord;
 begin
 Result := Stream_WriteString(Stream,Value.Name);
 Inc(Result,Stream_WriteInteger(Stream,Value.ID));
@@ -4388,7 +4397,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): Integer;
+Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): LongWord;
 begin
 Result := Stream_ReadString(Stream,UTF8String(Value.Name));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.ID)));
@@ -4399,21 +4408,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_KnownConfig(Stream: TStream; out BytesRead: Integer): TKnownConfig;
+Function Stream_Readout_KnownConfig(Stream: TStream; out BytesRead: LongWord): TKnownConfig;
 begin
 BytesRead := Stream_Read_KnownConfig(Stream,Result);
 end;
 
 //==============================================================================
 
-Function Size_EventInfo(Value: TEventInfo): Integer;
+Function Size_EventInfo(Value: TEventInfo): LongWord;
 begin
 Result := SizeOf(scs_event_t) + SizeOf(Boolean);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4429,7 +4438,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_EventInfo(out Ptr: Pointer; Value: TEventInfo): Integer;
+Function Ptr_Store_EventInfo(out Ptr: Pointer; Value: TEventInfo): LongWord;
 begin
 Result := Size_EventInfo(Value);
 Ptr := AllocMem(Result);
@@ -4438,7 +4447,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_EventInfo(var Source: Pointer; out Value: TEventInfo; Advance: Boolean = True): Integer;
+Function Ptr_Read_EventInfo(var Source: Pointer; out Value: TEventInfo; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4450,14 +4459,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_EventInfo(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TEventInfo;
+Function Ptr_Readout_EventInfo(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TEventInfo;
 begin
 BytesRead := Ptr_Read_EventInfo(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): Integer;
+Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): LongWord;
 begin
 Result := Stream_WriteInteger(Stream,Value.Event);
 Inc(Result,Stream_WriteBoolean(Stream,Value.Utility));
@@ -4465,7 +4474,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): Integer;
+Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): LongWord;
 begin
 Result := Stream_ReadInteger(Stream,Integer(Value.Event));
 Inc(Result,Stream_ReadBoolean(Stream,Value.Utility));
@@ -4473,14 +4482,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_EventInfo(Stream: TStream; out BytesRead: Integer): TEventInfo;
+Function Stream_Readout_EventInfo(Stream: TStream; out BytesRead: LongWord): TEventInfo;
 begin
 BytesRead := Stream_Read_EventInfo(Stream,Result);
 end;
 
 //==============================================================================
 
-Function Size_ChannelInfo(Value: TChannelInfo): Integer;
+Function Size_ChannelInfo(Value: TChannelInfo): LongWord;
 begin
 Result := SizeOfString(Value.Name) + SizeOf(TChannelID) + SizeOf(scs_u32_t) +
           SizeOf(scs_value_type_t) + SizeOf(scs_u32_t) + SizeOf(TItemID);
@@ -4488,7 +4497,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4508,7 +4517,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_ChannelInfo(out Ptr: Pointer; Value: TChannelInfo): Integer;
+Function Ptr_Store_ChannelInfo(out Ptr: Pointer; Value: TChannelInfo): LongWord;
 begin
 Result := Size_ChannelInfo(Value);
 Ptr := AllocMem(Result);
@@ -4517,7 +4526,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_ChannelInfo(var Source: Pointer; out Value: TChannelInfo; Advance: Boolean = True): Integer;
+Function Ptr_Read_ChannelInfo(var Source: Pointer; out Value: TChannelInfo; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4533,14 +4542,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_ChannelInfo(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TChannelInfo;
+Function Ptr_Readout_ChannelInfo(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TChannelInfo;
 begin
 BytesRead := Ptr_Read_ChannelInfo(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): Integer;
+Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): LongWord;
 begin
 Result := Stream_WriteString(Stream,Value.Name);
 Inc(Result,Stream_WriteInteger(Stream,Value.ID));
@@ -4552,7 +4561,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): Integer;
+Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): LongWord;
 begin
 Result := Stream_ReadString(Stream,UTF8String(Value.Name));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.ID)));
@@ -4564,14 +4573,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_ChannelInfo(Stream: TStream; out BytesRead: Integer): TChannelInfo;
+Function Stream_Readout_ChannelInfo(Stream: TStream; out BytesRead: LongWord): TChannelInfo;
 begin
 BytesRead := Stream_Read_ChannelInfo(Stream,Result);
 end;
 
 //==============================================================================
 
-Function Size_StoredConfig(Value: TStoredConfig): Integer;
+Function Size_StoredConfig(Value: TStoredConfig): LongWord;
 begin
 Result := SizeOfString(Value.Name) + SizeOf(TConfigID) + SizeOf(scs_u32_t) +
           Size_scs_value_localized(Value.Value,True) + SizeOf(Boolean);
@@ -4579,7 +4588,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4598,7 +4607,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_StoredConfig(out Ptr: Pointer; Value: TStoredConfig): Integer;
+Function Ptr_Store_StoredConfig(out Ptr: Pointer; Value: TStoredConfig): LongWord;
 begin
 Result := Size_StoredConfig(Value);
 Ptr := AllocMem(Result);
@@ -4607,7 +4616,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_StoredConfig(var Source: Pointer; out Value: TStoredConfig; Advance: Boolean = True): Integer;
+Function Ptr_Read_StoredConfig(var Source: Pointer; out Value: TStoredConfig; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4622,14 +4631,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_StoredConfig(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TStoredConfig;
+Function Ptr_Readout_StoredConfig(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TStoredConfig;
 begin
 BytesRead := Ptr_Read_StoredConfig(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): Integer;
+Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): LongWord;
 begin
 Result := Stream_WriteString(Stream,Value.Name);
 Inc(Result,Stream_WriteInteger(Stream,Value.ID));
@@ -4640,7 +4649,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): Integer;
+Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): LongWord;
 begin
 Result := Stream_ReadString(Stream,UTF8String(Value.Name));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.ID)));
@@ -4651,14 +4660,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_StoredConfig(Stream: TStream; out BytesRead: Integer): TStoredConfig;
+Function Stream_Readout_StoredConfig(Stream: TStream; out BytesRead: LongWord): TStoredConfig;
 begin
 BytesRead := Stream_Read_StoredConfig(Stream,Result);
 end;
 
 //==============================================================================
 
-Function Size_StoredChannel(Value: TStoredChannel): Integer;
+Function Size_StoredChannel(Value: TStoredChannel): LongWord;
 begin
 Result := SizeOfString(Value.Name) + SizeOf(TChannelID) + SizeOf(scs_u32_t) +
           Size_scs_value_localized(Value.Value,True);
@@ -4666,7 +4675,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel; Size: Integer; Advance: Boolean = True): Integer;
+Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel; Size: LongWord; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4684,7 +4693,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_StoredChannel(out Ptr: Pointer; Value: TStoredChannel): Integer;
+Function Ptr_Store_StoredChannel(out Ptr: Pointer; Value: TStoredChannel): LongWord;
 begin
 Result := Size_StoredChannel(Value);
 Ptr := AllocMem(Result);
@@ -4693,7 +4702,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_StoredChannel(var Source: Pointer; out Value: TStoredChannel; Advance: Boolean = True): Integer;
+Function Ptr_Read_StoredChannel(var Source: Pointer; out Value: TStoredChannel; Advance: Boolean = True): LongWord;
 var
   WorkPtr:  Pointer;
 begin
@@ -4707,14 +4716,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_StoredChannel(var Source: Pointer; out BytesRead: Integer; Advance: Boolean = True): TStoredChannel;
+Function Ptr_Readout_StoredChannel(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): TStoredChannel;
 begin
 BytesRead := Ptr_Read_StoredChannel(Source,Result,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): Integer;
+Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): LongWord;
 begin
 Result := Stream_WriteString(Stream,Value.Name);
 Inc(Result,Stream_WriteInteger(Stream,Value.ID));
@@ -4724,7 +4733,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): Integer;
+Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): LongWord;
 begin
 Result := Stream_ReadString(Stream,UTF8String(Value.Name));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.ID)));
@@ -4734,7 +4743,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_StoredChannel(Stream: TStream; out BytesRead: Integer): TStoredChannel;
+Function Stream_Readout_StoredChannel(Stream: TStream; out BytesRead: LongWord): TStoredChannel;
 begin
 BytesRead := Stream_Read_StoredChannel(Stream,Result);
 end;

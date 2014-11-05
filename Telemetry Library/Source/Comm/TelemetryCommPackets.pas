@@ -3,7 +3,7 @@
           packets.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-15)
-@lastmod(2014-05-15)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryCommPackets))
 
@@ -14,10 +14,15 @@
   identifier numbers of individual defined packets along with documentation
   about their structure.
 
-  Last change:  2014-05-15
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
-    @item(2014-05-15  - First stable version.))
+    @item(2014-05-15 - First stable version.)
+    @item(2014-11-02 - Small implementation changes.)
+    @item(2014-11-05 - Type of fields TPacketBuffer.Size and
+                       TPacketHeader.PayloadSize changed from signed to unsigned
+                       integer.)
+    @item(2014-11-05 - Added type TPacketID.))
 
 @html(<hr>)
   Communication between server and client(s) is realized using variable length
@@ -49,7 +54,7 @@
   (the number of days since 1/1/0001 plus one).
   Payload size is the size of payload of the packet in bytes. It can be zero.
 
-  After this header ,an optional payload data follows.@br
+  After this header, an optional payload data follows.@br
   Depending on payload presence, packets are divided into two groups, basic and
   extended.@br
   Basic packets contains no data (field "Payload size" is set to 0), only
@@ -199,10 +204,11 @@ interface
 {$INCLUDE '..\Telemetry_defs.inc'}
 
 uses
-  SysUtils;   
+  SysUtils,
+  TelemetryCommon{$IFDEF DevelopmentHints}{$MESSAGE 'Development hint: Should be in implementation section'}{$ENDIF};
 
 {==============================================================================}
-{    Constants, types, variables, etc.                                         }
+{   Constants, types, variables, etc.                                          }
 {==============================================================================}
 
 const
@@ -212,6 +218,9 @@ const
   TC_PACKET_SIGNATURE = $654E6554;
 
 type
+  // Type used for packet identifier number.
+  TPacketID = LongWord;
+
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Development hint: petUnknownClient and petUnknownParameter are valid only for networking.'}
 {$ENDIF}
@@ -268,7 +277,7 @@ type
 }
   TPacketBuffer = record
     Data:       Pointer;
-    Size:       Integer;
+    Size:       LongWord;
     AllocInfo:  TPacketBufferAllocInfo;
   end;
   // Pointer to TPacketBuffer structure.
@@ -297,9 +306,9 @@ type
 }
   TPacketHeader = packed record
     Signature:    LongWord;
-    PacketID:     LongWord;
+    PacketID:     TPacketID;
     TimeStamp:    TPacketHeaderTime;
-    PayloadSize:  Integer;
+    PayloadSize:  LongWord;
   end;
   // Pointer to TPacketHeader structure.
   PPacketHeader = ^TPacketHeader;
@@ -314,7 +323,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Packets ID prefixes                                                       }
+{   Packets ID prefixes                                                        }
 {------------------------------------------------------------------------------}
 
   // General communication packet group.
@@ -346,11 +355,11 @@ const
 
 
 {==============================================================================}
-{    Definintion of packet ID numbers and their structures.                    }
+{   Definintion of packet ID numbers and their structures.                     }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    General communication packets                                             }
+{   General communication packets                                              }
 {------------------------------------------------------------------------------}
 
 {
@@ -536,7 +545,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Known events packets                                                      }
+{   Known events packets                                                       }
 {------------------------------------------------------------------------------}
 
 {
@@ -673,7 +682,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Known channels packets                                                    }
+{   Known channels packets                                                     }
 {------------------------------------------------------------------------------}
 
 {
@@ -822,7 +831,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Known configs packets                                                     }
+{   Known configs packets                                                      }
 {------------------------------------------------------------------------------}
 
 {
@@ -962,7 +971,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Events packets                                                            }
+{   Events packets                                                             }
 {------------------------------------------------------------------------------}
 
 {
@@ -1299,7 +1308,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Channels packets                                                          }
+{   Channels packets                                                           }
 {------------------------------------------------------------------------------}
 
 {
@@ -1743,7 +1752,7 @@ const
 
 
 {------------------------------------------------------------------------------}
-{    Configs packets                                                           }
+{   Configs packets                                                            }
 {------------------------------------------------------------------------------}
 
 {
@@ -1964,7 +1973,7 @@ const
   TC_PACKET_LOG_LOG = TC_PREFIX_LOG or $0001;
 
 {==============================================================================}
-{    Functions declarations                                                    }
+{   Functions declarations                                                     }
 {==============================================================================}
 
 {
@@ -2006,7 +2015,7 @@ Function GetPayloadAddress(Packet: TPacketBuffer): Pointer;
 implementation
 
 {==============================================================================}
-{    Functions implementations                                                 }
+{   Functions implementations                                                  }
 {==============================================================================}
 
 Function GetPacketIDPrefix(PacketID: LongWord): LongWord;
@@ -2028,7 +2037,7 @@ end;
 
 Function GetPayloadAddress(Packet: TPacketBuffer): Pointer;
 begin
-Result := Pointer(NativeInt(Packet.Data) + SizeOf(TPacketHeader));
+Result := Pointer(PtrUInt(Packet.Data) + SizeOf(TPacketHeader));
 end;
 
 end.

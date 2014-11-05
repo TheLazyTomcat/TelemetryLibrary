@@ -2,7 +2,7 @@
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2014-06-07)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryLists))
 
@@ -19,7 +19,7 @@
    |- TStoredConfigsList
    |- TStoredChannelsValuesList
 )
-  Last change:  2014-06-07
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -98,7 +98,27 @@
                          @item(GetChannelNameFromID)
                          @item(GetConfigIDFromName)
                          @item(GetConfigNameFromID)))
-    @item(2014-06-07 - Added field @code(MaxIndex) to TKnownChannel record.))
+    @item(2014-06-07 - Added field @code(MaxIndex) to TKnownChannel record.)
+    @item(2014-11-05 - Added field @code(UserData) to TEventContext and
+                       TChannelContext.)
+    @item(2014-11-05 - Added TUserDataFreeEvent event type.)
+    @item(2014-11-05 - Added following fields, methods and properties:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TRegisteredEventsList.fOnUserDataFree)
+                         @item(TRegisteredEventsList.DoOnUserDataFree)
+                         @item(TRegisteredEventsList.OnUserDataFree)
+                         @item(TRegisteredChannelsList.fOnUserDataFree)
+                         @item(TRegisteredChannelsList.DoOnUserDataFree)
+                         @item(TRegisteredChannelsList.OnUserDataFree)))
+    @item(2014-11-05 - Added parameter @code(UserData) to following methods:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TRegisteredEventsList.Add)
+                         @item(TRegisteredEventsList.CreateContext)
+                         @item(TRegisteredChannelsList.Add)
+                         @item(TRegisteredChannelsList.CreateContext)))
+    @item(2014-11-05 - Small implementation changes.))
 
 @html(<hr>)}
 unit TelemetryLists;
@@ -127,6 +147,11 @@ uses
   scssdk_telemetry_channel;
 {$ENDIF}
 
+type
+  // Event type used when user data stored in event or channel context should be
+  // freed.
+  TUserDataFreeEvent = procedure(Sender: TObject; var UserData: Pointer) of object;
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                             TCustomTelemetryList                             }
@@ -134,7 +159,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TCustomTelemetryList // Class declaration                                 }
+{   TCustomTelemetryList // Class declaration                                  }
 {==============================================================================}
 { @abstract(Ancestor class for all other list classes in TelemetryLists unit.)
 
@@ -348,7 +373,7 @@ const
     Utility:  False);
 
 {==============================================================================}
-{    TKnownEventsList // Class declaration                                     }
+{   TKnownEventsList // Class declaration                                      }
 {==============================================================================}
 {
   @abstract(
@@ -568,7 +593,7 @@ const
 
 
 {==============================================================================}
-{    TKnownChannelsList // Class declaration                                   }
+{   TKnownChannelsList // Class declaration                                    }
 {==============================================================================}
 {
   @abstract(
@@ -801,7 +826,7 @@ const
     Binded:     False);
 
 {==============================================================================}
-{    TKnownConfigsList // Class declaration                                    }
+{   TKnownConfigsList // Class declaration                                     }
 {==============================================================================}
 {
   @abstract(
@@ -1024,17 +1049,19 @@ const
 
   @member(Recipient Object that should receive event callbacks.)
   @member(EventInfo Informations about registered event.)
+  @member(UserData  User data stored in the context.)
 }
 type
   TEventContext = record
     Recipient:  TObject;
     EventInfo:  TEventInfo;
+    UserData:   Pointer;
   end;
   // Pointer to TEventContext structure.
   PEventContext = ^TEventContext;
 
 {==============================================================================}
-{    TRegisteredEventsList // Class declaration                                }
+{   TRegisteredEventsList // Class declaration                                 }
 {==============================================================================}
 {
   @abstract(List used to store @noAutoLink(contexts of registered events).)
@@ -1043,6 +1070,9 @@ type
   context which is actually pointer to a variable of TEventContext structure.
   This variable is at the same time added as a new item into this list.@br
   When event is unregistered, context it is bound to is removed from this list.
+
+@member(fOnUserDataFree
+    Holds reference to OnUserDataFree event handler.)
 
 @member(GetEventContext
     Getter for Contexts[] property.@br
@@ -1066,12 +1096,16 @@ type
 
 @member(Clear
     Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
+    OnChange event is called after items deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).)
 
 @member(Delete
     Deletes context at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.
+    OnChange event is called after successful deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).
 
     @param Index Index of item that has to be deleted.)
 
@@ -1093,13 +1127,19 @@ type
     @param Event     Identification number of registered event.
     @param(Utility   Flag indicating whether registered event is marked as
                      utility.)
+    @param(UserData  User defined data to be stored inside the created event
+                     context.)
 
     @returns Pointer to created event context.)
 
 @member(FreeContext
-    Frees memory allocated for event context and sets this pointer to @nil.
+    Frees memory allocated for event context and sets this pointer to @nil.@br
+    Calls OnUserDataFree event before the context is freed.
 
     @param EventContext Pointer to event context to be freed.)
+
+@member(DoOnUserDataFree
+    Calls handler of OnUserDataFree event (if assigned).)
 
 @member(Contexts
     Array property mapped directly to internal list. Use it for direct access to
@@ -1112,9 +1152,15 @@ type
     individual stored items.@br
     This property does not return whole context structure, only its "EventInfo"
     field.)
+
+
+@member(OnUserDataFree
+    Bind this event when you need to free user data stored inside a context when
+    such context is destroyed.)
 }
   TRegisteredEventsList = class(TCustomTelemetryList)
   private
+    fOnUserDataFree:  TUserDataFreeEvent;
     Function GetEventContext(Index: Integer): PEventContext;
     Function GetEventInfo(Index: Integer): TEventInfo;
   public
@@ -1156,10 +1202,11 @@ type
     @param Event     Identification number of registered event.
     @param(Utility   Flag indicating whether registered event is marked as
                      utility.)
+    @param UserData  User defined data to be stored inside the event context.
 
     @returns Index at which the new context was added, -1 when addition failed.
   }
-    Function Add(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): Integer; overload; virtual;
+    Function Add(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;
   {
     Creates and adds new context into the list. Created context has
     @code(Recipient) field set to @nil.@br
@@ -1168,10 +1215,11 @@ type
     @param Event     Identification number of registered event.
     @param(Utility   Flag indicating whether registered event is marked as
                      utility.)
+    @param UserData  User defined data to be stored inside the event context.
 
     @returns Index at which the new context was added, -1 when addition failed.
   }
-    Function Add(Event: scs_event_t; Utility: Boolean = False): Integer; overload; virtual;
+    Function Add(Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;
   {
     Removes context with given event from the list.@br
     OnChange event is called after successful removal.
@@ -1194,11 +1242,14 @@ type
   }
     Function Remove(EventContext: PEventContext): Integer; overload; virtual;
     procedure Delete(Index: Integer); virtual;
-    Function CreateContext(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): PEventContext; virtual;
+    Function CreateContext(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): PEventContext; virtual;
     procedure FreeContext(var EventContext: PEventContext); virtual;
+    procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;    
     property Contexts[Index: Integer]: PEventContext read GetEventContext;
     property Events[Index: Integer]: TEventInfo read GetEventInfo; default;
-  end;  
+  published
+    property OnUserDataFree: TUserDataFreeEvent read fOnUserDataFree write fOnUserDataFree;
+  end;
 
 
 {==============================================================================}
@@ -1246,17 +1297,19 @@ const
 
   @member(Recipient   Object that should receive channel callbacks.)
   @member(ChannelInfo Informations about registered channel.)
+  @member(UserData  User data stored in the context.)
 }
 type
   TChannelContext = record
     Recipient:    TObject;
     ChannelInfo:  TChannelInfo;
+    UserData:     Pointer;
   end;
   // Pointer to TChannelContext structure.
   PChannelContext = ^TChannelContext;
 
 {==============================================================================}
-{    TRegisteredChannelsList // Class declaration                              }
+{   TRegisteredChannelsList // Class declaration                               }
 {==============================================================================}
 {
   @abstract(List used to store @noAutoLink(contexts of registered channels).)
@@ -1266,6 +1319,9 @@ type
   This variable is at the same time added as a new item into this list.@br
   When channel is unregistered, context it is bound to is removed from this
   list.
+
+@member(fOnUserDataFree
+    Holds reference to OnUserDataFree event handler.)
 
 @member(GetChannelContext
     Getter for Contexts[] property.@br
@@ -1289,12 +1345,16 @@ type
 
 @member(Clear
     Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
+    OnChange event is called after items deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).)
 
 @member(Delete
     Deletes context at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.
+    OnChange event is called after successful deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).
 
     @param Index Index of item that has to be deleted.)
 
@@ -1320,13 +1380,19 @@ type
     @param Flags         Registering flags.
     @param(IndexConfigID ID of index configuration to which registered channel
                          is bound.)
+    @param(UserData      User defined data to be stored inside the created
+                         channel context.)
 
     @returns Pointer to created channel context.)
 
 @member(FreeContext
-    Frees memory allocated for channel context and sets this pointer to @nil.
+    Frees memory allocated for channel context and sets this pointer to @nil.@br
+    Calls OnUserDataFree event before the context is freed.
 
     @param ChannelContext Pointer to channel context to be freed.)
+
+@member(DoOnUserDataFree
+    Calls handler of OnUserDataFree event (if assigned).)    
 
 @member(Contexts
     Array property mapped directly to internal list. Use it for direct access to
@@ -1339,9 +1405,15 @@ type
     individual stored items.@br
     This property does not return whole context structure, only its
     "ChannelInfo" field.)
+
+
+@member(OnUserDataFree
+    Bind this event when you need to free user data stored inside a context when
+    such context is destroyed.)    
 }
   TRegisteredChannelsList = class(TCustomTelemetryList)
   private
+    fOnUserDataFree:  TUserDataFreeEvent;
     Function GetChannelContext(Index: Integer): PChannelContext;
     Function GetChannelInfo(Index: Integer): TChannelInfo;
   public
@@ -1461,10 +1533,12 @@ type
     @param Flags         Registering flags.
     @param(IndexConfigID ID of index configuration to which the registered
                          channel is bound.)
+    @param(UserData      User defined data to be stored inside the channel
+                         context.)
 
     @returns Index at which the new context was added, -1 when addition failed.
   }
-    Function Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0): Integer; overload; virtual;
+    Function Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer; overload; virtual;
   {
     Creates and adds new context into the list. Created context has
     @code(Recipient) field set to @nil.@br
@@ -1477,10 +1551,12 @@ type
     @param Flags         Registering flags.
     @param(IndexConfigID ID of index configuration to which the registered
                          channel is bound.)
+    @param(UserData      User defined data to be stored inside the channel
+                         context.)
 
     @returns Index at which the new context was added, -1 when addition failed.
   }
-    Function Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0): Integer; overload; virtual;
+    Function Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer; overload; virtual;
   {
     Removes context created for given channel from the list.@br
     OnChange event is called after successful removal.
@@ -1518,10 +1594,13 @@ type
   }    
     Function Remove(ChannelContext: PChannelContext): Integer; overload; virtual;
     procedure Delete(Index: Integer); virtual;
-    Function CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0): PChannelContext; virtual;
+    Function CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): PChannelContext; virtual;
     procedure FreeContext(var ChannelContext: PChannelContext); virtual;
+    procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;    
     property Contexts[Index: Integer]: PChannelContext read GetChannelContext;
     property Channels[Index: Integer]: TChannelInfo read GetChannelInfo; default;
+  published
+    property OnUserDataFree: TUserDataFreeEvent read fOnUserDataFree write fOnUserDataFree;    
   end;
 
 
@@ -1566,7 +1645,7 @@ const
     Binded: True);
 
 {==============================================================================}
-{    TStoredConfigsList // Class declaration                                   }
+{   TStoredConfigsList // Class declaration                                    }
 {==============================================================================}
 {
   @abstract(List used to store configuration values obtained from API calls.)
@@ -1797,7 +1876,7 @@ type
   PStoredChannelMasterID = ^TStoredChannelMasterID;
 
 {==============================================================================}
-{    TStoredChannelsValuesList // Class declaration                            }
+{   TStoredChannelsValuesList // Class declaration                             }
 {==============================================================================}
 {
   @abstract(List used to store channels values obtained from API calls.)
@@ -1888,7 +1967,7 @@ type
   end;
 
 {==============================================================================}
-{    Unit Functions and procedures // Declaration                              }
+{   Unit Functions and procedures // Declaration                               }
 {==============================================================================}
 
 {
@@ -1954,7 +2033,7 @@ uses
   TelemetryConversions, TelemetryStrings;
 
 {==============================================================================}
-{    Unit Functions and procedures // Implementation                           }
+{   Unit Functions and procedures // Implementation                            }
 {==============================================================================}
 
 Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register;
@@ -2009,16 +2088,16 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                             TCustomTelemetryList                             }
+{                            TCustomTelemetryList                              }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TCustomTelemetryList // Implementation                                    }
+{   TCustomTelemetryList // Implementation                                     }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TCustomTelemetryList // Private methods                                   }
+{   TCustomTelemetryList // Private methods                                    }
 {------------------------------------------------------------------------------}
 
 Function TCustomTelemetryList.GetCount: Integer;
@@ -2027,7 +2106,7 @@ Result := fMainList.Count;
 end;
 
 {------------------------------------------------------------------------------}
-{    TCustomTelemetryList // Protected methods                                 }
+{   TCustomTelemetryList // Protected methods                                  }
 {------------------------------------------------------------------------------}
 
 Function TCustomTelemetryList.PtrGetItem(Index: Integer): Pointer;
@@ -2106,7 +2185,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TCustomTelemetryList // Public methods                                    }
+{   TCustomTelemetryList // Public methods                                     }
 {------------------------------------------------------------------------------}
 
 constructor TCustomTelemetryList.Create;
@@ -2171,16 +2250,16 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                               TKnownEventsList                               }
+{                              TKnownEventsList                                }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TKnownEventsList // Implementation                                        }
+{   TKnownEventsList // Implementation                                         }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TKnownEventsList // Private methods                                       }
+{   TKnownEventsList // Private methods                                        }
 {------------------------------------------------------------------------------}
 
 Function TKnownEventsList.GetKnownEventPointer(Index: Integer): PKnownEvent;
@@ -2204,7 +2283,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TKnownEventsList // Public methods                                        }
+{   TKnownEventsList // Public methods                                         }
 {------------------------------------------------------------------------------}
 
 procedure TKnownEventsList.Clear;
@@ -2231,17 +2310,15 @@ For i := 0 to (Count - 1) do
     end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TKnownEventsList.IndexOf(const Name: TelemetryString): Integer;
 var
   i:  Integer;
 begin
 Result := -1;
 For i := 0 to (Count - 1) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameTextNoConv(PKnownEvent(PtrGetItem(i))^.Name,Name) then
-{$ELSE}
-  If TelemetrySameText(PKnownEvent(PtrGetItem(i))^.Name,Name) then
-{$ENDIF}
+  If TelemetrySameTextSwitch(PKnownEvent(PtrGetItem(i))^.Name,Name) then
     begin
       Result := i;
       Break;
@@ -2359,16 +2436,16 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                              TKnownChannelsList                              }
+{                             TKnownChannelsList                               }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TKnownChannelsList // Implementation                                      }
+{   TKnownChannelsList // Implementation                                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TKnownChannelsList // Private methods                                     }
+{   TKnownChannelsList // Private methods                                      }
 {------------------------------------------------------------------------------}
 
 Function TKnownChannelsList.GetKnownChannelPointer(Index: Integer): PKnownChannel;
@@ -2392,7 +2469,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TKnownChannelsList // Public methods                                      }
+{   TKnownChannelsList // Public methods                                       }
 {------------------------------------------------------------------------------}
 
 procedure TKnownChannelsList.Clear;
@@ -2412,16 +2489,14 @@ var
 begin
 Result := -1;
 For i := 0 to (Count - 1) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(PKnownChannel(PtrGetItem(i))^.Name,Name) then
-{$ELSE}
-  If TelemetrySameStr(PKnownChanneli(PtrGetItem(i))^.Name,Name) then
-{$ENDIF}
+  If TelemetrySameStrSwitch(PKnownChannel(PtrGetItem(i))^.Name,Name) then
     begin
       Result := i;
       Break;
     end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownChannelsList.IndexOf(ID: TChannelID): Integer;
 var
@@ -2568,16 +2643,16 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                              TKnownConfigsList                               }
+{                             TKnownConfigsList                                }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TKnownConfigsList // Implementation                                       }
+{   TKnownConfigsList // Implementation                                        }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TKnownConfigsList // Private methods                                      }
+{   TKnownConfigsList // Private methods                                       }
 {------------------------------------------------------------------------------}
 
 Function TKnownConfigsList.GetKnownConfigPointer(Index: Integer): PKnownConfig;
@@ -2601,7 +2676,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TKnownConfigsList // Public methods                                       }
+{   TKnownConfigsList // Public methods                                        }
 {------------------------------------------------------------------------------}
 
 procedure TKnownConfigsList.Clear;
@@ -2621,16 +2696,14 @@ var
 begin
 Result := -1;
 For i := 0 to (Count - 1) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(PKnownConfig(PtrGetItem(i))^.Name,Name) then
-{$ELSE}
-  If TelemetrySameStr(PKnownConfig(PtrGetItem(i))^.Name,Name) then
-{$ENDIF}
+  If TelemetrySameStrSwitch(PKnownConfig(PtrGetItem(i))^.Name,Name) then
     begin
       Result := i;
       Break;
     end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownConfigsList.IndexOf(ID: TConfigID): Integer;
 var
@@ -2776,16 +2849,16 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                            TRegisteredEventsList                             }
+{                           TRegisteredEventsList                              }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TRegisteredEventsList // Implementation                                   }
+{   TRegisteredEventsList // Implementation                                    }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TRegisteredEventsList // Private methods                                  }
+{   TRegisteredEventsList // Private methods                                   }
 {------------------------------------------------------------------------------}
 
 Function TRegisteredEventsList.GetEventContext(Index: Integer): PEventContext;
@@ -2809,15 +2882,19 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TRegisteredEventsList // Public methods                                   }
+{   TRegisteredEventsList // Public methods                                    }
 {------------------------------------------------------------------------------}
 
 procedure TRegisteredEventsList.Clear;
 var
-  i:  Integer;
+  i:        Integer;
+  TempPtr:  PEventContext;
 begin
 For i := (Count - 1) downto 0 do
-  Dispose(PEventContext(PtrGetItem(i)));
+  begin
+    TempPtr := PEventContext(PtrGetItem(i));
+    FreeContext(TempPtr);
+  end;
 inherited;
 end;
 
@@ -2836,6 +2913,8 @@ For i := 0 to (Count - 1) do
     end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredEventsList.IndexOf(EventContext: PEventContext): Integer;
 begin
 Result := PtrIndexOf(EventContext);
@@ -2850,18 +2929,22 @@ else
   raise Exception.Create('TRegisteredEventsList.Add(EventContext): Context must not be nil.');
 end;
 
-Function TRegisteredEventsList.Add(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): Integer;
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function TRegisteredEventsList.Add(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer;
 var
   NewEvent: PEventContext;
 begin
-NewEvent := CreateContext(Recipient,Event,Utility);
+NewEvent := CreateContext(Recipient,Event,Utility,UserData);
 Result := Add(NewEvent);
 If Result < 0 then FreeContext(NewEvent);
 end;
 
-Function TRegisteredEventsList.Add(Event: scs_event_t; Utility: Boolean = False): Integer;
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function TRegisteredEventsList.Add(Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer;
 begin
-Result := Add(nil,Event,Utility);
+Result := Add(nil,Event,Utility,UserData);
 end;
 
 //------------------------------------------------------------------------------
@@ -2872,6 +2955,8 @@ Result := IndexOf(Event);
 If Result >= 0 then Delete(Result);
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredEventsList.Remove(EventContext: PEventContext): Integer;
 begin
 Result := IndexOf(EventContext);
@@ -2881,10 +2966,13 @@ end;
 //------------------------------------------------------------------------------
 
 procedure TRegisteredEventsList.Delete(Index: Integer);
+var
+  TempPtr:  PEventContext;
 begin
 If (Index >= 0) and (Index < Count) then
   begin
-    Dispose(PEventContext(PtrGetItem(Index)));
+    TempPtr := PEventContext(PtrGetItem(Index));
+    FreeContext(TempPtr);
     PtrDelete(Index);
   end
 else
@@ -2894,34 +2982,43 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TRegisteredEventsList.CreateContext(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): PEventContext;
+Function TRegisteredEventsList.CreateContext(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): PEventContext;
 begin
 New(Result);
 Result^.Recipient := Recipient;
 Result^.EventInfo.Event := Event;
 Result^.EventInfo.Utility := Utility;
+Result^.UserData := UserData;
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TRegisteredEventsList.FreeContext(var EventContext: PEventContext);
 begin
+DoOnUserDataFree(Self,EventContext^.UserData);
 Dispose(EventContext);
 EventContext := nil;
 end;
 
+//------------------------------------------------------------------------------
+
+procedure TRegisteredEventsList.DoOnUserDataFree(Sender: TObject; var UserData: Pointer);
+begin
+If Assigned(fOnUserDataFree) then fOnUserDataFree(Sender,UserData);
+end;
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                           TRegisteredChannelsList                            }
+{                          TRegisteredChannelsList                             }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TRegisteredChannelsList // Implementation                                 }
+{   TRegisteredChannelsList // Implementation                                  }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TRegisteredChannelsList // Private methods                                }
+{   TRegisteredChannelsList // Private methods                                 }
 {------------------------------------------------------------------------------}
 
 Function TRegisteredChannelsList.GetChannelContext(Index: Integer): PChannelContext;
@@ -2945,15 +3042,19 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TRegisteredChannelsList // Public methods                                 }
+{   TRegisteredChannelsList // Public methods                                  }
 {------------------------------------------------------------------------------}
 
 procedure TRegisteredChannelsList.Clear;
 var
-  i:  Integer;
+  i:        Integer;
+  TempPtr:  PChannelContext;
 begin
 For i := (Count - 1) downto 0 do
-  Dispose(PChannelContext(PtrGetItem(i)));
+  begin
+    TempPtr := PChannelContext(PtrGetItem(i));
+    FreeContext(TempPtr);
+  end;
 inherited;
 end;
 
@@ -2965,16 +3066,14 @@ var
 begin
 Result := -1;
 For i := 0 to (Count - 1) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(PChannelContext(PtrGetItem(i))^.ChannelInfo.Name,Name) then
-{$ELSE}
-  If TelemetrySameStr(PChannelContext(PtrGetItem(i))^.ChannelInfo.Name,Name) then
-{$ENDIF}
+  If TelemetrySameStrSwitch(PChannelContext(PtrGetItem(i))^.ChannelInfo.Name,Name) then
     begin
       Result := i;
       Break;
     end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID): Integer;
 var
@@ -2989,6 +3088,8 @@ For i := 0 to (Count - 1) do
     end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer;
 var
   i:        Integer;
@@ -2998,18 +3099,15 @@ Result := -1;
 For i := 0 to (Count - 1) do
   begin
     TempItem := PChannelContext(PtrGetItem(i));
-  {$IFDEF AssumeASCIIString}
-    If TelemetrySameStrNoConv(TempItem^.ChannelInfo.Name,Name)
-  {$ELSE}
-    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name)
-  {$ENDIF}
-    and (TempItem^.ChannelInfo.Index = Index) then
+    If TelemetrySameStrSwitch(TempItem^.ChannelInfo.Name,Name) and (TempItem^.ChannelInfo.Index = Index) then
       begin
         Result := i;
         Break;
       end;
   end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t): Integer;
 var
@@ -3028,6 +3126,8 @@ For i := 0 to (Count - 1) do
   end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 var
   i:        Integer;
@@ -3037,18 +3137,17 @@ Result := -1;
 For i := 0 to (Count - 1) do
   begin
     TempItem := PChannelContext(PtrGetItem(i));
-  {$IFDEF AssumeASCIIString}
-    If TelemetrySameStrNoConv(TempItem^.ChannelInfo.Name,Name)
-  {$ELSE}
-    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name)
-  {$ENDIF}
-    and (TempItem^.ChannelInfo.Index = Index) and (TempItem^.ChannelInfo.ValueType = ValueType) then
+    If TelemetrySameStrSwitch(TempItem^.ChannelInfo.Name,Name) and
+      (TempItem^.ChannelInfo.Index = Index) and
+      (TempItem^.ChannelInfo.ValueType = ValueType) then
       begin
         Result := i;
         Break;
       end;
   end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 var
@@ -3068,6 +3167,8 @@ For i := 0 to (Count - 1) do
   end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer;
 var
   i:        Integer;
@@ -3077,19 +3178,18 @@ Result := -1;
 For i := 0 to (Count - 1) do
   begin
     TempItem := PChannelContext(PtrGetItem(i));
-  {$IFDEF AssumeASCIIString}
-    If TelemetrySameStrNoConv(TempItem^.ChannelInfo.Name,Name)
-  {$ELSE}
-    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name)
-  {$ENDIF}
-    and (TempItem^.ChannelInfo.Index = Index) and (TempItem^.ChannelInfo.ValueType = ValueType)
-    and (TempItem^.ChannelInfo.Flags = Flags) then
+    If TelemetrySameStrSwitch(TempItem^.ChannelInfo.Name,Name) and
+      (TempItem^.ChannelInfo.Index = Index) and
+      (TempItem^.ChannelInfo.ValueType = ValueType) and
+      (TempItem^.ChannelInfo.Flags = Flags) then
       begin
         Result := i;
         Break;
       end;
   end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer;
 var
@@ -3109,6 +3209,8 @@ For i := 0 to (Count - 1) do
   end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredChannelsList.IndexOf(ChannelContext: PChannelContext): Integer;
 begin
 Result := PtrIndexOf(ChannelContext);
@@ -3123,18 +3225,22 @@ else
   raise Exception.Create('TRegisteredChannelsList.Add(ChannelContext): Context must not be nil.');
 end;
 
-Function TRegisteredChannelsList.Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0): Integer;
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function TRegisteredChannelsList.Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer;
 var
   NewChannel: PChannelContext;
 begin
-NewChannel := CreateContext(Recipient,Name,Index,ValueType,Flags,IndexConfigID);
+NewChannel := CreateContext(Recipient,Name,Index,ValueType,Flags,IndexConfigID,UserData);
 Result := Add(NewChannel);
 If Result < 0 then FreeContext(NewChannel);
 end;
 
-Function TRegisteredChannelsList.Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0): Integer;
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function TRegisteredChannelsList.Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer;
 begin
-Result := Add(nil,Name,Index,ValueType,Flags,IndexConfigID);
+Result := Add(nil,Name,Index,ValueType,Flags,IndexConfigID,UserData);
 end;
 
 //------------------------------------------------------------------------------
@@ -3145,11 +3251,15 @@ Result := IndexOf(Name,Index,ValueType);
 If Result >= 0 then Delete(Result);
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TRegisteredChannelsList.Remove(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 begin
 Result := IndexOf(ID,Index,ValueType);
 If Result >= 0 then Delete(Result);
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.Remove(ChannelContext: PChannelContext): Integer;
 begin
@@ -3160,10 +3270,13 @@ end;
 //------------------------------------------------------------------------------
 
 procedure TRegisteredChannelsList.Delete(Index: Integer);
+var
+  TempPtr:  PChannelContext;
 begin
 If (Index >= 0) and (Index < Count) then
   begin
-    Dispose(PChannelContext(PtrGetItem(Index)));
+    TempPtr := PChannelContext(PtrGetItem(Index));
+    FreeContext(TempPtr);
     PtrDelete(Index);
   end
 else
@@ -3173,7 +3286,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TRegisteredChannelsList.CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0): PChannelContext;
+Function TRegisteredChannelsList.CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): PChannelContext;
 begin
 New(Result);
 Result^.Recipient := Recipient;
@@ -3183,28 +3296,37 @@ Result^.ChannelInfo.Index := Index;
 Result^.ChannelInfo.ValueType := ValueType;
 Result^.ChannelInfo.Flags := Flags;
 Result^.ChannelInfo.IndexConfigID := IndexConfigID;
+Result^.UserData := UserData;
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TRegisteredChannelsList.FreeContext(var ChannelContext: PChannelContext);
 begin
+DoOnUserDataFree(Self,ChannelContext^.UserData);
 Dispose(ChannelContext);
 ChannelContext := nil;
 end;
 
+//------------------------------------------------------------------------------
+
+procedure TRegisteredChannelsList.DoOnUserDataFree(Sender: TObject; var UserData: Pointer);
+begin
+If Assigned(fOnUserDataFree) then fOnUserDataFree(Sender,UserData);
+end;
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                              TStoredConfigsList                              }
+{                             TStoredConfigsList                               }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TStoredConfigsList // Implementation                                      }
+{   TStoredConfigsList // Implementation                                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TStoredConfigsList // Private methods                                     }
+{   TStoredConfigsList // Private methods                                      }
 {------------------------------------------------------------------------------}
 
 Function TStoredConfigsList.GetStoredConfigPointer(Index: Integer): PStoredConfig;
@@ -3228,7 +3350,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TStoredConfigsList // Public methods                                      }
+{   TStoredConfigsList // Public methods                                       }
 {------------------------------------------------------------------------------}
 
 procedure TStoredConfigsList.Clear;
@@ -3248,16 +3370,14 @@ var
 begin
 Result := -1;
 For i := 0 to (Count - 1) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(PStoredConfig(PtrGetItem(i))^.Name,Name) then
-{$ELSE}
-  If TelemetrySameStr(PStoredConfig(PtrGetItem(i))^.Name,Name) then
-{$ENDIF}
+  If TelemetrySameStrSwitch(PStoredConfig(PtrGetItem(i))^.Name,Name) then
     begin
       Result := i;
       Break;
     end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.IndexOf(ID: TConfigID): Integer;
 var
@@ -3272,23 +3392,22 @@ For i := 0 to (Count - 1) do
     end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TStoredConfigsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer;
 var
   i:  Integer;
 begin
 Result := -1;
 For i := 0 to (Count - 1) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(PStoredConfig(PtrGetItem(i))^.Name,Name)
-{$ELSE}
-  If TelemetrySameStr(PStoredConfig(PtrGetItem(i))^.Name,Name)
-{$ENDIF}
-  and (PStoredConfig(PtrGetItem(i))^.Index = Index) then
+  If TelemetrySameStrSwitch(PStoredConfig(PtrGetItem(i))^.Name,Name) and (PStoredConfig(PtrGetItem(i))^.Index = Index) then
     begin
       Result := i;
       Break;
     end;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.IndexOf(ID: TConfigID; Index: scs_u32_t): Integer;
 var
@@ -3320,6 +3439,8 @@ Result := PtrAdd(NewConfig);
 If Result < 0 then Dispose(NewConfig);
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TStoredConfigsList.Add(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer;
 var
   EmptyValue: scs_value_localized_t;
@@ -3336,6 +3457,8 @@ begin
 Result := IndexOf(Name,Index);
 If Result >= 0 then Delete(Result);
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.Remove(ID: TChannelID; Index: scs_u32_t = SCS_U32_NIL): Integer;
 begin
@@ -3369,6 +3492,8 @@ If Result >= 0 then
   end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TStoredConfigsList.ChangeConfigValue(ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t): Integer;
 begin
 Result := IndexOf(ID,Index);
@@ -3381,16 +3506,16 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                           TStoredChannelsValuesList                          }
+{                          TStoredChannelsValuesList                           }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TStoredChannelsValuesList // Implementation                               }
+{   TStoredChannelsValuesList // Implementation                                }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TStoredChannelsValuesList // Private methods                              }
+{   TStoredChannelsValuesList // Private methods                               }
 {------------------------------------------------------------------------------}
 
 Function TStoredChannelsValuesList.GetStoredChannelValue(Index: Integer): TStoredChannel;
@@ -3403,7 +3528,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TStoredChannelsValuesList // Protected methods                            }
+{   TStoredChannelsValuesList // Protected methods                             }
 {------------------------------------------------------------------------------}
 
 Function TStoredChannelsValuesList.GetInsertIndex(MasterID: TMasterID): Integer;
@@ -3431,7 +3556,7 @@ If Count > 0 then
 end;
 
 {------------------------------------------------------------------------------}
-{    TStoredChannelsValuesList // Public methods                               }
+{   TStoredChannelsValuesList // Public methods                                }
 {------------------------------------------------------------------------------}
 
 procedure TStoredChannelsValuesList.Clear;
@@ -3467,10 +3592,14 @@ while MaxIndex >= MinIndex do
    end;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 Function TStoredChannelsValuesList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 begin
 Result := IndexOf(GetMasterID(ID,Index,ValueType));
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredChannelsValuesList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 begin

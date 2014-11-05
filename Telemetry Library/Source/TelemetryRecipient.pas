@@ -2,7 +2,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-10-26)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
@@ -24,7 +24,7 @@
     .\Inc\TelemetryRecipient_MulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change:  2014-10-26
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -115,10 +115,34 @@
     @item(2014-10-24 - Added parameter @code(AllowAutoRegistration) parameter to
                        one parametrized constructor.)
     @item(2014-10-24 - Small implementation changes and bugs repairs.)
-    @item(2014-10-26 - Added method TTelemetryRecipient.SetAPIInfo.))
-
-  ToDo: @unorderedList(
-    @item(Add channel/event specific user data (pointer, stored in context)))
+    @item(2014-10-26 - Added method TTelemetryRecipient.SetAPIInfo.)
+    @item(2014-11-05 - Added paramter @code(UserData) to following event types
+                       and methods:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TEventRegisterEvent)
+                         @item(TEventEvent)
+                         @item(TChannelRegisterEvent)
+                         @item(TChannelUnregisterEvent)
+                         @item(TChannelEvent)
+                         @item(TMulticastEventRegisterEvent.Call)
+                         @item(TMulticastEventEvent.Call)
+                         @item(TMulticastChannelRegisterEvent.Call)
+                         @item(TMulticastChannelUnregisterEvent.Call)
+                         @item(TMulticastChannelEvent.Call)
+                         @item(TTelemetryRecipient.DoOnEventRegister)
+                         @item(TTelemetryRecipient.DoOnEventUnregister)
+                         @item(TTelemetryRecipient.DoOnEvent)
+                         @item(TTelemetryRecipient.DoOnChannelRegister)
+                         @item(TTelemetryRecipient.DoOnChannelUnregister)
+                         @item(TTelemetryRecipient.DoOnChannel)
+                         @item(TTelemetryRecipient.EventHandler)
+                         @item(TTelemetryRecipient.ChannelHandler)
+                         @item(TTelemetryRecipient.EventRegister)
+                         @item(TTelemetryRecipient.EventRegisterByIndex)
+                         @item(TTelemetryRecipient.ChannelRegister)
+                         @item(TTelemetryRecipient.ChannelRegisterByIndex)
+                         @item(TTelemetryRecipient.ChannelRegisterByName)))
+    @item(2014-11-05 - Small implementation changes.))
 
 @html(<hr>)}
 unit TelemetryRecipient;
@@ -174,15 +198,15 @@ type
   // Event type used when recipient writes to game log.
   TLogEvent = procedure(Sender: TObject; LogType: scs_log_type_t; const LogText: String) of object;
   // Event type used when telemetry event is registered or unregistered.
-  TEventRegisterEvent = procedure(Sender: TObject; Event: scs_event_t) of object;
+  TEventRegisterEvent = procedure(Sender: TObject; Event: scs_event_t; UserData: Pointer) of object;
   // Event type used when telemetery event occurs.
-  TEventEvent = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer) of object;
+  TEventEvent = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer) of object;
   // Event type used when telemetry channel is registered.
-  TChannelRegisterEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t) of Object;
+  TChannelRegisterEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of Object;
   // Event type used when telemetry channel is unregistered.
-  TChannelUnregisterEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t) of Object;
+  TChannelUnregisterEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of Object;
   // Event type used when telemetery channel callback occurs.
-  TChannelEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t) of Object;
+  TChannelEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of Object;
   // Event type used when config is parsed from configuration telemetry event.
   TConfigEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
@@ -199,7 +223,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryRecipient // Class declaration                                  }
+{   TTelemetryRecipient // Class declaration                                   }
 {==============================================================================}
 {
   @abstract(@NoAutoLink(TTelemetryRecipient) is used as a main way to control
@@ -1019,18 +1043,18 @@ type
     procedure SetStoreConfigurations(Value: Boolean);
     procedure SetStoreChannelsValues(Value: Boolean);
   protected
-    procedure EventHandler(Event: scs_event_t; Data: Pointer); virtual;
-    procedure ChannelHandler(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual;
+    procedure EventHandler(Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;
+    procedure ChannelHandler(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;
     procedure ProcessConfigurationEvent(const Data: scs_telemetry_configuration_t); virtual;
   public
     procedure DoOnDestroy(Sender: TObject); virtual;
     procedure DoOnLog(Sender: TObject; LogType: scs_log_type_t; const LogText: String); virtual;
-    procedure DoOnEventRegister(Sender: TObject; Event: scs_event_t); virtual;
-    procedure DoOnEventUnregister(Sender: TObject; Event: scs_event_t); virtual;
-    procedure DoOnEvent(Sender: TObject; Event: scs_event_t; Data: Pointer); virtual;
-    procedure DoOnChannelRegister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;
-    procedure DoOnChannelUnregister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;
-    procedure DoOnChannel(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual;
+    procedure DoOnEventRegister(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;
+    procedure DoOnEventUnregister(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;
+    procedure DoOnEvent(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;
+    procedure DoOnChannelRegister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); virtual;
+    procedure DoOnChannelUnregister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); virtual;
+    procedure DoOnChannel(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;
     procedure DoOnConfig(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
     class Function HighestSupportedTelemetryVersion: scs_u32_t; override;
     class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; override;
@@ -1125,8 +1149,8 @@ type
   }
     procedure Log(const LogText: String); overload; virtual;
     Function EventRegistered(Event: scs_event_t): Boolean; virtual;
-    Function EventRegister(Event: scs_event_t): Boolean; virtual;
-    Function EventRegisterByIndex(Index: Integer): Boolean; virtual;
+    Function EventRegister(Event: scs_event_t; UserData: Pointer = nil): Boolean; virtual;
+    Function EventRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean; virtual;
     Function EventUnregister(Event: scs_event_t): Boolean; virtual;
     Function EventUnregisterIndex(Index: Integer): Boolean; virtual;
     Function EventUnregisterByIndex(Index: Integer): Boolean; virtual;
@@ -1134,9 +1158,9 @@ type
     Function EventUnregisterAll: Integer; virtual;
     Function EventGetDataAsString(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;
     Function ChannelRegistered(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;
-    Function ChannelRegister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none): Boolean; virtual;
-    Function ChannelRegisterByIndex(Index: Integer): Boolean; virtual;
-    Function ChannelRegisterByName(const Name: TelemetryString): Boolean; virtual;
+    Function ChannelRegister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; UserData: Pointer = nil): Boolean; virtual;
+    Function ChannelRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean; virtual;
+    Function ChannelRegisterByName(const Name: TelemetryString; UserData: Pointer = nil): Boolean; virtual;
     Function ChannelUnregister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;
     Function ChannelUnregisterIndex(Index: Integer): Boolean; virtual;
     Function ChannelUnregisterByIndex(Index: Integer): Boolean; virtual;
@@ -1186,7 +1210,7 @@ type
   end;
 
 {==============================================================================}
-{    Unit Functions and procedures // Declaration                              }
+{   Unit Functions and procedures // Declaration                               }
 {==============================================================================}
 
 {
@@ -1258,7 +1282,7 @@ uses
 {$ENDIF}
 
 {==============================================================================}
-{    Unit Functions and procedures // Implementation                           }
+{   Unit Functions and procedures // Implementation                            }
 {==============================================================================}
 
 Function RecipientGetChannelIDFromName(const Name: TelemetryString; Recipient: Pointer): TChannelID;
@@ -1306,7 +1330,7 @@ procedure EventReceiver(event: scs_event_t; event_info: Pointer; context: scs_co
 begin
 If Assigned(context) then
   If Assigned(PEventContext(context)^.Recipient) then
-    TTelemetryRecipient(PEventContext(context)^.Recipient).EventHandler(event,event_info);
+    TTelemetryRecipient(PEventContext(context)^.Recipient).EventHandler(event,event_info,PEventContext(context)^.UserData);
 end;
 
 //------------------------------------------------------------------------------
@@ -1317,7 +1341,7 @@ begin
 If Assigned(context) then
   If Assigned(PChannelContext(context)^.Recipient) then
     with PChannelContext(context)^ do
-      TTelemetryRecipient(Recipient).ChannelHandler(APIStringToTelemetryString(name),ChannelInfo.ID,index,value);
+      TTelemetryRecipient(Recipient).ChannelHandler(APIStringToTelemetryString(name),ChannelInfo.ID,index,value,PEventContext(context)^.UserData);
 end;
 
 {==============================================================================}
@@ -1327,11 +1351,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryRecipient // Class implementation                               }
+{   TTelemetryRecipient // Class implementation                                }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryRecipient // Constants, types, variables, etc...                }
+{   TTelemetryRecipient // Constants, types, variables, etc...                 }
 {------------------------------------------------------------------------------}
 
 const
@@ -1350,7 +1374,7 @@ const
   def_um_StoreChannelsValues   = False;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryRecipient // Private methods                                    }
+{   TTelemetryRecipient // Private methods                                     }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryRecipient.SetKeepUtilityEvents(Value: Boolean);
@@ -1392,16 +1416,16 @@ end;
 {    TTelemetryRecipient // Protected methods                                  }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryRecipient.EventHandler(Event: scs_event_t; Data: Pointer);
+procedure TTelemetryRecipient.EventHandler(Event: scs_event_t; Data: Pointer; UserData: Pointer);
 begin
-DoOnEvent(Self,Event,Data);
+DoOnEvent(Self,Event,Data,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.ChannelHandler(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryRecipient.ChannelHandler(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
-DoOnChannel(Self,Name,Id,Index,Value);
+DoOnChannel(Self,Name,Id,Index,Value,UserData);
 end;
 
 //------------------------------------------------------------------------------
@@ -1492,64 +1516,64 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnEventRegister(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryRecipient.DoOnEventRegister(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
-If Assigned(fOnEventRegister) then fOnEventRegister(Sender,Event);
+If Assigned(fOnEventRegister) then fOnEventRegister(Sender,Event,UserData);
 {$IFDEF MulticastEvents}
-fOnEventRegisterMulti.Call(Sender,Event);
+fOnEventRegisterMulti.Call(Sender,Event,UserData);
 {$ENDIF}
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnEventUnregister(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryRecipient.DoOnEventUnregister(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
-If Assigned(fOnEventUnregister) then fOnEventUnregister(Sender,Event);
+If Assigned(fOnEventUnregister) then fOnEventUnregister(Sender,Event,UserData);
 {$IFDEF MulticastEvents}
-fOnEventUnregisterMulti.Call(Sender,Event);
+fOnEventUnregisterMulti.Call(Sender,Event,UserData);
 {$ENDIF}
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnEvent(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TTelemetryRecipient.DoOnEvent(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 begin
 If (Event = SCS_TELEMETRY_EVENT_configuration) then
   ProcessConfigurationEvent(p_scs_telemetry_configuration_t(Data)^);
-If Assigned(fOnEvent) then fOnEvent(Sender,Event,Data);
+If Assigned(fOnEvent) then fOnEvent(Sender,Event,Data,UserData);
 {$IFDEF MulticastEvents}
-fOnEventMulti.Call(Sender,Event,Data);
+fOnEventMulti.Call(Sender,Event,Data,UserData);
 {$ENDIF}
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnChannelRegister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TTelemetryRecipient.DoOnChannelRegister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
-If Assigned(fOnChannelRegister) then fOnChannelRegister(Sender,Name,ID,Index,ValueType,Flags);
+If Assigned(fOnChannelRegister) then fOnChannelRegister(Sender,Name,ID,Index,ValueType,Flags,UserData);
 {$IFDEF MulticastEvents}
-fOnChannelRegisterMulti.Call(Sender,Name,ID,Index,ValueType,Flags);
+fOnChannelRegisterMulti.Call(Sender,Name,ID,Index,ValueType,Flags,UserData);
 {$ENDIF}
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnChannelUnregister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TTelemetryRecipient.DoOnChannelUnregister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
-If Assigned(fOnChannelUnregister) then fOnChannelUnregister(Sender,Name,ID,Index,ValueType);
+If Assigned(fOnChannelUnregister) then fOnChannelUnregister(Sender,Name,ID,Index,ValueType,UserData);
 {$IFDEF MulticastEvents}
-fOnChannelUnregisterMulti.Call(Sender,Name,ID,Index,ValueType);
+fOnChannelUnregisterMulti.Call(Sender,Name,ID,Index,ValueType,UserData);
 {$ENDIF}
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnChannel(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryRecipient.DoOnChannel(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
 If StoreChannelsValues then fStoredChannelsValues.StoreChannelValue(Name,ID,Index,Value);
-If Assigned(fOnChannel) then fOnChannel(Sender,Name,ID,Index,Value);
+If Assigned(fOnChannel) then fOnChannel(Sender,Name,ID,Index,Value,UserData);
 {$IFDEF MulticastEvents}
-fOnChannelMulti.Call(Sender,Name,ID,Index,Value);
+fOnChannelMulti.Call(Sender,Name,ID,Index,Value,UserData);
 {$ENDIF}
 end;
 
@@ -1675,6 +1699,8 @@ fOnConfigMulti := TMulticastConfigEvent.Create(Self);
 {$ENDIF}
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 constructor TTelemetryRecipient.Create;
 begin
 CommonCreate;
@@ -1688,6 +1714,8 @@ StoreConfigurations := def_um_StoreConfigurations;
 ManageIndexedChannels := def_um_ManageIndexedChannels;
 StoreChannelsValues := def_um_StoreChannelsValues;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 constructor TTelemetryRecipient.Create(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t; GameName: TelemetryString = '');
 begin
@@ -1711,6 +1739,8 @@ StoreConfigurations := def_StoreConfigurations;
 ManageIndexedChannels := def_ManageIndexedChannels;
 StoreChannelsValues := def_StoreChannelsValues;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 constructor TTelemetryRecipient.Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t; AllowAutoRegistration: Boolean = True);
 begin
@@ -1740,6 +1770,8 @@ StoreConfigurations := def_StoreConfigurations;
 ManageIndexedChannels := def_ManageIndexedChannels;
 StoreChannelsValues := def_StoreChannelsValues;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 constructor TTelemetryRecipient.CreateCurrent(GameID: TelemetryString; GameName: TelemetryString = '');
 begin
@@ -1824,6 +1856,8 @@ If Assigned(cbLog) then cbLog(LogType,scs_string_t(TempStr));
 DoOnLog(Self,LogType,LogText);
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 procedure TTelemetryRecipient.Log(const LogText: String);
 begin
 Log(SCS_LOG_TYPE_message,LogText);
@@ -1838,7 +1872,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.EventRegister(Event: scs_event_t): Boolean;
+Function TTelemetryRecipient.EventRegister(Event: scs_event_t; UserData: Pointer = nil): Boolean;
 var
   NewEventContext:  PEventContext;
 begin
@@ -1852,13 +1886,13 @@ else
   begin
     If Assigned(cbRegisterEvent) then
       begin
-        NewEventContext := fRegisteredEvents.CreateContext(Self,Event,fInfoProvider.KnownEvents.IsUtility(Event));
+        NewEventContext := fRegisteredEvents.CreateContext(Self,Event,fInfoProvider.KnownEvents.IsUtility(Event),UserData);
         fLastTelemetryResult := cbRegisterEvent(Event,EventReceiver,NewEventContext);
         If LastTelemetryResult = SCS_RESULT_ok then
           begin
             If fRegisteredEvents.Add(NewEventContext) >= 0 then
               begin
-                DoOnEventRegister(Self,Event);
+                DoOnEventRegister(Self,Event,UserData);
                 Result := True;
               end
             else fRegisteredEvents.FreeContext(NewEventContext);
@@ -1871,7 +1905,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.EventRegisterByIndex(Index: Integer): Boolean;
+Function TTelemetryRecipient.EventRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean;
 begin
 Result := False;
 If (Index >=0) and (Index < fInfoProvider.KnownEvents.Count) then
@@ -1882,6 +1916,8 @@ end;
 //------------------------------------------------------------------------------
 
 Function TTelemetryRecipient.EventUnregister(Event: scs_event_t): Boolean;
+var
+  CtxIndex: Integer;
 begin
 Result := False;
 If not fUserManaged and not EventRegistered(Event) then
@@ -1897,8 +1933,13 @@ else
         fLastTelemetryResult := cbUnregisterEvent(Event);
         If LastTelemetryResult = SCS_RESULT_ok then
           begin
-            fRegisteredEvents.Remove(Event);
-            DoOnEventUnregister(Self,Event);
+            CtxIndex := fRegisteredEvents.IndexOf(Event);
+            If CtxIndex >= 0 then
+              begin
+                DoOnEventUnregister(Self,Event,fRegisteredEvents.Contexts[CtxIndex]^.UserData);
+                fRegisteredEvents.Delete(CtxIndex);
+              end
+            else DoOnEventUnregister(Self,Event,nil);
             Result := True;
           end;
       end
@@ -1977,7 +2018,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.ChannelRegister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none): Boolean;
+Function TTelemetryRecipient.ChannelRegister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; UserData: Pointer = nil): Boolean;
 var
   NewChannelContext:  PChannelContext;
 begin
@@ -1992,13 +2033,13 @@ else
     If Assigned(cbRegisterChannel) then
       begin
         NewChannelContext := fRegisteredChannels.CreateContext(Self,Name,Index,ValueType,Flags,
-          fInfoProvider.KnownChannels.ChannelIndexConfigID(Name));
+          fInfoProvider.KnownChannels.ChannelIndexConfigID(Name),UserData);
         fLastTelemetryResult := cbRegisterChannel(scs_string_t(Name),Index,ValueType,Flags,ChannelReceiver,NewChannelContext);
         If LastTelemetryResult  = SCS_RESULT_ok then
           begin
             If fRegisteredChannels.Add(NewChannelContext) >= 0 then
               begin
-                DoOnChannelRegister(Self,Name,GetItemID(Name),Index,ValueType,Flags);
+                DoOnChannelRegister(Self,Name,GetItemID(Name),Index,ValueType,Flags,UserData);
                 Result := True;
               end
             else fRegisteredChannels.FreeContext(NewChannelContext);
@@ -2011,7 +2052,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.ChannelRegisterByIndex(Index: Integer): Boolean;
+Function TTelemetryRecipient.ChannelRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean;
 var
   i,Counter:        Integer;
   KnownChannelInfo: TKnownChannel;
@@ -2044,7 +2085,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.ChannelRegisterByName(const Name: TelemetryString): Boolean;
+Function TTelemetryRecipient.ChannelRegisterByName(const Name: TelemetryString; UserData: Pointer = nil): Boolean;
 begin
 Result := ChannelRegisterByIndex(fInfoProvider.KnownChannels.IndexOf(Name));
 end;
@@ -2052,6 +2093,8 @@ end;
 //------------------------------------------------------------------------------
 
 Function TTelemetryRecipient.ChannelUnregister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean;
+var
+  CtxIndex: Integer;
 begin
 Result := False;
 If not fUserManaged and not ChannelRegistered(Name,Index,ValueType) then
@@ -2066,8 +2109,13 @@ else
         fLastTelemetryResult := cbUnregisterChannel(scs_string_t(Name),Index,ValueType);
         If LastTelemetryResult = SCS_RESULT_ok then
           begin
-            fRegisteredChannels.Remove(Name,Index,ValueType);
-            DoOnChannelUnregister(Self,Name,GetItemID(Name),Index,ValueType);
+            CtxIndex := fRegisteredChannels.IndexOf(Name,Index,ValueType);
+            If CtxIndex >= 0 then
+              begin
+                DoOnChannelUnregister(Self,Name,GetItemID(Name),Index,ValueType,fRegisteredChannels.Contexts[CtxIndex]^.UserData);
+                fRegisteredChannels.Delete(CtxIndex);
+              end
+            else DoOnChannelUnregister(Self,Name,GetItemID(Name),Index,ValueType,nil);
             Result := True;
           end;
       end
@@ -2108,11 +2156,7 @@ begin
 Counter := 0;
 If Assigned(cbUnregisterEvent) then
   For i := (fRegisteredChannels.Count - 1) downto 0 do
-  {$IFDEF AssumeASCIIString}
-    If TelemetrySameStrNoConv(fRegisteredChannels[i].Name,Name) then
-  {$ELSE}
-    If TelemetrySameStr(fRegisteredChannels[i].Name,Name) then
-  {$ENDIF}
+    If TelemetrySameStrSwitch(fRegisteredChannels[i].Name,Name) then
       If ChannelUnregister(fRegisteredChannels[i].Name,
                            fRegisteredChannels[i].Index,
                            fRegisteredChannels[i].ValueType) then Inc(Counter);

@@ -1,57 +1,7 @@
 DiGraph Uses {
   rankdir="LR"
-  "TelemetryCommCircularBuffers" -> "TelemetryCommon"
-  "TelemetryCommCircularBuffers" -> "TelemetryIDs"
-  "TelemetryCommCircularBuffers" -> "TelemetryConversions"
-  "TelemetryCommCircularBuffers" -> "TelemetryLists"
-  "TelemetryCommCircularBuffers" -> "MulticastEvent"
-  "TelemetryCommCircularBuffers" -> "SCS_Telemetry_Condensed"
-  "TelemetryCommCircularBuffers" [href="TelemetryCommCircularBuffers.html"]
-  "TelemetryCommCommon" [href="TelemetryCommCommon.html"]
   "TelemetryCommon" -> "SCS_Telemetry_Condensed"
   "TelemetryCommon" [href="TelemetryCommon.html"]
-  "TelemetryCommPackets" -> "SysUtils"
-  "TelemetryCommPackets" [href="TelemetryCommPackets.html"]
-  "TelemetryCommPacketsAllocator" -> "TelemetryCommPackets"
-  "TelemetryCommPacketsAllocator" [href="TelemetryCommPacketsAllocator.html"]
-  "TelemetryCommPacketsBuilder" -> "TelemetryCommon"
-  "TelemetryCommPacketsBuilder" -> "TelemetryIDs"
-  "TelemetryCommPacketsBuilder" -> "TelemetryLists"
-  "TelemetryCommPacketsBuilder" -> "TelemetryInfoProvider"
-  "TelemetryCommPacketsBuilder" -> "TelemetryRecipient"
-  "TelemetryCommPacketsBuilder" -> "TelemetryCommCommon"
-  "TelemetryCommPacketsBuilder" -> "TelemetryCommPackets"
-  "TelemetryCommPacketsBuilder" -> "TelemetryCommCircularBuffers"
-  "TelemetryCommPacketsBuilder" -> "TelemetryCommPacketsAllocator"
-  "TelemetryCommPacketsBuilder" -> "TelemetryStreaming"
-  "TelemetryCommPacketsBuilder" -> "SCS_Telemetry_Condensed"
-  "TelemetryCommPacketsBuilder" [href="TelemetryCommPacketsBuilder.html"]
-  "TelemetryCommPacketsResolving" -> "TelemetryStreaming"
-  "TelemetryCommPacketsResolving" -> "TelemetryCommPackets"
-  "TelemetryCommPacketsResolving" [href="TelemetryCommPacketsResolving.html"]
-  "TelemetryCommReceiver" -> "TelemetryRecipient"
-  "TelemetryCommReceiver" -> "TelemetryCommCommon"
-  "TelemetryCommReceiver" -> "TelemetryCommPackets"
-  "TelemetryCommReceiver" -> "TelemetryCommCircularBuffers"
-  "TelemetryCommReceiver" -> "TelemetryCommPacketsBuilder"
-  "TelemetryCommReceiver" -> "TelemetryCommPacketsResolving"
-  "TelemetryCommReceiver" -> "TelemetryCommRemoteRecipient"
-  "TelemetryCommReceiver" -> "TelemetryCommTransmitter"
-  "TelemetryCommReceiver" -> "TelemetryConversions"
-  "TelemetryCommReceiver" -> "TelemetryLists"
-  "TelemetryCommReceiver" -> "TelemetryStreaming"
-  "TelemetryCommReceiver" -> "SCS_Telemetry_Condensed"
-  "TelemetryCommReceiver" [href="TelemetryCommReceiver.html"]
-  "TelemetryCommTransmitter" -> "TelemetryCommon"
-  "TelemetryCommTransmitter" -> "TelemetryIDs"
-  "TelemetryCommTransmitter" -> "TelemetryRecipient"
-  "TelemetryCommTransmitter" -> "TelemetryRecipientBinder"
-  "TelemetryCommTransmitter" -> "TelemetryCommCommon"
-  "TelemetryCommTransmitter" -> "TelemetryCommPackets"
-  "TelemetryCommTransmitter" -> "TelemetryCommCircularBuffers"
-  "TelemetryCommTransmitter" -> "TelemetryCommPacketsBuilder"
-  "TelemetryCommTransmitter" -> "SCS_Telemetry_Condensed"
-  "TelemetryCommTransmitter" [href="TelemetryCommTransmitter.html"]
   "TelemetryConversions" -> "TelemetryCommon"
   "TelemetryConversions" -> "SCS_Telemetry_Condensed"
   "TelemetryConversions" [href="TelemetryConversions.html"]
@@ -125,6 +75,7 @@ DiGraph Uses {
   "TelemetryStreaming" -> "TelemetryLists"
   "TelemetryStreaming" -> "SCS_Telemetry_Condensed"
   "TelemetryStreaming" [href="TelemetryStreaming.html"]
+  "TelemetryStrings" -> "SysUtils"
   "TelemetryStrings" -> "TelemetryCommon"
   "TelemetryStrings" -> "SCS_Telemetry_Condensed"
   "TelemetryStrings" [href="TelemetryStrings.html"]

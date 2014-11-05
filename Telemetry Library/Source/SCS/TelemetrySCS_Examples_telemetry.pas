@@ -44,7 +44,7 @@ type
   end;
 
 {==============================================================================}
-{    TSCSExm_Telemetry // Class declaration                                    }
+{   TSCSExm_Telemetry // Class declaration                                     }
 {==============================================================================}  
   TSCSExm_Telemetry = class(TTelemetryRecipientBinder)
   private
@@ -62,12 +62,12 @@ type
     constructor Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
     destructor Destroy; override;
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
   end;
 
@@ -77,11 +77,11 @@ uses
   Windows;
 
 {==============================================================================}
-{    TSCSExm_Telemetry // Class implementation                                 }
+{   TSCSExm_Telemetry // Class implementation                                  }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TSCSExm_Telemetry // Protected methods                                    }
+{   TSCSExm_Telemetry // Protected methods                                     }
 {------------------------------------------------------------------------------}
 
 Function TSCSExm_Telemetry.InitLog: Boolean;
@@ -106,7 +106,7 @@ fLog.AddLogNoTime('Log ended');
 end;
 
 {------------------------------------------------------------------------------}
-{    TSCSExm_Telemetry // Public methods                                       }
+{   TSCSExm_Telemetry // Public methods                                        }
 {------------------------------------------------------------------------------}
 
 constructor TSCSExm_Telemetry.Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
@@ -129,7 +129,7 @@ If not InitLog then
 fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' '
                             + IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.'
                             + IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
-If not TelemetrySameStr(Recipient.GameID, SCS_GAME_ID_EUT2) then
+If not TelemetrySameStrSwitch(Recipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
   end
@@ -178,21 +178,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_Telemetry.EventRegisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TSCSExm_Telemetry.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_Telemetry.EventUnregisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TSCSExm_Telemetry.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_Telemetry.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TSCSExm_Telemetry.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 
   procedure WriteDataToLog;
   var
@@ -253,14 +253,14 @@ procedure TSCSExm_Telemetry.EventHandler(Sender: TObject; Event: scs_event_t; Da
                                         ' p:' + FloatToStrF(TempAttr^.value.value_euler.pitch * 360,ffFixed,6,6,fFormatSettings) +
                                         ' r:' + FloatToStrF(TempAttr^.value.value_euler.roll * 360,ffFixed,6,6,fFormatSettings);
           SCS_VALUE_TYPE_fplacement:
-            TempStr := TempStr + 'fplacement = (' + FloatToStrF(TempAttr^.value.value_fplacement.position.x ,ffFixed,6,6,fFormatSettings) + ',' +
+            TempStr := TempStr + 'fplacement = (' + FloatToStrF(TempAttr^.value.value_fplacement.position.x,ffFixed,6,6,fFormatSettings) + ',' +
                                                     FloatToStrF(TempAttr^.value.value_fplacement.position.y,ffFixed,6,6,fFormatSettings) + ',' +
                                                     FloatToStrF(TempAttr^.value.value_fplacement.position.z,ffFixed,6,6,fFormatSettings) +
                                            ') h:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.heading * 360,ffFixed,6,6,fFormatSettings) +
                                             ' p:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.pitch * 360,ffFixed,6,6,fFormatSettings) +
                                             ' r:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.roll * 360,ffFixed,6,6,fFormatSettings);
           SCS_VALUE_TYPE_dplacement:
-            TempStr := TempStr + 'dplacement = (' + FloatToStrF(TempAttr^.value.value_dplacement.position.x ,ffFixed,6,6,fFormatSettings) + ',' +
+            TempStr := TempStr + 'dplacement = (' + FloatToStrF(TempAttr^.value.value_dplacement.position.x,ffFixed,6,6,fFormatSettings) + ',' +
                                                     FloatToStrF(TempAttr^.value.value_dplacement.position.y,ffFixed,6,6,fFormatSettings) + ',' +
                                                     FloatToStrF(TempAttr^.value.value_dplacement.position.z,ffFixed,6,6,fFormatSettings) +
                                            ') h:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.heading * 360,ffFixed,6,6,fFormatSettings) +
@@ -319,21 +319,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_Telemetry.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TSCSExm_Telemetry.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_Telemetry.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TSCSExm_Telemetry.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_Telemetry.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TSCSExm_Telemetry.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
 If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement then
   begin

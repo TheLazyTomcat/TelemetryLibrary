@@ -2,7 +2,7 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2014-05-05)
+@lastmod(2014-11-02)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
@@ -11,7 +11,7 @@
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).
 
-  Last change:  2014-05-05
+  Last change:  2014-11-02
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -28,7 +28,8 @@
                          @item(p_scs_telemetry_configuration_localized_t)))                          
     @item(2014-04-20 - Functions scs_value_localized and scs_value moved to
                        TelemetryStreaming unit.)
-    @item(2014-05-05 - TMulticastEvent placeholder added.))
+    @item(2014-05-05 - TMulticastEvent placeholder added.)
+    @item(2014-11-02 - Added types @code(PtrInt) and @code(PtrUInt).))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -55,6 +56,22 @@ type
     // folder @italic(Source\Libs) for details.
     TMulticastEvent = class(TObject);
   {$ENDIF}
+{$ENDIF}
+
+  // Type used to cast pointer to a signed integer for calculation of arbitrary
+  // address.
+{$IFDEF CPUX64}
+  PtrInt  = Int64;
+{$ELSE}
+  PtrInt  = LongInt;
+{$ENDIF}
+
+  // Type used to cast pointer to an unsigned integer for calculation of
+  // arbitrary address.
+{$IFDEF CPUX64}
+  PtrUInt = UInt64;
+{$ELSE}
+  PtrUInt = LongWord;
 {$ENDIF}
 
 {

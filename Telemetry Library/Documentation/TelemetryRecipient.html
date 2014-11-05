@@ -41,7 +41,7 @@ Telemetry recipient class (API control and data receiver).</p>
 
 <p>
 
-<p>Last change: 2014-10-24
+<p>Last change: 2014-11-05
 
 <p>Change List:</p>
 
@@ -155,6 +155,37 @@ Telemetry recipient class (API control and data receiver).</p>
   <li><p>2014-10-24 - Added <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#AllowAutoRegistration">TTelemetryRecipient.AllowAutoRegistration</a> property.</p></li>
   <li><p>2014-10-24 - Added parameter <code>AllowAutoRegistration</code> parameter to one parametrized constructor.</p></li>
   <li><p>2014-10-24 - Small implementation changes and bugs repairs.</p></li>
+  <li><p>2014-10-26 - Added method <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#SetAPIInfo">TTelemetryRecipient.SetAPIInfo</a>.</p></li>
+  <li><p>2014-11-05 - Added paramter <code>UserData</code> to following event types and methods:</p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.html#TEventEvent">TEventEvent</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TMulticastEventRegisterEvent.html#Call">TMulticastEventRegisterEvent.Call</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TMulticastEventEvent.html#Call">TMulticastEventEvent.Call</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TMulticastChannelRegisterEvent.html#Call">TMulticastChannelRegisterEvent.Call</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html#Call">TMulticastChannelUnregisterEvent.Call</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TMulticastChannelEvent.html#Call">TMulticastChannelEvent.Call</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEventRegister">TTelemetryRecipient.DoOnEventRegister</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEventUnregister">TTelemetryRecipient.DoOnEventUnregister</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEvent">TTelemetryRecipient.DoOnEvent</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannelRegister">TTelemetryRecipient.DoOnChannelRegister</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannelUnregister">TTelemetryRecipient.DoOnChannelUnregister</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannel">TTelemetryRecipient.DoOnChannel</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#EventHandler">TTelemetryRecipient.EventHandler</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelHandler">TTelemetryRecipient.ChannelHandler</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#EventRegister">TTelemetryRecipient.EventRegister</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#EventRegisterByIndex">TTelemetryRecipient.EventRegisterByIndex</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegister">TTelemetryRecipient.ChannelRegister</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByIndex">TTelemetryRecipient.ChannelRegisterByIndex</a></p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByName">TTelemetryRecipient.ChannelRegisterByName</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-11-05 - Small implementation changes.</p></li>
 </ul>
 
 <p>
@@ -225,19 +256,19 @@ Telemetry recipient class (API control and data receiver).</p>
 <td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TLogEvent">TLogEvent</a></b> = procedure(Sender: TObject; LogType: scs_log_type_t; const LogText: String) of object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a></b> = procedure(Sender: TObject; Event: scs_event_t) of object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a></b> = procedure(Sender: TObject; Event: scs_event_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a></b> = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer) of object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a></b> = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer) of object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t) of Object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of Object;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t) of Object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of Object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t) of Object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of Object;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>) of object;</code></td>
@@ -377,7 +408,7 @@ Event type used when recipient writes to game log.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TEventRegisterEvent"></a><code><b>TEventRegisterEvent</b> = procedure(Sender: TObject; Event: scs_event_t) of object;</code></td>
+<td class="itemcode"><a name="TEventRegisterEvent"></a><code><b>TEventRegisterEvent</b> = procedure(Sender: TObject; Event: scs_event_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -386,7 +417,7 @@ Event type used when telemetry event is registered or unregistered.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TEventEvent"></a><code><b>TEventEvent</b> = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer) of object;</code></td>
+<td class="itemcode"><a name="TEventEvent"></a><code><b>TEventEvent</b> = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -395,7 +426,7 @@ Event type used when telemetery event occurs.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TChannelRegisterEvent"></a><code><b>TChannelRegisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t) of Object;</code></td>
+<td class="itemcode"><a name="TChannelRegisterEvent"></a><code><b>TChannelRegisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of Object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -404,7 +435,7 @@ Event type used when telemetry channel is registered.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TChannelUnregisterEvent"></a><code><b>TChannelUnregisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t) of Object;</code></td>
+<td class="itemcode"><a name="TChannelUnregisterEvent"></a><code><b>TChannelUnregisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of Object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -413,7 +444,7 @@ Event type used when telemetry channel is unregistered.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TChannelEvent"></a><code><b>TChannelEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t) of Object;</code></td>
+<td class="itemcode"><a name="TChannelEvent"></a><code><b>TChannelEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of Object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -449,9 +480,9 @@ Maximum allowed channel index, see <a class="normal" href="TelemetryRecipient.TT
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-10-24
+2014-11-05
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:25</em>
 </span>
 
 </body>

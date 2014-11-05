@@ -2,7 +2,7 @@
 @abstract(Contains class designed allocate and free memory for packets buffers.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-15)
-@lastmod(2014-05-15)
+@lastmod(2014-04-07)
 
   @bold(@NoAutoLink(TelemetryCommPacketsAllocator))
 
@@ -11,10 +11,13 @@
   This unit contains TTelemetryCommPacketsAllocator class (see class declaration
   for details).
 
-  Last change:  2014-05-15
+  Last change:  2014-04-07
 
   Change List:@unorderedList(
-    @item(2014-05-15 - First stable version.))
+    @item(2014-05-15 - First stable version.)
+    @item(2014-04-07 - Type of parameters @code(Size) in function
+                       TTelemetryCommPacketsAllocator.AllocatePacket changed
+                       from signed to unsigned integer.))
 
 @html(<hr>)}
 unit TelemetryCommPacketsAllocator;
@@ -33,7 +36,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommPacketsAllocator // Class declaration                       }
+{   TTelemetryCommPacketsAllocator // Class declaration                        }
 {==============================================================================}
 {
   @abstract(Class intended as a helper for allocation and freeing memory for
@@ -56,7 +59,7 @@ type
     @param Packer Packet to be initialized.
     @param Size   Requiered memory size.
   }
-    procedure AllocatePacket(out Packet: TPacketBuffer; Size: Integer); overload;
+    procedure AllocatePacket(out Packet: TPacketBuffer; Size: LongWord); overload;
   {
     Allocates memory for @code(Packet) (@code(Packet.Data) field). Memory is
     allocated to a size passed in @code(Packet.Size) field.
@@ -80,14 +83,14 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommPacketsAllocator // Class implementation                    }
+{   TTelemetryCommPacketsAllocator // Class implementation                     }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommPacketsAllocator  // Public methods                         }
+{   TTelemetryCommPacketsAllocator  // Public methods                          }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryCommPacketsAllocator.AllocatePacket(out Packet: TPacketBuffer; Size: Integer);
+procedure TTelemetryCommPacketsAllocator.AllocatePacket(out Packet: TPacketBuffer; Size: LongWord);
 begin
 Packet.Size := Size;
 AllocatePacket(Packet);

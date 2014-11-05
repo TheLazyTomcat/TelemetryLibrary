@@ -36,7 +36,7 @@ uses
 {$ENDIF}
 
 {==============================================================================}
-{    Unit Functions and procedures declarations                                }
+{   Unit Functions and procedures declarations                                 }
 {==============================================================================}
 
 {
@@ -158,7 +158,7 @@ uses
   SysUtils;
 
 {==============================================================================}
-{    Unit Functions and procedures implementation                              }
+{   Unit Functions and procedures implementation                               }
 {==============================================================================}
 
 Function scs_value_localized(Value: scs_value_t): scs_value_localized_t;

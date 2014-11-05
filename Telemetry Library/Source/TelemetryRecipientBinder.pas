@@ -3,7 +3,7 @@
           events.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-03)
-@lastmod(2014-05-03)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryRecipientBinder))
 
@@ -13,10 +13,20 @@
   for classes that are intended to bind itself to telemetry recipient events
   (eg. loggers, servers, ...).
 
-  Last change:  2014-05-03
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
-    @item(2014-05-03 - First stable version.))
+    @item(2014-05-03 - First stable version.)
+    @item(2014-11-05 - Added paramter @code(UserData) to following methods:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TTelemetryRecipientBinder.EventRegisterHandler)
+                         @item(TTelemetryRecipientBinder.EventUnregisterHandler)
+                         @item(TTelemetryRecipientBinder.EventHandler)
+                         @item(TTelemetryRecipientBinder.ChannelRegisterHandler)
+                         @item(TTelemetryRecipientBinder.ChannelUnregisterHandler)
+                         @item(TTelemetryRecipientBinder.ChannelHandler)))
+    @item(2014-11-05 - Small implementation changes.))                         
 
 @html(<hr>)}
 unit TelemetryRecipientBinder;
@@ -44,7 +54,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryRecipientBinder // Class declaration                            }
+{   TTelemetryRecipientBinder // Class declaration                             }
 {==============================================================================}
 {
   @abstract(Class designed as a base for any class that is intended to bind
@@ -115,24 +125,27 @@ uses
     TelemetryRecipient.TTelemetryRecipient.OnEventRegister OnEventRegister)
     event.
 
-    @param Sender Object that is calling this method.
-    @param Event  Game event identification number.)
+    @param Sender    Object that is calling this method.
+    @param Event     Game event identification number.
+    @param UserData  User defined data stored inside the event context.)
 
   @member(EventUnregisterHandler
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnEventUnregister OnEventUnregister)
     event.
 
-    @param Sender Object that is calling this method.
-    @param Event  Game event identification number.)
+    @param Sender    Object that is calling this method.
+    @param Event     Game event identification number.
+    @param UserData  User defined data stored inside the event context.)
 
   @member(EventHandler
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnEvent OnEvent) event.
 
-    @param Sender Object that is calling this method.
-    @param Event  Game event identification number.
-    @param Data   Pointer to data accompanying the event. Can be @nil.)
+    @param Sender    Object that is calling this method.
+    @param Event     Game event identification number.
+    @param Data      Pointer to data accompanying the event. Can be @nil.
+    @param UserData  User defined data stored inside the event context.)
 
   @member(ChannelRegisterHandler
     Method that can be assigned to @noAutoLink(recipent) @link(
@@ -144,7 +157,8 @@ uses
     @param ID        ID of registered channel.
     @param Index     Index of registered channel.
     @param ValueType Value type of registered channel.
-    @param Flags     Registration flags.)
+    @param Flags     Registration flags.
+    @param UserData  User defined data stored inside the channel context.)
 
   @member(ChannelUnregisterHandler
     Method that can be assigned to @noAutoLink(recipent) @link(
@@ -156,7 +170,8 @@ uses
     @param Name      Name of unregistered channel.
     @param ID        ID of unregistered channel.
     @param Index     Index of unregistered channel.
-    @param ValueType Value type of unregistered channel.)
+    @param ValueType Value type of unregistered channel.
+    @param UserData  User defined data stored inside the channel context.)
 
   @member(ChannelHandler
     Method that can be assigned to @noAutoLink(recipent) @link(
@@ -166,7 +181,8 @@ uses
     @param Name   Name of the channel.
     @param ID     ID of the channel.
     @param Index  Index of the channel.
-    @param Value  Actual value of the channel. Can be @nil.)
+    @param Value  Actual value of the channel. Can be @nil.
+    @param UserData  User defined data stored inside the channel context.)
 
   @member(ConfigHandler
     Method that can be assigned to @noAutoLink(recipent) @link(
@@ -200,12 +216,12 @@ type
     Function AssignHandlers: Boolean; virtual;
     Function DeassignHandlers: Boolean; virtual;
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); virtual; abstract;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); virtual; abstract;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); virtual; abstract;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); virtual; abstract;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual; abstract;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual; abstract;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual; abstract;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); virtual; abstract;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); virtual; abstract;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual; abstract;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
   published
     property Recipient: TTelemetryRecipient read fRecipient write fRecipient;
@@ -221,11 +237,11 @@ implementation
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryRecipientBinder // Class implementation                         }
+{   TTelemetryRecipientBinder // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryRecipientBinder // Constants, types, variables, etc...          }
+{   TTelemetryRecipientBinder // Constants, types, variables, etc...           }
 {------------------------------------------------------------------------------}
 
 const
@@ -233,7 +249,7 @@ const
   def_DeassignHandlersOnDestroy = True;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryRecipientBinder // Protected methods                            }
+{   TTelemetryRecipientBinder // Protected methods                             }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryRecipientBinder.GetWorkingRecipient(Sender: TObject; out Recipient: TTelemetryRecipient): Boolean;
@@ -245,7 +261,7 @@ Result := Assigned(Recipient);
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryRecipientBinder // Public methods                               }
+{   TTelemetryRecipientBinder // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryRecipientBinder.Create(Recipient: TTelemetryRecipient = nil);

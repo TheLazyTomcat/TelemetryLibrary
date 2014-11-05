@@ -1,4 +1,13 @@
-add per channel/event user data
-check/reimplement utf8string comparisons
-check use of TelemetrySameStr/Text (switch assumeASCII...)
-declare library-wide PtrInt and PtrUInt (in telemetryCommon), use them where appropriate
+todo:
+  add lazarus/newer delphi support	
+  remove system units from uses clause when documentation is generated
+  reimplement scs examples (use per channel user data for writing to memory)
+
+done:
+  declare library-wide PtrInt and PtrUInt (in telemetryCommon), use them where appropriate
+  check/reimplement utf8string comparisons
+  check use of TelemetrySameStr/Text (switch assumeASCII...)
+  finish adding new functions to TelemetryStrings
+  check splitters and add splitters between overloaded functions
+  check pointer arithmetics (change types of affected variables to unsigned integers only)
+  add per channel/event user data

@@ -310,6 +310,8 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 
 <p>
 
+<p>
+
 <p></p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
@@ -492,11 +494,11 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventHandler">EventHandler</a></b>(Event: scs_event_t; Data: Pointer); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventHandler">EventHandler</a></b>(Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelHandler">ChannelHandler</a></b>(const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelHandler">ChannelHandler</a></b>(const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -512,27 +514,27 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEventRegister">DoOnEventRegister</a></b>(Sender: TObject; Event: scs_event_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEventRegister">DoOnEventRegister</a></b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEventUnregister">DoOnEventUnregister</a></b>(Sender: TObject; Event: scs_event_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEventUnregister">DoOnEventUnregister</a></b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEvent">DoOnEvent</a></b>(Sender: TObject; Event: scs_event_t; Data: Pointer); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnEvent">DoOnEvent</a></b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannelRegister">DoOnChannelRegister</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannelRegister">DoOnChannelRegister</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannelUnregister">DoOnChannelUnregister</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannelUnregister">DoOnChannelUnregister</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannel">DoOnChannel</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnChannel">DoOnChannel</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -600,105 +602,109 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#SetGameCallbacks">SetGameCallbacks</a></b>(Parameters: scs_telemetry_init_params_t); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#SetAPIInfo">SetAPIInfo</a></b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); virtual;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#SetGameCallbacks">SetGameCallbacks</a></b>(Parameters: scs_telemetry_init_params_t); virtual;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#SetGameCallback">SetGameCallback</a></b>(Callback: <a  href="TelemetryRecipient.html#TGameCallback">TGameCallback</a>; CallbackFunction: Pointer); virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#Log">Log</a></b>(LogType: scs_log_type_t; const LogText: String); overload; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#Log">Log</a></b>(const LogText: String); overload; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventRegistered">EventRegistered</a></b>(Event: scs_event_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventRegister">EventRegister</a></b>(Event: scs_event_t): Boolean; virtual;</code></td>
-</tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventRegisterByIndex">EventRegisterByIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventRegister">EventRegister</a></b>(Event: scs_event_t; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventRegisterByIndex">EventRegisterByIndex</a></b>(Index: Integer; UserData: Pointer = nil): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventUnregister">EventUnregister</a></b>(Event: scs_event_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventUnregisterIndex">EventUnregisterIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventUnregisterByIndex">EventUnregisterByIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventRegisterAll">EventRegisterAll</a></b>: Integer; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventUnregisterAll">EventUnregisterAll</a></b>: Integer; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventGetDataAsString">EventGetDataAsString</a></b>(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegistered">ChannelRegistered</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegister">ChannelRegister</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none): Boolean; virtual;</code></td>
-</tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByIndex">ChannelRegisterByIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegister">ChannelRegister</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByName">ChannelRegisterByName</a></b>(const Name: TelemetryString): Boolean; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByIndex">ChannelRegisterByIndex</a></b>(Index: Integer; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByName">ChannelRegisterByName</a></b>(const Name: TelemetryString; UserData: Pointer = nil): Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregister">ChannelUnregister</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterIndex">ChannelUnregisterIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterByIndex">ChannelUnregisterByIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterByName">ChannelUnregisterByName</a></b>(const Name: TelemetryString): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegPrimaryTypes: Boolean = True; RegSecondaryTypes: Boolean = False; RegTertiaryTypes: Boolean = False): Integer; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterAll">ChannelUnregisterAll</a></b>: Integer; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelGetValueAsString">ChannelGetValueAsString</a></b>(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ConfigStored">ConfigStored</a></b>(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelStored">ChannelStored</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;</code></td>
 </tr>
@@ -739,19 +745,19 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#TelemetryVersion">TelemetryVersion</a></b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fTelemetryVersion">fTelemetryVersion</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#TelemetryVersion">TelemetryVersion</a></b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fTelemetryVersion">fTelemetryVersion</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fTelemetryVersion">fTelemetryVersion</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#GameName">GameName</a></b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameName">fGameName</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#GameName">GameName</a></b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameName">fGameName</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameName">fGameName</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#GameID">GameID</a></b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameID">fGameID</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#GameID">GameID</a></b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameID">fGameID</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameID">fGameID</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#GameVersion">GameVersion</a></b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameVersion">fGameVersion</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#GameVersion">GameVersion</a></b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameVersion">fGameVersion</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameVersion">fGameVersion</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -1289,7 +1295,7 @@ Setter for <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#S
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Event: scs_event_t; Data: Pointer); virtual;</code></td>
+<td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1308,7 +1314,7 @@ Method called by plugin callback routine set to receive telemetry events.<br> <a
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual;</code></td>
+<td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1368,7 +1374,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnEventRegister"></a><code>procedure <b>DoOnEventRegister</b>(Sender: TObject; Event: scs_event_t); virtual;</code></td>
+<td class="itemcode"><a name="DoOnEventRegister"></a><code>procedure <b>DoOnEventRegister</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1378,7 +1384,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnEventUnregister"></a><code>procedure <b>DoOnEventUnregister</b>(Sender: TObject; Event: scs_event_t); virtual;</code></td>
+<td class="itemcode"><a name="DoOnEventUnregister"></a><code>procedure <b>DoOnEventUnregister</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1388,7 +1394,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnEvent"></a><code>procedure <b>DoOnEvent</b>(Sender: TObject; Event: scs_event_t; Data: Pointer); virtual;</code></td>
+<td class="itemcode"><a name="DoOnEvent"></a><code>procedure <b>DoOnEvent</b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1398,7 +1404,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnChannelRegister"></a><code>procedure <b>DoOnChannelRegister</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;</code></td>
+<td class="itemcode"><a name="DoOnChannelRegister"></a><code>procedure <b>DoOnChannelRegister</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1408,7 +1414,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnChannelUnregister"></a><code>procedure <b>DoOnChannelUnregister</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;</code></td>
+<td class="itemcode"><a name="DoOnChannelUnregister"></a><code>procedure <b>DoOnChannelUnregister</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1418,7 +1424,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnChannel"></a><code>procedure <b>DoOnChannel</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); virtual;</code></td>
+<td class="itemcode"><a name="DoOnChannel"></a><code>procedure <b>DoOnChannel</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1702,6 +1708,25 @@ Object destructor.<br> Internal objects are automatically cleared in destructor,
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SetAPIInfo"></a><code>procedure <b>SetAPIInfo</b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Sets API informations (<a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#TelemetryVersion">TelemetryVersion</a>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameID">GameID</a>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameVersion">GameVersion</a> and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameName">GameName</a>) from passed parameters.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>TelemetryVersion</dt>
+<dd>Version of telemetry API.</dd>
+<dt>Parameters</dt>
+<dd>Structure containing other API informations.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="SetGameCallbacks"></a><code>procedure <b>SetGameCallbacks</b>(Parameters: scs_telemetry_init_params_t); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1796,7 +1821,7 @@ Checks whether given event is present in <a class="normal" href="TelemetryRecipi
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EventRegister"></a><code>Function <b>EventRegister</b>(Event: scs_event_t): Boolean; virtual;</code></td>
+<td class="itemcode"><a name="EventRegister"></a><code>Function <b>EventRegister</b>(Event: scs_event_t; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1816,7 +1841,7 @@ Registers specific telemetry event.<br> Works only when <a class="normal" href="
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EventRegisterByIndex"></a><code>Function <b>EventRegisterByIndex</b>(Index: Integer): Boolean; virtual;</code></td>
+<td class="itemcode"><a name="EventRegisterByIndex"></a><code>Function <b>EventRegisterByIndex</b>(Index: Integer; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1972,7 +1997,7 @@ Checks whether given channel is present in <a class="normal" href="TelemetryReci
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegister"></a><code>Function <b>ChannelRegister</b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none): Boolean; virtual;</code></td>
+<td class="itemcode"><a name="ChannelRegister"></a><code>Function <b>ChannelRegister</b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1998,7 +2023,7 @@ Registers specific telemetry channel.<br> Works only when <a class="normal" href
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegisterByIndex"></a><code>Function <b>ChannelRegisterByIndex</b>(Index: Integer): Boolean; virtual;</code></td>
+<td class="itemcode"><a name="ChannelRegisterByIndex"></a><code>Function <b>ChannelRegisterByIndex</b>(Index: Integer; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2018,7 +2043,7 @@ Registers telemetry channel that is listed in known channels list at position gi
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegisterByName"></a><code>Function <b>ChannelRegisterByName</b>(const Name: TelemetryString): Boolean; virtual;</code></td>
+<td class="itemcode"><a name="ChannelRegisterByName"></a><code>Function <b>ChannelRegisterByName</b>(const Name: TelemetryString; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2310,7 +2335,7 @@ Result code of last executed API function.<br> Initialized to SCS_RESULT_ok.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="TelemetryVersion"></a><code>property <b>TelemetryVersion</b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fTelemetryVersion">fTelemetryVersion</a>;</code></td>
+<td class="itemcode"><a name="TelemetryVersion"></a><code>property <b>TelemetryVersion</b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fTelemetryVersion">fTelemetryVersion</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fTelemetryVersion">fTelemetryVersion</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2320,7 +2345,7 @@ Telemetry version for which this object was created.<br> Initialized to SCS_U32_
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="GameName"></a><code>property <b>GameName</b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameName">fGameName</a>;</code></td>
+<td class="itemcode"><a name="GameName"></a><code>property <b>GameName</b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameName">fGameName</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameName">fGameName</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2330,7 +2355,7 @@ Name of the game for which this object was created.<br> Initialized to an empty 
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="GameID"></a><code>property <b>GameID</b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameID">fGameID</a>;</code></td>
+<td class="itemcode"><a name="GameID"></a><code>property <b>GameID</b>: TelemetryString read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameID">fGameID</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameID">fGameID</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2340,7 +2365,7 @@ ID of game for which this object was created.<br> Initialized to an empty string
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="GameVersion"></a><code>property <b>GameVersion</b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameVersion">fGameVersion</a>;</code></td>
+<td class="itemcode"><a name="GameVersion"></a><code>property <b>GameVersion</b>: scs_u32_t read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameVersion">fGameVersion</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fGameVersion">fGameVersion</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2578,7 +2603,7 @@ Multicast event called whenever the recipient receives any channel call from tel
 Multicast event called when config is parsed from configuration telemetry event data.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:25</em>
 </span>
 
 </body>

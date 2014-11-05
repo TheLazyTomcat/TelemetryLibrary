@@ -2,7 +2,7 @@
 @abstract(Provides routines that can be used when resolving a packet.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-15)
-@lastmod(2014-05-15)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryCommPacketsResolving))
 
@@ -11,10 +11,21 @@
   Provides routines used when resolving a packet (eg. reading values from
   payload).
 
-  Last change:  2014-05-15
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
-    @item(2014-05-15 - First stable version.))
+    @item(2014-05-15 - First stable version.)
+    @item(2014-11-02 - Small implementation changes.)
+    @item(2014-11-05 - Type of parameter @code(Offset) changed from signed to
+                       unsigned integer in following functions:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Payload_ReadoutString)
+                         @item(Payload_ReadoutInteger)
+                         @item(Payload_ReadoutInt64)
+                         @item(Payload_ReadoutSingle)
+                         @item(Payload_ReadoutDouble)
+                         @item(Payload_ReadoutBoolean)
+                         @item(Payload_ReadoutByte))))
 
 @html(<hr>)}
 unit TelemetryCommPacketsResolving;
@@ -24,13 +35,14 @@ interface
 {$INCLUDE '..\Telemetry_defs.inc'}
 
 uses
+  TelemetryCommon,
 {$IFDEF Documentation}
   TelemetryStreaming,
 {$ENDIF}
   TelemetryCommPackets;
 
 {==============================================================================}
-{    Functions declarations                                                    }
+{   Functions declarations                                                     }
 {==============================================================================}
 
 {
@@ -41,7 +53,7 @@ uses
 
   @returns Read string.
 }
-Function Payload_ReadoutString(const Packet: TPacketBuffer; Offset: Integer = 0): String;
+Function Payload_ReadoutString(const Packet: TPacketBuffer; Offset: LongWord = 0): String;
 
 //------------------------------------------------------------------------------
 
@@ -53,7 +65,7 @@ Function Payload_ReadoutString(const Packet: TPacketBuffer; Offset: Integer = 0)
 
   @returns Read integer value.
 }
-Function Payload_ReadoutInteger(const Packet: TPacketBuffer; Offset: Integer = 0): LongInt;
+Function Payload_ReadoutInteger(const Packet: TPacketBuffer; Offset: LongWord = 0): LongInt;
  
 //------------------------------------------------------------------------------
 
@@ -65,7 +77,7 @@ Function Payload_ReadoutInteger(const Packet: TPacketBuffer; Offset: Integer = 0
 
   @returns Read integer value.
 }
-Function Payload_ReadoutInt64(const Packet: TPacketBuffer; Offset: Integer = 0): Int64;
+Function Payload_ReadoutInt64(const Packet: TPacketBuffer; Offset: LongWord = 0): Int64;
  
 //------------------------------------------------------------------------------
 
@@ -77,7 +89,7 @@ Function Payload_ReadoutInt64(const Packet: TPacketBuffer; Offset: Integer = 0):
 
   @returns Read floating point value.
 }
-Function Payload_ReadoutSingle(const Packet: TPacketBuffer; Offset: Integer = 0): Single;
+Function Payload_ReadoutSingle(const Packet: TPacketBuffer; Offset: LongWord = 0): Single;
   
 //------------------------------------------------------------------------------
 
@@ -89,7 +101,7 @@ Function Payload_ReadoutSingle(const Packet: TPacketBuffer; Offset: Integer = 0)
 
   @returns Read floating point value.
 }
-Function Payload_ReadoutDouble(const Packet: TPacketBuffer; Offset: Integer = 0): Double;
+Function Payload_ReadoutDouble(const Packet: TPacketBuffer; Offset: LongWord = 0): Double;
   
 //------------------------------------------------------------------------------
 
@@ -101,7 +113,7 @@ Function Payload_ReadoutDouble(const Packet: TPacketBuffer; Offset: Integer = 0)
 
   @returns Read boolean value.
 }
-Function Payload_ReadoutBoolean(const Packet: TPacketBuffer; Offset: Integer = 0): Boolean;
+Function Payload_ReadoutBoolean(const Packet: TPacketBuffer; Offset: LongWord = 0): Boolean;
   
 //------------------------------------------------------------------------------
 
@@ -113,7 +125,7 @@ Function Payload_ReadoutBoolean(const Packet: TPacketBuffer; Offset: Integer = 0
 
   @returns Read byte value.
 }
-Function Payload_ReadoutByte(const Packet: TPacketBuffer; Offset: Integer = 0): Byte;
+Function Payload_ReadoutByte(const Packet: TPacketBuffer; Offset: LongWord = 0): Byte;
 
 implementation
 
@@ -121,74 +133,74 @@ uses
   TelemetryStreaming;
 
 {==============================================================================}
-{    Functions implementation                                                  }
+{   Functions implementation                                                   }
 {==============================================================================}
 
-Function Payload_ReadoutString(const Packet: TPacketBuffer; Offset: Integer = 0): String;
+Function Payload_ReadoutString(const Packet: TPacketBuffer; Offset: LongWord = 0): String;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutString(TempPtr,False);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Payload_ReadoutInteger(const Packet: TPacketBuffer; Offset: Integer = 0): LongInt;
+Function Payload_ReadoutInteger(const Packet: TPacketBuffer; Offset: LongWord = 0): LongInt;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutInteger(TempPtr,False);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Payload_ReadoutInt64(const Packet: TPacketBuffer; Offset: Integer = 0): Int64;
+Function Payload_ReadoutInt64(const Packet: TPacketBuffer; Offset: LongWord = 0): Int64;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutInt64(TempPtr,False);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Payload_ReadoutSingle(const Packet: TPacketBuffer; Offset: Integer = 0): Single;
+Function Payload_ReadoutSingle(const Packet: TPacketBuffer; Offset: LongWord = 0): Single;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutSingle(TempPtr,False);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Payload_ReadoutDouble(const Packet: TPacketBuffer; Offset: Integer = 0): Double;
+Function Payload_ReadoutDouble(const Packet: TPacketBuffer; Offset: LongWord = 0): Double;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutDouble(TempPtr,False);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Payload_ReadoutBoolean(const Packet: TPacketBuffer; Offset: Integer = 0): Boolean;
+Function Payload_ReadoutBoolean(const Packet: TPacketBuffer; Offset: LongWord = 0): Boolean;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutBoolean(TempPtr,False);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Payload_ReadoutByte(const Packet: TPacketBuffer; Offset: Integer = 0): Byte;
+Function Payload_ReadoutByte(const Packet: TPacketBuffer; Offset: LongWord = 0): Byte;
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(NativeInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutByte(TempPtr,False);
 end;
 

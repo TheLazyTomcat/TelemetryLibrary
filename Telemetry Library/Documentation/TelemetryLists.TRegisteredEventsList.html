@@ -10,7 +10,7 @@
 <a name="TRegisteredEventsList"></a><h1 class="cio">Class TRegisteredEventsList</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
 <a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a  href="TelemetryLists.html">TelemetryLists</a></p>
@@ -39,11 +39,24 @@ List used to store contexts of registered events.</p>
 
 <p>
 
+<p>
+
+<p>
+
+<p>
+
 <p></p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
 <li class="thisitem">TRegisteredEventsList</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TRegisteredEventsList.html#fOnUserDataFree">fOnUserDataFree</a></b>:  <a  href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a>;</code></td>
+</tr>
+</table>
 <a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
@@ -72,11 +85,11 @@ List used to store contexts of registered events.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredEventsList.html#Add">Add</a></b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredEventsList.html#Add">Add</a></b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredEventsList.html#Add">Add</a></b>(Event: scs_event_t; Utility: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredEventsList.html#Add">Add</a></b>(Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -92,11 +105,15 @@ List used to store contexts of registered events.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredEventsList.html#CreateContext">CreateContext</a></b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): <a  href="TelemetryLists.html#PEventContext">PEventContext</a>; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TRegisteredEventsList.html#CreateContext">CreateContext</a></b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): <a  href="TelemetryLists.html#PEventContext">PEventContext</a>; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TRegisteredEventsList.html#FreeContext">FreeContext</a></b>(var EventContext: <a  href="TelemetryLists.html#PEventContext">PEventContext</a>); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TRegisteredEventsList.html#DoOnUserDataFree">DoOnUserDataFree</a></b>(Sender: TObject; var UserData: Pointer); virtual;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
@@ -109,8 +126,23 @@ List used to store contexts of registered events.</p>
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLists.TRegisteredEventsList.html#Events">Events</a></b>[Index:Integer]: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a> read <a  href="TelemetryLists.TRegisteredEventsList.html#GetEventInfo">GetEventInfo</a>;</code></td>
 </tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">OnUserDataFree</a></b>: <a  href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a> read <a  href="TelemetryLists.TRegisteredEventsList.html#fOnUserDataFree">fOnUserDataFree</a> write <a  href="TelemetryLists.TRegisteredEventsList.html#fOnUserDataFree">fOnUserDataFree</a>;</code></td>
+</tr>
 </table>
 <h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fOnUserDataFree"></a><code><b>fOnUserDataFree</b>:  <a  href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Holds reference to <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">OnUserDataFree</a> event handler.</p>
+</td></tr>
+</table>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -159,7 +191,7 @@ Getter for <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#Eve
 </tr>
 <tr><td colspan="2">
 <p>
-Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after items deletion.</p>
+Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after items deletion.<br> <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#Contexts">Contexts</a> are freed using method <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#FreeContext">FreeContext</a> (<a class="normal" href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">OnUserDataFree</a> event is called).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -225,13 +257,13 @@ Adds new context into the list. <code>EventContext</code> parameter must not be 
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Creates and adds new context into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
 
-<p>  
+<p>   
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -242,6 +274,8 @@ Creates and adds new context into the list.<br> <a class="normal" href="Telemetr
 <dd>Identification number of registered event.</dd>
 <dt>Utility</dt>
 <dd>Flag indicating whether registered event is marked as utility.</dd>
+<dt>UserData</dt>
+<dd>User defined data to be stored inside the event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index at which the new context was added, -1 when addition failed.</p></td></tr>
@@ -249,13 +283,13 @@ Creates and adds new context into the list.<br> <a class="normal" href="Telemetr
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Event: scs_event_t; Utility: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Creates and adds new context into the list. Created context has <code>Recipient</code> field set to <code>Nil</code>.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
 
-<p> 
+<p>  
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -264,6 +298,8 @@ Creates and adds new context into the list. Created context has <code>Recipient<
 <dd>Identification number of registered event.</dd>
 <dt>Utility</dt>
 <dd>Flag indicating whether registered event is marked as utility.</dd>
+<dt>UserData</dt>
+<dd>User defined data to be stored inside the event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index at which the new context was added, -1 when addition failed.</p></td></tr>
@@ -315,7 +351,7 @@ Removes given context from the list.<br> <a class="normal" href="TelemetryLists.
 </tr>
 <tr><td colspan="2">
 <p>
-Deletes context at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
+Deletes context at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.<br> <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#Contexts">Contexts</a> are freed using method <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#FreeContext">FreeContext</a> (<a class="normal" href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">OnUserDataFree</a> event is called).
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -328,7 +364,7 @@ Deletes context at position given by <code>Index</code> parameter. When index fa
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="CreateContext"></a><code>Function <b>CreateContext</b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False): <a  href="TelemetryLists.html#PEventContext">PEventContext</a>; virtual;</code></td>
+<td class="itemcode"><a name="CreateContext"></a><code>Function <b>CreateContext</b>(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): <a  href="TelemetryLists.html#PEventContext">PEventContext</a>; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -343,7 +379,7 @@ This method creates new event context variable, fills it from parameters and ret
 
 <p>
 
-<p>  
+<p>   
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -354,6 +390,8 @@ This method creates new event context variable, fills it from parameters and ret
 <dd>Identification number of registered event.</dd>
 <dt>Utility</dt>
 <dd>Flag indicating whether registered event is marked as utility.</dd>
+<dt>UserData</dt>
+<dd>User defined data to be stored inside the created event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Pointer to created event context.</p></td></tr>
@@ -365,7 +403,7 @@ This method creates new event context variable, fills it from parameters and ret
 </tr>
 <tr><td colspan="2">
 <p>
-Frees memory allocated for event context and sets this pointer to <code>Nil</code>.
+Frees memory allocated for event context and sets this pointer to <code>Nil</code>.<br> Calls <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">OnUserDataFree</a> event before the context is freed.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -373,6 +411,16 @@ Frees memory allocated for event context and sets this pointer to <code>Nil</cod
 <dt>EventContext</dt>
 <dd>Pointer to event context to be freed.</dd>
 </dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="DoOnUserDataFree"></a><code>procedure <b>DoOnUserDataFree</b>(Sender: TObject; var UserData: Pointer); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Calls handler of <a class="normal" href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">OnUserDataFree</a> event (if assigned).</p>
 </td></tr>
 </table>
 <h3 class="detail">Properties</h3>
@@ -396,7 +444,17 @@ Array property mapped directly to internal list. Use it for direct access to ind
 Array property mapped directly to internal list. Use it to obtain values of individual stored items.<br> This property does not return whole context structure, only its &quot;EventInfo&quot; field.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OnUserDataFree"></a><code>property <b>OnUserDataFree</b>: <a  href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a> read <a  href="TelemetryLists.TRegisteredEventsList.html#fOnUserDataFree">fOnUserDataFree</a> write <a  href="TelemetryLists.TRegisteredEventsList.html#fOnUserDataFree">fOnUserDataFree</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Bind this event when you need to free user data stored inside a context when such context is destroyed.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:25</em>
 </span>
 
 </body>

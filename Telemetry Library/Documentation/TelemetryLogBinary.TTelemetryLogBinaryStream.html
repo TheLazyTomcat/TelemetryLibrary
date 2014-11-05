@@ -143,7 +143,7 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">LogData</a></b>(Sender: TObject; Data: Pointer; Size: Integer); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">LogData</a></b>(Sender: TObject; Data: Pointer; Size: LongWord); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -155,27 +155,27 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventRegisterHandler">EventRegisterHandler</a></b>(Sender: TObject; Event: scs_event_t); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventRegisterHandler">EventRegisterHandler</a></b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventUnregisterHandler">EventUnregisterHandler</a></b>(Sender: TObject; Event: scs_event_t); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventUnregisterHandler">EventUnregisterHandler</a></b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventHandler">EventHandler</a></b>(Sender: TObject; Event: scs_event_t; Data: Pointer); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventHandler">EventHandler</a></b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelRegisterHandler">ChannelRegisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelRegisterHandler">ChannelRegisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelHandler">ChannelHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelHandler">ChannelHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -392,7 +392,7 @@ Class destructor.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Sender: TObject; Data: Pointer; Size: Integer); virtual;</code></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Sender: TObject; Data: Pointer; Size: LongWord); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -453,49 +453,11 @@ Method adding informations about a write to game log (console).<br> <b>Note</b> 
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EventRegisterHandler"></a><code>procedure <b>EventRegisterHandler</b>(Sender: TObject; Event: scs_event_t); override;</code></td>
+<td class="itemcode"><a name="EventRegisterHandler"></a><code>procedure <b>EventRegisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Method adding informations about game event registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
-
-<p> </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Sender</dt>
-<dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
-<dt>Event</dt>
-<dd>Game event identification number.</dd>
-</dl>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EventUnregisterHandler"></a><code>procedure <b>EventUnregisterHandler</b>(Sender: TObject; Event: scs_event_t); override;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Method adding informations about game event unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
-
-<p> </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Sender</dt>
-<dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
-<dt>Event</dt>
-<dd>Game event identification number.</dd>
-</dl>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Sender: TObject; Event: scs_event_t; Data: Pointer); override;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Method adding information about game event to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -504,21 +466,65 @@ Method adding information about game event to the log.<br> <b>Note</b> - require
 <dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
 <dt>Event</dt>
 <dd>Game event identification number.</dd>
-<dt>Data</dt>
-<dd>Pointer to data accompanying the event. Can be <code>Nil</code>.</dd>
+<dt>UserData</dt>
+<dd>User defined data stored in the event context.</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegisterHandler"></a><code>procedure <b>ChannelRegisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;</code></td>
+<td class="itemcode"><a name="EventUnregisterHandler"></a><code>procedure <b>EventUnregisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method adding informations about game event unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
+<dt>Event</dt>
+<dd>Game event identification number.</dd>
+<dt>UserData</dt>
+<dd>User defined data stored in the event context.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method adding information about game event to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
+<dt>Event</dt>
+<dd>Game event identification number.</dd>
+<dt>Data</dt>
+<dd>Pointer to data accompanying the event. Can be <code>Nil</code>.</dd>
+<dt>UserData</dt>
+<dd>User defined data stored in the event context.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelRegisterHandler"></a><code>procedure <b>ChannelRegisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Method adding informations about channel registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>     </p>
+<p>      </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -533,19 +539,21 @@ Method adding informations about channel registration to the log.<br> <b>Note</b
 <dd>Value type of registered channel.</dd>
 <dt>Flags</dt>
 <dd>Registration flags.</dd>
+<dt>UserData</dt>
+<dd>User defined data stored in the channel context.</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelUnregisterHandler"></a><code>procedure <b>ChannelUnregisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); override;</code></td>
+<td class="itemcode"><a name="ChannelUnregisterHandler"></a><code>procedure <b>ChannelUnregisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Method adding informations about channel unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>    </p>
+<p>     </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -558,19 +566,21 @@ Method adding informations about channel unregistration to the log.<br> <b>Note<
 <dd>Index of unregistered channel.</dd>
 <dt>ValueType</dt>
 <dd>Value type of unregistered channel.</dd>
+<dt>UserData</dt>
+<dd>User defined data stored in the channel context.</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); override;</code></td>
+<td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Method adding informations about channel to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>    </p>
+<p>     </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -583,6 +593,8 @@ Method adding informations about channel to the log.<br> <b>Note</b> - requires 
 <dd>Index of the channel.</dd>
 <dt>Value</dt>
 <dd>Actual value of the channel. Can be <code>Nil</code>.</dd>
+<dt>UserData</dt>
+<dd>User defined data stored in the channel context.</dd>
 </dl>
 </td></tr>
 </table>
@@ -732,7 +744,7 @@ Determines whether some values are stored minimized. Refer to writer <a class="n
 Determines whether item names are stored as full strings or only as IDs. Refer to writer <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveItemIDOnly">property</a> of the same name for details.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:25</em>
 </span>
 
 </body>

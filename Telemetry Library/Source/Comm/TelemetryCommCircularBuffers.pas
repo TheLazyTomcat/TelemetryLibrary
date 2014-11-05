@@ -90,7 +90,7 @@ type
   end;
 
 {==============================================================================}
-{    TCircularItemsBuffer // Class declaration                                 }
+{   TCircularItemsBuffer // Class declaration                                  }
 {==============================================================================}
 {
   @abstract(Ancestor class for other circular buffer classes.)
@@ -361,7 +361,7 @@ const
   def_CircularChannelsBuffer_BufferSize = 500;
 
 {==============================================================================}
-{    TCircularItemsBuffer // Class declaration                                 }
+{   TCircularItemsBuffer // Class declaration                                  }
 {==============================================================================}
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Development hint: Complete documentation (reference to BufferChannels in communicator.'}
@@ -537,7 +537,7 @@ type
   PDefferedOperation = ^TDefferedOperation;
 
 {==============================================================================}
-{    TDefferedOperationsBuffer // Class declaration                            }
+{   TDefferedOperationsBuffer // Class declaration                             }
 {==============================================================================}
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Development hint: Complete documentation (reference to DefferedOperations in communicator.'}
@@ -688,11 +688,11 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TCircularItemsBuffer // Implementation                                    }
+{   TCircularItemsBuffer // Implementation                                     }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TCircularItemsBuffer // Private methods                                   }
+{   TCircularItemsBuffer // Private methods                                    }
 {------------------------------------------------------------------------------}
 
 Function TCircularItemsBuffer.GetSize: Integer;
@@ -712,7 +712,7 @@ For i := Low(fMainArray) to High(fMainArray) do
 end;
 
 {------------------------------------------------------------------------------}
-{    TCircularItemsBuffer // Protected methods                                 }
+{   TCircularItemsBuffer // Protected methods                                  }
 {------------------------------------------------------------------------------}
 
 procedure TCircularItemsBuffer.DoOnItemDrop(Item: Pointer);
@@ -776,7 +776,7 @@ IndexInc(Result);
 end;
 
 {------------------------------------------------------------------------------}
-{    TCircularItemsBuffer // Public methods                                    }
+{   TCircularItemsBuffer // Public methods                                     }
 {------------------------------------------------------------------------------}
 
 constructor TCircularItemsBuffer.Create(Size: Integer);
@@ -935,11 +935,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TCircularChannelsBuffer // Implementation                                 }
+{   TCircularChannelsBuffer // Implementation                                  }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TCircularChannelsBuffer // Protected methods                              }
+{   TCircularChannelsBuffer // Protected methods                               }
 {------------------------------------------------------------------------------}
 
 procedure TCircularChannelsBuffer.InitializeItem(var Item: TCircularBufferItem);
@@ -949,7 +949,7 @@ inherited;
 end;
 
 {------------------------------------------------------------------------------}
-{    TCircularChannelsBuffer // Public methods                                 }
+{   TCircularChannelsBuffer // Public methods                                  }
 {------------------------------------------------------------------------------}
 
 constructor TCircularChannelsBuffer.Create(Size: Integer = def_CircularChannelsBuffer_BufferSize);
@@ -1024,11 +1024,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TDefferedOperationsBuffer // Implementation                               }
+{   TDefferedOperationsBuffer // Implementation                                }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TDefferedOperationsBuffer // Protected methods                            }
+{   TDefferedOperationsBuffer // Protected methods                             }
 {------------------------------------------------------------------------------}
 
 procedure TDefferedOperationsBuffer.InitializeItem(var Item: TCircularBufferItem);
@@ -1038,7 +1038,7 @@ inherited;
 end;
 
 {------------------------------------------------------------------------------}
-{    TDefferedOperationsBuffer // Public methods                               }
+{   TDefferedOperationsBuffer // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TDefferedOperationsBuffer.Create(Size: Integer = def_DefferedOperationsBuffer_BufferSize);

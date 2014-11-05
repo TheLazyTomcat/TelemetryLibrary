@@ -2,7 +2,7 @@
 @abstract(Contains classes designed to parse binary logs.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-10)
-@lastmod(2014-10-24)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryLogBinaryParser))
 
@@ -18,11 +18,20 @@
    |- TTelemetryLogBinaryFileParser
        |- TTelemetryLogBinaryToTextConverter
 )
-  Last change:  2014-10-24
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
     @item(2014-05-10 - First stable version.)
-    @item(2014-10-24 - Small implementation changes.))
+    @item(2014-10-24 - Small implementation changes.)
+    @item(2014-11-05 - Type of parameter/field @code(Size) changed from signed
+                       to unsigned integer in following cases:@unorderedList(
+                        @itemSpacing(Compact)
+                        @item(event type TDataLogEvent)
+                        @item(event type TDataTimeLogEvent)
+                        @item(fields TLogEntry.Size and TLogEntry.Info)
+                        @item(TTelemetryLogBinaryStreamParser.DoOnDataLog)
+                        @item(TTelemetryLogBinaryToTextConverter.DoOnDataLog)))
+    @item(2014-11-05 - Small implementation changes.))
 
 @html(<hr>)}
 unit TelemetryLogBinaryParser;
@@ -56,12 +65,12 @@ uses
 
 type
   // Event type used when reader/parser passes unprocessed log data.
-  TDataLogEvent = procedure(Sender: TObject; Data: Pointer; Size: Integer) of object;
+  TDataLogEvent = procedure(Sender: TObject; Data: Pointer; Size: LongWord) of object;
   // Event type used when reader/parser passes text log data or any interpreted data.
   TTextLogEvent = procedure(Sender: TObject; const Text: String) of object;
 
   // Event type used when reader/parser passes unprocessed log data with time.
-  TDataTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer) of object;
+  TDataTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord) of object;
   // Event type used when reader/parser passes text log data or any interpreted data with time.
   TTextTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Text: String) of object;
   // Event type used when reader/parser passes informations about a write to game log with time.
@@ -105,8 +114,8 @@ type
   TLogEntry = record
     Time: TDateTime;
     Data: Pointer;
-    Size: Integer;
-    Info: Integer;
+    Size: LongWord;
+    Info: LongWord;
   end;
 
 {
@@ -127,7 +136,7 @@ const
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryReader // Class declaration                            }
+{   TTelemetryLogBinaryReader // Class declaration                             }
 {==============================================================================}
 {
   @abstract(Base class for all internal readers used to write binary logs.)
@@ -378,7 +387,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryReader_0_1 // Class declaration                        }
+{   TTelemetryLogBinaryReader_0_1 // Class declaration                         }
 {==============================================================================}
 {
   @abstract(Internal reader class used to read file of structure 0 and 1.)
@@ -540,7 +549,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryStreamParser // Class declaration                      }
+{   TTelemetryLogBinaryStreamParser // Class declaration                       }
 {==============================================================================}
 {
   @abstract(Class designed to parse a @noAutoLink(stream) containing binary
@@ -1028,7 +1037,7 @@ type
     Function GetLogEntry(Index: Integer): TLogEntry;
   protected
     procedure ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
-    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); virtual;
+    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); virtual;
     procedure DoOnTextLog(Sender: TObject; Time: TDateTime; const Text: String); virtual;
     procedure DoOnLog(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); virtual;
     procedure DoOnEventRegister(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;
@@ -1105,7 +1114,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryFileParser // Class declaration                        }
+{   TTelemetryLogBinaryFileParser // Class declaration                         }
 {==============================================================================}
 {
   @abstract(Class designed to parse a file containing binary log.)
@@ -1151,7 +1160,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryToTextConverter // Class declaration                   }
+{   TTelemetryLogBinaryToTextConverter // Class declaration                    }
 {==============================================================================}
 {
   @abstract(Converts given binary log file to a text log file.)
@@ -1240,7 +1249,7 @@ type
     fDummyRecipient:  TTelemetryRecipient;
     fTextLogger:      TTelemetryLogText;
   protected
-    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); override;
+    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); override;
     procedure DoOnTextLog(Sender: TObject; Time: TDateTime; const Text: String); override;
     procedure DoOnLog(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); override;
     procedure DoOnEventRegister(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;
@@ -1282,11 +1291,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryReader // Class implementation                         }
+{   TTelemetryLogBinaryReader // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryReader // Protected methods                            }
+{   TTelemetryLogBinaryReader // Protected methods                             }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryReader.IncLogCounter(N: Integer = 1);
@@ -1295,7 +1304,7 @@ Inc(fLogCounter,N);
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryReader // Public methods                               }
+{   TTelemetryLogBinaryReader // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryReader.Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
@@ -1357,11 +1366,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryReader_0_1 // Class implementation                     }
+{   TTelemetryLogBinaryReader_0_1 // Class implementation                      }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryReader_0_1 // Protected methods                        }
+{   TTelemetryLogBinaryReader_0_1 // Protected methods                         }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryLogBinaryReader_0_1.GetLogCount: Integer;
@@ -1800,7 +1809,7 @@ ReadingTerminated := not Result;
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryReader_0_1 // Public methods                           }
+{   TTelemetryLogBinaryReader_0_1 // Public methods                            }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryReader_0_1.StartReading;
@@ -1876,11 +1885,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryStreamParser // Class implementation                   }
+{   TTelemetryLogBinaryStreamParser // Class implementation                    }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStreamParser // Private methods                        }
+{   TTelemetryLogBinaryStreamParser // Private methods                         }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryLogBinaryStreamParser.GetLogCount: Integer;
@@ -1903,7 +1912,7 @@ Result := fLogReader[Index];
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStreamParser // Protected methods                      }
+{   TTelemetryLogBinaryStreamParser // Protected methods                       }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryStreamParser.ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo);
@@ -1921,7 +1930,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStreamParser.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer);
+procedure TTelemetryLogBinaryStreamParser.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord);
 begin
 If Assigned(fOnDataTimeLog) then fOnDataTimeLog(Self,Time,Data,Size);
 {$IFDEF NoTimeLogEvents}
@@ -1973,12 +1982,12 @@ procedure TTelemetryLogBinaryStreamParser.DoOnEventRegister(Sender: TObject; Tim
 begin
 If Assigned(fOnEventRegisterTimeLog) then fOnEventRegisterTimeLog(Self,Time,Event);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnEventRegisterLog) then fOnEventRegisterLog(Self,Event);
+If Assigned(fOnEventRegisterLog) then fOnEventRegisterLog(Self,Event,nil);
 {$ENDIF}
 {$IFDEF MulticastEvents}
 fOnEventRegisterTimeLogMulti.Call(Self,Time,Event);
 {$IFDEF NoTimeLogEvents}
-fOnEventRegisterLogMulti.Call(Self,Event);
+fOnEventRegisterLogMulti.Call(Self,Event,nil);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -1989,12 +1998,12 @@ procedure TTelemetryLogBinaryStreamParser.DoOnEventUnregister(Sender: TObject; T
 begin
 If Assigned(fOnEventUnregisterTimeLog) then fOnEventUnregisterTimeLog(Self,Time,Event);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnEventUnregisterLog) then fOnEventUnregisterLog(Self,Event);
+If Assigned(fOnEventUnregisterLog) then fOnEventUnregisterLog(Self,Event,nil);
 {$ENDIF}
 {$IFDEF MulticastEvents}
 fOnEventUnregisterTimeLogMulti.Call(Self,Time,Event);
 {$IFDEF NoTimeLogEvents}
-fOnEventUnregisterLogMulti.Call(Self,Event);
+fOnEventUnregisterLogMulti.Call(Self,Event,nil);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -2005,12 +2014,12 @@ procedure TTelemetryLogBinaryStreamParser.DoOnEvent(Sender: TObject; Time: TDate
 begin
 If Assigned(fOnEventTimeLog) then fOnEventTimeLog(Self,Time,Event,Data);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnEventLog) then fOnEventLog(Self,Event,Data);
+If Assigned(fOnEventLog) then fOnEventLog(Self,Event,Data,nil);
 {$ENDIF}
 {$IFDEF MulticastEvents}
 fOnEventTimeLogMulti.Call(Self,Time,Event,Data);
 {$IFDEF NoTimeLogEvents}
-fOnEventLogMulti.Call(Self,Event,Data);
+fOnEventLogMulti.Call(Self,Event,Data,nil);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -2021,12 +2030,12 @@ procedure TTelemetryLogBinaryStreamParser.DoOnChannelRegister(Sender: TObject; T
 begin
 If Assigned(fOnChannelRegisterTimeLog) then fOnChannelRegisterTimeLog(Self,Time,Name,ID,Index,ValueType,Flags);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnChannelRegisterLog) then fOnChannelRegisterLog(Self,Name,ID,Index,ValueType,Flags);
+If Assigned(fOnChannelRegisterLog) then fOnChannelRegisterLog(Self,Name,ID,Index,ValueType,Flags,nil);
 {$ENDIF}
 {$IFDEF MulticastEvents}
 fOnChannelRegisterTimeLogMulti.Call(Self,Time,Name,ID,Index,ValueType,Flags);
 {$IFDEF NoTimeLogEvents}
-fOnChannelRegisterLogMulti.Call(Self,Name,ID,Index,ValueType,Flags);
+fOnChannelRegisterLogMulti.Call(Self,Name,ID,Index,ValueType,Flags,nil);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -2037,12 +2046,12 @@ procedure TTelemetryLogBinaryStreamParser.DoOnChannelUnregister(Sender: TObject;
 begin
 If Assigned(fOnChannelUnregisterTimeLog) then fOnChannelUnregisterTimeLog(Self,Time,Name,ID,Index,ValueType);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnChannelUnregisterLog) then fOnChannelUnregisterLog(Self,Name,ID,Index,ValueType);
+If Assigned(fOnChannelUnregisterLog) then fOnChannelUnregisterLog(Self,Name,ID,Index,ValueType,nil);
 {$ENDIF}
 {$IFDEF MulticastEvents}
 fOnChannelUnregisterTimeLogMulti.Call(Self,Time,Name,ID,Index,ValueType);
 {$IFDEF NoTimeLogEvents}
-fOnChannelUnregisterLogMulti.Call(Self,Name,ID,Index,ValueType);
+fOnChannelUnregisterLogMulti.Call(Self,Name,ID,Index,ValueType,nil);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -2053,12 +2062,12 @@ procedure TTelemetryLogBinaryStreamParser.DoOnChannel(Sender: TObject; Time: TDa
 begin
 If Assigned(fOnChannelTimeLog) then fOnChannelTimeLog(Self,Time,Name,ID,Index,Value);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnChannelLog) then fOnChannelLog(Self,Name,ID,Index,Value);
+If Assigned(fOnChannelLog) then fOnChannelLog(Self,Name,ID,Index,Value,nil);
 {$ENDIF}
 {$IFDEF MulticastEvents}
 fOnChannelTimeLogMulti.Call(Self,Time,Name,ID,Index,Value);
 {$IFDEF NoTimeLogEvents}
-fOnChannelLogMulti.Call(Self,Name,ID,Index,Value);
+fOnChannelLogMulti.Call(Self,Name,ID,Index,Value,nil);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -2080,7 +2089,7 @@ fOnConfigLogMulti.Call(Self,Name,ID,Index,Value);
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStreamParser // Public methods                         }
+{   TTelemetryLogBinaryStreamParser // Public methods                          }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryStreamParser.Create(Stream: TStream);
@@ -2193,11 +2202,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryFileParser // Class implementation                     }
+{   TTelemetryLogBinaryFileParser // Class implementation                      }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryFileParser // Public methods                           }
+{   TTelemetryLogBinaryFileParser // Public methods                            }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryFileParser.Create(FileName: String);
@@ -2224,14 +2233,14 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryToTextConverter // Class implementation                }
+{   TTelemetryLogBinaryToTextConverter // Class implementation                 }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryToTextConverter // Protected methods                   }
+{   TTelemetryLogBinaryToTextConverter // Protected methods                    }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryToTextConverter.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer);
+procedure TTelemetryLogBinaryToTextConverter.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord);
 begin
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Development hint: Implement at least some rudimentary conversion.'}
@@ -2323,7 +2332,7 @@ inherited;
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryToTextConverter // Public methods                      }
+{   TTelemetryLogBinaryToTextConverter // Public methods                       }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryToTextConverter.Create(FileName: String; OutFileName: String = '');

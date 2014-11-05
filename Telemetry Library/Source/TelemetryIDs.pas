@@ -208,7 +208,7 @@ uses
 {$ENDIF}
 
 {==============================================================================}
-{    Types and general constants                                               }
+{   Types and general constants                                                }
 {==============================================================================}
 
 const
@@ -232,7 +232,7 @@ type
   PConfigID = ^TConfigID;
 
 {==============================================================================}
-{    Full config names                                                         }
+{   Full config names                                                          }
 {==============================================================================}
 
 const
@@ -348,7 +348,7 @@ const
   // True constants.
 
 {==============================================================================}
-{    Config IDs                                                                }
+{   Config IDs                                                                 }
 {==============================================================================}
 
   // Identification number for SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id config.
@@ -460,7 +460,7 @@ const
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_delivery_time               = TConfigID($A604955F);
 
 {==============================================================================}
-{    Channel IDs                                                               }
+{   Channel IDs                                                                }
 {==============================================================================}
 
   // Identification number for @code(SCS_TELEMETRY_CHANNEL_local_scale) channel.
@@ -663,7 +663,7 @@ const
 
   {$WRITEABLECONST ON}
 {==============================================================================}
-{    Config IDs                                                                }
+{   Config IDs                                                                 }
 {==============================================================================}
 
   // Identification number for SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id config.
@@ -775,7 +775,7 @@ const
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_delivery_time:               TConfigID = $A604955F;
 
 {==============================================================================}
-{    Channel IDs                                                               }
+{   Channel IDs                                                                }
 {==============================================================================}
 
   // Identification number for @code(SCS_TELEMETRY_CHANNEL_local_scale) channel.
@@ -976,7 +976,7 @@ const
 {$ENDIF}
 
 {==============================================================================}
-{    Unit Functions and procedures declarations                                }
+{   Unit Functions and procedures declarations                                 }
 {==============================================================================}
 
 {
@@ -1047,7 +1047,7 @@ const
 implementation
 
 {==============================================================================}
-{    Unit Functions and procedures implementation                              }
+{   Unit Functions and procedures implementation                               }
 {==============================================================================}
 
 Function GetItemID(const Item: TelemetryString): TItemID;
@@ -1250,7 +1250,7 @@ Result := Copy(ConfigName,Length(ConfigID) + Length(cConfigFieldsSeparator) + 1,
 end;
 
 {==============================================================================}
-{    Initialization section                                                    }
+{   Initialization section                                                     }
 {==============================================================================}
 
 {$IF not Defined(PrecomputedItemID) and not Defined(ManualItemIDCompute)}

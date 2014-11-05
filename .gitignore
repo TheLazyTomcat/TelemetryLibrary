@@ -3,3 +3,4 @@ Thumbs.db
 *.~*
 Telemetry Library/AutoDocumentation/PasDoc/*
 Telemetry Library/AutoDocumentation/GraphViz/*
+.gitignore

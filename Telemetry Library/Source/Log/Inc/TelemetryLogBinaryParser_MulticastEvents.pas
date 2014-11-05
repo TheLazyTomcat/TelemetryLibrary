@@ -6,7 +6,7 @@
 {==============================================================================}
 
 {==============================================================================}
-{    TMulticastDataLogEvent // Class declaration                               }
+{   TMulticastDataLogEvent // Class declaration                                }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -56,7 +56,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastTextLogEvent // Class declaration                               }
+{   TMulticastTextLogEvent // Class declaration                                }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -106,7 +106,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastDataTimeLogEvent // Class declaration                           }
+{   TMulticastDataTimeLogEvent // Class declaration                            }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -156,7 +156,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastTextTimeLogEvent // Class declaration                           }
+{   TMulticastTextTimeLogEvent // Class declaration                            }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -206,7 +206,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastLogTimeLogEvent // Class declaration                            }
+{   TMulticastLogTimeLogEvent // Class declaration                             }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -256,7 +256,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastEventRegisterTimeLogEvent // Class declaration                  }
+{   TMulticastEventRegisterTimeLogEvent // Class declaration                   }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -306,7 +306,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastEventTimeLogEvent // Class declaration                          }
+{   TMulticastEventTimeLogEvent // Class declaration                           }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -356,7 +356,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastChannelRegisterTimeLogEvent // Class declaration                }
+{   TMulticastChannelRegisterTimeLogEvent // Class declaration                 }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -406,7 +406,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastChannelUnregisterTimeLogEvent // Class declaration              }
+{   TMulticastChannelUnregisterTimeLogEvent // Class declaration               }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -456,7 +456,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastChannelTimeLogEvent // Class declaration                        }
+{   TMulticastChannelTimeLogEvent // Class declaration                         }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -506,7 +506,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastConfigTimeLogEvent // Class declaration                         }
+{   TMulticastConfigTimeLogEvent // Class declaration                          }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when reader/parser
@@ -565,11 +565,11 @@
 {==============================================================================}
 
 {==============================================================================}
-{    TMulticastDataLogEvent // Class implementation                            }
+{   TMulticastDataLogEvent // Class implementation                             }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastDataLogEvent // Public methods                                  }
+{   TMulticastDataLogEvent // Public methods                                   }
 {------------------------------------------------------------------------------}
 
 Function TMulticastDataLogEvent.IndexOf(const Handler: TDataLogEvent): Integer;
@@ -601,11 +601,11 @@ For i := 0 to Pred(Count) do TDataLogEvent(Methods[i])(Sender,Data,Size);
 end;
 
 {==============================================================================}
-{    TMulticastTextLogEvent // Class implementation                            }
+{   TMulticastTextLogEvent // Class implementation                             }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastTextLogEvent // Public methods                                  }
+{   TMulticastTextLogEvent // Public methods                                   }
 {------------------------------------------------------------------------------}
 
 Function TMulticastTextLogEvent.IndexOf(const Handler: TTextLogEvent): Integer;
@@ -637,11 +637,11 @@ For i := 0 to Pred(Count) do TTextLogEvent(Methods[i])(Sender,Text);
 end;
 
 {==============================================================================}
-{    TMulticastDataTimeLogEvent // Class implementation                        }
+{   TMulticastDataTimeLogEvent // Class implementation                         }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastDataTimeLogEvent // Public methods                              }
+{   TMulticastDataTimeLogEvent // Public methods                               }
 {------------------------------------------------------------------------------}
 
 Function TMulticastDataTimeLogEvent.IndexOf(const Handler: TDataTimeLogEvent): Integer;
@@ -673,11 +673,11 @@ For i := 0 to Pred(Count) do TDataTimeLogEvent(Methods[i])(Sender,Time,Data,Size
 end;
 
 {==============================================================================}
-{    TMulticastTextTimeLogEvent // Class implementation                        }
+{   TMulticastTextTimeLogEvent // Class implementation                         }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastTextTimeLogEvent // Public methods                              }
+{   TMulticastTextTimeLogEvent // Public methods                               }
 {------------------------------------------------------------------------------}
 
 Function TMulticastTextTimeLogEvent.IndexOf(const Handler: TTextTimeLogEvent): Integer;
@@ -709,11 +709,11 @@ For i := 0 to Pred(Count) do TTextTimeLogEvent(Methods[i])(Sender,Time,Text);
 end;
 
 {==============================================================================}
-{    TMulticastLogTimeLogEvent // Class implementation                         }
+{   TMulticastLogTimeLogEvent // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastLogTimeLogEvent // Public methods                               }
+{   TMulticastLogTimeLogEvent // Public methods                                }
 {------------------------------------------------------------------------------}
 
 Function TMulticastLogTimeLogEvent.IndexOf(const Handler: TLogTimeLogEvent): Integer;
@@ -745,11 +745,11 @@ For i := 0 to Pred(Count) do TLogTimeLogEvent(Methods[i])(Sender,Time,LogType,Lo
 end;
 
 {==============================================================================}
-{    TMulticastEventRegisterTimeLogEvent // Class implementation               }
+{   TMulticastEventRegisterTimeLogEvent // Class implementation                }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastEventRegisterTimeLogEvent // Public methods                     }
+{   TMulticastEventRegisterTimeLogEvent // Public methods                      }
 {------------------------------------------------------------------------------}
 
 Function TMulticastEventRegisterTimeLogEvent.IndexOf(const Handler: TEventRegisterTimeLogEvent): Integer;
@@ -781,11 +781,11 @@ For i := 0 to Pred(Count) do TEventRegisterTimeLogEvent(Methods[i])(Sender,Time,
 end;
 
 {==============================================================================}
-{    TMulticastEventTimeLogEvent // Class implementation                       }
+{   TMulticastEventTimeLogEvent // Class implementation                        }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastEventTimeLogEvent // Public methods                             }
+{   TMulticastEventTimeLogEvent // Public methods                              }
 {------------------------------------------------------------------------------}
 
 Function TMulticastEventTimeLogEvent.IndexOf(const Handler: TEventTimeLogEvent): Integer;
@@ -817,11 +817,11 @@ For i := 0 to Pred(Count) do TEventTimeLogEvent(Methods[i])(Sender,Time,Event,Da
 end;
 
 {==============================================================================}
-{    TMulticastChannelRegisterTimeLogEvent // Class implementation             }
+{   TMulticastChannelRegisterTimeLogEvent // Class implementation              }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastChannelRegisterTimeLogEvent // Public methods                   }
+{   TMulticastChannelRegisterTimeLogEvent // Public methods                    }
 {------------------------------------------------------------------------------}
 
 Function TMulticastChannelRegisterTimeLogEvent.IndexOf(const Handler: TChannelRegisterTimeLogEvent): Integer;
@@ -853,11 +853,11 @@ For i := 0 to Pred(Count) do TChannelRegisterTimeLogEvent(Methods[i])(Sender,Tim
 end;
 
 {==============================================================================}
-{    TMulticastChannelUnregisterTimeLogEvent // Class implementation           }
+{   TMulticastChannelUnregisterTimeLogEvent // Class implementation            }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastChannelUnregisterTimeLogEvent // Public methods                 }
+{   TMulticastChannelUnregisterTimeLogEvent // Public methods                  }
 {------------------------------------------------------------------------------}
 
 Function TMulticastChannelUnregisterTimeLogEvent.IndexOf(const Handler: TChannelUnregisterTimeLogEvent): Integer;
@@ -889,11 +889,11 @@ For i := 0 to Pred(Count) do TChannelUnregisterTimeLogEvent(Methods[i])(Sender,T
 end;
 
 {==============================================================================}
-{    TMulticastChannelTimeLogEvent // Class implementation                     }
+{   TMulticastChannelTimeLogEvent // Class implementation                      }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastChannelTimeLogEvent // Public methods                           }
+{   TMulticastChannelTimeLogEvent // Public methods                            }
 {------------------------------------------------------------------------------}
 
 Function TMulticastChannelTimeLogEvent.IndexOf(const Handler: TChannelTimeLogEvent): Integer;
@@ -925,11 +925,11 @@ For i := 0 to Pred(Count) do TChannelTimeLogEvent(Methods[i])(Sender,Time,Name,I
 end;
 
 {==============================================================================}
-{    TMulticastConfigTimeLogEvent // Class implementation                      }
+{   TMulticastConfigTimeLogEvent // Class implementation                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastConfigTimeLogEvent // Public methods                            }
+{   TMulticastConfigTimeLogEvent // Public methods                             }
 {------------------------------------------------------------------------------}
 
 Function TMulticastConfigTimeLogEvent.IndexOf(const Handler: TConfigTimeLogEvent): Integer;

@@ -6,7 +6,7 @@
 {==============================================================================}
 
 {==============================================================================}
-{    TMulticastLogEvent // Class declaration                                   }
+{   TMulticastLogEvent // Class declaration                                    }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when recipient writes
@@ -56,7 +56,7 @@
   end;
 
 {==============================================================================}
-{    TMulticastEventRegisterEvent // Class declaration                         }
+{   TMulticastEventRegisterEvent // Class declaration                          }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when telemetry event is
@@ -102,11 +102,11 @@
     Function IndexOf(const Handler: TEventRegisterEvent): Integer; reintroduce;
     Function Add(const Handler: TEventRegisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
     Function Remove(const Handler: TEventRegisterEvent; RemoveAll: Boolean = True): Integer; reintroduce;
-    procedure Call(Sender: TObject; Event: scs_event_t); reintroduce;
+    procedure Call(Sender: TObject; Event: scs_event_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
-{    TMulticastEventEvent // Class declaration                                 }
+{   TMulticastEventEvent // Class declaration                                  }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when telemetry when
@@ -152,11 +152,11 @@
     Function IndexOf(const Handler: TEventEvent): Integer; reintroduce;
     Function Add(const Handler: TEventEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
     Function Remove(const Handler: TEventEvent; RemoveAll: Boolean = True): Integer; reintroduce;
-    procedure Call(Sender: TObject; Event: scs_event_t; Data: Pointer); reintroduce;
+    procedure Call(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
-{    TMulticastChannelRegisterEvent // Class declaration                       }
+{   TMulticastChannelRegisterEvent // Class declaration                        }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when telemetry channel
@@ -202,11 +202,11 @@
     Function IndexOf(const Handler: TChannelRegisterEvent): Integer; reintroduce;
     Function Add(const Handler: TChannelRegisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
     Function Remove(const Handler: TChannelRegisterEvent; RemoveAll: Boolean = True): Integer; reintroduce;
-    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); reintroduce;
+    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
-{    TMulticastChannelUnregisterEvent // Class declaration                     }
+{   TMulticastChannelUnregisterEvent // Class declaration                      }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when telemetry channel
@@ -252,11 +252,11 @@
     Function IndexOf(const Handler: TChannelUnregisterEvent): Integer; reintroduce;
     Function Add(const Handler: TChannelUnregisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
     Function Remove(const Handler: TChannelUnregisterEvent; RemoveAll: Boolean = True): Integer; reintroduce;
-    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); reintroduce;
+    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
-{    TMulticastChannelEvent // Class declaration                               }
+{   TMulticastChannelEvent // Class declaration                                }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when telemetery channel
@@ -302,11 +302,11 @@
     Function IndexOf(const Handler: TChannelEvent): Integer; reintroduce;
     Function Add(const Handler: TChannelEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
     Function Remove(const Handler: TChannelEvent; RemoveAll: Boolean = True): Integer; reintroduce;
-    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); reintroduce;
+    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
-{    TMulticastConfigEvent // Class declaration                                }
+{   TMulticastConfigEvent // Class declaration                                 }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called when config is parsed
@@ -364,11 +364,11 @@
 {==============================================================================}
 
 {==============================================================================}
-{    TMulticastLogEvent // Class implementation                                }
+{   TMulticastLogEvent // Class implementation                                 }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastLogEvent // Public methods                                      }
+{   TMulticastLogEvent // Public methods                                       }
 {------------------------------------------------------------------------------}
 
 Function TMulticastLogEvent.IndexOf(const Handler: TLogEvent): Integer;
@@ -400,11 +400,11 @@ For i := 0 to Pred(Count) do TLogEvent(Methods[i])(Sender,LogType,LogText);
 end;
 
 {==============================================================================}
-{    TMulticastEventRegisterEvent // Class implementation                      }
+{   TMulticastEventRegisterEvent // Class implementation                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastEventRegisterEvent // Public methods                            }
+{   TMulticastEventRegisterEvent // Public methods                             }
 {------------------------------------------------------------------------------}
 
 Function TMulticastEventRegisterEvent.IndexOf(const Handler: TEventRegisterEvent): Integer;
@@ -428,19 +428,19 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastEventRegisterEvent.Call(Sender: TObject; Event: scs_event_t);
+procedure TMulticastEventRegisterEvent.Call(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TEventRegisterEvent(Methods[i])(Sender,Event);
+For i := 0 to Pred(Count) do TEventRegisterEvent(Methods[i])(Sender,Event,UserData);
 end;
 
 {==============================================================================}
-{    TMulticastEventEvent // Class implementation                              }
+{   TMulticastEventEvent // Class implementation                               }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastEventEvent // Public methods                                    }
+{   TMulticastEventEvent // Public methods                                     }
 {------------------------------------------------------------------------------}
 
 Function TMulticastEventEvent.IndexOf(const Handler: TEventEvent): Integer;
@@ -464,19 +464,19 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastEventEvent.Call(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TMulticastEventEvent.Call(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TEventEvent(Methods[i])(Sender,Event,Data);
+For i := 0 to Pred(Count) do TEventEvent(Methods[i])(Sender,Event,Data,UserData);
 end;
 
 {==============================================================================}
-{    TMulticastChannelRegisterEvent // Class implementation                    }
+{   TMulticastChannelRegisterEvent // Class implementation                     }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastChannelRegisterEvent // Public methods                          }
+{   TMulticastChannelRegisterEvent // Public methods                           }
 {------------------------------------------------------------------------------}
 
 Function TMulticastChannelRegisterEvent.IndexOf(const Handler: TChannelRegisterEvent): Integer;
@@ -500,19 +500,19 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastChannelRegisterEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TMulticastChannelRegisterEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TChannelRegisterEvent(Methods[i])(Sender,Name,ID,Index,ValueType,Flags);
+For i := 0 to Pred(Count) do TChannelRegisterEvent(Methods[i])(Sender,Name,ID,Index,ValueType,Flags,UserData);
 end;
 
 {==============================================================================}
-{    TMulticastChannelUnregisterEvent // Class implementation                  }
+{   TMulticastChannelUnregisterEvent // Class implementation                   }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastChannelUnregisterEvent // Public methods                        }
+{   TMulticastChannelUnregisterEvent // Public methods                         }
 {------------------------------------------------------------------------------}
 
 Function TMulticastChannelUnregisterEvent.IndexOf(const Handler: TChannelUnregisterEvent): Integer;
@@ -536,19 +536,19 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastChannelUnregisterEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TMulticastChannelUnregisterEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TChannelUnregisterEvent(Methods[i])(Sender,Name,ID,Index,ValueType);
+For i := 0 to Pred(Count) do TChannelUnregisterEvent(Methods[i])(Sender,Name,ID,Index,ValueType,UserData);
 end;
 
 {==============================================================================}
-{    TMulticastChannelEvent // Class implementation                            }
+{   TMulticastChannelEvent // Class implementation                             }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastChannelEvent // Public methods                                  }
+{   TMulticastChannelEvent // Public methods                                   }
 {------------------------------------------------------------------------------}
 
 Function TMulticastChannelEvent.IndexOf(const Handler: TChannelEvent): Integer;
@@ -572,19 +572,19 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastChannelEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TMulticastChannelEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TChannelEvent(Methods[i])(Sender,Name,ID,Index,Value);
+For i := 0 to Pred(Count) do TChannelEvent(Methods[i])(Sender,Name,ID,Index,Value,UserData);
 end;
 
 {==============================================================================}
-{    TMulticastConfigEvent // Class implementation                             }
+{   TMulticastConfigEvent // Class implementation                              }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastConfigEvent // Public methods                                   }
+{   TMulticastConfigEvent // Public methods                                    }
 {------------------------------------------------------------------------------}
 
 Function TMulticastConfigEvent.IndexOf(const Handler: TConfigEvent): Integer;

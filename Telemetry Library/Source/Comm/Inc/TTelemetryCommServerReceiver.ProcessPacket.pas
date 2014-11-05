@@ -1,6 +1,6 @@
 {$IFDEF DeclarationPart}
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_COMMON packets                                                  }
+{   TC_PREFIX_COMMON packets                                                   }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_PING packet.}
 procedure ProcessPacket_TC_PACKET_PING(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -22,7 +22,7 @@ procedure ProcessPacket_TC_PACKET_ERROR(var Packet: TPacketBuffer; ConnectionDat
 procedure ProcessPacket_TC_PACKET_DEFFERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_KNOWN_EVENTS packets                                            }
+{   TC_PREFIX_KNOWN_EVENTS packets                                             }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_KNOWN_EVENTS_COUNT_GET packet.}
 procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -40,7 +40,7 @@ procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_ALL_GET(var Packet: TPacketBuffer
 procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_KNOWN_CHANNELS packets                                          }
+{   TC_PREFIX_KNOWN_CHANNELS packets                                           }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_KNOWN_CHANNELS_COUNT_GET packet.}
 procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -58,7 +58,7 @@ procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_ALL_GET(var Packet: TPacketBuff
 procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_KNOWN_CONFIGS packets                                           }
+{   TC_PREFIX_KNOWN_CONFIGS packets                                            }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_KNOWN_CONFIGS_COUNT_GET packet.}
 procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -76,7 +76,7 @@ procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_ALL_GET(var Packet: TPacketBuffe
 procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_EVENT packets                                                   }
+{   TC_PREFIX_EVENT packets                                                    }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_EVENT_REGISTER packet.}
 procedure ProcessPacket_TC_PACKET_EVENT_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -112,7 +112,7 @@ procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_ALL_GET(var Packet: TPacketBu
 procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_CHANNEL packets                                                 }
+{   TC_PREFIX_CHANNEL packets                                                  }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_CHANNEL_REGISTER packet.}
 procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -156,7 +156,7 @@ procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_ALL(var Packet: TPacketBuff
 procedure ProcessPacket_TC_PACKET_CHANNEL_STORED_SEND_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_CONFIG packets                                                  }
+{   TC_PREFIX_CONFIG packets                                                   }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_CONFIG_CONFIG packet.}
 procedure ProcessPacket_TC_PACKET_CONFIG_CONFIG(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -178,7 +178,7 @@ procedure ProcessPacket_TC_PACKET_CONFIG_STORED_ALL_GET(var Packet: TPacketBuffe
 procedure ProcessPacket_TC_PACKET_CONFIG_STORED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_CONFIG packets                                                  }
+{   TC_PREFIX_LOG packets                                                      }
 {------------------------------------------------------------------------------}
 {Method processing TC_PACKET_LOG_LOG packet.}
 procedure ProcessPacket_TC_PACKET_LOG_LOG(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
@@ -186,7 +186,7 @@ procedure ProcessPacket_TC_PACKET_LOG_LOG(var Packet: TPacketBuffer; ConnectionD
 
 {$IFDEF ImplementationPart}
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_COMMON packets                                                  }
+{   TC_PREFIX_COMMON packets                                                   }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_PING(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -257,7 +257,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_KNOWN_EVENTS packets                                            }
+{   TC_PREFIX_KNOWN_EVENTS packets                                             }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_KNOWN_EVENTS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -318,7 +318,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_KNOWN_CHANNELS packets                                          }
+{   TC_PREFIX_KNOWN_CHANNELS packets                                           }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_KNOWN_CHANNELS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -379,7 +379,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_KNOWN_CONFIGS packets                                           }
+{   TC_PREFIX_KNOWN_CONFIGS packets                                            }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_KNOWN_CONFIGS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -440,7 +440,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_EVENT packets                                                   }
+{   TC_PREFIX_EVENT packets                                                    }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_EVENT_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -605,7 +605,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_CHANNEL packets                                                 }
+{   TC_PREFIX_CHANNEL packets                                                  }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_CHANNEL_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -874,7 +874,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_CONFIG packets                                                  }
+{   TC_PREFIX_CONFIG packets                                                   }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_CONFIG_CONFIG(var Packet: TPacketBuffer; ConnectionData: Pointer);
@@ -967,7 +967,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TC_PREFIX_CONFIG packets                                                  }
+{   TC_PREFIX_LOG packets                                                      }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerReceiver.ProcessPacket_TC_PACKET_LOG_LOG(var Packet: TPacketBuffer; ConnectionData: Pointer);

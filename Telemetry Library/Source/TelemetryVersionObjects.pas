@@ -74,7 +74,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryAbstractVersionObject // Class declaration                      }
+{   TTelemetryAbstractVersionObject // Class declaration                       }
 {==============================================================================}
 {
   @abstract(Common, fully abstract ancestor for all classes that needs to be
@@ -154,7 +154,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryVersionObject // Class declaration                              }
+{   TTelemetryVersionObject // Class declaration                               }
 {==============================================================================}
 {
   @abstract(Common ancestor for all classes that needs to be checked for version
@@ -210,7 +210,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryVersionPrepareObject // Class declaration                       }
+{   TTelemetryVersionPrepareObject // Class declaration                        }
 {==============================================================================}
 {
   @abstract(Common ancestor for all classes that needs to be prepared for
@@ -331,11 +331,11 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryVersionObject // Class implementation                           }
+{   TTelemetryVersionObject // Class implementation                            }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryVersionObject // Constants, types, variables, etc...            }
+{   TTelemetryVersionObject // Constants, types, variables, etc...             }
 {------------------------------------------------------------------------------}
 
 const
@@ -360,7 +360,7 @@ const
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {ETS2 1.9}));
 
 {------------------------------------------------------------------------------}
-{    TTelemetryVersionObject // Public methods                                 }
+{   TTelemetryVersionObject // Public methods                                  }
 {------------------------------------------------------------------------------}
 
 
@@ -377,11 +377,7 @@ var
 begin
 Result := SCS_U32_NIL;
 For i := Low(cSupportedGameVersions) to High(cSupportedGameVersions) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(GameID,cSupportedGameVersions[i].GameID) then
-{$ELSE}
-  If TelemetrySameStr(GameID,cSupportedGameVersions[i].GameID) then
-{$ENDIF}
+  If TelemetrySameStrSwitch(GameID,cSupportedGameVersions[i].GameID) then
     Result := cSupportedGameVersions[i].GameVersion;
 end;
 
@@ -423,11 +419,7 @@ var
 begin
 Result := False;
 For i := Low(cSupportedGameVersions) to High(cSupportedGameVersions) do
-{$IFDEF AssumeASCIIString}
-  If TelemetrySameStrNoConv(GameID,cSupportedGameVersions[i].GameID) and
-{$ELSE}
-  If TelemetrySameStr(GameID,cSupportedGameVersions[i].GameID) and
-{$ENDIF}
+  If TelemetrySameStrSwitch(GameID,cSupportedGameVersions[i].GameID) and
     (GameVersion = cSupportedGameVersions[i].GameVersion) then
     begin
       Result := True;
@@ -458,11 +450,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryVersionPrepareObject // Class implementation                    }
+{   TTelemetryVersionPrepareObject // Class implementation                     }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryVersionPrepareObject // Protected methods                       }
+{   TTelemetryVersionPrepareObject // Protected methods                        }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryVersionPrepareObject.Prepare_Telemetry_1_0;
@@ -541,7 +533,7 @@ Prepare_Game_eut2_1_8;
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryVersionPrepareObject // Public methods                          }
+{   TTelemetryVersionPrepareObject // Public methods                           }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryVersionPrepareObject.PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean;
@@ -558,11 +550,7 @@ end;
 Function TTelemetryVersionPrepareObject.PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean;
 begin
 Result := False;
-{$IFDEF AssumeASCIIString}
-If TelemetrySameStrNoConv(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}
-{$ELSE}
-If TelemetrySameStr(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}
-{$ENDIF}
+If TelemetrySameStrSwitch(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}
   begin
     case GameVersion of
       SCS_TELEMETRY_EUT2_GAME_VERSION_1_00: begin Prepare_Game_eut2_1_0; Result := True; end; {1.0}

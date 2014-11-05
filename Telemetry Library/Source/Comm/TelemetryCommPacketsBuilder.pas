@@ -3,7 +3,7 @@
           packets.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-16)
-@lastmod(2014-05-16)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryCommPacketsBuilder))
 
@@ -12,10 +12,27 @@
   This unit contains TTelemetryCommPacketsBuilder class (see class declaration
   for details).
 
-  Last change:  2014-05-16
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
-    @item(2014-05-16 - First stable version.))
+    @item(2014-05-16 - First stable version.)
+    @item(2014-11-02 - Small implementation changes.)
+    @item(2014-11-05 - Type of parameters @code(PacketID) and @code(NewPacketID)
+                       changed to TPacketID in following methods:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TTelemetryCommPacketsBuilder.PreparePacket)
+                         @item(TTelemetryCommPacketsBuilder.BuildPacket)
+                         @item(TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize)
+                         @item(TTelemetryCommPacketsBuilder.ReusePacket)))
+    @item(2014-11-05 - Type of parameters @code(ValueSize), @code(DataOffset)
+                       and @code(DataSize) changed from signed to unsigned
+                       integer in following methods:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TTelemetryCommPacketsBuilder.BuildPacket)
+                         @item(TTelemetryCommPacketsBuilder.ReusePacket)))
+    @item(2014-11-05 - Type of result changed from signed to unsigned integer
+                       for method
+                       TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize))
 
 @html(<hr>)}
 unit TelemetryCommPacketsBuilder;
@@ -52,7 +69,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommPacketsBuilder // Class declaration                         }
+{   TTelemetryCommPacketsBuilder // Class declaration                          }
 {==============================================================================}
 {
   @abstract(Class providing methods that creates complete initialized predefined
@@ -337,7 +354,7 @@ uses
 type
   TTelemetryCommPacketsBuilder = class(TTelemetryCommPacketsAllocator)
   public
-    Function PreparePacket(var Packet: TPacketBuffer; PacketID: Integer): Pointer; virtual;
+    Function PreparePacket(var Packet: TPacketBuffer; PacketID: TPacketID): Pointer; virtual;
     {
       Returns complete initialized no-payload packet of given ID.
 
@@ -345,17 +362,17 @@ type
 
       @returns Initialized ready-to-be-sent packet.
     }
-    Function BuildPacket(PacketID: Integer): TPacketBuffer; overload; virtual;
+    Function BuildPacket(PacketID: TPacketID): TPacketBuffer; overload; virtual;
     {
       Creates complete initialized packet of given ID with payload consisting of
       passed 32bit integer value.
 
       @param PacketID ID of created packet.
-      @param Data     Packet payload.
+      @param Value    Packet payload.
 
       @returns Initialized ready-to-be-sent packet.
     }
-    Function BuildPacket(PacketID: Integer; Value: Integer): TPacketBuffer; overload; virtual;
+    Function BuildPacket(PacketID: TPacketID; Value: Integer): TPacketBuffer; overload; virtual;
     {
       Creates complete initialized packet of given ID with payload consisting of
       passed string value.
@@ -365,7 +382,7 @@ type
 
       @returns Initialized ready-to-be-sent packet.
     }
-    Function BuildPacket(PacketID: Integer; Value: UTF8String): TPacketBuffer; overload; virtual;
+    Function BuildPacket(PacketID: TPacketID; Value: UTF8String): TPacketBuffer; overload; virtual;
     {
       Creates complete initialized packet of given ID with payload containign
       untyped buffer.
@@ -376,7 +393,7 @@ type
 
       @returns Initialized ready-to-be-sent packet.
     }
-    Function BuildPacket(PacketID: Integer; const Value; ValueSize: Integer): TPacketBuffer; overload; virtual;
+    Function BuildPacket(PacketID: TPacketID; const Value; ValueSize: LongWord): TPacketBuffer; overload; virtual;
 
     Function BuildPacket_TC_PACKET_PING: TPacketBuffer; virtual;
     Function BuildPacket_TC_PACKET_PING_RESPONSE(TimeStamp: TPacketHeaderTime): TPacketBuffer; virtual;
@@ -465,7 +482,7 @@ type
 
     Function BuildPacket_TC_PACKET_LOG_LOG(LogType: scs_log_type_t; LogText: String): TPacketBuffer; virtual;
     
-    Function MinimalPacketPayloadSize(PacketID: LongWord): Integer; virtual;
+    Function MinimalPacketPayloadSize(PacketID: TPacketID): LongWord; virtual;
     Function CheckPacketPayloadSize(Packet: TPacketBuffer): Boolean; virtual;
     {
       Use to change packets ID and reuse it.
@@ -473,7 +490,7 @@ type
       @param Packet      Packet that will be reused.
       @param NewPacketID New packet ID to be written to reused packet.
     }
-    procedure ReusePacket(var Packet: TPacketBuffer; NewPacketID: LongWord); overload; virtual;
+    procedure ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID); overload; virtual;
     {
       Use to change packets ID and store new data to it.@br
       Data are store at position given by offset from packet payload beginning.
@@ -486,7 +503,7 @@ type
       @param DataSize    Size of data to be written.
       @param Data        Data to be writen to packet.
     }
-    procedure ReusePacket(var Packet: TPacketBuffer; NewPacketID: LongWord; DataOffset, DataSize: Integer; Data: Pointer); overload; virtual;
+    procedure ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID; DataOffset, DataSize: LongWord; Data: Pointer); overload; virtual;
     {
       Use to change packets ID and store new data to it.@br
       Data are store at given address. When data would not fit into packet or
@@ -498,7 +515,7 @@ type
       @param DataSize    Size of data to be written.
       @param Data        Data to be writen to packet.
     }
-    procedure ReusePacket(var Packet: TPacketBuffer; NewPacketID: LongWord; Address: Pointer; DataSize: Integer; Data: Pointer); overload; virtual;
+    procedure ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID; Address: Pointer; DataSize: LongWord; Data: Pointer); overload; virtual;
   end;
 
 implementation
@@ -514,14 +531,14 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommPacketsBuilder // Class implementation                      }
+{   TTelemetryCommPacketsBuilder // Class implementation                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommPacketsBuilder // Public methods                            }
+{   TTelemetryCommPacketsBuilder // Public methods                             }
 {------------------------------------------------------------------------------}
 
-Function TTelemetryCommPacketsBuilder.PreparePacket(var Packet: TPacketBuffer; PacketID: Integer): Pointer;
+Function TTelemetryCommPacketsBuilder.PreparePacket(var Packet: TPacketBuffer; PacketID: TPacketID): Pointer;
 begin
 If Packet.Size >= MinimalPacketPayloadSize(PacketID) then
   begin
@@ -530,7 +547,7 @@ If Packet.Size >= MinimalPacketPayloadSize(PacketID) then
     PPacketHeader(Packet.Data)^.PacketID := PacketID;
     PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);
     PPacketHeader(Packet.Data)^.PayloadSize := Packet.Size - SizeOf(TPacketHeader);
-    Result := Pointer(NativeInt(Packet.Data) + SizeOf(TPacketHeader));
+    Result := Pointer(PtrUInt(Packet.Data) + SizeOf(TPacketHeader));
   end
 else
   raise Exception.Create('TTelemetryCommPacketsBuilder.PreparePacket: Packet size too small (' + IntToStr(Packet.Size) + ').');
@@ -538,7 +555,7 @@ end;
 
 //==============================================================================
 
-Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: Integer): TPacketBuffer;
+Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: TPacketID): TPacketBuffer;
 begin
 Result.Size := SizeOf(TPacketHeader);
 PreparePacket(Result,PacketID);
@@ -546,7 +563,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: Integer; Value: Integer): TPacketBuffer;
+Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: TPacketID; Value: Integer): TPacketBuffer;
 var
   CurrPtr:  Pointer;
 begin
@@ -557,7 +574,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: Integer; Value: UTF8String): TPacketBuffer;
+Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: TPacketID; Value: UTF8String): TPacketBuffer;
 var
   CurrPtr:  Pointer;
 begin
@@ -568,11 +585,11 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: Integer; const Value; ValueSize: Integer): TPacketBuffer;
+Function TTelemetryCommPacketsBuilder.BuildPacket(PacketID: TPacketID; const Value; ValueSize: LongWord): TPacketBuffer;
 var
   CurrPtr:  Pointer;
 begin
-Result.Size := SizeOf(TPAcketHeader) + ValueSize;
+Result.Size := SizeOf(TPacketHeader) + ValueSize;
 CurrPtr := PreparePacket(Result,PacketID);
 Ptr_WriteBuffer(CurrPtr,Value,ValueSize);
 end;
@@ -580,7 +597,7 @@ end;
 //==============================================================================
 
 {------------------------------------------------------------------------------}
-{    Common                                                                    }
+{   Common                                                                     }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_PING: TPacketBuffer;
@@ -712,7 +729,7 @@ Ptr_WriteInteger(CurrPtr,Integer(DefferedOperationType));
 end;
 
 {------------------------------------------------------------------------------}
-{    Known events                                                              }
+{   Known events                                                               }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_KNOWN_EVENTS_COUNT_GET: TPacketBuffer;
@@ -821,7 +838,7 @@ For i := 0 to Pred(TelemetryInfoProvider.KnownEvents.Count) do
 end;
 
 {------------------------------------------------------------------------------}
-{    Known channels                                                            }
+{   Known channels                                                             }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_KNOWN_CHANNELS_COUNT_GET: TPacketBuffer;
@@ -940,7 +957,7 @@ For i := 0 to Pred(TelemetryInfoProvider.KnownChannels.Count) do
 end;
 
 {------------------------------------------------------------------------------}
-{    Known configs                                                             }
+{   Known configs                                                              }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_KNOWN_CONFIGS_COUNT_GET: TPacketBuffer;
@@ -1051,7 +1068,7 @@ For i := 0 to Pred(TelemetryInfoProvider.KnownConfigs.Count) do
 end;
 
 {------------------------------------------------------------------------------}
-{    Events                                                                    }
+{   Events                                                                     }
 {------------------------------------------------------------------------------}
 
 { Payload structure:
@@ -1296,7 +1313,7 @@ For i := 0 to Pred(TelemetryRecipient.RegisteredEvents.Count) do
 end;
 
 {------------------------------------------------------------------------------}
-{    Channels                                                                  }
+{   Channels                                                                   }
 {------------------------------------------------------------------------------}
 
 { Payload structure:
@@ -1652,7 +1669,7 @@ Result := BuildPacket(TC_PACKET_CHANNEL_STORED_SEND_ALL);
 end;
 
 {------------------------------------------------------------------------------}
-{    Configs                                                                   }
+{   Configs                                                                    }
 {------------------------------------------------------------------------------}
 
 { Payload structure:
@@ -1817,7 +1834,7 @@ For i := 0 to Pred(TelemetryRecipient.StoredConfigs.Count) do
 end;
 
 {------------------------------------------------------------------------------}
-{    Log                                                                       }
+{   Log                                                                        }
 {------------------------------------------------------------------------------}
 
 { Payload structure:
@@ -1841,7 +1858,7 @@ end;
 
 //==============================================================================
 
-Function TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize(PacketID: LongWord): Integer;
+Function TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize(PacketID: TPacketID): LongWord;
 begin
 case PacketID of
   // TC_PREFIX_COMMON prefix.
@@ -1947,7 +1964,7 @@ end;
 
 //==============================================================================
 
-procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: LongWord);
+procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID);
 begin
 PPacketHeader(Packet.Data)^.PacketID := NewPacketID;
 PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);
@@ -1955,25 +1972,25 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: LongWord; DataOffset, DataSize: Integer; Data: Pointer);
+procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID; DataOffset, DataSize: LongWord; Data: Pointer);
 begin
 If (DataOffset + DataSize) <= GetPacketHeader(Packet).PayloadSize then
   begin
     PPacketHeader(Packet.Data)^.PacketID := NewPacketID;
     PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);
-    CopyMemory(Pointer(NativeInt(GetPayloadAddress(Packet)) + DataOffset),Data,DataSize);
+    CopyMemory(Pointer(PtrUInt(GetPayloadAddress(Packet)) + DataOffset),Data,DataSize);
   end
 else raise Exception.Create('TelemetryNetPacketsResolving.ReusePacket(Offset): Data cannot fit into reused packet.');
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: LongWord; Address: Pointer; DataSize: Integer; Data: Pointer);
+procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID; Address: Pointer; DataSize: LongWord; Data: Pointer);
 begin
-If (NativeInt(Address) >= NativeInt(GetPayloadAddress(Packet))) and
-   (NativeInt(Address) <= (NativeInt(GetPayloadAddress(Packet)) + GetPacketHeader(Packet).PayloadSize)) then
+If (PtrUInt(Address) >= PtrUInt(GetPayloadAddress(Packet))) and
+   (PtrUInt(Address) <= (PtrUInt(GetPayloadAddress(Packet)) + GetPacketHeader(Packet).PayloadSize)) then
   begin
-    If (NativeInt(Address) - NativeInt(Packet.Data) + DataSize) <= GetPacketHeader(Packet).PayloadSize then
+    If (PtrUInt(Address) - PtrUInt(Packet.Data) + DataSize) <= GetPacketHeader(Packet).PayloadSize then
       begin
         PPacketHeader(Packet.Data)^.PacketID := NewPacketID;
         PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);

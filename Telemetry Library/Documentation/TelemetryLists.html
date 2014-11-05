@@ -34,7 +34,7 @@ List classes used in Telemetry library.</p>
    |- TStoredChannelsValuesList
 </pre>
 
-<p> Last change: 2014-06-07
+<p> Last change: 2014-11-05
 
 <p>Change List:</p>
 
@@ -127,6 +127,31 @@ List classes used in Telemetry library.</p>
 
 <p></p></li>
   <li><p>2014-06-07 - Added field <code>MaxIndex</code> to <a class="normal" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a> record.</p></li>
+  <li><p>2014-11-05 - Added field <code>UserData</code> to <a class="normal" href="TelemetryLists.TEventContext.html">TEventContext</a> and <a class="normal" href="TelemetryLists.TChannelContext.html">TChannelContext</a>.</p></li>
+  <li><p>2014-11-05 - Added <a class="normal" href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a> event type.</p></li>
+  <li><p>2014-11-05 - Added following fields, methods and properties: </p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredEventsList.html#fOnUserDataFree">TRegisteredEventsList.fOnUserDataFree</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredEventsList.html#DoOnUserDataFree">TRegisteredEventsList.DoOnUserDataFree</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredEventsList.html#OnUserDataFree">TRegisteredEventsList.OnUserDataFree</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#fOnUserDataFree">TRegisteredChannelsList.fOnUserDataFree</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#DoOnUserDataFree">TRegisteredChannelsList.DoOnUserDataFree</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#OnUserDataFree">TRegisteredChannelsList.OnUserDataFree</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-11-05 - Added parameter <code>UserData</code> to following methods: </p>
+
+<ul class="compact_spacing">
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredEventsList.html#Add">TRegisteredEventsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredEventsList.html#CreateContext">TRegisteredEventsList.CreateContext</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#Add">TRegisteredChannelsList.Add</a></p></li>
+  <li><p><a class="normal" href="TelemetryLists.TRegisteredChannelsList.html#CreateContext">TRegisteredChannelsList.CreateContext</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2014-11-05 - Small implementation changes.</p></li>
 </ul>
 
 <p>
@@ -234,36 +259,39 @@ List classes used in Telemetry library.</p>
 <a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a></b> = procedure(Sender: TObject; var UserData: Pointer) of object;</code></td>
+</tr>
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PKnownEvent">PKnownEvent</a></b> = &circ;<a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PKnownChannel">PKnownChannel</a></b> = &circ;<a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PKnownConfig">PKnownConfig</a></b> = &circ;<a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PEventInfo">PEventInfo</a></b> = &circ;<a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PEventContext">PEventContext</a></b> = &circ;<a  href="TelemetryLists.TEventContext.html">TEventContext</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PChannelInfo">PChannelInfo</a></b> = &circ;<a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PChannelContext">PChannelContext</a></b> = &circ;<a  href="TelemetryLists.TChannelContext.html">TChannelContext</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PStoredConfig">PStoredConfig</a></b> = &circ;<a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#TMasterID">TMasterID</a></b> = LongWord;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PStoredChannel">PStoredChannel</a></b> = &circ;<a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLists.html#PStoredChannelMasterID">PStoredChannelMasterID</a></b> = &circ;<a  href="TelemetryLists.TStoredChannelMasterID.html">TStoredChannelMasterID</a>;</code></td>
 </tr>
 </table>
@@ -447,6 +475,15 @@ Function intended as callback for streaming functions, converting ID to config n
 <p class="return">Config name obtained from passed ID.</p></td></tr>
 </table>
 <h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TUserDataFreeEvent"></a><code><b>TUserDataFreeEvent</b> = procedure(Sender: TObject; var UserData: Pointer) of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event type used when user data stored in event or channel context should be freed.</p>
+</td></tr>
+</table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="PKnownEvent"></a><code><b>PKnownEvent</b> = &circ;<a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
@@ -646,9 +683,9 @@ Empty <a class="normal" href="TelemetryLists.TStoredConfig.html">TStoredConfig</
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-06-07
+2014-11-05
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:24</em>
 </span>
 
 </body>

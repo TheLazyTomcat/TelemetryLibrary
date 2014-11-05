@@ -3,7 +3,7 @@
           output.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-18)
-@lastmod(2014-10-24)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryLogBinary))
 
@@ -18,14 +18,30 @@
    |- TTelemetryLogBinaryFile
 )
 
-  Last change:  2014-10-24
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
     @item(2014-05-18 - First stable version.)
-    @item(2014-10-24 - Small implementation changes.))
+    @item(2014-10-24 - Small implementation changes.)
+    @item(2014-11-05 - Type of parameter @code(Size) changed from signed to
+                       unsigned integer in following functions:@unorderedList(
+                        @itemSpacing(Compact)
+                        @item(TTelemetryLogBinaryWriter.LogData)
+                        @item(TTelemetryLogBinaryWriter_0_1.LogData)
+                        @item(TTelemetryLogBinaryStream.LogData)))
+    @item(2014-11-05 - Added parameter @code(UserData) to following methods:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TTelemetryLogBinaryStream.EventRegisterHandler)
+                         @item(TTelemetryLogBinaryStream.EventUnregisterHandler)
+                         @item(TTelemetryLogBinaryStream.EventHandler)
+                         @item(TTelemetryLogBinaryStream.ChannelRegisterHandler)
+                         @item(TTelemetryLogBinaryStream.ChannelUnregisterHandler)
+                         @item(TTelemetryLogBinaryStream.ChannelHandler))))
 
   ToDo:@unorderedList(
-    @item(Add 64bit variant of structure 0 (64bit blocks offsets).))
+    @item(Add 64bit variant of structure 0 (64bit blocks offsets).)
+    @item(Add structure that saves data in some compressed format.))
 
 @html(<hr>)
 
@@ -484,7 +500,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryWriter // Class declaration                            }
+{   TTelemetryLogBinaryWriter // Class declaration                             }
 {==============================================================================}
 {
   @abstract(Base class for all writers used to write binary logs.)
@@ -644,7 +660,7 @@ type
   public
     constructor Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
     procedure StartWriting; virtual; abstract;
-    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: Integer); virtual; abstract;
+    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: LongWord); virtual; abstract;
     procedure LogText(Recipient: TTelemetryRecipient; Text: TelemetryString); virtual; abstract;
     procedure LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); virtual; abstract;
     procedure LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
@@ -669,7 +685,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryWriter_0_1 // Class declaration                        }
+{   TTelemetryLogBinaryWriter_0_1 // Class declaration                         }
 {==============================================================================}
 {
   @abstract(Writer class used to write binary log of structures 0 and 1.)
@@ -755,7 +771,7 @@ type
     procedure StartWriting; override;
     procedure LogInvalidBlock; virtual;
     procedure LogTerminationBlock; virtual;
-    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: Integer); override;
+    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: LongWord); override;
     procedure LogText(Recipient: TTelemetryRecipient; Text: TelemetryString); override;
     procedure LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); override;
     procedure LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t); override;
@@ -776,7 +792,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryStream // Class declaration                            }
+{   TTelemetryLogBinaryStream // Class declaration                             }
 {==============================================================================}
 {
   @abstract(Class designed to log all traffic on telemetry API as a binary log
@@ -886,26 +902,29 @@ type
     Method adding informations about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender Object calling this method (must be of type
-                  TTelemetryRecipient).)
-    @param Event  Game event identification number.)
+    @param(Sender   Object calling this method (must be of type
+                    TTelemetryRecipient).)
+    @param Event    Game event identification number.
+    @param UserData User defined data stored in the event context.)
 
   @member(EventUnregisterHandler
     Method adding informations about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender Object calling this method (must be of type
-                  TTelemetryRecipient).)
-    @param Event  Game event identification number.)
+    @param(Sender   Object calling this method (must be of type
+                    TTelemetryRecipient).)
+    @param Event    Game event identification number.
+    @param UserData User defined data stored in the event context.)
 
   @member(EventHandler
     Method adding information about game event to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender Object calling this method (must be of type
-                  TTelemetryRecipient).)
-    @param Event  Game event identification number.
-    @param Data   Pointer to data accompanying the event. Can be @nil.)
+    @param(Sender   Object calling this method (must be of type
+                    TTelemetryRecipient).)
+    @param Event    Game event identification number.
+    @param Data     Pointer to data accompanying the event. Can be @nil.
+    @param UserData User defined data stored in the event context.)
 
   @member(ChannelRegisterHandler
     Method adding informations about channel registration to the log.@br
@@ -917,7 +936,8 @@ type
     @param ID        ID of registered channel.
     @param Index     Index of registered channel.
     @param ValueType Value type of registered channel.
-    @param Flags     Registration flags.)
+    @param Flags     Registration flags.
+    @param UserData  User defined data stored in the channel context.)
 
   @member(ChannelUnregisterHandler
     Method adding informations about channel unregistration to the log.@br
@@ -928,7 +948,8 @@ type
     @param Name      Name of unregistered channel.
     @param ID        ID of unregistered channel.
     @param Index     Index of unregistered channel.
-    @param ValueType Value type of unregistered channel.)
+    @param ValueType Value type of unregistered channel.
+    @param UserData  User defined data stored in the channel context.)
 
   @member(ChannelHandler
     Method adding informations about channel to the log.@br
@@ -939,7 +960,8 @@ type
     @param Name      Name of the channel.
     @param ID        ID of the channel.
     @param Index     Index of the channel.
-    @param Value     Actual value of the channel. Can be @nil.)
+    @param Value     Actual value of the channel. Can be @nil.
+    @param UserData  User defined data stored in the channel context.)
 
   @member(ConfigHandler
     Method adding informations about received configuration to the log.@br
@@ -1017,15 +1039,15 @@ type
   public
     constructor Create(Recipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
     destructor Destroy; override;
-    procedure LogData(Sender: TObject; Data: Pointer; Size: Integer); virtual;
+    procedure LogData(Sender: TObject; Data: Pointer; Size: LongWord); virtual;
     procedure LogText(Sender: TObject; Text: TelemetryString); virtual;  
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure LogLog(LogType: scs_log_type_t; const LogText: String); virtual;
     procedure LogEventRegister(Event: scs_event_t); virtual;
@@ -1049,7 +1071,7 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryFile // Class declaration                              }
+{   TTelemetryLogBinaryFile // Class declaration                               }
 {==============================================================================}
 {
   @abstract(Class designed to log all traffic on telemetry API to a binary log
@@ -1111,11 +1133,11 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryWriter // Class implementation                         }
+{   TTelemetryLogBinaryWriter // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryWriter // Public methods                               }
+{   TTelemetryLogBinaryWriter // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryWriter.Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
@@ -1133,11 +1155,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryWriter_0_1 // Class implementation                     }
+{   TTelemetryLogBinaryWriter_0_1 // Class implementation                      }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryWriter_0_1 // Protected methods                        }
+{   TTelemetryLogBinaryWriter_0_1 // Protected methods                         }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryWriter_0_1.AddBlockOffset;
@@ -1171,7 +1193,7 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryWriter_0_1 // Public methods                           }
+{   TTelemetryLogBinaryWriter_0_1 // Public methods                            }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryWriter_0_1.StartWriting;
@@ -1195,7 +1217,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_0_1.LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: Integer);
+procedure TTelemetryLogBinaryWriter_0_1.LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: LongWord);
 begin
 WriteBlockHeader(LB_BLOCK_TYPE_GENERIC,0,Size);
 Stream.WriteBuffer(Data^,Size);
@@ -1379,11 +1401,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryStream // Class implementation                         }
+{   TTelemetryLogBinaryStream // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStream // Constants, types, variables, etc...          }
+{   TTelemetryLogBinaryStream // Constants, types, variables, etc...           }
 {------------------------------------------------------------------------------}
 
 const
@@ -1392,7 +1414,7 @@ const
   def_SaveItemIDOnly = False;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStream // Private methods                              }
+{   TTelemetryLogBinaryStream // Private methods                               }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryStream.SetSaveMinimized(Value: Boolean);
@@ -1410,7 +1432,7 @@ fLogWriter.SaveItemIDOnly := Value;
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStream // Protected methods                            }
+{   TTelemetryLogBinaryStream // Protected methods                             }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryLogBinaryStream.PrepareFileInfo(var FileInfo: TTelemetryLogBinaryFileInfo);
@@ -1438,7 +1460,7 @@ Stream_WriteString(fStream,FileInfo.APIInfo.GameName);
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryStream // Public methods                               }
+{   TTelemetryLogBinaryStream // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryStream.Create(Recipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
@@ -1472,7 +1494,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.LogData(Sender: TObject; Data: Pointer; Size: Integer);
+procedure TTelemetryLogBinaryStream.LogData(Sender: TObject; Data: Pointer; Size: LongWord);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1508,7 +1530,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.EventRegisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryLogBinaryStream.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1520,7 +1542,7 @@ end;
  
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.EventUnregisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryLogBinaryStream.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1532,7 +1554,7 @@ end;
   
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TTelemetryLogBinaryStream.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1544,7 +1566,7 @@ end;
        
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TTelemetryLogBinaryStream.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1553,10 +1575,10 @@ If GetWorkingRecipient(Sender,WorkRecipient) then
 else
   raise Exception.Create('TTelemetryLogBinaryStream.ChannelRegisterHandler: No valid recipient.');
 end;
-       
+
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TTelemetryLogBinaryStream.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1568,7 +1590,7 @@ end;
      
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryLogBinaryStream.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1601,42 +1623,42 @@ end;
 
 procedure TTelemetryLogBinaryStream.LogEventRegister(Event: scs_event_t);
 begin
-EventRegisterHandler(nil,Event);
+EventRegisterHandler(nil,Event,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogBinaryStream.LogEventUnregister(Event: scs_event_t);
 begin
-EventUnregisterHandler(nil,Event);
+EventUnregisterHandler(nil,Event,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogBinaryStream.LogEvent(Event: scs_event_t; Data: Pointer);
 begin
-EventHandler(nil,Event,Data);
+EventHandler(nil,Event,Data,nil);
 end;
  
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogBinaryStream.LogChannelRegister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
 begin
-ChannelRegisterHandler(nil,Name,ID,Index,ValueType,Flags);
+ChannelRegisterHandler(nil,Name,ID,Index,ValueType,Flags,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogBinaryStream.LogChannelUnregister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
 begin
-ChannelUnregisterHandler(nil,Name,ID,Index,ValueType);
+ChannelUnregisterHandler(nil,Name,ID,Index,ValueType,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogBinaryStream.LogChannel(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
 begin
-ChannelHandler(nil,Name,ID,Index,Value);
+ChannelHandler(nil,Name,ID,Index,Value,nil);
 end;
 
 //------------------------------------------------------------------------------
@@ -1653,11 +1675,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryFile // Class implementation                           }
+{   TTelemetryLogBinaryFile // Class implementation                            }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogBinaryFile // Public methods                                 }
+{   TTelemetryLogBinaryFile // Public methods                                  }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogBinaryFile.Create(Recipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);

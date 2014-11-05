@@ -6,7 +6,7 @@
 {==============================================================================}
 
 {==============================================================================}
-{    TMulticastCircularBufferItemNotifyEvent // Class declaration              }
+{   TMulticastCircularBufferItemNotifyEvent // Class declaration               }
 {==============================================================================}
 {
   @abstract(Class used to manage multicast event called by circular buffer on
@@ -64,11 +64,11 @@
 {==============================================================================}
 
 {==============================================================================}
-{    TMulticastCircularBufferItemNotifyEvent // Class implementation           }
+{   TMulticastCircularBufferItemNotifyEvent // Class implementation            }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TMulticastCircularBufferItemNotifyEvent // Public methods                 }
+{   TMulticastCircularBufferItemNotifyEvent // Public methods                  }
 {------------------------------------------------------------------------------}
 
 Function TMulticastCircularBufferItemNotifyEvent.IndexOf(const Handler: TCircularBufferItemNotifyEvent): Integer;

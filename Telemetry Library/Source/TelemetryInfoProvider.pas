@@ -87,7 +87,7 @@ type
   TChannelValueTypePriority = (cvtpPrimary, cvtpSecondary, cvtpTertiary);
 
 {==============================================================================}
-{    TTelemetryInfoProvider // Class declaration                               }
+{   TTelemetryInfoProvider // Class declaration                                }
 {==============================================================================}
 {
   @abstract(@NoAutoLink(TTelemetryInfoProvider) class provide lists of all known
@@ -245,7 +245,7 @@ type
   end;
 
 {==============================================================================}
-{    Unit Functions and procedures // Declaration                              }
+{   Unit Functions and procedures // Declaration                               }
 {==============================================================================}
 
 {
@@ -312,7 +312,7 @@ uses
   TelemetryCommon;
 
 {==============================================================================}
-{    Unit Functions and procedures // Implementation                           }
+{   Unit Functions and procedures // Implementation                            }
 {==============================================================================}
 
 Function InfoProviderGetChannelIDFromName(const Name: TelemetryString; TelemetryInfoProvider: Pointer): TChannelID;
@@ -348,11 +348,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryInfoProvider // Class implementation                            }
+{   TTelemetryInfoProvider // Class implementation                             }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryInfoProvider // Protected methods                               }
+{   TTelemetryInfoProvider // Protected methods                                }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryInfoProvider.Prepare_Telemetry_1_0;
@@ -481,7 +481,7 @@ fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time,
 end;       
 
 {------------------------------------------------------------------------------}
-{    TTelemetryInfoProvider // Public methods                                  }
+{   TTelemetryInfoProvider // Public methods                                   }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryInfoProvider.Create;
@@ -494,6 +494,8 @@ fKnownEvents := TKnownEventsList.Create;
 fKnownChannels := TKnownChannelsList.Create;
 fKnownConfigs := TKnownConfigsList.Create;
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 constructor TTelemetryInfoProvider.Create(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t);
 begin
@@ -512,10 +514,14 @@ If not PrepareForGameVersion('',GameID,GameVersion) then
     SCSGetVersionAsString(GameVersion) + ') is not supported');
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 constructor TTelemetryInfoProvider.Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t);
 begin
 Create(TelemetryVersion,APIStringToTelemetryString(Parameters.common.game_id),Parameters.common.game_version);
 end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 constructor TTelemetryInfoProvider.CreateCurrent(GameID: TelemetryString);
 begin

@@ -34,7 +34,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommReceiver // Class declaration                               }
+{   TTelemetryCommReceiver // Class declaration                                }
 {==============================================================================}
 type
   TTelemetryCommReceiver = class(TObject)
@@ -231,7 +231,7 @@ type
     {--------------------------------------------------------------------------}
     {Method processing TC_PACKET_LOG_LOG packet.}
     procedure ProcessPacket_TC_PACKET_LOG_LOG(var Packet: TPacketBuffer; ConnectionData: Pointer); virtual; abstract;
-    procedure ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t); virtual; abstract;
+    procedure ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual; abstract;
   public
     constructor Create(Recipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder; Transmitter: TTelemetryCommTransmitter; ProtocolVersion: TProtocolVersion);
     destructor Destroy; override;
@@ -254,14 +254,14 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommServerReceiver // Class declaration                         }
+{   TTelemetryCommServerReceiver // Class declaration                          }
 {==============================================================================}
   TTelemetryCommServerReceiver = class(TTelemetryCommReceiver)
   protected
     {$DEFINE DeclarationPart}
       {$INCLUDE '.\Inc\TTelemetryCommServerReceiver.ProcessPacket.pas'}
     {$UNDEF DeclarationPart}
-    procedure ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t); override;
+    procedure ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
   end;
 
 {==============================================================================}
@@ -271,14 +271,14 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommClientReceiver // Class declaration                         }
+{   TTelemetryCommClientReceiver // Class declaration                          }
 {==============================================================================}
   TTelemetryCommClientReceiver = class(TTelemetryCommReceiver)
   protected
     {$DEFINE DeclarationPart}
       {$INCLUDE '.\Inc\TTelemetryCommClientReceiver.ProcessPacket.pas'}
     {$UNDEF DeclarationPart}
-    procedure ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t); override;
+    procedure ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
   public
     constructor Create(Recipient: TTelemetryCommRemoteRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder; Transmitter: TTelemetryCommTransmitter; ProtocolVersion: TProtocolVersion);
   end;
@@ -296,11 +296,11 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommReceiver // Class implementation                            }
+{   TTelemetryCommReceiver // Class implementation                             }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommReceiver // Protected methods                               }
+{   TTelemetryCommReceiver // Protected methods                                }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryCommReceiver.ProcessPacketGroup_COMMON(var Packet: TPacketBuffer; ConnectionData: Pointer): Boolean;
@@ -480,7 +480,7 @@ end;
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommReceiver // Public methods                                  }
+{   TTelemetryCommReceiver // Public methods                                   }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryCommReceiver.Create(Recipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder; Transmitter: TTelemetryCommTransmitter; ProtocolVersion: TProtocolVersion);
@@ -537,11 +537,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommServerReceiver // Class implementation                      }
+{   TTelemetryCommServerReceiver // Class implementation                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommServerReceiver // Protected methods                         }
+{   TTelemetryCommServerReceiver // Protected methods                          }
 {------------------------------------------------------------------------------}
 
 {$DEFINE ImplementationPart}
@@ -550,7 +550,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerReceiver.ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryCommServerReceiver.ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 var
   DefferedOperation:  TDefferedOperation;
   TempEvent:          scs_event_t;
@@ -653,11 +653,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommClientReceiver // Class implementation                      }
+{   TTelemetryCommClientReceiver // Class implementation                       }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommClientReceiver // Protected methods                         }
+{   TTelemetryCommClientReceiver // Protected methods                          }
 {------------------------------------------------------------------------------}
 
 {$DEFINE ImplementationPart}
@@ -666,13 +666,13 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientReceiver.ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryCommClientReceiver.ExecuteDefferedOperations(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 DefferedOperations.Clear;
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommClientReceiver // Public methods                            }
+{   TTelemetryCommClientReceiver // Public methods                             }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryCommClientReceiver.Create(Recipient: TTelemetryCommRemoteRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder; Transmitter: TTelemetryCommTransmitter; ProtocolVersion: TProtocolVersion);

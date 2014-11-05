@@ -39,7 +39,7 @@ type
   end;
 
 {==============================================================================}
-{    TSCSExm_TelemetryPosition // Class declaration                            }
+{   TSCSExm_TelemetryPosition // Class declaration                             }
 {==============================================================================}  
   TSCSExm_TelemetryPosition = class(TTelemetryRecipientBinder)
   private
@@ -55,12 +55,12 @@ type
     constructor Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
     destructor Destroy; override;
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
   end;
 
@@ -71,11 +71,11 @@ uses
   Windows;
 
 {==============================================================================}
-{    TSCSExm_TelemetryPosition // Class implementation                         }
+{   TSCSExm_TelemetryPosition // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TSCSExm_TelemetryPosition // Protected methods                            }
+{   TSCSExm_TelemetryPosition // Protected methods                             }
 {------------------------------------------------------------------------------}
 
 Function TSCSExm_TelemetryPosition.InitLog: Boolean;
@@ -100,7 +100,7 @@ fLog.AddLogNoTime('Log ended');
 end;
 
 {------------------------------------------------------------------------------}
-{    TSCSExm_TelemetryPosition // Public methods                               }
+{   TSCSExm_TelemetryPosition // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TSCSExm_TelemetryPosition.Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
@@ -123,7 +123,7 @@ If not InitLog then
 fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' '
                             + IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.'
                             + IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
-If not TelemetrySameStr(Recipient.GameID, SCS_GAME_ID_EUT2) then
+If not TelemetrySameStrSwitch(Recipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
   end
@@ -167,21 +167,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.EventRegisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TSCSExm_TelemetryPosition.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.EventUnregisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TSCSExm_TelemetryPosition.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TSCSExm_TelemetryPosition.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 var
   Config:               p_scs_named_value_t;
   HeadPosCabinSpace:    scs_value_fvector_t;
@@ -237,7 +237,7 @@ var
     TempAttr := Configuration^.attributes;
     while Assigned(TempAttr^.name) do
       begin
-        If (TempAttr^.index = Index) and TelemetrySameTextNoConv(APIStringToTelemetryString(TempAttr^.name),Name) then
+        If (TempAttr^.index = Index) and TelemetrySameTextSwitch(APIStringToTelemetryString(TempAttr^.name),Name) then
           begin
             If TempAttr^.value._type = ExpectedType then
               begin
@@ -270,7 +270,7 @@ case Event of
     end;
   SCS_TELEMETRY_EVENT_configuration:
     begin
-      If not TelemetrySameTextNoConv(APIStringToTelemetryString(scs_telemetry_configuration_t(Data^).id),SCS_TELEMETRY_CONFIG_truck) then Exit;
+      If not TelemetrySameTextSwitch(APIStringToTelemetryString(scs_telemetry_configuration_t(Data^).id),SCS_TELEMETRY_CONFIG_truck) then Exit;
       Config := FindAttribute(data,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position,SCS_U32_NIL,SCS_VALUE_TYPE_fvector);
       If Assigned(Config) then fTelemetry.CabinPosition := Config^.value.value_fvector
       else
@@ -294,21 +294,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TSCSExm_TelemetryPosition.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TSCSExm_TelemetryPosition.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
 // nothing to do here
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TSCSExm_TelemetryPosition.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
 If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement then
   begin

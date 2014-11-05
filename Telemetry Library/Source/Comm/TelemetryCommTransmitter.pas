@@ -28,7 +28,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommTransmitter // Class declaration                            }
+{   TTelemetryCommTransmitter // Class declaration                             }
 {==============================================================================}
 type
   TTelemetryCommTransmitter = class(TTelemetryRecipientBinder)
@@ -77,17 +77,17 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommServerTransmitter // Class declaration                      }
+{   TTelemetryCommServerTransmitter // Class declaration                       }
 {==============================================================================}
   TTelemetryCommServerTransmitter = class(TTelemetryCommTransmitter)
   public
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure SendBufferedChannels; override;
     procedure SendStoredConfigs(OnePacket: Boolean; ConnectionData: Pointer); override;
@@ -101,17 +101,17 @@ type
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommClientTransmitter // Class declaration                      }
+{   TTelemetryCommClientTransmitter // Class declaration                       }
 {==============================================================================}
   TTelemetryCommClientTransmitter = class(TTelemetryCommTransmitter)
   public
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure SendBufferedChannels; override;
     procedure SendStoredConfigs(OnePacket: Boolean; ConnectionData: Pointer); override;
@@ -131,11 +131,11 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommTransmitter // Class implementation                         }
+{   TTelemetryCommTransmitter // Class implementation                          }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommTransmitter // Private methods                              }
+{   TTelemetryCommTransmitter // Private methods                               }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryCommTransmitter.GetBufferedChannelsCount: Integer;
@@ -171,7 +171,7 @@ If fBufferChannels <> Value then
 end;
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommTransmitter // Public methods                               }
+{   TTelemetryCommTransmitter // Public methods                                }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryCommTransmitter.Create(Recipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder);
@@ -209,11 +209,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommServerTransmitter // Class implementation                   }
+{   TTelemetryCommServerTransmitter // Class implementation                    }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommServerTransmitter // Public methods                         }
+{   TTelemetryCommServerTransmitter // Public methods                          }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommServerTransmitter.LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String);
@@ -223,21 +223,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerTransmitter.EventRegisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryCommServerTransmitter.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_REGISTER(Event,SCS_RESULT_ok),cSendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerTransmitter.EventUnregisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryCommServerTransmitter.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_UNREGISTER(Event,SCS_RESULT_ok),cSendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerTransmitter.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TTelemetryCommServerTransmitter.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 begin
 If SendEvents then
   begin
@@ -249,31 +249,31 @@ If SendEvents then
     else SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_EVENT(Event,Data),cSendToAll);
   end;
 If BufferChannels then SendBufferedChannels;
-If Assigned(ExecuteDefferedOperations) then ExecuteDefferedOperations(Self,Event);
+If Assigned(ExecuteDefferedOperations) then ExecuteDefferedOperations(Self,Event,nil);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerTransmitter.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TTelemetryCommServerTransmitter.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
 SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER(Name,Index,ValueType,Flags,SCS_RESULT_ok),cSendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerTransmitter.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TTelemetryCommServerTransmitter.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
 SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_UNREGISTER(Name,Index,ValueType,SCS_RESULT_ok),cSendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommServerTransmitter.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryCommServerTransmitter.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
 If BufferChannels then
   begin
     BufferedChannels.AddChannel(Name,ID,Index,Value);
-    If Assigned(OnChannelBuffering) then OnChannelBuffering(Sender,Name,ID,Index,Value);
+    If Assigned(OnChannelBuffering) then OnChannelBuffering(Sender,Name,ID,Index,Value,nil);
   end
 else
   If SendChannels then SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_CHANNEL(Name,ID,Index,Value),cSendToAll);
@@ -330,11 +330,11 @@ end;
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryCommClientTransmitter // Class implementation                   }
+{   TTelemetryCommClientTransmitter // Class implementation                    }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryCommClientTransmitter // Public methods                         }
+{   TTelemetryCommClientTransmitter // Public methods                          }
 {------------------------------------------------------------------------------}
 
 procedure TTelemetryCommClientTransmitter.LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String);
@@ -344,42 +344,42 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientTransmitter.EventRegisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryCommClientTransmitter.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 Exit;
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientTransmitter.EventUnregisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryCommClientTransmitter.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
 Exit;
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientTransmitter.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TTelemetryCommClientTransmitter.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 begin
 Exit;
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientTransmitter.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TTelemetryCommClientTransmitter.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
 Exit;
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientTransmitter.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TTelemetryCommClientTransmitter.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
 Exit;
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryCommClientTransmitter.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryCommClientTransmitter.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
 Exit;
 end;

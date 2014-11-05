@@ -85,64 +85,34 @@
 <td class="itemdesc"><p>Removes passed config id from full config name.</p></td>
 </tr>
 <tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCommon.html#cSendToAll">cSendToAll</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCommon.html">TelemetryCommCommon</a></td>
-<td class="itemdesc"><p>Constant used as connection data when packet should be sent to all peers.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.html#def_CircularChannelsBuffer_BufferSize">def_CircularChannelsBuffer_BufferSize</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Default size of the channels buffer (number of channels it can store).</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.html#def_DefferedOperationsBuffer_BufferSize">def_DefferedOperationsBuffer_BufferSize</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Default size of the deffered operations buffer (number of operations it can hold).</p></td>
-</tr>
-<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#GetChannelIDFromName">GetChannelIDFromName</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Function intended as callback for streaming functions, converting channel name to ID.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#GetChannelNameFromID">GetChannelNameFromID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Function intended as callback for streaming functions, converting channel ID to name.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#GetConfigIDFromName">GetConfigIDFromName</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Function intended as callback for streaming functions, converting config name to ID.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#GetConfigNameFromID">GetConfigNameFromID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Function intended as callback for streaming functions, converting ID to config name.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryIDs.html#GetItemID">GetItemID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryIDs.html">TelemetryIDs</a></td>
 <td class="itemdesc"><p>Function used to get identifier of passed item name.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#GetMasterID">GetMasterID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Function used to calculate master identification number which is used in <a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a>.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#GetPacketHeader">GetPacketHeader</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Function used to obtain packet header from passed packet.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#GetPacketIDPrefix">GetPacketIDPrefix</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Function extracting prefix number from packet ID number.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#GetPayloadAddress">GetPayloadAddress</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Returns address of payload in memory image of given packet.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryInfoProvider.html#InfoProviderGetChannelIDFromName">InfoProviderGetChannelIDFromName</a></td>
@@ -260,64 +230,24 @@
 <td class="itemdesc"><p>Use this procedure to free resources taken by variable of type <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>.</p></td>
 </tr>
 <tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutBoolean">Payload_ReadoutBoolean</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads boolean value (one byte) from packet payload.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutByte">Payload_ReadoutByte</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads one byte from packet payload.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutDouble">Payload_ReadoutDouble</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads 64bit floating point value from packet payload.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutInt64">Payload_ReadoutInt64</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads 64bit integer value from packet payload.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutInteger">Payload_ReadoutInteger</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads 32bit integer value from packet payload.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutSingle">Payload_ReadoutSingle</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads 32bit floating point value from packet payload.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsResolving.html#Payload_ReadoutString">Payload_ReadoutString</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsResolving.html">TelemetryCommPacketsResolving</a></td>
-<td class="itemdesc"><p>Reads string from packet payload.</p></td>
-</tr>
-<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#PChannelContext">PChannelContext</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryLists.TChannelContext.html">TChannelContext</a> structure.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryIDs.html#PChannelID">PChannelID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryIDs.html">TelemetryIDs</a></td>
 <td class="itemdesc"><p>Pointer to a variable of type <a class="normal" href="TelemetryIDs.html#TChannelID">TChannelID</a>.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#PChannelInfo">PChannelInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryLists.TChannelInfo.html">TChannelInfo</a> structure.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryIDs.html#PConfigID">PConfigID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryIDs.html">TelemetryIDs</a></td>
 <td class="itemdesc"><p>Pointer to a variable of type <a class="normal" href="TelemetryIDs.html#TConfigID">TConfigID</a>.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.html#PDefferedOperation">PDefferedOperation</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperation.html">TDefferedOperation</a> structure.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#PEventContext">PEventContext</a></td>
@@ -355,16 +285,6 @@
 <td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryLists.TKnownEvent.html">TKnownEvent</a> structure.</p></td>
 </tr>
 <tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#PPacketBuffer">PPacketBuffer</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryCommPackets.TPacketBuffer.html">TPacketBuffer</a> structure.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#PPacketHeader">PPacketHeader</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryCommPackets.TPacketHeader.html">TPacketHeader</a> structure.</p></td>
-</tr>
-<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#PStoredChannel">PStoredChannel</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryLists.TStoredChannel.html">TStoredChannel</a> structure.</p></td>
@@ -398,6 +318,16 @@
 <td class="itemname"><a class="bold" href="TelemetryLogBinary.html#PTelemetryLogBinaryFileInfo">PTelemetryLogBinaryFileInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinary.html">TelemetryLogBinary</a></td>
 <td class="itemdesc"><p>Pointer to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.html#PtrInt">PtrInt</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Type used to cast pointer to a signed integer for calculation of arbitrary address.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.html#PtrUInt">PtrUInt</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Type used to cast pointer to an unsigned integer for calculation of arbitrary address.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryStreaming.html#Ptr_ReadBoolean">Ptr_ReadBoolean</a></td>
@@ -815,6 +745,26 @@
 <td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p></td>
 </tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSNamedValueLocalizedToStr">SCSNamedValueLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSNamedValueLocalizedToStr">SCSNamedValueLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSNamedValueToStr">SCSNamedValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <code>scs_named_value_t</code> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSNamedValueToStr">SCSNamedValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <code>scs_named_value_t</code> structure.</p></td>
+</tr>
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSNamedValueToStr">SCSNamedValueToStr</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
 <td class="itemdesc"><p>Returns textual representation of <code>scs_named_value_t</code> structure.</p></td>
@@ -823,6 +773,26 @@
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSValueLocalizedToStr">SCSValueLocalizedToStr</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
 <td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSValueLocalizedToStr">SCSValueLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSValueLocalizedToStr">SCSValueLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSValueToStr">SCSValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <code>scs_value_t</code> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSValueToStr">SCSValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <code>scs_value_t</code> structure.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#SCSValueToStr">SCSValueToStr</a></td>
@@ -2250,549 +2220,89 @@
 <td class="itemdesc"><p>Structure holding informations about registered channel.</p></td>
 </tr>
 <tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TChannelRegisterAllOperationInfo.html">TChannelRegisterAllOperationInfo</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Structure used in <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> to hold parameters for <code>dotChannelRegisterAll</code> operation type.</p></td>
-</tr>
-<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Event type used when telemetry channel is registered.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TChannelRegisterTimeLogEvent">TChannelRegisterTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes log data containing informations about channel registration with time.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes log data containing informations about channel value with time.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Event type used when telemetry channel is unregistered.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TChannelUnregisterTimeLogEvent">TChannelUnregisterTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes log data containing informations about channel unregistration with time.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryInfoProvider.html#TChannelValueTypePriority">TChannelValueTypePriority</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryInfoProvider.html">TelemetryInfoProvider</a></td>
 <td class="itemdesc"><p>Used to distinguish which value type should method <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html#ChannelGetValueType">TTelemetryInfoProvider.ChannelGetValueType</a> return for given channel.</p></td>
 </tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TCircularBufferItem.html">TCircularBufferItem</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Structure used as array item in all circular buffers.</p></td>
-</tr>
 <tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.html#TCircularBufferItemNotifyEvent">TCircularBufferItemNotifyEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Event type used in circular buffers on item operations (drop, addition, etc.).</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TCircularBufferTraversalInfo.html">TCircularBufferTraversalInfo</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Structure used when traversing items in circular buffers.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TCircularChannelsBuffer.html">TCircularChannelsBuffer</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Used to store buffered channels.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TCircularItemsBuffer.html">TCircularItemsBuffer</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Ancestor class for other circular buffer classes.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommCommon.html#TCommunicationMode">TCommunicationMode</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCommon.html">TelemetryCommCommon</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
-</tr>
-<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Event type used when config is parsed from configuration telemetry event.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryIDs.html#TConfigID">TConfigID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryIDs.html">TelemetryIDs</a></td>
 <td class="itemdesc"><p>Configuration identificator obtained from full config name.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes log data containing informations about config value with time.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Ancestor class for all other list classes in <a class="normal" href="TelemetryLists.html">TelemetryLists</a> unit.</p></td>
 </tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_MIN_PACKET_SIZE">TC_MIN_PACKET_SIZE</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Minimum size of packet.<br> Used to check if incoming data are valid.</p></td>
-</tr>
 <tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_CHANNEL">TC_PACKET_CHANNEL_CHANNEL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_CHANNEL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_CHANNEL_BUFFERED">TC_PACKET_CHANNEL_CHANNEL_BUFFERED</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_CHANNEL_BUFFERED</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTER">TC_PACKET_CHANNEL_REGISTER</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTER</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED">TC_PACKET_CHANNEL_REGISTERED</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_ALL">TC_PACKET_CHANNEL_REGISTERED_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_ALL_GET">TC_PACKET_CHANNEL_REGISTERED_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_COUNT">TC_PACKET_CHANNEL_REGISTERED_COUNT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_COUNT</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_COUNT_GET">TC_PACKET_CHANNEL_REGISTERED_COUNT_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_COUNT_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_INDEX">TC_PACKET_CHANNEL_REGISTERED_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET">TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTERED_INDEX_GET">TC_PACKET_CHANNEL_REGISTERED_INDEX_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTERED_INDEX_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTER_ALL">TC_PACKET_CHANNEL_REGISTER_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTER_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTER_BY_INDEX">TC_PACKET_CHANNEL_REGISTER_BY_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTER_BY_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_REGISTER_BY_NAME">TC_PACKET_CHANNEL_REGISTER_BY_NAME</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_REGISTER_BY_NAME</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_STORED_SEND_ALL">TC_PACKET_CHANNEL_STORED_SEND_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_STORED_SEND_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_UNREGISTER">TC_PACKET_CHANNEL_UNREGISTER</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_UNREGISTER</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_UNREGISTER_ALL">TC_PACKET_CHANNEL_UNREGISTER_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_UNREGISTER_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX">TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_UNREGISTER_BY_NAME">TC_PACKET_CHANNEL_UNREGISTER_BY_NAME</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_UNREGISTER_BY_NAME</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CHANNEL_UNREGISTER_INDEX">TC_PACKET_CHANNEL_UNREGISTER_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CHANNEL_UNREGISTER_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_CONFIG">TC_PACKET_CONFIG_CONFIG</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_CONFIG</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED">TC_PACKET_CONFIG_STORED</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_ALL">TC_PACKET_CONFIG_STORED_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_ALL_GET">TC_PACKET_CONFIG_STORED_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_COUNT">TC_PACKET_CONFIG_STORED_COUNT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_COUNT</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_COUNT_GET">TC_PACKET_CONFIG_STORED_COUNT_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_COUNT_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_INDEX">TC_PACKET_CONFIG_STORED_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_INDEX_ALL_GET">TC_PACKET_CONFIG_STORED_INDEX_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_INDEX_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_CONFIG_STORED_INDEX_GET">TC_PACKET_CONFIG_STORED_INDEX_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_CONFIG_STORED_INDEX_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_DEFFERED">TC_PACKET_DEFFERED</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_DEFFERED</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_ERROR">TC_PACKET_ERROR</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_ERROR</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_EVENT">TC_PACKET_EVENT_EVENT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_EVENT</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTER">TC_PACKET_EVENT_REGISTER</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTER</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED">TC_PACKET_EVENT_REGISTERED</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_ALL">TC_PACKET_EVENT_REGISTERED_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_ALL_GET">TC_PACKET_EVENT_REGISTERED_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_COUNT">TC_PACKET_EVENT_REGISTERED_COUNT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_COUNT</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_COUNT_GET">TC_PACKET_EVENT_REGISTERED_COUNT_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_COUNT_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_INDEX">TC_PACKET_EVENT_REGISTERED_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET">TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTERED_INDEX_GET">TC_PACKET_EVENT_REGISTERED_INDEX_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTERED_INDEX_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTER_ALL">TC_PACKET_EVENT_REGISTER_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTER_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_REGISTER_BY_INDEX">TC_PACKET_EVENT_REGISTER_BY_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_REGISTER_BY_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_UNREGISTER">TC_PACKET_EVENT_UNREGISTER</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_UNREGISTER</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_UNREGISTER_ALL">TC_PACKET_EVENT_UNREGISTER_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_UNREGISTER_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_UNREGISTER_BY_INDEX">TC_PACKET_EVENT_UNREGISTER_BY_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_UNREGISTER_BY_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_EVENT_UNREGISTER_INDEX">TC_PACKET_EVENT_UNREGISTER_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_EVENT_UNREGISTER_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_ALL">TC_PACKET_KNOWN_CHANNELS_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_ALL_GET">TC_PACKET_KNOWN_CHANNELS_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_COUNT">TC_PACKET_KNOWN_CHANNELS_COUNT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_COUNT</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_COUNT_GET">TC_PACKET_KNOWN_CHANNELS_COUNT_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_COUNT_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_INDEX">TC_PACKET_KNOWN_CHANNELS_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET">TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CHANNELS_INDEX_GET">TC_PACKET_KNOWN_CHANNELS_INDEX_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CHANNELS_INDEX_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_ALL">TC_PACKET_KNOWN_CONFIGS_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_ALL_GET">TC_PACKET_KNOWN_CONFIGS_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_COUNT">TC_PACKET_KNOWN_CONFIGS_COUNT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_COUNT</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_COUNT_GET">TC_PACKET_KNOWN_CONFIGS_COUNT_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_COUNT_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_INDEX">TC_PACKET_KNOWN_CONFIGS_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET">TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_CONFIGS_INDEX_GET">TC_PACKET_KNOWN_CONFIGS_INDEX_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_CONFIGS_INDEX_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_ALL">TC_PACKET_KNOWN_EVENTS_ALL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_ALL</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_ALL_GET">TC_PACKET_KNOWN_EVENTS_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_COUNT">TC_PACKET_KNOWN_EVENTS_COUNT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_COUNT</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_COUNT_GET">TC_PACKET_KNOWN_EVENTS_COUNT_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_COUNT_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_INDEX">TC_PACKET_KNOWN_EVENTS_INDEX</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_INDEX</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET">TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_KNOWN_EVENTS_INDEX_GET">TC_PACKET_KNOWN_EVENTS_INDEX_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_KNOWN_EVENTS_INDEX_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_LOG_LOG">TC_PACKET_LOG_LOG</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_LOG_LOG</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_PACKET">TC_PACKET_PACKET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_PACKET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_PING">TC_PACKET_PING</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_PING</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_PING_RESPONSE">TC_PACKET_PING_RESPONSE</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_PING_RESPONSE</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_PROTOCOL_VERSION">TC_PACKET_PROTOCOL_VERSION</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_PROTOCOL_VERSION</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_PROTOCOL_VERSION_GET">TC_PACKET_PROTOCOL_VERSION_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_PROTOCOL_VERSION_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_SIGNATURE">TC_PACKET_SIGNATURE</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Signature of packet.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_TELEMETRY_INFO">TC_PACKET_TELEMETRY_INFO</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_TELEMETRY_INFO</code> packet ID.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PACKET_TELEMETRY_INFO_GET">TC_PACKET_TELEMETRY_INFO_GET</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p><code>TC_PACKET_TELEMETRY_INFO_GET</code> packet ID.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_CHANNEL">TC_PREFIX_CHANNEL</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to get list of registered channels, send channels, (un)register channels, etc..</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_COMMON">TC_PREFIX_COMMON</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>General communication packet group.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_CONFIG">TC_PREFIX_CONFIG</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to inform about change in stored config values and managing this list.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_EVENT">TC_PREFIX_EVENT</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to get list of registered events, send events, (un)register events, etc..</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_KNOWN_CHANNELS">TC_PREFIX_KNOWN_CHANNELS</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to get known channels from server.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_KNOWN_CONFIGS">TC_PREFIX_KNOWN_CONFIGS</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to get known configs from server.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_KNOWN_EVENTS">TC_PREFIX_KNOWN_EVENTS</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to get known events from server.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TC_PREFIX_LOG">TC_PREFIX_LOG</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packets used to inform about or request game log writes.</p></td>
-</tr>
-<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes unprocessed log data.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes unprocessed log data with time.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TDefferedOperation.html">TDefferedOperation</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Used as item in <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> to store operations and their parameters.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Used to store deferred operations and their parameters.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.html#TDefferedOperationType">TDefferedOperationType</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Type used in <a class="normal" href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html">TDefferedOperationsBuffer</a> denoting what type of operation was deffered and has to be executed later.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryEventConfigurationLocalizedToStr">TelemetryEventConfigurationLocalizedToStr</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
 <td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryEventConfigurationLocalizedToStr">TelemetryEventConfigurationLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryEventConfigurationLocalizedToStr">TelemetryEventConfigurationLocalizedToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryEventConfigurationToStr">TelemetryEventConfigurationToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryEventConfigurationToStr">TelemetryEventConfigurationToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryEventConfigurationToStr">TelemetryEventConfigurationToStr</a></td>
@@ -2815,149 +2325,159 @@
 <td class="itemdesc"><p>Compares strings based on the current locale with case sensitivity and without internal conversions.</p></td>
 </tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetrySameStrSwitch">TelemetrySameStrSwitch</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Compares strings based on the current locale with case sensitivity.</p></td>
+</tr>
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetrySameText">TelemetrySameText</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
 <td class="itemdesc"><p>Compares strings based on the current locale without case sensitivity.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetrySameTextNoConv">TelemetrySameTextNoConv</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
 <td class="itemdesc"><p>Compares strings based on the current locale without case sensitivity and without internal conversions.</p></td>
 </tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetrySameTextSwitch">TelemetrySameTextSwitch</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Compares strings based on the current locale without case sensitivity.</p></td>
+</tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#TelemetryStringsFormatSettings">TelemetryStringsFormatSettings</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Used for thread safety in conversions dependent on LocaleID.</p></td>
+</tr>
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TEventContext.html">TEventContext</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TEventEvent">TEventEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Event type used when telemetery event occurs.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TEventInfo.html">TEventInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure holding informations about registered event.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TEventRegisterEvent">TEventRegisterEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Event type used when telemetry event is registered or unregistered.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes log data containing informations about game event (un)registration with time.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TEventTimeLogEvent">TEventTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes log data containing informations about game event with time.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TGameCallback">TGameCallback</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Enumerated type used in method <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#SetGameCallback">TTelemetryRecipient.SetGameCallback</a> to set one particular game callback.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
 <td class="itemdesc"><p>Structure used internally in tables that keeps informations about supported games and their versions.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryStreaming.html">TelemetryStreaming</a></td>
 <td class="itemdesc"><p>Prototype of function used to convert item ID back into its name.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryIDs.html#TItemID">TItemID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryIDs.html">TelemetryIDs</a></td>
 <td class="itemdesc"><p>General item identificator.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure used as an item in <a class="normal" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a> class.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p> List used to store informations about known telemetry channels.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfig.html">TKnownConfig</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p> List used to store informations about known telemetry configurations values.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownEvent.html">TKnownEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure used as an item in <a class="normal" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a> class.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p> List used to store informations about known telemetry events.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Structure returned by parser when you access specific log in the stream by its index.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.html#TLogEvent">TLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Event type used when recipient writes to game log.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.html#TLogTimeLogEvent">TLogTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes informations about a write to game log with time.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.html#TMasterID">TMasterID</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Identification number used in <a class="normal" href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a> for faster searching.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Class used to manage multicast event called when telemetery channel callback occurs.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Class used to manage multicast event called when telemetry channel is registered.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html">TMulticastChannelRegisterTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes channel registration log data with time.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html">TMulticastChannelTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes channel log data with time.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
 <td class="itemdesc"><p>Class used to manage multicast event called when telemetry channel is unregistered.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html">TMulticastChannelUnregisterTimeLogEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes channel unregistration log data with time.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCircularBuffers.TMulticastCircularBufferItemNotifyEvent.html">TMulticastCircularBufferItemNotifyEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCircularBuffers.html">TelemetryCommCircularBuffers</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called by circular buffer on item operations.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a></td>
@@ -3030,36 +2550,6 @@
 <td class="itemdesc"><p>Prototype of function used to convert item name into its ID.</p></td>
 </tr>
 <tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.TPacketBuffer.html">TPacketBuffer</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Record used for manipulation with packets (passing, saving, ...), or more precisely with their memory images.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.TPacketBufferAllocInfo.html">TPacketBufferAllocInfo</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Record used in <a class="normal" href="TelemetryCommPackets.TPacketBuffer.html">TPacketBuffer</a> structure containing information about memory allocation.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.TPacketHeader.html">TPacketHeader</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Packet header structure.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TPacketHeaderTime">TPacketHeaderTime</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Type used as a timestamp in packets headers.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPackets.html#TPacketNotifyEvent">TPacketNotifyEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPackets.html">TelemetryCommPackets</a></td>
-<td class="itemdesc"><p>Event type used where there is possibility or need to pass packet for further processing.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommCommon.html#TProtocolVersion">TProtocolVersion</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommCommon.html">TelemetryCommCommon</a></td>
-<td class="itemdesc"><p>Type used to describe version of communication protocol.</p></td>
-</tr>
-<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TRegisteredChannelsList.html">TRegisteredChannelsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>List used to store contexts of registered channels.</p></td>
@@ -3098,46 +2588,6 @@
 <td class="itemname"><a class="bold" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryVersionObjects.html">TelemetryVersionObjects</a></td>
 <td class="itemdesc"><p>Common, fully abstract ancestor for all classes that needs to be checked for version support before creation of an instance.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommReceiver.TTelemetryCommClientReceiver.html">TTelemetryCommClientReceiver</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommReceiver.html">TelemetryCommReceiver</a></td>
-<td class="itemdesc"><p>==============================================================================</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommTransmitter.TTelemetryCommClientTransmitter.html">TTelemetryCommClientTransmitter</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommTransmitter.html">TelemetryCommTransmitter</a></td>
-<td class="itemdesc"><p>==============================================================================</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsAllocator.TTelemetryCommPacketsAllocator.html">TTelemetryCommPacketsAllocator</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsAllocator.html">TelemetryCommPacketsAllocator</a></td>
-<td class="itemdesc"><p>Class intended as a helper for allocation and freeing memory for packets buffers.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommPacketsBuilder.TTelemetryCommPacketsBuilder.html">TTelemetryCommPacketsBuilder</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommPacketsBuilder.html">TelemetryCommPacketsBuilder</a></td>
-<td class="itemdesc"><p>Class providing methods that creates complete initialized predefined packets and few more methods intended for packets resolving.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommReceiver.TTelemetryCommReceiver.html">TTelemetryCommReceiver</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommReceiver.html">TelemetryCommReceiver</a></td>
-<td class="itemdesc"><p>==============================================================================</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommReceiver.TTelemetryCommServerReceiver.html">TTelemetryCommServerReceiver</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommReceiver.html">TelemetryCommReceiver</a></td>
-<td class="itemdesc"><p>==============================================================================</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommTransmitter.TTelemetryCommServerTransmitter.html">TTelemetryCommServerTransmitter</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommTransmitter.html">TelemetryCommTransmitter</a></td>
-<td class="itemdesc"><p>==============================================================================</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryCommTransmitter.TTelemetryCommTransmitter.html">TTelemetryCommTransmitter</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommTransmitter.html">TelemetryCommTransmitter</a></td>
-<td class="itemdesc"><p>==============================================================================</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a></td>
@@ -3244,8 +2694,28 @@
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Event type used when reader/parser passes text log data or any interpreted data with time.</p></td>
 </tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.html#TUserDataFreeEvent">TUserDataFreeEvent</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Event type used when user data stored in event or channel context should be freed.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#ValueToStr">ValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of value passed in general buffer.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#ValueToStr">ValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of value passed in general buffer.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryStrings.html#ValueToStr">ValueToStr</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryStrings.html">TelemetryStrings</a></td>
+<td class="itemdesc"><p>Returns textual representation of value passed in general buffer.</p></td>
+</tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-10-24 16:25:25</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:25</em>
 </span>
 
 </body>

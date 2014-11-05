@@ -2,7 +2,7 @@
 @abstract(Contains class designed to log telemetry API traffic to text file.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-18)
-@lastmod(2014-05-18)
+@lastmod(2014-11-05)
 
   @bold(@NoAutoLink(TelemetryLogText))
 
@@ -11,10 +11,19 @@
   This unit contains TTelemetryLogText class (see class declaration for
   details).
 
-  Last change:  2014-05-18
+  Last change:  2014-11-05
 
   Change List:@unorderedList(
-    @item(2014-05-18 - First stable version.))
+    @item(2014-05-18 - First stable version.)
+    @item(2014-11-05 - Added parameter @code(UserData) to following methods:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(TTelemetryLogText.EventRegisterHandler)
+                         @item(TTelemetryLogText.EventUnregisterHandler)
+                         @item(TTelemetryLogText.EventHandler)
+                         @item(TTelemetryLogText.ChannelRegisterHandler)
+                         @item(TTelemetryLogText.ChannelUnregisterHandler)
+                         @item(TTelemetryLogText.ChannelHandler))))
 
 @html(<hr>)}
 unit TelemetryLogText;
@@ -47,7 +56,7 @@ uses
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogText // Class declaration                                    }
+{   TTelemetryLogText // Class declaration                                     }
 {==============================================================================}
 {
   @abstract(Class designed to log all traffic on telemetry API to human readable
@@ -130,26 +139,29 @@ uses
     Method adding informations about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender Object that called this method (should be of type
-                  TTelemetryRecipient).)
-    @param Event  Game event identification number.)
+    @param(Sender   Object that called this method (should be of type
+                    TTelemetryRecipient).)
+    @param Event    Game event identification number.
+    @param UserData User defined data stored in the event context.)
 
   @member(EventUnregisterHandler
     Method adding informations about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender Object that called this method (should be of type
-                  TTelemetryRecipient).)
-    @param Event  Game event identification number.)
+    @param(Sender   Object that called this method (should be of type
+                    TTelemetryRecipient).)
+    @param Event    Game event identification number.
+    @param UserData User defined data stored in the event context.)
 
   @member(EventHandler
     Method adding information about game event to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender Object that called this method (should be of type
-                  TTelemetryRecipient).)
-    @param Event  Game event identification number.
-    @param Data   Pointer to data accompanying the event. Can be @nil.)
+    @param(Sender   Object that called this method (should be of type
+                    TTelemetryRecipient).)
+    @param Event    Game event identification number.
+    @param Data     Pointer to data accompanying the event. Can be @nil.
+    @param UserData User defined data stored in the event context.)
 
   @member(ChannelRegisterHandler
     Method adding informations about channel registration to the log.
@@ -160,7 +172,8 @@ uses
     @param ID        ID of registered channel.
     @param Index     Index of registered channel.
     @param ValueType Value type of registered channel.
-    @param Flags     Registration flags.)
+    @param Flags     Registration flags.
+    @param UserData  User defined data stored in the channel context.)
 
   @member(ChannelUnregisterHandler
     Method adding informations about channel unregistration to the log.
@@ -170,7 +183,8 @@ uses
     @param Name      Name of unregistered channel.
     @param ID        ID of unregistered channel.
     @param Index     Index of unregistered channel.
-    @param ValueType Value type of unregistered channel.)
+    @param ValueType Value type of unregistered channel.
+    @param UserData  User defined data stored in the channel context.)
 
   @member(ChannelHandler
     Method adding informations about channel to the log.@br
@@ -181,7 +195,8 @@ uses
     @param Name      Name of the channel.
     @param ID        ID of the channel.
     @param Index     Index of the channel.
-    @param Value     Actual value of the channel. Can be @nil.)
+    @param Value     Actual value of the channel. Can be @nil.
+    @param UserData  User defined data stored in the channel context.)
 
   @member(ConfigHandler
     Method adding informations about received configuration to the log.
@@ -255,12 +270,12 @@ type
     destructor Destroy; override;
     procedure AddLog(LogText: String); virtual;
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure LogLog(LogType: scs_log_type_t; const LogText: String); virtual;
     procedure LogEventRegister(Event: scs_event_t); virtual;
@@ -283,11 +298,11 @@ uses
   TelemetryStrings;
 
 {==============================================================================}
-{    TTelemetryLogText // Class implementation                                 }
+{   TTelemetryLogText // Class implementation                                  }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogText // Constants, types, variables, etc...                  }
+{   TTelemetryLogText // Constants, types, variables, etc...                   }
 {------------------------------------------------------------------------------}
 
 const
@@ -313,7 +328,7 @@ const
   ls_NoRecipient   = 'Error, no telemetry recipient provided.';
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogText // Protected methods                                    }
+{   TTelemetryLogText // Protected methods                                     }
 {------------------------------------------------------------------------------}
 
 Function TTelemetryLogText.ItemIDString(ID: TItemID): String;
@@ -331,7 +346,7 @@ end;
 
 
 {------------------------------------------------------------------------------}
-{    TTelemetryLogText // Public methods                                       }
+{   TTelemetryLogText // Public methods                                        }
 {------------------------------------------------------------------------------}
 
 constructor TTelemetryLogText.Create(Recipient: TTelemetryRecipient = nil; FileName: String = '');
@@ -385,7 +400,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.EventRegisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryLogText.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 var
   WorkRecipient:  TTelemetryRecipient;
 begin
@@ -397,7 +412,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.EventUnregisterHandler(Sender: TObject; Event: scs_event_t);
+procedure TTelemetryLogText.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 var
   WorkRecipient:  TTelemetryRecipient;
 begin
@@ -409,7 +424,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer);
+procedure TTelemetryLogText.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 var
   WorkRecipient:  TTelemetryRecipient;
   TempStr:        String;
@@ -428,21 +443,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TTelemetryLogText.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
 AddLog(ls_Channel_Reg + ItemIDString(ID) + TelemetryStringDecode(Name) + IndexString(Index) + ', ' + SCSValueTypeToStr(ValueType) + ', 0x' + IntToHex(Flags,8))
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TTelemetryLogText.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
 AddLog(ls_Channel_Unreg + ItemIDString(ID) + TelemetryStringDecode(Name) + IndexString(Index) + ', ' + SCSValueTypeToStr(ValueType))
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryLogText.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 var
   WorkRecipient:  TTelemetryRecipient;
 begin
@@ -470,42 +485,42 @@ end;
 
 procedure TTelemetryLogText.LogEventRegister(Event: scs_event_t);
 begin
-EventRegisterHandler(nil,Event);
+EventRegisterHandler(nil,Event,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogText.LogEventUnregister(Event: scs_event_t);
 begin
-EventUnregisterHandler(nil,Event);
+EventUnregisterHandler(nil,Event,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogText.LogEvent(Event: scs_event_t; Data: Pointer);
 begin
-EventHandler(nil,Event,Data);
+EventHandler(nil,Event,Data,nil);
 end;
  
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogText.LogChannelRegister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
 begin
-ChannelRegisterHandler(nil,Name,ID,Index,ValueType,Flags);
+ChannelRegisterHandler(nil,Name,ID,Index,ValueType,Flags,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogText.LogChannelUnregister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
 begin
-ChannelUnregisterHandler(nil,Name,ID,Index,ValueType);
+ChannelUnregisterHandler(nil,Name,ID,Index,ValueType,nil);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryLogText.LogChannel(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
 begin
-ChannelHandler(nil,Name,ID,Index,Value);
+ChannelHandler(nil,Name,ID,Index,Value,nil);
 end;
 
 //------------------------------------------------------------------------------

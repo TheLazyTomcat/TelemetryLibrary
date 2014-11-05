@@ -1,11 +1,5 @@
 DiGraph Classes {
 rankdir="LR"
-  TCircularItemsBuffer -> TObject
-  TCircularItemsBuffer [href="TelemetryCommCircularBuffers.TCircularItemsBuffer.html"]
-  TCircularChannelsBuffer -> TCircularItemsBuffer
-  TCircularChannelsBuffer [href="TelemetryCommCircularBuffers.TCircularChannelsBuffer.html"]
-  TDefferedOperationsBuffer -> TCircularItemsBuffer
-  TDefferedOperationsBuffer [href="TelemetryCommCircularBuffers.TDefferedOperationsBuffer.html"]
   TCustomTelemetryList -> TObject
   TCustomTelemetryList [href="TelemetryLists.TCustomTelemetryList.html"]
   TKnownChannelsList -> TCustomTelemetryList
@@ -36,8 +30,6 @@ rankdir="LR"
   TMulticastChannelUnregisterEvent [href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html"]
   TMulticastChannelUnregisterTimeLogEvent -> TMulticastEvent
   TMulticastChannelUnregisterTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html"]
-  TMulticastCircularBufferItemNotifyEvent -> TMulticastEvent
-  TMulticastCircularBufferItemNotifyEvent [href="TelemetryCommCircularBuffers.TMulticastCircularBufferItemNotifyEvent.html"]
   TMulticastConfigEvent -> TMulticastEvent
   TMulticastConfigEvent [href="TelemetryRecipient.TMulticastConfigEvent.html"]
   TMulticastConfigTimeLogEvent -> TMulticastEvent
@@ -72,16 +64,6 @@ rankdir="LR"
   TTelemetryInfoProvider [href="TelemetryInfoProvider.TTelemetryInfoProvider.html"]
   TTelemetryRecipient -> TTelemetryVersionPrepareObject
   TTelemetryRecipient [href="TelemetryRecipient.TTelemetryRecipient.html"]
-  TTelemetryCommPacketsAllocator -> TObject
-  TTelemetryCommPacketsAllocator [href="TelemetryCommPacketsAllocator.TTelemetryCommPacketsAllocator.html"]
-  TTelemetryCommPacketsBuilder -> TTelemetryCommPacketsAllocator
-  TTelemetryCommPacketsBuilder [href="TelemetryCommPacketsBuilder.TTelemetryCommPacketsBuilder.html"]
-  TTelemetryCommReceiver -> TObject
-  TTelemetryCommReceiver [href="TelemetryCommReceiver.TTelemetryCommReceiver.html"]
-  TTelemetryCommClientReceiver -> TTelemetryCommReceiver
-  TTelemetryCommClientReceiver [href="TelemetryCommReceiver.TTelemetryCommClientReceiver.html"]
-  TTelemetryCommServerReceiver -> TTelemetryCommReceiver
-  TTelemetryCommServerReceiver [href="TelemetryCommReceiver.TTelemetryCommServerReceiver.html"]
   TTelemetryLogBinaryReader -> TObject
   TTelemetryLogBinaryReader [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html"]
   TTelemetryLogBinaryReader_0_1 -> TTelemetryLogBinaryReader
@@ -98,12 +80,6 @@ rankdir="LR"
   TTelemetryLogBinaryWriter_0_1 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0_1.html"]
   TTelemetryRecipientBinder -> TObject
   TTelemetryRecipientBinder [href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html"]
-  TTelemetryCommTransmitter -> TTelemetryRecipientBinder
-  TTelemetryCommTransmitter [href="TelemetryCommTransmitter.TTelemetryCommTransmitter.html"]
-  TTelemetryCommClientTransmitter -> TTelemetryCommTransmitter
-  TTelemetryCommClientTransmitter [href="TelemetryCommTransmitter.TTelemetryCommClientTransmitter.html"]
-  TTelemetryCommServerTransmitter -> TTelemetryCommTransmitter
-  TTelemetryCommServerTransmitter [href="TelemetryCommTransmitter.TTelemetryCommServerTransmitter.html"]
   TTelemetryLogBinaryStream -> TTelemetryRecipientBinder
   TTelemetryLogBinaryStream [href="TelemetryLogBinary.TTelemetryLogBinaryStream.html"]
   TTelemetryLogBinaryFile -> TTelemetryLogBinaryStream
