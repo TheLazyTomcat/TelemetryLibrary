@@ -57,6 +57,7 @@ If not TTelemetryRecipient.SupportsTelemetryAndGameVersionParam(version,params^)
     TextLogger.AddLog('Version not supported (' + SCSGetVersionAsString(version) + ' ' +
                       TelemetryStringDecode(APIStringToTelemetryString(params^.common.game_id)) + ' ' +
                       SCSGetVersionAsString(params^.common.game_version) + ')');
+    FreeAndNil(TextLogger);
   end
 else
   begin
