@@ -73,14 +73,14 @@ begin
     Temp := TStringList.Create;
     try
       For i := 0 to Pred(Test.KnownChannels.Count) do
-        Temp.Add(TelemetryStringDecode(Test.KnownChannels[i].Name));
+        Temp.Add(IntToHex(Test.KnownChannels[i].ID,8) + ' : ' + TelemetryStringDecode(Test.KnownChannels[i].Name));
       WriteLn(Temp.Text);
 
       Temp.Clear;
       WriteLn;
 
       For i := 0 to Pred(Test.KnownConfigs.Count) do
-        Temp.Add(TelemetryStringDecode(Test.KnownConfigs[i].Name));
+        Temp.Add(IntToHex(Test.KnownConfigs[i].ID,8) + ' : ' + TelemetryStringDecode(Test.KnownConfigs[i].Name));
       WriteLn(Temp.Text);
     finally
       Temp.Free;

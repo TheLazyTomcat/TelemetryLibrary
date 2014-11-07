@@ -154,7 +154,7 @@ If fMemoryMapping = 0 then
   end;
 If GetLastError = ERROR_ALREADY_EXISTS then
   begin
-  	LogLine(SCS_LOG_TYPE_error,'Shared memory is already in use.');
+    LogLine(SCS_LOG_TYPE_error,'Shared memory is already in use.');
     DeinitializeSharedMemory;
     Result := False;
     Exit;

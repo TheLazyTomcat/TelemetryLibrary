@@ -3,7 +3,7 @@
           IDs generally.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-15)
-@lastmod(2014-10-23)
+@lastmod(2014-11-07)
 
   @bold(@NoAutoLink(TelemetryIDs))
 
@@ -13,7 +13,7 @@
   constants containing full configuration names, constants with IDs for
   individual configs and channel, as well as function used to obtain those IDs.
 
-  Last change:  2014-10-23
+  Last change:  2014-11-07
 
   Change List:@unorderedList(
     @item(2014-04-15 - First stable version.)
@@ -22,7 +22,8 @@
     @item(2014-10-23 - Added support for eut2 1.9.)
     @item(2014-10-23 - Added true constants when precomputed IDs are used
                        (optional, can be reconfigured to use writeable
-                       constans instead).))
+                       constans instead).)
+    @item(2014-11-07 - Added support for eut2 1.10.))
     
 @html(<hr>)
 
@@ -121,6 +122,8 @@
   @row(@cell(@code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocit))                @cell(@code(truck.wheel.angular_velocity))        @cell(@code(B7B25C28)))
   @row(@cell(@code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering))               @cell(@code(truck.wheel.steering))                @cell(@code(DF025731)))
   @row(@cell(@code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation))               @cell(@code(truck.wheel.rotation))                @cell(@code(0ED73E5C)))
+  @row(@cell(@code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift))                   @cell(@code(truck.wheel.lift))                    @cell(@code(F8BC370D)))
+  @row(@cell(@code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset))            @cell(@code(truck.wheel.lift.offset))             @cell(@code(046B7B44)))
   )
   @code(*) - This constant does not actually exist (it was removed from
   telemetry SDK and replaced by @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset)
@@ -164,6 +167,7 @@
   @row(@cell(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable)           @cell(@code(truck.wheel.steerable))              @cell(@code(91817077)))
   @row(@cell(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated)           @cell(@code(truck.wheel.simulated))              @cell(@code(27B8658F)))
   @row(@cell(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius)              @cell(@code(truck.wheel.radius))                 @cell(@code(60D54CB6)))
+  @row(@cell(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable)            @cell(@code(truck.wheel.liftable))               @cell(@code(3545511A)))
   @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id)                      @cell(@code(trailer.id))                         @cell(@code(E3F34E9A)))
   @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id)      @cell(@code(trailer.cargo.accessory.id))         @cell(@code(7E792A8A)))
   @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position)           @cell(@code(trailer.hook.position))              @cell(@code(5D7A70AD)))
@@ -171,7 +175,7 @@
   @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position)          @cell(@code(trailer.wheel.position))             @cell(@code(85C46369)))
   @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable)         @cell(@code(trailer.wheel.steerable))            @cell(@code(C0BB336C)))
   @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated)         @cell(@code(trailer.wheel.simulated))            @cell(@code(76822694)))
-  @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius)            @cell(@code(trailer.wheel.radius))               @cell(@code(3C8E98D6))) 
+  @row(@cell(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius)            @cell(@code(trailer.wheel.radius))               @cell(@code(3C8E98D6)))
   @row(@cell(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id)                    @cell(@code(job.cargo.id))                       @cell(@code(5496B30A)))
   @row(@cell(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo)                       @cell(@code(job.cargo))                          @cell(@code(FACC3465)))
   @row(@cell(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass)                  @cell(@code(job.cargo.mass))                     @cell(@code(ADE913DA)))
@@ -299,6 +303,9 @@ const
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);
   // Full name of config attribute @code(wheel_radius) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius              = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);
+  // Full name of config attribute @code(wheel_liftable) in @code(truck) configuration.
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable);
+
 
   // Full name of config attribute @code(id) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id                      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);
@@ -316,6 +323,7 @@ const
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);
   // Full name of config attribute @code(wheel_radius) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius            = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);
+
 
   // Full name of config attribute @code(cargo_id) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id                    = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id);
@@ -414,6 +422,8 @@ const
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated           = TConfigID($27B8658F);
   // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius              = TConfigID($60D54CB6);
+  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable config.
+  SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable            = TConfigID($3545511A);
 
   // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id                      = TConfigID($E3F34E9A);
@@ -657,6 +667,10 @@ const
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_steering               = TChannelID($DF025731);
   // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation               = TChannelID($0ED73E5C);
+  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift) channel.
+  SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift                   = TChannelID($F8BC370D);
+  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
+  SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset            = TChannelID($046B7B44);
 
 {$ELSE}
   // Writeable constants.
@@ -729,6 +743,8 @@ const
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated:           TConfigID = $27B8658F;
   // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius:              TConfigID = $60D54CB6;
+  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable config.
+  SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable:            TConfigID = $3545511A;
 
   // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id:                      TConfigID = $E3F34E9A;
@@ -972,6 +988,10 @@ const
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_steering:               TChannelID = $DF025731;
   // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation:               TChannelID = $0ED73E5C;
+  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift) channel.
+  SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift:                   TChannelID = $F8BC370D;
+  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
+  SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset:            TChannelID = $046B7B44;
   {$WRITEABLECONST OFF}
 {$ENDIF}
 
@@ -1101,6 +1121,7 @@ SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_position            := GetItemID(S
 SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_steerable           := GetItemID(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable);
 SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated           := GetItemID(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated);
 SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius              := GetItemID(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius);
+SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable            := GetItemID(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable);
 
 SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id                      := GetItemID(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id);
 SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_cargo_accessory_id      := GetItemID(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id);
@@ -1232,6 +1253,8 @@ SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_substance               := GetItemID(SCS_TE
 SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_velocity                := GetItemID(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity);
 SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_steering                := GetItemID(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering);
 SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation                := GetItemID(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation);
+SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift                    := GetItemID(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift);
+SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset             := GetItemID(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset);
 end;
 {$ENDIF}
 

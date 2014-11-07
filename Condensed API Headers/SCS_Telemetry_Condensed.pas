@@ -2,7 +2,7 @@ unit SCS_Telemetry_Condensed;
 
 {==============================================================================}
 {  SCS Telemetry API headers condenser, version 1.0a                           }
-{  Condensed on: Thursday 2014-10-23 14:52:24                                  }
+{  Condensed on: Friday 2014-11-07 21:04:26                                    }
 {==============================================================================}
 
 interface
@@ -1064,6 +1064,20 @@ const
   SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius = TelemetryString('wheel.radius');
 
 (**
+ * @brief Is the wheel powered?
+ *
+ * Type: indexed bool
+ *)
+  SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_powered = TelemetryString('wheel.powered');
+
+(**
+ * @brief Is the wheel liftable?
+ *
+ * Type: indexed bool
+ *)
+  SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable = TelemetryString('wheel.liftable');
+
+(**
  * @brief Number of selectors (e.g. range/splitter toggles).
  *
  * Type: u32
@@ -1955,6 +1969,35 @@ const
  *)
   SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation              = TelemetryString('truck.wheel.rotation');
 
+(**
+ * @brief Lift state of the wheel <0;1>
+ *
+ * For use with simple lifted/non-lifted test or logical
+ * visualization of the lifting progress.
+ *
+ * Value of 0 corresponds to non-lifted axle.
+ * Value of 1 corresponds to fully lifted axle.
+ *
+ * Set to zero or not provided for non-liftable axles.
+ *
+ * Type: indexed float
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift                  = TelemetryString('truck.wheel.lift');
+
+(**
+ * @brief Vertical displacement of the wheel axle
+ * from its normal position in meters as result of
+ * lifting.
+ *
+ * Might have non-linear relation to lift ratio.
+ *
+ * Set to zero or not provided for non-liftable axles.
+ *
+ * Type: indexed float
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset           = TelemetryString('truck.wheel.lift.offset');
+
+
 {=== eurotrucks2/scssdk_eut2.pas ==============================================}
 (**
  * @file scssdk_eut2.h
@@ -1998,20 +2041,22 @@ const
  * 1.08 - a empty truck/trailer configuration event is generated when truck is removed
  *        (e.g. after completion of quick job)
  * 1.09 - added time and job related info
+ * 1.10 - added information about liftable axes
  *)
 //@{
 const
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_00    = (1 shl 16) or 0 {0x00010000};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_01    = (1 shl 16) or 1 {0x00010001};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_02    = (1 shl 16) or 2 {0x00010002};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_03    = (1 shl 16) or 3 {0x00010003};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_04    = (1 shl 16) or 4 {0x00010004};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_05    = (1 shl 16) or 5 {0x00010005}; // Patch 1.4
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_06    = (1 shl 16) or 6 {0x00010006};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_07    = (1 shl 16) or 7 {0x00010007};	// Patch 1.6
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_08    = (1 shl 16) or 8 {0x00010008};	// Patch 1.9
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_09    = (1 shl 16) or 9 {0x00010009};	// Patch 1.14
-  SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT = SCS_TELEMETRY_EUT2_GAME_VERSION_1_09;
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_00    = (1 shl 16) or 0   {0x00010000};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_01    = (1 shl 16) or 1   {0x00010001};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_02    = (1 shl 16) or 2   {0x00010002};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_03    = (1 shl 16) or 3   {0x00010003};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_04    = (1 shl 16) or 4   {0x00010004};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_05    = (1 shl 16) or 5   {0x00010005}; // Patch 1.4
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_06    = (1 shl 16) or 6   {0x00010006};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_07    = (1 shl 16) or 7   {0x00010007};	// Patch 1.6
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_08    = (1 shl 16) or 8   {0x00010008};	// Patch 1.9
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_09    = (1 shl 16) or 9   {0x00010009};	// Patch 1.14 beta
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_10    = (1 shl 16) or 10  {0x0001000A};	// Patch 1.14
+  SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT = SCS_TELEMETRY_EUT2_GAME_VERSION_1_10;
 //@}
 
 // Game specific units.

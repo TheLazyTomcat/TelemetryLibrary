@@ -2,7 +2,7 @@
 @abstract(Information provider class (known telemetry events, channels, etc.).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-10-24)
+@lastmod(2014-11-07)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
@@ -15,7 +15,7 @@
     .\Inc\TTelemetryInfoProvider.Prepare_Telemetry_1_0.pas
       Contains body of method TTelemetryInfoProvider.Prepare_Telemetry_1_0.)
 
-  Last change:  2014-10-24
+  Last change:  2014-11-07
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -35,7 +35,10 @@
     @item(2014-10-23 - Added support for eut2 1.9.)
     @item(2014-10-24 - Type of paramter @code(GameID) in first parametrized
                        constructor of class TTelemetryInfoProvider changed to
-                       @code(TelemetryString).))
+                       @code(TelemetryString).)
+    @item(2014-11-07 - Added support for eut2 1.10.)
+    @item(2014-11-07 - Implementation changes (new channels are not inserted to
+                       the lists, they are only added).))
 
   ToDo:@unorderedList(
   @item(Add capability for loading information from file (text, ini, resources).))    
@@ -129,6 +132,8 @@ type
 
 @member(Prepare_Game_eut2_1_9 Preparation for eut2 1.9.)
 
+@member(Prepare_Game_eut2_1_10 Preparation for eut2 1.10.)
+
 
 @member(Destroy
     Object destructor.@br
@@ -183,6 +188,7 @@ type
     procedure Prepare_Game_eut2_1_2; override;
     procedure Prepare_Game_eut2_1_4; override;
     procedure Prepare_Game_eut2_1_9; override;
+    procedure Prepare_Game_eut2_1_10; override;
   public
   {
     Basic object constructor.@br
@@ -378,16 +384,14 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_1;
 begin
 inherited;
-fKnownChannels.Insert(fKnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature),
-                      SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency,
-                      SCS_VALUE_TYPE_bool,
-                      SCS_VALUE_TYPE_invalid,
-                      SCS_VALUE_TYPE_invalid,
-                      False);
-fKnownConfigs.Insert(fKnownConfigs.IndexOf(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning),
-                     SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency,
-                     SCS_VALUE_TYPE_float,
-                     False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency,
+                   SCS_VALUE_TYPE_bool,
+                   SCS_VALUE_TYPE_invalid,
+                   SCS_VALUE_TYPE_invalid,
+                   False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency,
+                  SCS_VALUE_TYPE_float,
+                  False);
 end;
 
 //------------------------------------------------------------------------------
@@ -408,18 +412,16 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_4;
 begin
 inherited;
-fKnownChannels.Insert(fKnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking),
-                      SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker,
-                      SCS_VALUE_TYPE_bool,
-                      SCS_VALUE_TYPE_invalid,
-                      SCS_VALUE_TYPE_invalid,
-                      False);
-fKnownChannels.Insert(fKnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking),
-                      SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker,
-                      SCS_VALUE_TYPE_bool,
-                      SCS_VALUE_TYPE_invalid,
-                      SCS_VALUE_TYPE_invalid,
-                      False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker,
+                   SCS_VALUE_TYPE_bool,
+                   SCS_VALUE_TYPE_invalid,
+                   SCS_VALUE_TYPE_invalid,
+                   False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker,
+                   SCS_VALUE_TYPE_bool,
+                   SCS_VALUE_TYPE_invalid,
+                   SCS_VALUE_TYPE_invalid,
+                   False);
 end;
 
 //------------------------------------------------------------------------------
@@ -427,18 +429,16 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_9;
 begin
 inherited;
-fKnownChannels.Insert(fKnownChannels.IndexOf(SCS_TELEMETRY_TRAILER_CHANNEL_connected),
-                      SCS_TELEMETRY_CHANNEL_game_time,
-                      SCS_VALUE_TYPE_u32,
-                      SCS_VALUE_TYPE_invalid,
-                      SCS_VALUE_TYPE_invalid,
-                      False);
-fKnownChannels.Insert(fKnownChannels.IndexOf(SCS_TELEMETRY_TRAILER_CHANNEL_connected),
-                      SCS_TELEMETRY_CHANNEL_next_rest_stop,
-                      SCS_VALUE_TYPE_s32,
-                      SCS_VALUE_TYPE_invalid,
-                      SCS_VALUE_TYPE_invalid,
-                      False);
+fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_game_time,
+                   SCS_VALUE_TYPE_u32,
+                   SCS_VALUE_TYPE_u64,
+                   SCS_VALUE_TYPE_invalid,
+                   False);
+fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_next_rest_stop,
+                   SCS_VALUE_TYPE_s32,
+                   SCS_VALUE_TYPE_invalid,
+                   SCS_VALUE_TYPE_invalid,
+                   False);
 fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id,
                   SCS_VALUE_TYPE_string,
                   False);
@@ -478,7 +478,31 @@ fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income,
 fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time,
                   SCS_VALUE_TYPE_u32,
                   False);
-end;       
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_10;
+begin
+inherited;
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,
+                   SCS_VALUE_TYPE_float,
+                   SCS_VALUE_TYPE_double,
+                   SCS_VALUE_TYPE_invalid,
+                   True,
+                   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,
+                   7);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,
+                   SCS_VALUE_TYPE_float,
+                   SCS_VALUE_TYPE_double,
+                   SCS_VALUE_TYPE_invalid,
+                   True,
+                   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,
+                   7);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable,
+                  SCS_VALUE_TYPE_bool,
+                  True);
+end;
 
 {------------------------------------------------------------------------------}
 {   TTelemetryInfoProvider // Public methods                                   }

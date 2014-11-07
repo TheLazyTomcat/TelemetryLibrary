@@ -3,7 +3,7 @@
           version support.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-17)
-@lastmod(2014-10-23)
+@lastmod(2014-11-07)
 
   @bold(@NoAutoLink(TelemetryVersionObjects))
 
@@ -16,7 +16,7 @@
        |- TTelemetryVersionPrepareObject
 )
 
-  Last change:  2014-10-23
+  Last change:  2014-11-07
 
   Change List:@unorderedList(
     @item(2013-10-17 - First stable version.)
@@ -43,7 +43,8 @@
                          @itemSpacing(Compact)
                          @item(TTelemetryAbstractVersionObject.HighestSupportedGameVersion)
                          @item(TTelemetryAbstractVersionObject.SupportsGameVersion)
-                         @item(TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersion))))
+                         @item(TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersion)))
+    @item(2014-11-07 - Added support for eut2 1.10.))
 
 @html(<hr>)}
 unit TelemetryVersionObjects;
@@ -167,7 +168,7 @@ type
   check whether the class supports required telemetry  and game version before
   instantiation (creation of class instance).
 
-  Supported versions as of 2014-10-23:
+  Supported versions as of 2014-11-07:
 @unorderedList(
   @itemSpacing(Compact)
   @item(Telemetry 1.0)
@@ -181,6 +182,7 @@ type
   @item(eut2 1.7)
   @item(eut2 1.8)
   @item(eut2 1.9)
+  @item(eut2 1.10)
 )
 
 @member(HighestSupportedTelemetryVersion See @inherited.)
@@ -254,6 +256,9 @@ type
 @member(Prepare_Game_eut2_1_9 Preparation for eut2 1.9.@br
         Calls Prepare_Game_eut2_1_8.)
 
+@member(Prepare_Game_eut2_1_10 Preparation for eut2 1.10.@br
+        Calls Prepare_Game_eut2_1_9.)
+
 
 @member(PrepareForTelemetryVersion
     Performs any preparations necessary to support required telemetry version.
@@ -312,6 +317,7 @@ type
     procedure Prepare_Game_eut2_1_7; virtual;
     procedure Prepare_Game_eut2_1_8; virtual;
     procedure Prepare_Game_eut2_1_9; virtual;
+    procedure Prepare_Game_eut2_1_10; virtual;
   public
     Function PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual;
     Function PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
@@ -347,7 +353,7 @@ const
   cSupportedTelemetryVersions: Array[0..0] of scs_u32_t =
    (SCS_TELEMETRY_VERSION_1_00 {1.0});
 
-  cSupportedGameVersions: Array[0..9] of TGameSupportInfo =
+  cSupportedGameVersions: Array[0..10] of TGameSupportInfo =
    ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 {ETS2 1.0}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 {ETS2 1.1}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 {ETS2 1.2}),
@@ -357,7 +363,8 @@ const
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_06 {ETS2 1.6}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 {ETS2 1.7}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 {ETS2 1.8}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {ETS2 1.9}));
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {ETS2 1.9}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {ETS2 1.10}));
 
 {------------------------------------------------------------------------------}
 {   TTelemetryVersionObject // Public methods                                  }
@@ -532,6 +539,13 @@ begin
 Prepare_Game_eut2_1_8;
 end;
 
+//------------------------------------------------------------------------------
+
+procedure TTelemetryVersionPrepareObject.Prepare_Game_eut2_1_10;
+begin
+Prepare_Game_eut2_1_9;
+end;
+
 {------------------------------------------------------------------------------}
 {   TTelemetryVersionPrepareObject // Public methods                           }
 {------------------------------------------------------------------------------}
@@ -553,16 +567,17 @@ Result := False;
 If TelemetrySameStrSwitch(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}
   begin
     case GameVersion of
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_00: begin Prepare_Game_eut2_1_0; Result := True; end; {1.0}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_01: begin Prepare_Game_eut2_1_1; Result := True; end; {1.1}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_02: begin Prepare_Game_eut2_1_2; Result := True; end; {1.2}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_03: begin Prepare_Game_eut2_1_3; Result := True; end; {1.3}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_04: begin Prepare_Game_eut2_1_4; Result := True; end; {1.4}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_05: begin Prepare_Game_eut2_1_5; Result := True; end; {1.5}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_06: begin Prepare_Game_eut2_1_6; Result := True; end; {1.6}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_07: begin Prepare_Game_eut2_1_7; Result := True; end; {1.7}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_08: begin Prepare_Game_eut2_1_8; Result := True; end; {1.8}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_09: begin Prepare_Game_eut2_1_9; Result := True; end; {1.9}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_00: begin Prepare_Game_eut2_1_0;  Result := True; end; {1.0}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_01: begin Prepare_Game_eut2_1_1;  Result := True; end; {1.1}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_02: begin Prepare_Game_eut2_1_2;  Result := True; end; {1.2}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_03: begin Prepare_Game_eut2_1_3;  Result := True; end; {1.3}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_04: begin Prepare_Game_eut2_1_4;  Result := True; end; {1.4}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_05: begin Prepare_Game_eut2_1_5;  Result := True; end; {1.5}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_06: begin Prepare_Game_eut2_1_6;  Result := True; end; {1.6}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_07: begin Prepare_Game_eut2_1_7;  Result := True; end; {1.7}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_08: begin Prepare_Game_eut2_1_8;  Result := True; end; {1.8}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_09: begin Prepare_Game_eut2_1_9;  Result := True; end; {1.9}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_10: begin Prepare_Game_eut2_1_10; Result := True; end; {1.10}
     end;
   end;
 end;
