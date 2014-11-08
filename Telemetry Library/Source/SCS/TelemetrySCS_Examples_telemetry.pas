@@ -150,9 +150,9 @@ If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_frame_start) and
   end;
 Recipient.EventRegister(SCS_TELEMETRY_EVENT_configuration);
 Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_euler,SCS_TELEMETRY_CHANNEL_FLAG_no_value);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,SCS_U32_NIL,SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,SCS_U32_NIL,SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,SCS_U32_NIL,SCS_VALUE_TYPE_s32);
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,SCS_U32_NIL,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.Speed));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,SCS_U32_NIL,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.RPM));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,SCS_U32_NIL,SCS_VALUE_TYPE_s32,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.Gear));
 Recipient.Log('Initializing telemetry log example');
 ZeroMemory(@fTelemetry,SizeOf(TSCSExm_TelemetryState));
 fPrintHeader := True;
@@ -350,21 +350,12 @@ If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement then
           end;
       end;
   end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_speed then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fTelemetry.Speed := scs_value_t(Value^).value_float.value;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_rpm then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fTelemetry.RPM := scs_value_t(Value^).value_float.value;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_gear then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_s32) then
-      fTelemetry.Gear := scs_value_t(Value^).value_s32.value;
-  end;
+else
+  If Assigned(Value) and Assigned(UserData) then
+    case scs_value_t(Value^)._type of
+      SCS_VALUE_TYPE_float: Single(UserData^) := scs_value_t(Value^).value_float.value;
+      SCS_VALUE_TYPE_s32:   Integer(UserData^) := scs_value_t(Value^).value_s32.value;
+    end;
 end;
 
 //------------------------------------------------------------------------------

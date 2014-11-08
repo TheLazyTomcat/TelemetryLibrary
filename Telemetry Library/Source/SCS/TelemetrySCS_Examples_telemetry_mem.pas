@@ -235,20 +235,20 @@ If not InitializeSharedMemory then
     LogLine(SCS_LOG_TYPE_error,'Unable to initialize shared memory');
     raise Exception.Create('TSCSExm_TelemetryMem.Create: Shared memory initialization failed.');
   end;
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,            SCS_U32_NIL, SCS_VALUE_TYPE_dplacement);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                      SCS_U32_NIL, SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                 SCS_U32_NIL, SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                SCS_U32_NIL, SCS_VALUE_TYPE_s32);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,         SCS_U32_NIL, SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,         SCS_U32_NIL, SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,            SCS_U32_NIL, SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,           SCS_U32_NIL, SCS_VALUE_TYPE_float);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,      SCS_U32_NIL, SCS_VALUE_TYPE_fvector);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,  SCS_U32_NIL, SCS_VALUE_TYPE_fvector);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector);
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,            SCS_U32_NIL, SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.WSTruckPlacement));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                      SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.SpeedometerSpeed));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                 SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.RPM));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                SCS_U32_NIL, SCS_VALUE_TYPE_s32,       SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Gear));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,         SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Steering));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,         SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Throttle));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,            SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Brake));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,           SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Clutch));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,      SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.LinearVelocity));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.AngularVelocity));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,  SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.LinearAcceleration));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.AngularAcceleration));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.CabinAngularVelocity));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.CabinAngularAcceleration));
 LogLine(SCS_LOG_TYPE_message,'Memory telemetry example initialized');
 end;
 
@@ -333,7 +333,7 @@ case Event of
         end;
       while fSharedMemory^.WheelCount < WheelCount do
         begin
-          Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,fSharedMemory^.WheelCount,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_none);
+          Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,fSharedMemory^.WheelCount,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fSharedMemory^.WheelDeflections[fSharedMemory^.WheelCount]));
           Inc(fSharedMemory^.WheelCount);
         end;
     end;
@@ -375,103 +375,16 @@ If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement then
         fSharedMemory^.WSTruckPlacement.orientation.roll := 0.0;
       end;
   end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_speed then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fSharedMemory^.SpeedometerSpeed := scs_value_t(Value^).value_float.value
-    else
-      fSharedMemory^.SpeedometerSpeed := 0.0;
-  end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_rpm then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fSharedMemory^.RPM := scs_value_t(Value^).value_float.value
-    else
-      fSharedMemory^.RPM := 0.0;
-  end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_gear then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_s32) then
-      fSharedMemory^.Gear := scs_value_t(Value^).value_s32.value
-    else
-      fSharedMemory^.Gear := 0;
-  end     
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_steering then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fSharedMemory^.Steering := scs_value_t(Value^).value_float.value
-    else
-      fSharedMemory^.Steering := 0.0;
-  end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_throttle then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fSharedMemory^.Throttle := scs_value_t(Value^).value_float.value
-    else
-      fSharedMemory^.Throttle := 0.0;
-  end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_brake then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fSharedMemory^.Brake := scs_value_t(Value^).value_float.value
-    else
-      fSharedMemory^.Brake := 0.0;
-  end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_clutch then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) then
-      fSharedMemory^.Clutch := scs_value_t(Value^).value_float.value
-    else
-      fSharedMemory^.Clutch := 0.0;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_linear_velocity then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fvector) then
-      fSharedMemory^.LinearVelocity := scs_value_t(Value^).value_fvector
-    else
-      fSharedMemory^.LinearVelocity := NullVector;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_angular_velocity then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fvector) then
-      fSharedMemory^.AngularVelocity := scs_value_t(Value^).value_fvector
-    else
-      fSharedMemory^.AngularVelocity := NullVector;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_linear_acceleration then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fvector) then
-      fSharedMemory^.LinearAcceleration := scs_value_t(Value^).value_fvector
-    else
-      fSharedMemory^.LinearAcceleration := NullVector;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_angular_acceleration then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fvector) then
-      fSharedMemory^.AngularAcceleration := scs_value_t(Value^).value_fvector
-    else
-      fSharedMemory^.AngularAcceleration := NullVector;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_angular_velocity then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fvector) then
-      fSharedMemory^.CabinAngularVelocity := scs_value_t(Value^).value_fvector
-    else
-      fSharedMemory^.CabinAngularVelocity := NullVector;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_angular_acceleration then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fvector) then
-      fSharedMemory^.CabinAngularAcceleration := scs_value_t(Value^).value_fvector
-    else
-      fSharedMemory^.CabinAngularAcceleration := NullVector;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_susp_deflection then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_float) and (Index < MAX_SUPPORTED_WHEEL_COUNT) then
-      fSharedMemory^.WheelDeflections[Index] := scs_value_t(Value^).value_float.value;
-  end
-// meh, add user data (pointer) to channel/event context
+else
+  If Assigned(UserData) then
+    case scs_value_t(Value^)._type of
+      SCS_VALUE_TYPE_s32:     If Assigned(Value) then scs_s32_t(UserData^) := scs_value_t(Value^).value_s32.value
+                                else scs_s32_t(UserData^) := 0;
+      SCS_VALUE_TYPE_float:   If Assigned(Value) then scs_float_t(UserData^) := scs_value_t(Value^).value_float.value
+                                else scs_float_t(UserData^) := 0.0;
+      SCS_VALUE_TYPE_fvector: If Assigned(Value) then scs_value_fvector_t(UserData^) := scs_value_t(Value^).value_fvector
+                                else scs_value_fvector_t(UserData^) := NullVector;
+    end;
 end;
 
 //------------------------------------------------------------------------------

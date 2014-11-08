@@ -142,9 +142,9 @@ If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_frame_end) and
     Recipient.Log(SCS_LOG_TYPE_error,'Unable to register event callbacks');
     raise Exception.Create('TSCSExm_TelemetryPosition.Create: Events registration failed.');
   end;
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_euler,SCS_TELEMETRY_CHANNEL_FLAG_none);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none);
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.TruckPlacement));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.CabinOffset));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.HeadOffset));
 ZeroMemory(@fTelemetry,SizeOf(TSCSExm_TelemetryPositionState));
 fOutputPaused := True;
 end;
@@ -310,21 +310,11 @@ end;
 
 procedure TSCSExm_TelemetryPosition.ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
-If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_dplacement) then
-      fTelemetry.TruckPlacement := scs_value_t(Value^).value_dplacement;
-  end
-else If ID =  SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_offset then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fplacement) then
-      fTelemetry.CabinOffset := scs_value_t(Value^).value_fplacement;
-  end
-else If ID = SCS_TELEMETRY_TRUCK_CHANNEL_ID_head_offset then
-  begin
-    If Assigned(Value) and (scs_value_t(Value^)._type = SCS_VALUE_TYPE_fplacement) then
-      fTelemetry.HeadOffset := scs_value_t(Value^).value_fplacement;
-  end;                  
+If Assigned(Value) and Assigned(UserData) then
+  case scs_value_t(Value^)._type of
+    SCS_VALUE_TYPE_dplacement:  scs_value_dplacement_t(UserData^) := scs_value_t(Value^).value_dplacement;
+    SCS_VALUE_TYPE_fplacement:  scs_value_fplacement_t(UserData^) := scs_value_t(Value^).value_fplacement;
+  end;
 end;
 
 //------------------------------------------------------------------------------

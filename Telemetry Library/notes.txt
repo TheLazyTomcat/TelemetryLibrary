@@ -1,9 +1,7 @@
 todo:
   add lazarus/newer delphi support	
   remove system units from uses clause when documentation is generated
-  reimplement scs examples (use per channel user data for writing to memory)
   rework channel types (there can be 4 - maybe more, have to try - types ped channel, not 3)
-  repair example plugins (when not supported api is required, logger is not freed)
 
 done:
   declare library-wide PtrInt and PtrUInt (in telemetryCommon), use them where appropriate
@@ -13,3 +11,5 @@ done:
   check splitters and add splitters between overloaded functions
   check pointer arithmetics (change types of affected variables to unsigned integers only)
   add per channel/event user data
+  repair example plugins (when not supported api is required, logger is not freed)
+  reimplement scs examples (use per channel user data for writing to memory)

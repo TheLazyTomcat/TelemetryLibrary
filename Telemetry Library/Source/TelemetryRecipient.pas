@@ -2,7 +2,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-11-05)
+@lastmod(2014-11-08)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
@@ -24,7 +24,7 @@
     .\Inc\TelemetryRecipient_MulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change:  2014-11-05
+  Last change:  2014-11-08
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -142,7 +142,8 @@
                          @item(TTelemetryRecipient.ChannelRegister)
                          @item(TTelemetryRecipient.ChannelRegisterByIndex)
                          @item(TTelemetryRecipient.ChannelRegisterByName)))
-    @item(2014-11-05 - Small implementation changes.))
+    @item(2014-11-05 - Small implementation changes.)
+    @item(2014-11-08 - Bugs repairs.))
 
 @html(<hr>)}
 unit TelemetryRecipient;
@@ -1341,7 +1342,7 @@ begin
 If Assigned(context) then
   If Assigned(PChannelContext(context)^.Recipient) then
     with PChannelContext(context)^ do
-      TTelemetryRecipient(Recipient).ChannelHandler(APIStringToTelemetryString(name),ChannelInfo.ID,index,value,PEventContext(context)^.UserData);
+      TTelemetryRecipient(Recipient).ChannelHandler(APIStringToTelemetryString(name),ChannelInfo.ID,index,value,PChannelContext(context)^.UserData);
 end;
 
 {==============================================================================}
