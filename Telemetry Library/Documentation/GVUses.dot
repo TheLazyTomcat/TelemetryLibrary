@@ -15,7 +15,6 @@ DiGraph Uses {
   "TelemetryInfoProvider" -> "TelemetryCommon"
   "TelemetryInfoProvider" -> "SCS_Telemetry_Condensed"
   "TelemetryInfoProvider" [href="TelemetryInfoProvider.html"]
-  "TelemetryLists" -> "Classes"
   "TelemetryLists" -> "MulticastEvent"
   "TelemetryLists" -> "TelemetryCommon"
   "TelemetryLists" -> "TelemetryIDs"
@@ -23,8 +22,6 @@ DiGraph Uses {
   "TelemetryLists" -> "TelemetryStrings"
   "TelemetryLists" -> "SCS_Telemetry_Condensed"
   "TelemetryLists" [href="TelemetryLists.html"]
-  "TelemetryLogBinary" -> "SysUtils"
-  "TelemetryLogBinary" -> "Classes"
   "TelemetryLogBinary" -> "TelemetryCommon"
   "TelemetryLogBinary" -> "TelemetryIDs"
   "TelemetryLogBinary" -> "TelemetryRecipient"
@@ -33,7 +30,6 @@ DiGraph Uses {
   "TelemetryLogBinary" -> "TelemetryStreaming"
   "TelemetryLogBinary" -> "SCS_Telemetry_Condensed"
   "TelemetryLogBinary" [href="TelemetryLogBinary.html"]
-  "TelemetryLogBinaryParser" -> "Classes"
   "TelemetryLogBinaryParser" -> "MulticastEvent"
   "TelemetryLogBinaryParser" -> "TelemetryCommon"
   "TelemetryLogBinaryParser" -> "TelemetryIDs"
@@ -53,7 +49,6 @@ DiGraph Uses {
   "TelemetryLogText" -> "TelemetryStrings"
   "TelemetryLogText" -> "SCS_Telemetry_Condensed"
   "TelemetryLogText" [href="TelemetryLogText.html"]
-  "TelemetryRecipient" -> "Classes"
   "TelemetryRecipient" -> "MulticastEvent"
   "TelemetryRecipient" -> "TelemetryCommon"
   "TelemetryRecipient" -> "TelemetryIDs"
@@ -69,13 +64,11 @@ DiGraph Uses {
   "TelemetryRecipientBinder" -> "TelemetryRecipient"
   "TelemetryRecipientBinder" -> "SCS_Telemetry_Condensed"
   "TelemetryRecipientBinder" [href="TelemetryRecipientBinder.html"]
-  "TelemetryStreaming" -> "Classes"
   "TelemetryStreaming" -> "TelemetryCommon"
   "TelemetryStreaming" -> "TelemetryIDs"
   "TelemetryStreaming" -> "TelemetryLists"
   "TelemetryStreaming" -> "SCS_Telemetry_Condensed"
   "TelemetryStreaming" [href="TelemetryStreaming.html"]
-  "TelemetryStrings" -> "SysUtils"
   "TelemetryStrings" -> "TelemetryCommon"
   "TelemetryStrings" -> "SCS_Telemetry_Condensed"
   "TelemetryStrings" [href="TelemetryStrings.html"]

@@ -42,7 +42,9 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   SysUtils,
+{$ENDIF}  
   TelemetryCommon,
 {$IFDEF UseCondensedHeader}
   SCS_Telemetry_Condensed;

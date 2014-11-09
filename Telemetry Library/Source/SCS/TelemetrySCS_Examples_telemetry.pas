@@ -6,7 +6,9 @@ interface
 {$INCLUDE '..\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   SysUtils,
+{$ENDIF}  
   SimpleLog,
   TelemetryCommon,
   TelemetryIDs,

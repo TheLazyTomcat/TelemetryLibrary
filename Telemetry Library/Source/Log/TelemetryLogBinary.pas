@@ -364,8 +364,10 @@ interface
 {$INCLUDE '..\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   SysUtils,
   Classes,
+{$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
   TelemetryRecipient,

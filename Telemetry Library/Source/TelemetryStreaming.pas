@@ -57,7 +57,9 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   Classes,
+{$ENDIF}  
   TelemetryCommon,
   TelemetryIDs,
   TelemetryLists,

@@ -153,10 +153,12 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   Classes,
+{$ENDIF}   
 {$IFDEF MulticastEvents}
   MulticastEvent,
-{$ENDIF}  
+{$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
   TelemetryLists,

@@ -23,7 +23,7 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
 
 <p>This unit contains definitions of identification number types, set of constants containing full configuration names, constants with IDs for individual configs and channel, as well as function used to obtain those IDs.
 
-<p>Last change: 2014-10-23
+<p>Last change: 2014-11-07
 
 <p>Change List:</p>
 
@@ -33,6 +33,7 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
   <li><p>2014-04-18 - Constant <a class="normal" href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> was moved to this unit.</p></li>
   <li><p>2014-10-23 - Added support for eut2 1.9.</p></li>
   <li><p>2014-10-23 - Added true constants when precomputed IDs are used (optional, can be reconfigured to use writeable constans instead).</p></li>
+  <li><p>2014-11-07 - Added support for eut2 1.10.</p></li>
 </ul>
 
 <p>
@@ -487,6 +488,16 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
     <td><p><code>truck.wheel.rotation</code></p></td>
     <td><p><code>0ED73E5C</code></p></td>
   </tr>
+  <tr class="odd">
+    <td><p><code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift</code></p></td>
+    <td><p><code>truck.wheel.lift</code></p></td>
+    <td><p><code>F8BC370D</code></p></td>
+  </tr>
+  <tr class="even">
+    <td><p><code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset</code></p></td>
+    <td><p><code>truck.wheel.lift.offset</code></p></td>
+    <td><p><code>046B7B44</code></p></td>
+  </tr>
 </table>
 
 <p> <code>*</code> - This constant does not actually exist (it was removed from telemetry SDK and replaced by <code>SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset</code> ).<br> <code>**</code> - These channels does not work in current SDK.<br> <br> Table of precomputed IDs for configs names.<br> IDs are stored in constans whose identifiers corresponds to indetifiers of constants containing string value. For example, for name stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</a>, the ID is stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id</a>. </p>
@@ -648,106 +659,111 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
     <td><p><code>60D54CB6</code></p></td>
   </tr>
   <tr class="odd">
+    <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</a></p></td>
+    <td><p><code>truck.wheel.liftable</code></p></td>
+    <td><p><code>3545511A</code></p></td>
+  </tr>
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id</a></p></td>
     <td><p><code>trailer.id</code></p></td>
     <td><p><code>E3F34E9A</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id</a></p></td>
     <td><p><code>trailer.cargo.accessory.id</code></p></td>
     <td><p><code>7E792A8A</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position</a></p></td>
     <td><p><code>trailer.hook.position</code></p></td>
     <td><p><code>5D7A70AD</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count</a></p></td>
     <td><p><code>trailer.wheels.count</code></p></td>
     <td><p><code>8A6F0861</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position</a></p></td>
     <td><p><code>trailer.wheel.position</code></p></td>
     <td><p><code>85C46369</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable</a></p></td>
     <td><p><code>trailer.wheel.steerable</code></p></td>
     <td><p><code>C0BB336C</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated</a></p></td>
     <td><p><code>trailer.wheel.simulated</code></p></td>
     <td><p><code>76822694</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius</a></p></td>
     <td><p><code>trailer.wheel.radius</code></p></td>
     <td><p><code>3C8E98D6</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id</a></p></td>
     <td><p><code>job.cargo.id</code></p></td>
     <td><p><code>5496B30A</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo</a></p></td>
     <td><p><code>job.cargo</code></p></td>
     <td><p><code>FACC3465</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass</a></p></td>
     <td><p><code>job.cargo.mass</code></p></td>
     <td><p><code>ADE913DA</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id</a></p></td>
     <td><p><code>job.destination.city.id</code></p></td>
     <td><p><code>88567D8E</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city</a></p></td>
     <td><p><code>job.destination.city</code></p></td>
     <td><p><code>74BCA7CC</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id</a></p></td>
     <td><p><code>job.destination.company.id</code></p></td>
     <td><p><code>AB6BFF9D</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company</a></p></td>
     <td><p><code>job.destination.company</code></p></td>
     <td><p><code>19761409</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id</a></p></td>
     <td><p><code>job.source.city.id</code></p></td>
     <td><p><code>DA64182F</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city</a></p></td>
     <td><p><code>job.source.city</code></p></td>
     <td><p><code>34E0989A</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id</a></p></td>
     <td><p><code>job.source.company.id</code></p></td>
     <td><p><code>A38C06FA</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company</a></p></td>
     <td><p><code>job.source.company</code></p></td>
     <td><p><code>4B4471A8</code></p></td>
   </tr>
-  <tr class="even">
+  <tr class="odd">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income</a></p></td>
     <td><p><code>job.income</code></p></td>
     <td><p><code>25B394CE</code></p></td>
   </tr>
-  <tr class="odd">
+  <tr class="even">
     <td><p><a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time</a></p></td>
     <td><p><code>job.delivery.time</code></p></td>
     <td><p><code>A604955F</code></p></td>
@@ -894,157 +910,163 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);</code></td>
 </tr>
 <tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable);</code></td>
+</tr>
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id</a></b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id</a></b>      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count</a></b>             = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position</a></b>          = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id</a></b>                    = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo</a></b>                       = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass</a></b>                  = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id</a></b>      = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city</a></b>                 = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income</a></b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time</a></b>               = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id</a></b>:                   <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $A1E920F4;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_controls_ATTRIBUTE_shifter_type">SCS_TELEMETRY_CONFIG_ID_controls_ATTRIBUTE_shifter_type</a></b>:           <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $37BA5313;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_selector_count">SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_selector_count</a></b>:         <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $AA57ECAD;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_gear">SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_gear</a></b>:              <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $601E49BB;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_handle_position">SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_handle_position</a></b>:   <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $4C2725D0;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_selectors">SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_selectors</a></b>:         <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $1705F155;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand_id">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand_id</a></b>:                  <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $CFEC235C;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand</a></b>:                     <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $5DF796E6;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_id</a></b>:                        <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $93A67EA9;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_name">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_name</a></b>:                      <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $FF36A0AD;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_capacity">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_capacity</a></b>:             <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $FFEA5570;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_warning_factor">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_warning_factor</a></b>:       <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $766BF114;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_adblue_capacity">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_adblue_capacity</a></b>:           <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $CBE6B731;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_warning">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_warning</a></b>:      <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $C58F8B5A;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_emergency">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_emergency</a></b>:    <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $78FAD40D;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_oil_pressure_warning">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_oil_pressure_warning</a></b>:      <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $1A1815C5;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_water_temperature_warning">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_water_temperature_warning</a></b>: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $783F3300;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_battery_voltage_warning">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_battery_voltage_warning</a></b>:   <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $26000473;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_rpm_limit">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_rpm_limit</a></b>:                 <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $96F2B46D;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_forward_gear_count">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_forward_gear_count</a></b>:        <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $620CEB70;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_reverse_gear_count">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_reverse_gear_count</a></b>:        <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $2FEA55E1;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_retarder_step_count">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_retarder_step_count</a></b>:       <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $F8E36BF0;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_cabin_position">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_cabin_position</a></b>:            <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $E37B50B2;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_head_position">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_head_position</a></b>:             <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $59DED2CB;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_hook_position</a></b>:             <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $10944A21;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_count</a></b>:               <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $D634DC01;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_position</a></b>:            <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $61874258;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_steerable</a></b>:           <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $91817077;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated</a></b>:           <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $27B8658F;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius</a></b>:              <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $60D54CB6;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable">SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable</a></b>:            <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $3545511A;</code></td>
 </tr>
 <tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id</a></b>:                      <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $E3F34E9A;</code></td>
@@ -1372,6 +1394,12 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
 </tr>
 <tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation">SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation</a></b>:               <a  href="TelemetryIDs.html#TChannelID">TChannelID</a> = $0ED73E5C;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift">SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift</a></b>:                   <a  href="TelemetryIDs.html#TChannelID">TChannelID</a> = $F8BC370D;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset">SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset</a></b>:            <a  href="TelemetryIDs.html#TChannelID">TChannelID</a> = $046B7B44;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -1806,6 +1834,15 @@ Full name of config attribute <code>wheel_simulated</code> in <code>truck</code>
 <tr><td colspan="1">
 <p>
 Full name of config attribute <code>wheel_radius</code> in <code>truck</code> configuration.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Full name of config attribute <code>wheel_liftable</code> in <code>truck</code> configuration.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -2265,6 +2302,15 @@ Identification number for <a class="normal" href="TelemetryIDs.html#SCS_TELEMETR
 <tr><td colspan="1">
 <p>
 Identification number for <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius</a> config.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable"></a><code><b>SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable</b>:            <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $3545511A;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identification number for <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</a> config.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -3248,6 +3294,24 @@ Identification number for <code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering</code
 Identification number for <code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation</code> channel.</p>
 </td></tr>
 </table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift"></a><code><b>SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift</b>:                   <a  href="TelemetryIDs.html#TChannelID">TChannelID</a> = $F8BC370D;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identification number for <code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift</code> channel.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset"></a><code><b>SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset</b>:            <a  href="TelemetryIDs.html#TChannelID">TChannelID</a> = $046B7B44;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identification number for <code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset</code> channel.</p>
+</td></tr>
+</table>
 <h2 class="authors">Author</h2>
 <ul class="authors">
 <li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
@@ -3258,9 +3322,9 @@ Identification number for <code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation</code
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-10-23
+2014-11-07
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-05 23:18:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-09 14:37:53</em>
 </span>
 
 </body>
