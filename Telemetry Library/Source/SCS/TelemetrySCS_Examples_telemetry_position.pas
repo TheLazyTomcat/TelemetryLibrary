@@ -261,9 +261,9 @@ case Event of
       HeadPosCabinSpace := Add(fTelemetry.HeadPosition,fTelemetry.HeadOffset.position);
       HeadPosVehicleSpace := Add(Add(fTelemetry.CabinPosition,fTelemetry.CabinOffset.position),Rotate(fTelemetry.CabinOffset.orientation,HeadPosCabinSpace));
       HeadPosWorldSpace := Add(fTelemetry.TruckPlacement.position,Rotate(fTelemetry.TruckPlacement.orientation,HeadPosVehicleSpace));
-      fLog.AddLogNoTime(FloatToStrF(HeadPosWorldSpace.x,ffFixed,6,6,fFormatSettings) + ';' +
-                        FloatToStrF(HeadPosWorldSpace.y,ffFixed,6,6,fFormatSettings) + ';' +
-                        FloatToStrF(HeadPosWorldSpace.z,ffFixed,6,6,fFormatSettings));
+      fLog.AddLogNoTime(FloatToStrF(HeadPosWorldSpace.x,ffFixed,15,6,fFormatSettings) + ';' +
+                        FloatToStrF(HeadPosWorldSpace.y,ffFixed,15,6,fFormatSettings) + ';' +
+                        FloatToStrF(HeadPosWorldSpace.z,ffFixed,15,6,fFormatSettings));
     end;
   SCS_TELEMETRY_EVENT_paused,
   SCS_TELEMETRY_EVENT_started:

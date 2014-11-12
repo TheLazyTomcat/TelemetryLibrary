@@ -350,7 +350,7 @@ var
         // draw actual value
         fImgOutput.Canvas.Font.Color := wbar_ValFontColor;
         fImgOutput.Canvas.Brush.Style := bsClear;
-        _TempStr := ValueToStr(fStoredState.WheelDeflections[Index],SCS_VALUE_TYPE_float,ffFixed,6,6,fFormatSettings) + ' m';
+        _TempStr := ValueToStr(fStoredState.WheelDeflections[Index],SCS_VALUE_TYPE_float,ffFixed,15,6,fFormatSettings) + ' m';
         fImgOutput.Canvas.TextOut(img_Spacing + Index * (wbar_BarWidth + img_Spacing) + wbar_BarWidth - fImgOutput.Canvas.TextWidth(_TempStr) - img_TextSPacing,fImgOutput.Canvas.TextHeight(_TempStr) + Origin + img_TextSpacing,_TempStr);
 
         // draw scale info
@@ -442,25 +442,25 @@ fImgOutput.Canvas.Font.Size := 8;
 fImgOutput.Canvas.Font.Style := [];
 fImgOutput.Canvas.Font.Color := clWindowText;
 fImgOutput.Canvas.Brush.Style := bsClear;
-TempStr := 'Truck placement: ' + ValueToStr(fStoredState.WSTruckPlacement,SCS_VALUE_TYPE_dplacement,ffFixed,6,6,fFormatSettings);
+TempStr := 'Truck placement: ' + ValueToStr(fStoredState.WSTruckPlacement,SCS_VALUE_TYPE_dplacement,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 TempInt := TempInt + img_TextSpacing + fImgOutput.Canvas.TextHeight(TempStr);
-TempStr := 'Linear velocity [m/s]: ' + ValueToStr(fStoredState.LinearVelocity,SCS_VALUE_TYPE_fVector,ffFixed,6,6,fFormatSettings);
+TempStr := 'Linear velocity [m/s]: ' + ValueToStr(fStoredState.LinearVelocity,SCS_VALUE_TYPE_fVector,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 TempInt := TempInt + img_TextSpacing + fImgOutput.Canvas.TextHeight(TempStr);
-TempStr := 'Angular velocity [s^-1]: ' + ValueToStr(fStoredState.AngularVelocity,SCS_VALUE_TYPE_fVector,ffFixed,6,6,fFormatSettings);
+TempStr := 'Angular velocity [s^-1]: ' + ValueToStr(fStoredState.AngularVelocity,SCS_VALUE_TYPE_fVector,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 TempInt := TempInt + img_TextSpacing + fImgOutput.Canvas.TextHeight(TempStr);
-TempStr := 'Linear acceleration [m/s^2]: ' + ValueToStr(fStoredState.LinearAcceleration,SCS_VALUE_TYPE_fVector,ffFixed,6,6,fFormatSettings);
+TempStr := 'Linear acceleration [m/s^2]: ' + ValueToStr(fStoredState.LinearAcceleration,SCS_VALUE_TYPE_fVector,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 TempInt := TempInt + img_TextSpacing + fImgOutput.Canvas.TextHeight(TempStr);
-TempStr := 'Angular acceleration [s^-2]: ' + ValueToStr(fStoredState.AngularAcceleration,SCS_VALUE_TYPE_fVector,ffFixed,6,6,fFormatSettings);
+TempStr := 'Angular acceleration [s^-2]: ' + ValueToStr(fStoredState.AngularAcceleration,SCS_VALUE_TYPE_fVector,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 TempInt := TempInt + img_TextSpacing + fImgOutput.Canvas.TextHeight(TempStr);
-TempStr := 'Cabin angular velocity [s^-1]: ' + ValueToStr(fStoredState.CabinAngularVelocity,SCS_VALUE_TYPE_fVector,ffFixed,6,6,fFormatSettings);
+TempStr := 'Cabin angular velocity [s^-1]: ' + ValueToStr(fStoredState.CabinAngularVelocity,SCS_VALUE_TYPE_fVector,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 TempInt := TempInt + img_TextSpacing + fImgOutput.Canvas.TextHeight(TempStr);
-TempStr := 'Cabin angular acceleration [s^-2]: ' + ValueToStr(fStoredState.CabinAngularAcceleration,SCS_VALUE_TYPE_fVector,ffFixed,6,6,fFormatSettings);
+TempStr := 'Cabin angular acceleration [s^-2]: ' + ValueToStr(fStoredState.CabinAngularAcceleration,SCS_VALUE_TYPE_fVector,ffFixed,15,6,fFormatSettings);
 fImgOutput.Canvas.TextOut(img_Spacing,TempInt + img_Spacing,TempStr);
 end;
 

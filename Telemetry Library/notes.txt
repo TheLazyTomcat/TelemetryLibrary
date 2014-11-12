@@ -13,3 +13,4 @@ done:
   add per channel/event user data
   repair example plugins (when not supported api is required, logger is not freed)
   reimplement scs examples (use per channel user data for writing to memory)
+  repair number precission in SCS examples

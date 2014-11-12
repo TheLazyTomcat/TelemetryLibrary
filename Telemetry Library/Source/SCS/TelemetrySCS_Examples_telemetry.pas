@@ -91,7 +91,7 @@ begin
 try
   fLog.InMemoryLog := False;
   fLog.StreamFileAccessRights := fmShareDenyNone;
-  fLog.StreamFileName := ExtractFilePath(GetModuleName(hInstance)) + 'telemetry.log';
+  fLog.StreamFileName := ExtractFilePath(GetModuleName(hInstance)) + fLogFileName;
   fLog.StreamToFile := True;
   fLog.AddLogNoTime('Log opened');
   Result := True;
@@ -203,13 +203,13 @@ procedure TSCSExm_Telemetry.EventHandler(Sender: TObject; Event: scs_event_t; Da
     TempStr := IntToStr(fTelemetry.Timestamp) + ';' + IntToStr(fTelemetry.RawRenderingTimestamp) + ';' +
                IntToStr(fTelemetry.RawSimulationTimestamp) + ';' + IntToStr(fTElemetry.RawPausedSimulationTimestamp);
     If fTelemetry.OrientationAvailable then
-      TempStr := TempStr + ';' + FloatToStrF(fTelemetry.Heading,ffFixed,6,6,fFormatSettings) +
-                           ';' + FloatToStrF(fTelemetry.Pitch,ffFixed,6,6,fFormatSettings) +
-                           ';' + FloatToStrF(fTelemetry.Roll,ffFixed,6,6,fFormatSettings)
+      TempStr := TempStr + ';' + FloatToStrF(fTelemetry.Heading,ffFixed,15,6,fFormatSettings) +
+                           ';' + FloatToStrF(fTelemetry.Pitch,ffFixed,15,6,fFormatSettings) +
+                           ';' + FloatToStrF(fTelemetry.Roll,ffFixed,15,6,fFormatSettings)
     else
       TempStr := TempStr + ';---;---;---';
-    TempStr := TempStr + ';' + FloatToStrF(fTelemetry.Speed,ffFixed,6,6,fFormatSettings) +
-                         ';' + FloatToStrF(fTelemetry.RPM,ffFixed,6,6,fFormatSettings) +
+    TempStr := TempStr + ';' + FloatToStrF(fTelemetry.Speed,ffFixed,15,6,fFormatSettings) +
+                         ';' + FloatToStrF(fTelemetry.RPM,ffFixed,15,6,fFormatSettings) +
                          ';' + IntToStr(fTelemetry.Gear);
     fLog.AddLogNoTime(TempStr);
   end;
@@ -239,35 +239,35 @@ procedure TSCSExm_Telemetry.EventHandler(Sender: TObject; Event: scs_event_t; Da
           SCS_VALUE_TYPE_u64:
             TempStr := TempStr + 'u64 = ' + IntToStr(TempAttr^.value.value_u64.value);
           SCS_VALUE_TYPE_float:
-            TempStr := TempStr + 'float = ' + FloatToStrF(TempAttr^.value.value_float.value,ffFixed,6,6,fFormatSettings);
+            TempStr := TempStr + 'float = ' + FloatToStrF(TempAttr^.value.value_float.value,ffFixed,15,6,fFormatSettings);
           SCS_VALUE_TYPE_double:
-            TempStr := TempStr + 'double = ' + FloatToStrF(TempAttr^.value.value_double.value,ffFixed,6,6,fFormatSettings);
+            TempStr := TempStr + 'double = ' + FloatToStrF(TempAttr^.value.value_double.value,ffFixed,15,6,fFormatSettings);
           SCS_VALUE_TYPE_fvector:
-            TempStr := TempStr + 'fvector = (' + FloatToStrF(TempAttr^.value.value_fvector.x,ffFixed,6,6,fFormatSettings) + ',' +
-                                                 FloatToStrF(TempAttr^.value.value_fvector.y,ffFixed,6,6,fFormatSettings) + ',' +
-                                                 FloatToStrF(TempAttr^.value.value_fvector.z,ffFixed,6,6,fFormatSettings) + ')';
+            TempStr := TempStr + 'fvector = (' + FloatToStrF(TempAttr^.value.value_fvector.x,ffFixed,15,6,fFormatSettings) + ',' +
+                                                 FloatToStrF(TempAttr^.value.value_fvector.y,ffFixed,15,6,fFormatSettings) + ',' +
+                                                 FloatToStrF(TempAttr^.value.value_fvector.z,ffFixed,15,6,fFormatSettings) + ')';
           SCS_VALUE_TYPE_dvector:
-            TempStr := TempStr + 'dvector = (' + FloatToStrF(TempAttr^.value.value_dvector.x,ffFixed,6,6,fFormatSettings) + ',' +
-                                                 FloatToStrF(TempAttr^.value.value_dvector.y,ffFixed,6,6,fFormatSettings) + ',' +
-                                                 FloatToStrF(TempAttr^.value.value_dvector.z,ffFixed,6,6,fFormatSettings) + ')';
+            TempStr := TempStr + 'dvector = (' + FloatToStrF(TempAttr^.value.value_dvector.x,ffFixed,15,6,fFormatSettings) + ',' +
+                                                 FloatToStrF(TempAttr^.value.value_dvector.y,ffFixed,15,6,fFormatSettings) + ',' +
+                                                 FloatToStrF(TempAttr^.value.value_dvector.z,ffFixed,15,6,fFormatSettings) + ')';
           SCS_VALUE_TYPE_euler:
-            TempStr := TempStr + 'euler = h:' + FloatToStrF(TempAttr^.value.value_euler.heading * 360,ffFixed,6,6,fFormatSettings) +
-                                        ' p:' + FloatToStrF(TempAttr^.value.value_euler.pitch * 360,ffFixed,6,6,fFormatSettings) +
-                                        ' r:' + FloatToStrF(TempAttr^.value.value_euler.roll * 360,ffFixed,6,6,fFormatSettings);
+            TempStr := TempStr + 'euler = h:' + FloatToStrF(TempAttr^.value.value_euler.heading * 360,ffFixed,15,6,fFormatSettings) +
+                                        ' p:' + FloatToStrF(TempAttr^.value.value_euler.pitch * 360,ffFixed,15,6,fFormatSettings) +
+                                        ' r:' + FloatToStrF(TempAttr^.value.value_euler.roll * 360,ffFixed,15,6,fFormatSettings);
           SCS_VALUE_TYPE_fplacement:
-            TempStr := TempStr + 'fplacement = (' + FloatToStrF(TempAttr^.value.value_fplacement.position.x,ffFixed,6,6,fFormatSettings) + ',' +
-                                                    FloatToStrF(TempAttr^.value.value_fplacement.position.y,ffFixed,6,6,fFormatSettings) + ',' +
-                                                    FloatToStrF(TempAttr^.value.value_fplacement.position.z,ffFixed,6,6,fFormatSettings) +
-                                           ') h:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.heading * 360,ffFixed,6,6,fFormatSettings) +
-                                            ' p:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.pitch * 360,ffFixed,6,6,fFormatSettings) +
-                                            ' r:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.roll * 360,ffFixed,6,6,fFormatSettings);
+            TempStr := TempStr + 'fplacement = (' + FloatToStrF(TempAttr^.value.value_fplacement.position.x,ffFixed,15,6,fFormatSettings) + ',' +
+                                                    FloatToStrF(TempAttr^.value.value_fplacement.position.y,ffFixed,15,6,fFormatSettings) + ',' +
+                                                    FloatToStrF(TempAttr^.value.value_fplacement.position.z,ffFixed,15,6,fFormatSettings) +
+                                           ') h:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.heading * 360,ffFixed,15,6,fFormatSettings) +
+                                            ' p:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.pitch * 360,ffFixed,15,6,fFormatSettings) +
+                                            ' r:' + FloatToStrF(TempAttr^.value.value_fplacement.orientation.roll * 360,ffFixed,15,6,fFormatSettings);
           SCS_VALUE_TYPE_dplacement:
-            TempStr := TempStr + 'dplacement = (' + FloatToStrF(TempAttr^.value.value_dplacement.position.x,ffFixed,6,6,fFormatSettings) + ',' +
-                                                    FloatToStrF(TempAttr^.value.value_dplacement.position.y,ffFixed,6,6,fFormatSettings) + ',' +
-                                                    FloatToStrF(TempAttr^.value.value_dplacement.position.z,ffFixed,6,6,fFormatSettings) +
-                                           ') h:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.heading * 360,ffFixed,6,6,fFormatSettings) +
-                                            ' p:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.pitch * 360,ffFixed,6,6,fFormatSettings) +
-                                            ' r:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.roll * 360,ffFixed,6,6,fFormatSettings);
+            TempStr := TempStr + 'dplacement = (' + FloatToStrF(TempAttr^.value.value_dplacement.position.x,ffFixed,15,6,fFormatSettings) + ',' +
+                                                    FloatToStrF(TempAttr^.value.value_dplacement.position.y,ffFixed,15,6,fFormatSettings) + ',' +
+                                                    FloatToStrF(TempAttr^.value.value_dplacement.position.z,ffFixed,15,6,fFormatSettings) +
+                                           ') h:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.heading * 360,ffFixed,15,6,fFormatSettings) +
+                                            ' p:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.pitch * 360,ffFixed,15,6,fFormatSettings) +
+                                            ' r:' + FloatToStrF(TempAttr^.value.value_dplacement.orientation.roll * 360,ffFixed,15,6,fFormatSettings);
           SCS_VALUE_TYPE_string:
             TempStr := TempStr + 'string = ' + TelemetryStringDecode(APIStringToTelemetryString(TempAttr^.value.value_string.value));
         else
