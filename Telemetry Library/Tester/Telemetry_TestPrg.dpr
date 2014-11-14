@@ -31,8 +31,10 @@ uses
   MulticastEvent  in '..\Source\Libs\MulticastEvent.pas',
 {$ENDIF}
   SimpleLog       in '..\Source\Libs\SimpleLog.pas',
+  BitOps          in '..\Source\Libs\BitOps.pas',
 
   TelemetryCommon           in '..\Source\TelemetryCommon.pas',
+  TelemetryValueTypeUtils   in '..\Source\TelemetryValueTypeUtils.pas',
   TelemetryIDs              in '..\Source\TelemetryIDs.pas',
   TelemetryConversions      in '..\Source\TelemetryConversions.pas',
   TelemetryStrings          in '..\Source\TelemetryStrings.pas',
