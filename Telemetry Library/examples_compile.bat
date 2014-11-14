@@ -6,4 +6,10 @@ dcc32.exe -Q -B telemetry_position.dpr
 cd "..\..\SCS Examples\telemetry_mem" 
 dcc32.exe -Q -B telemetry_mem.dpr
 cd "..\..\SCS Examples\telemetry_mem_reader" 
-dcc32.exe -Q -B TelemetryMemReader.dpr
+dcc32.exe -Q -B TelemetryMemReader.dpr  
+cd "..\..\Examples\BinaryLogger" 
+dcc32.exe -Q -B SCSTelemetry_BinaryLogger.dpr
+cd "..\..\Examples\TextLogger" 
+dcc32.exe -Q -B SCSTelemetry_TextLogger.dpr
+cd "..\..\Examples\LogConverter" 
+dcc32.exe -Q -B LogConverter.dpr
