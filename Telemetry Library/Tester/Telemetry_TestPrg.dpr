@@ -65,31 +65,37 @@ uses
   TelemetryCommCommunicator     in '..\Source\Comm\TelemetryCommCommunicator.pas';
 
 var
-  Test: TTelemetryInfoProvider;
-  Temp: TStringList;
-  i:    Integer;
+  BM:   TValueTypeBitmask;
+  ARR:  TValueTypesArray;
 
 begin
-  Test := TTelemetryInfoProvider.CreateCurrent(SCS_GAME_ID_EUT2);
-  try
-    Temp := TStringList.Create;
-    try
-      For i := 0 to Pred(Test.KnownChannels.Count) do
-        Temp.Add(IntToHex(Test.KnownChannels[i].ID,8) + ' : ' + TelemetryStringDecode(Test.KnownChannels[i].Name));
-      WriteLn(Temp.Text);
+  BM := ValueTypesBitmask([SCS_VALUE_TYPE_fplacement,SCS_VALUE_TYPE_s32,SCS_VALUE_TYPE_LAST]);
 
-      Temp.Clear;
-      WriteLn;
+  ARR := BitmaskValueTypes(BM);
 
-      For i := 0 to Pred(Test.KnownConfigs.Count) do
-        Temp.Add(IntToHex(Test.KnownConfigs[i].ID,8) + ' : ' + TelemetryStringDecode(Test.KnownConfigs[i].Name));
-      WriteLn(Temp.Text);
-    finally
-      Temp.Free;
-    end;
-  finally
-    Test.Free;
-  end;
+  Arr := SelectSupportedValueTypes(SCS_VALUE_TYPE_dplacement,TVT_REG_SEC_ALL);
+
+  Arr := SelectSecondaryValueTypes(SCS_VALUE_TYPE_fplacement,TVT_REG_SEC_ALL);
+
+  Arr[1] := 5;
+  Arr[3] := 6;
+  Arr[4] := 7;
+  arr[7] := 8;
+  arr[9] := 9;
+  arr[10] := 10;
+  arr[11] := 11;
+  arr[13] := 12;
+
+  CompressValueTypesArray(arr);
+
+  BM := SupportedValueTypesBitmask(SCS_VALUE_TYPE_fplacement);
+  WriteLn(BooltoStr(ValueTypeBitmaskAdd(BM,SCS_VALUE_TYPE_u32),True));
+  WriteLn(NumberToBits(BM));
+  WriteLn(BooltoStr(ValueTypeBitmaskRemove(BM,SCS_VALUE_TYPE_euler),True));
+  WriteLn(NumberToBits(BM));
+  BM := ValueTypesBitmask(BitmaskValueTypes(BM));
+  WriteLn(NumberToBits(BM));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(BM)));
 
   WriteLn('Press enter to end...'); ReadLn;
 end.
