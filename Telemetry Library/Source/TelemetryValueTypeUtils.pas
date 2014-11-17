@@ -15,6 +15,8 @@ uses
 {$ENDIF}
 
 (*
+    primary type                  secondary types
+
   SCS_VALUE_TYPE_bool       ->  /
   SCS_VALUE_TYPE_s32        ->  /
   SCS_VALUE_TYPE_u32        ->  u64
@@ -31,7 +33,9 @@ uses
 
 type
   TValueTypeBitmask = LongWord;
-  TValueTypesArray = Array[0..SizeOf(TValueTypeBitmask) * 8] of scs_value_type_t;
+  TValueTypesArray  = Array[0..SizeOf(TValueTypeBitmask) * 8] of scs_value_type_t; {33 items}
+
+  procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);  
 
   Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
   Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBitmask; overload;
@@ -43,11 +47,11 @@ type
   Function ValueTypeBitmaskAdd(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
   Function ValueTypeBitmaskRemove(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
 
-  Function SecondaryValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
-  Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
   Function SecondaryValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
-  Function SupportedValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
+  Function SecondaryValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
   Function SecondaryValueTypesCount(PrimaryValueType: scs_value_type_t): Integer;
+  Function SupportedValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
+  Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
 
   Function ValidateSecondaryValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
   Function ValidateSupportedValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
@@ -69,15 +73,33 @@ const
   TVT_REG_SEC_12  = 2048;
   TVT_REG_SEC_ALL = $FFFFFFFF;
 
-  procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray); // delete, this function is internal  
-
-  Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SelectionMask: LongWord): TValueTypesArray;
-  Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectionMask: LongWord): TValueTypesArray;
+  Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): TValueTypesArray;
+  Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray;
 
 implementation
 
 uses
   BitOps;
+
+procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);
+var
+  LastValid:  Integer;
+  i:          Integer;
+begin
+LastValid := Low(ValueTypes);
+For i := Low(ValueTypes) to High(ValueTypes) do
+  If ValueTypes[i] <> SCS_VALUE_TYPE_INVALID then
+    begin
+      If i <> LastValid then
+        begin
+          ValueTypes[LastValid] := ValueTypes[i];
+          ValueTypes[i] := SCS_VALUE_TYPE_INVALID;
+        end;
+      Inc(LastValid)
+    end;
+end;
+
+//==============================================================================
 
 Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
 begin
@@ -105,12 +127,8 @@ var
   i:  Integer;
 begin
 Result := 0;
-i := Low(ValueTypes);
-while ValueTypes[i] <> SCS_VALUE_TYPE_INVALID do
-  begin
-    Result := Result or ValueTypeBitmask(ValueTypes[i]);
-    Inc(i);
-  end;
+For i := Low(ValueTypes) to High(ValueTypes) do
+  Result := Result or ValueTypeBitmask(ValueTypes[i]);
 end;
 
 //------------------------------------------------------------------------------
@@ -118,7 +136,7 @@ end;
 Function BitmaskValueType(Bitmask: TValueTypeBitmask): scs_value_type_t;
 begin
 Result := BSF(Bitmask) + 1;
-If Result > SCS_VALUE_TYPE_LAST then Result := 0; 
+If (Result > SCS_VALUE_TYPE_LAST) then Result := 0; 
 end;
 
 //------------------------------------------------------------------------------
@@ -156,24 +174,6 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function SecondaryValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
-begin
-Result := BitmaskValueTypes(SecondaryValueTypesBitmask(PrimaryValueType));
-end;
-
-//------------------------------------------------------------------------------
-
-Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
-var
-  i:  Integer;
-begin
-Result := SecondaryValueTypes(PrimaryValueType);
-For i := Pred(High(Result)) downto Low(Result) do Result[i + 1] := Result[i];
-Result[0] := PrimaryValueType;
-end;
-
-//------------------------------------------------------------------------------
-
 Function SecondaryValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
 begin
 case PrimaryValueType of
@@ -193,9 +193,9 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function SupportedValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
+Function SecondaryValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
 begin
-Result := ValueTypeBitmask(PrimaryValueType) or SecondaryValueTypesBitmask(PrimaryValueType);
+Result := BitmaskValueTypes(SecondaryValueTypesBitmask(PrimaryValueType));
 end;
 
 //------------------------------------------------------------------------------
@@ -209,6 +209,24 @@ Result := 0;
 Template := SecondaryValueTypesBitmask(PrimaryValueType);
 For i := 0 to Pred(SizeOf(TValueTypeBitmask) * 8) do
   If BT(Template,i) then Inc(Result);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SupportedValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
+begin
+Result := ValueTypeBitmask(PrimaryValueType) or SecondaryValueTypesBitmask(PrimaryValueType);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
+var
+  i:  Integer;
+begin
+Result := SecondaryValueTypes(PrimaryValueType);
+For i := Pred(High(Result)) downto Low(Result) do Result[i + 1] := Result[i];
+Result[Low(Result)] := PrimaryValueType;
 end;
 
 //------------------------------------------------------------------------------
@@ -255,45 +273,26 @@ end;
 
 //==============================================================================
 
-procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);
-var
-  LastValid:  Integer;
-  i:          Integer;
-begin
-LastValid := Low(ValueTypes);
-For i := Low(ValueTypes) to High(ValueTypes) do
-  If ValueTypes[i] <> SCS_VALUE_TYPE_INVALID then
-    begin
-      If i <> LastValid then
-        begin
-          ValueTypes[LastValid] := ValueTypes[i];
-          ValueTypes[i] := SCS_VALUE_TYPE_INVALID;
-        end;
-      Inc(LastValid)
-    end;
-end;
-
-//------------------------------------------------------------------------------
-
-Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SelectionMask: LongWord): TValueTypesArray;
+Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): TValueTypesArray;
 var
   i:  Integer;
 begin
 Result := SecondaryValueTypes(PrimaryValueType);
-For i := 0 to Pred(SizeOf(SelectionMask) * 8) do
-  If not BT(SelectionMask,i) then Result[i] := SCS_VALUE_TYPE_INVALID;
+For i := 0 to Pred(SizeOf(SecondarySelectionMask) * 8) do
+  If not BT(SecondarySelectionMask,i) then Result[i] := SCS_VALUE_TYPE_INVALID;
 CompressValueTypesArray(Result);
 end;
 
 //------------------------------------------------------------------------------
 
-Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectionMask: LongWord): TValueTypesArray;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray;
 var
   i:  Integer;
 begin
 Result := SupportedValueTypes(PrimaryValueType);
-For i := 0 to Pred(SizeOf(SelectionMask) * 8) do
-  If not BT(SelectionMask,i) then Result[i + 1] := SCS_VALUE_TYPE_INVALID;
+If not SelectPrimary then Result[0] := SCS_VALUE_TYPE_INVALID;
+For i := 0 to Pred(SizeOf(SecondarySelectionMask) * 8) do
+  If not BT(SecondarySelectionMask,i) then Result[i + 1] := SCS_VALUE_TYPE_INVALID;
 CompressValueTypesArray(Result); 
 end;
 

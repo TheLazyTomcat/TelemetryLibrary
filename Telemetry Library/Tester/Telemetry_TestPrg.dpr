@@ -64,38 +64,238 @@ uses
   TelemetryCommReceiver         in '..\Source\Comm\TelemetryCommReceiver.pas',
   TelemetryCommCommunicator     in '..\Source\Comm\TelemetryCommCommunicator.pas';
 
+  procedure RandomizeArray(var Value: TValueTypesArray);
+  var
+    ii: Integer;
+  begin
+    Randomize;
+    For ii := Low(Value) to High(Value) do
+      If Random(2) = 0 then
+        Value[ii] := Random(SCS_VALUE_TYPE_LAST + 1)
+      else
+        Value[ii] := SCS_VALUE_TYPE_INVALID;
+  end;
+
+  procedure WriteArray(Value: TValueTypesArray; Names: Boolean);
+  var
+    TempStr:  String;
+    ii:       Integer;
+  begin
+    TempStr := '';
+    For ii := Low(Value) to High(Value) do
+      If Names then
+        TempStr := TempStr + SCSValueTypeToStr(Value[ii]) + ' '
+      else
+        TempStr := TempStr + IntToStr(Value[ii]) + ' ';
+    WriteLn(TempStr);
+  end;
+
 var
   BM:   TValueTypeBitmask;
   ARR:  TValueTypesArray;
+  i:    Integer;
+  VT:   scs_value_type_t;
+  BT:   Boolean;
 
 begin
-  BM := ValueTypesBitmask([SCS_VALUE_TYPE_fplacement,SCS_VALUE_TYPE_s32,SCS_VALUE_TYPE_LAST]);
+  Randomize;
 
-  ARR := BitmaskValueTypes(BM);
+  // CompressValueTypesArray
+  RandomizeArray(ARR);
+  WriteArray(ARR,False);
+  CompressValueTypesArray(ARR);
+  WriteArray(ARR,False);
 
-  Arr := SelectSupportedValueTypes(SCS_VALUE_TYPE_dplacement,TVT_REG_SEC_ALL);
+  // ValueTypeBitmask
+  WriteLn;
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_INVALID)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_bool)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_s32)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_u32)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_u64)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_float)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_double)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_fvector)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_dvector)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_euler)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_fplacement)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_dplacement)));
+  WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_string)));
 
-  Arr := SelectSecondaryValueTypes(SCS_VALUE_TYPE_fplacement,TVT_REG_SEC_ALL);
+  // ValueTypesBitmask (open array)
+  WriteLn;
+  WriteLn(NumberToBits(ValueTypesBitmask([SCS_VALUE_TYPE_bool,SCS_VALUE_TYPE_u64,SCS_VALUE_TYPE_dplacement,SCS_VALUE_TYPE_string])));
+  WriteLn(NumberToBits(ValueTypesBitmask([SCS_VALUE_TYPE_s32,SCS_VALUE_TYPE_dplacement,SCS_VALUE_TYPE_fplacement,25])));
 
-  Arr[1] := 5;
-  Arr[3] := 6;
-  Arr[4] := 7;
-  arr[7] := 8;
-  arr[9] := 9;
-  arr[10] := 10;
-  arr[11] := 11;
-  arr[13] := 12;
+  // ValueTypesBitmask
+  WriteLn;
+  RandomizeArray(ARR);
+  WriteArray(ARR, False);
+  WriteLn(NumberToBits(ValueTypesBitmask(ARR)));
+  RandomizeArray(ARR);
+  ARR[15] := 19;
+  WriteArray(ARR, False);
+  WriteLn(NumberToBits(ValueTypesBitmask(ARR)));
 
-  CompressValueTypesArray(arr);
-
-  BM := SupportedValueTypesBitmask(SCS_VALUE_TYPE_fplacement);
-  WriteLn(BooltoStr(ValueTypeBitmaskAdd(BM,SCS_VALUE_TYPE_u32),True));
+  // BitmaskValueType
+  WriteLn;
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_INVALID))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_bool))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_s32))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_u32))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_u64))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_float))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_double))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_fvector))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_dvector))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_euler))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_fplacement))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_dplacement))));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_string))));
+  WriteLn;
+  BM := ValueTypeBitmask(SCS_VALUE_TYPE_INVALID) or ValueTypeBitmask(SCS_VALUE_TYPE_u32);
   WriteLn(NumberToBits(BM));
-  WriteLn(BooltoStr(ValueTypeBitmaskRemove(BM,SCS_VALUE_TYPE_euler),True));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(BM)));
+  BM := ValueTypeBitmask(SCS_VALUE_TYPE_float) or ValueTypeBitmask(SCS_VALUE_TYPE_dvector);
   WriteLn(NumberToBits(BM));
-  BM := ValueTypesBitmask(BitmaskValueTypes(BM));
+  WriteLn(SCSValueTypeToStr(BitmaskValueType(BM)));
+  BM := (1 shl 24) or ValueTypeBitmask(SCS_VALUE_TYPE_string);
   WriteLn(NumberToBits(BM));
   WriteLn(SCSValueTypeToStr(BitmaskValueType(BM)));
 
+  // BitmaskValueTypes
+  WriteLn;
+  For i := 1 to 5 do
+    begin
+      BM := Random((1 shl 11) + 1);
+      WriteLn(NumberToBits(BM));
+      WriteArray(BitmaskValueTypes(BM),False);
+    end;
+  BM := Random(High(TValueTypeBitmask));
+  WriteLn(NumberToBits(BM));
+  WriteArray(BitmaskValueTypes(BM),False);
+
+  // ValueTypeBitmaskAdd
+  WriteLn;
+  For i := 1 to 5 do
+    begin
+      BM := Random((1 shl 11) + 1);
+      VT := Random(SCS_VALUE_TYPE_LAST + 1);
+      Write(NumberToBits(BM) + ' ' + IntToStr(VT) + ' ');
+      WriteLn(BoolToStr(ValueTypeBitmaskAdd(BM,VT),True));
+      WriteLn(NumberToBits(BM));
+    end;
+
+  // ValueTypeBitmaskRemove
+  WriteLn;
+  For i := 1 to 5 do
+    begin
+      BM := Random((1 shl 11) + 1);
+      VT := Random(SCS_VALUE_TYPE_LAST + 1);
+      Write(NumberToBits(BM) + ' ' + IntToStr(VT) + ' ');
+      WriteLn(BoolToStr(ValueTypeBitmaskRemove(BM,VT),True));
+      WriteLn(NumberToBits(BM));
+    end;
+
+  // SecondaryValueTypesBitmask
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    WriteLn(NumberToBits(SecondaryValueTypesBitmask(i)) + ' (' + IntToStr(i) + ')' + SCSValueTypeToStr(i));
+
+  // SecondaryValueTypes
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      Write('(' + IntToStr(i) + ')' + SCSValueTypeToStr(i) + ': ');
+      WriteArray(SecondaryValueTypes(i),False);
+    end;
+
+  // SecondaryValueTypesCount
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    WriteLn('(' + IntToStr(i) + ')' + SCSValueTypeToStr(i) + ' (' + NumberToBits(SecondaryValueTypesBitmask(i)) +
+            '): ' + IntToStr(SecondaryValueTypesCount(i)));
+
+  // SupportedValueTypesBitmask
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    WriteLn(NumberToBits(SupportedValueTypesBitmask(i)) + ' (' + IntToStr(i) + ')' + SCSValueTypeToStr(i));
+
+  // SupportedValueTypes
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      Write('(' + IntToStr(i) + ')' + SCSValueTypeToStr(i) + ': ');
+      WriteArray(SupportedValueTypes(i),False);
+    end;
+
+  // ValidateSecondaryValueTypesBitmask
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      BM := SecondaryValueTypesBitmask(i);
+      If Random(2) = 0 then
+        BM := BM or ValueTypeBitmask(Random(SCS_VALUE_TYPE_LAST + 1));
+      WriteLn(NumberToBits(BM) + ' (' + SCSValueTypeToStr(i) + '): ' + BoolToStr(ValidateSecondaryValueTypesBitmask(BM,i),True));
+    end;
+
+  // ValidateSupportedValueTypesBitmask
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      BM := SupportedValueTypesBitmask(i);
+      If Random(2) = 0 then
+        BM := BM or ValueTypeBitmask(Random(SCS_VALUE_TYPE_LAST + 1));
+      WriteLn(NumberToBits(BM) + ' (' + SCSValueTypeToStr(i) + '): ' + BoolToStr(ValidateSupportedValueTypesBitmask(BM,i),True));
+    end;
+
+  // MakeValidSecondaryValueTypesBitmask
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      BM := SecondaryValueTypesBitmask(i);
+      If Random(2) = 0 then
+        BM := BM or ValueTypeBitmask(Random(SCS_VALUE_TYPE_LAST + 1));
+      Write(NumberToBits(BM) + ' ');
+      MakeValidSecondaryValueTypesBitmask(BM,i);
+      WriteLn(NumberToBits(BM) + ' (' + SCSValueTypeToStr(i) + ')');
+    end;
+
+  // MakeValidSupportedValueTypesBitmask
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      BM := SupportedValueTypesBitmask(i);
+      If Random(2) = 0 then
+        BM := BM or ValueTypeBitmask(Random(SCS_VALUE_TYPE_LAST + 1));
+      Write(NumberToBits(BM) + ' ');
+      MakeValidSupportedValueTypesBitmask(BM,i);
+      WriteLn(NumberToBits(BM) + ' (' + SCSValueTypeToStr(i) + ')');
+    end;
+
+  // SelectSecondaryValueTypes
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      WriteLn('(' + SCSValueTypeToStr(i) + ') ');
+      WriteArray(SecondaryValueTypes(i),False);
+      BM := Random(High(LongWord));
+      WriteLn(NumberToBits(BM) + ' ');
+      WriteArray(SelectSecondaryValueTypes(i,BM),False);
+    end;
+
+  // SelectSupportedValueTypes
+  WriteLn;
+  For i := 0 to SCS_VALUE_TYPE_LAST do
+    begin
+      WriteLn('(' + SCSValueTypeToStr(i) + ') ');
+      WriteArray(SupportedValueTypes(i),False);
+      BM := Random(High(LongWord));
+      BT := Random(2) = 0;
+      WriteLn(NumberToBits(BM) + ' (' + BoolToStr(Bt,True) + ')');
+      WriteArray(SelectSupportedValueTypes(i,BT,BM),False);
+    end;
+
+  WriteLn;
   WriteLn('Press enter to end...'); ReadLn;
 end.
