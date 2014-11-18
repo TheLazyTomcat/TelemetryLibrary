@@ -101,6 +101,7 @@ begin
   Randomize;
 
   // CompressValueTypesArray
+  WriteLn('CompressValueTypesArray');
   RandomizeArray(ARR);
   WriteArray(ARR,False);
   CompressValueTypesArray(ARR);
@@ -108,6 +109,7 @@ begin
 
   // ValueTypeBitmask
   WriteLn;
+  WriteLn('ValueTypeBitmask');
   WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_INVALID)));
   WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_bool)));
   WriteLn(NumberToBits(ValueTypeBitmask(SCS_VALUE_TYPE_s32)));
@@ -124,11 +126,13 @@ begin
 
   // ValueTypesBitmask (open array)
   WriteLn;
+  WriteLn('ValueTypesBitmask (open array)');
   WriteLn(NumberToBits(ValueTypesBitmask([SCS_VALUE_TYPE_bool,SCS_VALUE_TYPE_u64,SCS_VALUE_TYPE_dplacement,SCS_VALUE_TYPE_string])));
   WriteLn(NumberToBits(ValueTypesBitmask([SCS_VALUE_TYPE_s32,SCS_VALUE_TYPE_dplacement,SCS_VALUE_TYPE_fplacement,25])));
 
   // ValueTypesBitmask
   WriteLn;
+  WriteLn('ValueTypesBitmask');
   RandomizeArray(ARR);
   WriteArray(ARR, False);
   WriteLn(NumberToBits(ValueTypesBitmask(ARR)));
@@ -139,6 +143,7 @@ begin
 
   // BitmaskValueType
   WriteLn;
+  WriteLn('BitmaskValueType');
   WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_INVALID))));
   WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_bool))));
   WriteLn(SCSValueTypeToStr(BitmaskValueType(ValueTypeBitmask(SCS_VALUE_TYPE_s32))));
@@ -165,6 +170,7 @@ begin
 
   // BitmaskValueTypes
   WriteLn;
+  WriteLn('BitmaskValueTypes');
   For i := 1 to 5 do
     begin
       BM := Random((1 shl 11) + 1);
@@ -177,6 +183,7 @@ begin
 
   // ValueTypeBitmaskAdd
   WriteLn;
+  WriteLn('ValueTypeBitmaskAdd');
   For i := 1 to 5 do
     begin
       BM := Random((1 shl 11) + 1);
@@ -188,6 +195,7 @@ begin
 
   // ValueTypeBitmaskRemove
   WriteLn;
+  WriteLn('ValueTypeBitmaskRemove');
   For i := 1 to 5 do
     begin
       BM := Random((1 shl 11) + 1);
@@ -199,11 +207,13 @@ begin
 
   // SecondaryValueTypesBitmask
   WriteLn;
+  WriteLn('SecondaryValueTypesBitmask');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     WriteLn(NumberToBits(SecondaryValueTypesBitmask(i)) + ' (' + IntToStr(i) + ')' + SCSValueTypeToStr(i));
 
   // SecondaryValueTypes
   WriteLn;
+  WriteLn('SecondaryValueTypes');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       Write('(' + IntToStr(i) + ')' + SCSValueTypeToStr(i) + ': ');
@@ -212,17 +222,20 @@ begin
 
   // SecondaryValueTypesCount
   WriteLn;
+  WriteLn('SecondaryValueTypesCount');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     WriteLn('(' + IntToStr(i) + ')' + SCSValueTypeToStr(i) + ' (' + NumberToBits(SecondaryValueTypesBitmask(i)) +
             '): ' + IntToStr(SecondaryValueTypesCount(i)));
 
   // SupportedValueTypesBitmask
   WriteLn;
+  WriteLn('SupportedValueTypesBitmask');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     WriteLn(NumberToBits(SupportedValueTypesBitmask(i)) + ' (' + IntToStr(i) + ')' + SCSValueTypeToStr(i));
 
   // SupportedValueTypes
   WriteLn;
+  WriteLn('SupportedValueTypes');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       Write('(' + IntToStr(i) + ')' + SCSValueTypeToStr(i) + ': ');
@@ -231,6 +244,7 @@ begin
 
   // ValidateSecondaryValueTypesBitmask
   WriteLn;
+  WriteLn('ValidateSecondaryValueTypesBitmask');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       BM := SecondaryValueTypesBitmask(i);
@@ -241,6 +255,7 @@ begin
 
   // ValidateSupportedValueTypesBitmask
   WriteLn;
+  WriteLn('ValidateSupportedValueTypesBitmask');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       BM := SupportedValueTypesBitmask(i);
@@ -251,6 +266,7 @@ begin
 
   // MakeValidSecondaryValueTypesBitmask
   WriteLn;
+  WriteLn('MakeValidSecondaryValueTypesBitmask');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       BM := SecondaryValueTypesBitmask(i);
@@ -263,6 +279,7 @@ begin
 
   // MakeValidSupportedValueTypesBitmask
   WriteLn;
+  WriteLn('MakeValidSupportedValueTypesBitmask');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       BM := SupportedValueTypesBitmask(i);
@@ -275,6 +292,7 @@ begin
 
   // SelectSecondaryValueTypes
   WriteLn;
+  WriteLn('SelectSecondaryValueTypes');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       WriteLn('(' + SCSValueTypeToStr(i) + ') ');
@@ -286,6 +304,7 @@ begin
 
   // SelectSupportedValueTypes
   WriteLn;
+  WriteLn('SelectSupportedValueTypes');
   For i := 0 to SCS_VALUE_TYPE_LAST do
     begin
       WriteLn('(' + SCSValueTypeToStr(i) + ') ');
@@ -297,5 +316,5 @@ begin
     end;
 
   WriteLn;
-  WriteLn('Press enter to end...'); ReadLn;
+  Write('Press enter to end...'); ReadLn;
 end.

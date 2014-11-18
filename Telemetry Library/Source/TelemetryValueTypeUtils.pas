@@ -38,8 +38,7 @@ type
   procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);  
 
   Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
-  Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBitmask; overload;
-  Function ValueTypesBitmask(ValueTypes: TValueTypesArray): TValueTypeBitmask; overload;
+  Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBitmask;
 
   Function BitmaskValueType(Bitmask: TValueTypeBitmask): scs_value_type_t;
   Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
@@ -112,17 +111,6 @@ end;
 //------------------------------------------------------------------------------
 
 Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBitmask;
-var
-  i:  Integer;
-begin
-Result := 0;
-For i := Low(ValueTypes) to High(ValueTypes) do
-  Result := Result or ValueTypeBitmask(ValueTypes[i]);
-end;
-
-//------------------------------------------------------------------------------
-
-Function ValueTypesBitmask(ValueTypes: TValueTypesArray): TValueTypeBitmask;
 var
   i:  Integer;
 begin
