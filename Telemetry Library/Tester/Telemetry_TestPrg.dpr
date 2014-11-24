@@ -96,6 +96,7 @@ var
   i:    Integer;
   VT:   scs_value_type_t;
   BT:   Boolean;
+  TIP:  TTelemetryInfoProvider;
 
 begin
   Randomize;
@@ -314,6 +315,12 @@ begin
       WriteLn(NumberToBits(BM) + ' (' + BoolToStr(Bt,True) + ')');
       WriteArray(SelectSupportedValueTypes(i,BT,BM),False);
     end;
+
+  TIP := TTelemetryInfoProvider.Create;
+  try
+  finally
+    TIP.Free;
+  end;
 
   WriteLn;
   Write('Press enter to end...'); ReadLn;

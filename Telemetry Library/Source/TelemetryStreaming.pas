@@ -48,7 +48,7 @@
                        changed from signed to unsigned integer in all functions
                        with those parameters (there is too many such functions
                        to list them here).)
-    @item(2014-11-24 - Changes due to a new system of storingand passing
+    @item(2014-11-24 - Changes due to a new system of storing and passing
                        secondary types of channel value. Resulting data layout
                        changed for these functions:
                        @unorderedList(

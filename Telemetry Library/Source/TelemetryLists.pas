@@ -120,7 +120,7 @@
                          @item(TRegisteredChannelsList.CreateContext)))
     @item(2014-11-05 - Small implementation changes.)
     @item(2014-11-24 - Changes due to a new system of storing and passing
-                       secondary types of channel value. This changes include:
+                       secondary types of channel value. These changes include:
                        @unorderedList(
                          @itemSpacing(Compact)
                          @item(Fields @code(SecondaryType) and @code(TertiaryType)

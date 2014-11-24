@@ -46,6 +46,7 @@ const
 
   Function BitmaskValueType(Bitmask: TValueTypeBitmask): scs_value_type_t;
   Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
+  Function BitmaskValueTypesAddPrimary(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): TValueTypesArray;
 
   Function ValueTypeBitmaskAdd(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
   Function ValueTypeBitmaskRemove(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
@@ -148,6 +149,17 @@ If Bitmask <> 0 then
           Inc(j);
         end;
   end;
+end;
+
+//------------------------------------------------------------------------------
+
+Function BitmaskValueTypesAddPrimary(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): TValueTypesArray;
+var
+  i:  Integer;
+begin
+Result := BitmaskValueTypes(Bitmask);
+For i := Pred(High(Result)) downto Low(Result) do Result[i + 1] := Result[i];
+Result[Low(Result)] := PrimaryValueType;
 end;
 
 //------------------------------------------------------------------------------
