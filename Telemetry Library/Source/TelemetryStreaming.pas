@@ -3,7 +3,7 @@
           or stream.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-06)
-@lastmod(2014-11-05)
+@lastmod(2014-11-24)
 
   @bold(@NoAutoLink(TelemetryStreaming))
 
@@ -35,7 +35,7 @@
         events, channels and configs).)
 )
 
-  Last change:  2014-11-05
+  Last change:  2014-11-24
 
   Change List:@unorderedList(
     @item(2014-05-06 - First stable version.)
@@ -47,7 +47,16 @@
     @item(2014-11-05 - Type of parameters @code(Size) and @code(BytesRead)
                        changed from signed to unsigned integer in all functions
                        with those parameters (there is too many such functions
-                       to list them here).))
+                       to list them here).)
+    @item(2014-11-24 - Changes due to a new system of storingand passing
+                       secondary types of channel value. Resulting data layout
+                       changed for these functions:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Ptr_Write_KnownChannel)
+                         @item(Ptr_Read_KnownChannel)
+                         @item(Stream_Write_KnownChannel)
+                         @item(Stream_Read_KnownChannel))))
 
 @html(<hr>)}
 unit TelemetryStreaming;
@@ -2033,8 +2042,7 @@ Function Size_KnownChannel(Value: TKnownChannel): LongWord;
         Name            variable    String
         ID              4 bytes     TChannelID
         PrimaryType     4 bytes     scs_value_type_t
-        SecondaryType   4 bytes     scs_value_type_t
-        TertiaryType    4 bytes     scs_value_type_t
+        SecondaryTypes  4 bytes     TValueTypeBitmask
         Indexed         1 byte      Boolean
         IndexConfig     variable    String
         IndexConfigID   4 bytes     TConfigID
@@ -4246,8 +4254,7 @@ If Size >= Size_KnownChannel(Value) then
     Result := Ptr_WriteString(WorkPtr,Value.Name,True);
     Inc(Result,Ptr_WriteInteger(WorkPtr,Value.ID,True));
     Inc(Result,Ptr_WriteInteger(WorkPtr,Value.PrimaryType,True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,Value.SecondaryType,True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,Value.TertiaryType,True));
+    Inc(Result,Ptr_WriteInteger(WorkPtr,Value.SecondaryTypes,True));
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Indexed,True));
     Inc(Result,Ptr_WriteString(WorkPtr,Value.IndexConfig,True));
     Inc(Result,Ptr_WriteInteger(WorkPtr,Value.IndexConfigID,True));
@@ -4276,8 +4283,7 @@ WorkPtr := Source;
 Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
 Inc(Result,Ptr_ReadInteger(WorkPtr,Integer(Value.ID),True));
 Inc(Result,Ptr_ReadInteger(WorkPtr,Integer(Value.PrimaryType),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,Integer(Value.SecondaryType),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,Integer(Value.TertiaryType),True));
+Inc(Result,Ptr_ReadInteger(WorkPtr,Integer(Value.SecondaryTypes),True));
 Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Indexed,True));
 Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(Value.IndexConfig),True));
 Inc(Result,Ptr_ReadInteger(WorkPtr,Integer(Value.IndexConfigID),True));
@@ -4299,8 +4305,7 @@ begin
 Result := Stream_WriteString(Stream,Value.Name);
 Inc(Result,Stream_WriteInteger(Stream,Value.ID));
 Inc(Result,Stream_WriteInteger(Stream,Value.PrimaryType));
-Inc(Result,Stream_WriteInteger(Stream,Value.SecondaryType));
-Inc(Result,Stream_WriteInteger(Stream,Value.TertiaryType));
+Inc(Result,Stream_WriteInteger(Stream,Value.SecondaryTypes));
 Inc(Result,Stream_WriteBoolean(Stream,Value.Indexed));
 Inc(Result,Stream_WriteString(Stream,Value.IndexConfig));
 Inc(Result,Stream_WriteInteger(Stream,Value.IndexConfigID));
@@ -4314,8 +4319,7 @@ begin
 Result := Stream_ReadString(Stream,UTF8String(Value.Name));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.ID)));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.PrimaryType)));
-Inc(Result,Stream_ReadInteger(Stream,Integer(Value.SecondaryType)));
-Inc(Result,Stream_ReadInteger(Stream,Integer(Value.TertiaryType)));
+Inc(Result,Stream_ReadInteger(Stream,Integer(Value.SecondaryTypes)));
 Inc(Result,Stream_ReadBoolean(Stream,Value.Indexed));
 Inc(Result,Stream_ReadString(Stream,UTF8String(Value.IndexConfig)));
 Inc(Result,Stream_ReadInteger(Stream,Integer(Value.IndexConfigID)));

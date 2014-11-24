@@ -2,7 +2,7 @@
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2014-11-05)
+@lastmod(2014-11-24)
 
   @bold(@NoAutoLink(TelemetryLists))
 
@@ -19,7 +19,7 @@
    |- TStoredConfigsList
    |- TStoredChannelsValuesList
 )
-  Last change:  2014-11-05
+  Last change:  2014-11-24
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -119,8 +119,9 @@
                          @item(TRegisteredChannelsList.Add)
                          @item(TRegisteredChannelsList.CreateContext)))
     @item(2014-11-05 - Small implementation changes.)
-    @item(2014-11-24 - Changes due to a new system of storing secondary types of
-                       channel value. This changes include: @unorderedList(
+    @item(2014-11-24 - Changes due to a new system of storing and passing
+                       secondary types of channel value. This changes include:
+                       @unorderedList(
                          @itemSpacing(Compact)
                          @item(Fields @code(SecondaryType) and @code(TertiaryType)
                                in structure TKnownChannel replaced by field
