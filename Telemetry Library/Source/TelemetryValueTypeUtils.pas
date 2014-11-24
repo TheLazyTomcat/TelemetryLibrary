@@ -1,3 +1,4 @@
+// todo: documentation
 unit TelemetryValueTypeUtils;
 
 interface
@@ -34,6 +35,9 @@ uses
 type
   TValueTypeBitmask = LongWord;
   TValueTypesArray  = Array[0..SizeOf(TValueTypeBitmask) * 8] of scs_value_type_t; {33 items}
+
+const
+  cNoValueType = TValueTypeBitmask(0);
 
   procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);  
 
