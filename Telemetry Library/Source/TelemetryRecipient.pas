@@ -149,7 +149,7 @@
                        @unorderedList(
                          @itemSpacing(Compact)
                          @item(Method TTelemetryRecipiemt.ChannelRegisterAll
-                              completely reimplemented))))
+                               completely reimplemented))))
 
 @html(<hr>)}
 unit TelemetryRecipient;

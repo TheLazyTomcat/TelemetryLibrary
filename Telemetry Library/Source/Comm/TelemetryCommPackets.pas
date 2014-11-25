@@ -3,7 +3,7 @@
           packets.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-15)
-@lastmod(2014-11-05)
+@lastmod(2014-11-25)
 
   @bold(@NoAutoLink(TelemetryCommPackets))
 
@@ -14,7 +14,7 @@
   identifier numbers of individual defined packets along with documentation
   about their structure.
 
-  Last change:  2014-11-05
+  Last change:  2014-11-25
 
   Change List:@unorderedList(
     @item(2014-05-15 - First stable version.)
@@ -22,7 +22,13 @@
     @item(2014-11-05 - Type of fields TPacketBuffer.Size and
                        TPacketHeader.PayloadSize changed from signed to unsigned
                        integer.)
-    @item(2014-11-05 - Added type TPacketID.))
+    @item(2014-11-05 - Added type TPacketID.)
+    @item(2014-11-25 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Changed structure of packet
+                               TC_PACKET_CHANNEL_REGISTER_ALL))))
 
 @html(<hr>)
   Communication between server and client(s) is realized using variable length
@@ -1394,9 +1400,8 @@ const
 @preformatted(
         value       |   size   |  value type  |  meaning
 
-    Primary types     1 byte     Boolean
-    Secondary types   1 byte     Boolean
-    Tertiary types    1 byte     Boolean
+    Primary type      1 byte     Boolean
+    Secondary types   4 byte     32b uint
 )
 
   Instructs server to register all known channels.@br

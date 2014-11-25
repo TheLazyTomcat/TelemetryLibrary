@@ -51,11 +51,11 @@ uses
   
   TelemetryLogText          in '..\Source\Log\TelemetryLogText.pas',
   TelemetryLogBinary        in '..\Source\Log\TelemetryLogBinary.pas',
-  TelemetryLogBinaryParser  in '..\Source\Log\TelemetryLogBinaryParser.pas';
+  TelemetryLogBinaryParser  in '..\Source\Log\TelemetryLogBinaryParser.pas',
 
-//  TelemetryCommCommon           in '..\Source\Comm\TelemetryCommCommon.pas',
-//  TelemetryCommPackets          in '..\Source\Comm\TelemetryCommPackets.pas',
-//  TelemetryCommCircularBuffers  in '..\Source\Comm\TelemetryCommCircularBuffers.pas',
+  TelemetryCommCommon           in '..\Source\Comm\TelemetryCommCommon.pas',
+  TelemetryCommPackets          in '..\Source\Comm\TelemetryCommPackets.pas',
+  TelemetryCommCircularBuffers  in '..\Source\Comm\TelemetryCommCircularBuffers.pas';
 //  TelemetryCommPacketsAllocator in '..\Source\Comm\TelemetryCommPacketsAllocator.pas',
 //  TelemetryCommPacketsBuilder   in '..\Source\Comm\TelemetryCommPacketsBuilder.pas',
 //  TelemetryCommPacketsResolving in '..\Source\Comm\TelemetryCommPacketsResolving.pas',
