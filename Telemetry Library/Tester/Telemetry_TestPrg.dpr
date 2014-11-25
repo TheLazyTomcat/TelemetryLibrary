@@ -34,10 +34,10 @@ uses
   BitOps          in '..\Source\Libs\BitOps.pas',
 
   TelemetryCommon           in '..\Source\TelemetryCommon.pas',
-  TelemetryValueTypeUtils   in '..\Source\TelemetryValueTypeUtils.pas',
   TelemetryIDs              in '..\Source\TelemetryIDs.pas',
   TelemetryConversions      in '..\Source\TelemetryConversions.pas',
   TelemetryStrings          in '..\Source\TelemetryStrings.pas',
+  TelemetryValueTypeUtils   in '..\Source\TelemetryValueTypeUtils.pas',  
   TelemetryLists            in '..\Source\TelemetryLists.pas',
   TelemetryStreaming        in '..\Source\TelemetryStreaming.pas',
   TelemetryVersionObjects   in '..\Source\TelemetryVersionObjects.pas',
@@ -51,18 +51,18 @@ uses
   
   TelemetryLogText          in '..\Source\Log\TelemetryLogText.pas',
   TelemetryLogBinary        in '..\Source\Log\TelemetryLogBinary.pas',
-  TelemetryLogBinaryParser  in '..\Source\Log\TelemetryLogBinaryParser.pas',
+  TelemetryLogBinaryParser  in '..\Source\Log\TelemetryLogBinaryParser.pas';
 
-  TelemetryCommCommon           in '..\Source\Comm\TelemetryCommCommon.pas',
-  TelemetryCommPackets          in '..\Source\Comm\TelemetryCommPackets.pas',
-  TelemetryCommCircularBuffers  in '..\Source\Comm\TelemetryCommCircularBuffers.pas',
-  TelemetryCommPacketsAllocator in '..\Source\Comm\TelemetryCommPacketsAllocator.pas',
-  TelemetryCommPacketsBuilder   in '..\Source\Comm\TelemetryCommPacketsBuilder.pas',
-  TelemetryCommPacketsResolving in '..\Source\Comm\TelemetryCommPacketsResolving.pas',
-  TelemetryCommRemoteRecipient  in '..\Source\Comm\TelemetryCommRemoteRecipient.pas',
-  TelemetryCommTransmitter      in '..\Source\Comm\TelemetryCommTransmitter.pas',
-  TelemetryCommReceiver         in '..\Source\Comm\TelemetryCommReceiver.pas',
-  TelemetryCommCommunicator     in '..\Source\Comm\TelemetryCommCommunicator.pas';
+//  TelemetryCommCommon           in '..\Source\Comm\TelemetryCommCommon.pas',
+//  TelemetryCommPackets          in '..\Source\Comm\TelemetryCommPackets.pas',
+//  TelemetryCommCircularBuffers  in '..\Source\Comm\TelemetryCommCircularBuffers.pas',
+//  TelemetryCommPacketsAllocator in '..\Source\Comm\TelemetryCommPacketsAllocator.pas',
+//  TelemetryCommPacketsBuilder   in '..\Source\Comm\TelemetryCommPacketsBuilder.pas',
+//  TelemetryCommPacketsResolving in '..\Source\Comm\TelemetryCommPacketsResolving.pas',
+//  TelemetryCommRemoteRecipient  in '..\Source\Comm\TelemetryCommRemoteRecipient.pas',
+//  TelemetryCommTransmitter      in '..\Source\Comm\TelemetryCommTransmitter.pas',
+//  TelemetryCommReceiver         in '..\Source\Comm\TelemetryCommReceiver.pas',
+//  TelemetryCommCommunicator     in '..\Source\Comm\TelemetryCommCommunicator.pas';
 
   procedure RandomizeArray(var Value: TValueTypesArray);
   var
@@ -97,6 +97,8 @@ var
   VT:   scs_value_type_t;
   BT:   Boolean;
   TIP:  TTelemetryInfoProvider;
+  TSL:  TStringList;
+  STR:  String;
 
 begin
   Randomize;
@@ -181,6 +183,21 @@ begin
   BM := Random(High(TValueTypeBitmask));
   WriteLn(NumberToBits(BM));
   WriteArray(BitmaskValueTypes(BM),False);
+
+  // BitmaskValueTypesAddPrimary
+  WriteLn;
+  WriteLn('BitmaskValueTypesAddPrimary');
+  For i := 1 to 5 do
+    begin
+      BM := Random((1 shl 11) + 1);
+      VT := Random(SCS_VALUE_TYPE_LAST);
+      WriteLn(NumberToBits(BM) + ' ' + SCSValueTypeToStr(VT));
+      WriteArray(BitmaskValueTypesAddPrimary(BM,VT),False);
+    end;
+  BM := Random(High(TValueTypeBitmask));
+  VT := Random(SCS_VALUE_TYPE_LAST);
+  WriteLn(NumberToBits(BM) + ' ' + SCSValueTypeToStr(VT));
+  WriteArray(BitmaskValueTypesAddPrimary(BM,VT),False);
 
   // ValueTypeBitmaskAdd
   WriteLn;
@@ -316,8 +333,26 @@ begin
       WriteArray(SelectSupportedValueTypes(i,BT,BM),False);
     end;
 
-  TIP := TTelemetryInfoProvider.Create;
+  TIP := TTelemetryInfoProvider.CreateCurrent('eut2');
   try
+    TSL := TStringList.Create;
+    try
+      For i := 0 to Pred(TIP.KnownChannels.Count) do
+        begin
+          STR := '(' + ItemIDToStr(TIP.KnownChannels[i].ID) + ')' + TIP.KnownChannels[i].Name;
+          If TIP.KnownChannels[i].Indexed then
+            STR := STR + '[(' + ItemIDToStr(TIP.KnownChannels[i].IndexConfigID) + ')' +
+                   TIP.KnownChannels[i].IndexConfig + '(' + IntToStr(TIP.KnownChannels[i].MaxIndex) + ')]';
+          STR := STR + ' ' + SCSValueTypeToStr(TIP.KnownChannels[i].PrimaryType);
+          If TIP.KnownChannels[i].SecondaryTypes <> 0 then
+            STR := STR + ' (' + ValueTypesArrayToStr(BitmaskValueTypes(TIP.KnownChannels[i].SecondaryTypes)) + ')';
+          TSL.Add(STR);
+        end;
+      TSL.SaveToFile('channels.txt');
+    finally
+      STR := '';
+      TSL.Free;
+    end;
   finally
     TIP.Free;
   end;
