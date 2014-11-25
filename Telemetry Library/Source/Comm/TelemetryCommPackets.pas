@@ -23,9 +23,13 @@
                        TPacketHeader.PayloadSize changed from signed to unsigned
                        integer.)
     @item(2014-11-05 - Added type TPacketID.)
-    @item(2014-11-25 - Changed structure of packet TC_PACKET_CHANNEL_REGISTER_ALL
-                       due to a new system of storing and passing secondary
-                       types of channel value.))
+    @item(2014-11-25 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                        @itemSpacing(Compact)
+                        @item(Changed structure of packet TC_PACKET_KNOWN_CHANNELS_INDEX)
+                        @item(Changed structure of packet TC_PACKET_KNOWN_CHANNELS_ALL)
+                        @item(Changed structure of packet TC_PACKET_CHANNEL_REGISTER_ALL))))
 
 @html(<hr>)
   Communication between server and client(s) is realized using variable length
@@ -753,8 +757,7 @@ const
     Name              variable   String
     ID                4 bytes    TChannelID
     Primary type      4 bytes    scs_value_type_t
-    Secondary type    4 bytes    scs_value_type_t
-    Tertiary type     4 bytes    scs_value_type_t
+    Secondary types   4 bytes    TValueTypeBitmask
     Indexed           1 byte     Boolean
     Index config      variable   String
     Index config id   4 bytes    TItemID
@@ -818,8 +821,7 @@ const
     Name              variable   String
     ID                4 bytes    TChannelID
     Primary type      4 bytes    scs_value_type_t
-    Secondary type    4 bytes    scs_value_type_t
-    Tertiary type     4 bytes    scs_value_type_t
+    Secondary types   4 bytes    TValueTypeBitmask
     Indexed:          1 byte     Boolean
     Index config      variable   String
     Index config id   4 bytes    TItemID

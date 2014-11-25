@@ -618,7 +618,7 @@ while DefferedOperations.ContainsOperation do
 {--- ---                                                                --- ---}
       dotChannelRegAll:
         with DefferedOperation.ChannelsRegAllParams do
-          Recipient.ChannelRegisterAll(RegisterPrimaryTypes,RegisterSecondaryTypes,RegisterTertiaryTypes);
+          Recipient.ChannelRegisterAll(RegPrimaryType,SecondarySelectionMask);
 {--- ---                                                                --- ---}
       dotChannelUnregAll:
         Recipient.ChannelUnregisterAll;

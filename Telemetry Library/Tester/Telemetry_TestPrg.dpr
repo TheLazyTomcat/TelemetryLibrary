@@ -58,11 +58,11 @@ uses
   TelemetryCommCircularBuffers  in '..\Source\Comm\TelemetryCommCircularBuffers.pas',
   TelemetryCommPacketsAllocator in '..\Source\Comm\TelemetryCommPacketsAllocator.pas',
   TelemetryCommPacketsBuilder   in '..\Source\Comm\TelemetryCommPacketsBuilder.pas',
-  TelemetryCommPacketsResolving in '..\Source\Comm\TelemetryCommPacketsResolving.pas';
-//  TelemetryCommRemoteRecipient  in '..\Source\Comm\TelemetryCommRemoteRecipient.pas',
-//  TelemetryCommTransmitter      in '..\Source\Comm\TelemetryCommTransmitter.pas',
-//  TelemetryCommReceiver         in '..\Source\Comm\TelemetryCommReceiver.pas',
-//  TelemetryCommCommunicator     in '..\Source\Comm\TelemetryCommCommunicator.pas';
+  TelemetryCommPacketsResolving in '..\Source\Comm\TelemetryCommPacketsResolving.pas',
+  TelemetryCommRemoteRecipient  in '..\Source\Comm\TelemetryCommRemoteRecipient.pas',
+  TelemetryCommTransmitter      in '..\Source\Comm\TelemetryCommTransmitter.pas',
+  TelemetryCommReceiver         in '..\Source\Comm\TelemetryCommReceiver.pas',
+  TelemetryCommCommunicator     in '..\Source\Comm\TelemetryCommCommunicator.pas';
 
   procedure RandomizeArray(var Value: TValueTypesArray);
   var

@@ -33,14 +33,15 @@
     @item(2014-11-05 - Type of result changed from signed to unsigned integer
                        for method
                        TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize)
-    @item(2014-11-25 - Changed implementation and resulting packet layout of
-                       method TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL
-                       due to a new system of storing and passing secondary
-                       types of channel value. Implementation of method
-                       TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize
-                       also slightly changed to mirror new structure of packet
-                       TC_PACKET_CHANNEL_REGISTER_ALL))
-
+    @item(2014-11-25 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Changed implementation of method
+                               TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL)
+                         @item(Changed result of method
+                               TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize
+                               for affected packets))))
 
 
 @html(<hr>)}
@@ -885,8 +886,7 @@ end;
     Name              variable   String
     ID                4 bytes    TChannelID
     Primary type      4 bytes    scs_value_type_t
-    Secondary type    4 bytes    scs_value_type_t
-    Tertiary type     4 bytes    scs_value_type_t
+    Secondary types   4 bytes    TValueTypeBitmask
     Indexed           1 byte     Boolean
     Index config      variable   String
     Index config id   4 bytes    TItemID
@@ -942,8 +942,7 @@ end;
     Name              variable   String
     ID                4 bytes    TChannelID
     Primary type      4 bytes    scs_value_type_t
-    Secondary type    4 bytes    scs_value_type_t
-    Tertiary type     4 bytes    scs_value_type_t
+    Secondary types   4 bytes    TValueTypeBitmask
     Indexed:          1 byte     Boolean
     Index config      variable   String
     Index config id   4 bytes    TItemID
@@ -1892,7 +1891,7 @@ case PacketID of
   TC_PACKET_KNOWN_CHANNELS_COUNT_GET:         Result := 0;
   TC_PACKET_KNOWN_CHANNELS_COUNT:             Result := SizeOf(Integer);
   TC_PACKET_KNOWN_CHANNELS_INDEX_GET:         Result := SizeOf(Integer);
-  TC_PACKET_KNOWN_CHANNELS_INDEX:             Result := SizeOf(Integer) + 2 * SizeOfString + SizeOf(TChannelID) + 3 * SizeOf(scs_value_type_t) + SizeOf(Boolean) + SizeOf(TItemID);
+  TC_PACKET_KNOWN_CHANNELS_INDEX:             Result := SizeOf(Integer) + 2 * SizeOfString + SizeOf(TChannelID) + SizeOf(scs_value_type_t) + SizeOf(LongWord) + SizeOf(Boolean) + SizeOf(TItemID);
   TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET:     Result := 0;
   TC_PACKET_KNOWN_CHANNELS_ALL_GET:           Result := 0;
   TC_PACKET_KNOWN_CHANNELS_ALL:               Result := SizeOf(Integer);
