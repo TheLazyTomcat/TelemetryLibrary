@@ -1,5 +1,6 @@
 todo:
   add lazarus/newer delphi support	
+  add 64bit support
   rework channel types (there can be 4 - maybe more, have to try - types ped channel, not 3)
 
 done:
