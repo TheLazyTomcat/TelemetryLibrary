@@ -348,7 +348,7 @@ begin
             STR := STR + ' (' + ValueTypesArrayToStr(BitmaskValueTypes(TIP.KnownChannels[i].SecondaryTypes)) + ')';
           TSL.Add(STR);
         end;
-      TSL.SaveToFile('channels.txt');
+//    TSL.SaveToFile('channels.txt');
     finally
       STR := '';
       TSL.Free;
