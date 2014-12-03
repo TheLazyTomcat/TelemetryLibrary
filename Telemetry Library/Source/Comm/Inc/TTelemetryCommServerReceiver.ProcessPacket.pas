@@ -675,11 +675,9 @@ begin
 If PacketsBuilder.CheckPacketPayloadSize(Packet) then
   begin
     CurrPtr := GetPayloadAddress(Packet);
-    RegInfo.RegisterPrimaryTypes := Ptr_ReadoutBoolean(CurrPtr,True);
-    RegInfo.RegisterSecondaryTypes := Ptr_ReadoutBoolean(CurrPtr,True);
-    RegInfo.RegisterTertiaryTypes := Ptr_ReadoutBoolean(CurrPtr,True);
-    DefferedOperations.AddOperation(ConnectionData,dotChannelRegAll,RegInfo.RegisterPrimaryTypes,
-                                    RegInfo.RegisterSecondaryTypes,RegInfo.RegisterTertiaryTypes);
+    RegInfo.RegPrimaryType := Ptr_ReadoutBoolean(CurrPtr,True);
+    RegInfo.SecondarySelectionMask := Ptr_ReadoutInteger(CurrPtr,True);
+    DefferedOperations.AddOperation(ConnectionData,dotChannelRegAll,RegInfo.RegPrimaryType,RegInfo.SecondarySelectionMask);
   end
 else
   Transmitter.SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_ERROR(Packet,petPacketTooSmall),ConnectionData);

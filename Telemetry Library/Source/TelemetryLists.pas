@@ -2,7 +2,7 @@
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2014-11-05)
+@lastmod(2014-11-24)
 
   @bold(@NoAutoLink(TelemetryLists))
 
@@ -19,7 +19,7 @@
    |- TStoredConfigsList
    |- TStoredChannelsValuesList
 )
-  Last change:  2014-11-05
+  Last change:  2014-11-24
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -118,7 +118,18 @@
                          @item(TRegisteredEventsList.CreateContext)
                          @item(TRegisteredChannelsList.Add)
                          @item(TRegisteredChannelsList.CreateContext)))
-    @item(2014-11-05 - Small implementation changes.))
+    @item(2014-11-05 - Small implementation changes.)
+    @item(2014-11-24 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Fields @code(SecondaryType) and @code(TertiaryType)
+                               in structure TKnownChannel replaced by field
+                               @link(TKnownChannel.SecondaryTypes SecondaryTypes))
+                         @item(Added new variants of method TKnownChannelsList.Add)
+                         @item(Added new variants of method TKnownChannelsList.ReplaceIndex)
+                         @item(Added new variants of method TKnownChannelsList.Replace)
+                         @item(Added new variants of method TKnownChannelsList.Insert))))
 
 @html(<hr>)}
 unit TelemetryLists;
@@ -135,6 +146,7 @@ uses
   MulticastEvent,
 {$ENDIF}
   TelemetryCommon,
+  TelemetryValueTypeUtils,
   TelemetryIDs,
 {$IFDEF Documentation}
   TelemetryConversions,
@@ -551,27 +563,27 @@ type
 {
   Structure used as an item in TKnownChannelsList class.
 
-  @member(Name          @NoAutoLink(Name) of the channel.)
-  @member(ID            Identifier of the channel (calculated from
-                        @noAutoLink(name)).)
-  @member(PrimaryType   Primary value type of the channel.)
-  @member(SecondaryType Secondary value type of the channel.)
-  @member(TertiaryType  Tertiary value type of the channel.)
-  @member(Indexed       Flag indicating whether the channel is
-                        @NoAutoLink(indexed).)
-  @member(IndexConfig   Full @NoAutoLink(name) of a config that should store
-                        count (that is, maxindex + 1) for this channel (has
-                        meaning only for @NoAutoLink(indexed) channels).)
-  @member(IndexConfigID Identifier of config that stores count for this
-                        channel (see IndexConfig field).)
-  @member(MaxIndex      Maximum index for @NoAutoLink(indexed) channels.)
+  @member(Name           @NoAutoLink(Name) of the channel.)
+  @member(ID             Identifier of the channel (calculated from
+                         @noAutoLink(name)).)
+  @member(PrimaryType    Primary value type of the channel.)
+  @member(SecondaryTypes Bitmask storing all secondary types this channel can
+                         provide for its value. For details about how they are
+                         stored, refer to description of type TValueTypeBitmask.)
+  @member(Indexed        Flag indicating whether the channel is
+                         @NoAutoLink(indexed).)
+  @member(IndexConfig    Full @NoAutoLink(name) of a config that should store
+                         count (that is, maxindex + 1) for this channel (has
+                         meaning only for @NoAutoLink(indexed) channels).)
+  @member(IndexConfigID  Identifier of config that stores count for this
+                         channel (see IndexConfig field).)
+  @member(MaxIndex       Maximum index for @NoAutoLink(indexed) channels.)
 }
   TKnownChannel = record
     Name:           TelemetryString;
     ID:             TChannelID;
     PrimaryType:    scs_value_type_t;
-    SecondaryType:  scs_value_type_t;
-    TertiaryType:   scs_value_type_t;
+    SecondaryTypes: TValueTypeBitmask;
     Indexed:        Boolean;
     IndexConfig:    TelemetryString;
     IndexConfigID:  TConfigID;
@@ -586,8 +598,7 @@ const
    (Name:           '';
     ID:             0;
     PrimaryType:    SCS_VALUE_TYPE_INVALID;
-    SecondaryType:  SCS_VALUE_TYPE_INVALID;
-    TertiaryType:   SCS_VALUE_TYPE_INVALID;
+    SecondaryTypes: cNoValueType;
     Indexed:        False;
     IndexConfig:    '';
     IndexConfigID:  0;
@@ -624,80 +635,6 @@ const
 @member(Clear
     Deletes all items in the list.@br
     OnChange event is called after items deletion.)
-
-@member(Add
-    Adds new known channel into the list.@br
-    OnChange event is called after successful addition.
-
-    @param Name          Name of added channel (ID is calculated from it).
-    @param PrimaryType   Primary type of value for this channel.
-    @param SecondaryType Secondary type of value for this channel.
-    @param TertiaryType  Tertiary type of value for this channel.
-    @param Indexed       Flag denoting whether added channel is indexed.
-    @param(IndexConfig   Fully qualified name (id + attribute name) of the
-                         configuration containing @noAutoLink(count) for channel
-                         indices. Has no meaning when the channel is not
-                         indexed.)
-
-    @returns Index at which the new channel was added, -1 when addition failed.)
-
-@member(ReplaceIndex
-    Replaces channel at position given by @code(Index) parameter. When index
-    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful replacement.
-
-    @param Index         Index of item that has to be replaced.
-    @param Name          Name of replacement channel (ID is calculated from it).
-    @param PrimaryType   Primary type of value for this channel.
-    @param SecondaryType Secondary type of value for this channel.
-    @param TertiaryType  Tertiary type of value for this channel.
-    @param Indexed       Flag denoting whether channel is indexed.
-    @param(IndexConfig   Fully qualified name (id + attribute name) of the
-                         configuration containing @noAutoLink(count) for channel
-                         indices. Has no meaning when the channel is not
-                         indexed.))
-
-@member(Replace
-    Replaces channel with name given by @code(OldChannel) parameter. When this
-    channel is not found in the list, nothing happens and the method returns
-    -1.@br
-    OnChange event is called after successful replacement.
-
-    @param(OldEvent      Identification number of channel that has to be
-                         replaced.)
-    @param Name          Name of replacement channel (ID is calculated from it).
-    @param PrimaryType   Primary type of value for this channel.
-    @param SecondaryType Secondary type of value for this channel.
-    @param TertiaryType  Tertiary type of value for this channel.
-    @param Indexed       Flag denoting whether channel is indexed.
-    @param(IndexConfig   Fully qualified name (id + attribute name) of the
-                         configuration containing @noAutoLink(count) for channel
-                         indices. Has no meaning when the channel is not
-                         indexed.)
-
-    @returns(Index of channel that was replaced, -1 when old channel was not
-             found.))
-
-@member(Insert
-    Inserts new channel at position given by @code(Index) parameter. Count is
-    increased by one and all existing items from given position (included) up
-    are moved higher. When index falls out of allowed boundary (<0,Count> -
-    passed index can be higher than current highest index, if so, item is added
-    at the end of the list), and exception is raised.@br
-    OnChange event is called after successful insertion.
-
-    @param Index         Position where the new channel should be inserted.
-    @param Name          Name of inserted channel (ID is calculated from it).
-    @param PrimaryType   Primary type of value for this channel.
-    @param SecondaryType Secondary type of value for this channel.
-    @param TertiaryType  Tertiary type of value for this channel.
-    @param Indexed       Flag denoting whether channel is indexed.
-    @param(IndexConfig   Fully qualified name (id + attribute name) of the
-                         configuration containing @noAutoLink(count) for channel
-                         indices. Has no meaning when the channel is not
-                         indexed.)
-
-    @returns Actual position where the new channel was inserted.)
 
 @member(Remove
     Removes channel with given name from the list. When this channel is not
@@ -776,10 +713,267 @@ type
     @returns Index of channel with requested ID, -1 when not found.
   }
     Function IndexOf(ID: TChannelID): Integer; overload; virtual;
-    Function Add(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;
-    procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); virtual;
-    Function Replace(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;
-    Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;
+  {
+    Adds new known channel into the list.@br
+    OnChange event is called after successful addition.
+
+    @param Name           Name of added channel (ID is calculated from it).
+    @param PrimaryType    Primary type of value for this channel.
+    @param(SecondaryTypes Bitmask with secondary value types this channel can
+                          provide.)
+    @param Indexed        Flag denoting whether added channel is indexed.
+    @param(IndexConfig    Fully qualified name (id + attribute name) of the
+                          configuration containing @noAutoLink(count) for
+                          channel indices. Has no meaning when the channel is
+                          not indexed.)
+
+    @returns Index at which the new channel was added, -1 when addition failed.
+  }
+    Function Add(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Adds new known channel into the list.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    SecondaryValueTypesBitmask whose parameter @code(PrimaryValueType) is set
+    from corresponding parameter of this method.@br
+    OnChange event is called after successful addition.
+
+    @param Name        Name of added channel (ID is calculated from it).
+    @param PrimaryType Primary type of value for this channel.
+    @param Indexed     Flag denoting whether added channel is indexed.
+    @param(IndexConfig Fully qualified name (id + attribute name) of the
+                       configuration containing @noAutoLink(count) for channel
+                       indices. Has no meaning when the channel is not indexed.)
+
+    @returns Index at which the new channel was added, -1 when addition failed.
+  }
+    Function Add(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Adds new known channel into the list.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    ValueTypesBitmask whose parameter @code(ValueTypes) consists of values
+    passed in parameters @code(SecondaryType) and @code(TertiaryType).@br
+    OnChange event is called after successful addition.
+
+    @param Name          Name of added channel (ID is calculated from it).
+    @param PrimaryType   Primary type of value for this channel.
+    @param(SecondaryType Secondary (first secondary) type of value for this
+                         channel.)
+    @param(TertiaryType  Tertiary (second secondary) type of value for this
+                         channel.)
+    @param Indexed       Flag denoting whether added channel is indexed.
+    @param(IndexConfig   Fully qualified name (id + attribute name) of the
+                         configuration containing @noAutoLink(count) for channel
+                         indices. Has no meaning when the channel is not
+                         indexed.)
+
+    @returns Index at which the new channel was added, -1 when addition failed.
+  }
+    Function Add(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Replaces channel at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful replacement.
+
+    @param Index          Index of item that has to be replaced.
+    @param Name           Name of replacement channel (ID is calculated from it).
+    @param PrimaryType    Primary type of value for this channel.
+    @param(SecondaryTypes Bitmask with secondary value types this channel can
+                          provide.)
+    @param Indexed        Flag denoting whether channel is indexed.
+    @param(IndexConfig    Fully qualified name (id + attribute name) of the
+                          configuration containing @noAutoLink(count) for channel
+                          indices. Has no meaning when the channel is not
+                          indexed.)
+  }
+    procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
+  {
+    Replaces channel at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    SecondaryValueTypesBitmask whose parameter @code(PrimaryValueType) is set
+    from corresponding parameter of this method.@br
+    OnChange event is called after successful replacement.
+
+    @param Index       Index of item that has to be replaced.
+    @param Name        Name of replacement channel (ID is calculated from it).
+    @param PrimaryType Primary type of value for this channel.
+    @param Indexed     Flag denoting whether channel is indexed.
+    @param(IndexConfig Fully qualified name (id + attribute name) of the
+                       configuration containing @noAutoLink(count) for channel
+                       indices. Has no meaning when the channel is not indexed.)
+  }
+    procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
+  {
+    Replaces channel at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    ValueTypesBitmask whose parameter @code(ValueTypes) consists of values
+    passed in parameters @code(SecondaryType) and @code(TertiaryType).@br
+    OnChange event is called after successful replacement.
+
+    @param Index         Index of item that has to be replaced.
+    @param Name          Name of replacement channel (ID is calculated from it).
+    @param PrimaryType   Primary type of value for this channel.
+    @param(SecondaryType Secondary (first secondary) type of value for this
+                         channel.)
+    @param(TertiaryType  Tertiary (second secondary) type of value for this
+                         channel.)
+    @param Indexed       Flag denoting whether channel is indexed.
+    @param(IndexConfig   Fully qualified name (id + attribute name) of the
+                         configuration containing @noAutoLink(count) for channel
+                         indices. Has no meaning when the channel is not
+                         indexed.)
+  }
+    procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
+  {
+    Replaces channel with name given by @code(OldChannel) parameter. When this
+    channel is not found in the list, nothing happens and the method returns
+    -1.@br
+    OnChange event is called after successful replacement.
+
+    @param(OldEvent       Identification number of channel that has to be
+                          replaced.)
+    @param Name           Name of replacement channel (ID is calculated from it).
+    @param PrimaryType    Primary type of value for this channel.
+    @param(SecondaryTypes Bitmask with secondary value types this channel can
+                          provide.)
+    @param Indexed        Flag denoting whether channel is indexed.
+    @param(IndexConfig    Fully qualified name (id + attribute name) of the
+                          configuration containing @noAutoLink(count) for channel
+                          indices. Has no meaning when the channel is not
+                          indexed.)
+
+    @returns(Index of channel that was replaced, -1 when old channel was not
+             found.)
+  }
+    Function Replace(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Replaces channel with name given by @code(OldChannel) parameter. When this
+    channel is not found in the list, nothing happens and the method returns
+    -1.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    SecondaryValueTypesBitmask whose parameter @code(PrimaryValueType) is set
+    from corresponding parameter of this method.@br
+    OnChange event is called after successful replacement.
+
+    @param(OldEvent    Identification number of channel that has to be replaced.)
+    @param Name        Name of replacement channel (ID is calculated from it).
+    @param PrimaryType Primary type of value for this channel.
+    @param Indexed     Flag denoting whether channel is indexed.
+    @param(IndexConfig Fully qualified name (id + attribute name) of the
+                       configuration containing @noAutoLink(count) for channel
+                       indices. Has no meaning when the channel is not indexed.)
+
+    @returns(Index of channel that was replaced, -1 when old channel was not
+             found.)
+  }
+    Function Replace(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Replaces channel with name given by @code(OldChannel) parameter. When this
+    channel is not found in the list, nothing happens and the method returns
+    -1.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    ValueTypesBitmask whose parameter @code(ValueTypes) consists of values
+    passed in parameters @code(SecondaryType) and @code(TertiaryType).@br
+    OnChange event is called after successful replacement.
+
+    @param(OldEvent      Identification number of channel that has to be
+                         replaced.)
+    @param Name          Name of replacement channel (ID is calculated from it).
+    @param PrimaryType   Primary type of value for this channel.
+    @param(SecondaryType Secondary (first secondary) type of value for this
+                         channel.)
+    @param(TertiaryType  Tertiary (second secondary) type of value for this
+                         channel.)
+    @param Indexed       Flag denoting whether channel is indexed.
+    @param(IndexConfig   Fully qualified name (id + attribute name) of the
+                         configuration containing @noAutoLink(count) for channel
+                         indices. Has no meaning when the channel is not
+                         indexed.)
+
+    @returns(Index of channel that was replaced, -1 when old channel was not
+             found.)
+  }
+    Function Replace(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Inserts new channel at position given by @code(Index) parameter. Count is
+    increased by one and all existing items from given position (included) up
+    are moved higher. When index falls out of allowed boundary (<0,Count> -
+    passed index can be higher than current highest index, if so, item is added
+    at the end of the list), and exception is raised.@br
+    OnChange event is called after successful insertion.
+
+    @param Index          Position where the new channel should be inserted.
+    @param Name           Name of inserted channel (ID is calculated from it).
+    @param PrimaryType    Primary type of value for this channel.
+    @param(SecondaryTypes Bitmask with secondary value types this channel can
+                          provide.)
+    @param Indexed        Flag denoting whether channel is indexed.
+    @param(IndexConfig    Fully qualified name (id + attribute name) of the
+                          configuration containing @noAutoLink(count) for channel
+                          indices. Has no meaning when the channel is not
+                          indexed.)
+
+    @returns Actual position where the new channel was inserted.
+  }
+    Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Inserts new channel at position given by @code(Index) parameter. Count is
+    increased by one and all existing items from given position (included) up
+    are moved higher. When index falls out of allowed boundary (<0,Count> -
+    passed index can be higher than current highest index, if so, item is added
+    at the end of the list), and exception is raised.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    SecondaryValueTypesBitmask whose parameter @code(PrimaryValueType) is set
+    from corresponding parameter of this method.@br
+    OnChange event is called after successful insertion.
+
+    @param Index       Position where the new channel should be inserted.
+    @param Name        Name of inserted channel (ID is calculated from it).
+    @param PrimaryType Primary type of value for this channel.
+    @param Indexed     Flag denoting whether channel is indexed.
+    @param(IndexConfig Fully qualified name (id + attribute name) of the
+                       configuration containing @noAutoLink(count) for channel
+                       indices. Has no meaning when the channel is not indexed.)
+
+    @returns Actual position where the new channel was inserted.
+  }
+    Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Inserts new channel at position given by @code(Index) parameter. Count is
+    increased by one and all existing items from given position (included) up
+    are moved higher. When index falls out of allowed boundary (<0,Count> -
+    passed index can be higher than current highest index, if so, item is added
+    at the end of the list), and exception is raised.@br
+    Internally calls variant of this method that has parameter
+    @code(SecondaryTypes) with this parameter filled by function
+    ValueTypesBitmask whose parameter @code(ValueTypes) consists of values
+    passed in parameters @code(SecondaryType) and @code(TertiaryType).@br    
+    OnChange event is called after successful insertion.
+
+    @param Index         Position where the new channel should be inserted.
+    @param Name          Name of inserted channel (ID is calculated from it).
+    @param PrimaryType   Primary type of value for this channel.
+    @param(SecondaryType Secondary (first secondary) type of value for this
+                         channel.)
+    @param(TertiaryType  Tertiary (second secondary) type of value for this
+                         channel.)
+    @param Indexed       Flag denoting whether channel is indexed.
+    @param(IndexConfig   Fully qualified name (id + attribute name) of the
+                         configuration containing @noAutoLink(count) for channel
+                         indices. Has no meaning when the channel is not
+                         indexed.)
+
+    @returns Actual position where the new channel was inserted.
+  }
+    Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
     Function Remove(const Name: TelemetryString): Integer; virtual;
     procedure Delete(Index: Integer); virtual;
     Function ChannelIndexConfigID(const Name: TelemetryString): TItemID; virtual;
@@ -2515,7 +2709,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TKnownChannelsList.Add(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+Function TKnownChannelsList.Add(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
 var
   NewChannel: PKnownChannel;
 begin
@@ -2523,8 +2717,7 @@ New(NewChannel);
 NewChannel^.Name := Name;
 NewChannel^.ID := ChannelNameToID(Name);
 NewChannel^.PrimaryType := PrimaryType;
-NewChannel^.SecondaryType := SecondaryType;
-NewChannel^.TertiaryType := TertiaryType;
+NewChannel^.SecondaryTypes := SecondaryTypes;
 NewChannel^.Indexed := Indexed;
 NewChannel^.IndexConfig := IndexConfig;
 NewChannel^.IndexConfigID := GetItemID(IndexConfig);
@@ -2535,7 +2728,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TKnownChannelsList.ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL);
+Function TKnownChannelsList.Add(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+begin
+Result := Add(Name,PrimaryType,SecondaryValueTypesBitmask(PrimaryType),Indexed,IndexConfig,MaxIndex);
+end;
+
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Add(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+begin
+Result := Add(Name,PrimaryType,ValueTypesBitmask([SecondaryType,TertiaryType]),Indexed,IndexConfig,MaxIndex)
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TKnownChannelsList.ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL);
 var
   KnownChannel: PKnownChannel;
 begin
@@ -2545,8 +2752,7 @@ If (Index >= 0) and (Index < Count) then
     KnownChannel^.Name := Name;
     KnownChannel^.ID := ChannelNameToID(Name);
     KnownChannel^.PrimaryType := PrimaryType;
-    KnownChannel^.SecondaryType := SecondaryType;
-    KnownChannel^.TertiaryType := TertiaryType;
+    KnownChannel^.SecondaryTypes := SecondaryTypes;
     KnownChannel^.Indexed := Indexed;
     KnownChannel^.IndexConfig := IndexConfig;
     KnownChannel^.IndexConfigID := GetItemID(IndexConfig);
@@ -2560,29 +2766,56 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TKnownChannelsList.Replace(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+procedure TKnownChannelsList.ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL);
 begin
-Result := IndexOf(OldChannel);
-If Result >= 0 then
-  ReplaceIndex(Result,Name,PrimaryType,SecondaryType,TertiaryType,Indexed,Indexconfig,MaxIndex);
+ReplaceIndex(Index,Name,PrimaryType,SecondaryValueTypesBitmask(PrimaryType),Indexed,IndexConfig,MaxIndex);
 end;
 
 //------------------------------------------------------------------------------
 
-Function TKnownChannelsList.Insert(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+procedure TKnownChannelsList.ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL);
+begin
+ReplaceIndex(Index,Name,PrimaryType,ValueTypesBitmask([SecondaryType,TertiaryType]),Indexed,IndexConfig,MaxIndex);
+end;
+
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Replace(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+begin
+Result := IndexOf(OldChannel);
+If Result >= 0 then
+  ReplaceIndex(Result,Name,PrimaryType,SecondaryTypes,Indexed,Indexconfig,MaxIndex);
+end;
+
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Replace(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; 
+begin
+Result := Replace(OldChannel,Name,PrimaryType,SecondaryValueTypesBitmask(PrimaryType),Indexed,IndexConfig,MaxIndex);
+end;
+
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Replace(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+begin
+Result := Replace(OldChannel,Name,PrimaryType,ValueTypesBitmask([SecondaryType,TertiaryType]),Indexed,IndexConfig,MaxIndex);
+end;
+
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Insert(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
 var
   NewChannel: PKnownChannel;
 begin
 If (Index < 0) or (Index >= Count) then
-  Result := Add(Name,PrimaryType,SecondaryType,TertiaryType,Indexed,Indexconfig,MaxIndex)
+  Result := Add(Name,PrimaryType,SecondaryTypes,Indexed,Indexconfig,MaxIndex)
 else
   begin
     New(NewChannel);
     NewChannel^.Name := Name;
     NewChannel^.ID := ChannelNameToID(Name);
     NewChannel^.PrimaryType := PrimaryType;
-    NewChannel^.SecondaryType := SecondaryType;
-    NewChannel^.TertiaryType := TertiaryType;
+    NewChannel^.SecondaryTypes := SecondaryTypes;
     NewChannel^.Indexed := Indexed;
     NewChannel^.IndexConfig := IndexConfig;
     NewChannel^.IndexConfigID := GetItemID(IndexConfig);
@@ -2590,6 +2823,19 @@ else
     Result := Index;
     PtrInsert(Index,NewChannel);
   end;
+end;
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Insert(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+begin
+Result := Insert(Index,Name,PrimaryType,SecondaryValueTypesBitmask(PrimaryType),Indexed,IndexConfig,MaxIndex);
+end;
+
+//------------------------------------------------------------------------------
+
+Function TKnownChannelsList.Insert(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer;
+begin
+Result := Insert(Index,Name,PrimaryType,ValueTypesBitmask([SecondaryType,TertiaryType]),Indexed,IndexConfig,MaxIndex);
 end;
 
 //------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 @abstract(Provides classes implemented as one way circular buffer.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-16)
-@lastmod(2014-05-16)
+@lastmod(2014-11-25)
 
   @bold(@NoAutoLink(TelemetryCommCircularBuffers))
 
@@ -14,10 +14,22 @@
    |- TCircularChannelsBuffer
    |- TDefferedOperationsBuffer
 )
-  Last change:  2014-05-16
+  Last change:  2014-11-25
 
   Change List:@unorderedList(
-    @item(2014-05-16 - First stable version.))
+    @item(2014-05-16 - First stable version.)
+    @item(2014-11-25 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Fields @code(RegisterSecondaryTypes) and
+                               @code(RegisterTertiaryTypes) in structure
+                               TChannelRegisterAllOperationInfo replaced by field
+                               @link(TKnownChannel.SecondaryTypesSelectionMask
+                               SecondaryTypesSelectionMask))
+                         @item(Method TDefferedOperationsBuffer.AddOperation
+                               (variant that stores information about registering
+                               all channels) reiwritten))))
 
 @html(<hr>)}
 unit TelemetryCommCircularBuffers;
@@ -503,14 +515,17 @@ type
   Structure used in TDefferedOperationsBuffer to hold parameters for
   @code(dotChannelRegisterAll) operation type.
 
-  @member(RegisterPrimaryTypes Primary value types should be registered.)
-  @member(RegisterSecondaryTypes Secondary value types should be registered.)
-  @member(RegisterTertiaryTypes Tertiary value types should be registered.)
+  @member(RegPrimaryType         Primary value types should be registered.)
+  @member(SecondarySelectionMask Bitmask denoting what secondary value types
+                                 should be registered. See description of
+                                 function SelectSupportedValueTypes (parameter
+                                 @code(SecondarySelectionMask)) for details
+                                 about how the individual types are selected
+                                 based on this mask.)
 }
   TChannelRegisterAllOperationInfo = record
-    RegisterPrimaryTypes:   Boolean;
-    RegisterSecondaryTypes: Boolean;
-    RegisterTertiaryTypes:  Boolean;
+    RegPrimaryType:         Boolean;
+    SecondarySelectionMask: LongWord;
   end;
 
 {
@@ -612,7 +627,7 @@ type
 
     @bold(Warning!) - Use appropriate method for different operations.@br
     This method is intended for event registration management operations
-    (@code(dotEventRegister,dotEventUnregister)). Items @code(EventParams) field
+    (@code(dotEventRegister,dotEventUnregister)). Item @code(EventParams) field
     is filled.
 
     @param(ConnectionData Data about connection endpoint that is adding this
@@ -629,7 +644,7 @@ type
 
     @bold(Warning!) - Use appropriate method for different operations.@br
     This method is intended for basic channel registration management operations
-    (@code(dotChannelRegister,dotChannelUnregister)). Items @code(ChannelParams)
+    (@code(dotChannelRegister,dotChannelUnregister)). Item @code(ChannelParams)
     field is filled.
 
     @param(ConnectionData Data about connection endpoint that is adding this
@@ -652,19 +667,19 @@ type
 
     @bold(Warning!) - Use appropriate method for different operations.@br
     This method is intended for operation that registers all known channels
-    (@code(dotChannelRegisterAll)). Items @code(ChannelsRegAllParams) field is
+    (@code(dotChannelRegisterAll)). Item @code(ChannelsRegAllParams) field is
     filled.
 
-    @param(ConnectionData     Data about connection endpoint that is adding this
-                              operation.)
-    @param OperationType      Type of deffered operation.
-    @param(PrimaryValueType   Operation parameter (primary value types).)
-    @param(SecondaryValueType Operation parameter (secondary value types).)
-    @param(TertiaryValueType  Operation parameter (tertiary value types).)
+    @param(ConnectionData         Data about connection endpoint that is adding
+                                  this operation.)
+    @param OperationType          Type of deffered operation.
+    @param RegPrimaryType         Operation parameter (primary value types).
+    @param(SecondarySelectionMask Operation parameter (secondary value types
+                                  selection bitmask).)
 
   }
     procedure AddOperation(ConnectionData: Pointer; OperationType: TDefferedOperationType;
-                           PrimaryValueType,SecondaryValueType,TertiaryValueType: Boolean); overload; virtual;
+                           RegPrimaryType: Boolean; SecondarySelectionMask: LongWord); overload; virtual;
     Function PeekOperation: TDefferedOperation; virtual;
     Function RemoveOperation: Boolean; virtual;
     Function ContainsOperation: Boolean; virtual;
@@ -1120,7 +1135,7 @@ else
 end;
 
 procedure TDefferedOperationsBuffer.AddOperation(ConnectionData: Pointer; OperationType: TDefferedOperationType;
-                                                 PrimaryValueType,SecondaryValueType,TertiaryValueType: Boolean);
+                                                 RegPrimaryType: Boolean; SecondarySelectionMask: LongWord);
 var
   DefferedOperation:  PDefferedOperation;
 begin
@@ -1129,9 +1144,8 @@ If OperationType in [dotChannelRegAll] then
     DefferedOperation := fMainArray[fCurrentPosition].Data;
     DefferedOperation^.ConnectionData := ConnectionData;
     DefferedOperation^.OperationType := OperationType;
-    DefferedOperation^.ChannelsRegAllParams.RegisterPrimaryTypes := PrimaryValueType;
-    DefferedOperation^.ChannelsRegAllParams.RegisterSecondaryTypes := SecondaryValueType;
-    DefferedOperation^.ChannelsRegAllParams.RegisterTertiaryTypes := TertiaryValueType;
+    DefferedOperation^.ChannelsRegAllParams.RegPrimaryType := RegPrimaryType;
+    DefferedOperation^.ChannelsRegAllParams.SecondarySelectionMask := SecondarySelectionMask;
     AddItem(DefferedOperation)
   end
 else

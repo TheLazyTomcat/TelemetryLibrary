@@ -408,10 +408,10 @@ If PacketsBuilder.CheckPacketPayloadSize(Packet) then
         Ptr_Read_KnownChannel(CurrPtr,KnownChannel,True);
         If Index < Recipient.TelemetryInfoProvider.KnownChannels.Count then
           Recipient.TelemetryInfoProvider.KnownChannels.ReplaceIndex(Index,KnownChannel.Name,KnownChannel.PrimaryType,
-            KnownChannel.SecondaryType,KnownChannel.TertiaryType,KnownChannel.Indexed,KnownChannel.IndexConfig,KnownChannel.MaxIndex)
+            KnownChannel.SecondaryTypes,KnownChannel.Indexed,KnownChannel.IndexConfig,KnownChannel.MaxIndex)
         else
           Recipient.TelemetryInfoProvider.KnownChannels.Add(KnownChannel.Name,KnownChannel.PrimaryType,
-            KnownChannel.SecondaryType,KnownChannel.TertiaryType,KnownChannel.Indexed,KnownChannel.IndexConfig,KnownChannel.MaxIndex);
+            KnownChannel.SecondaryTypes,KnownChannel.Indexed,KnownChannel.IndexConfig,KnownChannel.MaxIndex);
       end
     else Transmitter.SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_KNOWN_CHANNELS_ALL_GET,ConnectionData);
   end
@@ -454,7 +454,7 @@ If PacketsBuilder.CheckPacketPayloadSize(Packet) then
         begin
           Ptr_Read_KnownChannel(CurrPtr,KnownChannel,True);
           Recipient.TelemetryInfoProvider.KnownChannels.Add(KnownChannel.Name,KnownChannel.PrimaryType,
-            KnownChannel.SecondaryType,KnownChannel.TertiaryType,KnownChannel.Indexed,KnownChannel.IndexConfig,KnownChannel.MaxIndex);
+            KnownChannel.SecondaryTypes,KnownChannel.Indexed,KnownChannel.IndexConfig,KnownChannel.MaxIndex);
         end;
     finally
       Recipient.TelemetryInfoProvider.KnownChannels.EndUpdate;

@@ -2,7 +2,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-11-08)
+@lastmod(2014-11-25)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
@@ -24,7 +24,7 @@
     .\Inc\TelemetryRecipient_MulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change:  2014-11-08
+  Last change:  2014-11-25
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -143,7 +143,13 @@
                          @item(TTelemetryRecipient.ChannelRegisterByIndex)
                          @item(TTelemetryRecipient.ChannelRegisterByName)))
     @item(2014-11-05 - Small implementation changes.)
-    @item(2014-11-08 - Bugs repairs.))
+    @item(2014-11-08 - Bugs repairs.)
+    @item(2014-11-25 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Method TTelemetryRecipiemt.ChannelRegisterAll
+                               completely reimplemented))))
 
 @html(<hr>)}
 unit TelemetryRecipient;
@@ -165,6 +171,7 @@ uses
   TelemetryVersionObjects,  
   TelemetryInfoProvider,
 {$IFDEF Documentation}
+  TelemetryValueTypeUtils,
   TelemetryConversions,
   TelemetryStrings,
 {$ENDIF}
@@ -766,25 +773,6 @@ type
 
     @returns @True when requested channel was unregistered, @false otherwise.)
 
-@member(ChannelRegisterAll
-    This method registers all channels that the TTelemetryInfoProvider class is
-    aware of for current telemetry and game version.@br
-    When channel is marked as indexed, then all channel and index combinations
-    are registered (see implementation of this method for details), otherwise
-    only channels with index set to SCS_U32_NIL are registered. When
-    ManageIndexedChannels and StoreConfigurations properties are both set to
-    @true, then top index for indexed channel registration is taken from
-    appropriate stored configuration value.@br
-    Set RegPrimaryTypes, RegSecondaryTypes and RegTertiaryTypes to true to
-    register respective channel value type. If all three parameters are set
-    to false, the method executes but nothing is registered.
-
-    @param RegPrimaryTypes   Register primary value type.
-    @param RegSecondaryTypes Register secondary value type.
-    @param RegTertiaryTypes  Register tertiary value type.
-
-    @Returns Number of successfully registered channels.)
-
 @member(ChannelUnregisterAll
     Unregisters all channels listed in RegisteredChannels list.
 
@@ -1168,7 +1156,27 @@ type
     Function ChannelUnregisterIndex(Index: Integer): Boolean; virtual;
     Function ChannelUnregisterByIndex(Index: Integer): Boolean; virtual;
     Function ChannelUnregisterByName(const Name: TelemetryString): Boolean; virtual;
-    Function ChannelRegisterAll(RegPrimaryTypes: Boolean = True; RegSecondaryTypes: Boolean = False; RegTertiaryTypes: Boolean = False): Integer; virtual;
+  {
+    This method registers all channels that the TTelemetryInfoProvider class is
+    aware of for current telemetry and game version.@br
+    When channel is marked as indexed, then all channel and index combinations
+    are registered (see implementation of this method for details), otherwise
+    only channels with index set to SCS_U32_NIL are registered. When
+    ManageIndexedChannels property is set to @true, then top index for indexed
+    channel registration is taken from appropriate stored configuration value
+    (if such exixts).@br
+
+    @param RegPrimaryTypes          Register primary value type.
+    @param(SecondarySelectionMask   Bitmask denoting what secondary value types
+                                    should be registered. See description of
+                                    function SelectSupportedValueTypes (parameter
+                                    @code(SecondarySelectionMask)) for details
+                                    about how the individual types are selected
+                                    based on this mask.)
+
+    @Returns Number of successfully registered channels.
+  }
+    Function ChannelRegisterAll(RegPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;
     Function ChannelUnregisterAll: Integer; virtual;
     Function ChannelGetValueAsString(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;
     Function ConfigStored(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;
@@ -1276,7 +1284,7 @@ implementation
 
 uses
   SysUtils, Math,
-  TelemetryConversions, TelemetryStrings;
+  TelemetryValueTypeUtils, TelemetryConversions, TelemetryStrings;
 
 {$IFDEF MulticastEvents}
   {$DEFINE ImplementationPart}
@@ -1362,8 +1370,8 @@ end;
 {------------------------------------------------------------------------------}
 
 const
-  // Default (initial) values for TTelemeryRecipient properties (um_ calues are
-  // intended as init values for user-managed mode).
+  // Default (initial) values for TTelemeryRecipient properties (um_ values are
+  // intended as initial values for user-managed mode).
   def_AllowAutoRegistration = True;
   def_KeepUtilityEvents     = True;
   def_StoreConfigurations   = True;
@@ -2169,21 +2177,19 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.ChannelRegisterAll(RegPrimaryTypes: Boolean = True; RegSecondaryTypes: Boolean = False; RegTertiaryTypes: Boolean = False): Integer;
+Function TTelemetryRecipient.ChannelRegisterAll(RegPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer;
 var
-  i,j:              Integer;
-  KnownChannelInfo: TKnownChannel;
-  MaxIndex:         Integer;
+  i,j:                Integer;
+  KnownChannelInfo:   TKnownChannel;
+  MinIdx,MaxIdx:      Integer;
+  ChannelValueTypes:  TValueTypesArray;
+  TypeIdx:            Integer;
 
   Function CheckAndRegister(Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean;
   begin
-    Result := False;
-    If ValueType <> SCS_VALUE_TYPE_INVALID then
-      begin
-        If not ChannelRegistered(Name,Index,ValueType) then
-          Result := ChannelRegister(Name,Index,ValueType,SCS_TELEMETRY_CHANNEL_FLAG_none)
-        else Result := True;
-      end;
+    If not ChannelRegistered(Name,Index,ValueType) then
+      Result := ChannelRegister(Name,Index,ValueType,SCS_TELEMETRY_CHANNEL_FLAG_none)
+    else Result := True;
   end;
 
 begin
@@ -2192,61 +2198,36 @@ If Assigned(cbRegisterChannel) then
   For i := 0 to (fInfoProvider.KnownChannels.Count - 1) do
     begin
       KnownChannelInfo := fInfoProvider.KnownChannels[i];
-      If fInfoProvider.KnownChannels[i].Indexed then
+      If KnownChannelInfo.Indexed then
         begin
           // Channel is indexed.
           // If channel is binded to some configuration, and this config is found,
           // then value from config is used as upper index limit, otherwise
           // MaxIndex for given channel is used (cMaxChannelIndex constant is used
           // if MaxIndex for given channel is not properly set).
-          If KnownChannelInfo.MaxIndex <> SCS_U32_NIL then MaxIndex := KnownChannelInfo.MaxIndex
-            else MaxIndex := cMaxChannelIndex;
-          If ManageIndexedChannels and StoreConfigurations and (KnownChannelInfo.IndexConfigID <> 0) then
+          If KnownChannelInfo.MaxIndex <> SCS_U32_NIL then MaxIdx := KnownChannelInfo.MaxIndex
+            else MaxIdx := cMaxChannelIndex;
+          If ManageIndexedChannels and (KnownChannelInfo.IndexConfigID <> 0) then
             begin
               j := fStoredConfigs.IndexOf(KnownChannelInfo.IndexConfigID);
               If j >= 0 then
                 If fStoredConfigs[j].Value.ValueType = SCS_VALUE_TYPE_u32 then
-                  MaxIndex := fStoredConfigs[j].Value.BinaryData.value_u32.value - 1;
+                  MaxIdx := fStoredConfigs[j].Value.BinaryData.value_u32.value - 1;
             end;
-          // The recipient tries to register all indexes from 0 to upper index
-          // limit until the first failed registration.
-          For j := 0 to MaxIndex do
-            begin
-              If RegPrimaryTypes then
-                begin
-                  If CheckAndRegister(KnownChannelInfo.Name,j,
-                      KnownChannelInfo.PrimaryType) then Inc(Result) else Break;
-                end;
-              If RegSecondaryTypes then
-                begin
-                  If CheckAndRegister(KnownChannelInfo.Name,j,
-                      KnownChannelInfo.SecondaryType) then Inc(Result) else Break;
-                end;
-              If RegTertiaryTypes then
-                begin
-                  If CheckAndRegister(KnownChannelInfo.Name,j,
-                      KnownChannelInfo.TertiaryType) then Inc(Result) else Break;
-                end;
-            end;
+          MinIdx := 0;  
         end
       else
         begin
-          // Channel is not indexed.
-          If RegPrimaryTypes then
-            begin
-              If CheckAndRegister(KnownChannelInfo.Name,SCS_U32_NIL,
-                  KnownChannelInfo.PrimaryType) then Inc(Result);
-            end;
-          If RegSecondaryTypes then
-            begin
-              If CheckAndRegister(KnownChannelInfo.Name,SCS_U32_NIL,
-                  KnownChannelInfo.SecondaryType) then Inc(Result);
-            end;
-          If RegTertiaryTypes then
-            begin
-              If CheckAndRegister(KnownChannelInfo.Name,SCS_U32_NIL,
-                  KnownChannelInfo.TertiaryType) then Inc(Result);
-            end;
+          MinIdx := Integer(SCS_U32_NIL);
+          MaxIdx := Integer(SCS_U32_NIL);
+        end;
+      ChannelValueTypes := SelectSupportedValueTypes(KnownChannelInfo.PrimaryType,KnownChannelInfo.SecondaryTypes,RegPrimaryType,SecondarySelectionMask);
+      TypeIdx := Low(TValueTypesArray);
+      while ChannelValueTypes[TypeIdx] <> SCS_VALUE_TYPE_INVALID do
+        begin
+          For j := MinIdx to MaxIdx do
+            If CheckAndRegister(KnownChannelInfo.Name,j,ChannelValueTypes[TypeIdx]) then Inc(Result) else Break;
+          Inc(TypeIdx);  
         end;
     end;
 end;

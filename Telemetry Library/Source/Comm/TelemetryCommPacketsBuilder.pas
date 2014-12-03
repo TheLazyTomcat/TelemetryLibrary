@@ -3,7 +3,7 @@
           packets.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-16)
-@lastmod(2014-11-05)
+@lastmod(2014-11-25)
 
   @bold(@NoAutoLink(TelemetryCommPacketsBuilder))
 
@@ -12,7 +12,7 @@
   This unit contains TTelemetryCommPacketsBuilder class (see class declaration
   for details).
 
-  Last change:  2014-11-05
+  Last change:  2014-11-25
 
   Change List:@unorderedList(
     @item(2014-05-16 - First stable version.)
@@ -32,7 +32,17 @@
                          @item(TTelemetryCommPacketsBuilder.ReusePacket)))
     @item(2014-11-05 - Type of result changed from signed to unsigned integer
                        for method
-                       TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize))
+                       TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize)
+    @item(2014-11-25 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Changed implementation of method
+                               TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL)
+                         @item(Changed result of method
+                               TTelemetryCommPacketsBuilder.MinimalPacketPayloadSize
+                               for affected packets))))
+
 
 @html(<hr>)}
 unit TelemetryCommPacketsBuilder;
@@ -449,7 +459,7 @@ type
     Function BuildPacket_TC_PACKET_CHANNEL_REGISTER(Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; ResultCode: scs_result_t): TPacketBuffer; virtual;
     Function BuildPacket_TC_PACKET_CHANNEL_REGISTER_BY_INDEX(Index: Integer): TPacketBuffer; virtual;
     Function BuildPacket_TC_PACKET_CHANNEL_REGISTER_BY_NAME(Name: TelemetryString): TPacketBuffer; virtual;
-    Function BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL(RegPrimaryTypes,RegSecondaryTypes,RegTertiaryTypes: Boolean): TPacketBuffer; virtual;
+    Function BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL(RegPrimaryType: Boolean; SecondarySelectionMask: Longword): TPacketBuffer; virtual;
     Function BuildPacket_TC_PACKET_CHANNEL_UNREGISTER(Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; ResultCode: scs_result_t): TPacketBuffer; virtual;
     Function BuildPacket_TC_PACKET_CHANNEL_UNREGISTER_INDEX(Index: Integer): TPacketBuffer; virtual;
     Function BuildPacket_TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX(Index: Integer): TPacketBuffer; virtual;
@@ -876,8 +886,7 @@ end;
     Name              variable   String
     ID                4 bytes    TChannelID
     Primary type      4 bytes    scs_value_type_t
-    Secondary type    4 bytes    scs_value_type_t
-    Tertiary type     4 bytes    scs_value_type_t
+    Secondary types   4 bytes    TValueTypeBitmask
     Indexed           1 byte     Boolean
     Index config      variable   String
     Index config id   4 bytes    TItemID
@@ -933,8 +942,7 @@ end;
     Name              variable   String
     ID                4 bytes    TChannelID
     Primary type      4 bytes    scs_value_type_t
-    Secondary type    4 bytes    scs_value_type_t
-    Tertiary type     4 bytes    scs_value_type_t
+    Secondary types   4 bytes    TValueTypeBitmask
     Indexed:          1 byte     Boolean
     Index config      variable   String
     Index config id   4 bytes    TItemID
@@ -1368,20 +1376,18 @@ end;
 
 { Payload structure:
 
-    Primary types     1 byte     Boolean
-    Secondary types   1 byte     Boolean
-    Tertiary types    1 byte     Boolean
+    Primary type      1 byte     Boolean
+    Secondary types   4 byte     32b uint
 }
-Function TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL(RegPrimaryTypes,RegSecondaryTypes,RegTertiaryTypes: Boolean): TPacketBuffer;
+Function TTelemetryCommPacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER_ALL(RegPrimaryType: Boolean; SecondarySelectionMask: Longword): TPacketBuffer;
 var
   CurrPtr:  Pointer;
 begin
 Result.Size := SizeOf(TPacketHeader) +
                3 * SizeOf(Boolean){Primary,Secondary,Tertiary types};
 CurrPtr := PreparePacket(Result,TC_PACKET_CHANNEL_REGISTER_ALL);
-Ptr_WriteBoolean(CurrPtr,RegPrimaryTypes);
-Ptr_WriteBoolean(CurrPtr,RegSecondaryTypes);
-Ptr_WriteBoolean(CurrPtr,RegTertiaryTypes);
+Ptr_WriteBoolean(CurrPtr,RegPrimaryType);
+Ptr_WriteInteger(CurrPtr,SecondarySelectionMask);
 end;
 
 //------------------------------------------------------------------------------
@@ -1885,7 +1891,7 @@ case PacketID of
   TC_PACKET_KNOWN_CHANNELS_COUNT_GET:         Result := 0;
   TC_PACKET_KNOWN_CHANNELS_COUNT:             Result := SizeOf(Integer);
   TC_PACKET_KNOWN_CHANNELS_INDEX_GET:         Result := SizeOf(Integer);
-  TC_PACKET_KNOWN_CHANNELS_INDEX:             Result := SizeOf(Integer) + 2 * SizeOfString + SizeOf(TChannelID) + 3 * SizeOf(scs_value_type_t) + SizeOf(Boolean) + SizeOf(TItemID);
+  TC_PACKET_KNOWN_CHANNELS_INDEX:             Result := SizeOf(Integer) + 2 * SizeOfString + SizeOf(TChannelID) + SizeOf(scs_value_type_t) + SizeOf(LongWord) + SizeOf(Boolean) + SizeOf(TItemID);
   TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET:     Result := 0;
   TC_PACKET_KNOWN_CHANNELS_ALL_GET:           Result := 0;
   TC_PACKET_KNOWN_CHANNELS_ALL:               Result := SizeOf(Integer);
@@ -1920,7 +1926,7 @@ case PacketID of
   TC_PACKET_CHANNEL_REGISTER:                 Result := SizeOfString + 2 * SizeOf(scs_u32_t) + SizeOf(scs_value_type_t) + SizeOf(scs_result_t);
   TC_PACKET_CHANNEL_REGISTER_BY_INDEX:        Result := SizeOf(Integer);
   TC_PACKET_CHANNEL_REGISTER_BY_NAME:         Result := SizeOfString;
-  TC_PACKET_CHANNEL_REGISTER_ALL:             Result := 3 * SizeOf(Boolean);
+  TC_PACKET_CHANNEL_REGISTER_ALL:             Result := SizeOf(Boolean) + SizeOf(LongWord);
   TC_PACKET_CHANNEL_UNREGISTER:               Result := SizeOfString + SizeOf(scs_u32_t) + SizeOf(scs_value_type_t) + SizeOf(scs_result_t);
   TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX:      Result := SizeOf(Integer);
   TC_PACKET_CHANNEL_UNREGISTER_BY_NAME:       Result := SizeOfString;

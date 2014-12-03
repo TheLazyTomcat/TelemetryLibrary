@@ -2,7 +2,7 @@
 @abstract(Information provider class (known telemetry events, channels, etc.).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-11-07)
+@lastmod(2014-11-24)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
@@ -15,7 +15,7 @@
     .\Inc\TTelemetryInfoProvider.Prepare_Telemetry_1_0.pas
       Contains body of method TTelemetryInfoProvider.Prepare_Telemetry_1_0.)
 
-  Last change:  2014-11-07
+  Last change:  2014-11-24
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -38,7 +38,17 @@
                        @code(TelemetryString).)
     @item(2014-11-07 - Added support for eut2 1.10.)
     @item(2014-11-07 - Implementation changes (new channels are not inserted to
-                       the lists, they are only added).))
+                       the lists, they are only added).)
+    @item(2014-11-24 - Changes due to a new system of storing and passing
+                       secondary types of channel value. These changes include:
+                       @unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Reimplemented method
+                               TTelemetryInfoProvider.ChannelGetValueType)
+                         @item(Added new variant of method
+                               TTelemetryInfoProvider.ChannelGetValueType)
+                         @item(Reimplemented all additions of known channels to
+                               the list))))
 
   ToDo:@unorderedList(
   @item(Add capability for loading information from file (text, ini, resources).))    
@@ -51,6 +61,7 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+  TelemetryValueTypeUtils,
   TelemetryIDs,
   TelemetryLists,
   TelemetryVersionObjects,  
@@ -153,14 +164,6 @@ type
     @returns(Name of given event or an empty string when no such event is
              known.))
 
-@member(ChannelGetValueType
-    Returns type of value for given channel and selected priority.
-
-    @param Name         Name of requested channel.
-    @param TypePriority Priority of value type that should be returned.
-
-    @returns(Type of value for selected channel and priority. When requested
-             channel is not found, @code(SCS_VALUE_TYPE_INVALID) is returned.))
 
 @member(KnownEvents
     List containing informations about known telemetry events.)
@@ -242,7 +245,33 @@ type
     destructor Destroy; override;
     procedure Clear;
     Function EventGetName(Event: scs_event_t): TelemetryString; virtual;
-    Function ChannelGetValueType(const Name: TelemetryString; TypePriority: TChannelValueTypePriority = cvtpPrimary): scs_value_type_t; virtual;
+  {
+    Returns type of value for given channel and selected priority.
+
+    @param Name         Name of requested channel.
+    @param TypePriority Priority of value type that should be returned.
+
+    @returns(Type of value for selected channel and priority. When requested
+             channel is not found, @code(SCS_VALUE_TYPE_INVALID) is returned.)
+  }             
+    Function ChannelGetValueType(const Name: TelemetryString; TypePriority: TChannelValueTypePriority = cvtpPrimary): scs_value_type_t; overload; virtual;
+  {
+    Returns type of value for given channel and selected priority.
+
+    @param Name         Name of requested channel.
+    @param TypePriority Priority of value type that should be returned. It must
+                        be a number from interval <0,33), if it is not from this
+                        interval, SCS_VALUE_TYPE_INVALID is returned.@br
+                        0 corresponds to primary value type, 1 to first
+                        secondary type, 2 to second secondary type and so on.
+                        If selected type is beyond what a given channel can
+                        support (ie. 5 for channel with only one secondary type),
+                        SCS_VALUE_TYPE_INVALID is returned.
+
+    @returns(Type of value for selected channel and priority. When requested
+             channel is not found, @code(SCS_VALUE_TYPE_INVALID) is returned.)
+  }
+    Function ChannelGetValueType(const Name: TelemetryString; TypePriority: Integer): scs_value_type_t; overload; virtual;
   published
     property UserManaged: Boolean read fUserManaged;  
     property KnownEvents: TKnownEventsList read fKnownEvents;
@@ -384,14 +413,8 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_1;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency,
-                   SCS_VALUE_TYPE_bool,
-                   SCS_VALUE_TYPE_invalid,
-                   SCS_VALUE_TYPE_invalid,
-                   False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency,
-                  SCS_VALUE_TYPE_float,
-                  False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency,SCS_VALUE_TYPE_bool,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency,SCS_VALUE_TYPE_float,False);
 end;
 
 //------------------------------------------------------------------------------
@@ -399,12 +422,7 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_2;
 begin
 inherited;
-fKnownChannels.Replace('truck.cabin.orientation',
-                       SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,
-                       SCS_VALUE_TYPE_fplacement,
-                       SCS_VALUE_TYPE_dplacement,
-                       SCS_VALUE_TYPE_euler,
-                       False);
+fKnownChannels.Replace('truck.cabin.orientation',SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_VALUE_TYPE_fplacement,False);
 end;
 
 //------------------------------------------------------------------------------
@@ -412,16 +430,8 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_4;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker,
-                   SCS_VALUE_TYPE_bool,
-                   SCS_VALUE_TYPE_invalid,
-                   SCS_VALUE_TYPE_invalid,
-                   False);
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker,
-                   SCS_VALUE_TYPE_bool,
-                   SCS_VALUE_TYPE_invalid,
-                   SCS_VALUE_TYPE_invalid,
-                   False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker,SCS_VALUE_TYPE_bool,False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker,SCS_VALUE_TYPE_bool,False);
 end;
 
 //------------------------------------------------------------------------------
@@ -429,55 +439,21 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_9;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_game_time,
-                   SCS_VALUE_TYPE_u32,
-                   SCS_VALUE_TYPE_u64,
-                   SCS_VALUE_TYPE_invalid,
-                   False);
-fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_next_rest_stop,
-                   SCS_VALUE_TYPE_s32,
-                   SCS_VALUE_TYPE_invalid,
-                   SCS_VALUE_TYPE_invalid,
-                   False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass,
-                  SCS_VALUE_TYPE_float,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company,
-                  SCS_VALUE_TYPE_string,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income,
-                  SCS_VALUE_TYPE_u64,
-                  False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time,
-                  SCS_VALUE_TYPE_u32,
-                  False);
+fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_game_time,SCS_VALUE_TYPE_u32,False);
+fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_next_rest_stop,SCS_VALUE_TYPE_s32,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass,SCS_VALUE_TYPE_float,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income,SCS_VALUE_TYPE_u64,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time,SCS_VALUE_TYPE_u32,False);
 end;
 
 //------------------------------------------------------------------------------
@@ -485,23 +461,9 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_10;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,
-                   SCS_VALUE_TYPE_float,
-                   SCS_VALUE_TYPE_double,
-                   SCS_VALUE_TYPE_invalid,
-                   True,
-                   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,
-                   7);
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,
-                   SCS_VALUE_TYPE_float,
-                   SCS_VALUE_TYPE_double,
-                   SCS_VALUE_TYPE_invalid,
-                   True,
-                   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,
-                   7);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable,
-                  SCS_VALUE_TYPE_bool,
-                  True);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,SCS_VALUE_TYPE_float,True,SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,SCS_VALUE_TYPE_float,True,SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable,SCS_VALUE_TYPE_bool,True);
 end;
 
 {------------------------------------------------------------------------------}
@@ -589,20 +551,35 @@ end;
 
 Function TTelemetryInfoProvider.ChannelGetValueType(const Name: TelemetryString; TypePriority: TChannelValueTypePriority = cvtpPrimary): scs_value_type_t;
 var
-  Index: Integer;
+  Index:  Integer;
+  Types:  TValueTypesArray;
 begin
 Index := fKnownChannels.IndexOf(Name);
 If Index >= 0 then
   begin
+    Types := BitmaskValueTypesAddPrimary(fKnownChannels[Index].SecondaryTypes,fKnownChannels[Index].PrimaryType);
     case TypePriority of
-      cvtpPrimary:    Result := fKnownChannels[Index].PrimaryType;
-      cvtpSecondary:  Result := fKnownChannels[Index].SecondaryType;
-      cvtpTertiary:   Result := fKnownChannels[Index].TertiaryType;
+      cvtpPrimary:    Result := Types[0];
+      cvtpSecondary:  Result := Types[1];
+      cvtpTertiary:   Result := Types[2];
     else
       Result := SCS_VALUE_TYPE_invalid;
     end;
   end
 else Result := SCS_VALUE_TYPE_invalid;
+end;
+
+//------------------------------------------------------------------------------
+
+Function TTelemetryInfoProvider.ChannelGetValueType(const Name: TelemetryString; TypePriority: Integer): scs_value_type_t;
+var
+  Index:  Integer;
+begin
+Index := fKnownChannels.IndexOf(Name);
+If (Index >= 0) and (TypePriority >= Low(TValueTypesArray)) and (TypePriority <= High(TValueTypesArray)) then
+  Result := BitmaskValueTypesAddPrimary(fKnownChannels[Index].SecondaryTypes,fKnownChannels[Index].PrimaryType)[TypePriority]
+else
+  Result := SCS_VALUE_TYPE_invalid;
 end;
 
 end.

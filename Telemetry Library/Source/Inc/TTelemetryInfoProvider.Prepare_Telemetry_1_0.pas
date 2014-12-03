@@ -17,108 +17,108 @@ with fKnownEvents do
 with fKnownChannels do
   begin
     //--- Global ---------------------------------------------------------------
-    Add(SCS_TELEMETRY_CHANNEL_local_scale,                        SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_CHANNEL_local_scale,                        SCS_VALUE_TYPE_float,      False);
 
     //--- Trailer specific -----------------------------------------------------
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_connected,                  SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_connected,                  SCS_VALUE_TYPE_bool,       False);
     // Movement
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement,            SCS_VALUE_TYPE_dplacement, SCS_VALUE_TYPE_fplacement, SCS_VALUE_TYPE_euler,   False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity,      SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity,     SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration,  SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration, SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement,            SCS_VALUE_TYPE_dplacement, False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity,      SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity,     SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration,  SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration, SCS_VALUE_TYPE_fvector,    False);
     // Damage
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis,               SCS_VALUE_TYPE_float,      False);
     // Wheels
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection,      SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground,            SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance,            SCS_VALUE_TYPE_u32,        SCS_VALUE_TYPE_u64,        SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity,             SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering,             SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation,             SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection,      SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance,            SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
 
     //--- Truck specific -------------------------------------------------------
     // Movement
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,              SCS_VALUE_TYPE_dplacement, SCS_VALUE_TYPE_fplacement, SCS_VALUE_TYPE_euler,   False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,        SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,       SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,    SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration,   SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add('truck.cabin.orientation',                                SCS_VALUE_TYPE_fplacement, SCS_VALUE_TYPE_dplacement, SCS_VALUE_TYPE_euler,   False); // later replaced with cabin_offset
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,       SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration,   SCS_VALUE_TYPE_fvector,    SCS_VALUE_TYPE_dvector,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,                  SCS_VALUE_TYPE_fplacement, SCS_VALUE_TYPE_dplacement, SCS_VALUE_TYPE_euler,   False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                        SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,              SCS_VALUE_TYPE_dplacement, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,        SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,       SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,    SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration,   SCS_VALUE_TYPE_fvector,    False);
+    Add('truck.cabin.orientation',                                SCS_VALUE_TYPE_fplacement, False); // later replaced with cabin_offset
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,       SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration,   SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,                  SCS_VALUE_TYPE_fplacement, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                        SCS_VALUE_TYPE_float,      False);
     // Engine
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                   SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                  SCS_VALUE_TYPE_s32,        SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                   SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                  SCS_VALUE_TYPE_s32,        False);
     // Driving
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake,                  SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch,                 SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,           SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,           SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,              SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,             SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering,               SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle,               SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake,                  SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch,                 SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,           SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,           SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,              SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,             SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control,               SCS_VALUE_TYPE_float,      False);
     // Gearbox
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot,                SCS_VALUE_TYPE_u32,        SCS_VALUE_TYPE_u64,        SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector,            SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot,                SCS_VALUE_TYPE_u32,        False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,1);
     // Brakes
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake,                SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake,                  SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level,               SCS_VALUE_TYPE_u32,        SCS_VALUE_TYPE_u64,        SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure,           SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning,   SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature,            SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake,                SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake,                  SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level,               SCS_VALUE_TYPE_u32,        False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure,           SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning,   SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature,            SCS_VALUE_TYPE_float,      False);
     // Consumables
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel,                         SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning,                 SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption,     SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                       SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,               SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption,   SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel,                         SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning,                 SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption,     SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                       SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,               SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption,   SCS_VALUE_TYPE_float,      False);
     // Oil
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure,                 SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning,         SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature,              SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure,                 SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning,         SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature,              SCS_VALUE_TYPE_float,      False);
     // Temperature
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature,            SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning,    SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature,            SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning,    SCS_VALUE_TYPE_bool,       False);
     // Battery
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage,              SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning,      SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage,              SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning,      SCS_VALUE_TYPE_bool,       False);
     // Enabled state of various elements
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled,             SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled,               SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker,                     SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker,                     SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking,                SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam,               SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam,              SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front,              SCS_VALUE_TYPE_u32,        SCS_VALUE_TYPE_u64,        SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof,               SCS_VALUE_TYPE_u32,        SCS_VALUE_TYPE_u64,        SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon,                 SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake,                  SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse,                SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wipers,                       SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight,          SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled,             SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled,               SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker,                     SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker,                     SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking,                SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam,               SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam,              SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front,              SCS_VALUE_TYPE_u32,        False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof,               SCS_VALUE_TYPE_u32,        False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon,                 SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake,                  SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse,                SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wipers,                       SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight,          SCS_VALUE_TYPE_float,      False);
     // Wear
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine,                  SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission,            SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin,                   SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis,                 SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels,                  SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine,                  SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission,            SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin,                   SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis,                 SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels,                  SCS_VALUE_TYPE_float,      False);
     // Odometer
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_odometer,                     SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_odometer,                     SCS_VALUE_TYPE_float,      False);
     // Wheels
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,        SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground,              SCS_VALUE_TYPE_bool,       SCS_VALUE_TYPE_INVALID,    SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance,              SCS_VALUE_TYPE_u32,        SCS_VALUE_TYPE_u64,        SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation,               SCS_VALUE_TYPE_float,      SCS_VALUE_TYPE_double,     SCS_VALUE_TYPE_INVALID, True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,        SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground,              SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance,              SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
   end;
 
 //=== Adding Configs ===========================================================
