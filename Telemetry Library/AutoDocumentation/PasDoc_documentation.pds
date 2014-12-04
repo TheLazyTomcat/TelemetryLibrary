@@ -41,12 +41,8 @@ CheckSpelling=0
 LatexGraphicsPackage=0
 
 [Defines]
-Count=5
-Item_0=FPC
-Item_1=MSWINDOWS
-Item_2=WIN32
-Item_3=CPU386
-Item_4=Documentation
+Count=1
+Item_0=Documentation
 
 [Header]
 Count=0
@@ -55,12 +51,11 @@ Count=0
 Count=0
 
 [IncludeDirectories]
-Count=2
+Count=1
 Item_0=..\Source
-Item_1=..\Source\Comm
 
 [Files]
-Count=13
+Count=14
 Item_0=..\Source\Log\TelemetryLogBinary.pas
 Item_1=..\Source\Log\TelemetryLogBinaryParser.pas
 Item_2=..\Source\Log\TelemetryLogText.pas
@@ -73,7 +68,8 @@ Item_8=..\Source\TelemetryRecipient.pas
 Item_9=..\Source\TelemetryRecipientBinder.pas
 Item_10=..\Source\TelemetryStreaming.pas
 Item_11=..\Source\TelemetryStrings.pas
-Item_12=..\Source\TelemetryVersionObjects.pas
+Item_12=..\Source\TelemetryValueTypeUtils.pas
+Item_13=..\Source\TelemetryVersionObjects.pas
 
 [HyphenatedWords]
 Count=0

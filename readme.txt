@@ -154,6 +154,10 @@ Exception being following folders and their entire content:
   Content of this folder is licensed under Creative Commons 
   Attribution-ShareAlike 4.0 (CC BY-SA 4.0) license (see above for details).
 
+FastMM
+  Some parts of this project are using FastMM as memory manager. For information
+  about FastMM license, please refer to its source files.
+
 
 
 Repositories

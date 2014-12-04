@@ -41,14 +41,6 @@
 
 <p>
 
-<p>
-
-<p>
-
-<p>
-
-<p>
-
 <p></p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
@@ -78,19 +70,51 @@
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -219,13 +243,13 @@ Searches through list for channel with given ID. When channel with that ID is no
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Adds new known channel into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
 
-<p>     
+<p>    
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -234,10 +258,8 @@ Adds new known channel into the list.<br> <a class="normal" href="TelemetryLists
 <dd>Name of added channel (ID is calculated from it).</dd>
 <dt>PrimaryType</dt>
 <dd>Primary type of value for this channel.</dd>
-<dt>SecondaryType</dt>
-<dd>Secondary type of value for this channel.</dd>
-<dt>TertiaryType</dt>
-<dd>Tertiary type of value for this channel.</dd>
+<dt>SecondaryTypes</dt>
+<dd>Bitmask with secondary value types this channel can provide.</dd>
 <dt>Indexed</dt>
 <dd>Flag denoting whether added channel is indexed.</dd>
 <dt>IndexConfig</dt>
@@ -249,11 +271,119 @@ Adds new known channel into the list.<br> <a class="normal" href="TelemetryLists
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds new known channel into the list.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#SecondaryValueTypesBitmask">SecondaryValueTypesBitmask</a> whose parameter <code>PrimaryValueType</code> is set from corresponding parameter of this method.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of added channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether added channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new channel was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds new known channel into the list.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#ValueTypesBitmask">ValueTypesBitmask</a> whose parameter <code>ValueTypes</code> consists of values passed in parameters <code>SecondaryType</code> and <code>TertiaryType</code>.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>     
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Name</dt>
+<dd>Name of added channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryType</dt>
+<dd>Secondary (first secondary) type of value for this channel.</dd>
+<dt>TertiaryType</dt>
+<dd>Tertiary (second secondary) type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether added channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new channel was added, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Replaces channel at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be replaced.</dd>
+<dt>Name</dt>
+<dd>Name of replacement channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryTypes</dt>
+<dd>Bitmask with secondary value types this channel can provide.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces channel at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#SecondaryValueTypesBitmask">SecondaryValueTypesBitmask</a> whose parameter <code>PrimaryValueType</code> is set from corresponding parameter of this method.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Index of item that has to be replaced.</dd>
+<dt>Name</dt>
+<dd>Name of replacement channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces channel at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#ValueTypesBitmask">ValueTypesBitmask</a> whose parameter <code>ValueTypes</code> consists of values passed in parameters <code>SecondaryType</code> and <code>TertiaryType</code>.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
 
 <p>      </p>
 <h6 class="description_section">Parameters</h6>
@@ -265,9 +395,9 @@ Replaces channel at position given by <code>Index</code> parameter. When index f
 <dt>PrimaryType</dt>
 <dd>Primary type of value for this channel.</dd>
 <dt>SecondaryType</dt>
-<dd>Secondary type of value for this channel.</dd>
+<dd>Secondary (first secondary) type of value for this channel.</dd>
 <dt>TertiaryType</dt>
-<dd>Tertiary type of value for this channel.</dd>
+<dd>Tertiary (second secondary) type of value for this channel.</dd>
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
@@ -278,11 +408,69 @@ Replaces channel at position given by <code>Index</code> parameter. When index f
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;</code></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Replaces channel with name given by <code>OldChannel</code> parameter. When this channel is not found in the list, nothing happens and the method returns -1.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>     
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>OldEvent</dt>
+<dd>Identification number of channel that has to be replaced.</dd>
+<dt>Name</dt>
+<dd>Name of replacement channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryTypes</dt>
+<dd>Bitmask with secondary value types this channel can provide.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of channel that was replaced, -1 when old channel was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces channel with name given by <code>OldChannel</code> parameter. When this channel is not found in the list, nothing happens and the method returns -1.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#SecondaryValueTypesBitmask">SecondaryValueTypesBitmask</a> whose parameter <code>PrimaryValueType</code> is set from corresponding parameter of this method.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
+
+<p>    
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>OldEvent</dt>
+<dd>Identification number of channel that has to be replaced.</dd>
+<dt>Name</dt>
+<dd>Name of replacement channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of channel that was replaced, -1 when old channel was not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Replaces channel with name given by <code>OldChannel</code> parameter. When this channel is not found in the list, nothing happens and the method returns -1.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#ValueTypesBitmask">ValueTypesBitmask</a> whose parameter <code>ValueTypes</code> consists of values passed in parameters <code>SecondaryType</code> and <code>TertiaryType</code>.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
 
 <p>      
 
@@ -296,9 +484,9 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <dt>PrimaryType</dt>
 <dd>Primary type of value for this channel.</dd>
 <dt>SecondaryType</dt>
-<dd>Secondary type of value for this channel.</dd>
+<dd>Secondary (first secondary) type of value for this channel.</dd>
 <dt>TertiaryType</dt>
-<dd>Tertiary type of value for this channel.</dd>
+<dd>Tertiary (second secondary) type of value for this channel.</dd>
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
@@ -310,11 +498,69 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; virtual;</code></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Inserts new channel at position given by <code>Index</code> parameter. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> is increased by one and all existing items from given position (included) up are moved higher. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>&gt; - passed index can be higher than current highest index, if so, item is added at the end of the list), and exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful insertion.
+
+<p>     
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Position where the new channel should be inserted.</dd>
+<dt>Name</dt>
+<dd>Name of inserted channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>SecondaryTypes</dt>
+<dd>Bitmask with secondary value types this channel can provide.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Actual position where the new channel was inserted.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Inserts new channel at position given by <code>Index</code> parameter. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> is increased by one and all existing items from given position (included) up are moved higher. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>&gt; - passed index can be higher than current highest index, if so, item is added at the end of the list), and exception is raised.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#SecondaryValueTypesBitmask">SecondaryValueTypesBitmask</a> whose parameter <code>PrimaryValueType</code> is set from corresponding parameter of this method.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful insertion.
+
+<p>    
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Position where the new channel should be inserted.</dd>
+<dt>Name</dt>
+<dd>Name of inserted channel (ID is calculated from it).</dd>
+<dt>PrimaryType</dt>
+<dd>Primary type of value for this channel.</dd>
+<dt>Indexed</dt>
+<dd>Flag denoting whether channel is indexed.</dd>
+<dt>IndexConfig</dt>
+<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Actual position where the new channel was inserted.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Inserts new channel at position given by <code>Index</code> parameter. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> is increased by one and all existing items from given position (included) up are moved higher. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>&gt; - passed index can be higher than current highest index, if so, item is added at the end of the list), and exception is raised.<br> Internally calls variant of this method that has parameter <code>SecondaryTypes</code> with this parameter filled by function <a class="normal" href="TelemetryValueTypeUtils.html#ValueTypesBitmask">ValueTypesBitmask</a> whose parameter <code>ValueTypes</code> consists of values passed in parameters <code>SecondaryType</code> and <code>TertiaryType</code>.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful insertion.
 
 <p>      
 
@@ -328,9 +574,9 @@ Inserts new channel at position given by <code>Index</code> parameter. <a class=
 <dt>PrimaryType</dt>
 <dd>Primary type of value for this channel.</dd>
 <dt>SecondaryType</dt>
-<dd>Secondary type of value for this channel.</dd>
+<dd>Secondary (first secondary) type of value for this channel.</dd>
 <dt>TertiaryType</dt>
-<dd>Tertiary type of value for this channel.</dd>
+<dd>Tertiary (second secondary) type of value for this channel.</dd>
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
@@ -457,7 +703,7 @@ Array property mapped directly to internal list. Use it for direct access to ind
 Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-09 14:37:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
 </span>
 
 </body>

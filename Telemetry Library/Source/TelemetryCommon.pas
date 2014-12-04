@@ -1,3 +1,10 @@
+{-------------------------------------------------------------------------------
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-------------------------------------------------------------------------------}
 {@html(<hr>)
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
@@ -6,7 +13,7 @@
 
   @bold(@NoAutoLink(TelemetryCommon))
 
-  ©František Milt, all rights reserved.
+  ©2013-2014 František Milt, all rights reserved.
 
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).

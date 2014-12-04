@@ -9,6 +9,7 @@ DiGraph Uses {
   "TelemetryIDs" -> "TelemetryCommon"
   "TelemetryIDs" -> "SCS_Telemetry_Condensed"
   "TelemetryIDs" [href="TelemetryIDs.html"]
+  "TelemetryInfoProvider" -> "TelemetryValueTypeUtils"
   "TelemetryInfoProvider" -> "TelemetryIDs"
   "TelemetryInfoProvider" -> "TelemetryLists"
   "TelemetryInfoProvider" -> "TelemetryVersionObjects"
@@ -17,6 +18,7 @@ DiGraph Uses {
   "TelemetryInfoProvider" [href="TelemetryInfoProvider.html"]
   "TelemetryLists" -> "MulticastEvent"
   "TelemetryLists" -> "TelemetryCommon"
+  "TelemetryLists" -> "TelemetryValueTypeUtils"
   "TelemetryLists" -> "TelemetryIDs"
   "TelemetryLists" -> "TelemetryConversions"
   "TelemetryLists" -> "TelemetryStrings"
@@ -55,6 +57,7 @@ DiGraph Uses {
   "TelemetryRecipient" -> "TelemetryLists"
   "TelemetryRecipient" -> "TelemetryVersionObjects"
   "TelemetryRecipient" -> "TelemetryInfoProvider"
+  "TelemetryRecipient" -> "TelemetryValueTypeUtils"
   "TelemetryRecipient" -> "TelemetryConversions"
   "TelemetryRecipient" -> "TelemetryStrings"
   "TelemetryRecipient" -> "SCS_Telemetry_Condensed"
@@ -72,6 +75,10 @@ DiGraph Uses {
   "TelemetryStrings" -> "TelemetryCommon"
   "TelemetryStrings" -> "SCS_Telemetry_Condensed"
   "TelemetryStrings" [href="TelemetryStrings.html"]
+  "TelemetryValueTypeUtils" -> "BitOps"
+  "TelemetryValueTypeUtils" -> "TelemetryStrings"
+  "TelemetryValueTypeUtils" -> "SCS_Telemetry_Condensed"
+  "TelemetryValueTypeUtils" [href="TelemetryValueTypeUtils.html"]
   "TelemetryVersionObjects" -> "TelemetryCommon"
   "TelemetryVersionObjects" -> "TelemetryStrings"
   "TelemetryVersionObjects" -> "SCS_Telemetry_Condensed"

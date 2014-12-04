@@ -310,8 +310,6 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 
 <p>
 
-<p>
-
 <p></p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
@@ -690,7 +688,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegPrimaryTypes: Boolean = True; RegSecondaryTypes: Boolean = False; RegTertiaryTypes: Boolean = False): Integer; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -1639,7 +1637,7 @@ No parameter object constructor.<br> Creates an user-managed instance.<br></p>
 <p>
 Parametrized object constructor.<br> Creates automatically managed instance, but does not assign callbacks since they are not passed in paramters - you have to assign them manually after object creation.<br> If passed telemetry/game versions are not supported then an exception is raised.
 
-<p>.   </p>
+<p>   </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>TelemetryVersion</dt>
@@ -2147,23 +2145,21 @@ Unregisters all registered telemetry channels with the given name.<br>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegisterAll"></a><code>Function <b>ChannelRegisterAll</b>(RegPrimaryTypes: Boolean = True; RegSecondaryTypes: Boolean = False; RegTertiaryTypes: Boolean = False): Integer; virtual;</code></td>
+<td class="itemcode"><a name="ChannelRegisterAll"></a><code>Function <b>ChannelRegisterAll</b>(RegPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-This method registers all channels that the <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class is aware of for current telemetry and game version.<br> When channel is marked as indexed, then all channel and index combinations are registered (see implementation of this method for details), otherwise only channels with index set to SCS_U32_NIL are registered. When <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIndexedChannels">ManageIndexedChannels</a> and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreConfigurations">StoreConfigurations</a> properties are both set to <code>True</code>, then top index for indexed channel registration is taken from appropriate stored configuration value.<br> Set RegPrimaryTypes, RegSecondaryTypes and RegTertiaryTypes to true to register respective channel value type. If all three parameters are set to false, the method executes but nothing is registered.
+This method registers all channels that the <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class is aware of for current telemetry and game version.<br> When channel is marked as indexed, then all channel and index combinations are registered (see implementation of this method for details), otherwise only channels with index set to SCS_U32_NIL are registered. When <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIndexedChannels">ManageIndexedChannels</a> property is set to <code>True</code>, then top index for indexed channel registration is taken from appropriate stored configuration value (if such exixts).<br>
 
-<p>  
+<p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>RegPrimaryTypes</dt>
 <dd>Register primary value type.</dd>
-<dt>RegSecondaryTypes</dt>
-<dd>Register secondary value type.</dd>
-<dt>RegTertiaryTypes</dt>
-<dd>Register tertiary value type.</dd>
+<dt>SecondarySelectionMask</dt>
+<dd>Bitmask denoting what secondary value types should be registered. See description of function <a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SelectSupportedValueTypes</a> (parameter <code>SecondarySelectionMask</code>) for details about how the individual types are selected based on this mask.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Number of successfully registered channels.</p></td></tr>
@@ -2603,7 +2599,7 @@ Multicast event called whenever the recipient receives any channel call from tel
 Multicast event called when config is parsed from configuration telemetry event data.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-11-09 14:37:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
 </span>
 
 </body>
