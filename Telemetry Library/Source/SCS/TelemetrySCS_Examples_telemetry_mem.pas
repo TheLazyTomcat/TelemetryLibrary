@@ -59,7 +59,7 @@ type
     WheelCount:               scs_u32_t;
     WheelDeflections:         Array[0..MAX_SUPPORTED_WHEEL_COUNT - 1] of scs_float_t;
   end;
-  PSCSExmTeMe_TelemetryMemState = ^TSCSExm_TelemetryMemState;
+  PSCSExm_TelemetryMemState = ^TSCSExm_TelemetryMemState;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
@@ -75,7 +75,7 @@ type
     fFormatSettings:  TFormatSettings;
     fMemoryMapName:   AnsiString;
     fMemoryMapping:   THandle;
-    fSharedMemory:    PSCSExmTeMe_TelemetryMemState;
+    fSharedMemory:    PSCSExm_TelemetryMemState;
   protected
     procedure LogLine(LogType: scs_log_type_t; const Text: String); virtual;
     Function InitializeSharedMemory: Boolean; virtual;
@@ -107,7 +107,7 @@ type
   private
     fMemoryMapName: AnsiString;
     fMemoryMapping: THandle;
-    fSharedMemory:  PSCSExmTeMe_TelemetryMemState;
+    fSharedMemory:  PSCSExm_TelemetryMemState;
     fStoredState:   TSCSExm_TelemetryMemState;
     Function GetInitialized: Boolean;
   protected
@@ -117,7 +117,7 @@ type
     destructor Destroy; override;
     Function Initialize: Boolean; virtual;
     Function RetrieveCurrentState: Boolean; virtual;
-    property SharedMemory: PSCSExmTeMe_TelemetryMemState read fSharedMemory;
+    property SharedMemory: PSCSExm_TelemetryMemState read fSharedMemory;
   published
     property Initialized: Boolean read GetInitialized;
     property MemoryMapName: AnsiString read fMemoryMapName;

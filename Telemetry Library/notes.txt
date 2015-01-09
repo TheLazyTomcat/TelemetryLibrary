@@ -2,7 +2,6 @@ todo:
   add lazarus/newer delphi support	
   add 64bit support
   remove multicast events handling classes from documentation
-  rework channel types (there can be 4 - maybe more, have to try - types ped channel, not 3)
 
 done:
   declare library-wide PtrInt and PtrUInt (in telemetryCommon), use them where appropriate
@@ -16,3 +15,4 @@ done:
   reimplement scs examples (use per channel user data for writing to memory)
   repair number precission in SCS examples
   remove system units from uses clause when documentation is generated
+  rework channel types (there can be 4 - maybe more, have to try - types ped channel, not 3)
