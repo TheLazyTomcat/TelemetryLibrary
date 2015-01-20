@@ -145,7 +145,7 @@ Function TelemetryStringDecode(const Str: TelemetryString): String;
 Function TelemetryStringEncode(const Str: String): TelemetryString;
 
 // Routines replacing some of the C macros functionality.
-Function SCSCheckSize(ActualSize, Expected32, Expected64: Cardinal): Boolean;
+Function SCSCheckSize(ActualSize, {%H-}Expected32,{%H-}Expected64: Cardinal): Boolean;
 
 Function SCSMakeVersion(Major, Minor: scs_u16_t): scs_u32_t;
 Function SCSGetMajorVersion(Version: scs_u32_t): scs_u16_t;

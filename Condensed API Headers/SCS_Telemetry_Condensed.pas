@@ -2,12 +2,12 @@ unit SCS_Telemetry_Condensed;
 
 {==============================================================================}
 {  SCS Telemetry API headers condenser, version 1.0a                           }
-{  Condensed on: Friday 2014-11-07 21:04:26                                    }
+{  Condensed on: Tuesday 2015-01-20 07:00:21                                   }
 {==============================================================================}
 
 interface
 
-{$IFDEF CPUX64}
+{$IFDEF x64}
   {$DEFINE SCS_ARCHITECTURE_x64}
 {$ELSE}
   {$DEFINE SCS_ARCHITECTURE_x86}
@@ -164,7 +164,7 @@ Function TelemetryStringDecode(const Str: TelemetryString): String;
 Function TelemetryStringEncode(const Str: String): TelemetryString;
 
 // Routines replacing some of the C macros functionality.
-Function SCSCheckSize(ActualSize, Expected32, Expected64: Cardinal): Boolean;
+Function SCSCheckSize(ActualSize, {%H-}Expected32,{%H-}Expected64: Cardinal): Boolean;
 
 Function SCSMakeVersion(Major, Minor: scs_u16_t): scs_u32_t;
 Function SCSGetMajorVersion(Version: scs_u32_t): scs_u16_t;
