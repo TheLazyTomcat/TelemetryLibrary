@@ -96,7 +96,7 @@ uses
 Function TSCSExm_Telemetry.InitLog: Boolean;
 begin
 try
-  fLog.InMemoryLog := False;
+  fLog.InternalLog := False;
   fLog.StreamFileAccessRights := fmShareDenyNone;
   fLog.StreamFileName := ExtractFilePath(GetModuleName(hInstance)) + fLogFileName;
   fLog.StreamToFile := True;

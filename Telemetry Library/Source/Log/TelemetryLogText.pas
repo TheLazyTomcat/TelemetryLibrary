@@ -366,7 +366,7 @@ else
   fLogger.StreamFileName := ExtractFilePath(GetModuleName(hInstance)) +
                             ChangeFileExt(ExtractFileName(GetModuleName(hInstance)),'') +
                             '_' + FormatDateTime('yyyy-mm-dd-hh-nn-ss',Now) + '.log';
-fLogger.InMemoryLog := def_InMemoryLog;
+fLogger.InternalLog := def_InMemoryLog;
 fLogger.StreamToFile := def_StreamToFile;
 fLogger.StreamAppend := def_StreamAppend;
 fLogger.IndentNewLines := def_IndentNewLines;
