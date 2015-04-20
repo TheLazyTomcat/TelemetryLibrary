@@ -161,6 +161,8 @@
 @html(<hr>)}
 unit TelemetryRecipient;
 
+{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
+
 interface
 
 {$INCLUDE '.\Telemetry_defs.inc'}
@@ -1497,7 +1499,7 @@ begin
 TempAttr := Data.attributes;
 while Assigned(TempAttr^.name) do
   begin
-    TempName := APIStringToTelemetryString(Data.id) + cConfigFieldsSeparator + APIStringToTelemetryString(TempAttr^.name);
+    TempName := APIStringToTelemetryString(Data.id) + ConfigFieldsSeparator + APIStringToTelemetryString(TempAttr^.name);
     TempValue := scs_value_localized(TempAttr^.value);
     If AllowAutoRegistration and ManageIndexedChannels then
       If (TempAttr^.value._type = SCS_VALUE_TYPE_u32) and fInfoProvider.KnownConfigs.IsBinded(TempName) then
@@ -1853,11 +1855,11 @@ end;
 procedure TTelemetryRecipient.SetGameCallback(Callback: TGameCallback; CallbackFunction: Pointer);
 begin
 case Callback of
-  gcbLog:           cbLog := CallbackFunction;
-  gcbEventReg:      cbRegisterEvent := CallbackFunction;
-  gcbEventUnreg:    cbUnregisterEvent := CallbackFunction;
-  gcbChannelReg:    cbRegisterChannel := CallbackFunction;
-  gcbChannelUnreg:  cbUnregisterChannel := CallbackFunction;
+  gcbLog:           cbLog := scs_log_t(CallbackFunction);
+  gcbEventReg:      cbRegisterEvent := scs_telemetry_register_for_event_t(CallbackFunction);
+  gcbEventUnreg:    cbUnregisterEvent := scs_telemetry_unregister_from_event_t(CallbackFunction);
+  gcbChannelReg:    cbRegisterChannel := scs_telemetry_register_for_channel_t(CallbackFunction);
+  gcbChannelUnreg:  cbUnregisterChannel := scs_telemetry_unregister_from_channel_t(CallbackFunction);
 else
   // No action.
 end;
@@ -1927,7 +1929,7 @@ Function TTelemetryRecipient.EventRegisterByIndex(Index: Integer; UserData: Poin
 begin
 Result := False;
 If (Index >=0) and (Index < fInfoProvider.KnownEvents.Count) then
-  Result := EventRegister(fInfoProvider.KnownEvents[Index].Event)
+  Result := EventRegister(fInfoProvider.KnownEvents[Index].Event,UserData)
 else fLastTelemetryResult := SCS_RESULT_generic_error;
 end;
 
@@ -2093,10 +2095,10 @@ If Assigned(cbRegisterChannel) and (Index >= 0) and (Index < fInfoProvider.Known
           end;
         Counter := 0;
         For i := 0 to MaxIndex do
-          If ChannelRegister(KnownChannelInfo.Name,i,KnownChannelInfo.PrimaryType) then Inc(Counter);
+          If ChannelRegister(KnownChannelInfo.Name,i,KnownChannelInfo.PrimaryType,SCS_TELEMETRY_CHANNEL_FLAG_none,UserData) then Inc(Counter);
         Result := Counter > 0;
       end
-    else Result := ChannelRegister(KnownChannelInfo.Name,SCS_U32_NIL,KnownChannelInfo.PrimaryType);
+    else Result := ChannelRegister(KnownChannelInfo.Name,SCS_U32_NIL,KnownChannelInfo.PrimaryType,SCS_TELEMETRY_CHANNEL_FLAG_none,UserData);
   end
 else fLastTelemetryResult := SCS_RESULT_generic_error;
 end;
@@ -2105,7 +2107,7 @@ end;
 
 Function TTelemetryRecipient.ChannelRegisterByName(const Name: TelemetryString; UserData: Pointer = nil): Boolean;
 begin
-Result := ChannelRegisterByIndex(fInfoProvider.KnownChannels.IndexOf(Name));
+Result := ChannelRegisterByIndex(fInfoProvider.KnownChannels.IndexOf(Name),UserData);
 end;
 
 //------------------------------------------------------------------------------

@@ -45,7 +45,7 @@ type
   TValueTypesArray  = Array[0..SizeOf(TValueTypeBitmask) * 8] of scs_value_type_t; {33 items}
 
 const
-  cNoValueType = TValueTypeBitmask(0);
+  NoValueType = TValueTypeBitmask(0);
 
   procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);
   Function ValueTypesArrayToStr(const ValueTypes: TValueTypesArray): String;
@@ -167,7 +167,7 @@ Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
 var
   i,j:  Integer;
 begin
-FillChar(Result,SizeOf(Result),0);
+FillChar({%H-}Result,SizeOf(Result),0);
 If Bitmask <> 0 then
   begin
     j := Low(Result);

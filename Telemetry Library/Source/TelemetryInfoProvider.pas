@@ -82,12 +82,9 @@ uses
   scssdk_value,
   scssdk_telemetry,
   scssdk_telemetry_event,
-  scssdk_telemetry_common_configs,
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
-  scssdk_telemetry_truck_common_channels,
-  scssdk_eut2,
-  scssdk_telemetry_eut2;
+  scssdk_telemetry_truck_common_channels;
 {$ENDIF}
 
 {==============================================================================}

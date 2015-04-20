@@ -9,16 +9,16 @@
 @abstract(Unit providing routines for variables conversions.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2014-04-30)
+@lastmod(2015-04-20)
 
   @bold(@NoAutoLink(TelemetryConversions))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
 
   This unit contains routines used for conversions between selected
   non-localized SDK types and their no-pointer alternatives.
 
-  Last change:  2014-04-30
+  Last change:  2015-04-20
 
   Change List:@unorderedList(
     @item(2014-04-30 - First stable version.)

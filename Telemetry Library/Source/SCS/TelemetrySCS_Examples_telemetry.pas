@@ -68,16 +68,16 @@ type
     Function InitLog: Boolean; virtual;
     procedure FinishLog; virtual;
   public
-    constructor Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
+    constructor Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
     destructor Destroy; override;
-    procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
-    procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; {%H-}const LogText: String); override;
+    procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const {%H-}Name: TelemetryString; ID: TChannelID; {%H-}Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+    procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
   end;
 
 implementation
@@ -118,51 +118,51 @@ end;
 {   TSCSExm_Telemetry // Public methods                                        }
 {------------------------------------------------------------------------------}
 
-constructor TSCSExm_Telemetry.Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
+constructor TSCSExm_Telemetry.Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
 begin
-inherited Create(Recipient);
-If not Assigned(Recipient) then
+inherited Create(aRecipient);
+If not Assigned(aRecipient) then
   raise Exception.Create('TSCSExm_Telemetry.Create: Recipient is not assigned.');
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
 fFormatSettings.DecimalSeparator := '.';
-Recipient.KeepUtilityEvents := False;
-Recipient.StoreConfigurations := False;
-Recipient.EventUnregisterAll;
+aRecipient.KeepUtilityEvents := False;
+aRecipient.StoreConfigurations := False;
+aRecipient.EventUnregisterAll;
 fLogFileName := LogFileName;
 fLog := TSimpleLog.Create;
 If not InitLog then
   begin
-    Recipient.Log(SCS_LOG_TYPE_error,'Unable to initialize the log file');
+    aRecipient.Log(SCS_LOG_TYPE_error,'Unable to initialize the log file');
     raise Exception.Create('TSCSExm_Telemetry.Create: Log initialization failed.');
   end;
-fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' '
-                            + IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.'
-                            + IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
-If not TelemetrySameStrSwitch(Recipient.GameID, SCS_GAME_ID_EUT2) then
+fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' '
+                            + IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.'
+                            + IntToStr(SCSGetMinorVersion(aRecipient.GameVersion)));
+If not TelemetrySameStrSwitch(aRecipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
   end
 else
   begin
-    If Recipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 then
+    If aRecipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 then
       fLog.AddLogNoTime('WARNING: Too old version of the game, some features might behave incorrectly');
-    If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
+    If SCSGetMajorVersion(aRecipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
       fLog.AddLogNoTime('WARNING: Too new major version of the game, some features might behave incorrectly');
   end;
-If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_frame_start) and
-        Recipient.EventRegister(SCS_TELEMETRY_EVENT_frame_end) and
-        Recipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
-        Recipient.EventRegister(SCS_TELEMETRY_EVENT_started)) then
+If not (aRecipient.EventRegister(SCS_TELEMETRY_EVENT_frame_start) and
+        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_frame_end) and
+        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
+        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_started)) then
   begin
-    Recipient.Log(SCS_LOG_TYPE_error,'Unable to register event callbacks');
+    aRecipient.Log(SCS_LOG_TYPE_error,'Unable to register event callbacks');
     raise Exception.Create('TSCSExm_Telemetry.Create: Events registration failed.');
   end;
-Recipient.EventRegister(SCS_TELEMETRY_EVENT_configuration);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_euler,SCS_TELEMETRY_CHANNEL_FLAG_no_value);
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,SCS_U32_NIL,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.Speed));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,SCS_U32_NIL,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.RPM));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,SCS_U32_NIL,SCS_VALUE_TYPE_s32,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.Gear));
-Recipient.Log('Initializing telemetry log example');
+aRecipient.EventRegister(SCS_TELEMETRY_EVENT_configuration);
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_euler,SCS_TELEMETRY_CHANNEL_FLAG_no_value);
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,SCS_U32_NIL,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.Speed));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,SCS_U32_NIL,SCS_VALUE_TYPE_float,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.RPM));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,SCS_U32_NIL,SCS_VALUE_TYPE_s32,SCS_TELEMETRY_CHANNEL_FLAG_no_value,Addr(fTelemetry.Gear));
+aRecipient.Log('Initializing telemetry log example');
 ZeroMemory(@fTelemetry,SizeOf(TSCSExm_TelemetryState));
 fPrintHeader := True;
 fLastTimestamp := scs_timestamp_t(-1);

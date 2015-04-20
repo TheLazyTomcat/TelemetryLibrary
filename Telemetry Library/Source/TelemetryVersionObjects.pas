@@ -327,7 +327,7 @@ type
     procedure Prepare_Game_eut2_1_10; virtual;
   public
     Function PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual;
-    Function PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
+    Function PrepareForGameVersion({%H-}const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
     Function PrepareFor(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
     Function PrepareForParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; virtual;
   end;

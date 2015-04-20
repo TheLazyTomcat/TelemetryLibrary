@@ -605,7 +605,7 @@ const
    (Name:           '';
     ID:             0;
     PrimaryType:    SCS_VALUE_TYPE_INVALID;
-    SecondaryTypes: cNoValueType;
+    SecondaryTypes: NoValueType;
     Indexed:        False;
     IndexConfig:    '';
     IndexConfigID:  0;
@@ -1843,7 +1843,8 @@ const
     Value: (
       ValueType:  SCS_VALUE_TYPE_INVALID;
       BinaryData: (
-        _type: SCS_VALUE_TYPE_INVALID);
+        _type:    SCS_VALUE_TYPE_INVALID;
+        _padding: 0);
       StringData: '');
     Binded: True);
 
@@ -2239,12 +2240,13 @@ uses
 {   Unit Functions and procedures // Implementation                            }
 {==============================================================================}
 
-Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register;
+Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register; {$IFNDEF PurePascal}assembler;{$ENDIF}
 {$IFDEF PurePascal}
 begin
 Result := (ID xor Index) xor not ValueType;
 end;
 {$ELSE}
+{$IFDEF FPC}{$ASMMODE intel}{$ENDIF}
 asm
 {******************************************************************************}
 {     Register    Content                                                      }

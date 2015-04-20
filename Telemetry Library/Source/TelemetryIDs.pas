@@ -10,17 +10,17 @@
           IDs generally.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-15)
-@lastmod(2014-11-07)
+@lastmod(2015-04-20)
 
   @bold(@NoAutoLink(TelemetryIDs))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
 
   This unit contains definitions of identification number types, set of
   constants containing full configuration names, constants with IDs for
   individual configs and channel, as well as function used to obtain those IDs.
 
-  Last change:  2014-11-07
+  Last change:  2015-04-20
 
   Change List:@unorderedList(
     @item(2014-04-15 - First stable version.)
@@ -30,7 +30,10 @@
     @item(2014-10-23 - Added true constants when precomputed IDs are used
                        (optional, can be reconfigured to use writeable
                        constans instead).)
-    @item(2014-11-07 - Added support for eut2 1.10.))
+    @item(2014-11-07 - Added support for eut2 1.10.)
+    @item(2015-04-20 - Constant cConfigFieldsSeparator renamed to
+                       ConfigFieldsSeparator.)
+    @item(2015-04-20 - Slight implementation changes.))
     
 @html(<hr>)
 
@@ -212,10 +215,13 @@ uses
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
-  scssdk_telemetry_common_configs,
+  scssdk_telemetry_common_configs
+{$IFNDEF PrecomputedItemID},
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels;
+{$ELSE};
+{$ENDIF}
 {$ENDIF}
 
 {==============================================================================}
@@ -224,7 +230,7 @@ uses
 
 const
   // Character used as a separator for config + config_attribute conglomerate.
-  cConfigFieldsSeparator = '.';
+  ConfigFieldsSeparator = '.';
 
 type
   // General item identificator. All other item identifiers are of this type.
@@ -248,116 +254,116 @@ type
 
 const
   // Full name of config attribute @code(id) in @code(substances) configuration.
-  SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id                   = TelemetryString(SCS_TELEMETRY_CONFIG_substances + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);
+  SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id: TelemetryString = SCS_TELEMETRY_CONFIG_substances + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;
 
   // Full name of config attribute @code(shifter_type) in @code(controls) configuration.
-  SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type           = TelemetryString(SCS_TELEMETRY_CONFIG_controls + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type);
+  SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type: TelemetryString = SCS_TELEMETRY_CONFIG_controls + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type;
 
   // Full name of config attribute @code(selector_count) in @code(hshifter) configuration.
-  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count         = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count);
+  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count;
   // Full name of config attribute @code(slot_gear) in @code(hshifter) configuration.
-  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear              = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear);
+  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear:            TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear;
   // Full name of config attribute @code(slot_handle_position) in @code(hshifter) configuration.
-  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position   = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position);
+  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position: TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position;
   // Full name of config attribute @code(slot_selectors) in @code(hshifter) configuration.
-  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors         = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors);
+  SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors;
 
   // Full name of config attribute @code(brand_id) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id                  = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id:                  TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id;
   // Full name of config attribute @code(brand) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand                     = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand:                     TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand;
   // Full name of config attribute @code(id) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id                        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id:                        TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;
   // Full name of config attribute @code(name) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name                      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name:                      TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name;
   // Full name of config attribute @code(fuel_capacity) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity;
   // Full name of config attribute @code(fuel_warning_factor) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor       = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor;
   // Full name of config attribute @code(adblue_capacity ) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity;
   // Full name of config attribute @code(air_pressure_warning ) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning;
   // Full name of config attribute @code(air_pressure_emergency) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency    = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency:    TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency;
   // Full name of config attribute @code(oil_pressure_warning) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning;
   // Full name of config attribute @code(water_temperature_warning) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning: TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning;
   // Full name of config attribute @code(battery_voltage_warning) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning   = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning:   TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning;
   // Full name of config attribute @code(rpm_limit) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit                 = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit:                 TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit;
   // Full name of config attribute @code(forward_gear_count) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count;
   // Full name of config attribute @code(reverse_gear_count) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count;
   // Full name of config attribute @code(retarder_step_count) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count       = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count;
   // Full name of config attribute @code(cabin_position) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position;
   // Full name of config attribute @code(head_position) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position;
   // Full name of config attribute @code(hook_position) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;
   // Full name of config attribute @code(wheel_count) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count               = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count:               TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;
   // Full name of config attribute @code(wheel_position) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;
   // Full name of config attribute @code(wheel_steerable) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;
   // Full name of config attribute @code(wheel_simulated) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;
   // Full name of config attribute @code(wheel_radius) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius              = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius:              TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;
   // Full name of config attribute @code(wheel_liftable) in @code(truck) configuration.
-  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable);
+  SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable;
 
 
   // Full name of config attribute @code(id) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id                      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id:                  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;
   // Full name of config attribute @code(cargo_accessory_id) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id:  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id;
   // Full name of config attribute @code(hook_position) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position           = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position:       TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;
   // Full name of config attribute @code(wheel_count) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count             = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count:         TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;
   // Full name of config attribute @code(wheel_position) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position          = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position:      TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;
   // Full name of config attribute @code(wheel_steerable) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;
   // Full name of config attribute @code(wheel_simulated) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;
   // Full name of config attribute @code(wheel_radius) in @code(trailer) configuration.
-  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius            = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);
+  SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius:        TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;
 
 
   // Full name of config attribute @code(cargo_id) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id                    = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id:                TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id;
   // Full name of config attribute @code(cargo) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo                       = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo:                   TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo;
   // Full name of config attribute @code(cargo_mass) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass                  = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass:              TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass;
   // Full name of config attribute @code(destination_city_id) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id         = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id:     TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id;
   // Full name of config attribute @code(destination_city) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city            = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city:        TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city;
   // Full name of config attribute @code(destination_company_id) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id      = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id:  TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id;
   // Full name of config attribute @code(destination_company) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company         = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company:     TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company;
   // Full name of config attribute @code(source_city_id) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id              = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id:          TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id;
   // Full name of config attribute @code(source_city) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city                 = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city:             TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city;
   // Full name of config attribute @code(source_company_id) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id           = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id:       TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id;
   // Full name of config attribute @code(source_company) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company              = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company:          TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company;
   // Full name of config attribute @code(income)  in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income                      = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income:                  TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income;
   // Full name of config attribute @code(delivery_time) in @code(job) configuration.
-  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time               = TelemetryString(SCS_TELEMETRY_CONFIG_job + cConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time);
+  SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time:           TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time;
 
 {$IFDEF TrueIDConstants}
   // True constants.
@@ -1047,7 +1053,7 @@ const
 
 {
   Returns full config name composed from config id and attribute name separated
-  by cConfigFieldsSeparator.
+  by ConfigFieldsSeparator.
 
   @param ConfigID      ID of configuration.
   @param AttributeName Name of attribute.
@@ -1269,14 +1275,14 @@ end;
 
 Function ConfigMergeIDAndAttribute(const ConfigID, AttributeName: TelemetryString): TelemetryString;
 begin
-Result := ConfigID + cConfigFieldsSeparator + AttributeName;
+Result := ConfigID + ConfigFieldsSeparator + AttributeName;
 end;
 
 //------------------------------------------------------------------------------
 
 Function ConfigRemoveIDFromName(const ConfigName,ConfigID: TelemetryString): TelemetryString;
 begin
-Result := Copy(ConfigName,Length(ConfigID) + Length(cConfigFieldsSeparator) + 1, Length(ConfigName));
+Result := Copy(ConfigName,Length(ConfigID) + Length(ConfigFieldsSeparator) + 1, Length(ConfigName));
 end;
 
 {==============================================================================}

@@ -273,16 +273,16 @@ type
     Function ItemIDString(ID: TItemID): String; virtual;
     Function IndexString(Index: scs_u32_t): String; virtual;
   public
-    constructor Create(Recipient: TTelemetryRecipient = nil; FileName: String = '');
+    constructor Create(aRecipient: TTelemetryRecipient = nil; FileName: String = '');
     destructor Destroy; override;
     procedure AddLog(LogText: String); virtual;
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure LogLog(LogType: scs_log_type_t; const LogText: String); virtual;
     procedure LogEventRegister(Event: scs_event_t); virtual;
@@ -356,9 +356,9 @@ end;
 {   TTelemetryLogText // Public methods                                        }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogText.Create(Recipient: TTelemetryRecipient = nil; FileName: String = '');
+constructor TTelemetryLogText.Create(aRecipient: TTelemetryRecipient = nil; FileName: String = '');
 begin
-inherited Create(Recipient);
+inherited Create(aRecipient);
 fLogger := TSimpleLog.Create;
 If FileName <> '' then
   fLogger.StreamFileName := FileName

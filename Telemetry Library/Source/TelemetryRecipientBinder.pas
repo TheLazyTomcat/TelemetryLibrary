@@ -38,6 +38,8 @@
 @html(<hr>)}
 unit TelemetryRecipientBinder;
 
+{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
+
 interface
 
 {$INCLUDE '.\Telemetry_defs.inc'}

@@ -9,16 +9,16 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2014-11-02)
+@lastmod(2015-04-20)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
-  ©2013-2014 František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
 
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).
 
-  Last change:  2014-11-02
+  Last change:  2015-04-20
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -36,7 +36,11 @@
     @item(2014-04-20 - Functions scs_value_localized and scs_value moved to
                        TelemetryStreaming unit.)
     @item(2014-05-05 - TMulticastEvent placeholder added.)
-    @item(2014-11-02 - Added types @code(PtrInt) and @code(PtrUInt).))
+    @item(2014-11-02 - Added types @code(PtrInt) and @code(PtrUInt).)
+    @item(2015-04-20 - Added TMemSize type.)
+    @item(2015-04-20 - Constants @code(cEmptySCSValue) and @code
+                       (cEmptySCSValueLocalized) renamed to EmptySCSValue and
+                       EmptySCSValueLocalized respectively.))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -67,7 +71,7 @@ type
 
   // Type used to cast pointer to a signed integer for calculation of arbitrary
   // address.
-{$IFDEF CPUX64}
+{$IFDEF x64}
   PtrInt  = Int64;
 {$ELSE}
   PtrInt  = LongInt;
@@ -75,11 +79,14 @@ type
 
   // Type used to cast pointer to an unsigned integer for calculation of
   // arbitrary address.
-{$IFDEF CPUX64}
+{$IFDEF x64}
   PtrUInt = UInt64;
 {$ELSE}
   PtrUInt = LongWord;
 {$ENDIF}
+
+  // Type used to pass or get size of memory, e.g. when allocating memory.
+  TMemSize = PtrUInt;
 
 {
   @abstract(Structure used internally in tables that keeps informations about
@@ -163,11 +170,11 @@ type
 const
   // Constant containing an empty @code(scs_value_t) structure, or, more
   // precisely, structure with invalid value type.
-  cEmptySCSValue: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);
+  EmptySCSValue: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);
 
   // Constant containing an empty scs_value_localized_t structure (invalid value
   // type).
-  cEmptySCSValueLocalized: scs_value_localized_t = (ValueType: SCS_VALUE_TYPE_INVALID);
+  EmptySCSValueLocalized: scs_value_localized_t = (ValueType: SCS_VALUE_TYPE_INVALID);
 
 
 implementation

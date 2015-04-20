@@ -10,18 +10,18 @@
           routines converting selected binary types to text.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2014-11-04)
+@lastmod(2015-04-20)
 
   @bold(@NoAutoLink(TelemetryStrings))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
 
   This unit is intended to provide some basic routines for manipulation and
   processing of @code(TelemetryString) type (UTF8 encoded string) and also
   routines designed to return human readable (i.e. textual) representation of
   binary data stored in variables of selected types.
 
-  Last change:  2014-11-04
+  Last change:  2015-04-20
 
   Change List:@unorderedList(
     @item(2014-04-30 - First stable version.)
@@ -601,7 +601,7 @@ const
   // Table of identifiers for individual value types (scs_value_type_t).
   // Index of each string corresponds to value type number this string is
   // identifying.
-  cSCSValueTypeIdentifiers: Array[0..12] of String =
+  SCSValueTypeIdentifiers: Array[0..12] of String =
     ('none','bool','s32','u32','u64','float','double','fvector','dvector',
      'euler','fplacement','dplacement','string');
 
@@ -669,9 +669,9 @@ end;
 
 Function SCSValueTypeToStr(SCSValueType: scs_value_type_t): String;
 begin
-If (Integer(SCSValueType) >= Low(cSCSValueTypeIdentifiers)) and
-   (Integer(SCSValueType) <= High(cSCSValueTypeIdentifiers)) then
-  Result := cSCSValueTypeIdentifiers[Integer(SCSValueType)]
+If (Integer(SCSValueType) >= Low(SCSValueTypeIdentifiers)) and
+   (Integer(SCSValueType) <= High(SCSValueTypeIdentifiers)) then
+  Result := SCSValueTypeIdentifiers[Integer(SCSValueType)]
 else
   Result := 'unknown';
 end;
@@ -683,8 +683,8 @@ var
   i:  Integer;
 begin
 Result := SCS_VALUE_TYPE_INVALID;
-For i := Low(cSCSValueTypeIdentifiers) to High(cSCSValueTypeIdentifiers) do
-  If AnsiSameText(cSCSValueTypeIdentifiers[i],Str) then
+For i := Low(SCSValueTypeIdentifiers) to High(SCSValueTypeIdentifiers) do
+  If AnsiSameText(SCSValueTypeIdentifiers[i],Str) then
     begin
       Result := scs_value_type_t(i);
       Break;
@@ -711,13 +711,13 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; Format: TFloatForm
 type
   TDescriptorsArray = Array[0..5] of String;
 const
-  cFullDescriptors:  TDescriptorsArray = ('X: ','Y: ','Z: ','Heading: ','Pitch: ','Roll: ');
-  cEmptyDescriptors: TDescriptorsArray = ('','','','','','');
+  FullDescriptors:  TDescriptorsArray = ('X: ','Y: ','Z: ','Heading: ','Pitch: ','Roll: ');
+  EmptyDescriptors: TDescriptorsArray = ('','','','','','');
 var
   Descriptors:  TDescriptorsArray;
 begin
-If ShowDescriptors then Descriptors := cFullDescriptors
-  else Descriptors := cEmptyDescriptors;
+If ShowDescriptors then Descriptors := FullDescriptors
+  else Descriptors := EmptyDescriptors;
 case ValueType of
   SCS_VALUE_TYPE_INVALID:
     Result := '';

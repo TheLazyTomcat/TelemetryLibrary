@@ -564,7 +564,7 @@ If Packet.Size >= MinimalPacketPayloadSize(PacketID) then
     PPacketHeader(Packet.Data)^.PacketID := PacketID;
     PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);
     PPacketHeader(Packet.Data)^.PayloadSize := Packet.Size - SizeOf(TPacketHeader);
-    Result := Pointer(PtrUInt(Packet.Data) + SizeOf(TPacketHeader));
+    Result := {%H-}Pointer(PtrUInt(Packet.Data) + SizeOf(TPacketHeader));
   end
 else
   raise Exception.Create('TTelemetryCommPacketsBuilder.PreparePacket: Packet size too small (' + IntToStr(Packet.Size) + ').');
@@ -1517,7 +1517,7 @@ var
 begin
 Result.Size := SizeOf(TPacketHeader) + SizeOf(Integer){Count};
 // Get size of all buffered channels.
-If BufferedChannels.TraverseFirst(TraversalInfo) then
+If BufferedChannels.TraverseFirst({%H-}TraversalInfo) then
   repeat
     ChannelInfo := PStoredChannel(TraversalInfo.Item)^;
     Inc(Result.Size,SizeOfString(ChannelInfo.Name){Name} +
@@ -1991,7 +1991,7 @@ If (DataOffset + DataSize) <= GetPacketHeader(Packet).PayloadSize then
   begin
     PPacketHeader(Packet.Data)^.PacketID := NewPacketID;
     PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);
-    CopyMemory(Pointer(PtrUInt(GetPayloadAddress(Packet)) + DataOffset),Data,DataSize);
+    CopyMemory({%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + DataOffset),Data,DataSize);
   end
 else raise Exception.Create('TelemetryNetPacketsResolving.ReusePacket(Offset): Data cannot fit into reused packet.');
 end;
@@ -2000,10 +2000,10 @@ end;
 
 procedure TTelemetryCommPacketsBuilder.ReusePacket(var Packet: TPacketBuffer; NewPacketID: TPacketID; Address: Pointer; DataSize: LongWord; Data: Pointer);
 begin
-If (PtrUInt(Address) >= PtrUInt(GetPayloadAddress(Packet))) and
-   (PtrUInt(Address) <= (PtrUInt(GetPayloadAddress(Packet)) + GetPacketHeader(Packet).PayloadSize)) then
+If {%H-}(PtrUInt(Address) >= PtrUInt(GetPayloadAddress(Packet))) and
+   {%H-}(PtrUInt(Address) <= (PtrUInt(GetPayloadAddress(Packet)) + GetPacketHeader(Packet).PayloadSize)) then
   begin
-    If (PtrUInt(Address) - PtrUInt(Packet.Data) + DataSize) <= GetPacketHeader(Packet).PayloadSize then
+    If {%H-}(PtrUInt(Address) - PtrUInt(Packet.Data) + DataSize) <= GetPacketHeader(Packet).PayloadSize then
       begin
         PPacketHeader(Packet.Data)^.PacketID := NewPacketID;
         PPacketHeader(Packet.Data)^.TimeStamp := DateTimeToTimeStamp(Now);

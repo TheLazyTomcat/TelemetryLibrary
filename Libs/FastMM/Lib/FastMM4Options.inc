@@ -13,7 +13,7 @@ Set the default options for FastMM here.
  smallest block sizes will be 8-byte aligned instead which may result in a
  reduction in memory usage. Medium and large blocks are always 16-byte aligned
  irrespective of this setting.}
-{$define Align16Bytes}
+{.$define Align16Bytes}
 
 {Enable to use faster fixed-size move routines when upsizing small blocks.
  These routines are much faster than the Borland RTL move procedure since they
@@ -84,7 +84,7 @@ Set the default options for FastMM here.
 {Enable this option to suppress the generation of debug info for the
  FastMM4.pas unit. This will prevent the integrated debugger from stepping into
  the memory manager code.}
-{$define NoDebugInfo}
+{.$define NoDebugInfo}
 
 {Enable this option to suppress the display of all message dialogs. This is
  useful in service applications that should not be interrupted.}
@@ -161,7 +161,7 @@ Set the default options for FastMM here.
    care.}
   {.$define LoadDebugDLLDynamically}
 
-  {.$define DoNotInstallIfDLLMissing}
+    {.$define DoNotInstallIfDLLMissing}
     {If the FastMM_FullDebugMode.dll file is not available then FastMM will not
      install itself. No effect unless FullDebugMode and LoadDebugDLLDynamically
      are also defined.}
@@ -319,7 +319,6 @@ Set the default options for FastMM here.
  is useful when the same executable will be distributed for both debugging as
  well as deployment.}
 {.$define FullDebugModeWhenDLLAvailable}
-
 
 {Group the options you use for release and debug versions below}
 {$ifdef Release}

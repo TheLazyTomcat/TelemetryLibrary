@@ -366,6 +366,8 @@
 @html(<hr>)}
 unit TelemetryLogBinary;
 
+{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
+
 interface
 
 {$INCLUDE '..\Telemetry_defs.inc'}
@@ -559,11 +561,11 @@ type
     @param Data      Pointer to data to be written. Must not be @nil.
     @param Size      Size of the data in bytes.)
 
-  @member(LogText
+  @member(LogStr
     Method intended to write log containing any text.
 
     @param Recipient Telemetry recipient. Must contain valid object.
-    @param Text      Text to be written. Can be empty.)
+    @param Str       Text to be written. Can be empty.)
 
   @member(LogLog
     Method intended to write informations about a write to game log (console).
@@ -670,7 +672,7 @@ type
     constructor Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
     procedure StartWriting; virtual; abstract;
     procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: LongWord); virtual; abstract;
-    procedure LogText(Recipient: TTelemetryRecipient; Text: TelemetryString); virtual; abstract;
+    procedure LogStr(Recipient: TTelemetryRecipient; Str: TelemetryString); virtual; abstract;
     procedure LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); virtual; abstract;
     procedure LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
     procedure LogEventUnregister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
@@ -680,9 +682,9 @@ type
     procedure LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;
     procedure LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
     procedure EndWriting; virtual; abstract;
+    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
   published
     property Stream: TStream read fStream;
-    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
     property SaveMinimized: Boolean read fSaveMinimized write fSaveMinimized;
     property SaveItemIDOnly: Boolean read fSaveItemIDOnly write fSaveItemIDOnly;
   end;
@@ -738,7 +740,7 @@ type
   @member(LogData
     See @inherited.)
 
-  @member(LogText
+  @member(LogStr
     See @inherited.)
 
   @member(LogLog
@@ -780,16 +782,16 @@ type
     procedure StartWriting; override;
     procedure LogInvalidBlock; virtual;
     procedure LogTerminationBlock; virtual;
-    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: LongWord); override;
-    procedure LogText(Recipient: TTelemetryRecipient; Text: TelemetryString); override;
-    procedure LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); override;
-    procedure LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t); override;
-    procedure LogEventUnregister(Recipient: TTelemetryRecipient; Event: scs_event_t); override;
+    procedure LogData({%H-}Recipient: TTelemetryRecipient; Data: Pointer; Size: LongWord); override;
+    procedure LogStr({%H-}Recipient: TTelemetryRecipient; Str: TelemetryString); override;
+    procedure LogLog({%H-}Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); override;
+    procedure LogEventRegister({%H-}Recipient: TTelemetryRecipient; Event: scs_event_t); override;
+    procedure LogEventUnregister({%H-}Recipient: TTelemetryRecipient; Event: scs_event_t); override;
     procedure LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); override;
-    procedure LogChannelRegister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-    procedure LogChannelUnregister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-    procedure LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
-    procedure LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure LogChannelRegister({%H-}Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
+    procedure LogChannelUnregister({%H-}Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
+    procedure LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; {%H-}ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
+    procedure LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; {%H-}ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure EndWriting; override;
   end;
 
@@ -890,13 +892,13 @@ type
     @param Data    Pointer to data to be written. Must not be @nil.
     @param Size    Size of the data in bytes.)
 
-  @member(LogText
+  @member(LogStr
     Method adding a text entry to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender  Object calling this method (must be of type
                    TTelemetryRecipient).)
-    @param Text    Text to be written. Can be empty.)
+    @param Str     Text to be written. Can be empty.)
 
   @member(LogHandler
     Method adding informations about a write to game log (console).@br
@@ -1046,17 +1048,17 @@ type
     procedure PrepareFileInfo(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
     procedure WriteFileHeader(FileInfo: TTelemetryLogBinaryFileInfo); virtual;
   public
-    constructor Create(Recipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
+    constructor Create(aRecipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
     destructor Destroy; override;
     procedure LogData(Sender: TObject; Data: Pointer; Size: LongWord); virtual;
-    procedure LogText(Sender: TObject; Text: TelemetryString); virtual;  
+    procedure LogStr(Sender: TObject; Str: TelemetryString); virtual;
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure LogLog(LogType: scs_log_type_t; const LogText: String); virtual;
     procedure LogEventRegister(Event: scs_event_t); virtual;
@@ -1066,9 +1068,9 @@ type
     procedure LogChannelUnregister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;
     procedure LogChannel(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual;
     procedure LogConfig(const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
+    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
   published
     property Stream: TStream read fStream;
-    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
     property SaveMinimized: Boolean read fSaveMinimized write SetSaveMinimized;
     property SaveItemIDOnly: Boolean read fSaveItemIDOnly write SetSaveItemIDOnly;
   end;
@@ -1122,7 +1124,7 @@ type
   private
     fFileName: String;
   public
-    constructor Create(Recipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
+    constructor Create(aRecipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
     destructor Destroy; override;
   published
     property FileName: String read fFileName;
@@ -1234,10 +1236,10 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_0_1.LogText(Recipient: TTelemetryRecipient; Text: TelemetryString);
+procedure TTelemetryLogBinaryWriter_0_1.LogStr(Recipient: TTelemetryRecipient; Str: TelemetryString);
 begin
-WriteBlockHeader(LB_BLOCK_TYPE_TEXT,0,SizeOfString(Text));
-Stream_WriteString(Stream,Text);
+WriteBlockHeader(LB_BLOCK_TYPE_TEXT,0,SizeOfString(Str));
+Stream_WriteString(Stream,Str);
 end;
 
 //------------------------------------------------------------------------------
@@ -1472,11 +1474,11 @@ end;
 {   TTelemetryLogBinaryStream // Public methods                                }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogBinaryStream.Create(Recipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
+constructor TTelemetryLogBinaryStream.Create(aRecipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
 begin
-If not Assigned(Recipient) then
+If not Assigned(aRecipient) then
   raise Exception.Create('TTelemetryLogBinaryStream.Create: Telemetry Recipient not assigned.');
-inherited Create(Recipient);
+inherited Create(aRecipient);
 If Assigned(Stream) then fStream := Stream
   else raise Exception.Create('TTelemetryLogBinaryStream.Create: Stream not assigned.');
 PrepareFileInfo(fFileInfo);
@@ -1515,12 +1517,12 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.LogText(Sender: TObject; Text: TelemetryString);
+procedure TTelemetryLogBinaryStream.LogStr(Sender: TObject; Str: TelemetryString);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
 If GetWorkingRecipient(Sender,WorkRecipient) then
-  fLogWriter.LogText(WorkRecipient,Text)
+  fLogWriter.LogStr(WorkRecipient,Str)
 else
   raise Exception.Create('TTelemetryLogBinaryStream.ConfigHandler: No valid recipient.');
 end;
@@ -1691,7 +1693,7 @@ end;
 {   TTelemetryLogBinaryFile // Public methods                                  }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogBinaryFile.Create(Recipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
+constructor TTelemetryLogBinaryFile.Create(aRecipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
 var
   TempStream: TFileStream;
 begin
@@ -1699,7 +1701,7 @@ If FileName = '' then FileName := ExtractFilePath(GetModuleName(hInstance)) +
                       ChangeFileExt(ExtractFileName(GetModuleName(hInstance)),'') +
                       '_' + FormatDateTime('yyyy-mm-dd-hh-nn-ss',Now) + '.tbl';
 TempStream := TFileStream.Create(FileName,fmCreate or fmShareDenyWrite);
-inherited Create(Recipient,TempStream,DataStructure);
+inherited Create(aRecipient,TempStream,DataStructure);
 fFileName := FileName;
 end;
 

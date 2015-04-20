@@ -43,6 +43,8 @@
 @html(<hr>)}
 unit TelemetryLogBinaryParser;
 
+{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
+
 interface
 
 {$INCLUDE '..\Telemetry_defs.inc'}
@@ -369,6 +371,7 @@ type
     procedure ReadAllLogEntries; virtual;
     Function ReadLogEntry(Index: Integer): Boolean; virtual; abstract;
     property LogEntries[Index: Integer]: TLogEntry read GetLogEntry; default;
+    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
   published
     property OnDataLog: TDataTimeLogEvent read fOnDataLog write fOnDataLog;
     property OnTextLog: TTextTimeLogEvent read fOnTextLog write fOnTextLog;
@@ -383,7 +386,6 @@ type
     property LogCount: Integer read GetLogCount;
     property LogCounter: Integer read fLogCounter;
     property Stream: TStream read fStream;
-    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
     property TelemetryInfoProvider: TTelemetryInfoProvider read fTelemetryInfoProvider;
     property FirstStreamPosition: Int64 read fFirstStreamPosition;
     property ReadingTerminated: Boolean read fReadingTerminated write fReadingTerminated;
@@ -531,7 +533,7 @@ type
     Function GetFlagValue(Flags, FlagMask: Byte): Boolean; virtual;
     procedure ReadBlocksOffsets; virtual;
     Function ReadBlockHeader(var BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-    Function ReadBlockPayload_Invalid(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
+    Function ReadBlockPayload_Invalid({%H-}BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
     Function ReadBlockPayload_Generic(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
     Function ReadBlockPayload_Text(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
     Function ReadBlockPayload_Log(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
@@ -542,7 +544,7 @@ type
     Function ReadBlockPayload_ChannelUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
     Function ReadBlockPayload_Channel(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
     Function ReadBlockPayload_Config(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-    Function ReadBlockPayload_Termination(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
+    Function ReadBlockPayload_Termination({%H-}BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
     Function ReadBlock: Boolean; virtual;
   public
     procedure StartReading; override;
@@ -1062,10 +1064,10 @@ type
     Function ReadNextLogEntry: Boolean; virtual;
     procedure ReadAllLogEntries; virtual;
     Function ReadLogEntry(Index: Integer): Boolean; virtual;
-    property LogEntries[Index: Integer]: TLogEntry read GetLogEntry; default;    
+    property LogEntries[Index: Integer]: TLogEntry read GetLogEntry; default;
+    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
   published
     property Stream: TStream read fStream;
-    property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
     property LogCount: Integer read GetLogCount;
     property LogCounter: Integer read GetLogCounter;
     property OnDataTimeLog: TDataTimeLogEvent read fOnDataTimeLog write fOnDataTimeLog;
@@ -1269,7 +1271,7 @@ type
     procedure DoOnChannel(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
     procedure DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
   public
-    constructor Create(FileName: String; OutFileName: String = '');
+    constructor Create(aFileName: String; OutFileName: String = '');
     destructor Destroy; override;
     procedure Convert; virtual;
   published
@@ -1399,7 +1401,7 @@ If (Index >= Low(fBlocksOffsets)) and (Index <= High(fBlocksOffsets)) then
     StreamPosition := Stream.Position;
     try
       Stream.Seek(fBlocksOffsets[Index],soBeginning);
-      If ReadBlockHeader(BlockHeader) then
+      If ReadBlockHeader({%H-}BlockHeader) then
         begin
           Result.Time := TimeStampToDateTime(BlockHeader.BlockTime);
           Result.Size := BlockHeader.BlockPayloadSize;
@@ -1587,7 +1589,7 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
     case Event of
 {*}   SCS_TELEMETRY_EVENT_frame_start:
         begin
-          Stream.Read(Data_f,SizeOf(scs_telemetry_frame_start_t));
+          Stream.Read({%H-}Data_f,SizeOf(scs_telemetry_frame_start_t));
           Data := @Data_f;
         end;
 {*}   SCS_TELEMETRY_EVENT_configuration:
@@ -1794,7 +1796,7 @@ var
   BlockHeader:  TTelemetryLogBinaryBlockHeader;
 begin
 Result := False;
-If not ReadingTerminated and ReadBlockHeader(BlockHeader) then
+If not ReadingTerminated and ReadBlockHeader({%H-}BlockHeader) then
   begin
     case BlockHeader.BlockType of
       LB_BLOCK_TYPE_INVALID:      Result := ReadBlockPayload_Invalid(BlockHeader);
@@ -2344,9 +2346,9 @@ end;
 {   TTelemetryLogBinaryToTextConverter // Public methods                       }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogBinaryToTextConverter.Create(FileName: String; OutFileName: String = '');
+constructor TTelemetryLogBinaryToTextConverter.Create(aFileName: String; OutFileName: String = '');
 begin
-inherited Create(FileName);
+inherited Create(aFileName);
 If OutFileName <> '' then
   fOutFileName := OutFileName
 else

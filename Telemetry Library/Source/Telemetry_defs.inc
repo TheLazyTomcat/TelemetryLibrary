@@ -29,9 +29,7 @@
 
 {$IFDEF Debug}
   {$DEFINE DevelopmentHints}
-{$ENDIF}
-
-{$IFDEF Release}
+{$ELSE}
   {$UNDEF DevelopmentHints}
 {$ENDIF}
 

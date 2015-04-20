@@ -81,16 +81,16 @@ type
     Function InitializeSharedMemory: Boolean; virtual;
     procedure DeinitializeSharedMemory; virtual;
   public
-    constructor Create(Recipient: TTelemetryRecipient; const MemoryMapName: AnsiString = def_MemoryMapName);
+    constructor Create(aRecipient: TTelemetryRecipient; const MemoryMapName: AnsiString = def_MemoryMapName);
     destructor Destroy; override;
-    procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
-    procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; {%H-}const LogText: String); override;
+    procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; {%H-}const Name: TelemetryString; ID: TChannelID; {%H-}Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+    procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
   end;
 
 
@@ -118,11 +118,11 @@ type
     Function Initialize: Boolean; virtual;
     Function RetrieveCurrentState: Boolean; virtual;
     property SharedMemory: PSCSExm_TelemetryMemState read fSharedMemory;
+    property StoredState: TSCSExm_TelemetryMemState read fStoredState;
   published
     property Initialized: Boolean read GetInitialized;
     property MemoryMapName: AnsiString read fMemoryMapName;
     property MemoryMapping: THandle read fMemoryMapping;
-    property StoredState: TSCSExm_TelemetryMemState read fStoredState;
   end;
 
 implementation
@@ -177,8 +177,8 @@ If not Assigned(fSharedMemory) then
     Exit;
   end;
 ZeroMemory(fSharedMemory,SizeOf(TSCSExm_TelemetryMemState));
-fSharedMemory.Running := 0;
-fSharedMemory.WheelCount := 0;
+fSharedMemory^.Running := 0;
+fSharedMemory^.WheelCount := 0;
 Result := True;
 end;
 
@@ -202,39 +202,39 @@ end;
 {   TSCSExm_TelemetryMem // Public methods                                     }
 {------------------------------------------------------------------------------}
 
-constructor TSCSExm_TelemetryMem.Create(Recipient: TTelemetryRecipient; const MemoryMapName: AnsiString = def_MemoryMapName);
+constructor TSCSExm_TelemetryMem.Create(aRecipient: TTelemetryRecipient; const MemoryMapName: AnsiString = def_MemoryMapName);
 begin
-inherited Create(Recipient);
-If not Assigned(Recipient) then
+inherited Create(aRecipient);
+If not Assigned(aRecipient) then
   raise Exception.Create('TSCSExm_TelemetryMem.Create: Recipient is not assigned.');
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
 fFormatSettings.DecimalSeparator := '.';
-Recipient.KeepUtilityEvents := False;
-Recipient.StoreConfigurations := False;
-Recipient.EventUnregisterAll;
+aRecipient.KeepUtilityEvents := False;
+aRecipient.StoreConfigurations := False;
+aRecipient.EventUnregisterAll;
 fMemoryMapName := MemoryMapName;
-LogLine(SCS_LOG_TYPE_message,'Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' ' +
-                             IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.' +
-                             IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
-If not TelemetrySameStrSwitch(Recipient.GameID, SCS_GAME_ID_EUT2) then
+LogLine(SCS_LOG_TYPE_message,'Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' ' +
+                             IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.' +
+                             IntToStr(SCSGetMinorVersion(aRecipient.GameVersion)));
+If not TelemetrySameStrSwitch(aRecipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     LogLine(SCS_LOG_TYPE_warning,'Unsupported game, some features or values might behave incorrectly');
   end
 else
   begin
-    If Recipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 then
+    If aRecipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 then
       begin
         LogLine(SCS_LOG_TYPE_error,'Too old version of the game');
-        raise Exception.Create('TSCSExm_TelemetryMem.Create: Unsupported (too old) version of the game (' + SCSGetVersionAsString(Recipient.GameVersion) + ').');
+        raise Exception.Create('TSCSExm_TelemetryMem.Create: Unsupported (too old) version of the game (' + SCSGetVersionAsString(aRecipient.GameVersion) + ').');
       end;
-    If Recipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 then
+    If aRecipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 then
       LogLine(SCS_LOG_TYPE_warning,'This version of the game has less precise output of angular acceleration of the cabin');
-    If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
+    If SCSGetMajorVersion(aRecipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
       LogLine(SCS_LOG_TYPE_warning,'Too new major version of the game, some features might behave incorrectly');
   end;
-If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
-        Recipient.EventRegister(SCS_TELEMETRY_EVENT_started) and
-        Recipient.EventRegister(SCS_TELEMETRY_EVENT_configuration)) then
+If not (aRecipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
+        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_started) and
+        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_configuration)) then
   begin
     LogLine(SCS_LOG_TYPE_error,'Unable to register event callbacks');
     raise Exception.Create('TSCSExm_TelemetryMem.Create: Events registration failed.');
@@ -244,20 +244,20 @@ If not InitializeSharedMemory then
     LogLine(SCS_LOG_TYPE_error,'Unable to initialize shared memory');
     raise Exception.Create('TSCSExm_TelemetryMem.Create: Shared memory initialization failed.');
   end;
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,            SCS_U32_NIL, SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.WSTruckPlacement));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                      SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.SpeedometerSpeed));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                 SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.RPM));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                SCS_U32_NIL, SCS_VALUE_TYPE_s32,       SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Gear));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,         SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Steering));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,         SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Throttle));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,            SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Brake));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,           SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Clutch));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,      SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.LinearVelocity));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.AngularVelocity));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,  SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.LinearAcceleration));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.AngularAcceleration));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.CabinAngularVelocity));
-Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.CabinAngularAcceleration));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,            SCS_U32_NIL, SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.WSTruckPlacement));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                      SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.SpeedometerSpeed));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                 SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.RPM));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                SCS_U32_NIL, SCS_VALUE_TYPE_s32,       SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Gear));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,         SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Steering));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,         SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Throttle));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,            SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Brake));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,           SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.Clutch));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,      SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.LinearVelocity));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.AngularVelocity));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,  SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.LinearAcceleration));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.AngularAcceleration));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,     SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.CabinAngularVelocity));
+aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration, SCS_U32_NIL, SCS_VALUE_TYPE_fvector,   SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.CabinAngularAcceleration));
 LogLine(SCS_LOG_TYPE_message,'Memory telemetry example initialized');
 end;
 

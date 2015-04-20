@@ -430,7 +430,7 @@ type
   protected
     procedure InitializeItem(var Item: TCircularBufferItem); override;
   public
-    constructor Create(Size: Integer = def_CircularChannelsBuffer_BufferSize);
+    constructor Create(aSize: Integer = def_CircularChannelsBuffer_BufferSize);
     destructor Destroy; override;
   {
     Use this method to add new channel to the buffer.@br
@@ -609,7 +609,7 @@ type
   protected
     procedure InitializeItem(var Item: TCircularBufferItem); override;
   public
-    constructor Create(Size: Integer = def_DefferedOperationsBuffer_BufferSize);
+    constructor Create(aSize: Integer = def_DefferedOperationsBuffer_BufferSize);
     destructor Destroy; override;
   {
     Adds new deffered operation to the buffer.@br
@@ -974,9 +974,9 @@ end;
 {   TCircularChannelsBuffer // Public methods                                  }
 {------------------------------------------------------------------------------}
 
-constructor TCircularChannelsBuffer.Create(Size: Integer = def_CircularChannelsBuffer_BufferSize);
+constructor TCircularChannelsBuffer.Create(aSize: Integer = def_CircularChannelsBuffer_BufferSize);
 begin
-inherited Create(Size);
+inherited Create(aSize);
 end;
 
 //------------------------------------------------------------------------------
@@ -1014,7 +1014,7 @@ begin
 If Assigned(Value) then
   AddChannel(Name,ID,Index,scs_value_localized(Value^))
 else
-  AddChannel(Name,ID,Index,cEmptySCSValueLocalized);
+  AddChannel(Name,ID,Index,EmptySCSValueLocalized);
 end;
 
 //------------------------------------------------------------------------------
@@ -1063,9 +1063,9 @@ end;
 {   TDefferedOperationsBuffer // Public methods                                }
 {------------------------------------------------------------------------------}
 
-constructor TDefferedOperationsBuffer.Create(Size: Integer = def_DefferedOperationsBuffer_BufferSize);
+constructor TDefferedOperationsBuffer.Create(aSize: Integer = def_DefferedOperationsBuffer_BufferSize);
 begin
-inherited Create(Size);
+inherited Create(aSize);
 end;
 
 //------------------------------------------------------------------------------

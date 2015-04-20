@@ -56,7 +56,7 @@ type
     procedure SetBufferChannels(Value: Boolean);
   protected
   public
-    constructor Create(Recipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder);
+    constructor Create(aRecipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder);
     destructor Destroy; override;
     procedure SendBufferedChannels; virtual; abstract;
     procedure SendStoredConfigs(OnePacket: Boolean; ConnectionData: Pointer); virtual; abstract;
@@ -89,12 +89,12 @@ type
   TTelemetryCommServerTransmitter = class(TTelemetryCommTransmitter)
   public
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; {%H-}ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; {%H-}ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
     procedure SendBufferedChannels; override;
     procedure SendStoredConfigs(OnePacket: Boolean; ConnectionData: Pointer); override;
@@ -112,17 +112,17 @@ type
 {==============================================================================}
   TTelemetryCommClientTransmitter = class(TTelemetryCommTransmitter)
   public
-    procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-    procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;
-    procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
-    procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; const {%H-}LogText: String); override;
+    procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+    procedure EventHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}Data: Pointer; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}Value: p_scs_value_t; {%H-}UserData: Pointer); override;
+    procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
     procedure SendBufferedChannels; override;
-    procedure SendStoredConfigs(OnePacket: Boolean; ConnectionData: Pointer); override;
-    procedure SendStoredChannelsValues(ConnectionData: Pointer); override;
+    procedure SendStoredConfigs({%H-}OnePacket: Boolean; {%H-}ConnectionData: Pointer); override;
+    procedure SendStoredChannelsValues({%H-}ConnectionData: Pointer); override;
   end;
 
 
@@ -181,11 +181,11 @@ end;
 {   TTelemetryCommTransmitter // Public methods                                }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryCommTransmitter.Create(Recipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder);
+constructor TTelemetryCommTransmitter.Create(aRecipient: TTelemetryRecipient; PacketsBuilder: TTelemetryCommPacketsBuilder);
 begin
-If not Assigned(Recipient) then
+If not Assigned(aRecipient) then
   raise Exception.Create('TTelemetryCommTransmitter.Create: Recipient not assigned.');
-inherited Create(Recipient);
+inherited Create(aRecipient);
 If not Assigned(PacketsBuilder) then
   raise Exception.Create('TTelemetryCommTransmitter.Create: Packets builder not assigned.');
 fPacketsBuilder := PacketsBuilder;
@@ -225,21 +225,21 @@ end;
 
 procedure TTelemetryCommServerTransmitter.LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String);
 begin
-SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_LOG_LOG(LogType,LogText),cSendToAll);
+SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_LOG_LOG(LogType,LogText),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryCommServerTransmitter.EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
-SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_REGISTER(Event,SCS_RESULT_ok),cSendToAll);
+SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_REGISTER(Event,SCS_RESULT_ok),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryCommServerTransmitter.EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer);
 begin
-SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_UNREGISTER(Event,SCS_RESULT_ok),cSendToAll);
+SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_UNREGISTER(Event,SCS_RESULT_ok),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
@@ -251,9 +251,9 @@ If SendEvents then
     If Event in [SCS_TELEMETRY_EVENT_frame_start,SCS_TELEMETRY_EVENT_frame_end] then
       begin
         If SendFrameEvents then
-          SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_EVENT(Event,Data),cSendToAll);
+          SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_EVENT(Event,Data),SendToAll);
       end
-    else SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_EVENT(Event,Data),cSendToAll);
+    else SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_EVENT_EVENT(Event,Data),SendToAll);
   end;
 If BufferChannels then SendBufferedChannels;
 If Assigned(ExecuteDefferedOperations) then ExecuteDefferedOperations(Self,Event,nil);
@@ -263,14 +263,14 @@ end;
 
 procedure TTelemetryCommServerTransmitter.ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer);
 begin
-SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER(Name,Index,ValueType,Flags,SCS_RESULT_ok),cSendToAll);
+SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_REGISTER(Name,Index,ValueType,Flags,SCS_RESULT_ok),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TTelemetryCommServerTransmitter.ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer);
 begin
-SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_UNREGISTER(Name,Index,ValueType,SCS_RESULT_ok),cSendToAll);
+SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_UNREGISTER(Name,Index,ValueType,SCS_RESULT_ok),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
@@ -283,7 +283,7 @@ If BufferChannels then
     If Assigned(OnChannelBuffering) then OnChannelBuffering(Sender,Name,ID,Index,Value,nil);
   end
 else
-  If SendChannels then SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_CHANNEL(Name,ID,Index,Value),cSendToAll);
+  If SendChannels then SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_CHANNEL(Name,ID,Index,Value),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ end;
 procedure TTelemetryCommServerTransmitter.ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
 If SendConfigs then
-  SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CONFIG_CONFIG(Name,ID,Index,Value),cSendToAll);
+  SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CONFIG_CONFIG(Name,ID,Index,Value),SendToAll);
 end;
 
 //------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ begin
 If BufferedChannels.ContainsChannel then
   begin
     If SendChannels then
-      SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_CHANNEL_BUFFERED(BufferedChannels),cSendToAll);
+      SendPacket(PacketsBuilder.BuildPacket_TC_PACKET_CHANNEL_CHANNEL_BUFFERED(BufferedChannels),SendToAll);
     BufferedChannels.Clear;
   end;
 end;
