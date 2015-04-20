@@ -2,7 +2,7 @@ unit SCS_Telemetry_Condensed;
 
 {==============================================================================}
 {  SCS Telemetry API headers condenser, version 1.0a                           }
-{  Condensed on: Monday 2015-04-20 00:09:12                                    }
+{  Condensed on: Monday 2015-04-20 08:20:09                                    }
 {==============================================================================}
 
 interface
@@ -15,9 +15,7 @@ interface
 
 {$IFDEF Debug}
   {$DEFINE AssertTypeSize}
-{$ENDIF}
-
-{$IFDEF Release}
+{$ELSE}
   {$UNDEF AssertTypeSize}
 {$ENDIF}
 

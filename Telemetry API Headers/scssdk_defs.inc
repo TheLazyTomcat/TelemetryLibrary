@@ -6,9 +6,7 @@
 
 {$IFDEF Debug}
   {$DEFINE AssertTypeSize}
-{$ENDIF}
-
-{$IFDEF Release}
+{$ELSE}
   {$UNDEF AssertTypeSize}
 {$ENDIF}
 
