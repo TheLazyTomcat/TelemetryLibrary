@@ -2,6 +2,9 @@ todo:
   add lazarus/newer delphi support	
   add 64bit support
   remove multicast events handling classes from documentation
+  rework documentation notes
+  rework configs
+  remove file inclusion where possible
 
 done:
   declare library-wide PtrInt and PtrUInt (in telemetryCommon), use them where appropriate
