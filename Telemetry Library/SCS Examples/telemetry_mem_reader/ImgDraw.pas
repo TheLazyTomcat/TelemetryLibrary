@@ -10,7 +10,7 @@ unit ImgDraw;
 
 interface
 
-{$INCLUDE '..\..\Source\Telemetry_defs.inc'}
+{$INCLUDE '..\..\..\Source\Telemetry_defs.inc'}
 
 uses
   SysUtils,
@@ -97,7 +97,7 @@ const
   txt_CapRPMPosX   = txt_CapSpeedPosX + 150;
   txt_CapGearPosX  = txt_CapRPMPosX + 150;
 
-  spl_SplitterColor = clSilver;
+  {%H-}spl_SplitterColor = clSilver;
 
   sbar_BarHeight         = 15;
   sbar_RightWindowWidth  = 45;
@@ -108,7 +108,7 @@ const
   sbar_FillColor         = $00F0F0F0;
   sbar_BarColor1         = $00FF2424;
   sbar_BarColor2         = $00660000;
-  sbar_PosLineHalfLength = 3;
+  {%H-}sbar_PosLineHalfLength = 3;
   sbar_PercFontColor     = clWhite;
   sbar_Caption           = 'Steering position:';
 
@@ -120,7 +120,7 @@ const
   bar_FontSize          = 8;
   bar_CapFontColor      = clWindowText;
   bar_PercFontColor     = clWhite;
-  bar_PosLineHalfLength = 3;
+  {%H-}bar_PosLineHalfLength = 3;
 
   wbar_OutlineColor      = clBlack;
   wbar_FillColor         = $00F0F0F0;
@@ -131,7 +131,7 @@ const
   wbar_FontSize          = 8;
   wbar_CapFontColor      = clWindowText;
   wbar_ValFontColor      = clWhite;
-  wbar_PosLineHalfLength = 3;
+  {%H-}wbar_PosLineHalfLength = 3;
   wbar_BarColor1         = $00AEAEAE;
   wbar_BarColor2         = $00444444;
   wbar_InactiveColor     = clRed;
@@ -478,7 +478,7 @@ end;
 constructor TImgDrawer.Create(Width, Height: Integer; DefaultFont: TFont);
 begin
 inherited Create;
-GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
+{%H-}GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
 fFormatSettings.DecimalSeparator := '.';
 fImgNoData := Graphics.TBitmap.Create;
 fImgNoData.Width := Width;
