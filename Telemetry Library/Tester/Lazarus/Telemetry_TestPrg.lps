@@ -9,11 +9,10 @@
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Telemetry_TestPrg"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="46"/>
-        <CursorPos X="1" Y="66"/>
+        <TopLine Value="31"/>
+        <CursorPos X="10" Y="48"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -21,10 +20,12 @@
         <Filename Value="..\..\Source\TelemetryIDs.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryIDs"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="6" Y="36"/>
+        <TopLine Value="196"/>
+        <CursorPos X="1" Y="206"/>
         <UsageCount Value="26"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk.pas"/>
@@ -183,100 +184,123 @@
         <Filename Value="..\..\Source\TelemetryCommon.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryCommon"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="46" Y="43"/>
+        <TopLine Value="37"/>
+        <CursorPos X="1" Y="47"/>
         <UsageCount Value="26"/>
+        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryConversions"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="84" Y="7"/>
+        <TopLine Value="28"/>
+        <CursorPos X="1" Y="30"/>
         <UsageCount Value="25"/>
+        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\Source\TelemetryStrings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryStrings"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="23" Y="720"/>
+        <TopLine Value="40"/>
+        <CursorPos X="1" Y="46"/>
         <UsageCount Value="25"/>
+        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\Source\TelemetryValueTypeUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryValueTypeUtils"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="12" Y="169"/>
+        <CursorPos X="1" Y="10"/>
         <UsageCount Value="25"/>
+        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\Source\TelemetryLists.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryLists"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="160"/>
-        <CursorPos X="20" Y="1847"/>
+        <TopLine Value="133"/>
+        <CursorPos X="1" Y="143"/>
         <UsageCount Value="24"/>
+        <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryStreaming"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="76" Y="2"/>
+        <TopLine Value="64"/>
+        <CursorPos X="1" Y="70"/>
         <UsageCount Value="24"/>
+        <Loaded Value="True"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\Source\TelemetryVersionObjects.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryVersionObjects"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="343"/>
-        <CursorPos X="4" Y="356"/>
+        <TopLine Value="46"/>
+        <CursorPos X="1" Y="59"/>
         <UsageCount Value="23"/>
+        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\Source\TelemetryInfoProvider.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryInfoProvider"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="88"/>
-        <CursorPos X="42" Y="88"/>
+        <TopLine Value="49"/>
+        <CursorPos X="1" Y="65"/>
         <UsageCount Value="23"/>
+        <Loaded Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipient"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="106"/>
-        <CursorPos X="11" Y="166"/>
+        <TopLine Value="154"/>
+        <CursorPos X="35" Y="164"/>
         <UsageCount Value="23"/>
+        <Loaded Value="True"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipientBinder"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="218"/>
-        <CursorPos X="21" Y="236"/>
+        <TopLine Value="32"/>
+        <CursorPos X="35" Y="41"/>
         <UsageCount Value="22"/>
+        <Loaded Value="True"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetrySCS_Examples_telemetry"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="116"/>
+        <TopLine Value="1"/>
         <CursorPos X="128" Y="80"/>
         <UsageCount Value="22"/>
+        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas"/>
@@ -328,7 +352,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryCommCommon"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="24"/>
+        <TopLine Value="18"/>
         <CursorPos X="3" Y="45"/>
         <UsageCount Value="21"/>
       </Unit35>
@@ -444,7 +468,16 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="2" HistoryIndex="1">
+      <Position1>
+        <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
+        <Caret Line="163" Column="1" TopLine="154"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
+        <Caret Line="40" Column="1" TopLine="29"/>
+      </Position2>
+    </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
 </CONFIG>
