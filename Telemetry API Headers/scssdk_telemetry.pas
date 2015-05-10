@@ -37,6 +37,7 @@ type
  * initialization.
  *)
 //scs_telemetry_init_params_t = Record
+//  procedure method_indicating_this_is_not_a_c_struct;
 //end;
 //see further
 

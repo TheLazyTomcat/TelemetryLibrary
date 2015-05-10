@@ -17,7 +17,7 @@ uses
 (**
  * @name Telemetry channel flags.
  *)
-//{
+//@{
 const
 (**
  * @brief No specific flags.
