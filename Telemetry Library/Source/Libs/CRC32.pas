@@ -9,9 +9,9 @@
 
   CRC32 Calculation
 
-  ©František Milt 2015-03-14
+  ©František Milt 2015-04-29
 
-  Version 1.4.3
+  Version 1.4.6
 
   Polynomial 0x04c11db7
 
@@ -37,7 +37,7 @@ type
   PCRC32 = ^TCRC32;
 
 const
-  InitialCRC32 = $00000000;  
+  InitialCRC32 = TCRC32($00000000);  
 
 Function CRC32ToStr(CRC32: TCRC32): String;
 Function StrToCRC32(const Str: String): TCRC32;
@@ -169,14 +169,22 @@ end;
 
 //==============================================================================
 
-Function _BufferCRC32(CRC32: TCRC32; const Buffer; Size: TSize{$IFDEF x64}; CRCTablePtr: Pointer{$ENDIF}): TCRC32; register; {$IFNDEF PurePascal}assembler;{$ENDIF}
+Function _BufferCRC32(CRC32: TCRC32; const Buffer; Size: TSize{$IF DEFINED(x64) AND NOT DEFINED(PurePascal)}; CRCTablePtr: Pointer{$IFEND}): TCRC32; register; {$IFNDEF PurePascal}assembler;{$ENDIF}
 {$IFDEF PurePascal}
 var
-  i:  Integer;
+  i:    TSize;
+  Buff: PByte;
 begin
 Result := not CRC32;
-For i := 0 to Pred(Size) do
-  Result := CRCTable[Byte(Result xor TCRC32(TByteArray(Buffer)[i]))] xor (Result shr 8);
+If Size > 0 then
+  begin
+    Buff := @Buffer;
+    For i := 0 to Pred(Size) do
+      begin
+        Result := CRCTable[Byte(Result xor TCRC32(Buff^))] xor (Result shr 8);
+        Inc(Buff);
+      end;
+  end;
 Result := not Result;
 end;
 {$ELSE}
@@ -196,7 +204,7 @@ asm
 
                 MOV   EAX, RCX
                 CMP   R8, 0         // check whether size is larger than zero...
-                JNG   @RoutineEnd   // ...end calculation when isn't
+                JNA   @RoutineEnd   // ...end calculation when isn't
 
                 XCHG  R8, RCX       // RCX now contains size, R8 old CRC32 value
                 NOT   R8D
@@ -227,7 +235,7 @@ asm
 {******************************************************************************}
 
                 CMP   ECX, 0        // check whether size is larger than zero...
-                JNG   @RoutineEnd   // ...end calculation when isn't
+                JNA   @RoutineEnd   // ...end calculation when isn't
 
                 PUSH  EBX           // EBX register value must be preserved
                 MOV   EBX, EDX      // EBX now contains pointer to Buffer
@@ -255,7 +263,7 @@ end;
 
 Function BufferCRC32(CRC32: TCRC32; const Buffer; Size: TSize): TCRC32;
 begin
-Result := _BufferCRC32(CRC32,Buffer,Size{$IFDEF x64},@CRCTable{$ENDIF});
+Result := _BufferCRC32(CRC32,Buffer,Size{$IF DEFINED(x64) AND NOT DEFINED(PurePascal)},@CRCTable{$IFEND});
 end;
 
 //==============================================================================
@@ -292,7 +300,7 @@ Function WideStringCRC32(const Str: WideString): TCRC32;
 var
   StringStream: TStringStream;
 begin
-StringStream := TStringStream.Create(Text);
+StringStream := TStringStream.Create(Str);
 try
   Result := StreamCRC32(StringStream);
 finally
@@ -312,7 +320,7 @@ Function StringCRC32(const Str: String): TCRC32;
 var
   StringStream: TStringStream;
 begin
-StringStream := TStringStream.Create(Text);
+StringStream := TStringStream.Create(Str);
 try
   Result := StreamCRC32(StringStream);
 finally
