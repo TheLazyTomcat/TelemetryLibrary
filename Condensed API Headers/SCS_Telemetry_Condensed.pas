@@ -2,7 +2,7 @@ unit SCS_Telemetry_Condensed;
 
 {==============================================================================}
 {  SCS Telemetry API headers condenser, version 1.0a                           }
-{  Condensed on: Sunday 2015-05-10 21:05:14                                    }
+{  Condensed on: Monday 2015-05-11 16:32:54                                    }
 {==============================================================================}
 
 interface
@@ -160,6 +160,7 @@ Function TelemetryStringToAPIString(const Str: TelemetryString): scs_string_t;
 procedure APIStringFree(var Str: scs_string_t);
 Function TelemetryStringDecode(const Str: TelemetryString): String;
 Function TelemetryStringEncode(const Str: String): TelemetryString;
+Function APIString(const Str: TelemetryString): scs_string_t; overload;
 
 // Routines replacing some of the C macros functionality.
 Function SCSCheckSize(ActualSize, {%H-}Expected32,{%H-}Expected64: Cardinal): Boolean;
@@ -2222,6 +2223,13 @@ Result := UTF8Encode(Str);
 {$ELSE}
 Result := AnsiToUTF8(Str);
 {$ENDIF}
+end;
+
+//------------------------------------------------------------------------------
+
+Function APIString(const Str: TelemetryString): scs_string_t;
+begin
+Result := scs_string_t(PAnsiChar(Str));
 end;
 
 //------------------------------------------------------------------------------
