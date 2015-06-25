@@ -43,11 +43,11 @@ uses
 {$ENDIF}
 
 {==============================================================================}
-{   Unit Functions and procedures declarations                                 }
+{   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
 {
-  Function converting normal @code(scs_value_t) structure to its no-pointers
+  Function converting normal @code(scs_value_t) structure to its no-pointer
   version (scs_value_localized_t).
 
   @param Value Value that has to be converted.
@@ -59,7 +59,7 @@ Function scs_value_localized(Value: scs_value_t): scs_value_localized_t;
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Function converting no-pointers alternative to normal
+  @abstract(Function converting no-pointer alternative to normal
             @code(scs_value_t) structure.)
   @bold(Warning) - you have to manually free memory allocated for some fields
   when you are done with result of this function! Use function scs_value_free
@@ -85,7 +85,7 @@ procedure scs_value_free(var Value: scs_value_t);
 
 {
   Function converting normal @code(scs_named_value_t) structure to its
-  no-pointers version (scs_named_value_localized_t).
+  no-pointer version (scs_named_value_localized_t).
 
   @param Value Value that has to be converted.
 
@@ -96,7 +96,7 @@ Function scs_named_value_localized(Value: scs_named_value_t): scs_named_value_lo
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Function converting no-pointers alternative to normal
+  @abstract(Function converting no-pointer alternative to normal
             @code(scs_named_value_t) structure.)
   @bold(Warning) - you have to manually free memory allocated for some fields
   when you are done with result of this function! Use function
@@ -123,7 +123,7 @@ procedure scs_named_value_free(var Value: scs_named_value_t);
 
 {
   Function converting normal @code(scs_telemetry_configuration_t) structure to
-  its no-pointers version (scs_telemetry_configuration_localized_t).
+  its no-pointer version (scs_telemetry_configuration_localized_t).
 
   @param Value Value that has to be converted.
 
@@ -134,7 +134,7 @@ Function scs_telemetry_configuration_localized(Value: scs_telemetry_configuratio
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Function converting no-pointers alternative to normal
+  @abstract(Function converting no-pointer alternative to normal
             @code(scs_telemetry_configuration_t) structure.)
   @bold(Warning) - you have to manually free memory allocated for some fields
   when you are done with result of this function! Use function
@@ -165,7 +165,7 @@ uses
   SysUtils;
 
 {==============================================================================}
-{   Unit Functions and procedures implementation                               }
+{   Unit functions and procedures implementation                               }
 {==============================================================================}
 
 Function scs_value_localized(Value: scs_value_t): scs_value_localized_t;
@@ -299,8 +299,10 @@ while Assigned(CurrAttrPtr^.name) do
 scs_named_value_free(CurrAttrPtr^);
 Inc(Counter);
 If FreeAttributes then
-  FreeMem(Value.attributes,Counter * SizeOf(scs_named_value_t));
-Value.attributes := nil;
+  begin
+    FreeMem(Value.attributes,Counter * SizeOf(scs_named_value_t));
+    Value.attributes := nil;
+  end;
 end;
 
 end.

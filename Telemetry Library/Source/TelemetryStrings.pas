@@ -39,7 +39,17 @@
                         @item(new variants of TelemetryEventConfigurationToStr)
                         @item(new variants of
                               TelemetryEventConfigurationLocalizedToStr)))
-    @item(2014-11-04 - Small implementation changes.))
+    @item(2014-11-04 - Small implementation changes.)
+    @item(2015-06-25 - Following functions were renamed:@unorderedList(
+                        @itemSpacing(Compact)
+                        @item(TelemetrySameStr renamed to TelemetrySameStrConv)
+                        @item(TelemetrySameText renamed to
+                              TelemetrySameTextConv)
+                        @item(TelemetrySameStrSwitch renamed to
+                              TelemetrySameStr)
+                        @item(TelemetrySameTextSwitch renamed to
+                              TelemetrySameText)))
+    @item(2015-06-25 - Implementation changes.))
 
 @html(<hr>)}
 unit TelemetryStrings;
@@ -65,13 +75,17 @@ uses
 {   Unit constants, types, variables, etc...                                   }
 {==============================================================================}
 var
-  // Used for thread safety in conversions dependent on LocaleID.
-  // Initialized in Initialization section of this unit (with id set to
-  // LOCALE_USER_DEFAULT).
+{
+  Used for thread safety in conversions dependent on LocaleID.@br
+  Initialized in Initialization section of this unit (with id set to
+  LOCALE_USER_DEFAULT).@br
+  But note that this variable is NOT thread save by itself. If you want to
+  access it from multiple threads, then thread safety is your responsibility.
+}
   TelemetryStringsFormatSettings: TFormatSettings;
 
 {==============================================================================}
-{   Unit Functions and procedures declarations                                 }
+{   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
 {
@@ -87,7 +101,7 @@ var
 
   @returns @True when the strings have the same value, @false otherwise.
 }
-Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameStrConv(const S1, S2: TelemetryString): Boolean;
 
 {
   @abstract(Compares strings based on the current locale without case
@@ -103,12 +117,12 @@ Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
 
   @returns @True when the strings have the same value, @false otherwise.
 }
-Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameTextConv(const S1, S2: TelemetryString): Boolean;
 
 {
   @abstract(Compares strings based on the current locale with case sensitivity
   and without internal conversions.)
-  Unlike TelemetrySameStr, this function does not convert input strings to
+  Unlike TelemetrySameStrConv, this function does not convert input strings to
   WideString before comparison. Instead, both strings are treated as normal
   AnsiString. This requires that both strings contains only ASCII characters
   (that is, up to #126), otherwise the function can, and probably will, return
@@ -124,7 +138,7 @@ Function TelemetrySameStrNoConv(const S1, S2: TelemetryString): Boolean;
 {
   @abstract(Compares strings based on the current locale without case
   sensitivity and without internal conversions.)
-  Unlike TelemetrySameText, this function does not convert input strings to
+  Unlike TelemetrySameTextConv, this function does not convert input strings to
   WideString before comparison. Instead, both strings are treated as normal
   AnsiString. This requires that both strings contains only ASCII characters
   (that is, up to #126), otherwise the function can, and probably will, return
@@ -141,28 +155,28 @@ Function TelemetrySameTextNoConv(const S1, S2: TelemetryString): Boolean;
   @abstract(Compares strings based on the current locale with case sensitivity.)
   This function internally calls TelemetrySameStrNoConv when switch
   @code(AssumeASCIIString) is defined. When it is not defined, it calls
-  TelemetrySameStr.
+  TelemetrySameStrConv.
 
   @param S1 First string to compare.
   @param S2 Second string to compare.
 
   @returns @True when the strings have the same value, @false otherwise.
 }
-Function TelemetrySameStrSwitch(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
 
 {
   @abstract(Compares strings based on the current locale without case
   sensitivity.)
   This function internally calls TelemetrySameTextNoConv when switch
   @code(AssumeASCIIString) is defined. When it is not defined, it calls
-  TelemetrySameText.
+  TelemetrySameTextConv.
 
   @param S1 First string to compare.
   @param S2 Second string to compare.
 
   @returns @True when the strings have the same value, @false otherwise.
 }
-Function TelemetrySameTextSwitch(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
 
 //==============================================================================
 
@@ -606,10 +620,10 @@ const
      'euler','fplacement','dplacement','string');
 
 {==============================================================================}
-{   Unit Functions and procedures implementation                               }
+{   Unit functions and procedures implementation                               }
 {==============================================================================}
 
-Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameStrConv(const S1, S2: TelemetryString): Boolean;
 begin
 {$IFDEF Unicode}
 Result := AnsiSameStr(UTF8Decode(S1),UTF8Decode(S2));
@@ -620,7 +634,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameTextConv(const S1, S2: TelemetryString): Boolean;
 begin
 {$IFDEF Unicode}
 Result := AnsiSameText(UTF8Decode(S1),UTF8Decode(S2));
@@ -645,23 +659,23 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TelemetrySameStrSwitch(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
 begin
 {$IFDEF AssumeASCIIString}
 Result := TelemetrySameStrNoConv(S1,S2);
 {$ELSE}
-Result := TelemetrySameStr(S1,S2);
+Result := TelemetrySameStrConv(S1,S2);
 {$ENDIF}
 end;
 
 //------------------------------------------------------------------------------
 
-Function TelemetrySameTextSwitch(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
 begin
 {$IFDEF AssumeASCIIString}
 Result := TelemetrySameTextNoConv(S1,S2);
 {$ELSE}
-Result := TelemetrySameText(S1,S2);
+Result := TelemetrySameTextConv(S1,S2);
 {$ENDIF}
 end;
 
@@ -715,6 +729,21 @@ const
   EmptyDescriptors: TDescriptorsArray = ('','','','','','');
 var
   Descriptors:  TDescriptorsArray;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+  Function FloatValueToStr(Value: Single): String; overload;
+  begin
+    Result := FloatToStrF(Value,Format,Precision,Digits,FormatSettings);
+  end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+  Function FloatValueToStr(Value: Double): String; overload;
+  begin
+    Result := FloatToStrF(Value,Format,Precision,Digits,FormatSettings);
+  end;
+
 begin
 If ShowDescriptors then Descriptors := FullDescriptors
   else Descriptors := EmptyDescriptors;
@@ -730,35 +759,35 @@ case ValueType of
   SCS_VALUE_TYPE_u64:
     Result := IntToStr(scs_value_u64_t(Value).value);
   SCS_VALUE_TYPE_float:
-    Result := FloatToStrF(scs_value_float_t(Value).value,Format,Precision,Digits,FormatSettings);
+    Result := FloatValueToStr(scs_value_float_t(Value).value);
   SCS_VALUE_TYPE_double:
-    Result := FloatToStrF(scs_value_double_t(Value).value,Format,Precision,Digits,FormatSettings);
+    Result := FloatValueToStr(scs_value_double_t(Value).value);
   SCS_VALUE_TYPE_fvector:
-    Result := '[' + Descriptors[0] + FloatToStrF(scs_value_fvector_t(Value).x,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[1] + FloatToStrF(scs_value_fvector_t(Value).y,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[2] + FloatToStrF(scs_value_fvector_t(Value).z,Format,Precision,Digits,FormatSettings) + ']';
+    Result := '[' + Descriptors[0] + FloatValueToStr(scs_value_fvector_t(Value).x) +
+             ', ' + Descriptors[1] + FloatValueToStr(scs_value_fvector_t(Value).y) +
+             ', ' + Descriptors[2] + FloatValueToStr(scs_value_fvector_t(Value).z) + ']';
   SCS_VALUE_TYPE_dvector:
-    Result := '[' + Descriptors[0] + FloatToStrF(scs_value_dvector_t(Value).x,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[1] + FloatToStrF(scs_value_dvector_t(Value).y,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[2] + FloatToStrF(scs_value_dvector_t(Value).z,Format,Precision,Digits,FormatSettings) + ']';
+    Result := '[' + Descriptors[0] + FloatValueToStr(scs_value_dvector_t(Value).x) +
+             ', ' + Descriptors[1] + FloatValueToStr(scs_value_dvector_t(Value).y) +
+             ', ' + Descriptors[2] + FloatValueToStr(scs_value_dvector_t(Value).z) + ']';
   SCS_VALUE_TYPE_euler:
-    Result := '[' + Descriptors[3] + FloatToStrF(scs_value_euler_t(Value).heading,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[4] + FloatToStrF(scs_value_euler_t(Value).pitch,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[5] + FloatToStrF(scs_value_euler_t(Value).roll,Format,Precision,Digits,FormatSettings) + ']';
+    Result := '[' + Descriptors[3] + FloatValueToStr(scs_value_euler_t(Value).heading) +
+             ', ' + Descriptors[4] + FloatValueToStr(scs_value_euler_t(Value).pitch) +
+             ', ' + Descriptors[5] + FloatValueToStr(scs_value_euler_t(Value).roll) + ']';
   SCS_VALUE_TYPE_fplacement:
-    Result := '[' + Descriptors[0] + FloatToStrF(scs_value_fplacement_t(Value).position.x,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[1] + FloatToStrF(scs_value_fplacement_t(Value).position.y,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[2] + FloatToStrF(scs_value_fplacement_t(Value).position.z,Format,Precision,Digits,FormatSettings) +
-            '] [' + Descriptors[3] + FloatToStrF(scs_value_fplacement_t(Value).orientation.heading,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[4] + FloatToStrF(scs_value_fplacement_t(Value).orientation.pitch,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[5] + FloatToStrF(scs_value_fplacement_t(Value).orientation.roll,Format,Precision,Digits,FormatSettings) + ']';
+    Result := '[' + Descriptors[0] + FloatValueToStr(scs_value_fplacement_t(Value).position.x) +
+             ', ' + Descriptors[1] + FloatValueToStr(scs_value_fplacement_t(Value).position.y) +
+             ', ' + Descriptors[2] + FloatValueToStr(scs_value_fplacement_t(Value).position.z) +
+            '] [' + Descriptors[3] + FloatValueToStr(scs_value_fplacement_t(Value).orientation.heading) +
+             ', ' + Descriptors[4] + FloatValueToStr(scs_value_fplacement_t(Value).orientation.pitch) +
+             ', ' + Descriptors[5] + FloatValueToStr(scs_value_fplacement_t(Value).orientation.roll) + ']';
   SCS_VALUE_TYPE_dplacement:
-    Result := '[' + Descriptors[0] + FloatToStrF(scs_value_dplacement_t(Value).position.x,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[1] + FloatToStrF(scs_value_dplacement_t(Value).position.y,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[2] + FloatToStrF(scs_value_dplacement_t(Value).position.z,Format,Precision,Digits,FormatSettings) +
-            '] [' + Descriptors[3] + FloatToStrF(scs_value_dplacement_t(Value).orientation.heading,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[4] + FloatToStrF(scs_value_dplacement_t(Value).orientation.pitch,Format,Precision,Digits,FormatSettings) +
-             ', ' + Descriptors[5] + FloatToStrF(scs_value_dplacement_t(Value).orientation.roll,Format,Precision,Digits,FormatSettings) + ']';
+    Result := '[' + Descriptors[0] + FloatValueToStr(scs_value_dplacement_t(Value).position.x) +
+             ', ' + Descriptors[1] + FloatValueToStr(scs_value_dplacement_t(Value).position.y) +
+             ', ' + Descriptors[2] + FloatValueToStr(scs_value_dplacement_t(Value).position.z) +
+            '] [' + Descriptors[3] + FloatValueToStr(scs_value_dplacement_t(Value).orientation.heading) +
+             ', ' + Descriptors[4] + FloatValueToStr(scs_value_dplacement_t(Value).orientation.pitch) +
+             ', ' + Descriptors[5] + FloatValueToStr(scs_value_dplacement_t(Value).orientation.roll) + ']';
   SCS_VALUE_TYPE_string:
     Result := TelemetryStringDecode(APIStringToTelemetryString(scs_value_t(Value).value_string.value));
 else
@@ -784,23 +813,29 @@ end;
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function SCSValueToStr(const Value: scs_value_t; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+
+  Function ValueToStrWrapper(const ValueBuff): String;
+  begin
+    Result := ValueToStr(ValueBuff,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
+  end;
+
 begin
 case Value._type of
-  SCS_VALUE_TYPE_bool:        Result := ValueToStr(Value.value_bool,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_s32:         Result := ValueToStr(Value.value_s32,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_u32:         Result := ValueToStr(Value.value_u32,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_u64:         Result := ValueToStr(Value.value_u64,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_float:       Result := ValueToStr(Value.value_float,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_double:      Result := ValueToStr(Value.value_double,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_fvector:     Result := ValueToStr(Value.value_fvector,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_dvector:     Result := ValueToStr(Value.value_dvector,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_euler:       Result := ValueToStr(Value.value_euler,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_fplacement:  Result := ValueToStr(Value.value_fplacement,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_dplacement:  Result := ValueToStr(Value.value_dplacement,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
-  SCS_VALUE_TYPE_string:      Result := ValueToStr(Value.value_string,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
+  SCS_VALUE_TYPE_bool:        Result := ValueToStrWrapper(Value.value_bool);
+  SCS_VALUE_TYPE_s32:         Result := ValueToStrWrapper(Value.value_s32);
+  SCS_VALUE_TYPE_u32:         Result := ValueToStrWrapper(Value.value_u32);
+  SCS_VALUE_TYPE_u64:         Result := ValueToStrWrapper(Value.value_u64);
+  SCS_VALUE_TYPE_float:       Result := ValueToStrWrapper(Value.value_float);
+  SCS_VALUE_TYPE_double:      Result := ValueToStrWrapper(Value.value_double);
+  SCS_VALUE_TYPE_fvector:     Result := ValueToStrWrapper(Value.value_fvector);
+  SCS_VALUE_TYPE_dvector:     Result := ValueToStrWrapper(Value.value_dvector);
+  SCS_VALUE_TYPE_euler:       Result := ValueToStrWrapper(Value.value_euler);
+  SCS_VALUE_TYPE_fplacement:  Result := ValueToStrWrapper(Value.value_fplacement);
+  SCS_VALUE_TYPE_dplacement:  Result := ValueToStrWrapper(Value.value_dplacement);
+  SCS_VALUE_TYPE_string:      Result := ValueToStrWrapper(Value.value_string);
 else
  {SCS_VALUE_TYPE_INVALID}
-  Result := ValueToStr(Value,Value._type,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
+  Result := ValueToStrWrapper(Value);
 end;
 end;
 
@@ -950,12 +985,13 @@ For i := Low(Data.Attributes) to High(Data.Attributes) do
   Result := Result + sLineBreak + SCSNamedValueLocalizedToStr(Data.Attributes[i],Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
 end;
 
-
 //------------------------------------------------------------------------------
 
 initialization
-  // Init default format settings.
+  // Initialize default format settings.
+  {$WARN SYMBOL_PLATFORM OFF}
   GetLocaleFormatSettings(LOCALE_USER_DEFAULT,TelemetryStringsFormatSettings);
+  {$WARN SYMBOL_PLATFORM ON}
   TelemetryStringsFormatSettings.DecimalSeparator := '.';
 
 end.

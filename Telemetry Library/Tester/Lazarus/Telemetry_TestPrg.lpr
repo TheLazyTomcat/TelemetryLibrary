@@ -34,10 +34,10 @@ uses
   BitOps,
 
   TelemetryCommon,                                           //* -
-  TelemetryIDs,                                              //*
-//  TelemetryConversions,                                      //*
-//  TelemetryStrings,                                          //*
-//  TelemetryValueTypeUtils,                                   //*
+  TelemetryIDs,                                              //* -
+  TelemetryConversions,                                      //* -
+  TelemetryStrings,                                          //* -
+  TelemetryValueTypeUtils,                                   //*
 //  TelemetryLists,                                            //*
 //  TelemetryStreaming,                                        //*
 //  TelemetryVersionObjects,                                   //*
