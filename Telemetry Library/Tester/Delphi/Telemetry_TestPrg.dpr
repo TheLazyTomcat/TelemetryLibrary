@@ -34,7 +34,7 @@ uses
   BitOps          in '..\..\Source\Libs\BitOps.pas',
 
   TelemetryCommon           in '..\..\Source\TelemetryCommon.pas',
-//  TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
+  TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
 //  TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
 //  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
 //  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',

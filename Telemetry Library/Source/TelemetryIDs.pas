@@ -37,7 +37,7 @@
     
 @html(<hr>)
 
-  Table of precomputed IDs for channels names.@br
+  Table of precomputed IDs for channel names.@br
   IDs are stored in constans whose identifiers corresponds to indetifiers of
   constants containing string value. For example, for name stored in constant
   @code(SCS_TELEMETRY_CHANNEL_local_scale), the ID is stored in constant
@@ -140,7 +140,7 @@
   ).@br
   @code(**) - These channels does not work in current SDK.@br
   @br
-  Table of precomputed IDs for configs names.@br
+  Table of precomputed IDs for config names.@br
   IDs are stored in constans whose identifiers corresponds to indetifiers of
   constants containing string value. For example, for name stored in constant
   SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id, the ID is stored in constant
@@ -233,17 +233,17 @@ const
   ConfigFieldsSeparator = '.';
 
 type
-  // General item identificator. All other item identifiers are of this type.
+  // General item identifier. All other item identifiers are of this type.
   TItemID = TCRC32;
   // Pointer to a variable of type TItemID
   PItemID = ^TITemID;
 
-  // Channel identificator obtained from its name.
+  // Channel identifier obtained from its name.
   TChannelID = TItemID;
   // Pointer to a variable of type TChannelID.
   PChannelID = ^TChannelID;
 
-  // Configuration identificator obtained from full config name.
+  // Configuration identifier obtained from full config name.
   TConfigID = TItemID;
   // Pointer to a variable of type TConfigID.
   PConfigID = ^TConfigID;
@@ -366,7 +366,7 @@ const
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time:           TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time;
 
 {$IFDEF TrueIDConstants}
-  // True constants.
+// True constants.
 
 {==============================================================================}
 {   Config IDs                                                                 }
@@ -686,9 +686,9 @@ const
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset            = TChannelID($046B7B44);
 
 {$ELSE}
-  // Writeable constants.
+// Writeable constants.
 
-  {$WRITEABLECONST ON}
+{$WRITEABLECONST ON}
 {==============================================================================}
 {   Config IDs                                                                 }
 {==============================================================================}
@@ -1005,11 +1005,12 @@ const
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift:                   TChannelID = $F8BC370D;
   // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset:            TChannelID = $046B7B44;
-  {$WRITEABLECONST OFF}
+
+{$WRITEABLECONST OFF}
 {$ENDIF}
 
 {==============================================================================}
-{   Unit Functions and procedures declarations                                 }
+{   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
 {
@@ -1019,7 +1020,7 @@ const
 
   @param Item Item name.
 
-  @returns Item identificator.
+  @returns Item identification number.
 }
   Function GetItemID(const Item: TelemetryString): TItemID;
 
@@ -1052,7 +1053,7 @@ const
 //------------------------------------------------------------------------------
 
 {
-  Returns full config name composed from config id and attribute name separated
+  Returns full config name composed from config ID and attribute name separated
   by ConfigFieldsSeparator.
 
   @param ConfigID      ID of configuration.
@@ -1065,22 +1066,22 @@ const
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Removes passed config id from full config name.)
+  @abstract(Removes passed config ID from full config name.)
   @bold(Note) - function does not control whether passed name truly starts with
-  given config id. It simply removes number of characters corresponding to
-  length of config id from the start of config name.
+  given config ID. It simply removes number of characters corresponding to
+  length of config ID from the start of config name.
 
-  @param ConfigName Name of config from which id should be removed.
-  @param ConfigID   Id that has be removed from passed config name.
+  @param ConfigName Name of config from which ID should be removed.
+  @param ConfigID   ID that has be removed from passed config name.
 
-  @returns Config name with removed id.
+  @returns Config name with removed ID.
 }
   Function ConfigRemoveIDFromName(const ConfigName, ConfigID: TelemetryString): TelemetryString;
 
 implementation
 
 {==============================================================================}
-{   Unit Functions and procedures implementation                               }
+{   Unit functions and procedures implementation                               }
 {==============================================================================}
 
 Function GetItemID(const Item: TelemetryString): TItemID;
@@ -1100,7 +1101,8 @@ end;
 {$IFNDEF PrecomputedItemID}
 procedure InitializeItemsIDs;
 begin
-//---                              Configs IDs                               ---
+//---   ---   ---   ---   ---   Configs IDs    ---   ---   ---   ---   ---   ---
+
 SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id                   := GetItemID(SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id);
 
 SCS_TELEMETRY_CONFIG_ID_controls_ATTRIBUTE_shifter_type           := GetItemID(SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type);
@@ -1159,7 +1161,8 @@ SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_company              := GetItemID(S
 SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_income                      := GetItemID(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income);
 SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_delivery_time               := GetItemID(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time);
 
-//---                              Channels IDs                              ---
+//---   ---   ---   ---   ---   Channels IDs   ---   ---   ---   ---   ---   ---
+
 SCS_TELEMETRY_CHANNEL_ID_local_scale                         := GetItemID(SCS_TELEMETRY_CHANNEL_local_scale);
 SCS_TELEMETRY_CHANNEL_ID_game_time                           := GetItemID(SCS_TELEMETRY_CHANNEL_game_time);
 SCS_TELEMETRY_CHANNEL_ID_next_rest_stop                      := GetItemID(SCS_TELEMETRY_CHANNEL_next_rest_stop);

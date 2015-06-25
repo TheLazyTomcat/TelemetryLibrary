@@ -33,8 +33,8 @@ uses
   SimpleLog,
   BitOps,
 
-  TelemetryCommon,                                           //*
-//  TelemetryIDs,                                              //*
+  TelemetryCommon,                                           //* -
+  TelemetryIDs,                                              //*
 //  TelemetryConversions,                                      //*
 //  TelemetryStrings,                                          //*
 //  TelemetryValueTypeUtils,                                   //*
