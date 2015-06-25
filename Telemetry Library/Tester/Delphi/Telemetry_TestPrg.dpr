@@ -54,7 +54,7 @@ uses
 //  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
 strutils;
 
-(*
+
   procedure RandomizeArray(var Value: TValueTypesArray);
   var
     ii: Integer;
@@ -87,12 +87,11 @@ var
   i:    Integer;
   VT:   scs_value_type_t;
   BT:   Boolean;
-  TIP:  TTelemetryInfoProvider;
+//  TIP:  TTelemetryInfoProvider;
   TSL:  TStringList;
   STR:  String;
-*)
+
 begin
-(*
   Randomize;
 
   // CompressValueTypesArray
@@ -324,7 +323,7 @@ begin
       WriteLn(NumberToBits(BM) + ' (' + BoolToStr(Bt,True) + ')');
       WriteArray(SelectSupportedValueTypes(i,BT,BM),False);
     end;
-
+(*
   TIP := TTelemetryInfoProvider.CreateCurrent('eut2');
   try
     TSL := TStringList.Create;
@@ -348,8 +347,7 @@ begin
   finally
     TIP.Free;
   end;
-
+*)
   WriteLn;
   Write('Press enter to end...'); ReadLn;
-*)
 end.

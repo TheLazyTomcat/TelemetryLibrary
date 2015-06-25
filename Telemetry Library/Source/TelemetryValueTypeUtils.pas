@@ -5,7 +5,24 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-// todo: documentation
+(*
+todo: documentation
+
+    primary type                  secondary types
+
+  SCS_VALUE_TYPE_bool       ->  /
+  SCS_VALUE_TYPE_s32        ->  /
+  SCS_VALUE_TYPE_u32        ->  u64
+  SCS_VALUE_TYPE_u64        ->  /
+  SCS_VALUE_TYPE_float      ->  double
+  SCS_VALUE_TYPE_double     ->  float
+  SCS_VALUE_TYPE_fvector    ->  dvector
+  SCS_VALUE_TYPE_dvector    ->  fvector
+  SCS_VALUE_TYPE_euler      ->  /
+  SCS_VALUE_TYPE_fplacement ->  dplacement, fvector, dvector, euler
+  SCS_VALUE_TYPE_dplacement ->  fplacement, dvector, fvector, euler
+  SCS_VALUE_TYPE_string     ->  /
+*)
 unit TelemetryValueTypeUtils;
 
 interface
@@ -23,22 +40,20 @@ uses
   scssdk_value;
 {$ENDIF}
 
-(*
-    primary type                  secondary types
-
-  SCS_VALUE_TYPE_bool       ->  /
-  SCS_VALUE_TYPE_s32        ->  /
-  SCS_VALUE_TYPE_u32        ->  u64
-  SCS_VALUE_TYPE_u64        ->  /
-  SCS_VALUE_TYPE_float      ->  double
-  SCS_VALUE_TYPE_double     ->  float
-  SCS_VALUE_TYPE_fvector    ->  dvector
-  SCS_VALUE_TYPE_dvector    ->  fvector
-  SCS_VALUE_TYPE_euler      ->  /
-  SCS_VALUE_TYPE_fplacement ->  dplacement, fvector, dvector, euler
-  SCS_VALUE_TYPE_dplacement ->  fplacement, dvector, fvector, euler
-  SCS_VALUE_TYPE_string     ->  /
-*)
+const
+  TVT_REG_SEC_1   = 1;
+  TVT_REG_SEC_2   = 2;
+  TVT_REG_SEC_3   = 4;
+  TVT_REG_SEC_4   = 8;
+  TVT_REG_SEC_5   = 16;
+  TVT_REG_SEC_6   = 32;
+  TVT_REG_SEC_7   = 64;
+  TVT_REG_SEC_8   = 128;
+  TVT_REG_SEC_9   = 256;
+  TVT_REG_SEC_10  = 512;
+  TVT_REG_SEC_11  = 1024;
+  TVT_REG_SEC_12  = 2048;
+  TVT_REG_SEC_ALL = $FFFFFFFF;
 
 type
   TValueTypeBitmask = LongWord;
@@ -70,21 +85,6 @@ const
   Function ValidateSupportedValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
   procedure MakeValidSecondaryValueTypesBitmask(var Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t);
   procedure MakeValidSupportedValueTypesBitmask(var Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t);
-
-const
-  TVT_REG_SEC_1   = 1;
-  TVT_REG_SEC_2   = 2;
-  TVT_REG_SEC_3   = 4;
-  TVT_REG_SEC_4   = 8;
-  TVT_REG_SEC_5   = 16;
-  TVT_REG_SEC_6   = 32;
-  TVT_REG_SEC_7   = 64;
-  TVT_REG_SEC_8   = 128;
-  TVT_REG_SEC_9   = 256;
-  TVT_REG_SEC_10  = 512;
-  TVT_REG_SEC_11  = 1024;
-  TVT_REG_SEC_12  = 2048;
-  TVT_REG_SEC_ALL = $FFFFFFFF;
 
   Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
   Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
@@ -122,7 +122,7 @@ var
 begin
 Result := '';
 i := Low(TValueTypesArray);
-while ValueTypes[i] <> SCS_VALUE_TYPE_INVALID do
+while (ValueTypes[i] <> SCS_VALUE_TYPE_INVALID) and (i <= High(TValueTypesArray)) do
   begin
     If Result <> '' then
       Result := Result + ', ' + SCSValueTypeToStr(ValueTypes[i])
@@ -137,7 +137,7 @@ end;
 Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
 begin
 If (ValueType > 0) and (ValueType <= SCS_VALUE_TYPE_LAST) then
-  Result := ROL($80000000,Integer(ValueType))
+  Result := ROL(LongWord($80000000),Byte(ValueType))
 else
   Result := 0;
 end;
@@ -167,12 +167,14 @@ Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
 var
   i,j:  Integer;
 begin
-FillChar({%H-}Result,SizeOf(Result),0);
+{$IFDEF FPC}{$HINTS OFF}{$ENDIF}
+FillChar(Result,SizeOf(Result),0);
+{$IFDEF FPC}{$HINTS ON}{$ENDIF}
 If Bitmask <> 0 then
   begin
     j := Low(Result);
     For i := 0 to Pred(SCS_VALUE_TYPE_LAST) do
-      If BT(Bitmask,i) then
+      If BT(Bitmask,Byte(i)) then
         begin
           Result[j] := scs_value_type_t(i + 1);
           Inc(j);
@@ -187,7 +189,8 @@ var
   i:  Integer;
 begin
 Result := BitmaskValueTypes(Bitmask);
-For i := Pred(High(Result)) downto Low(Result) do Result[i + 1] := Result[i];
+For i := Pred(High(Result)) downto Low(Result) do
+  Result[i + 1] := Result[i];
 Result[Low(Result)] := PrimaryValueType;
 end;
 
@@ -195,14 +198,14 @@ end;
 
 Function ValueTypeBitmaskAdd(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
 begin
-Result := BTS(Bitmask,Pred(ValueType));
+Result := BTS(Bitmask,Byte(Pred(ValueType)));
 end;
 
 //------------------------------------------------------------------------------
 
 Function ValueTypeBitmaskRemove(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
 begin
-Result := BTR(Bitmask,Pred(ValueType));
+Result := BTR(Bitmask,Byte(Pred(ValueType)));
 end;
 
 //------------------------------------------------------------------------------
@@ -215,10 +218,10 @@ case PrimaryValueType of
   SCS_VALUE_TYPE_double:      Result := ValueTypeBitmask(SCS_VALUE_TYPE_float);
   SCS_VALUE_TYPE_fvector:     Result := ValueTypeBitmask(SCS_VALUE_TYPE_dvector);
   SCS_VALUE_TYPE_dvector:     Result := ValueTypeBitmask(SCS_VALUE_TYPE_fvector);
-  SCS_VALUE_TYPE_fplacement:  Result := ValueTypesBitmask([SCS_VALUE_TYPE_dplacement,SCS_VALUE_TYPE_euler,
-                                                           SCS_VALUE_TYPE_dvector,SCS_VALUE_TYPE_fvector]);
-  SCS_VALUE_TYPE_dplacement:  Result := ValueTypesBitmask([SCS_VALUE_TYPE_fplacement,SCS_VALUE_TYPE_euler,
-                                                           SCS_VALUE_TYPE_dvector,SCS_VALUE_TYPE_fvector]);
+  SCS_VALUE_TYPE_fplacement:  Result := ValueTypesBitmask([SCS_VALUE_TYPE_dplacement,
+                                SCS_VALUE_TYPE_euler,SCS_VALUE_TYPE_dvector,SCS_VALUE_TYPE_fvector]);
+  SCS_VALUE_TYPE_dplacement:  Result := ValueTypesBitmask([SCS_VALUE_TYPE_fplacement,
+                                SCS_VALUE_TYPE_euler,SCS_VALUE_TYPE_dvector,SCS_VALUE_TYPE_fvector]);
 else
   Result := $00000000;
 end;
@@ -234,14 +237,8 @@ end;
 //------------------------------------------------------------------------------
 
 Function SecondaryValueTypesCount(PrimaryValueType: scs_value_type_t): Integer;
-var
-  i:        Integer;
-  Template: TValueTypeBitmask;
 begin
-Result := 0;
-Template := SecondaryValueTypesBitmask(PrimaryValueType);
-For i := 0 to Pred(SizeOf(TValueTypeBitmask) * 8) do
-  If BT(Template,i) then Inc(Result);
+Result := PopCount(SecondaryValueTypesBitmask(PrimaryValueType));
 end;
 
 //------------------------------------------------------------------------------
@@ -262,13 +259,13 @@ end;
 
 Function ValidateSecondaryValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
 var
-  i:        Integer;
-  Template: TValueTypeBitmask;
+  i:    Integer;
+  Temp: TValueTypeBitmask;
 begin
 Result := False;
-Template := SecondaryValueTypesBitmask(PrimaryValueType);
+Temp := SecondaryValueTypesBitmask(PrimaryValueType);
 For i := 0 to Pred(SizeOf(TValueTypeBitmask) * 8) do
-  If BT(Bitmask,i) and not BT(Template,i) then Exit;
+  If BT(Bitmask,Byte(i)) and not BT(Temp,Byte(i)) then Exit;
 Result := True;
 end;
 
@@ -276,13 +273,13 @@ end;
 
 Function ValidateSupportedValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
 var
-  i:        Integer;
-  Template: TValueTypeBitmask;
+  i:    Integer;
+  Temp: TValueTypeBitmask;
 begin
 Result := False;
-Template := SupportedValueTypesBitmask(PrimaryValueType);
+Temp := SupportedValueTypesBitmask(PrimaryValueType);
 For i := 0 to Pred(SizeOf(TValueTypeBitmask) * 8) do
-  If BT(Bitmask,i) and not BT(Template,i) then Exit;
+  If BT(Bitmask,Byte(i)) and not BT(Temp,Byte(i)) then Exit;
 Result := True;
 end;
 
@@ -311,7 +308,7 @@ If SelectPrimary then
 else
   Result := BitmaskValueTypes(SecondaryValueTypesBitmask);
 For i := 0 to Pred(SizeOf(SecondarySelectionMask) * 8) do
-  If not BT(SecondarySelectionMask,i) then
+  If not BT(SecondarySelectionMask,Byte(i)) then
     begin
       If SelectPrimary then Result[i + 1] := SCS_VALUE_TYPE_INVALID
         else Result[i] := SCS_VALUE_TYPE_INVALID;
