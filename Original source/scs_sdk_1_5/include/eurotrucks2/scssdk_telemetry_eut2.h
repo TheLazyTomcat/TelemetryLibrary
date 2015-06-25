@@ -1,17 +1,20 @@
-(**
+/**
  * @file scssdk_telemetry_eut2.h
  *
  * @brief ETS 2 telemetry specific constants.
- *)
-(*<unit>*) 
-unit scssdk_telemetry_eut2;
+ */
+#ifndef SCSSDK_TELEMETRY_EUT2_H
+#define SCSSDK_TELEMETRY_EUT2_H
 
-interface
+#include "../scssdk.h"
+#include "../common/scssdk_telemetry_common_configs.h"
+#include "../common/scssdk_telemetry_common_channels.h"
+#include "../common/scssdk_telemetry_truck_common_channels.h"
+#include "../common/scssdk_telemetry_trailer_common_channels.h"
 
-{$INCLUDE ..\scssdk_defs.inc}
+SCSSDK_HEADER
 
-(*<interface>*)
-(**
+/**
  * @name Value used in the scs_sdk_init_params_t::game_version
  *
  * Changes in the major version indicate incompatible changes (e.g. changed interpretation
@@ -40,23 +43,22 @@ interface
  * 1.12 - added information about transmission (differential_ratio, forward_ratio, reverse_ratio),
  *        navigation channels (navigation_distance, navigation_time, navigation_speed_limit)
  *        and adblue related data are now provided.
- *)
+ */
 //@{
-const
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_00    = (1 shl 16) or 0   {0x00010000};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_01    = (1 shl 16) or 1   {0x00010001};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_02    = (1 shl 16) or 2   {0x00010002};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_03    = (1 shl 16) or 3   {0x00010003};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_04    = (1 shl 16) or 4   {0x00010004};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_05    = (1 shl 16) or 5   {0x00010005}; // Patch 1.4
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_06    = (1 shl 16) or 6   {0x00010006};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_07    = (1 shl 16) or 7   {0x00010007};	// Patch 1.6
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_08    = (1 shl 16) or 8   {0x00010008};	// Patch 1.9
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_09    = (1 shl 16) or 9   {0x00010009};	// Patch 1.14 beta
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_10    = (1 shl 16) or 10  {0x0001000A};	// Patch 1.14
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_11    = (1 shl 16) or 11  {0x0001000B};
-  SCS_TELEMETRY_EUT2_GAME_VERSION_1_12    = (1 shl 16) or 12  {0x0001000C};	// Patch 1.17
-  SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT = SCS_TELEMETRY_EUT2_GAME_VERSION_1_12;
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_00            SCS_MAKE_VERSION(1, 0)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_01            SCS_MAKE_VERSION(1, 1)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_02            SCS_MAKE_VERSION(1, 2)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_03            SCS_MAKE_VERSION(1, 3)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_04            SCS_MAKE_VERSION(1, 4)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_05            SCS_MAKE_VERSION(1, 5)  // Patch 1.4
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_06            SCS_MAKE_VERSION(1, 6)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_07            SCS_MAKE_VERSION(1, 7)  // Patch 1.6
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_08            SCS_MAKE_VERSION(1, 8)  // Patch 1.9
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_09            SCS_MAKE_VERSION(1, 9)  // Patch 1.14 beta
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_10            SCS_MAKE_VERSION(1, 10) // Patch 1.14
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_11            SCS_MAKE_VERSION(1, 11)
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_12            SCS_MAKE_VERSION(1, 12) // Patch 1.17
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_12
 //@}
 
 // Game specific units.
@@ -79,9 +81,9 @@ const
 //
 // @li The localized strings are not updated when different in-game
 //     language is selected.
-(*</interface>*)
 
-implementation
+SCSSDK_FOOTER
 
-(*</unit>*) 
-end.
+#endif // SCSSDK_TELEMETRY_EUT2_H
+
+/* eof */

@@ -1,30 +1,27 @@
-(**
+/**
  * @file scssdk_telemetry_channel.h
  *
  * @brief Telemetry SDK - channels.
- *)
-(*<unit>*) 
-unit scssdk_telemetry_channel;
+ */
+#ifndef SCSSDK_TELEMETRY_CHANNEL_H
+#define SCSSDK_TELEMETRY_CHANNEL_H
 
-interface
+#include "scssdk.h"
+#include "scssdk_value.h"
 
-{$INCLUDE scssdk_defs.inc}
+SCSSDK_HEADER
 
-uses
-  scssdk, scssdk_value;
-
-(*<interface>*)
-(**
+/**
  * @name Telemetry channel flags.
- *)
+ */
 //@{
-const
-(**
- * @brief No specific flags.
- *)
-  SCS_TELEMETRY_CHANNEL_FLAG_none       = scs_u32_t($00000000);
 
-(**
+/**
+ * @brief No specific flags.
+ */
+const scs_u32_t SCS_TELEMETRY_CHANNEL_FLAG_none         = 0x00000000;
+
+/**
  * @brief Call the callback even if the value did not change.
  *
  * The default behavior is to only call the callback if the
@@ -38,10 +35,10 @@ const
  * callback will be called. For example it might be not called
  * when the value is currently unavailable and the
  * SCS_TELEMETRY_CHANNEL_FLAG_no_value flag was not provided.
- *)
-  SCS_TELEMETRY_CHANNEL_FLAG_each_frame = scs_u32_t($00000001);
+ */
+const scs_u32_t SCS_TELEMETRY_CHANNEL_FLAG_each_frame   = 0x00000001;
 
-(**
+/**
  * @brief Call the callback even if the value is currently
  * unavailable.
  *
@@ -49,13 +46,12 @@ const
  * available. If this flag is specified, the callback will be
  * called even when the value is unavailable. In that case
  * the value parameter of the callback will be set to NULL.
- *)
-  SCS_TELEMETRY_CHANNEL_FLAG_no_value   = scs_u32_t($00000002);
+ */
+const scs_u32_t SCS_TELEMETRY_CHANNEL_FLAG_no_value     = 0x00000002;
 
 //@}
 
-type
-(**
+/**
  * @brief Type of function registered to be called with value of single telemetry channel.
  *
  * @param name Name of the channel. Intended for debugging purposes only.
@@ -64,10 +60,10 @@ type
  *        Will be NULL if and only if the SCS_TELEMETRY_CHANNEL_FLAG_no_value flag was specified
  *        during registration and the value is currently unavailable.
  * @param context Context information passed during callback registration.
- *)
-  scs_telemetry_channel_callback_t = procedure(name: scs_string_t; index: scs_u32_t; value: p_scs_value_t; context: scs_context_t); stdcall;
+ */
+typedef SCSAPI_VOID_FPTR(scs_telemetry_channel_callback_t)(const scs_string_t name, const scs_u32_t index, const scs_value_t *const value, const scs_context_t context);
 
-(**
+/**
  * @brief Registers callback to be called with value of specified telemetry channel.
  *
  * At most one callback can be registered for each combination of channel name, index and type.
@@ -84,10 +80,10 @@ type
  * @param callback Callback to register.
  * @param context Context value passed to the callback.
  * @return SCS_RESULT_ok on successful registration. Error code otherwise.
- *)
-  scs_telemetry_register_for_channel_t = Function(name: scs_string_t; index: scs_u32_t; _type: scs_value_type_t; flags: scs_u32_t; callback: scs_telemetry_channel_callback_t; context: scs_context_t): scs_result_t; stdcall;
+ */
+typedef SCSAPI_RESULT_FPTR(scs_telemetry_register_for_channel_t)(const scs_string_t name, const scs_u32_t index, const scs_value_type_t type, const scs_u32_t flags, const scs_telemetry_channel_callback_t callback, const scs_context_t context);
 
-(**
+/**
  * @brief Unregisters callback registered for specified telemetry channel.
  *
  * This function can be called from scs_telemetry_shutdown, scs_telemetry_init
@@ -98,11 +94,11 @@ type
  * @param index Index of entry for array-like channels. Set to SCS_U32_NIL for normal channels.
  * @param type Type of value to unregister from.
  * @return SCS_RESULT_ok on successful unregistration. Error code otherwise.
- *)
-  scs_telemetry_unregister_from_channel_t = Function(name: scs_string_t; index: scs_u32_t; _type: scs_value_type_t): scs_result_t; stdcall;
-(*</interface>*)
+ */
+typedef SCSAPI_RESULT_FPTR(scs_telemetry_unregister_from_channel_t)(const scs_string_t name, const scs_u32_t index, const scs_value_type_t type);
 
-implementation
+SCSSDK_FOOTER
 
-(*</unit>*) 
-end.
+#endif // SCSSDK_TELEMETRY_CHANNEL_H
+
+/* eof */
