@@ -163,7 +163,7 @@ Function TelemetryStringEncode(const Str: String): TelemetryString;
 Function APIString(const Str: TelemetryString): scs_string_t; overload;
 
 // Routines replacing some of the C macros functionality.
-Function SCSCheckSize(ActualSize, {%H-}Expected32,{%H-}Expected64: Cardinal): Boolean;
+Function SCSCheckSize(ActualSize,{%H-}Expected32,{%H-}Expected64: Cardinal): Boolean;
 
 Function SCSMakeVersion(Major, Minor: scs_u16_t): scs_u32_t;
 Function SCSGetMajorVersion(Version: scs_u32_t): scs_u16_t;

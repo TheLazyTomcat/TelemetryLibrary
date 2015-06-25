@@ -21,8 +21,8 @@
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="2">
-      <Item1 Name="Default_win_x86" Default="True"/>
-      <Item2 Name="Default_win_x64">
+      <Item1 Name="Devel_win_x86" Default="True"/>
+      <Item2 Name="Devel_win_x64">
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -34,24 +34,32 @@
             <OtherUnitFiles Value="..\..\Condensed API Headers"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
           <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <VerifyObjMethodCallValidity Value="True"/>
             <TargetCPU Value="x86_64"/>
             <TargetOS Value="win64"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
               <UseHeaptrc Value="True"/>
-              <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
-            <CustomOptions Value="-dx64
--dFPC
--dWindows"/>
-            <CompilerPath Value="$(CompPath)"/>
+            <CustomOptions Value="-dFPC
+-dWindows
+-dDebug
+-dx64"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -68,7 +76,6 @@
       <Unit0>
         <Filename Value="Condensed_tester.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Condensed_tester"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
@@ -88,24 +95,32 @@
       <OtherUnitFiles Value="..\..\Condensed API Headers"/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <IncludeAssertionCode Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
     <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+      <VerifyObjMethodCallValidity Value="True"/>
       <TargetCPU Value="i386"/>
       <TargetOS Value="win32"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
         <UseHeaptrc Value="True"/>
-        <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CustomOptions Value="-dx86
--dFPC
--dWindows"/>
-      <CompilerPath Value="$(CompPath)"/>
+      <CustomOptions Value="-dFPC
+-dWindows
+-dDebug
+-dx86"/>
     </Other>
   </CompilerOptions>
   <Debugging>
