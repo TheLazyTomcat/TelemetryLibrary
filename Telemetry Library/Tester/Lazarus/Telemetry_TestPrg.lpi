@@ -45,13 +45,9 @@
             </Debugging>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dx64
 -dFPC
 -dWindows"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -68,7 +64,6 @@
       <Unit0>
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Telemetry_TestPrg"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\..\Source\TelemetryIDs.pas"/>
@@ -78,87 +73,70 @@
       <Unit2>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCS_Telemetry_Condensed"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_telemetry.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_telemetry_event.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_event"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_telemetry_channel.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_channel"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_value.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_value"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_configs.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_common_configs"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_channels.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_common_channels"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_trailer_common_channels.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_trailer_common_channels"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_truck_common_channels.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_truck_common_channels"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\..\Telemetry API Headers\eurotrucks2\scssdk_eut2.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_eut2"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\..\Telemetry API Headers\eurotrucks2\scssdk_telemetry_eut2.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_telemetry_eut2"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\Source\Libs\CRC32.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="CRC32"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\Source\Libs\MD5.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MD5"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\Source\Libs\MulticastEvent.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MulticastEvent"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\Source\Libs\SimpleLog.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SimpleLog"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\Source\Libs\BitOps.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="BitOps"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\Source\TelemetryCommon.pas"/>
@@ -218,77 +196,62 @@
       <Unit30>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetrySCS_Examples_telemetry_position"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetrySCS_Examples_telemetry_mem"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\Source\Log\TelemetryLogText.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryLogText"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\Source\Log\TelemetryLogBinary.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryLogBinary"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryLogBinaryParser"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\Source\Comm\TelemetryCommCommon.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommCommon"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\Source\Comm\TelemetryCommPackets.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommPackets"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\..\Source\Comm\TelemetryCommCircularBuffers.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommCircularBuffers"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\..\Source\Comm\TelemetryCommPacketsAllocator.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommPacketsAllocator"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\Source\Comm\TelemetryCommPacketsBuilder.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommPacketsBuilder"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\..\Source\Comm\TelemetryCommPacketsResolving.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommPacketsResolving"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\..\Source\Comm\TelemetryCommRemoteRecipient.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommRemoteRecipient"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\Source\Comm\TelemetryCommTransmitter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommTransmitter"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\..\Source\Comm\TelemetryCommReceiver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommReceiver"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\Source\Comm\TelemetryCommCommunicator.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommCommunicator"/>
       </Unit44>
     </Units>
   </ProjectOptions>
@@ -314,13 +277,9 @@
       </Debugging>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
       <CustomOptions Value="-dx86
 -dFPC
 -dWindows"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

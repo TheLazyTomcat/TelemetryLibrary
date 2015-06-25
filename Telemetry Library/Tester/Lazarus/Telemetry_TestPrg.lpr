@@ -33,38 +33,36 @@ uses
   SimpleLog,
   BitOps,
 
-  TelemetryCommon,
-  TelemetryIDs,
-  TelemetryConversions,
-  TelemetryStrings,
-  TelemetryValueTypeUtils,
-  TelemetryLists,
-  TelemetryStreaming,
-  TelemetryVersionObjects,
-  TelemetryInfoProvider,
-  TelemetryRecipient,
+  TelemetryCommon,                                           //*
+  TelemetryIDs,                                              //*
+  TelemetryConversions,                                      //*
+  TelemetryStrings,                                          //*
+  TelemetryValueTypeUtils,                                   //*
+  TelemetryLists,                                            //*
+  TelemetryStreaming,                                        //*
+  TelemetryVersionObjects,                                   //*
+  TelemetryInfoProvider,                                     //*
+  TelemetryRecipient,                                        //*
   TelemetryRecipientBinder,
 
-  TelemetrySCS_Examples_telemetry,
-  TelemetrySCS_Examples_telemetry_position,
-  TelemetrySCS_Examples_telemetry_mem,
+  TelemetrySCS_Examples_telemetry,                           //*
+  TelemetrySCS_Examples_telemetry_position,                  //*
+  TelemetrySCS_Examples_telemetry_mem,                       //*
 
-  TelemetryLogText,
-  TelemetryLogBinary,
-  TelemetryLogBinaryParser,
+  TelemetryLogText,                                          //*
+  TelemetryLogBinary,                                        //*
+  TelemetryLogBinaryParser,                                  //*
 
-  TelemetryCommCommon,
-  TelemetryCommPackets,
-  TelemetryCommCircularBuffers,
-  TelemetryCommPacketsAllocator,
-  TelemetryCommPacketsBuilder,
-  TelemetryCommPacketsResolving,
-  TelemetryCommRemoteRecipient,
-  TelemetryCommTransmitter,
-  TelemetryCommReceiver,
-  TelemetryCommCommunicator
-
-  { you can add units after this };
+  TelemetryCommCommon,                                       //*
+  TelemetryCommPackets,                                      //*
+  TelemetryCommCircularBuffers,                              //*
+  TelemetryCommPacketsAllocator,                             //*
+  TelemetryCommPacketsBuilder,                               //*
+  TelemetryCommPacketsResolving,                             //*
+  TelemetryCommRemoteRecipient,                              //*
+  TelemetryCommTransmitter,                                  //*
+  TelemetryCommReceiver,                                     //*
+  TelemetryCommCommunicator;                                 //*
 
 begin
 end.
