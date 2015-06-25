@@ -40,7 +40,19 @@
     @item(2015-04-20 - Added TMemSize type.)
     @item(2015-04-20 - Constants @code(cEmptySCSValue) and @code
                        (cEmptySCSValueLocalized) renamed to EmptySCSValue and
-                       EmptySCSValueLocalized respectively.))
+                       EmptySCSValueLocalized respectively.)
+    @item(2015-06-25 - Removed TMulticastEvent placeholder.)
+    @item(2015-06-25 - Added TStrSize type.)
+    @item(2015-06-25 - TGameSupportInfo changed to TSupportedGame,
+                       PGameSupportInfo changed to PSupportedGame.)
+    @item(2015-06-25 - Added list of supported API versions and list of
+                       supported games (@code(SupportedTelemetryVersions),
+                       @code(SupportedGames)).)
+    @item(2015-06-25 - Renamed and completed following constants:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(EmptySCSValue renamed to scs_value_empty)
+                         @item(EmptySCSValueLocalized renamed to
+                               scs_value_localized_empty)))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -54,21 +66,13 @@ uses
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
-  scssdk_value;
+  scssdk_value,
+  scssdk_telemetry,
+  scssdk_eut2,
+  scssdk_telemetry_eut2;
 {$ENDIF}
 
 type
-{$IFDEF MulticastEvents}
-  {$IFDEF Documentation}
-    // @abstract(Placeholder intended to complete the classes hierarchy tree in
-    // documentation.)
-    // Actual class is defined in unit MulticastEvent and is not included in
-    // documentation of telemetry library. Refer to mentioned unit located in
-    // folder @italic(Source\Libs) for details.
-    TMulticastEvent = class(TObject);
-  {$ENDIF}
-{$ENDIF}
-
   // Type used to cast pointer to a signed integer for calculation of arbitrary
   // address.
 {$IFDEF x64}
@@ -88,22 +92,50 @@ type
   // Type used to pass or get size of memory, e.g. when allocating memory.
   TMemSize = PtrUInt;
 
+  // Type used to pass or get length of a string.
+  TStrSize = PtrInt;
+
 {
-  @abstract(Structure used internally in tables that keeps informations about
-  supported games and their versions.)
+  Structure used in lists of supported games and their versions.
 
   @member GameID       Internal game identificator (not a game name).
   @member(GameVersion  Internal game version (API-specific value - not equal
                        to actual game version).)
 }
-  TGameSupportInfo = record
+  TSupportedGame = record
     GameID:       TelemetryString;
     GameVersion:  scs_u32_t;
   end;
   // Pointer to TGameSupportInfo structure.
-  PGameSupportInfo = ^TGameSupportInfo;
+  PSupportedGame = ^TSupportedGame;
 
+const
+{$IFDEF DevelopmentHints}
+  {$MESSAGE HINT 'Development hint: Remember to update.'}
+{$ENDIF}
+{
+  These constants can change with telemetry development, remember to update them
+  if you add support for new telemetry version.
+}
+  // List of Telemetry API versions supported by this library.
+  SupportedTelemetryVersions: Array[0..0] of scs_u32_t =
+   (SCS_TELEMETRY_VERSION_1_00 {1.0});
 
+  // List of games and their versions supported by this library.
+  SupportedGames: Array[0..10] of TSupportedGame =
+   ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 {ETS2 1.0}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 {ETS2 1.1}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 {ETS2 1.2}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 {ETS2 1.3}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_04 {ETS2 1.4}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_05 {ETS2 1.5}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_06 {ETS2 1.6}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 {ETS2 1.7}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 {ETS2 1.8}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {ETS2 1.9}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {ETS2 1.10}));
+
+type
 {
   @abstract(Structure used to store content of @code(scs_value_t) variable.)
   @code(scs_value_t) is using pointers for some values, so it cannot be stored
@@ -170,12 +202,26 @@ type
 const
   // Constant containing an empty @code(scs_value_t) structure, or, more
   // precisely, structure with invalid value type.
-  EmptySCSValue: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);
+  scs_value_empty: scs_value_t = (
+    _type:            SCS_VALUE_TYPE_INVALID;
+    _padding:         $00000000;
+    value_dplacement: (
+      position:         (x: 0.0; y: 0.0; z: 0.0);
+      orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+      _padding:         $00000000));
 
   // Constant containing an empty scs_value_localized_t structure (invalid value
   // type).
-  EmptySCSValueLocalized: scs_value_localized_t = (ValueType: SCS_VALUE_TYPE_INVALID);
-
+  scs_value_localized_empty: scs_value_localized_t = (
+    ValueType:  SCS_VALUE_TYPE_INVALID;
+    BinaryData: (
+      _type:            SCS_VALUE_TYPE_INVALID;
+      _padding:         $00000000;
+      value_dplacement: (
+        position:         (x: 0.0; y: 0.0; z: 0.0);
+        orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+        _padding:         $00000000));
+    StringData: '');
 
 implementation
 

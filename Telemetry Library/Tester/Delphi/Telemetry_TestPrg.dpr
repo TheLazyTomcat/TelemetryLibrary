@@ -34,36 +34,27 @@ uses
   BitOps          in '..\..\Source\Libs\BitOps.pas',
 
   TelemetryCommon           in '..\..\Source\TelemetryCommon.pas',
-  TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
-  TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
-  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
-  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
-  TelemetryLists            in '..\..\Source\TelemetryLists.pas',
-  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
-  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
-  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
-  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
-  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
+//  TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
+//  TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
+//  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
+//  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
+//  TelemetryLists            in '..\..\Source\TelemetryLists.pas',
+//  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
+//  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
+//  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
+//  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
+//  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
-  TelemetrySCS_Examples_telemetry          in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas',
-  TelemetrySCS_Examples_telemetry_position in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas',
-  TelemetrySCS_Examples_telemetry_mem      in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas',
+//  TelemetrySCS_Examples_telemetry          in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas',
+//  TelemetrySCS_Examples_telemetry_position in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas',
+//  TelemetrySCS_Examples_telemetry_mem      in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas',
   
-  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
-  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
-  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas',
+//  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
+//  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
+//  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
+strutils;
 
-  TelemetryCommCommon           in '..\..\Source\Comm\TelemetryCommCommon.pas',
-  TelemetryCommPackets          in '..\..\Source\Comm\TelemetryCommPackets.pas',
-  TelemetryCommCircularBuffers  in '..\..\Source\Comm\TelemetryCommCircularBuffers.pas',
-  TelemetryCommPacketsAllocator in '..\..\Source\Comm\TelemetryCommPacketsAllocator.pas',
-  TelemetryCommPacketsBuilder   in '..\..\Source\Comm\TelemetryCommPacketsBuilder.pas',
-  TelemetryCommPacketsResolving in '..\..\Source\Comm\TelemetryCommPacketsResolving.pas',
-  TelemetryCommRemoteRecipient  in '..\..\Source\Comm\TelemetryCommRemoteRecipient.pas',
-  TelemetryCommTransmitter      in '..\..\Source\Comm\TelemetryCommTransmitter.pas',
-  TelemetryCommReceiver         in '..\..\Source\Comm\TelemetryCommReceiver.pas',
-  TelemetryCommCommunicator     in '..\..\Source\Comm\TelemetryCommCommunicator.pas';
-
+(*
   procedure RandomizeArray(var Value: TValueTypesArray);
   var
     ii: Integer;
@@ -99,10 +90,9 @@ var
   TIP:  TTelemetryInfoProvider;
   TSL:  TStringList;
   STR:  String;
-
+*)
 begin
-
-
+(*
   Randomize;
 
   // CompressValueTypesArray
@@ -361,4 +351,5 @@ begin
 
   WriteLn;
   Write('Press enter to end...'); ReadLn;
+*)
 end.
