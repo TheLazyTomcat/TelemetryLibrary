@@ -112,11 +112,12 @@ type
 const
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Development hint: Remember to update.'}
-{$ENDIF}
 {
   These constants can change with telemetry development, remember to update them
   if you add support for new telemetry version.
 }
+{$ENDIF}
+
   // List of Telemetry API versions supported by this library.
   SupportedTelemetryVersions: Array[0..0] of scs_u32_t =
    (SCS_TELEMETRY_VERSION_1_00 {1.0});
