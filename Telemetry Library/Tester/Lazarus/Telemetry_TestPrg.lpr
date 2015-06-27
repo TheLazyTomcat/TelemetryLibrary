@@ -37,8 +37,8 @@ uses
   TelemetryIDs,                                              //* -
   TelemetryConversions,                                      //* -
   TelemetryStrings,                                          //* -
-  TelemetryValueTypeUtils,                                   //*
-//  TelemetryLists,                                            //*
+  TelemetryValueTypeUtils,                                   //* -
+  TelemetryLists,                                            //* -
 //  TelemetryStreaming,                                        //*
 //  TelemetryVersionObjects,                                   //*
 //  TelemetryInfoProvider,                                     //*
@@ -52,7 +52,7 @@ uses
 //  TelemetryLogText,                                          //*
 //  TelemetryLogBinary,                                        //*
 //  TelemetryLogBinaryParser;                                  //*
-  strutils;
+  strutils; //remove
 
 procedure RandomizeArray(out Value: TValueTypesArray);
 var
@@ -89,6 +89,7 @@ var
 //  TIP:  TTelemetryInfoProvider;
 //  TSL:  TStringList;
 //  STR:  String;
+
 
 begin
   Randomize;

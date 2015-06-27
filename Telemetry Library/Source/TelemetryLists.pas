@@ -24,7 +24,7 @@
    |- TRegisteredEventsList
    |- TRegisteredChannelsList
    |- TStoredConfigsList
-   |- TStoredChannelsValuesList
+   |- TStoredChannelsList
 )
   Last change:  2014-11-24
 
@@ -76,8 +76,8 @@
                          @item(TStoredConfigsList.Add)
                          @item(TStoredConfigsList.Remove)
                          @item(TStoredConfigsList.ChangeConfigValue)
-                         @item(TStoredChannelsValuesList.IndexOf)
-                         @item(TStoredChannelsValuesList.StoreChannelValue)))
+                         @item(TStoredChannelsList.IndexOf)
+                         @item(TStoredChannelsList.StoreChannelValue)))
     @item(2014-04-07 - Result type changed to @code(TelemetryString) for
                        following methods:@unorderedList(
                          @itemSpacing(Compact)
@@ -85,7 +85,7 @@
                          @item(TKnownConfigsList.ConfigIDToName)))
     @item(2014-04-11 - Added multicast event TCustomTelemetryList.OnChangeMulti.)
     @item(2014-04-13 - Name of the class @code(TStoredChannelValuesList) changed
-                       to @code(@noAutoLink(TStoredChannelsValuesList)).)
+                       to @code(TStoredChannelsValuesList).)
     @item(2014-04-14 - TKnownConfigsList class now stores fully qualified
                        configuration value names instead of just attribute
                        names.)
@@ -136,7 +136,19 @@
                          @item(Added new variants of method TKnownChannelsList.Add)
                          @item(Added new variants of method TKnownChannelsList.ReplaceIndex)
                          @item(Added new variants of method TKnownChannelsList.Replace)
-                         @item(Added new variants of method TKnownChannelsList.Insert))))
+                         @item(Added new variants of method TKnownChannelsList.Insert)))
+    @item(2015-06-26 - Added 64bit ASM code for function GetMasterID.)
+    @item(2015-06-27 - Renamed following constants:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(cEmptyKnownEvent renamed to EmptyKnownEvent)
+                         @item(cEmptyKnownChannel renamed to EmptyKnownChannel)
+                         @item(cEmptyKnownConfig renamed to EmptyKnownConfig)
+                         @item(cEmptyEventInfo renamed to EmptyEventInfo)
+                         @item(cEmptyChannelInfo renamed to EmptyChannelInfo)
+                         @item(cEmptyStoredConfig renamed to EmptyStoredConfig))
+    @item(2015-06-27 - Small implementation changes.)
+    @item(2015-06-27 - @code(TStoredChannelsValuesList) class renamed to
+                       @code(@noAutoLink(TStoredChannelsList)).))
 
 @html(<hr>)}
 unit TelemetryLists;
@@ -187,55 +199,67 @@ type
   TCustomTelemetryList serves as ancestor for all other list classes declared in
   this unit. It wrapps around TList class and adds methods used for easier list
   management in descendant classes.
-
-@member(fMainList
+}
+type
+  TCustomTelemetryList = class(TObject)
+  private
+  {
     Internal list used to hold actual items. It is not publicly visible and is
-    therefore managed automatically.)
-
-@member(fUpdating
+    therefore managed automatically.
+  }
+    fMainList:      TList;
+  {
     When this variable is set to @true, it indicates that the list is updated
     from outside and OnChange event should not be called.@br
-    It is set by methods BeginUpdate and EndUpdate.)
-
-@member(fOnChange
-    Holds reference to OnChange event handler.)
-
-@member(fOnChangeMulti
-    Object handling multicast OnChange event.)
-
-@member(GetCount
+    It is set by methods BeginUpdate and EndUpdate.
+  }
+    fUpdating:      Boolean;
+  {
+    Holds reference to OnChange event handler.
+  }
+    fOnChange:      TNotifyEvent;
+  {$IFDEF MulticastEvents}
+  {
+    Object handling multicast OnChange event.
+  }
+    fOnChangeMulti: TMulticastNotifyEvent;
+  {$ENDIF}
+  {
     Getter for property Count.@br
-    Returns number of items in list.)
-    
-
-
-@member(PtrGetItem
+    Returns number of items in the list.
+  }
+    Function GetCount: Integer;
+  protected
+  {
     Returns item (pointer) from internal list on position given by @code(Index)
     parameter.@br
-    When index falls out of allowed boundary (<0,Count - 1>) an exception is
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
 
     @param Index Index of requested item in list.
 
-    @returns Item at position given by @code(Index).)
-
-@member(PtrIndexOf
+    @returns Item at position given by @code(Index).
+  }
+    Function PtrGetItem(Index: Integer): Pointer; virtual;
+  {
     Returns index at which the passed item (pointer) is located in the list.@br
     When passed pointer is not found in list, -1 is returned.
 
     @param Item Item (pointer) whose index is requested.
 
-    @returns Index of passed item in the list, -1 when not found.)
-
-@member(PtrAdd
+    @returns Index of passed item in the list, -1 when not found.
+  }
+    Function PtrIndexOf(Item: Pointer): Integer; virtual;
+  {
     Method used to add new item into list. Added item can be @nil.@br
     Calls method DoChange when addition is successful.
 
     @param Item New item to be added to the list.
 
-    @returns Index at which the new item was put, -1 when the operation failed.)
-
-@member(PtrReplace
+    @returns Index at which the new item was put, -1 when the operation failed.
+  }
+    Function PtrAdd(Item: Pointer): Integer; virtual;
+  {
     Replaces item (change its value) at position given by @code(Index)
     parameter. Item can be @nil. When index falls out of allowed boundary
     (<0,Count - 1>), an exception is raised.@br
@@ -243,8 +267,9 @@ type
 
     @param Index Index of item that has to be replaced.
     @param Item  New walue of the replaced item.)
-
-@member(PtrInsert
+  }
+    procedure PtrReplace(Index: Integer; Item: Pointer); virtual;
+  {
     Inserts new item at position given by @code(Index). List Count is increased
     by one and all existing items from given position (included) up are moved
     higher. @code(Item) can be @nil. When index falls out of allowed boundary
@@ -253,9 +278,10 @@ type
     Calls method DoChange when item is successfully inserted.
 
     @param Index Index at which the new item should be added.
-    @param Item  Inserted item.)
-
-@member(PtrRemove
+    @param Item  Inserted item.
+  }
+    procedure PtrInsert(Index: Integer; Item: Pointer); virtual;
+  {
     Removes item passed in @code(Item) parameter. @code(Item) should not be, but
     can be @nil. When given item is not found in list, nothing is removed and
     the function fails with no error (-1 is returned). If the list contains more
@@ -265,92 +291,72 @@ type
     @param Item Item that has to be removed.
 
     @returns(Index at which the removed item was place before removal, -1 whem
-             given item was not found in the list.))
-
-@member(PtrDelete
+             given item was not found in the list.)
+  }
+    Function PtrRemove(Item: Pointer): Integer; virtual;
+  {
     Deletes item at position given by @code(Index) parameter. When index falls
     out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     Calls method DoChange when item is successfully deleted.
 
-    @param Index Index of item that has to be deleted.)
-
-
-
-@member(Create
-    Object constructor.)
-
-@member(Destroy
+    @param Index Index of item that has to be deleted.
+  }
+    procedure PtrDelete(Index: Integer); virtual;
+  public
+  {
+    Object constructor.
+  }
+    constructor Create;
+  {
     ObjectDestructor.@br
     Method Clear is called within destructor, so it is not necessary to
     explicitly call it when class instance is freed.
-    
-    @bold(Note:) OnChange event is not called.)
 
-@member(BeginUpdate
-    Sets fUpdating to @true.)
-
-@member(EndUpdate
-    Sets fUpdating to @false and calls DoChange method.)
-
-@member(DoChange
+    @bold(Note:) OnChange event is not called.
+  }
+    destructor Destroy; override;
+  {
+    Sets fUpdating to @true.
+  }
+    procedure BeginUpdate; virtual;
+  {
+    Sets fUpdating to @false and calls DoChange method.
+  }
+    procedure EndUpdate; virtual;
+  {
     Calls handler of OnChange event (if assigned) - but only if fUpdating is set
     to @false, otherwise the handler is not called and method returns
-    immediately.)
-
-@member(Clear
-    Deletes all items in the list. It only deletes stored pointers, allocated
+    immediately.
+  }
+    procedure DoChange; virtual;
+  {
+    Deletes all items in the list. Only deletes stored pointers, allocated
     memory they are pointing to is not freed. Override this method in
     descendants to free memory used by items (put inherited code at the end).@br
-    Calls method DoChange after all items are deleted.)
-
-
-
-@member(Count
-    Number of items stored in the list.)
-
-@member(OnChange
+    Calls method DoChange after all items are deleted.
+  }
+    procedure Clear; virtual;
+  published
+  {
+    Number of items stored in the list.
+  }
+    property Count: Integer read GetCount;
+  {
     Event called whenever the list is changed. It can also be called manually by
     calling DoChange method. It is NOT called when fUpdating is set to @true
-    (but can be still called directly if handler is assigned).)
-
-@member(OnChangeMulti
+    (but can be still called directly if handler is assigned).
+  }
+    property OnChange: TNotifyEvent read fOnChange write fOnChange;
+  {$IFDEF MulticastEvents}
+  {
     Multicast event called whenever the list is changed. It can also be called
     manually by calling DoChange method. It is NOT called when fUpdating is set
     to @true (but can be still called directly).@br
     Assigning handlers to this event does not interfere with normal OnChange
     event.@br
     Normal OnChange event is called first, handlers of this event are called
-    afterwards.)
-}
-type
-  TCustomTelemetryList = class(TObject)
-  private
-    fMainList:      TList;
-    fUpdating:      Boolean;
-    fOnChange:      TNotifyEvent;
-  {$IFDEF MulticastEvents}
-    fOnChangeMulti: TMulticastNotifyEvent;
-  {$ENDIF}
-    Function GetCount: Integer;
-  protected
-    Function PtrGetItem(Index: Integer): Pointer; virtual;
-    Function PtrIndexOf(Item: Pointer): Integer; virtual;
-    Function PtrAdd(Item: Pointer): Integer; virtual;
-    procedure PtrReplace(Index: Integer; Item: Pointer); virtual;
-    procedure PtrInsert(Index: Integer; Item: Pointer); virtual;
-    Function PtrRemove(Item: Pointer): Integer; virtual;
-    procedure PtrDelete(Index: Integer); virtual;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    procedure BeginUpdate; virtual;
-    procedure EndUpdate; virtual;
-    procedure DoChange; virtual;
-    procedure Clear; virtual;
-  published
-    property Count: Integer read GetCount;
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-  {$IFDEF MulticastEvents}
+    afterwards.
+  }
     property OnChangeMulti: TMulticastNotifyEvent read fOnChangeMulti;
   {$ENDIF}
   end;
@@ -387,7 +393,7 @@ type
 
 const
   // Empty TKnownEvent structure.
-  cEmptyKnownEvent: TKnownEvent =
+  EmptyKnownEvent: TKnownEvent =
    (Event:    SCS_TELEMETRY_EVENT_invalid;
     Name:     '';
     Valid:    False;
@@ -397,138 +403,36 @@ const
 {   TKnownEventsList // Class declaration                                      }
 {==============================================================================}
 {
-  @abstract(
-  List used to store informations about known telemetry @noAutoLink(events).)
-
-@member(GetKnownEventPointer
-    Getter for Pointers[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Pointer to requested item.)
-
-@member(GetKnownEvent
-    Getter for Events[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Requested item.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
-
-@member(Add
-    Adds new known game event into the list.@br
-    OnChange event is called after successful addition.
-
-    @param Event   Event identification number.
-    @param Name    Name of added event.
-    @param Valid   Flag denoting whether added event is marked as valid.
-    @param Utility Flag denoting whether added event is marked as utility.
-
-    @returns Index at which the new event was added, -1 when addition failed.)
-
-@member(ReplaceIndex
-    Replaces event at position given by @code(Index) parameter. When index falls
-    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful replacement.
-
-    @param Index   Index of item that has to be replaced.
-    @param Event   Replacement event identification number.
-    @param Name    Name of replacement event.
-    @param Valid   Flag denoting whether replacement event is marked as valid.
-    @param(Utility Flag denoting whether replacement event is marked as
-                   utility.))
-
-@member(Replace
-    Replaces event given by @code(OldEvent) parameter. When this old event is
-    not found in the list, nothing happens and the method returns -1.@br
-    OnChange event is called after successful replacement.
-
-    @param OldEvent   Identification number of event that has to be replaced.
-    @param Event      Replacement event identification number.
-    @param Name       Name of replacement event.
-    @param(Valid      Flag denoting whether replacement event is marked as
-                      valid.)
-    @param(Utility    Flag denoting whether replacement event is marked as
-                      utility.)
-
-    @returns(Index of event that was replaced, -1 when such event was not
-             found.))
-
-@member(Insert
-    Inserts new event at position given by @code(Index) parameter. Count is
-    increased by one and all existing items from given position (included) up
-    are moved higher. When index falls out of allowed boundary (<0,Count> -
-    passed index can be higher than current highest index, if so, item is added
-    at the end of the list), and exception is raised.@br
-    OnChange event is called after successful insertion.
-
-    @param Index   Position where the new event should be inserted.
-    @param Event   Event identification number.
-    @param Name    Name of event.
-    @param Valid   Flag denoting whether event is marked as valid.
-    @param Utility Flag denoting whether event is marked as utility.
-
-    @returns Actual position where the new event was inserted.)
-
-@member(Remove
-    Removes given event from the list. When this event is not found in the list,
-    method returns -1 and nothing is removed.@br
-    OnChange event is called after successful removal.
-
-    @param(Event Identification number of event that has to be removed from the
-                 list.)
-
-    @returns(Index of item that was removed, -1 when requested event was not
-             found.))
-
-@member(Delete
-    Deletes event at position given by @code(Index) parameter. When index falls
-    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.
-
-    @param Index Index of item that has to be deleted.)
-
-@member(IsValid
-    Returns @true when given event is valid, @false when it is not valid or when
-    that event is not in list.
-
-    @param Event Identification number of requested event.
-
-    @returns Validity of requested event.)
-
-@member(IsUtility
-    Returns @true when given event is marked as Utility, @false when it is not
-    or when not found in the list.
-
-    @param Event Identification number of requested event.
-
-    @returns Utility state of requested event.)
-
-@member(Pointers
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored items.@br
-    Unlike Events[] property, you can use returned pointer to change values of
-    stored items.)
-
-@member(Events
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.)
+  List used to store informations about known telemetry @noAutoLink(events).
 }
 type
   TKnownEventsList = class(TCustomTelemetryList)
   private
+  {
+    Getter for Pointers property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Pointer to requested item.
+  }
     Function GetKnownEventPointer(Index: Integer): PKnownEvent;
+  {
+    Getter for Events property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Requested item.
+  }
     Function GetKnownEvent(Index: Integer): TKnownEvent;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.
+  }
     procedure Clear; override;
   {
     Searches through list for given event. When the event is not found, -1 is
@@ -548,15 +452,114 @@ type
     @returns Index of event with requested name, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
+  {
+    Adds new known game event into the list.@br
+    OnChange event is called after successful addition.
+
+    @param Event   Event identification number.
+    @param Name    Name of added event.
+    @param Valid   Flag denoting whether added event is marked as valid.
+    @param Utility Flag denoting whether added event is marked as utility.
+
+    @returns Index at which the new event was added, -1 when addition failed.
+  }
     Function Add(Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;
+  {
+    Replaces event at position given by @code(Index) parameter. When index falls
+    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful replacement.
+
+    @param Index   Index of item that has to be replaced.
+    @param Event   Replacement event identification number.
+    @param Name    Name of replacement event.
+    @param Valid   Flag denoting whether replacement event is marked as valid.
+    @param(Utility Flag denoting whether replacement event is marked as
+                   utility.)
+  }
     procedure ReplaceIndex(Index: Integer; Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False); virtual;
+  {
+    Replaces event given by @code(OldEvent) parameter. When this old event is
+    not found in the list, nothing happens and the method returns -1.@br
+    OnChange event is called after successful replacement.
+
+    @param OldEvent   Identification number of event that has to be replaced.
+    @param Event      Replacement event identification number.
+    @param Name       Name of replacement event.
+    @param(Valid      Flag denoting whether replacement event is marked as
+                      valid.)
+    @param(Utility    Flag denoting whether replacement event is marked as
+                      utility.)
+
+    @returns(Index of event that was replaced, -1 when such event was not
+             found.)
+  }
     Function Replace(OldEvent, Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;
+  {
+    Inserts new event at position given by @code(Index) parameter. Count is
+    increased by one and all existing items from given position (included) up
+    are moved higher. When index falls out of allowed boundary (<0,Count> -
+    passed index can be higher than current highest index, if so, item is added
+    at the end of the list), and exception is raised.@br
+    OnChange event is called after successful insertion.
+
+    @param Index   Position where the new event should be inserted.
+    @param Event   Event identification number.
+    @param Name    Name of event.
+    @param Valid   Flag denoting whether event is marked as valid.
+    @param Utility Flag denoting whether event is marked as utility.
+
+    @returns Actual position where the new event was inserted.
+  }
     Function Insert(Index: Integer; Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;
+  {
+    Removes given event from the list. When this event is not found in the list,
+    method returns -1 and nothing is removed.@br
+    OnChange event is called after successful removal.
+
+    @param(Event Identification number of event that has to be removed from the
+                 list.)
+
+    @returns(Index of item that was removed, -1 when requested event was not
+             found.)
+  }
     Function Remove(Event: scs_event_t): Integer; virtual;
+  {
+    Deletes event at position given by @code(Index) parameter. When index falls
+    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful deletion.
+
+    @param Index Index of item that has to be deleted.
+  }
     procedure Delete(Index: Integer); virtual;
+  {
+    Returns @true when given event is valid, @false when it is not valid or when
+    that event is not in list.
+
+    @param Event Identification number of requested event.
+
+    @returns Validity of requested event.
+  }
     Function IsValid(Event: scs_event_t): Boolean; virtual;
+  {
+    Returns @true when given event is marked as Utility, @false when it is not
+    or when not found in the list.
+
+    @param Event Identification number of requested event.
+
+    @returns Utility state of requested event.
+  }
     Function IsUtility(Event: scs_event_t): Boolean; virtual;
+  {
+    Array property mapped directly to internal list. Use it for direct access to
+    individual stored items.@br
+    Unlike Events property, you can use returned pointer to change values of
+    stored items.
+  }
     property Pointers[Index: Integer]: PKnownEvent read GetKnownEventPointer;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.
+  }
     property Events[Index: Integer]: TKnownEvent read GetKnownEvent; default;
   end;
 
@@ -601,7 +604,7 @@ type
 
 const
   // Empty TKnownChannel structure.
-  cEmptyKnownChannel: TKnownChannel =
+  EmptyKnownChannel: TKnownChannel =
    (Name:           '';
     ID:             0;
     PrimaryType:    SCS_VALUE_TYPE_INVALID;
@@ -616,91 +619,36 @@ const
 {   TKnownChannelsList // Class declaration                                    }
 {==============================================================================}
 {
-  @abstract(
-  List used to store informations about known telemetry @noAutoLink(channels).)
-
-@member(GetKnownChannelPointer
-    Getter for Pointers[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Pointer to requested item.)
-
-@member(GetKnownChannel
-    Getter for Events[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Requested item.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
-
-@member(Remove
-    Removes channel with given name from the list. When this channel is not
-    found in the list, method returns -1 and nothing is removed.@br
-    OnChange event is called after successful removal.
-
-    @param Name Name of the channel that has to be removed from the list.
-
-    @returns(Index of item that was removed, -1 when requested channel was not
-             found.))
-
-@member(Delete
-    Deletes channel at position given by @code(Index) parameter. When index
-    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.
-
-    @param Index Index of item that has to be deleted.)
-
-@member(ChannelIndexConfigID
-    Returns @code(IndexConfigID) for channel with name given in @code(Name)
-    parameter. When such channel is not found in the list, ID with value
-    0x00000000 is returned.
-
-    @param Name Name of requested channel.
-
-    @returns ID of index-configuration for requested channel.)
-
-@member(ChannelNameToID
-    Returns ID for passed channel name.
-
-    @param Name Name of chanel for which you want an ID.
-
-    @returns ID of passed channel name.)
-
-@member(ChannelIDToName
-    Returns name of channel with the same ID as is passed in @code(ID) prameter.
-    This method actually searches through the list for channel with appropriate
-    ID. When such channel is not found, an empty string is returned.
-
-    @param ID ID of requested channel.
-
-    @returns Name of the channel with appropriate ID.)
-
-@member(Pointers
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored items.@br
-    Unlike Channels[] property, you can use returned pointer to change values of
-    stored items.)
-
-@member(Channels
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.)
+  List used to store informations about known telemetry @noAutoLink(channels).
 }
 type
   TKnownChannelsList = class(TCustomTelemetryList)
   private
+  {
+    Getter for Pointers property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Pointer to requested item.
+  }
     Function GetKnownChannelPointer(Index: Integer): PKnownChannel;
+  {
+    Getter for Events property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Requested item.
+  }
     Function GetKnownChannel(Index: Integer): TKnownChannel;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.
+  }
     procedure Clear; override;
   {
     Searches through list for channel with given name (case-sensitive). When
@@ -981,12 +929,64 @@ type
     @returns Actual position where the new channel was inserted.
   }
     Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Removes channel with given name from the list. When this channel is not
+    found in the list, method returns -1 and nothing is removed.@br
+    OnChange event is called after successful removal.
+
+    @param Name Name of the channel that has to be removed from the list.
+
+    @returns(Index of item that was removed, -1 when requested channel was not
+             found.)
+  }
     Function Remove(const Name: TelemetryString): Integer; virtual;
+  {
+    Deletes channel at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful deletion.
+
+    @param Index Index of item that has to be deleted.
+  }
     procedure Delete(Index: Integer); virtual;
+  {
+    Returns @code(IndexConfigID) for channel with name given in @code(Name)
+    parameter. When such channel is not found in the list, ID with value
+    0x00000000 is returned.
+
+    @param Name Name of requested channel.
+
+    @returns ID of index-configuration for requested channel.
+  }
     Function ChannelIndexConfigID(const Name: TelemetryString): TItemID; virtual;
+  {
+    Returns ID for passed channel name.
+
+    @param Name Name of chanel for which you want an ID.
+
+    @returns ID of passed channel name.
+  }
     Function ChannelNameToID(const Name: TelemetryString): TChannelID; virtual;
+  {
+    Returns name of channel with the same ID as is passed in @code(ID) prameter.
+    This method actually searches through the list for channel with appropriate
+    ID. When such channel is not found, an empty string is returned.
+
+    @param ID ID of requested channel.
+
+    @returns Name of the channel with appropriate ID.
+  }
     Function ChannelIDToName(ID: TChannelID): TelemetryString; virtual;
+  {
+    Array property mapped directly to internal list. Use it for direct access to
+    individual stored items.@br
+    Unlike Channels property, you can use returned pointer to change values of
+    stored items.
+  }
     property Pointers[Index: Integer]: PKnownChannel read GetKnownChannelPointer;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.
+  }
     property Channels[Index: Integer]: TKnownChannel read GetKnownChannel; default;
   end;
 
@@ -1021,7 +1021,7 @@ type
 
 const
   // Empty TKnownConfig structure.
-  cEmptyKnownConfig: TKnownConfig =
+  EmptyKnownConfig: TKnownConfig =
    (Name:       '';
     ID:         0;
     ValueType:  SCS_VALUE_TYPE_INVALID;
@@ -1032,159 +1032,36 @@ const
 {   TKnownConfigsList // Class declaration                                     }
 {==============================================================================}
 {
-  @abstract(
-  List used to store informations about known telemetry configurations values.)
-
-@member(GetKnownConfigPointer
-    Getter for Pointers[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Pointer to requested item.)
-
-@member(GetKnownConfig
-    Getter for Configs[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Requested item.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
-
-@member(Add
-    Adds new known config into the list.@br
-    OnChange event is called after successful addition.
-
-    @param Name          Full name of added config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether added config is indexed.
-    @param(Binded        Flag denoting whether added config is binded by some
-                         channel (i.e. some channel has this config as its
-                         IndexConfig property).)
-
-    @returns Index at which the new config was added, -1 when addition failed.)
-
-@member(ReplaceIndex
-    Replaces config at position given by @code(Index) parameter. When index
-    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful replacement.
-
-    @param Index         Index of item that has to be replaced.
-    @param Name          Full name of new config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether added config is indexed.
-    @param(Binded        Flag denoting whether added config is binded by some
-                         channel (i.e. some channel has this config as its
-                         IndexConfig property).))
-
-@member(Replace
-    Replaces config with name given by @code(OldConfig) parameter. When this
-    config is not found in the list, nothing happens and the method returns
-    -1.@br
-    OnChange event is called after successful replacement.
-
-    @param OldConfig     Full name of the config that has to be replaced.
-    @param Name          Full name of replacment config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether config is indexed.
-    @param(Binded        Flag denoting whether config is binded by some channel
-                         (i.e. some channel has this config as its IndexConfig
-                         property).)
-
-    @returns(Index of config that was replaced, -1 when old config was not
-             found.))
-
-@member(Insert
-    Inserts new config at position given by @code(Index) parameter. Count is
-    increased by one and all existing items from given position (included) up
-    are moved higher. When index falls out of allowed boundary (<0,Count> -
-    passed index can be higher than current highest index, if so, item is added
-    at the end of the list), and exception is raised.@br
-    OnChange event is called after successful insertion.
-
-    @param Index         Position where the new config should be inserted.
-    @param Name          Full name of inserted config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether config is indexed.
-    @param(Binded        Flag denoting whether config is binded by some channel
-                         (i.e. some channel has this config as its IndexConfig
-                         property).)
-
-    @returns Actual position where the new config was inserted.)
-
-@member(Remove
-    Removes config with given name from the list. When this config is not found
-    in the list, method returns -1 and nothing is removed.@br
-    OnChange event is called after successful removal.
-
-    @param Name Full name of the config that has to be removed from the list.
-
-    @returns(Index of item that was removed, -1 when requested config was not
-             found.))
-
-@member(Delete
-    Deletes config at position given by @code(Index) parameter. When index falls
-    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.
-
-    @param Index Index of item that has to be deleted.)
-
-@member(IsBinded
-    Returns @true when given config is binded, @false when it is not binded or
-    when not found in list.
-
-    @param Name Full name of the requested config.
-
-    @returns Binded state of requested config.)
-
-@member(IsIndexed
-    Returns @true when given config is Indexed, @false when it is not Indexed or
-    when not found in list.
-
-    @param Name Full name of the requested config.
-
-    @returns Indexed state of requested config.)
-
-@member(ConfigNameToID
-    Returns ID for passed Config name.
-
-    @param Name Full name of config for which you want an ID.
-
-    @returns ID of passed Config name.)
-
-@member(ConfigIDToName
-    Returns name of Config with the same ID as is passed in "ID" prameter. This
-    method actually searches through the list for Config with appropriate ID.
-    When such Config is not found, an empty string is returned.
-
-    @param ID ID of requested config.
-
-    @returns Full name of the config with appropriate ID.)
-
-@member(Pointers
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored items.@br
-    Unlike Configs[] property, you can use returned pointer to change values of
-    stored items.)
-
-@member(Configs
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.)
+  List used to store informations about known telemetry configurations values.
 }
 type
   TKnownConfigsList = class(TCustomTelemetryList)
   private
+  {
+    Getter for Pointers property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Pointer to requested item.
+  }
     Function GetKnownConfigPointer(Index: Integer): PKnownConfig;
+  {
+    Getter for Configs property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Requested item.
+  }
     Function GetKnownConfig(Index: Integer): TKnownConfig;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.
+  }
     procedure Clear; override;
   {
     Searches through list for config with given name (case-sensitive). When the
@@ -1204,17 +1081,137 @@ type
     @returns Index of config with requested ID, -1 when not found.
   }
     Function IndexOf(ID: TConfigID): Integer; overload; virtual;
+  {
+    Adds new known config into the list.@br
+    OnChange event is called after successful addition.
+
+    @param Name          Full name of added config.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether added config is indexed.
+    @param(Binded        Flag denoting whether added config is binded by some
+                         channel (i.e. some channel has this config as its
+                         IndexConfig property).)
+
+    @returns Index at which the new config was added, -1 when addition failed.
+  }
     Function Add(const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
+  {
+    Replaces config at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful replacement.
+
+    @param Index         Index of item that has to be replaced.
+    @param Name          Full name of new config.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether added config is indexed.
+    @param(Binded        Flag denoting whether added config is binded by some
+                         channel (i.e. some channel has this config as its
+                         IndexConfig property).)
+  }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False); virtual;
+  {
+    Replaces config with name given by @code(OldConfig) parameter. When this
+    config is not found in the list, nothing happens and the method returns
+    -1.@br
+    OnChange event is called after successful replacement.
+
+    @param OldConfig     Full name of the config that has to be replaced.
+    @param Name          Full name of replacment config.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether config is indexed.
+    @param(Binded        Flag denoting whether config is binded by some channel
+                         (i.e. some channel has this config as its IndexConfig
+                         property).)
+
+    @returns(Index of config that was replaced, -1 when old config was not
+             found.)
+  }
     Function Replace(const OldConfig, Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
+  {
+    Inserts new config at position given by @code(Index) parameter. Count is
+    increased by one and all existing items from given position (included) up
+    are moved higher. When index falls out of allowed boundary (<0,Count> -
+    passed index can be higher than current highest index, if so, item is added
+    at the end of the list), and exception is raised.@br
+    OnChange event is called after successful insertion.
+
+    @param Index         Position where the new config should be inserted.
+    @param Name          Full name of inserted config.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether config is indexed.
+    @param(Binded        Flag denoting whether config is binded by some channel
+                         (i.e. some channel has this config as its IndexConfig
+                         property).)
+
+    @returns Actual position where the new config was inserted.
+  }
     Function Insert(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
+  {
+    Removes config with given name from the list. When this config is not found
+    in the list, method returns -1 and nothing is removed.@br
+    OnChange event is called after successful removal.
+
+    @param Name Full name of the config that has to be removed from the list.
+
+    @returns(Index of item that was removed, -1 when requested config was not
+             found.)
+  }
     Function Remove(const Name: TelemetryString): Integer; virtual;
+  {
+    Deletes config at position given by @code(Index) parameter. When index falls
+    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful deletion.
+
+    @param Index Index of item that has to be deleted.
+  }
     procedure Delete(Index: Integer); virtual;
+  {
+    Returns @true when given config is binded, @false when it is not binded or
+    when not found in list.
+
+    @param Name Full name of the requested config.
+
+    @returns Binded state of requested config.
+  }
     Function IsBinded(const Name: TelemetryString): Boolean; virtual;
+  {
+    Returns @true when given config is Indexed, @false when it is not Indexed or
+    when not found in list.
+
+    @param Name Full name of the requested config.
+
+    @returns Indexed state of requested config.
+  }
     Function IsIndexed(const Name: TelemetryString): Boolean; virtual;
+  {
+    Returns ID for passed Config name.
+
+    @param Name Full name of config for which you want an ID.
+
+    @returns ID of passed Config name.
+  }
     Function ConfigNameToID(const Name: TelemetryString): TConfigID;
+  {
+    Returns name of Config with the same ID as is passed in "ID" prameter. This
+    method actually searches through the list for Config with appropriate ID.
+    When such Config is not found, an empty string is returned.
+
+    @param ID ID of requested config.
+
+    @returns Full name of the config with appropriate ID.
+  }
     Function ConfigIDToName(ID: TConfigID): TelemetryString; virtual;
+  {
+    Array property mapped directly to internal list. Use it for direct access to
+    individual stored items.@br
+    Unlike Configs property, you can use returned pointer to change values of
+    stored items.
+  }
     property Pointers[Index: Integer]: PKnownConfig read GetKnownConfigPointer;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.
+  }
     property Configs[Index: Integer]: TKnownConfig read GetKnownConfig; default;
   end;
 
@@ -1241,7 +1238,7 @@ type
 
 const
   // Empty TEventInfo structure.
-  cEmptyEventInfo: TEventInfo =
+  EmptyEventInfo: TEventInfo =
    (Event:    SCS_TELEMETRY_EVENT_invalid;
     Utility:  False);
 
@@ -1273,100 +1270,40 @@ type
   context which is actually pointer to a variable of TEventContext structure.
   This variable is at the same time added as a new item into this list.@br
   When event is unregistered, context it is bound to is removed from this list.
-
-@member(fOnUserDataFree
-    Holds reference to OnUserDataFree event handler.)
-
-@member(GetEventContext
-    Getter for Contexts[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Pointer to requested item.)
-
-@member(GetEventInfo
-    Getter for Events[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Requested item.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.@br
-    Contexts are freed using method FreeContext (OnUserDataFree event is
-    called).)
-
-@member(Delete
-    Deletes context at position given by @code(Index) parameter. When index
-    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.@br
-    Contexts are freed using method FreeContext (OnUserDataFree event is
-    called).
-
-    @param Index Index of item that has to be deleted.)
-
-@member(CreateContext
-    This method creates new event context variable, fills it from parameters and
-    returns pointer to this variable. It is used when registering new telemetry
-    event, because actual context is needed for this registration, but cannot be
-    added to this list before the registration is complete.@br
-    Sequence of actions taken during registration is as follows:
-    @unorderedlist(
-      @itemSpacing(Compact)
-      @item Context is created using this function.
-      @item Registration in API is attempted.
-      @item When successful, context is added to this list.
-      @item When unsuccessful, context is freed using FreeContext method.
-    )
-
-    @param Recipient Telemetry recipient registering created context.
-    @param Event     Identification number of registered event.
-    @param(Utility   Flag indicating whether registered event is marked as
-                     utility.)
-    @param(UserData  User defined data to be stored inside the created event
-                     context.)
-
-    @returns Pointer to created event context.)
-
-@member(FreeContext
-    Frees memory allocated for event context and sets this pointer to @nil.@br
-    Calls OnUserDataFree event before the context is freed.
-
-    @param EventContext Pointer to event context to be freed.)
-
-@member(DoOnUserDataFree
-    Calls handler of OnUserDataFree event (if assigned).)
-
-@member(Contexts
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored contexts.@br
-    Unlike Events[] property, you can use returned pointer to change values of
-    stored items.)
-
-@member(Events
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.@br
-    This property does not return whole context structure, only its "EventInfo"
-    field.)
-
-
-@member(OnUserDataFree
-    Bind this event when you need to free user data stored inside a context when
-    such context is destroyed.)
 }
   TRegisteredEventsList = class(TCustomTelemetryList)
   private
+  {
+    Holds reference to OnUserDataFree event handler.
+  }
     fOnUserDataFree:  TUserDataFreeEvent;
+  {
+    Getter for Contexts property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Pointer to requested item.
+  }
     Function GetEventContext(Index: Integer): PEventContext;
+  {
+    Getter for Events property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Requested item.
+  }
     Function GetEventInfo(Index: Integer): TEventInfo;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).
+  }
     procedure Clear; override;
   {
     Searches through list for context with requested event. When the context is
@@ -1444,13 +1381,70 @@ type
              found.)
   }
     Function Remove(EventContext: PEventContext): Integer; overload; virtual;
+  {
+    Deletes context at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).
+
+    @param Index Index of item that has to be deleted.
+  }
     procedure Delete(Index: Integer); virtual;
+  {
+    This method creates new event context variable, fills it from parameters and
+    returns pointer to this variable. It is used when registering new telemetry
+    event, because actual context is needed for this registration, but cannot be
+    added to this list before the registration is complete.@br
+    Sequence of actions taken during registration is as follows:
+    @unorderedlist(
+      @itemSpacing(Compact)
+      @item Context is created using this function.
+      @item Registration in API is attempted.
+      @item When successful, context is added to this list.
+      @item When unsuccessful, context is freed using FreeContext method.
+    )
+
+    @param Recipient Telemetry recipient registering created context.
+    @param Event     Identification number of registered event.
+    @param(Utility   Flag indicating whether registered event is marked as
+                     utility.)
+    @param(UserData  User defined data to be stored inside the created event
+                     context.)
+
+    @returns Pointer to created event context.
+  }
     Function CreateContext(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): PEventContext; virtual;
+  {
+    Frees memory allocated for event context and sets this pointer to @nil.@br
+    Calls OnUserDataFree event before the context is freed.
+
+    @param EventContext Pointer to event context to be freed.
+  }
     procedure FreeContext(var EventContext: PEventContext); virtual;
-    procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;    
+  {
+    Calls handler of OnUserDataFree event (if assigned).
+  }
+    procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;
+  {
+    Array property mapped directly to internal list. Use it for direct access to
+    individual stored contexts.@br
+    Unlike Events property, you can use returned pointer to change values of
+    stored items.
+  }
     property Contexts[Index: Integer]: PEventContext read GetEventContext;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.@br
+    This property does not return whole context structure, only its "EventInfo"
+    field.
+  }
     property Events[Index: Integer]: TEventInfo read GetEventInfo; default;
   published
+  {
+    Bind this event when you need to free user data stored inside a context when
+    such context is destroyed.)
+  }
     property OnUserDataFree: TUserDataFreeEvent read fOnUserDataFree write fOnUserDataFree;
   end;
 
@@ -1485,7 +1479,7 @@ type
 
 const
   // Empty TEventInfo structure.
-  cEmptyChannelInfo: TChannelInfo =
+  EmptyChannelInfo: TChannelInfo =
    (Name:           '';
     ID:             0;
     Index:          SCS_U32_NIL;
@@ -1522,104 +1516,40 @@ type
   This variable is at the same time added as a new item into this list.@br
   When channel is unregistered, context it is bound to is removed from this
   list.
-
-@member(fOnUserDataFree
-    Holds reference to OnUserDataFree event handler.)
-
-@member(GetChannelContext
-    Getter for Contexts[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Pointer to requested item.)
-
-@member(GetChannelInfo
-    Getter for Channels[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Requested item.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.@br
-    Contexts are freed using method FreeContext (OnUserDataFree event is
-    called).)
-
-@member(Delete
-    Deletes context at position given by @code(Index) parameter. When index
-    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful deletion.@br
-    Contexts are freed using method FreeContext (OnUserDataFree event is
-    called).
-
-    @param Index Index of item that has to be deleted.)
-
-@member(CreateContext
-    This method creates new channel context variable, fills it from parameters
-    and returns pointer to this variable. It is used when registering new
-    telemetry channel, because actual context is needed for this registration,
-    but cannot be added to this list before the registration is complete.@br
-    Sequence of actions taken during registration is as follows:
-    @unorderedlist(
-      @itemSpacing(Compact)
-      @item Context is created using this function.
-      @item Registration in API is attempted.
-      @item When successful, context is added to this list.
-      @item When unsuccessful, context is freed using FreeContext method.
-    )
-
-    @param Recipient     Telemetry recipient registering created context.
-    @param(Name          Name of the registered channel (ID is calculated from
-                         it).)
-    @param Index         Index of registered channel.
-    @param ValueType     Value type of registered channel.
-    @param Flags         Registering flags.
-    @param(IndexConfigID ID of index configuration to which registered channel
-                         is bound.)
-    @param(UserData      User defined data to be stored inside the created
-                         channel context.)
-
-    @returns Pointer to created channel context.)
-
-@member(FreeContext
-    Frees memory allocated for channel context and sets this pointer to @nil.@br
-    Calls OnUserDataFree event before the context is freed.
-
-    @param ChannelContext Pointer to channel context to be freed.)
-
-@member(DoOnUserDataFree
-    Calls handler of OnUserDataFree event (if assigned).)    
-
-@member(Contexts
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored contexts.@br
-    Unlike Channels[] property, you can use returned pointer to change values of
-    stored items.)
-
-@member(Channels
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.@br
-    This property does not return whole context structure, only its
-    "ChannelInfo" field.)
-
-
-@member(OnUserDataFree
-    Bind this event when you need to free user data stored inside a context when
-    such context is destroyed.)    
 }
   TRegisteredChannelsList = class(TCustomTelemetryList)
   private
+  {
+    Holds reference to OnUserDataFree event handler.
+  }
     fOnUserDataFree:  TUserDataFreeEvent;
+  {
+    Getter for Contexts property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Pointer to requested item.
+  }
     Function GetChannelContext(Index: Integer): PChannelContext;
+  {
+    Getter for Channels property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Requested item.
+  }
     Function GetChannelInfo(Index: Integer): TChannelInfo;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).
+  }
     procedure Clear; override;
   {
     Searches through list for context created for channel with appropriate name.
@@ -1796,13 +1726,74 @@ type
              found.)
   }    
     Function Remove(ChannelContext: PChannelContext): Integer; overload; virtual;
+  {
+    Deletes context at position given by @code(Index) parameter. When index
+    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    OnChange event is called after successful deletion.@br
+    Contexts are freed using method FreeContext (OnUserDataFree event is
+    called).
+
+    @param Index Index of item that has to be deleted.
+  }
     procedure Delete(Index: Integer); virtual;
+  {
+    This method creates new channel context variable, fills it from parameters
+    and returns pointer to this variable. It is used when registering new
+    telemetry channel, because actual context is needed for this registration,
+    but cannot be added to this list before the registration is complete.@br
+    Sequence of actions taken during registration is as follows:
+    @unorderedlist(
+      @itemSpacing(Compact)
+      @item Context is created using this function.
+      @item Registration in API is attempted.
+      @item When successful, context is added to this list.
+      @item When unsuccessful, context is freed using FreeContext method.
+    )
+
+    @param Recipient     Telemetry recipient registering created context.
+    @param(Name          Name of the registered channel (ID is calculated from
+                         it).)
+    @param Index         Index of registered channel.
+    @param ValueType     Value type of registered channel.
+    @param Flags         Registering flags.
+    @param(IndexConfigID ID of index configuration to which registered channel
+                         is bound.)
+    @param(UserData      User defined data to be stored inside the created
+                         channel context.)
+
+    @returns Pointer to created channel context.
+  }
     Function CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): PChannelContext; virtual;
+  {
+    Frees memory allocated for channel context and sets this pointer to @nil.@br
+    Calls OnUserDataFree event before the context is freed.
+
+    @param ChannelContext Pointer to channel context to be freed.
+  }
     procedure FreeContext(var ChannelContext: PChannelContext); virtual;
-    procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;    
+  {
+    Calls handler of OnUserDataFree event (if assigned).
+  }
+    procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;
+  {
+    Array property mapped directly to internal list. Use it for direct access to
+    individual stored contexts.@br
+    Unlike Channels property, you can use returned pointer to change values of
+    stored items.
+  }
     property Contexts[Index: Integer]: PChannelContext read GetChannelContext;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.@br
+    This property does not return whole context structure, only its
+    "ChannelInfo" field.
+  }
     property Channels[Index: Integer]: TChannelInfo read GetChannelInfo; default;
   published
+  {
+    Bind this event when you need to free user data stored inside a context when
+    such context is destroyed.
+  }
     property OnUserDataFree: TUserDataFreeEvent read fOnUserDataFree write fOnUserDataFree;    
   end;
 
@@ -1836,15 +1827,19 @@ type
 
 const
   // Empty TStoredConfig structure.
-  cEmptyStoredConfig: TStoredConfig =
+  EmptyStoredConfig: TStoredConfig =
    (Name:   '';
     ID:     0;
     Index:  SCS_U32_NIL;
-    Value: (
+    Value:  (
       ValueType:  SCS_VALUE_TYPE_INVALID;
       BinaryData: (
-        _type:    SCS_VALUE_TYPE_INVALID;
-        _padding: 0);
+        _type:            SCS_VALUE_TYPE_INVALID;
+        _padding:         $00000000;
+        value_dplacement: (
+          position:         (x: 0.0; y: 0.0; z: 0.0);
+          orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+          _padding:         $00000000));
       StringData: '');
     Binded: True);
 
@@ -1852,56 +1847,36 @@ const
 {   TStoredConfigsList // Class declaration                                    }
 {==============================================================================}
 {
-  @abstract(List used to store configuration values obtained from API calls.)
-
-@member(GetStoredConfigPointer
-    Getter for Pointers[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Pointer to requested item.)
-
-@member(GetStoredConfig
-    Getter for Configs[] property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
-
-    @param Index Index of requested item.
-
-    @returns Requested item.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
-
-@member(Delete
-    Deletes stored config at position given by @code(Index) parameter. When
-    index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.@br
-    OnChange event is called after successful deletion.
-
-    @param Index Index of item that has to be deleted.)
-
-@member(Pointers
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored items.@br
-    Unlike Configs[] property, you can use returned pointer to change values of
-    stored items.)
-
-@member(Configs
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.)
+  List used to store configuration values obtained from API calls.
 }
 type
   TStoredConfigsList = class(TCustomTelemetryList)
   private
+  {
+    Getter for Pointers property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Pointer to requested item.
+  }
     Function GetStoredConfigPointer(Index: Integer): PStoredConfig;
+  {
+    Getter for Configs property.@br
+    When index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.
+
+    @param Index Index of requested item.
+
+    @returns Requested item.
+  }
     Function GetStoredConfig(Index: Integer): TStoredConfig;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.
+  }
     procedure Clear; override;
   {
     Searches through list for stored config with appropriate name.
@@ -1991,6 +1966,14 @@ type
              found.)
   }
     Function Remove(ID: TChannelID; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+  {
+    Deletes stored config at position given by @code(Index) parameter. When
+    index falls out of allowed boundary (<0,Count - 1>), an exception is
+    raised.@br
+    OnChange event is called after successful deletion.
+
+    @param Index Index of item that has to be deleted.
+  }
     procedure Delete(Index: Integer); virtual;
   {
     Changes stored value in config defined by name and index.
@@ -2014,24 +1997,33 @@ type
              config was not found.)
   }
     Function ChangeConfigValue(ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
+  {
+    Array property mapped directly to internal list. Use it for direct access to
+    individual stored items.@br
+    Unlike Configs property, you can use returned pointer to change values of
+    stored items.
+  }
     property Pointers[Index: Integer]: PStoredConfig read GetStoredConfigPointer;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.
+  }
     property Configs[Index: Integer]: TStoredConfig read GetStoredConfig; default;
   end;
 
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                           TStoredChannelsValuesList                          }
+{                              TStoredChannelsList                             }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-  // Identification number used in TStoredChannelsValuesList for faster
-  // searching.
+  // Identification number used in TStoredChannelsList for faster searching.
   TMasterID = LongWord;
 
 {
   @abstract(Function used to calculate master identification number which is
-  used in TStoredChannelsValuesList.)@br
+  used in TStoredChannelsList.)@br
   This number is used in searching and sorting algorithms and is calculated from
   channel ID, Index and ValueType.@br
   At the moment, it is calculated by the formula:@br
@@ -2065,7 +2057,7 @@ type
   PStoredChannel = ^TStoredChannel;
 
 {
-  @abstract(Structure used as item in TStoredChannelsValuesList.)
+  @abstract(Structure used as item in TStoredChannelsList.)
   This structure is used to store channels @noAutoLink(values) obtained from API
   calls in an list sorted by items master ID.
 
@@ -2080,60 +2072,40 @@ type
   PStoredChannelMasterID = ^TStoredChannelMasterID;
 
 {==============================================================================}
-{   TStoredChannelsValuesList // Class declaration                             }
+{   TStoredChannelsList // Class declaration                                   }
 {==============================================================================}
 {
   @abstract(List used to store channels values obtained from API calls.)
 
   Items in this list are sorted by their master ID.
-
-@member(GetStoredChannelValue
-    Getter for StoredChannelValues[] property.@br
+}
+  TStoredChannelsList = class(TCustomTelemetryList)
+  private
+  {
+    Getter for StoredChannelValues property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
 
     @param Index Index of requested item.
 
-    @returns Requested item.)
-
-@member(GetInsertIndex
+    @returns Requested item.
+  }
+    Function GetStoredChannelValue(Index: Integer): TStoredChannel;
+  protected
+  {
     This function is used to get position at which should the new item with
     given master ID be put in order for the list to stay sorted.
 
     @param MasterID Master ID of added item.
 
-    @returns Position at which newly added item should be inserted.)
-
-
-
-@member(Clear
-    Deletes all items in the list.@br
-    OnChange event is called after items deletion.)
-
-@member(StoreChannelValue
-    Method used to store new value for already present channel. If such channel
-    is not yet stored in the list, it is added as new item. Function can, in
-    extreme cases, return -1 (when the channel is not already stored and
-    addition fails for some reason).@br
-    OnChange event is called after successful addition or value change.
-
-    @param Name  Name of requested channel.
-    @param ID    ID of requested channel.
-    @param Index Index of requested channel.
-    @param Value Value of the channel. 
-
-    @returns Index of requested channel, -1 on failure.)
-
-@member(StoredChannelValues
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.)
-}
-  TStoredChannelsValuesList = class(TCustomTelemetryList)
-  private
-    Function GetStoredChannelValue(Index: Integer): TStoredChannel;
-  protected
+    @returns Position at which newly added item should be inserted.
+  }
     Function GetInsertIndex(MasterID: TMasterID): Integer; virtual;
   public
+  {
+    Deletes all items in the list.@br
+    OnChange event is called after items deletion.
+  }
     procedure Clear; override;
   {
     Searches through list for stored channel with appropriate master index.
@@ -2166,12 +2138,31 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
+  {
+    Method used to store new value for already present channel. If such channel
+    is not yet stored in the list, it is added as new item. Function can, in
+    extreme cases, return -1 (when the channel is not already stored and
+    addition fails for some reason).@br
+    OnChange event is called after successful addition or value change.
+
+    @param Name  Name of the channel.
+    @param ID    ID of the channel.
+    @param Index Index of the channel.
+    @param Value New value of the channel.
+
+    @returns(Index (position) at which the channel is inserted or where it was
+             found, -1 on failure.)
+  }
     Function StoreChannelValue(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t): Integer; virtual;
+  {
+    Array property mapped directly to internal list. Use it to obtain values of
+    individual stored items.
+  }
     property StoredChannelValues[Index: Integer]: TStoredChannel read GetStoredChannelValue; default;
   end;
 
 {==============================================================================}
-{   Unit Functions and procedures // Declaration                               }
+{   Unit functions and procedures // Declaration                               }
 {==============================================================================}
 
 {
@@ -2237,7 +2228,7 @@ uses
   TelemetryConversions, TelemetryStrings;
 
 {==============================================================================}
-{   Unit Functions and procedures // Implementation                            }
+{   Unit functions and procedures // Implementation                            }
 {==============================================================================}
 
 Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register; {$IFNDEF PurePascal}assembler;{$ENDIF}
@@ -2248,6 +2239,21 @@ end;
 {$ELSE}
 {$IFDEF FPC}{$ASMMODE intel}{$ENDIF}
 asm
+{$IFDEF x64}
+{******************************************************************************}
+{     Register    Content                                                      }
+{     RCX         ID                                                           }
+{     RDX         Index                                                        }
+{     R8          ValueType                                                    }
+{                                                                              }
+{     Registers used in routine:                                               }
+{     RAX (Result), RCX, RDX, R8                                               }
+{******************************************************************************}
+      MOV   RAX,  RCX
+      XOR   RAX,  RDX
+      NOT   R8
+      XOR   RAX,  R8
+{$ELSE}
 {******************************************************************************}
 {     Register    Content                                                      }
 {     EAX         ID, Result                                                   }
@@ -2257,9 +2263,10 @@ asm
 {     Registers used in routine:                                               }
 {     EAX (contains result), ECX, EDX                                          }
 {******************************************************************************}
-      XOR   EAX, ECX
+      XOR   EAX,  ECX
       NOT   EDX
-      XOR   EAX, EDX
+      XOR   EAX,  EDX
+{$ENDIF}
 end;
 {$ENDIF}
 
@@ -2319,8 +2326,7 @@ begin
 If (Index >= 0) and (Index < fMainList.Count) then
   Result := fMainList[Index]
 else
-  raise Exception.Create('TCustomTelemetryList.PtrGetItem(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TCustomTelemetryList.PtrGetItem: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2349,8 +2355,7 @@ If (Index >= 0) and (Index < fMainList.Count) then
     DoChange;
   end
 else
-  raise Exception.Create('TCustomTelemetryList.PtrReplace(Index,Item): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TCustomTelemetryList.PtrReplace: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2363,8 +2368,7 @@ If (Index >= 0) and (Index <= fMainList.Count) then
     DoChange;
   end
 else
-  raise Exception.Create('TCustomTelemetryList.PtrInsert(Index,Item): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TCustomTelemetryList.PtrInsert: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2385,8 +2389,7 @@ If (Index >= 0) and (Index < fMainList.Count) then
     DoChange;
   end
 else
-  raise Exception.Create('TCustomTelemetryList.PtrDelete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TCustomTelemetryList.PtrDelete: Index (%d) out of bounds.',[Index]);
 end;
 
 {------------------------------------------------------------------------------}
@@ -2472,19 +2475,14 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PKnownEvent(PtrGetItem(Index))
 else
-  raise Exception.Create('TKnownEventsList.GetKnownEventPointer(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownEventsList.GetKnownEventPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
 
 Function TKnownEventsList.GetKnownEvent(Index: Integer): TKnownEvent;
 begin
-If (Index >= 0) and (Index < Count) then
-  Result := GetKnownEventPointer(Index)^
-else
-  raise Exception.Create('TKnownEventsList.GetKnownEvent(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+Result := GetKnownEventPointer(Index)^;
 end;
 
 {------------------------------------------------------------------------------}
@@ -2503,31 +2501,19 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownEventsList.IndexOf(Event: scs_event_t): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If PKnownEvent(PtrGetItem(Result))^.Event = Event then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If PKnownEvent(PtrGetItem(i))^.Event = Event then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownEventsList.IndexOf(const Name: TelemetryString): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If TelemetrySameText(PKnownEvent(PtrGetItem(Result))^.Name,Name) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If TelemetrySameTextSwitch(PKnownEvent(PtrGetItem(i))^.Name,Name) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -2561,8 +2547,7 @@ If (Index >= 0) and (Index < Count) then
     PtrReplace(Index,KnownEvent);
   end
 else
-  raise Exception.Create('TKnownEventsList.ReplaceIndex(Index,...): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownEventsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2611,8 +2596,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.Create('TKnownEventsList.Delete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownEventsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2658,19 +2642,14 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PKnownChannel(PtrGetItem(Index))
 else
-  raise Exception.Create('TKnownChannelsList.GetKnownChannelPointer(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownChannelsList.GetKnownChannelPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
 
 Function TKnownChannelsList.GetKnownChannel(Index: Integer): TKnownChannel;
 begin
-If (Index >= 0) and (Index < Count) then
-  Result := GetKnownChannelPointer(Index)^
-else
-  raise Exception.Create('TKnownChannelsList.GetKnownChannel(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+Result := GetKnownChannelPointer(Index)^;
 end;
 
 {------------------------------------------------------------------------------}
@@ -2689,31 +2668,19 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownChannelsList.IndexOf(const Name: TelemetryString): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If TelemetrySameStr(PKnownChannel(PtrGetItem(Result))^.Name,Name) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If TelemetrySameStrSwitch(PKnownChannel(PtrGetItem(i))^.Name,Name) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownChannelsList.IndexOf(ID: TChannelID): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If PKnownChannel(PtrGetItem(Result))^.ID = ID then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If PKnownChannel(PtrGetItem(i))^.ID = ID then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -2769,8 +2736,7 @@ If (Index >= 0) and (Index < Count) then
     PtrReplace(Index,KnownChannel);
   end
 else
-  raise Exception.Create('TKnownChannelsList.ReplaceIndex(Index,...): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownChannelsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2865,8 +2831,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.Create('TKnownChannelsList.Delete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownChannelsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2917,19 +2882,14 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PKnownConfig(PtrGetItem(Index))
 else
-  raise Exception.Create('TKnownConfigsList.GetKnownConfigPointer(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownConfigsList.GetKnownConfigPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
 
 Function TKnownConfigsList.GetKnownConfig(Index: Integer): TKnownConfig;
 begin
-If (Index >= 0) and (Index < Count) then
-  Result := GetKnownConfigPointer(Index)^
-else
-  raise Exception.Create('TKnownConfigsList.GetKnownConfig(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+Result := GetKnownConfigPointer(Index)^;
 end;
 
 {------------------------------------------------------------------------------}
@@ -2948,31 +2908,19 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownConfigsList.IndexOf(const Name: TelemetryString): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If TelemetrySameStr(PKnownConfig(PtrGetItem(Result))^.Name,Name) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If TelemetrySameStrSwitch(PKnownConfig(PtrGetItem(i))^.Name,Name) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownConfigsList.IndexOf(ID: TConfigID): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If PKnownConfig(PtrGetItem(Result))^.ID = ID then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If PKnownConfig(PtrGetItem(i))^.ID = ID then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -3008,8 +2956,7 @@ If (Index >= 0) and (Index < Count) then
     PtrReplace(Index,KnownConfig);
   end
 else
-  raise Exception.Create('TKnownConfigsList.ReplaceIndex(Index,...): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownConfigsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3060,8 +3007,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.Create('TKnownConfigsList.Delete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TKnownConfigsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3123,19 +3069,14 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PEventContext(PtrGetItem(Index))
 else
-  raise Exception.Create('TRegisteredEventsList.GetEventContext(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TRegisteredEventsList.GetEventContext: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
 
 Function TRegisteredEventsList.GetEventInfo(Index: Integer): TEventInfo;
 begin
-If (Index >= 0) and (Index < Count) then
-  Result := GetEventContext(Index)^.EventInfo
-else
-  raise Exception.Create('TRegisteredEventsList.GetEventInfo(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+Result := GetEventContext(Index)^.EventInfo;
 end;
 
 {------------------------------------------------------------------------------}
@@ -3158,16 +3099,10 @@ end;
 //------------------------------------------------------------------------------
 
 Function TRegisteredEventsList.IndexOf(Event: scs_event_t): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If PEventContext(PtrGetItem(Result))^.EventInfo.Event = Event then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If PEventContext(PtrGetItem(i))^.EventInfo.Event = Event then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3183,7 +3118,7 @@ Function TRegisteredEventsList.Add(EventContext: PEventContext): Integer;
 begin
 If Assigned(EventContext) then Result := PtrAdd(EventContext)
 else
-  raise Exception.Create('TRegisteredEventsList.Add(EventContext): Context must not be nil.');
+  raise Exception.Create('TRegisteredEventsList.Add: Context must not be nil.');
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3233,8 +3168,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.Create('TRegisteredEventsList.Delete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TRegisteredEventsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3283,19 +3217,14 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PChannelContext(PtrGetItem(Index))
 else
-  raise Exception.Create('TRegisteredChannelsList.GetChannelContext(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TRegisteredChannelsList.GetChannelContext: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
 
 Function TRegisteredChannelsList.GetChannelInfo(Index: Integer): TChannelInfo;
 begin
-If (Index >= 0) and (Index < Count) then
-  Result := GetChannelContext(Index)^.ChannelInfo
-else
-  raise Exception.Create('TRegisteredChannelsList.GetChannelInfo(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+Result := GetChannelContext(Index)^.ChannelInfo;
 end;
 
 {------------------------------------------------------------------------------}
@@ -3318,152 +3247,111 @@ end;
 //------------------------------------------------------------------------------
 
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If TelemetrySameStr(PChannelContext(PtrGetItem(Result))^.ChannelInfo.Name,Name) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If TelemetrySameStrSwitch(PChannelContext(PtrGetItem(i))^.ChannelInfo.Name,Name) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If (PChannelContext(PtrGetItem(Result))^.ChannelInfo.ID = ID) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If (PChannelContext(PtrGetItem(i))^.ChannelInfo.ID = ID) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer;
 var
-  i:        Integer;
   TempItem: PChannelContext;
 begin
-Result := -1;
-For i := 0 to (Count - 1) do
+For Result := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(i));
-    If TelemetrySameStrSwitch(TempItem^.ChannelInfo.Name,Name) and (TempItem^.ChannelInfo.Index = Index) then
-      begin
-        Result := i;
-        Break;
-      end;
+    TempItem := PChannelContext(PtrGetItem(Result));
+    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
+      (TempItem^.ChannelInfo.Index = Index) then Exit;
   end;
+Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t): Integer;
 var
-  i:        Integer;
   TempItem: PChannelContext;
 begin
-Result := -1;
-For i := 0 to (Count - 1) do
+For Result := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(i));
-      If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) then
-        begin
-          Result := i;
-          Break;
-        end;
+    TempItem := PChannelContext(PtrGetItem(Result));
+    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) then Exit;
   end;
+Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 var
-  i:        Integer;
   TempItem: PChannelContext;
 begin
-Result := -1;
-For i := 0 to (Count - 1) do
+For Result := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(i));
-    If TelemetrySameStrSwitch(TempItem^.ChannelInfo.Name,Name) and
+    TempItem := PChannelContext(PtrGetItem(Result));
+    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
       (TempItem^.ChannelInfo.Index = Index) and
-      (TempItem^.ChannelInfo.ValueType = ValueType) then
-      begin
-        Result := i;
-        Break;
-      end;
+      (TempItem^.ChannelInfo.ValueType = ValueType) then Exit;
   end;
+Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 var
-  i:        Integer;
   TempItem: PChannelContext;
 begin
-Result := -1;
-For i := 0 to (Count - 1) do
+For Result := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(i));
+    TempItem := PChannelContext(PtrGetItem(Result));
     If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) and
-      (TempItem^.ChannelInfo.ValueType = ValueType) then
-      begin
-        Result := i;
-        Break;
-      end;
+      (TempItem^.ChannelInfo.ValueType = ValueType) then Exit;
   end;
+Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer;
 var
-  i:        Integer;
   TempItem: PChannelContext;
 begin
-Result := -1;
-For i := 0 to (Count - 1) do
+For Result := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(i));
-    If TelemetrySameStrSwitch(TempItem^.ChannelInfo.Name,Name) and
+    TempItem := PChannelContext(PtrGetItem(Result));
+    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
       (TempItem^.ChannelInfo.Index = Index) and
       (TempItem^.ChannelInfo.ValueType = ValueType) and
-      (TempItem^.ChannelInfo.Flags = Flags) then
-      begin
-        Result := i;
-        Break;
-      end;
+      (TempItem^.ChannelInfo.Flags = Flags) then Exit;
   end;
+Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer;
 var
-  i:        Integer;
   TempItem: PChannelContext;
 begin
-Result := -1;
-For i := 0 to (Count - 1) do
+For Result := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(i));
+    TempItem := PChannelContext(PtrGetItem(Result));
     If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) and
-      (TempItem^.ChannelInfo.ValueType = ValueType) and (TempItem^.ChannelInfo.Flags = Flags) then
-      begin
-        Result := i;
-        Break;
-      end;
+      (TempItem^.ChannelInfo.ValueType = ValueType) and (TempItem^.ChannelInfo.Flags = Flags) then Exit;
   end;
+Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3479,7 +3367,7 @@ Function TRegisteredChannelsList.Add(ChannelContext: PChannelContext): Integer;
 begin
 If Assigned(ChannelContext) then Result := PtrAdd(ChannelContext)
 else
-  raise Exception.Create('TRegisteredChannelsList.Add(ChannelContext): Context must not be nil.');
+  raise Exception.Create('TRegisteredChannelsList.Add: Context must not be nil.');
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3537,8 +3425,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.Create('TRegisteredChannelsList.Delete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TRegisteredChannelsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3591,19 +3478,14 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PStoredConfig(PtrGetItem(Index))
 else
-  raise Exception.Create('TStoredConfigsList.GetStoredConfigPointer(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TStoredConfigsList.GetStoredConfigPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
 
 Function TStoredConfigsList.GetStoredConfig(Index: Integer): TStoredConfig;
 begin
-If (Index >= 0) and (Index < Count) then
-  Result := GetStoredConfigPointer(Index)^
-else
-  raise Exception.Create('TStoredConfigsList.GetStoredConfig(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+Result := GetStoredConfigPointer(Index)^;
 end;
 
 {------------------------------------------------------------------------------}
@@ -3622,62 +3504,39 @@ end;
 //------------------------------------------------------------------------------
 
 Function TStoredConfigsList.IndexOf(const Name: TelemetryString): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Name,Name) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If TelemetrySameStrSwitch(PStoredConfig(PtrGetItem(i))^.Name,Name) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.IndexOf(ID: TConfigID): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If (PStoredConfig(PtrGetItem(Result))^.ID = ID) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If (PStoredConfig(PtrGetItem(i))^.ID = ID) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Name,Name) and
+    (PStoredConfig(PtrGetItem(Result))^.Index = Index) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If TelemetrySameStrSwitch(PStoredConfig(PtrGetItem(i))^.Name,Name) and (PStoredConfig(PtrGetItem(i))^.Index = Index) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.IndexOf(ID: TConfigID; Index: scs_u32_t): Integer;
-var
-  i:  Integer;
 begin
+For Result := 0 to (Count - 1) do
+  If (PStoredConfig(PtrGetItem(Result))^.ID = ID) and
+    (PStoredConfig(PtrGetItem(Result))^.Index = Index) then Exit;
 Result := -1;
-For i := 0 to (Count - 1) do
-  If (PStoredConfig(PtrGetItem(i))^.ID = ID) and
-    (PStoredConfig(PtrGetItem(i))^.Index = Index) then
-    begin
-      Result := i;
-      Break;
-    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -3699,12 +3558,9 @@ end;
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.Add(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer;
-var
-  EmptyValue: scs_value_localized_t;
 begin
-EmptyValue.ValueType := SCS_VALUE_TYPE_INVALID;
 If Assigned(Value) then Result := Add(Name,Index,scs_value_localized(Value^),Binded)
-  else Result := Add(Name,Index,EmptyValue,Binded);
+  else Result := Add(Name,Index,scs_value_localized_empty,Binded);
 end;
 
 //------------------------------------------------------------------------------
@@ -3733,8 +3589,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.Create('TStoredConfigsList.Delete(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TStoredConfigsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3763,32 +3618,31 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                          TStoredChannelsValuesList                           }
+{                             TStoredChannelsList                              }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TStoredChannelsValuesList // Implementation                                }
+{   TStoredChannelsList // Implementation                                      }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{   TStoredChannelsValuesList // Private methods                               }
+{   TStoredChannelsList // Private methods                                     }
 {------------------------------------------------------------------------------}
 
-Function TStoredChannelsValuesList.GetStoredChannelValue(Index: Integer): TStoredChannel;
+Function TStoredChannelsList.GetStoredChannelValue(Index: Integer): TStoredChannel;
 begin
 If (Index >= 0) and (Index < Count) then
   Result := PStoredChannelMasterID(PtrGetItem(Index))^.StoredChannel
 else
-  raise Exception.Create('TStoredChannelsValuesList.GetStoredChannelValue(Index): Index (' +
-                         IntToStr(Index) + ') out of bounds.');
+  raise Exception.CreateFmt('TStoredChannelsList.GetStoredChannelValue: Index (%d) out of bounds.',[Index]);
 end;
 
 {------------------------------------------------------------------------------}
-{   TStoredChannelsValuesList // Protected methods                             }
+{   TStoredChannelsList // Protected methods                                   }
 {------------------------------------------------------------------------------}
 
-Function TStoredChannelsValuesList.GetInsertIndex(MasterID: TMasterID): Integer;
+Function TStoredChannelsList.GetInsertIndex(MasterID: TMasterID): Integer;
 var
   Index:    Integer;
   MinIndex: Integer;
@@ -3813,10 +3667,10 @@ If Count > 0 then
 end;
 
 {------------------------------------------------------------------------------}
-{   TStoredChannelsValuesList // Public methods                                }
+{   TStoredChannelsList // Public methods                                      }
 {------------------------------------------------------------------------------}
 
-procedure TStoredChannelsValuesList.Clear;
+procedure TStoredChannelsList.Clear;
 var
   i:  Integer;
 begin
@@ -3827,7 +3681,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TStoredChannelsValuesList.IndexOf(MasterID: TMasterID): Integer;
+Function TStoredChannelsList.IndexOf(MasterID: TMasterID): Integer;
 var
   Index:    Integer;
   MinIndex: Integer;
@@ -3851,21 +3705,21 @@ end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredChannelsValuesList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
+Function TStoredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 begin
 Result := IndexOf(GetMasterID(ID,Index,ValueType));
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredChannelsValuesList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
+Function TStoredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 begin
 Result := IndexOf(GetItemID(Name),Index,ValueType);
 end;
 
 //------------------------------------------------------------------------------
 
-Function TStoredChannelsValuesList.StoreChannelValue(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t): Integer;
+Function TStoredChannelsList.StoreChannelValue(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t): Integer;
 var
   MasterID:       TMasterID;
   StoredChannel:  PStoredChannelMasterID;
