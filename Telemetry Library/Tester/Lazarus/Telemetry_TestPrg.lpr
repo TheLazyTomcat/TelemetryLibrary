@@ -40,8 +40,8 @@ uses
   TelemetryValueTypeUtils,                                   //* -
   TelemetryLists,                                            //* -
   TelemetryStreaming,                                        //* -
-//  TelemetryVersionObjects,                                   //*
-//  TelemetryInfoProvider,                                     //*
+  TelemetryVersionObjects,                                   //* -
+  TelemetryInfoProvider,                                     //*
 //  TelemetryRecipient,                                        //*
 //  TelemetryRecipientBinder,
 

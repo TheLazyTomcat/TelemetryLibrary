@@ -148,10 +148,12 @@
       <Unit18>
         <Filename Value="..\..\Source\TelemetryVersionObjects.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryVersionObjects"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\Source\TelemetryCommon.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryCommon"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
@@ -164,6 +166,7 @@
       <Unit22>
         <Filename Value="..\..\Source\TelemetryInfoProvider.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryInfoProvider"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\Source\TelemetryLists.pas"/>

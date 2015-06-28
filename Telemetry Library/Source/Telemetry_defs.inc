@@ -11,6 +11,8 @@
 {$DEFINE MaxIndexedChannelCount8}
 {$DEFINE NoTimeLogEvents}
 
+{.$DEFINE DeprecatedMessage}
+
 //------------------------------------------------------------------------------
 
 {$IFDEF Documentation}
@@ -32,4 +34,10 @@
 {$ELSE}
   {$UNDEF DevelopmentHints}
 {$ENDIF}
+
+{$IF Defined(FPC) or (CompilerVersion >= 20)}
+  {$DEFINE DeprecatedMessage}
+{$ELSE}
+  {$UNDEF DeprecatedMessage}
+{$IFEND}
 

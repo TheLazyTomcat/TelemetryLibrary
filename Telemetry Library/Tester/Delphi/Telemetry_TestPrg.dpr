@@ -40,8 +40,8 @@ uses
   TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
   TelemetryLists            in '..\..\Source\TelemetryLists.pas',
   TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
-//  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
-//  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
+  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
+  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
 //  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
 //  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
@@ -92,6 +92,7 @@ var
 //  STR:  String;
 
 begin
+  
   Randomize;
 
   // CompressValueTypesArray
