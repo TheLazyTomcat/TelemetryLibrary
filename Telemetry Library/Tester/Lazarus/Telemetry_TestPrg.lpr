@@ -39,7 +39,7 @@ uses
   TelemetryStrings,                                          //* -
   TelemetryValueTypeUtils,                                   //* -
   TelemetryLists,                                            //* -
-//  TelemetryStreaming,                                        //*
+  TelemetryStreaming,                                        //* -
 //  TelemetryVersionObjects,                                   //*
 //  TelemetryInfoProvider,                                     //*
 //  TelemetryRecipient,                                        //*
@@ -89,7 +89,6 @@ var
 //  TIP:  TTelemetryInfoProvider;
 //  TSL:  TStringList;
 //  STR:  String;
-
 
 begin
   Randomize;
