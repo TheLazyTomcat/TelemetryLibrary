@@ -80,6 +80,7 @@
       <Unit1>
         <Filename Value="..\..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="SCS_Telemetry_Condensed"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_value.pas"/>
@@ -175,6 +176,7 @@
       <Unit24>
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryRecipient"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
@@ -188,6 +190,7 @@
       <Unit27>
         <Filename Value="..\..\Source\TelemetryStrings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryStrings"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\Source\TelemetryValueTypeUtils.pas"/>

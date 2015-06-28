@@ -1,5 +1,6 @@
 {.$DEFINE DevelopmentHints}
 {.$DEFINE Documentation}
+{.$DEFINE DocumentMulticastEvents}
 {.$DEFINE UseCondensedHeader}
 {$DEFINE MulticastEvents}
 {$DEFINE AssumeASCIIString}
@@ -8,7 +9,7 @@
 {.$DEFINE TrueIDConstants}
 {.$DEFINE ManualItemIDCompute}
 
-{$DEFINE MaxIndexedChannelCount8}
+{$DEFINE SmallMaxChannelIndex}
 {$DEFINE NoTimeLogEvents}
 
 {.$DEFINE DeprecatedMessage}

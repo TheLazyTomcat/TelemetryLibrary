@@ -668,12 +668,11 @@ fUserManaged := False;
 // Prepare for required telemetry/game version, raise exception on unsupported
 // versions.
 If not PrepareForTelemetryVersion(TelemetryVersion) then
-  raise Exception.Create('TTelemetryInfoProvider.Create: Telemetry version (' +
-    SCSGetVersionAsString(TelemetryVersion) + ') is not supported.');
+  raise Exception.CreateFmt('TTelemetryInfoProvider.Create: Telemetry version (%s) is not supported.',
+                            [SCSGetVersionAsString(TelemetryVersion)]);
 If not PrepareForGameVersion('',GameID,GameVersion) then
-  raise Exception.Create('TTelemetryInfoProvider.Create: Game version (' +
-    TelemetryStringDecode(GameID) + ' ' +
-    SCSGetVersionAsString(GameVersion) + ') is not supported.');
+  raise Exception.CreateFmt('TTelemetryInfoProvider.Create: Game version (%s %s) is not supported.',
+                            [TelemetryStringDecode(GameID),SCSGetVersionAsString(GameVersion)]);
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---

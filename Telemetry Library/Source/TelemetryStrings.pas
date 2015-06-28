@@ -49,7 +49,8 @@
                               TelemetrySameStr)
                         @item(TelemetrySameTextSwitch renamed to
                               TelemetrySameText)))
-    @item(2015-06-25 - Implementation changes.))
+    @item(2015-06-25 - Implementation changes.)
+    @item(2015-06-28 - Added functions EventDataToStr and ChannelValueToStr.))
 
 @html(<hr>)}
 unit TelemetryStrings;
@@ -324,7 +325,7 @@ Function SCSValueToStr(const Value: scs_value_t; Format: TFloatFormat; Precision
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Returns textual representation of scs_value_localized_t structure.)
+  Returns textual representation of scs_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
@@ -337,7 +338,7 @@ Function SCSValueToStr(const Value: scs_value_t; Format: TFloatFormat; Precision
 Function SCSValueLocalizedToStr(Value: scs_value_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of scs_value_localized_t structure.)
+  Returns textual representation of scs_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
   @param(FormatSettings  Settings used for formatting an output string when
@@ -352,7 +353,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; TypeName: Boolean 
 Function SCSValueLocalizedToStr(Value: scs_value_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of scs_value_localized_t structure.)
+  Returns textual representation of scs_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
   @param(Format          Format of floating point number to text conversion
@@ -375,8 +376,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; Format: TFloatForm
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Returns textual representation of @code(scs_named_value_t)
-            structure.)
+  Returns textual representation of @code(scs_named_value_t) structure.
 
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
@@ -389,8 +389,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; Format: TFloatForm
 Function SCSNamedValueToStr(const Value: scs_named_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of @code(scs_named_value_t)
-            structure.)
+  Returns textual representation of @code(scs_named_value_t) structure.
 
   @param Value           Actual value to be converted to text.
   @param(FormatSettings  Settings used for formatting an output string when
@@ -405,8 +404,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; TypeName: Boolean = 
 Function SCSNamedValueToStr(const Value: scs_named_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of @code(scs_named_value_t)
-            structure.)
+  Returns textual representation of @code(scs_named_value_t) structure.
 
   @param Value           Actual value to be converted to text.
   @param(Format          Format of floating point number to text conversion
@@ -429,8 +427,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; Format: TFloatFormat
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Returns textual representation of scs_named_value_localized_t
-            structure.)
+  Returns textual representation of scs_named_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
@@ -443,8 +440,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; Format: TFloatFormat
 Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of scs_named_value_localized_t
-            structure.)
+  Returns textual representation of scs_named_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
   @param(FormatSettings  Settings used for formatting an output string when
@@ -459,8 +455,7 @@ Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; T
 Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of scs_named_value_localized_t
-            structure.)
+  Returns textual representation of scs_named_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
   @param(Format          Format of floating point number to text conversion
@@ -483,8 +478,7 @@ Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; F
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Returns textual representation of @code(scs_telemetry_frame_start_t)
-            structure.)
+  Returns textual representation of @code(scs_telemetry_frame_start_t) structure.
 
   @param Data     Structure to be converted to text.
   @param(TypeName When set, value type identifiers for individual fields are
@@ -497,8 +491,7 @@ Function TelemetryEventFrameStartToStr(const Data: scs_telemetry_frame_start_t; 
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Returns textual representation of
-            @code(scs_telemetry_configuration_t) structure.)
+  Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
   @param Data            Structure to be converted to text.
   @param(TypeName        When set, value type identifiers for individual
@@ -511,8 +504,7 @@ Function TelemetryEventFrameStartToStr(const Data: scs_telemetry_frame_start_t; 
 Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuration_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of
-            @code(scs_telemetry_configuration_t) structure.)
+  Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
   @param Data            Structure to be converted to text.
   @param(FormatSettings  Settings used for formatting an output string when
@@ -527,8 +519,7 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuration_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of
-            @code(scs_telemetry_configuration_t) structure.)
+  Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
   @param Data            Structure to be converted to text.
   @param(Format          Format of floating point number to text conversion
@@ -551,8 +542,8 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 //------------------------------------------------------------------------------
 
 {
-  @abstract(Returns textual representation of
-            scs_telemetry_configuration_localized_t structure.)
+  Returns textual representation of scs_telemetry_configuration_localized_t
+  structure.
 
   @param Data            Structure to be converted to text.
   @param(TypeName        When set, value type identifiers for individual
@@ -565,8 +556,8 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of
-            scs_telemetry_configuration_localized_t structure.)
+  Returns textual representation of scs_telemetry_configuration_localized_t
+  structure.
 
   @param Data            Structure to be converted to text.
   @param(FormatSettings  Settings used for formatting an output string when
@@ -581,8 +572,8 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 {
-  @abstract(Returns textual representation of
-            scs_telemetry_configuration_localized_t structure.)
+  Returns textual representation of scs_telemetry_configuration_localized_t
+  structure.
 
   @param Data            Structure to be converted to text.
   @param(Format          Format of floating point number to text conversion
@@ -601,6 +592,117 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
   @returns Textual representation of given structure.
 }
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//------------------------------------------------------------------------------
+
+{
+  @abstract(Returns textual representation of event data.)
+  If there are no data to bo converted, then an empty string is returned.
+
+  @param Event           Type of event that is converted to text.
+  @param Data            Data for given event. Can be @nil.
+  @param(TypeName        When set, value type identifiers for individual
+                         attribute values are added to output.)
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
+                         values.)
+
+  @returns Textual representation of event data.
+}
+Function EventDataToStr(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+{
+  @abstract(Returns textual representation of event data.)
+  If there are no data to bo converted, then an empty string is returned.
+
+  @param Event           Type of event that is converted to text.
+  @param Data            Data for given event. Can be @nil.
+  @param(FormatSettings  Settings used for formatting an output string when
+                         floating point number is converted to text.)
+  @param(TypeName        When set, value type identifiers for individual
+                         attribute values are added to output.)
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
+                         values.)
+
+  @returns Textual representation of event data.
+}
+Function EventDataToStr(Event: scs_event_t; Data: Pointer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+{
+  @abstract(Returns textual representation of event data.)
+  If there are no data to bo converted, then an empty string is returned.
+
+  @param Event           Type of event that is converted to text.
+  @param Data            Data for given event. Can be @nil.
+  @param(Format          Format of floating point number to text conversion
+                         (eg. scientific).)
+  @param(Precision       Precision of floating point number (affects number to
+                         text conversion).)
+  @param(Digits          Number of digits in output string for floating point
+                         number to text conversion.)
+  @param(FormatSettings  Settings used for formatting an output string when
+                         floating point number is converted to text.)
+  @param(TypeName        When set, value type identifiers for individual
+                         attribute values are added to output.)
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
+                         values.)
+
+  @returns Textual representation of event data.
+}
+Function EventDataToStr(Event: scs_event_t; Data: Pointer; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//------------------------------------------------------------------------------
+
+{
+  @abstract(Returns textual representation of channel value passed as a pointer.)
+  When the pointer is not assigned, this function will return an empty string.
+
+  @param Value           Pointer to actual channel value. Can be @nil.
+  @param(TypeName        When set, value type identifiers for individual
+                         attribute values are added to output.)
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
+                         values.)
+
+  @returns Textual representation of channel value.
+}
+Function ChannelValueToStr(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+{
+  @abstract(Returns textual representation of channel value passed as a pointer.)
+  When the pointer is not assigned, this function will return an empty string.
+
+  @param Value           Pointer to actual channel value. Can be @nil.
+  @param(FormatSettings  Settings used for formatting an output string when
+                         floating point number is converted to text.)
+  @param(TypeName        When set, value type identifiers for individual
+                         attribute values are added to output.)
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
+                         values.)
+
+  @returns Textual representation of channel value.
+}
+Function ChannelValueToStr(Value: p_scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+{
+  @abstract(Returns textual representation of channel value passed as a pointer.)
+  When the pointer is not assigned, this function will return an empty string.
+
+  @param Value           Pointer to actual channel value. Can be @nil.
+  @param(Format          Format of floating point number to text conversion
+                         (eg. scientific).)
+  @param(Precision       Precision of floating point number (affects number to
+                         text conversion).)
+  @param(Digits          Number of digits in output string for floating point
+                         number to text conversion.)
+  @param(FormatSettings  Settings used for formatting an output string when
+                         floating point number is converted to text.)
+  @param(TypeName        When set, value type identifiers for individual
+                         attribute values are added to output.)
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
+                         values.)
+
+  @returns Textual representation of channel value.
+}
+Function ChannelValueToStr(Value: p_scs_value_t; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
 implementation
 
@@ -983,6 +1085,60 @@ begin
 Result := TelemetryStringDecode(Data.ID);
 For i := Low(Data.Attributes) to High(Data.Attributes) do
   Result := Result + sLineBreak + SCSNamedValueLocalizedToStr(Data.Attributes[i],Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
+end;
+
+//------------------------------------------------------------------------------
+
+Function EventDataToStr(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+begin
+Result := EventDataToStr(Event,Data,TelemetryStringsFormatSettings,TypeName,ShowDescriptors);
+end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function EventDataToStr(Event: scs_event_t; Data: Pointer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+begin
+Result := EventDataToStr(Event,Data,ffGeneral,15,0,FormatSettings,TypeName,ShowDescriptors);
+end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function EventDataToStr(Event: scs_event_t; Data: Pointer; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+begin
+If Assigned(Data) then
+  case Event of
+    SCS_TELEMETRY_EVENT_frame_start:
+      Result := TelemetryEventFrameStartToStr(p_scs_telemetry_frame_start_t(Data)^,TypeName);
+    SCS_TELEMETRY_EVENT_configuration:
+      Result := TelemetryEventConfigurationToStr(p_scs_telemetry_configuration_t(Data)^,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors);
+  else
+    Result := '';
+  end
+else Result := '';
+end;
+
+//------------------------------------------------------------------------------
+
+Function ChannelValueToStr(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+begin
+Result := ChannelValueToStr(Value,TelemetryStringsFormatSettings,TypeName,ShowDescriptors);
+end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function ChannelValueToStr(Value: p_scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+begin
+Result := ChannelValueToStr(Value,ffGeneral,15,0,FormatSettings,TypeName,ShowDescriptors);
+end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function ChannelValueToStr(Value: p_scs_value_t; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String;
+begin
+If Assigned(Value) then
+  Result := SCSValueToStr(Value^,Format,Precision,Digits,FormatSettings,TypeName,ShowDescriptors)
+else
+  Result := '';
 end;
 
 //------------------------------------------------------------------------------

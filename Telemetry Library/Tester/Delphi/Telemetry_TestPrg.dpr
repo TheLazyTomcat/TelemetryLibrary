@@ -42,7 +42,7 @@ uses
   TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
   TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
   TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
-//  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
+  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
 //  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
 //  TelemetrySCS_Examples_telemetry          in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas',
