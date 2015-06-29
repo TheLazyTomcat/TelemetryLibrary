@@ -5,8 +5,8 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-// todo: documentation
-unit TelemetrySCS_Examples_telemetry_mem;
+//:todo: documentation
+unit TelemetrySCSExample_telemetry_mem;
 
 interface
 
@@ -83,13 +83,13 @@ type
   public
     constructor Create(aRecipient: TTelemetryRecipient; const MemoryMapName: AnsiString = def_MemoryMapName);
     destructor Destroy; override;
-    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; {%H-}const LogText: String); override;
+    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; const {%H-}LogText: String); override;
     procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
     procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
-    procedure ChannelHandler(Sender: TObject; {%H-}const Name: TelemetryString; ID: TChannelID; {%H-}Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelHandler(Sender: TObject; const {%H-}Name: TelemetryString; ID: TChannelID; {%H-}Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
   end;
 
@@ -110,12 +110,11 @@ type
     fSharedMemory:  PSCSExm_TelemetryMemState;
     fStoredState:   TSCSExm_TelemetryMemState;
     Function GetInitialized: Boolean;
-  protected
-    procedure Deinitialize; virtual;
   public
     constructor Create(const MemoryMapName: AnsiString = def_MemoryMapName);
     destructor Destroy; override;
     Function Initialize: Boolean; virtual;
+    procedure Deinitialize; virtual;
     Function RetrieveCurrentState: Boolean; virtual;
     property SharedMemory: PSCSExm_TelemetryMemState read fSharedMemory;
     property StoredState: TSCSExm_TelemetryMemState read fStoredState;
@@ -207,7 +206,9 @@ begin
 inherited Create(aRecipient);
 If not Assigned(aRecipient) then
   raise Exception.Create('TSCSExm_TelemetryMem.Create: Recipient is not assigned.');
+{$WARN SYMBOL_PLATFORM OFF}
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
+{$WARN SYMBOL_PLATFORM ON}
 fFormatSettings.DecimalSeparator := '.';
 aRecipient.KeepUtilityEvents := False;
 aRecipient.StoreConfigurations := False;
@@ -216,7 +217,7 @@ fMemoryMapName := MemoryMapName;
 LogLine(SCS_LOG_TYPE_message,'Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' ' +
                              IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.' +
                              IntToStr(SCSGetMinorVersion(aRecipient.GameVersion)));
-If not TelemetrySameStrSwitch(aRecipient.GameID, SCS_GAME_ID_EUT2) then
+If not TelemetrySameStr(aRecipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     LogLine(SCS_LOG_TYPE_warning,'Unsupported game, some features or values might behave incorrectly');
   end
@@ -304,7 +305,7 @@ var
     TempAttr := Configuration^.attributes;
     while Assigned(TempAttr^.name) do
       begin
-        If (TempAttr^.index = Index) and TelemetrySameTextSwitch(APIStringToTelemetryString(TempAttr^.name),Name) then
+        If (TempAttr^.index = Index) and TelemetrySameText(APIStringToTelemetryString(TempAttr^.name),Name) then
           begin
             If TempAttr^.value._type = ExpectedType then
               begin
@@ -330,7 +331,7 @@ case Event of
     end;
   SCS_TELEMETRY_EVENT_configuration:
     begin
-      If not TelemetrySameTextSwitch(APIStringToTelemetryString(scs_telemetry_configuration_t(Data^).id),SCS_TELEMETRY_CONFIG_truck) then Exit;
+      If not TelemetrySameText(APIStringToTelemetryString(scs_telemetry_configuration_t(Data^).id),SCS_TELEMETRY_CONFIG_truck) then Exit;
       Config := FindAttribute(data,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count,SCS_U32_NIL,SCS_VALUE_TYPE_u32);
       If Assigned(Config) then WheelCount := Config^.value.value_u32.value else WheelCount := 0;
       If WheelCount > MAX_SUPPORTED_WHEEL_COUNT then WheelCount := MAX_SUPPORTED_WHEEL_COUNT;
@@ -424,24 +425,6 @@ Result := (fMemoryMapping <> 0) and Assigned(fSharedMemory);
 end;
 
 {------------------------------------------------------------------------------}
-{   TSCSExm_TelemetryMem_Reader// Protected methods                            }
-{------------------------------------------------------------------------------}
-
-procedure TSCSExm_TelemetryMem_Reader.Deinitialize;
-begin
-If Assigned(fSharedMemory) then
-  begin
-    UnmapViewOfFile(fSharedMemory);
-    fSharedMemory := nil;
-  end;
-If fMemoryMapping <> 0 then
-  begin
-    CloseHandle(fMemoryMapping);
-    fMemoryMapping := 0;
-  end;
-end;
-
-{------------------------------------------------------------------------------}
 {   TSCSExm_TelemetryMem_Reader// Public methods                               }
 {------------------------------------------------------------------------------}
 
@@ -470,6 +453,22 @@ If fMemoryMapping <> 0 then fSharedMemory := MapViewOfFile(fMemoryMapping,FILE_M
 Result := (fMemoryMapping <> 0) and Assigned(fSharedMemory);
 If not Result then Deinitialize
   else RetrieveCurrentState;
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TSCSExm_TelemetryMem_Reader.Deinitialize;
+begin
+If Assigned(fSharedMemory) then
+  begin
+    UnmapViewOfFile(fSharedMemory);
+    fSharedMemory := nil;
+  end;
+If fMemoryMapping <> 0 then
+  begin
+    CloseHandle(fMemoryMapping);
+    fMemoryMapping := 0;
+  end;
 end;
 
 //------------------------------------------------------------------------------

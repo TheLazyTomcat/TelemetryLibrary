@@ -24,6 +24,7 @@ start /wait .\PasDoc\pasdoc.exe^
  --graphviz-classes^
  --link-gv-uses png^
  --link-gv-classes png^
+ --marker :^
  ..\Source\TelemetryCommon.pas^
  ..\Source\TelemetryIDs.pas^
  ..\Source\TelemetryConversions.pas^
@@ -35,8 +36,8 @@ start /wait .\PasDoc\pasdoc.exe^
  ..\Source\TelemetryInfoProvider.pas^
  ..\Source\TelemetryRecipient.pas^
  ..\Source\TelemetryRecipientBinder.pas^
- ..\Source\Log\TelemetryLogText.pas^
- ..\Source\Log\TelemetryLogBinary.pas^
- ..\Source\Log\TelemetryLogBinaryParser.pas
+ ..\Source\SCS\TelemetrySCSExample_telemetry.pas^
+ ..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas^
+ ..\Source\SCS\TelemetrySCSExample_telemetry_position.pas
 
 call PostProcessing.bat

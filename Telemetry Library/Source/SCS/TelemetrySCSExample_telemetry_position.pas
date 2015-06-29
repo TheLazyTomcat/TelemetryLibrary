@@ -5,8 +5,8 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-// todo: documentation
-unit TelemetrySCS_Examples_telemetry_position;
+//:todo: documentation
+unit TelemetrySCSExample_telemetry_position;
 
 interface
 
@@ -63,7 +63,7 @@ type
   public
     constructor Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
     destructor Destroy; override;
-    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; {%H-}const LogText: String); override;
+    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; const {%H-}LogText: String); override;
     procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
     procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
@@ -117,7 +117,9 @@ begin
 inherited Create(aRecipient);
 If not Assigned(aRecipient) then
   raise Exception.Create('TSCSExm_TelemetryPosition.Create: Recipient is not assigned.');
+{$WARN SYMBOL_PLATFORM OFF}
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
+{$WARN SYMBOL_PLATFORM ON}
 fFormatSettings.DecimalSeparator := '.';
 aRecipient.KeepUtilityEvents := False;
 aRecipient.StoreConfigurations := False;
@@ -132,7 +134,7 @@ If not InitLog then
 fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' '
                             + IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.'
                             + IntToStr(SCSGetMinorVersion(aRecipient.GameVersion)));
-If not TelemetrySameStrSwitch(aRecipient.GameID, SCS_GAME_ID_EUT2) then
+If not TelemetrySameStr(aRecipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
   end
@@ -246,7 +248,7 @@ var
     TempAttr := Configuration^.attributes;
     while Assigned(TempAttr^.name) do
       begin
-        If (TempAttr^.index = Index) and TelemetrySameTextSwitch(APIStringToTelemetryString(TempAttr^.name),Name) then
+        If (TempAttr^.index = Index) and TelemetrySameText(APIStringToTelemetryString(TempAttr^.name),Name) then
           begin
             If TempAttr^.value._type = ExpectedType then
               begin
@@ -279,7 +281,7 @@ case Event of
     end;
   SCS_TELEMETRY_EVENT_configuration:
     begin
-      If not TelemetrySameTextSwitch(APIStringToTelemetryString(scs_telemetry_configuration_t(Data^).id),SCS_TELEMETRY_CONFIG_truck) then Exit;
+      If not TelemetrySameText(APIStringToTelemetryString(scs_telemetry_configuration_t(Data^).id),SCS_TELEMETRY_CONFIG_truck) then Exit;
       Config := FindAttribute(data,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position,SCS_U32_NIL,SCS_VALUE_TYPE_fvector);
       If Assigned(Config) then fTelemetry.CabinPosition := Config^.value.value_fvector
       else

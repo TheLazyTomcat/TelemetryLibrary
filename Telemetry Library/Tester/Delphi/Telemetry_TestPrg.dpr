@@ -34,27 +34,27 @@ uses
   BitOps          in '..\..\Source\Libs\BitOps.pas',
 
   TelemetryCommon           in '..\..\Source\TelemetryCommon.pas',
-//  TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
-//  TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
-//  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
-//  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
-//  TelemetryLists            in '..\..\Source\TelemetryLists.pas',
-//  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
-//  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
-//  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
-//  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
-//  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
+  TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
+  TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
+  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
+  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
+  TelemetryLists            in '..\..\Source\TelemetryLists.pas',
+  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
+  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
+  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
+  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
+  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
-//  TelemetrySCS_Examples_telemetry          in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas',
-//  TelemetrySCS_Examples_telemetry_position in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas',
-//  TelemetrySCS_Examples_telemetry_mem      in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas',
-  
+  TelemetrySCSExample_telemetry          in '..\..\Source\SCS\TelemetrySCSExample_telemetry.pas',
+  TelemetrySCSExample_telemetry_position in '..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas',
+  TelemetrySCSExample_telemetry_mem      in '..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas',
+
 //  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
 //  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
 //  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
-strutils;
+strutils; //remove
 
-(*
+
   procedure RandomizeArray(var Value: TValueTypesArray);
   var
     ii: Integer;
@@ -87,12 +87,12 @@ var
   i:    Integer;
   VT:   scs_value_type_t;
   BT:   Boolean;
-  TIP:  TTelemetryInfoProvider;
-  TSL:  TStringList;
-  STR:  String;
-*)
+//  TIP:  TTelemetryInfoProvider;
+//  TSL:  TStringList;
+//  STR:  String;
+
 begin
-(*
+  
   Randomize;
 
   // CompressValueTypesArray
@@ -324,7 +324,7 @@ begin
       WriteLn(NumberToBits(BM) + ' (' + BoolToStr(Bt,True) + ')');
       WriteArray(SelectSupportedValueTypes(i,BT,BM),False);
     end;
-
+(*
   TIP := TTelemetryInfoProvider.CreateCurrent('eut2');
   try
     TSL := TStringList.Create;
@@ -348,8 +348,7 @@ begin
   finally
     TIP.Free;
   end;
-
+*)
   WriteLn;
   Write('Press enter to end...'); ReadLn;
-*)
 end.

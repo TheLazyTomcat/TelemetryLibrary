@@ -5,12 +5,12 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Base classes for objects that are checked for telemetry and game
           version support.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-17)
-@lastmod(2014-11-07)
+@lastmod(2015-06-28)
 
   @bold(@NoAutoLink(TelemetryVersionObjects))
 
@@ -23,7 +23,7 @@
        |- TTelemetryVersionPrepareObject
 )
 
-  Last change:  2014-11-07
+  Last change:  2015-06-28
 
   Change List:@unorderedList(
     @item(2013-10-17 - First stable version.)
@@ -51,7 +51,8 @@
                          @item(TTelemetryAbstractVersionObject.HighestSupportedGameVersion)
                          @item(TTelemetryAbstractVersionObject.SupportsGameVersion)
                          @item(TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersion)))
-    @item(2014-11-07 - Added support for eut2 1.10.))
+    @item(2014-11-07 - Added support for eut2 1.10.)
+    @item(2015-06-28 - Small implementation changes.))
 
 @html(<hr>)}
 unit TelemetryVersionObjects;
@@ -84,7 +85,7 @@ type
 {==============================================================================}
 {   TTelemetryAbstractVersionObject // Class declaration                       }
 {==============================================================================}
-{
+{:
   @abstract(Common, fully abstract ancestor for all classes that needs to be
   checked for version support before creation of an instance.)
 
@@ -95,63 +96,56 @@ type
   All methods must be called directly on class. They are intended to be used to
   check whether the class supports required telemetry and game version before
   instantiation (creation of class instance).
-
-@member(HighestSupportedTelemetryVersion
-
-    @returns Highest supported telemetry version.)
-
-@member(HighestSupportedGameVersion
-
+}
+  TTelemetryAbstractVersionObject = class(TObject)
+  public
+  {:
+    @returns Highest supported telemetry version.
+  }
+    class Function HighestSupportedTelemetryVersion: scs_u32_t; virtual; abstract;
+  {:
     @param GameID Game identifier.
 
-    @returns Highest supported version of passed game.)
-
-@member(SupportsTelemetryVersion
-
+    @returns Highest supported version of passed game.
+  }
+    class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; virtual; abstract;
+  {:
     @param TelemetryVersion Version of telemetry.
 
-    @returns @True when given telemetry version is supported, otherwise @false.)
-
-@member(SupportsTelemetryMajorVersion
-
+    @returns @True when given telemetry version is supported, otherwise @false.
+  }
+    class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual; abstract;
+  {:
     @param TelemetryVersion Version of telemetry.
 
     @returns(@True when given telemetry major version is supported (minor part
-             is ignored), otherwise @false.))
-
-@member(SupportsGameVersion
-
+             is ignored), otherwise @false.)
+  }
+    class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; virtual; abstract;
+  {:
     @param GameID       Game identifier.
     @param GameVersion  Version of game.
 
     @returns(@True when given game and its version are supported, otherwise
-             @false.))
-
-@member(SupportsTelemetryAndGameVersion
-
+             @false.)
+  }
+    class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
+  {:
     @param TelemetryVersion Version of telemetry.
     @param GameID           Game identifier.
     @param GameVersion      Version of game.
 
     @returns(@True when given telemetry, game and its version are supported,
-             otherwise @false.))
-
-@member(SupportsTelemetryAndGameVersionParam
-
+             otherwise @false.)
+  }
+    class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
+  {:
     @param TelemetryVersion Version of telemetry.
     @param Parameters       Structure containing other version informations.
 
     @returns(@True when given telemetry, game and its version are supported,
-             otherwise @false.))
-}
-  TTelemetryAbstractVersionObject = class(TObject)
-  public
-    class Function HighestSupportedTelemetryVersion: scs_u32_t; virtual; abstract;
-    class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; virtual; abstract;
-    class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual; abstract;
-    class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; virtual; abstract;
-    class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
-    class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
+             otherwise @false.)
+  }
     class Function SupportsTelemetryAndGameVersionParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; virtual; abstract;
   end;
 
@@ -164,7 +158,7 @@ type
 {==============================================================================}
 {   TTelemetryVersionObject // Class declaration                               }
 {==============================================================================}
-{
+{:
   @abstract(Common ancestor for all classes that needs to be checked for version
   support before creation of an instance.)
 
@@ -191,23 +185,22 @@ type
   @item(eut2 1.9)
   @item(eut2 1.10)
 )
-
-@member(HighestSupportedTelemetryVersion See @inherited.)
-@member(HighestSupportedGameVersion See @inherited.)
-@member(SupportsTelemetryVersion See @inherited.)
-@member(SupportsTelemetryMajorVersion See @inherited.)
-@member(SupportsGameVersion See @inherited.)
-@member(SupportsTelemetryAndGameVersion See @inherited.)
-@member(SupportsTelemetryAndGameVersionParam See @inherited.)
 }
   TTelemetryVersionObject = class(TTelemetryAbstractVersionObject)
   public
+    //:HighestSupportedTelemetryVersion See @inherited.
     class Function HighestSupportedTelemetryVersion: scs_u32_t; override;
+    //:HighestSupportedGameVersion See @inherited.
     class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; override;
+    //:SupportsTelemetryVersion See @inherited.
     class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; override;
+    //:SupportsTelemetryMajorVersion See @inherited.
     class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; override;
+    //:SupportsGameVersion See @inherited.
     class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
+    //:SupportsTelemetryAndGameVersion See @inherited.
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
+    //:SupportsTelemetryAndGameVersionParam See @inherited.
     class Function SupportsTelemetryAndGameVersionParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; override;
   end;
 
@@ -221,7 +214,7 @@ type
 {==============================================================================}
 {   TTelemetryVersionPrepareObject // Class declaration                        }
 {==============================================================================}
-{
+{:
   @abstract(Common ancestor for all classes that needs to be prepared for
   selected telemetry and/or game version.)
 
@@ -231,52 +224,79 @@ type
   For each version, all lower or equal version methods are called in ascending
   order (every method calls its predecessor at the beginning of its own code).
   For example, for version 1.2, methods 1_0, 1_1 and 1_2 would be called.
-  
-@member(Prepare_Telemetry_1_0 Preparation for telemetry 1.0.)
-
-@member(Prepare_Game_eut2_1_0 Preparation for eut2 1.0.)
-
-@member(Prepare_Game_eut2_1_1 Preparation for eut2 1.1.@br
-        Calls Prepare_Game_eut2_1_0.)
-
-@member(Prepare_Game_eut2_1_2 Preparation for eut2 1.2.@br
-        Calls Prepare_Game_eut2_1_1.)
-
-@member(Prepare_Game_eut2_1_3 Preparation for eut2 1.3.@br
-        Calls Prepare_Game_eut2_1_2.)
-
-@member(Prepare_Game_eut2_1_4 Preparation for eut2 1.4.@br
-        Calls Prepare_Game_eut2_1_3.)
-
-@member(Prepare_Game_eut2_1_5 Preparation for eut2 1.5.@br
-        Calls Prepare_Game_eut2_1_4.)
-
-@member(Prepare_Game_eut2_1_6 Preparation for eut2 1.6.@br
-        Calls Prepare_Game_eut2_1_5.)
-
-@member(Prepare_Game_eut2_1_7 Preparation for eut2 1.7.@br
-        Calls Prepare_Game_eut2_1_6.)
-
-@member(Prepare_Game_eut2_1_8 Preparation for eut2 1.8.@br
-        Calls Prepare_Game_eut2_1_7.)
-
-@member(Prepare_Game_eut2_1_9 Preparation for eut2 1.9.@br
-        Calls Prepare_Game_eut2_1_8.)
-
-@member(Prepare_Game_eut2_1_10 Preparation for eut2 1.10.@br
-        Calls Prepare_Game_eut2_1_9.)
-
-
-@member(PrepareForTelemetryVersion
+}
+  TTelemetryVersionPrepareObject = class(TTelemetryVersionObject)
+  protected
+  {:
+  Preparation for telemetry 1.0.
+  }
+    procedure Prepare_Telemetry_1_0; virtual;
+  {:
+  Preparation for eut2 1.0.
+  }
+    procedure Prepare_Game_eut2_1_0; virtual;
+  {:
+  Preparation for eut2 1.1.@br
+  Calls Prepare_Game_eut2_1_0.
+  }
+    procedure Prepare_Game_eut2_1_1; virtual;
+  {:
+  Preparation for eut2 1.2.@br
+  Calls Prepare_Game_eut2_1_1.
+  }
+    procedure Prepare_Game_eut2_1_2; virtual;
+  {:
+  Preparation for eut2 1.3.@br
+  Calls Prepare_Game_eut2_1_2.
+  }
+    procedure Prepare_Game_eut2_1_3; virtual;
+  {:
+  Preparation for eut2 1.4.@br
+  Calls Prepare_Game_eut2_1_3.
+  }
+    procedure Prepare_Game_eut2_1_4; virtual;
+  {:
+  Preparation for eut2 1.5.@br
+  Calls Prepare_Game_eut2_1_4.
+  }
+    procedure Prepare_Game_eut2_1_5; virtual;
+  {:
+  Preparation for eut2 1.6.@br
+  Calls Prepare_Game_eut2_1_5.
+  }
+    procedure Prepare_Game_eut2_1_6; virtual;
+  {:
+  Preparation for eut2 1.7.@br
+  Calls Prepare_Game_eut2_1_6.
+  }
+    procedure Prepare_Game_eut2_1_7; virtual;
+  {:
+  Preparation for eut2 1.8.@br
+  Calls Prepare_Game_eut2_1_7.
+  }
+    procedure Prepare_Game_eut2_1_8; virtual;
+  {:
+  Preparation for eut2 1.9.@br
+  Calls Prepare_Game_eut2_1_8.
+  }
+    procedure Prepare_Game_eut2_1_9; virtual;
+  {:
+  Preparation for eut2 1.10.@br
+  Calls Prepare_Game_eut2_1_9.
+  }
+    procedure Prepare_Game_eut2_1_10; virtual;
+  public
+  {:
     Performs any preparations necessary to support required telemetry version.
 
     @param(TelemetryVersion Version of telemetry for which the object should be
                             prepared.)
 
     @returns(@True when preparation for given version were done successfully,
-             otherwise @false.))
-
-@member(PrepareForGameVersion
+             otherwise @false.)
+  }
+    Function PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual;
+  {:
     Performs preparations necessary to support required game and its version.
 
     @param GameName     Name of the game.
@@ -284,9 +304,10 @@ type
     @param GameVersion  Version of game.
 
     @returns(@True when preparation for given game and its version were done
-             successfully, otherwise @false.))
-
-@member(PrepareFor
+             successfully, otherwise @false.)
+  }
+    Function PrepareForGameVersion(const {%H-}GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
+  {:
     Performs preparations necessary to support required telemetry version and
     game and its version.
 
@@ -297,9 +318,10 @@ type
     @param GameVersion      Version of game.
 
     @returns(@True when preparation for given telemetry version and game and its
-             version were done successfully, otherwise @false.))
-
-@member(PrepareForParam
+             version were done successfully, otherwise @false.)
+  }
+    Function PrepareFor(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
+  {:
     Performs preparations necessary to support required telemetry version and
     game and its version.
 
@@ -309,26 +331,8 @@ type
                             version informations.)
 
     @returns(@True when preparation for given telemetry version and game and its
-             version were done successfully, otherwise @false.))
-}
-  TTelemetryVersionPrepareObject = class(TTelemetryVersionObject)
-  protected
-    procedure Prepare_Telemetry_1_0; virtual;
-    procedure Prepare_Game_eut2_1_0; virtual;
-    procedure Prepare_Game_eut2_1_1; virtual;
-    procedure Prepare_Game_eut2_1_2; virtual;
-    procedure Prepare_Game_eut2_1_3; virtual;
-    procedure Prepare_Game_eut2_1_4; virtual;
-    procedure Prepare_Game_eut2_1_5; virtual;
-    procedure Prepare_Game_eut2_1_6; virtual;
-    procedure Prepare_Game_eut2_1_7; virtual;
-    procedure Prepare_Game_eut2_1_8; virtual;
-    procedure Prepare_Game_eut2_1_9; virtual;
-    procedure Prepare_Game_eut2_1_10; virtual;
-  public
-    Function PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual;
-    Function PrepareForGameVersion({%H-}const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
-    Function PrepareFor(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
+             version were done successfully, otherwise @false.)
+  }
     Function PrepareForParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; virtual;
   end;
 
@@ -348,39 +352,12 @@ uses
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{   TTelemetryVersionObject // Constants, types, variables, etc...             }
-{------------------------------------------------------------------------------}
-
-const
-{$IFDEF DevelopmentHints}
-  {$MESSAGE HINT 'Development hint: Remember to update.'}
-{$ENDIF}
-  // These constants can change with telemetry development, remember to update
-  // them if you add support for new telemetry version.
-  cSupportedTelemetryVersions: Array[0..0] of scs_u32_t =
-   (SCS_TELEMETRY_VERSION_1_00 {1.0});
-
-  cSupportedGameVersions: Array[0..10] of TGameSupportInfo =
-   ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 {ETS2 1.0}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 {ETS2 1.1}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 {ETS2 1.2}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 {ETS2 1.3}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_04 {ETS2 1.4}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_05 {ETS2 1.5}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_06 {ETS2 1.6}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 {ETS2 1.7}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 {ETS2 1.8}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {ETS2 1.9}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {ETS2 1.10}));
-
-{------------------------------------------------------------------------------}
 {   TTelemetryVersionObject // Public methods                                  }
 {------------------------------------------------------------------------------}
 
-
 class Function TTelemetryVersionObject.HighestSupportedTelemetryVersion: scs_u32_t;
 begin
-Result := cSupportedTelemetryVersions[High(cSupportedTelemetryVersions)];
+Result := SupportedTelemetryVersions[High(SupportedTelemetryVersions)];
 end;
 
 //------------------------------------------------------------------------------
@@ -390,9 +367,9 @@ var
   i:  Integer;
 begin
 Result := SCS_U32_NIL;
-For i := Low(cSupportedGameVersions) to High(cSupportedGameVersions) do
-  If TelemetrySameStrSwitch(GameID,cSupportedGameVersions[i].GameID) then
-    Result := cSupportedGameVersions[i].GameVersion;
+For i := Low(SupportedGames) to High(SupportedGames) do
+  If TelemetrySameStr(GameID,SupportedGames[i].GameID) then
+    Result := SupportedGames[i].GameVersion;
 end;
 
 //------------------------------------------------------------------------------
@@ -402,8 +379,8 @@ var
   i:  Integer;
 begin
 Result := False;
-For i := Low(cSupportedTelemetryVersions) to High(cSupportedTelemetryVersions) do
-  If TelemetryVersion = cSupportedTelemetryVersions[i] then
+For i := Low(SupportedTelemetryVersions) to High(SupportedTelemetryVersions) do
+  If TelemetryVersion = SupportedTelemetryVersions[i] then
     begin
       Result := True;
       Break;
@@ -417,8 +394,8 @@ var
   i:  Integer;
 begin
 Result := False;
-For i := Low(cSupportedTelemetryVersions) to High(cSupportedTelemetryVersions) do
-  If (TelemetryVersion and $FFFF0000) = (cSupportedTelemetryVersions[i] and $FFFF0000) then
+For i := Low(SupportedTelemetryVersions) to High(SupportedTelemetryVersions) do
+  If (TelemetryVersion and $FFFF0000) = (SupportedTelemetryVersions[i] and $FFFF0000) then
     begin
       Result := True;
       Break;
@@ -432,9 +409,9 @@ var
   i:  Integer;
 begin
 Result := False;
-For i := Low(cSupportedGameVersions) to High(cSupportedGameVersions) do
-  If TelemetrySameStrSwitch(GameID,cSupportedGameVersions[i].GameID) and
-    (GameVersion = cSupportedGameVersions[i].GameVersion) then
+For i := Low(SupportedGames) to High(SupportedGames) do
+  If TelemetrySameStr(GameID,SupportedGames[i].GameID) and
+    (GameVersion = SupportedGames[i].GameVersion) then
     begin
       Result := True;
       Break;
@@ -559,8 +536,12 @@ end;
 
 Function TTelemetryVersionPrepareObject.PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean;
 begin
+{$IFDEF DevelopmentHints}
+  {$MESSAGE HINT 'Remember to update.'}
+{$ENDIF}
+Result := True;
 case TelemetryVersion of
-  SCS_TELEMETRY_VERSION_1_00: begin Prepare_Telemetry_1_0; Result := True; end; {1.0}
+  SCS_TELEMETRY_VERSION_1_00: Prepare_Telemetry_1_0;  {1.0}
 else
   Result := False;
 end;
@@ -570,23 +551,29 @@ end;
 
 Function TTelemetryVersionPrepareObject.PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean;
 begin
-Result := False;
-If TelemetrySameStrSwitch(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}
+{$IFDEF DevelopmentHints}
+  {$MESSAGE HINT 'Remember to update.'}
+{$ENDIF}
+Result := True;
+If TelemetrySameStr(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}
   begin
     case GameVersion of
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_00: begin Prepare_Game_eut2_1_0;  Result := True; end; {1.0}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_01: begin Prepare_Game_eut2_1_1;  Result := True; end; {1.1}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_02: begin Prepare_Game_eut2_1_2;  Result := True; end; {1.2}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_03: begin Prepare_Game_eut2_1_3;  Result := True; end; {1.3}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_04: begin Prepare_Game_eut2_1_4;  Result := True; end; {1.4}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_05: begin Prepare_Game_eut2_1_5;  Result := True; end; {1.5}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_06: begin Prepare_Game_eut2_1_6;  Result := True; end; {1.6}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_07: begin Prepare_Game_eut2_1_7;  Result := True; end; {1.7}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_08: begin Prepare_Game_eut2_1_8;  Result := True; end; {1.8}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_09: begin Prepare_Game_eut2_1_9;  Result := True; end; {1.9}
-      SCS_TELEMETRY_EUT2_GAME_VERSION_1_10: begin Prepare_Game_eut2_1_10; Result := True; end; {1.10}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_00: Prepare_Game_eut2_1_0;  {1.0}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_01: Prepare_Game_eut2_1_1;  {1.1}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_02: Prepare_Game_eut2_1_2;  {1.2}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_03: Prepare_Game_eut2_1_3;  {1.3}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_04: Prepare_Game_eut2_1_4;  {1.4}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_05: Prepare_Game_eut2_1_5;  {1.5}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_06: Prepare_Game_eut2_1_6;  {1.6}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_07: Prepare_Game_eut2_1_7;  {1.7}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_08: Prepare_Game_eut2_1_8;  {1.8}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_09: Prepare_Game_eut2_1_9;  {1.9}
+      SCS_TELEMETRY_EUT2_GAME_VERSION_1_10: Prepare_Game_eut2_1_10; {1.10}
+    else
+      Result := False;
     end;
-  end;
+  end
+else Result := False;
 end;
 
 //------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ AutoLink=1
 HandleMacros=1
 UseTipueSearch=1
 LineBreakQuality=0
-SpecialMarkerTreatment=1
+SpecialMarkerTreatment=2
 Title=SCS Telemetry library
 VizGraphClasses=1
 VizGraphUses=1
@@ -51,14 +51,15 @@ Count=0
 Count=0
 
 [IncludeDirectories]
-Count=1
+Count=2
 Item_0=..\Source
+Item_1=..\Source\SCS
 
 [Files]
 Count=14
-Item_0=..\Source\Log\TelemetryLogBinary.pas
-Item_1=..\Source\Log\TelemetryLogBinaryParser.pas
-Item_2=..\Source\Log\TelemetryLogText.pas
+Item_0=..\Source\SCS\TelemetrySCSExample_telemetry.pas
+Item_1=..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas
+Item_2=..\Source\SCS\TelemetrySCSExample_telemetry_position.pas
 Item_3=..\Source\TelemetryCommon.pas
 Item_4=..\Source\TelemetryConversions.pas
 Item_5=..\Source\TelemetryIDs.pas
@@ -75,7 +76,8 @@ Item_13=..\Source\TelemetryVersionObjects.pas
 Count=0
 
 [SpecialMarkers]
-Count=0
+Count=1
+Item_0=:
 
 [IgnoreWords]
 Count=0

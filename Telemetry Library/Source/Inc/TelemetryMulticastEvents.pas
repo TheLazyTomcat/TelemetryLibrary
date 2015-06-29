@@ -1,4 +1,5 @@
 {$IFDEF DeclarationPart}
+{$IFDEF TelemetryRecipient}
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                           Muticast events managers                           }
@@ -8,18 +9,20 @@
 {==============================================================================}
 {   TMulticastLogEvent // Class declaration                                    }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when recipient writes
-  to game log.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when recipient writes to game log.
+}
+  TMulticastLogEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TLogEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -28,11 +31,12 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+  }
+    Function Add(const Handler: TLogEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -41,35 +45,34 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastLogEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TLogEvent): Integer; reintroduce;
-    Function Add(const Handler: TLogEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TLogEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; LogType: scs_log_type_t; const LogText: String); reintroduce;
   end;
 
 {==============================================================================}
 {   TMulticastEventRegisterEvent // Class declaration                          }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when telemetry event is
-  registered or unregistered.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when telemetry event is registered
+  or unregistered.
+}
+  TMulticastEventRegisterEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TEventRegisterEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -78,11 +81,12 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+  }
+    Function Add(const Handler: TEventRegisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -91,35 +95,34 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastEventRegisterEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TEventRegisterEvent): Integer; reintroduce;
-    Function Add(const Handler: TEventRegisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TEventRegisterEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; Event: scs_event_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
 {   TMulticastEventEvent // Class declaration                                  }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when telemetry when
-  telemetery event occurs.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when telemetry when telemetery
+  event occurs.
+}
+  TMulticastEventEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TEventEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -128,11 +131,12 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+  }
+    Function Add(const Handler: TEventEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -141,35 +145,34 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastEventEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TEventEvent): Integer; reintroduce;
-    Function Add(const Handler: TEventEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TEventEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
 {   TMulticastChannelRegisterEvent // Class declaration                        }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when telemetry channel
-  is registered.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when telemetry channel is
+  registered.
+}
+  TMulticastChannelRegisterEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TChannelRegisterEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -178,11 +181,12 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+  }
+    Function Add(const Handler: TChannelRegisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -191,35 +195,34 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastChannelRegisterEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TChannelRegisterEvent): Integer; reintroduce;
-    Function Add(const Handler: TChannelRegisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TChannelRegisterEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
 {   TMulticastChannelUnregisterEvent // Class declaration                      }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when telemetry channel
-  is unregistered.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when telemetry channel is
+  unregistered.
+}
+  TMulticastChannelUnregisterEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TChannelUnregisterEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -228,11 +231,13 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+
+  }
+    Function Add(const Handler: TChannelUnregisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -241,35 +246,34 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastChannelUnregisterEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TChannelUnregisterEvent): Integer; reintroduce;
-    Function Add(const Handler: TChannelUnregisterEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TChannelUnregisterEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
 {   TMulticastChannelEvent // Class declaration                                }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when telemetery channel
-  callback occurs.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when telemetery channel callback
+  occurs.
+}
+  TMulticastChannelEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TChannelEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -278,11 +282,12 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+  }
+    Function Add(const Handler: TChannelEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -291,35 +296,34 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastChannelEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TChannelEvent): Integer; reintroduce;
-    Function Add(const Handler: TChannelEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TChannelEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); reintroduce;
   end;
 
 {==============================================================================}
 {   TMulticastConfigEvent // Class declaration                                 }
 {==============================================================================}
-{
-  @abstract(Class used to manage multicast event called when config is parsed
-  from configuration telemetry event.)
-
-@member(IndexOf
+{:
+  Class used to manage multicast event called when config is parsed from
+  configuration telemetry event.
+}
+  TMulticastConfigEvent = class(TMulticastEvent)
+  public
+  {:
     Returns index at which the handler is stored in internal list of handlers.
 
     @param Handler Handler routine whose index is requested.
 
-    @returns Index of passed handler in the list, -1 when not found..)
-
-@member(Add
+    @returns Index of passed handler in the list, -1 when not found.
+  }
+    Function IndexOf(const Handler: TConfigEvent): Integer; reintroduce;
+  {:
     Adds passed handler to internal list of handlers. When @code(AllowDuplicity)
     is set to @true, the handler is added to the list even when it is already
     stored, when set to @false, no new list item is added and result contains
@@ -328,11 +332,12 @@
     @param Handler        New handler routine to be added.
     @param(AllowDuplicity Denotes whether passed routine can be stored in
                           internal list when already in it.)
-                          
-    @returns(Index at which the added routine is stored. -1 when storing has
-             failed.))
 
-@member(Remove
+    @returns(Index at which the added routine is stored. -1 when storing has
+             failed.)
+  }
+    Function Add(const Handler: TConfigEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+  {:
     Removes first or all occurrences, depending on @code(RemoveAll) value, of
     passed routine from internal list of handlers.
 
@@ -341,22 +346,20 @@
                      occurence of passed handler or all of them.)
 
     @returns(Index at which the removed item was stored in the list, -1 when
-             passed routine was not found.))
-
-@member(Call
-    Calls all stored handler routines with the same parameters as passed to this
-    method.)
-}
-  TMulticastConfigEvent = class(TMulticastEvent)
-  public
-    Function IndexOf(const Handler: TConfigEvent): Integer; reintroduce;
-    Function Add(const Handler: TConfigEvent; AllowDuplicity: Boolean = False): Integer; reintroduce;
+             passed routine was not found.)
+  }
     Function Remove(const Handler: TConfigEvent; RemoveAll: Boolean = True): Integer; reintroduce;
+  {:
+    Calls all stored handler routines with the same parameters as passed to this
+    method.
+  }
     procedure Call(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); reintroduce;
   end;
 {$ENDIF}
+{$ENDIF}
 
 {$IFDEF ImplementationPart}
+{$IFDEF TelemetryRecipient}
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                           Muticast events managers                           }
@@ -614,4 +617,5 @@ var
 begin
 For i := 0 to Pred(Count) do TConfigEvent(Methods[i])(Sender,Name,ID,Index,Value);
 end;
+{$ENDIF}
 {$ENDIF}
