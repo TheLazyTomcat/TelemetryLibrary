@@ -159,23 +159,25 @@
                                completely reimplemented)))
     @item(2015-06-28 - Constant cMaxChannelIndex renamed to MaxChannelIndex and
                        its value changed from 7 to 13.)
-    @item(2015-06-28 - Field @code(TTelemetryRecipient.fStoredChannelsValues)
-                       renamed to@code(TTelemetryRecipient.fStoredChannels),
-                       field @code(TTelemetryRecipient.fStoreChannelsValues)
-                       renamed to @code(TTelemetryRecipient.fStoreChannels),
-                       property setter @code(TTelemetryRecipient.SetStoreChannelsValues)
-                       renamed to @code(TTelemetryRecipient.SetStoreChannels),
-                       property @code(TTelemetryRecipient.StoredChannelsValues)
-                       renamed to @code(TTelemetryRecipient.StoredChannels) and
-                       property @code(TTelemetryRecipient.StoreChannelsValues)
-                       renamed to @code(TTelemetryRecipient.StoreChannels) .)
-    @item(2015-06-28 - Parameter @code(RegPrimaryType) of method
-                       TTelemetryRecipient.ChannelRegisterAll renamed to
-                       @code(RegisterPrimaryType).)
-    @item(2015-06-29 - Removed methods TTelemetryRecipient.EventGetDataAsString
-                       and TTelemetryRecipient.ChannelGetValueAsString. Their
-                       replacements can now be found in TelemetyStrings unit
-                       (functions EventDataToStr and ChannelValueToStr).))
+    @item(2015-06-28 - Renamed following identifiers:@unorderedList(
+                         @itemSpacing(Compact)
+                         @item(Field @code(TTelemetryRecipient.fStoredChannelsValues)
+                               renamed to TTelemetryRecipient.fStoredChannels)
+                         @item(Field @code(TTelemetryRecipient.fStoreChannelsValues)
+                               renamed to TTelemetryRecipient.fStoreChannels)
+                         @item(Method @code(TTelemetryRecipient.SetStoreChannelsValues)
+                               renamed to TTelemetryRecipient.SetStoreChannels)
+                         @item(Property @code(TTelemetryRecipient.StoredChannelsValues)
+                               renamed to TTelemetryRecipient.StoredChannels)
+                         @item(Property @code(TTelemetryRecipient.StoreChannelsValues)
+                               renamed to TTelemetryRecipient.StoreChannels)
+                         @item(Parameter @code(RegPrimaryType) of method
+                               TTelemetryRecipient.ChannelRegisterAll renamed to
+                               @code(RegisterPrimaryType))))
+    @item(2015-06-29 - Removed methods @code(TTelemetryRecipient.EventGetDataAsString)
+                       and @code(TTelemetryRecipient.ChannelGetValueAsString).
+                       Their replacements can now be found in TelemetyStrings
+                       unit (functions EventDataToStr and ChannelValueToStr).))
 
 @html(<hr>)}
 unit TelemetryRecipient;
@@ -250,12 +252,10 @@ type
   // Event type used when config is parsed from configuration telemetry event.
   TConfigEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
-{$IFDEF MulticastEvents}
-  {$IF not Defined(Documentation) or Defined(DocumentMulticastEvents)}
-    {$DEFINE DeclarationPart}
+{$IFDEF IncludeMulticastEventHandlers}
+  {$DEFINE DeclarationPart}
     {$INCLUDE '.\Inc\TelemetryMulticastEvents.pas'}
-    {$UNDEF DeclarationPart}
-  {$IFEND}
+  {$UNDEF DeclarationPart}
 {$ENDIF}
 
 {==============================================================================}
@@ -1312,12 +1312,10 @@ uses
   SysUtils, Math,
   TelemetryValueTypeUtils, TelemetryConversions, TelemetryStrings;
 
-{$IFDEF MulticastEvents}
-  {$IF not Defined(Documentation) or Defined(DocumentMulticastEvents)}
-    {$DEFINE ImplementationPart}
+{$IFDEF IncludeMulticastEventHandlers}
+  {$DEFINE ImplementationPart}
     {$INCLUDE '.\Inc\TelemetryMulticastEvents.pas'}
-    {$UNDEF ImplementationPart}
-  {$IFEND}
+  {$UNDEF ImplementationPart}
 {$ENDIF}
 
 {==============================================================================}

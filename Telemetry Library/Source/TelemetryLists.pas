@@ -145,10 +145,10 @@
                          @item(cEmptyKnownConfig renamed to EmptyKnownConfig)
                          @item(cEmptyEventInfo renamed to EmptyEventInfo)
                          @item(cEmptyChannelInfo renamed to EmptyChannelInfo)
-                         @item(cEmptyStoredConfig renamed to EmptyStoredConfig))
+                         @item(cEmptyStoredConfig renamed to EmptyStoredConfig)))
     @item(2015-06-27 - Small implementation changes.)
     @item(2015-06-27 - @code(TStoredChannelsValuesList) class renamed to
-                       @code(@noAutoLink(TStoredChannelsList)).))
+                       TStoredChannelsList.))
 
 @html(<hr>)}
 unit TelemetryLists;

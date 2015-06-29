@@ -38,21 +38,23 @@
     @item(2014-05-05 - TMulticastEvent placeholder added.)
     @item(2014-11-02 - Added types @code(PtrInt) and @code(PtrUInt).)
     @item(2015-04-20 - Added TMemSize type.)
-    @item(2015-04-20 - Constants @code(cEmptySCSValue) and @code
-                       (cEmptySCSValueLocalized) renamed to EmptySCSValue and
-                       EmptySCSValueLocalized respectively.)
+    @item(2015-04-20 - Constants @code(cEmptySCSValue) and
+                       @code(cEmptySCSValueLocalized) renamed to
+                       @code(EmptySCSValue) and @code(EmptySCSValueLocalized)
+                       respectively.)
     @item(2015-06-25 - Removed TMulticastEvent placeholder.)
     @item(2015-06-25 - Added TStrSize type.)
     @item(2015-06-25 - TGameSupportInfo changed to TSupportedGame,
                        PGameSupportInfo changed to PSupportedGame.)
     @item(2015-06-25 - Added list of supported API versions and list of
-                       supported games (@code(SupportedTelemetryVersions),
-                       @code(SupportedGames)).)
+                       supported games (SupportedTelemetryVersions,
+                       SupportedGames).)
     @item(2015-06-25 - Renamed and completed following constants:@unorderedList(
                          @itemSpacing(Compact)
-                         @item(EmptySCSValue renamed to scs_value_empty)
-                         @item(EmptySCSValueLocalized renamed to
+                         @item(@code(EmptySCSValue) renamed to scs_value_empty)
+                         @item(@code(EmptySCSValueLocalized) renamed to
                                scs_value_localized_empty)))
+    @item(2015-06-29 - Returned TMulticastEvent placeholder.))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -73,6 +75,17 @@ uses
 {$ENDIF}
 
 type
+{$IFDEF Documentation}
+  {$IFDEF IncludeMulticastEventHandlers}
+    // @abstract(Placeholder intended to complete the classes hierarchy tree in
+    // documentation.)
+    // Actual class is defined in unit MulticastEvent and is not included in
+    // documentation of telemetry library. Refer to mentioned unit located in
+    // folder @italic(Source\Libs) for details.
+    TMulticastEvent = class(TObject);
+  {$ENDIF}
+{$ENDIF}
+
   // Type used to cast pointer to a signed integer for calculation of arbitrary
   // address.
 {$IFDEF x64}

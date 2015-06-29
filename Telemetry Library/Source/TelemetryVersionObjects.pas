@@ -552,7 +552,7 @@ end;
 Function TTelemetryVersionPrepareObject.PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean;
 begin
 {$IFDEF DevelopmentHints}
-  {$MESSAGE HINT 'Development hint: Remember to update.'}
+  {$MESSAGE HINT 'Remember to update.'}
 {$ENDIF}
 Result := True;
 If TelemetrySameStr(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}

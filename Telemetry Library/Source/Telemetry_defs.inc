@@ -1,6 +1,7 @@
 {.$DEFINE DevelopmentHints}
 {.$DEFINE Documentation}
-{.$DEFINE DocumentMulticastEvents}
+{$DEFINE DocumentMulticastEvents}
+{.$DEFINE IncludeMulticastEventHandlers}
 {.$DEFINE UseCondensedHeader}
 {$DEFINE MulticastEvents}
 {$DEFINE AssumeASCIIString}
@@ -21,6 +22,23 @@
   {$DEFINE MulticastEvents}
   {$UNDEF PrecomputedItemID}
   {$DEFINE NoTimeLogEvents}
+  {$IFDEF DocumentMulticastEvents}
+    {$DEFINE IncludeMulticastEventHandlers}
+  {$ELSE}
+    {$UNDEF IncludeMulticastEventHandlers}
+  {$ENDIF}
+  {$DEFINE DeprecatedMessage}
+{$ELSE}
+  {$IFDEF MulticastEvents}
+    {$DEFINE IncludeMulticastEventHandlers}
+  {$ELSE}
+    {$UNDEF IncludeMulticastEventHandlers}
+  {$ENDIF}
+  {$IF Defined(FPC) or (CompilerVersion >= 20)}
+    {$DEFINE DeprecatedMessage}
+  {$ELSE}
+    {$UNDEF DeprecatedMessage}
+  {$IFEND}
 {$ENDIF}
 
 {$IFDEF PrecomputedItemID}
@@ -35,10 +53,3 @@
 {$ELSE}
   {$UNDEF DevelopmentHints}
 {$ENDIF}
-
-{$IF Defined(FPC) or (CompilerVersion >= 20)}
-  {$DEFINE DeprecatedMessage}
-{$ELSE}
-  {$UNDEF DeprecatedMessage}
-{$IFEND}
-

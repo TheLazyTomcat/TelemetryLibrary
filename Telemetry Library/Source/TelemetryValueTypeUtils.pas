@@ -6,8 +6,9 @@
 
 -------------------------------------------------------------------------------}
 (*
-todo: documentation
+@abstract(todo: documentation)
 
+@preformatted(
     primary type                  secondary types
 
   SCS_VALUE_TYPE_bool       ->  /
@@ -22,6 +23,7 @@ todo: documentation
   SCS_VALUE_TYPE_fplacement ->  dplacement, fvector, dvector, euler
   SCS_VALUE_TYPE_dplacement ->  fplacement, dvector, fvector, euler
   SCS_VALUE_TYPE_string     ->  /
+)
 *)
 unit TelemetryValueTypeUtils;
 

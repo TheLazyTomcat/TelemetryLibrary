@@ -42,8 +42,9 @@
     @item(2014-11-04 - Small implementation changes.)
     @item(2015-06-25 - Following functions were renamed:@unorderedList(
                         @itemSpacing(Compact)
-                        @item(TelemetrySameStr renamed to TelemetrySameStrConv)
-                        @item(TelemetrySameText renamed to
+                        @item(@noAutoLink(TelemetrySameStr) renamed to
+                              TelemetrySameStrConv)
+                        @item(@noAutoLink(TelemetrySameText) renamed to
                               TelemetrySameTextConv)
                         @item(TelemetrySameStrSwitch renamed to
                               TelemetrySameStr)
@@ -77,10 +78,10 @@ uses
 {==============================================================================}
 var
 {
-  Used for thread safety in conversions dependent on LocaleID.@br
+  @abstract(Used for thread safety in conversions dependent on LocaleID.)
   Initialized in Initialization section of this unit (with id set to
   LOCALE_USER_DEFAULT).@br
-  But note that this variable is NOT thread save by itself. If you want to
+  But note that this variable is NOT thread safe by itself. If you want to
   access it from multiple threads, then thread safety is your responsibility.
 }
   TelemetryStringsFormatSettings: TFormatSettings;
