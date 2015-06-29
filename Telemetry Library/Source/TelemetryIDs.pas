@@ -240,7 +240,7 @@ type
 
   //:Channel identifier obtained from its name.
   TChannelID = TItemID;
-  // Pointer to a variable of type TChannelID.
+  //:Pointer to a variable of type TChannelID.
   PChannelID = ^TChannelID;
 
   //:Configuration identifier obtained from full config name.

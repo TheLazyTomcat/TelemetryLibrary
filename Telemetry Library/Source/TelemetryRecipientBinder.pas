@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Provides base class for classes binding itself to telemetry recipient
           events.)
 @author(František Milt <fmilt@seznam.cz>)
@@ -65,7 +65,7 @@ uses
 {==============================================================================}
 {   TTelemetryRecipientBinder // Class declaration                             }
 {==============================================================================}
-{
+{:
   @abstract(Class designed as a base for any class that is intended to bind
             itself to telemetry @noAutoLink(recipient) events.)
   It has predefined abstract methods that can be assigned as handlers to
@@ -76,16 +76,16 @@ uses
 type
   TTelemetryRecipientBinder = class(TObject)
   private
-  {
+  {:
     See Recipient property for details.
   }
     fRecipient:                 TTelemetryRecipient;
-  {
+  {:
     See DeassignHandlersOnDestroy property for details.
   }
     fDeassignHandlersOnDestroy: Boolean;
   protected
-  {
+  {:
     Method used to get valid telemetry @noAutoLink(recipient) for work.@br
     When Recipient property is assigned, then it is returned in output parameter
     @noAutoLink(@code(Recipient)), when not, check whether object passed in
@@ -103,7 +103,7 @@ type
   }
     Function GetWorkingRecipient(Sender: TObject; out Recipient: TTelemetryRecipient): Boolean; virtual;
   public
-  {
+  {:
     Class constructor.
 
     @param(Recipient Telemetry @noAutoLink(recipient) that operates on API. When
@@ -112,28 +112,28 @@ type
                      AssignHandlers method.)
   }
     constructor Create(Recipient: TTelemetryRecipient = nil);
-  {
+  {:
     Class destructor.
 
     Calls method DeassignHandlers when DeassignHandlersOnDestroy property is
     @true.
   }
     destructor Destroy; override;
-  {
+  {:
     Assigns appropriate *Handler methods as handlers of Recipent events.
 
     @returns(@True when Recipient is assigned and all handlers were assigned to
              its event, @false otherwise.)
   }
     Function AssignHandlers: Boolean; virtual;
-  {
+  {:
     Deassigns handlers of Recipient events.
 
     @returns(@True when Recipient is assigned and all handlers were deassigned,
              @false otherwise.)
   }
     Function DeassignHandlers: Boolean; virtual;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnLog OnLog) event.
 
@@ -142,7 +142,7 @@ type
     @param LogText Actual text written into game log.
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnEventRegister OnEventRegister)
     event.
@@ -152,7 +152,7 @@ type
     @param UserData  User defined data stored inside the event context.
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnEventUnregister OnEventUnregister)
     event.
@@ -162,7 +162,7 @@ type
     @param UserData  User defined data stored inside the event context.
   }
     procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnEvent OnEvent) event.
 
@@ -172,7 +172,7 @@ type
     @param UserData  User defined data stored inside the event context.
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnChannelRegister OnChannelRegister)
     event.
@@ -186,7 +186,7 @@ type
     @param UserData  User defined data stored inside the channel context.
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnChannelUnregister
     OnChannelUnregister)
@@ -200,7 +200,7 @@ type
     @param UserData  User defined data stored inside the channel context.
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnChannel OnChannel) event.
 
@@ -212,7 +212,7 @@ type
     @param UserData  User defined data stored inside the channel context.
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual; abstract;
-  {
+  {:
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnConfig OnConfig) event.
 
@@ -224,12 +224,12 @@ type
   }
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
   published
-  {
+  {:
     Reference to @noAutoLink(recipient) that operates on telemetry API. Not
     initialized, it is assigned in constructor. Can be @nil.
   }
     property Recipient: TTelemetryRecipient read fRecipient write fRecipient;
-  {
+  {:
     When @true, the destructor calls method DeassignHandlers.@br
     Initialized to @true.
   }
