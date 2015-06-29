@@ -48,7 +48,7 @@ uses
   TelemetryRecipient,
   TelemetryRecipientBinder,
 
-  TelemetrySCS_Examples_telemetry_mem;
+  TelemetrySCSExample_telemetry_mem;
 
 var
   Recipient:        TTelemetryRecipient = nil;
@@ -87,4 +87,3 @@ exports
 
 begin
 end.
-

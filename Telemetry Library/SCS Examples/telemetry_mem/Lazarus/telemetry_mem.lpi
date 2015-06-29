@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -53,14 +53,10 @@
             </Options>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dFPC
 -dWindows
 -dRelease
 -dx86"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -73,7 +69,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -94,7 +90,6 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
               <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
@@ -103,14 +98,10 @@
             </Options>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dFPC
 -dWindows
 -dDebug
 -dx64"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item3>
@@ -123,7 +114,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -145,14 +136,10 @@
             </Options>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dFPC
 -dWindows
 -dRelease
 -dx64"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item4>
@@ -169,7 +156,6 @@
       <Unit0>
         <Filename Value="telemetry_mem.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="telemetry_mem"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\..\..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
@@ -182,24 +168,24 @@
         <UnitName Value="scssdk"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_value.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="scssdk_value"/>
-      </Unit3>
-      <Unit4>
         <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_telemetry.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="scssdk_telemetry"/>
-      </Unit4>
-      <Unit5>
+      </Unit3>
+      <Unit4>
         <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_telemetry_event.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="scssdk_telemetry_event"/>
-      </Unit5>
-      <Unit6>
+      </Unit4>
+      <Unit5>
         <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_telemetry_channel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="scssdk_telemetry_channel"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_value.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="scssdk_value"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_configs.pas"/>
@@ -232,64 +218,64 @@
         <UnitName Value="scssdk_telemetry_eut2"/>
       </Unit12>
       <Unit13>
-        <Filename Value="..\..\..\Source\Libs\CRC32.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="CRC32"/>
-      </Unit13>
-      <Unit14>
-        <Filename Value="..\..\..\Source\Libs\MD5.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MD5"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="..\..\..\Source\Libs\MulticastEvent.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MulticastEvent"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="..\..\..\Source\Libs\SimpleLog.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="SimpleLog"/>
-      </Unit16>
-      <Unit17>
         <Filename Value="..\..\..\Source\Libs\BitOps.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="BitOps"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\..\Source\Libs\CRC32.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CRC32"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\..\..\Source\Libs\MD5.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MD5"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\..\..\Source\Libs\MulticastEvent.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MulticastEvent"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\..\Source\Libs\SimpleLog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SimpleLog"/>
       </Unit17>
       <Unit18>
-        <Filename Value="..\..\..\Source\TelemetryCommon.pas"/>
+        <Filename Value="..\..\..\Source\TelemetryRecipientBinder.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryCommon"/>
+        <UnitName Value="TelemetryRecipientBinder"/>
       </Unit18>
       <Unit19>
-        <Filename Value="..\..\..\Source\TelemetryIDs.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryIDs"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="..\..\..\Source\TelemetryConversions.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryConversions"/>
-      </Unit20>
-      <Unit21>
         <Filename Value="..\..\..\Source\TelemetryStrings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryStrings"/>
-      </Unit21>
-      <Unit22>
+      </Unit19>
+      <Unit20>
         <Filename Value="..\..\..\Source\TelemetryValueTypeUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryValueTypeUtils"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="..\..\..\Source\TelemetryLists.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryLists"/>
-      </Unit23>
-      <Unit24>
+      </Unit20>
+      <Unit21>
         <Filename Value="..\..\..\Source\TelemetryVersionObjects.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryVersionObjects"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\..\..\Source\TelemetryCommon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryCommon"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\..\..\Source\TelemetryConversions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryConversions"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\..\..\Source\TelemetryIDs.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryIDs"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\..\Source\TelemetryInfoProvider.pas"/>
@@ -297,19 +283,19 @@
         <UnitName Value="TelemetryInfoProvider"/>
       </Unit25>
       <Unit26>
+        <Filename Value="..\..\..\Source\TelemetryLists.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryLists"/>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipient"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="..\..\..\Source\TelemetryRecipientBinder.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryRecipientBinder"/>
       </Unit27>
       <Unit28>
-        <Filename Value="..\..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas"/>
+        <Filename Value="..\..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetrySCS_Examples_telemetry_mem"/>
+        <UnitName Value="TelemetrySCSExample_telemetry_mem"/>
       </Unit28>
     </Units>
   </ProjectOptions>
@@ -321,7 +307,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+      <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -342,7 +328,6 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <DebugInfoType Value="dsDwarf2Set"/>
         <UseHeaptrc Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
@@ -351,14 +336,10 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
       <CustomOptions Value="-dFPC
 -dWindows
 -dDebug
 -dx86"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>
