@@ -80,7 +80,6 @@
       <Unit1>
         <Filename Value="..\..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCS_Telemetry_Condensed"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_value.pas"/>
@@ -149,7 +148,6 @@
       <Unit18>
         <Filename Value="..\..\Source\TelemetryVersionObjects.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryVersionObjects"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\Source\TelemetryCommon.pas"/>
@@ -159,17 +157,14 @@
       <Unit20>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryConversions"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\Source\TelemetryIDs.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryIDs"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\Source\TelemetryInfoProvider.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryInfoProvider"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\Source\TelemetryLists.pas"/>
@@ -184,26 +179,23 @@
       <Unit25>
         <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryRecipientBinder"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryStreaming"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\Source\TelemetryStrings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryStrings"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\Source\TelemetryValueTypeUtils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryValueTypeUtils"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetrySCS_Examples_telemetry"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas"/>

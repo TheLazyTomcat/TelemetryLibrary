@@ -45,10 +45,10 @@ uses
   TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
   TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
-//  TelemetrySCS_Examples_telemetry          in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas',
-//  TelemetrySCS_Examples_telemetry_position in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas',
-//  TelemetrySCS_Examples_telemetry_mem      in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas',
-  
+  TelemetrySCSExample_telemetry          in '..\..\Source\SCS\TelemetrySCSExample_telemetry.pas',
+  TelemetrySCSExample_telemetry_position in '..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas',
+  TelemetrySCSExample_telemetry_mem      in '..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas',
+
 //  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
 //  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
 //  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';

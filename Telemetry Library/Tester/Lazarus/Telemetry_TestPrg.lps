@@ -4,23 +4,23 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Devel_win_x86"/>
-    <Units Count="38">
+    <Units Count="41">
       <Unit0>
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="28"/>
-        <CursorPos X="67" Y="46"/>
-        <UsageCount Value="145"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="38"/>
+        <CursorPos X="22" Y="50"/>
+        <UsageCount Value="147"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCS_Telemetry_Condensed"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2104"/>
         <CursorPos X="3" Y="683"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_value.pas"/>
@@ -28,7 +28,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="29"/>
         <CursorPos X="3" Y="42"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk.pas"/>
@@ -36,55 +36,55 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="8"/>
         <CursorPos X="3" Y="21"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_telemetry.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_telemetry_event.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\..\Telemetry API Headers\scssdk_telemetry_channel.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_configs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_channels.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_trailer_common_channels.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\..\Telemetry API Headers\common\scssdk_telemetry_truck_common_channels.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\..\Telemetry API Headers\eurotrucks2\scssdk_eut2.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\..\Telemetry API Headers\eurotrucks2\scssdk_telemetry_eut2.pas"/>
@@ -92,7 +92,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos X="3" Y="46"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\Source\Libs\BitOps.pas"/>
@@ -100,74 +100,71 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1822"/>
         <CursorPos Y="1847"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\Source\Libs\CRC32.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\Source\Libs\MD5.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\Source\Libs\MulticastEvent.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\Source\Libs\SimpleLog.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\Source\TelemetryVersionObjects.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryVersionObjects"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="55" Y="55"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\Source\TelemetryCommon.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryCommon"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="27" Y="21"/>
-        <UsageCount Value="145"/>
+        <TopLine Value="116"/>
+        <CursorPos X="4" Y="129"/>
+        <UsageCount Value="147"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryConversions"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="168"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\Source\TelemetryIDs.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryIDs"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
         <CursorPos X="11" Y="36"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\Source\TelemetryInfoProvider.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryInfoProvider"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="665"/>
         <CursorPos X="29" Y="675"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
         <Bookmarks Count="3">
           <Item0 X="13" Y="125" ID="1"/>
           <Item1 X="7" Y="293" ID="2"/>
@@ -178,23 +175,22 @@
         <Filename Value="..\..\Source\TelemetryLists.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryLists"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="20" Y="12"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
         <Bookmarks Count="1">
           <Item0 X="50" Y="144" ID="1"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipient"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="247"/>
         <CursorPos X="35" Y="178"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
         <Bookmarks Count="2">
           <Item0 X="13" Y="1469" ID="4"/>
           <Item1 Y="2033" ID="3"/>
@@ -203,10 +199,9 @@
       <Unit25>
         <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryRecipientBinder"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="30" Y="39"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
         <Bookmarks Count="2">
           <Item0 X="33" Y="74" ID="1"/>
           <Item1 X="26" Y="225" ID="2"/>
@@ -215,10 +210,9 @@
       <Unit26>
         <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryStreaming"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="61"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
         <Bookmarks Count="3">
           <Item0 X="47" Y="1570" ID="2"/>
           <Item1 X="16" Y="77" ID="1"/>
@@ -228,65 +222,65 @@
       <Unit27>
         <Filename Value="..\..\Source\TelemetryStrings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryStrings"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="20" Y="13"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\Source\TelemetryValueTypeUtils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryValueTypeUtils"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="147"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetrySCS_Examples_telemetry"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="144"/>
+        <TopLine Value="36"/>
+        <CursorPos X="3" Y="8"/>
+        <UsageCount Value="146"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\Source\Log\TelemetryLogBinary.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\Source\Log\TelemetryLogText.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\Source\Telemetry_defs.inc"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="2" Y="5"/>
-        <UsageCount Value="73"/>
+        <UsageCount Value="74"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\Source\Inc\TelemetryRecipient_MulticastEvents.pas"/>
-        <UnitName Value="TelemetryRecipient_MulticastEvents"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="357"/>
         <CursorPos X="20" Y="373"/>
@@ -296,9 +290,33 @@
         <Filename Value="..\..\Source\Inc\TelemetryMulticastEvents.pas"/>
         <UnitName Value="TelemetryMulticastEvents"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="8" Y="621"/>
+        <CursorPos X="33" Y="314"/>
         <UsageCount Value="29"/>
       </Unit37>
+      <Unit38>
+        <Filename Value="..\..\Source\SCS\TelemetrySCSExamples_telemetry.pas"/>
+        <UnitName Value="TelemetrySCSExamples_telemetry"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="125"/>
+        <CursorPos Y="126"/>
+        <UsageCount Value="11"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\..\Source\SCS\TelemetrySCSExamples_telemetry_position.pas"/>
+        <UnitName Value="TelemetrySCSExamples_telemetry_position"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="55"/>
+        <CursorPos X="84" Y="66"/>
+        <UsageCount Value="10"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\..\Source\SCS\TelemetrySCSExamples_telemetry_mem.pas"/>
+        <UnitName Value="TelemetrySCSExamples_telemetry_mem"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="412"/>
+        <CursorPos Y="427"/>
+        <UsageCount Value="10"/>
+      </Unit40>
     </Units>
     <CustomDefines Count="7">
       <Define0 Value="FPC"/>
