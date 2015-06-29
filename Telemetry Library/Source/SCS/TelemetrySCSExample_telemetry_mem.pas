@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-// todo: documentation
+//:todo: documentation
 unit TelemetrySCSExample_telemetry_mem;
 
 interface
