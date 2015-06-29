@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Unit providing routines for variables conversions.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
@@ -46,7 +46,7 @@ uses
 {   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
-{
+{:
   Function converting normal @code(scs_value_t) structure to its no-pointer
   version (scs_value_localized_t).
 
@@ -58,7 +58,7 @@ Function scs_value_localized(Value: scs_value_t): scs_value_localized_t;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Function converting no-pointer alternative to normal
             @code(scs_value_t) structure.)
   @bold(Warning) - you have to manually free memory allocated for some fields
@@ -73,7 +73,7 @@ Function scs_value(Value: scs_value_localized_t): scs_value_t;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Frees resources allocated for variable of type @code(scs_value_t).)
   @bold(Warning) - do not use on variables returned from the API!
 
@@ -83,7 +83,7 @@ procedure scs_value_free(var Value: scs_value_t);
 
 //==============================================================================
 
-{
+{:
   Function converting normal @code(scs_named_value_t) structure to its
   no-pointer version (scs_named_value_localized_t).
 
@@ -95,7 +95,7 @@ Function scs_named_value_localized(Value: scs_named_value_t): scs_named_value_lo
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Function converting no-pointer alternative to normal
             @code(scs_named_value_t) structure.)
   @bold(Warning) - you have to manually free memory allocated for some fields
@@ -110,7 +110,7 @@ Function scs_named_value(Value: scs_named_value_localized_t): scs_named_value_t;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Frees resources allocated for variable of type
             @code(scs_named_value_t).)
   @bold(Warning) - do not use on variables returned from the API!
@@ -121,7 +121,7 @@ procedure scs_named_value_free(var Value: scs_named_value_t);
 
 //==============================================================================
 
-{
+{:
   Function converting normal @code(scs_telemetry_configuration_t) structure to
   its no-pointer version (scs_telemetry_configuration_localized_t).
 
@@ -133,7 +133,7 @@ Function scs_telemetry_configuration_localized(Value: scs_telemetry_configuratio
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Function converting no-pointer alternative to normal
             @code(scs_telemetry_configuration_t) structure.)
   @bold(Warning) - you have to manually free memory allocated for some fields
@@ -148,7 +148,7 @@ Function scs_telemetry_configuration(Value: scs_telemetry_configuration_localize
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Frees resources allocated for variable of type
             @code(scs_telemetry_configuration_t).)
   @bold(Warning) - do not use on variables returned from the API!
