@@ -47,7 +47,7 @@ uses
   TelemetryRecipient,
   TelemetryRecipientBinder,
 
-  TelemetrySCS_Examples_telemetry;
+  TelemetrySCSExample_telemetry;
 
 var
   Recipient:        TTelemetryRecipient = nil;

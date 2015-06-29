@@ -49,7 +49,7 @@ uses
   TelemetryRecipient        in '..\..\..\Source\TelemetryRecipient.pas',
   TelemetryRecipientBinder  in '..\..\..\Source\TelemetryRecipientBinder.pas',
 
-  TelemetrySCS_Examples_telemetry in '..\..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas';
+  TelemetrySCSExample_telemetry in '..\..\..\Source\SCS\TelemetrySCSExample_telemetry.pas';
 
 {$R *.res}
 
