@@ -9,7 +9,7 @@
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2014-11-24)
+@lastmod(2015-06-27)
 
   @bold(@NoAutoLink(TelemetryLists))
 
@@ -26,7 +26,7 @@
    |- TStoredConfigsList
    |- TStoredChannelsList
 )
-  Last change:  2014-11-24
+  Last change:  2015-06-27
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)

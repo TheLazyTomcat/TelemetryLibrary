@@ -10,7 +10,7 @@
           or stream.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-06)
-@lastmod(2014-11-24)
+@lastmod(2015-06-28)
 
   @bold(@NoAutoLink(TelemetryStreaming))
 
@@ -42,7 +42,7 @@
         events, channels and configs).)
 )
 
-  Last change:  2014-11-24
+  Last change:  2015-06-28
 
   Change List:@unorderedList(
     @item(2014-05-06 - First stable version.)

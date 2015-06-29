@@ -9,7 +9,7 @@
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="28"/>
-        <CursorPos X="66" Y="46"/>
+        <CursorPos X="67" Y="46"/>
         <UsageCount Value="145"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -140,21 +140,24 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryCommon"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="114"/>
-        <CursorPos X="28" Y="216"/>
+        <CursorPos X="27" Y="21"/>
         <UsageCount Value="145"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryConversions"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="168"/>
         <UsageCount Value="145"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\Source\TelemetryIDs.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryIDs"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="17"/>
+        <TopLine Value="22"/>
+        <CursorPos X="11" Y="36"/>
         <UsageCount Value="145"/>
       </Unit21>
       <Unit22>
@@ -174,41 +177,40 @@
       <Unit23>
         <Filename Value="..\..\Source\TelemetryLists.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="127"/>
-        <CursorPos X="23" Y="139"/>
+        <UnitName Value="TelemetryLists"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="20" Y="12"/>
         <UsageCount Value="145"/>
         <Bookmarks Count="1">
           <Item0 X="50" Y="144" ID="1"/>
         </Bookmarks>
+        <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipient"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="35" Y="178"/>
         <UsageCount Value="145"/>
         <Bookmarks Count="2">
           <Item0 X="13" Y="1469" ID="4"/>
           <Item1 Y="2033" ID="3"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipientBinder"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="74"/>
-        <CursorPos X="33" Y="74"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="30" Y="39"/>
         <UsageCount Value="145"/>
         <Bookmarks Count="2">
           <Item0 X="33" Y="74" ID="1"/>
           <Item1 X="26" Y="225" ID="2"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
@@ -227,18 +229,16 @@
         <Filename Value="..\..\Source\TelemetryStrings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryStrings"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="40"/>
-        <CursorPos X="76" Y="53"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="20" Y="13"/>
         <UsageCount Value="145"/>
-        <Loaded Value="True"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\Source\TelemetryValueTypeUtils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryValueTypeUtils"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="245"/>
-        <CursorPos X="17" Y="189"/>
         <UsageCount Value="145"/>
       </Unit28>
       <Unit29>
@@ -281,7 +281,7 @@
         <Filename Value="..\..\Source\Telemetry_defs.inc"/>
         <EditorIndex Value="2"/>
         <CursorPos X="2" Y="5"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -295,10 +295,9 @@
       <Unit37>
         <Filename Value="..\..\Source\Inc\TelemetryMulticastEvents.pas"/>
         <UnitName Value="TelemetryMulticastEvents"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="8" Y="621"/>
         <UsageCount Value="29"/>
-        <Loaded Value="True"/>
       </Unit37>
     </Units>
     <CustomDefines Count="7">
@@ -310,127 +309,11 @@
       <Define5 Value="x64"/>
       <Define6 Value="PurePascal"/>
     </CustomDefines>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="1">
       <Position1>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="241" Column="25" TopLine="224"/>
+        <Filename Value="Telemetry_TestPrg.lpr"/>
+        <Caret Line="46" Column="66" TopLine="28"/>
       </Position1>
-      <Position2>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="75" TopLine="71"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="222" Column="45" TopLine="212"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="77" TopLine="62"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="225" Column="11" TopLine="211"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="79" TopLine="62"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="228" Column="43" TopLine="221"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="81" TopLine="64"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="231" Column="32" TopLine="221"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="76" TopLine="61"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="227" Column="54" TopLine="212"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="78" TopLine="70"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="230" Column="72" TopLine="211"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="77" TopLine="67"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="238" Column="17" TopLine="232"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="79" TopLine="70"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="233" Column="72" TopLine="220"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="81" TopLine="73"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="236" Column="74" TopLine="216"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="83" TopLine="73"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="247" Column="26" TopLine="238"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="75" TopLine="73"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="232" Column="74" TopLine="217"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="77" TopLine="67"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="235" Column="49" TopLine="218"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="80" TopLine="67"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="239" Column="61" TopLine="223"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="82" TopLine="62"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="75" TopLine="62"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
-        <Caret Line="242" Column="26" TopLine="221"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

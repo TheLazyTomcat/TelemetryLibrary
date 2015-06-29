@@ -159,10 +159,12 @@
       <Unit20>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryConversions"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\Source\TelemetryIDs.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryIDs"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\Source\TelemetryInfoProvider.pas"/>
@@ -172,6 +174,7 @@
       <Unit23>
         <Filename Value="..\..\Source\TelemetryLists.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryLists"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
@@ -196,6 +199,7 @@
       <Unit28>
         <Filename Value="..\..\Source\TelemetryValueTypeUtils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="TelemetryValueTypeUtils"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas"/>

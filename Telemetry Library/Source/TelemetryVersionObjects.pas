@@ -10,7 +10,7 @@
           version support.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-17)
-@lastmod(2014-11-07)
+@lastmod(2015-06-28)
 
   @bold(@NoAutoLink(TelemetryVersionObjects))
 
@@ -23,7 +23,7 @@
        |- TTelemetryVersionPrepareObject
 )
 
-  Last change:  2014-11-07
+  Last change:  2015-06-28
 
   Change List:@unorderedList(
     @item(2013-10-17 - First stable version.)
@@ -552,7 +552,7 @@ end;
 Function TTelemetryVersionPrepareObject.PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean;
 begin
 {$IFDEF DevelopmentHints}
-  {$MESSAGE HINT 'Remember to update.'}
+  {$MESSAGE HINT 'Development hint: Remember to update.'}
 {$ENDIF}
 Result := True;
 If TelemetrySameStr(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2}

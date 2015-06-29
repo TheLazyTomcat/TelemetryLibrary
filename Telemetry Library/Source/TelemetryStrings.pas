@@ -10,7 +10,7 @@
           routines converting selected binary types to text.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2015-04-20)
+@lastmod(2015-06-28)
 
   @bold(@NoAutoLink(TelemetryStrings))
 
@@ -21,7 +21,7 @@
   routines designed to return human readable (i.e. textual) representation of
   binary data stored in variables of selected types.
 
-  Last change:  2015-04-20
+  Last change:  2015-06-28
 
   Change List:@unorderedList(
     @item(2014-04-30 - First stable version.)

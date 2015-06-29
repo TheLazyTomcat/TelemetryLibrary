@@ -9,7 +9,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-11-25)
+@lastmod(2015-06-29)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
@@ -31,7 +31,7 @@
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change:  2014-11-25
+  Last change:  2015-06-29
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)

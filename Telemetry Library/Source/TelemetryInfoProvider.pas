@@ -9,7 +9,7 @@
 @abstract(Information provider class (known telemetry events, channels, etc.).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2014-11-24)
+@lastmod(2015-06-28)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
@@ -18,7 +18,7 @@
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
 
-  Last change:  2014-11-24
+  Last change:  2015-06-28
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)

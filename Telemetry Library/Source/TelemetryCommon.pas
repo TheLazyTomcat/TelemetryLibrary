@@ -9,7 +9,7 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-04-20)
+@lastmod(2015-06-25)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
@@ -18,7 +18,7 @@
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).
 
-  Last change:  2015-04-20
+  Last change:  2015-06-25
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)

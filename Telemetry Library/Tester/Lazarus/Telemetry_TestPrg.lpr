@@ -43,7 +43,7 @@ uses
   TelemetryVersionObjects,                                   //* -
   TelemetryInfoProvider,                                     //* -
   TelemetryRecipient,                                        //* -
-  TelemetryRecipientBinder,                                  //*
+  TelemetryRecipientBinder,                                  //* -
 
 //  TelemetrySCS_Examples_telemetry,                           //*
 //  TelemetrySCS_Examples_telemetry_position,                  //*
