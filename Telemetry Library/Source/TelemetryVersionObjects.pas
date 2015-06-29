@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Base classes for objects that are checked for telemetry and game
           version support.)
 @author(František Milt <fmilt@seznam.cz>)
@@ -85,7 +85,7 @@ type
 {==============================================================================}
 {   TTelemetryAbstractVersionObject // Class declaration                       }
 {==============================================================================}
-{
+{:
   @abstract(Common, fully abstract ancestor for all classes that needs to be
   checked for version support before creation of an instance.)
 
@@ -99,30 +99,30 @@ type
 }
   TTelemetryAbstractVersionObject = class(TObject)
   public
-  {
+  {:
     @returns Highest supported telemetry version.
   }
     class Function HighestSupportedTelemetryVersion: scs_u32_t; virtual; abstract;
-  {
+  {:
     @param GameID Game identifier.
 
     @returns Highest supported version of passed game.
   }
     class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; virtual; abstract;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
 
     @returns @True when given telemetry version is supported, otherwise @false.
   }
     class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual; abstract;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
 
     @returns(@True when given telemetry major version is supported (minor part
              is ignored), otherwise @false.)
   }
     class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; virtual; abstract;
-  {
+  {:
     @param GameID       Game identifier.
     @param GameVersion  Version of game.
 
@@ -130,7 +130,7 @@ type
              @false.)
   }
     class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
     @param GameID           Game identifier.
     @param GameVersion      Version of game.
@@ -139,7 +139,7 @@ type
              otherwise @false.)
   }
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
     @param Parameters       Structure containing other version informations.
 
@@ -158,7 +158,7 @@ type
 {==============================================================================}
 {   TTelemetryVersionObject // Class declaration                               }
 {==============================================================================}
-{
+{:
   @abstract(Common ancestor for all classes that needs to be checked for version
   support before creation of an instance.)
 
@@ -188,19 +188,19 @@ type
 }
   TTelemetryVersionObject = class(TTelemetryAbstractVersionObject)
   public
-    //HighestSupportedTelemetryVersion See @inherited.
+    //:HighestSupportedTelemetryVersion See @inherited.
     class Function HighestSupportedTelemetryVersion: scs_u32_t; override;
-    //HighestSupportedGameVersion See @inherited.
+    //:HighestSupportedGameVersion See @inherited.
     class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; override;
-    //SupportsTelemetryVersion See @inherited.
+    //:SupportsTelemetryVersion See @inherited.
     class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-    //SupportsTelemetryMajorVersion See @inherited.
+    //:SupportsTelemetryMajorVersion See @inherited.
     class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-    //SupportsGameVersion See @inherited.
+    //:SupportsGameVersion See @inherited.
     class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-    //SupportsTelemetryAndGameVersion See @inherited.
+    //:SupportsTelemetryAndGameVersion See @inherited.
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-    //SupportsTelemetryAndGameVersionParam See @inherited.
+    //:SupportsTelemetryAndGameVersionParam See @inherited.
     class Function SupportsTelemetryAndGameVersionParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; override;
   end;
 
@@ -214,7 +214,7 @@ type
 {==============================================================================}
 {   TTelemetryVersionPrepareObject // Class declaration                        }
 {==============================================================================}
-{
+{:
   @abstract(Common ancestor for all classes that needs to be prepared for
   selected telemetry and/or game version.)
 
@@ -227,66 +227,66 @@ type
 }
   TTelemetryVersionPrepareObject = class(TTelemetryVersionObject)
   protected
-  {
+  {:
   Preparation for telemetry 1.0.
   }
     procedure Prepare_Telemetry_1_0; virtual;
-  {
+  {:
   Preparation for eut2 1.0.
   }
     procedure Prepare_Game_eut2_1_0; virtual;
-  {
+  {:
   Preparation for eut2 1.1.@br
   Calls Prepare_Game_eut2_1_0.
   }
     procedure Prepare_Game_eut2_1_1; virtual;
-  {
+  {:
   Preparation for eut2 1.2.@br
   Calls Prepare_Game_eut2_1_1.
   }
     procedure Prepare_Game_eut2_1_2; virtual;
-  {
+  {:
   Preparation for eut2 1.3.@br
   Calls Prepare_Game_eut2_1_2.
   }
     procedure Prepare_Game_eut2_1_3; virtual;
-  {
+  {:
   Preparation for eut2 1.4.@br
   Calls Prepare_Game_eut2_1_3.
   }
     procedure Prepare_Game_eut2_1_4; virtual;
-  {
+  {:
   Preparation for eut2 1.5.@br
   Calls Prepare_Game_eut2_1_4.
   }
     procedure Prepare_Game_eut2_1_5; virtual;
-  {
+  {:
   Preparation for eut2 1.6.@br
   Calls Prepare_Game_eut2_1_5.
   }
     procedure Prepare_Game_eut2_1_6; virtual;
-  {
+  {:
   Preparation for eut2 1.7.@br
   Calls Prepare_Game_eut2_1_6.
   }
     procedure Prepare_Game_eut2_1_7; virtual;
-  {
+  {:
   Preparation for eut2 1.8.@br
   Calls Prepare_Game_eut2_1_7.
   }
     procedure Prepare_Game_eut2_1_8; virtual;
-  {
+  {:
   Preparation for eut2 1.9.@br
   Calls Prepare_Game_eut2_1_8.
   }
     procedure Prepare_Game_eut2_1_9; virtual;
-  {
+  {:
   Preparation for eut2 1.10.@br
   Calls Prepare_Game_eut2_1_9.
   }
     procedure Prepare_Game_eut2_1_10; virtual;
   public
-  {
+  {:
     Performs any preparations necessary to support required telemetry version.
 
     @param(TelemetryVersion Version of telemetry for which the object should be
@@ -296,7 +296,7 @@ type
              otherwise @false.)
   }
     Function PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; virtual;
-  {
+  {:
     Performs preparations necessary to support required game and its version.
 
     @param GameName     Name of the game.
@@ -307,7 +307,7 @@ type
              successfully, otherwise @false.)
   }
     Function PrepareForGameVersion(const {%H-}GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
-  {
+  {:
     Performs preparations necessary to support required telemetry version and
     game and its version.
 
@@ -321,7 +321,7 @@ type
              version were done successfully, otherwise @false.)
   }
     Function PrepareFor(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;
-  {
+  {:
     Performs preparations necessary to support required telemetry version and
     game and its version.
 

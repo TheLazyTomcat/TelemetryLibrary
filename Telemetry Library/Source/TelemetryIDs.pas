@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Unit providing constans with precalculated IDs a others stuff around
           IDs generally.)
 @author(František Milt <fmilt@seznam.cz>)
@@ -229,23 +229,23 @@ uses
 {==============================================================================}
 
 const
-  // Character used as a separator for config + config_attribute conglomerate.
+  //:Character used as a separator for config + config_attribute conglomerate.
   ConfigFieldsSeparator = '.';
 
 type
-  // General item identifier. All other item identifiers are of this type.
+  //:General item identifier. All other item identifiers are of this type.
   TItemID = TCRC32;
-  // Pointer to a variable of type TItemID
+  //:Pointer to a variable of type TItemID
   PItemID = ^TITemID;
 
-  // Channel identifier obtained from its name.
+  //:Channel identifier obtained from its name.
   TChannelID = TItemID;
-  // Pointer to a variable of type TChannelID.
+  //:Pointer to a variable of type TChannelID.
   PChannelID = ^TChannelID;
 
-  // Configuration identifier obtained from full config name.
+  //:Configuration identifier obtained from full config name.
   TConfigID = TItemID;
-  // Pointer to a variable of type TConfigID.
+  //:Pointer to a variable of type TConfigID.
   PConfigID = ^TConfigID;
 
 {==============================================================================}
@@ -253,116 +253,116 @@ type
 {==============================================================================}
 
 const
-  // Full name of config attribute @code(id) in @code(substances) configuration.
+  //:Full name of config attribute @code(id) in @code(substances) configuration.
   SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id: TelemetryString = SCS_TELEMETRY_CONFIG_substances + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;
 
-  // Full name of config attribute @code(shifter_type) in @code(controls) configuration.
+  //:Full name of config attribute @code(shifter_type) in @code(controls) configuration.
   SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type: TelemetryString = SCS_TELEMETRY_CONFIG_controls + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type;
 
-  // Full name of config attribute @code(selector_count) in @code(hshifter) configuration.
+  //:Full name of config attribute @code(selector_count) in @code(hshifter) configuration.
   SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count;
-  // Full name of config attribute @code(slot_gear) in @code(hshifter) configuration.
+  //:Full name of config attribute @code(slot_gear) in @code(hshifter) configuration.
   SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear:            TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear;
-  // Full name of config attribute @code(slot_handle_position) in @code(hshifter) configuration.
+  //:Full name of config attribute @code(slot_handle_position) in @code(hshifter) configuration.
   SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position: TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position;
-  // Full name of config attribute @code(slot_selectors) in @code(hshifter) configuration.
+  //:Full name of config attribute @code(slot_selectors) in @code(hshifter) configuration.
   SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors;
 
-  // Full name of config attribute @code(brand_id) in @code(truck) configuration.
+  //:Full name of config attribute @code(brand_id) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id:                  TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id;
-  // Full name of config attribute @code(brand) in @code(truck) configuration.
+  //:Full name of config attribute @code(brand) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand:                     TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand;
-  // Full name of config attribute @code(id) in @code(truck) configuration.
+  //:Full name of config attribute @code(id) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id:                        TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;
-  // Full name of config attribute @code(name) in @code(truck) configuration.
+  //:Full name of config attribute @code(name) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name:                      TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name;
-  // Full name of config attribute @code(fuel_capacity) in @code(truck) configuration.
+  //:Full name of config attribute @code(fuel_capacity) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity;
-  // Full name of config attribute @code(fuel_warning_factor) in @code(truck) configuration.
+  //:Full name of config attribute @code(fuel_warning_factor) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor;
-  // Full name of config attribute @code(adblue_capacity ) in @code(truck) configuration.
+  //:Full name of config attribute @code(adblue_capacity ) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity;
-  // Full name of config attribute @code(air_pressure_warning ) in @code(truck) configuration.
+  //:Full name of config attribute @code(air_pressure_warning ) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning;
-  // Full name of config attribute @code(air_pressure_emergency) in @code(truck) configuration.
+  //:Full name of config attribute @code(air_pressure_emergency) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency:    TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency;
-  // Full name of config attribute @code(oil_pressure_warning) in @code(truck) configuration.
+  //:Full name of config attribute @code(oil_pressure_warning) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning;
-  // Full name of config attribute @code(water_temperature_warning) in @code(truck) configuration.
+  //:Full name of config attribute @code(water_temperature_warning) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning: TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning;
-  // Full name of config attribute @code(battery_voltage_warning) in @code(truck) configuration.
+  //:Full name of config attribute @code(battery_voltage_warning) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning:   TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning;
-  // Full name of config attribute @code(rpm_limit) in @code(truck) configuration.
+  //:Full name of config attribute @code(rpm_limit) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit:                 TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit;
-  // Full name of config attribute @code(forward_gear_count) in @code(truck) configuration.
+  //:Full name of config attribute @code(forward_gear_count) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count;
-  // Full name of config attribute @code(reverse_gear_count) in @code(truck) configuration.
+  //:Full name of config attribute @code(reverse_gear_count) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count;
-  // Full name of config attribute @code(retarder_step_count) in @code(truck) configuration.
+  //:Full name of config attribute @code(retarder_step_count) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count;
-  // Full name of config attribute @code(cabin_position) in @code(truck) configuration.
+  //:Full name of config attribute @code(cabin_position) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position;
-  // Full name of config attribute @code(head_position) in @code(truck) configuration.
+  //:Full name of config attribute @code(head_position) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position;
-  // Full name of config attribute @code(hook_position) in @code(truck) configuration.
+  //:Full name of config attribute @code(hook_position) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;
-  // Full name of config attribute @code(wheel_count) in @code(truck) configuration.
+  //:Full name of config attribute @code(wheel_count) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count:               TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;
-  // Full name of config attribute @code(wheel_position) in @code(truck) configuration.
+  //:Full name of config attribute @code(wheel_position) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;
-  // Full name of config attribute @code(wheel_steerable) in @code(truck) configuration.
+  //:Full name of config attribute @code(wheel_steerable) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;
-  // Full name of config attribute @code(wheel_simulated) in @code(truck) configuration.
+  //:Full name of config attribute @code(wheel_simulated) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;
-  // Full name of config attribute @code(wheel_radius) in @code(truck) configuration.
+  //:Full name of config attribute @code(wheel_radius) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius:              TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;
-  // Full name of config attribute @code(wheel_liftable) in @code(truck) configuration.
+  //:Full name of config attribute @code(wheel_liftable) in @code(truck) configuration.
   SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable;
 
 
-  // Full name of config attribute @code(id) in @code(trailer) configuration.
+  //:Full name of config attribute @code(id) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id:                  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;
-  // Full name of config attribute @code(cargo_accessory_id) in @code(trailer) configuration.
+  //:Full name of config attribute @code(cargo_accessory_id) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id:  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id;
-  // Full name of config attribute @code(hook_position) in @code(trailer) configuration.
+  //:Full name of config attribute @code(hook_position) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position:       TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;
-  // Full name of config attribute @code(wheel_count) in @code(trailer) configuration.
+  //:Full name of config attribute @code(wheel_count) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count:         TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;
-  // Full name of config attribute @code(wheel_position) in @code(trailer) configuration.
+  //:Full name of config attribute @code(wheel_position) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position:      TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;
-  // Full name of config attribute @code(wheel_steerable) in @code(trailer) configuration.
+  //:Full name of config attribute @code(wheel_steerable) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;
-  // Full name of config attribute @code(wheel_simulated) in @code(trailer) configuration.
+  //:Full name of config attribute @code(wheel_simulated) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;
-  // Full name of config attribute @code(wheel_radius) in @code(trailer) configuration.
+  //:Full name of config attribute @code(wheel_radius) in @code(trailer) configuration.
   SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius:        TelemetryString = SCS_TELEMETRY_CONFIG_trailer + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;
 
 
-  // Full name of config attribute @code(cargo_id) in @code(job) configuration.
+  //:Full name of config attribute @code(cargo_id) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id:                TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id;
-  // Full name of config attribute @code(cargo) in @code(job) configuration.
+  //:Full name of config attribute @code(cargo) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo:                   TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo;
-  // Full name of config attribute @code(cargo_mass) in @code(job) configuration.
+  //:Full name of config attribute @code(cargo_mass) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass:              TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass;
-  // Full name of config attribute @code(destination_city_id) in @code(job) configuration.
+  //:Full name of config attribute @code(destination_city_id) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id:     TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id;
-  // Full name of config attribute @code(destination_city) in @code(job) configuration.
+  //:Full name of config attribute @code(destination_city) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city:        TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city;
-  // Full name of config attribute @code(destination_company_id) in @code(job) configuration.
+  //:Full name of config attribute @code(destination_company_id) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id:  TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id;
-  // Full name of config attribute @code(destination_company) in @code(job) configuration.
+  //:Full name of config attribute @code(destination_company) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company:     TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company;
-  // Full name of config attribute @code(source_city_id) in @code(job) configuration.
+  //:Full name of config attribute @code(source_city_id) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id:          TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id;
-  // Full name of config attribute @code(source_city) in @code(job) configuration.
+  //:Full name of config attribute @code(source_city) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city:             TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city;
-  // Full name of config attribute @code(source_company_id) in @code(job) configuration.
+  //:Full name of config attribute @code(source_company_id) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id:       TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id;
-  // Full name of config attribute @code(source_company) in @code(job) configuration.
+  //:Full name of config attribute @code(source_company) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company:          TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company;
-  // Full name of config attribute @code(income)  in @code(job) configuration.
+  //:Full name of config attribute @code(income)  in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income:                  TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income;
-  // Full name of config attribute @code(delivery_time) in @code(job) configuration.
+  //:Full name of config attribute @code(delivery_time) in @code(job) configuration.
   SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time:           TelemetryString = SCS_TELEMETRY_CONFIG_job + ConfigFieldsSeparator + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time;
 
 {$IFDEF TrueIDConstants}
@@ -372,317 +372,317 @@ const
 {   Config IDs                                                                 }
 {==============================================================================}
 
-  // Identification number for SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id                   = TConfigID($A1E920F4);
 
-  // Identification number for SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type config.
   SCS_TELEMETRY_CONFIG_ID_controls_ATTRIBUTE_shifter_type           = TConfigID($37BA5313);
 
-  // Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_selector_count         = TConfigID($AA57ECAD);
-  // Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_gear              = TConfigID($601E49BB);
-  // Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_handle_position   = TConfigID($4C2725D0);
-  // Identification number for SCS_TELEMETRY_CONFIG_shifter_ATTRIBUTE_slot_selectors config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_shifter_ATTRIBUTE_slot_selectors config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_selectors         = TConfigID($1705F155);
 
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand_id                  = TConfigID($CFEC235C);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand                     = TConfigID($5DF796E6);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_id                        = TConfigID($93A67EA9);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_name                      = TConfigID($FF36A0AD);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_capacity             = TConfigID($FFEA5570);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_warning_factor       = TConfigID($766BF114);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_adblue_capacity           = TConfigID($CBE6B731);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_warning      = TConfigID($C58F8B5A);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_emergency    = TConfigID($78FAD40D);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_oil_pressure_warning      = TConfigID($1A1815C5); 
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_water_temperature_warning = TConfigID($783F3300);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_battery_voltage_warning   = TConfigID($26000473);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_rpm_limit                 = TConfigID($96F2B46D);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_forward_gear_count        = TConfigID($620CEB70);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_reverse_gear_count        = TConfigID($2FEA55E1);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_retarder_step_count       = TConfigID($F8E36BF0);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_cabin_position            = TConfigID($E37B50B2);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_head_position             = TConfigID($59DED2CB);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_hook_position             = TConfigID($10944A21);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_count               = TConfigID($D634DC01);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_position            = TConfigID($61874258);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_steerable           = TConfigID($91817077);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated           = TConfigID($27B8658F);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius              = TConfigID($60D54CB6);
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable            = TConfigID($3545511A);
 
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id                      = TConfigID($E3F34E9A);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_cargo_accessory_id      = TConfigID($7E792A8A);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_hook_position           = TConfigID($5D7A70AD);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_count             = TConfigID($8A6F0861);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_position          = TConfigID($85C46369);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_steerable         = TConfigID($C0BB336C);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_simulated         = TConfigID($76822694);
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_radius            = TConfigID($3C8E98D6);
 
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_cargo_id                    = TConfigID($5496B30A);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_cargo                       = TConfigID($FACC3465);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_cargo_mass                  = TConfigID($ADE913DA);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_city_id         = TConfigID($88567D8E);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_city            = TConfigID($74BCA7CC);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_company_id      = TConfigID($AB6BFF9D);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_company         = TConfigID($19761409);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_city_id              = TConfigID($DA64182F);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_city                 = TConfigID($34E0989A);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_company_id           = TConfigID($A38C06FA);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_company              = TConfigID($4B4471A8);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_income                      = TConfigID($25B394CE);
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_delivery_time               = TConfigID($A604955F);
 
 {==============================================================================}
 {   Channel IDs                                                                }
 {==============================================================================}
 
-  // Identification number for @code(SCS_TELEMETRY_CHANNEL_local_scale) channel.
+  //:Identification number for @code(SCS_TELEMETRY_CHANNEL_local_scale) channel.
   SCS_TELEMETRY_CHANNEL_ID_local_scale                        = TChannelID($33DE67E4);
-  // Identification number for @code(SCS_TELEMETRY_CHANNEL_game_time) channel.
+  //:Identification number for @code(SCS_TELEMETRY_CHANNEL_game_time) channel.
   SCS_TELEMETRY_CHANNEL_ID_game_time                          = TChannelID($40333D16);
-  // Identification number for @code(SCS_TELEMETRY_CHANNEL_next_rest_stop) channel.
+  //:Identification number for @code(SCS_TELEMETRY_CHANNEL_next_rest_stop) channel.
   SCS_TELEMETRY_CHANNEL_ID_next_rest_stop                     = TChannelID($0B878C8C);
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_connected) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_connected) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_connected                  = TChannelID($7007CCEE);
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_world_placement            = TChannelID($3A729370);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_linear_velocity      = TChannelID($AE80C1D0);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_angular_velocity     = TChannelID($A2981BDF);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_linear_acceleration  = TChannelID($99A57FA9);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_angular_acceleration = TChannelID($8B76F7F9);
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wear_chassis               = TChannelID($E071BE1A);
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_susp_deflection      = TChannelID($1E44DA91);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_on_ground            = TChannelID($9A68642F);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_substance            = TChannelID($1DFBFCF1);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_velocity             = TChannelID($C387243E);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_steering             = TChannelID($3B417600);
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_rotation             = TChannelID($EA941F6D);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement              = TChannelID($6B48D06B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_linear_velocity        = TChannelID($5D9D7AB3);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_angular_velocity       = TChannelID($76D03686);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_linear_acceleration    = TChannelID($A2E5F90F);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_angular_acceleration   = TChannelID($B4F8B1A2);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_orientation) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_orientation) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_orientation            = TChannelID($36F3F15D);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_offset                 = TChannelID($303DEF2A);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_angular_velocity       = TChannelID($10976F36);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_angular_acceleration   = TChannelID($D10EF7A8);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_head_offset                  = TChannelID($EEE287E8);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_speed) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_speed) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_speed                        = TChannelID($4E839148);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_rpm                   = TChannelID($160E7B38);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_gear                  = TChannelID($9582C042);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_steering               = TChannelID($DCFA7E3B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_throttle               = TChannelID($CF8FC74B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_brake                  = TChannelID($5EEDB702);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_clutch                 = TChannelID($F5ECF339);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_steering           = TChannelID($94181EAB);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_throttle           = TChannelID($876DA7DB);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_brake              = TChannelID($47E5F7F0);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_clutch             = TChannelID($A6466849);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cruise_control               = TChannelID($C31E2094);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_hshifter_slot                = TChannelID($36C98B9D);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_hshifter_selector            = TChannelID($E4A50350);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_parking_brake                = TChannelID($5664B035);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_motor_brake                  = TChannelID($8E0C8ABA);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_retarder_level               = TChannelID($A8D6B016);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_air_pressure           = TChannelID($9384DD05);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_air_pressure_warning   = TChannelID($C58F8B5A);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_temperature            = TChannelID($E1AE4E3F);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_air_pressure_emergency = TChannelID($78FAD40D);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_fuel                         = TChannelID($C298DD2D);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_fuel_warning                 = TChannelID($9D0FD9A2);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_fuel_average_consumption     = TChannelID($013149D4);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_adblue                       = TChannelID($8D32829D);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_adblue_warning               = TChannelID($FF3464CB);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_adblue_average_consumption   = TChannelID($C253FC24);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_oil_pressure                 = TChannelID($A368F9A6);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_oil_pressure_warning         = TChannelID($1A1815C5);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_oil_temperature              = TChannelID($405A67E9);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_water_temperature            = TChannelID($B8B46564);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_water_temperature_warning    = TChannelID($783F3300);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_battery_voltage              = TChannelID($91BB0105);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_battery_voltage_warning      = TChannelID($26000473);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_electric_enabled             = TChannelID($9D4D7843);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_enabled               = TChannelID($FACA0BF9);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_lblinker                     = TChannelID($A7B8351B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_rblinker                     = TChannelID($CE891602);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_parking                = TChannelID($6931D205);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_rblinker               = TChannelID($85F18F7B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_lblinker               = TChannelID($ECC0AC62);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_low_beam               = TChannelID($612D677D);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_high_beam              = TChannelID($7E93DFB5);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_aux_front              = TChannelID($D6464C43);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_aux_roof               = TChannelID($5ADBA32B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_beacon                 = TChannelID($990180CD);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_brake                  = TChannelID($E2790B7B);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_reverse                = TChannelID($71711168);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wipers) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wipers) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wipers                       = TChannelID($EE7920A7);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_dashboard_backlight          = TChannelID($91DA5D6D);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_engine                  = TChannelID($D89A5F14);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_transmission            = TChannelID($ABB45C97);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_cabin                   = TChannelID($49F699F6);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_chassis                 = TChannelID($BC2A6A7A);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_wheels                  = TChannelID($7C35EF18);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_odometer) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_odometer) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_odometer                     = TChannelID($F988B0E0);
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_susp_deflection        = TChannelID($369CAB49);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_on_ground              = TChannelID($CB522734);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_substance              = TChannelID($4CC1BFEA);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_velocity               = TChannelID($B7B25C28);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_steering               = TChannelID($DF025731);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation               = TChannelID($0ED73E5C);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift                   = TChannelID($F8BC370D);
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset            = TChannelID($046B7B44);
 
 {$ELSE}
@@ -693,317 +693,317 @@ const
 {   Config IDs                                                                 }
 {==============================================================================}
 
-  // Identification number for SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id:                   TConfigID = $A1E920F4;
 
-  // Identification number for SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type config.
   SCS_TELEMETRY_CONFIG_ID_controls_ATTRIBUTE_shifter_type:           TConfigID = $37BA5313;
 
-  // Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_selector_count:         TConfigID = $AA57ECAD;
-  // Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_gear:              TConfigID = $601E49BB;
-  // Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_handle_position:   TConfigID = $4C2725D0;
-  // Identification number for SCS_TELEMETRY_CONFIG_shifter_ATTRIBUTE_slot_selectors config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_shifter_ATTRIBUTE_slot_selectors config.
   SCS_TELEMETRY_CONFIG_ID_hshifter_ATTRIBUTE_slot_selectors:         TConfigID = $1705F155;
 
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand_id:                  TConfigID = $CFEC235C;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_brand:                     TConfigID = $5DF796E6;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_id:                        TConfigID = $93A67EA9;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_name:                      TConfigID = $FF36A0AD;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_capacity:             TConfigID = $FFEA5570;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_fuel_warning_factor:       TConfigID = $766BF114;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_adblue_capacity:           TConfigID = $CBE6B731;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_warning:      TConfigID = $C58F8B5A;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_air_pressure_emergency:    TConfigID = $78FAD40D;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_oil_pressure_warning:      TConfigID = $1A1815C5; 
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_water_temperature_warning: TConfigID = $783F3300;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_battery_voltage_warning:   TConfigID = $26000473;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_rpm_limit:                 TConfigID = $96F2B46D;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_forward_gear_count:        TConfigID = $620CEB70;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_reverse_gear_count:        TConfigID = $2FEA55E1;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_retarder_step_count:       TConfigID = $F8E36BF0;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_cabin_position:            TConfigID = $E37B50B2;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_head_position:             TConfigID = $59DED2CB;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_hook_position:             TConfigID = $10944A21;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_count:               TConfigID = $D634DC01;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_position:            TConfigID = $61874258;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_steerable:           TConfigID = $91817077;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_simulated:           TConfigID = $27B8658F;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_radius:              TConfigID = $60D54CB6;
-  // Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable config.
   SCS_TELEMETRY_CONFIG_ID_truck_ATTRIBUTE_wheel_liftable:            TConfigID = $3545511A;
 
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_id:                      TConfigID = $E3F34E9A;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_cargo_accessory_id:      TConfigID = $7E792A8A;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_hook_position:           TConfigID = $5D7A70AD;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_count:             TConfigID = $8A6F0861;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_position:          TConfigID = $85C46369;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_steerable:         TConfigID = $C0BB336C;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_simulated:         TConfigID = $76822694;
-  // Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius config.
+  //:Identification number for SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius config.
   SCS_TELEMETRY_CONFIG_ID_trailer_ATTRIBUTE_wheel_radius:            TConfigID = $3C8E98D6;
 
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_cargo_id:                    TConfigID = $5496B30A;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_cargo:                       TConfigID = $FACC3465;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_cargo_mass:                  TConfigID = $ADE913DA;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_city_id:         TConfigID = $88567D8E;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_city:            TConfigID = $74BCA7CC;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_company_id:      TConfigID = $AB6BFF9D;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_destination_company:         TConfigID = $19761409;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_city_id:              TConfigID = $DA64182F;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_city:                 TConfigID = $34E0989A;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_company_id:           TConfigID = $A38C06FA;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_source_company:              TConfigID = $4B4471A8;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_income:                      TConfigID = $25B394CE;
-  // Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time.
+  //:Identification number for SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time.
   SCS_TELEMETRY_CONFIG_ID_job_ATTRIBUTE_delivery_time:               TConfigID = $A604955F;
 
 {==============================================================================}
 {   Channel IDs                                                                }
 {==============================================================================}
 
-  // Identification number for @code(SCS_TELEMETRY_CHANNEL_local_scale) channel.
+  //:Identification number for @code(SCS_TELEMETRY_CHANNEL_local_scale) channel.
   SCS_TELEMETRY_CHANNEL_ID_local_scale:                        TChannelID = $33DE67E4;
-  // Identification number for @code(SCS_TELEMETRY_CHANNEL_game_time) channel.
+  //:Identification number for @code(SCS_TELEMETRY_CHANNEL_game_time) channel.
   SCS_TELEMETRY_CHANNEL_ID_game_time:                          TChannelID = $40333D16;
-  // Identification number for @code(SCS_TELEMETRY_CHANNEL_next_rest_stop) channel.
+  //:Identification number for @code(SCS_TELEMETRY_CHANNEL_next_rest_stop) channel.
   SCS_TELEMETRY_CHANNEL_ID_next_rest_stop:                     TChannelID = $0B878C8C;
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_connected) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_connected) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_connected:                  TChannelID = $7007CCEE;
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_world_placement:            TChannelID = $3A729370;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_linear_velocity:      TChannelID = $AE80C1D0;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_angular_velocity:     TChannelID = $A2981BDF;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_linear_acceleration:  TChannelID = $99A57FA9;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_local_angular_acceleration: TChannelID = $8B76F7F9;
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wear_chassis:               TChannelID = $E071BE1A;
 
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_susp_deflection:      TChannelID = $1E44DA91;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_on_ground:            TChannelID = $9A68642F;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_substance:            TChannelID = $1DFBFCF1;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_velocity:             TChannelID = $C387243E;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_steering:             TChannelID = $3B417600;
-  // Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation) channel.
   SCS_TELEMETRY_TRAILER_CHANNEL_ID_wheel_rotation:             TChannelID = $EA941F6D;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_world_placement:              TChannelID = $6B48D06B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_linear_velocity:        TChannelID = $5D9D7AB3;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_angular_velocity:       TChannelID = $76D03686;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_linear_acceleration:    TChannelID = $A2E5F90F;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_local_angular_acceleration:   TChannelID = $B4F8B1A2;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_orientation) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_orientation) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_orientation:            TChannelID = $36F3F15D;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_offset:                 TChannelID = $303DEF2A;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_angular_velocity:       TChannelID = $10976F36;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cabin_angular_acceleration:   TChannelID = $D10EF7A8;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_head_offset:                  TChannelID = $EEE287E8;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_speed) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_speed) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_speed:                        TChannelID = $4E839148;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_rpm:                   TChannelID = $160E7B38;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_gear:                  TChannelID = $9582C042;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_steering:               TChannelID = $DCFA7E3B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_throttle:               TChannelID = $CF8FC74B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_brake:                  TChannelID = $5EEDB702;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_input_clutch:                 TChannelID = $F5ECF339;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_steering:           TChannelID = $94181EAB;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_throttle:           TChannelID = $876DA7DB;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_brake:              TChannelID = $47E5F7F0;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_effective_clutch:             TChannelID = $A6466849;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_cruise_control:               TChannelID = $C31E2094;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_hshifter_slot:                TChannelID = $36C98B9D;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_hshifter_selector:            TChannelID = $E4A50350;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_parking_brake:                TChannelID = $5664B035;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_motor_brake:                  TChannelID = $8E0C8ABA;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_retarder_level:               TChannelID = $A8D6B016;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_air_pressure:           TChannelID = $9384DD05;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_air_pressure_warning:   TChannelID = $C58F8B5A;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_temperature:            TChannelID = $E1AE4E3F;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_brake_air_pressure_emergency: TChannelID = $78FAD40D;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_fuel:                         TChannelID = $C298DD2D;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_fuel_warning:                 TChannelID = $9D0FD9A2;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_fuel_average_consumption:     TChannelID = $013149D4;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_adblue:                       TChannelID = $8D32829D;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_adblue_warning:               TChannelID = $FF3464CB;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_adblue_average_consumption:   TChannelID = $C253FC24;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_oil_pressure:                 TChannelID = $A368F9A6;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_oil_pressure_warning:         TChannelID = $1A1815C5;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_oil_temperature:              TChannelID = $405A67E9;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_water_temperature:            TChannelID = $B8B46564;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_water_temperature_warning:    TChannelID = $783F3300;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_battery_voltage:              TChannelID = $91BB0105;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_battery_voltage_warning:      TChannelID = $26000473;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_electric_enabled:             TChannelID = $9D4D7843;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_engine_enabled:               TChannelID = $FACA0BF9;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_lblinker:                     TChannelID = $A7B8351B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_rblinker:                     TChannelID = $CE891602;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_parking:                TChannelID = $6931D205;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_rblinker:               TChannelID = $85F18F7B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_lblinker:               TChannelID = $ECC0AC62;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_low_beam:               TChannelID = $612D677D;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_high_beam:              TChannelID = $7E93DFB5;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_aux_front:              TChannelID = $D6464C43;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_aux_roof:               TChannelID = $5ADBA32B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_beacon:                 TChannelID = $990180CD;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_brake:                  TChannelID = $E2790B7B;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_light_reverse:                TChannelID = $71711168;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wipers) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wipers) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wipers:                       TChannelID = $EE7920A7;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_dashboard_backlight:          TChannelID = $91DA5D6D;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_engine:                  TChannelID = $D89A5F14;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_transmission:            TChannelID = $ABB45C97;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_cabin:                   TChannelID = $49F699F6;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_chassis:                 TChannelID = $BC2A6A7A;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wear_wheels:                  TChannelID = $7C35EF18;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_odometer) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_odometer) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_odometer:                     TChannelID = $F988B0E0;
 
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_susp_deflection:        TChannelID = $369CAB49;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_on_ground:              TChannelID = $CB522734;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_substance:              TChannelID = $4CC1BFEA;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_velocity:               TChannelID = $B7B25C28;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_steering:               TChannelID = $DF025731;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_rotation:               TChannelID = $0ED73E5C;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift:                   TChannelID = $F8BC370D;
-  // Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
+  //:Identification number for @code(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset) channel.
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset:            TChannelID = $046B7B44;
 
 {$WRITEABLECONST OFF}
@@ -1013,7 +1013,7 @@ const
 {   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
-{
+{:
   @abstract(Function used to get identifier of passed item name.)
   At the moment, identifiers are implemented as CRC32 checksum of given item
   name (string).
@@ -1026,7 +1026,7 @@ const
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns textual representation of item ID.)
 
   @param ID Item ID to be converted to text.
@@ -1038,7 +1038,7 @@ const
 //------------------------------------------------------------------------------
 
 {$IFNDEF PrecomputedItemID}
-{
+{:
   @abstract(Procedure calculating identification numbers for channels and
   configs.)
   When you call this routine, it recalculates all ID constants. Use it only when
@@ -1052,7 +1052,7 @@ const
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns full config name composed from config ID and attribute name separated
   by ConfigFieldsSeparator.
 
@@ -1065,7 +1065,7 @@ const
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Removes passed config ID from full config name.)
   @bold(Note) - function does not control whether passed name truly starts with
   given config ID. It simply removes number of characters corresponding to

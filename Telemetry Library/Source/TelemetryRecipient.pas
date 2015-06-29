@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
@@ -224,8 +224,8 @@ uses
 {==============================================================================}
 
 const
-  // Maximum allowed channel index, see TTelemetryRecipient.ChannelRegisterAll
-  // method for details.
+  //:Maximum allowed channel index, see TTelemetryRecipient.ChannelRegisterAll
+  //:method for details.
 {$IFDEF SmallMaxChannelIndex}
   MaxChannelIndex = 13;
 {$ELSE}
@@ -233,23 +233,23 @@ const
 {$ENDIF}
 
 type
-  // Enumerated type used in method TTelemetryRecipient.SetGameCallback to set
-  // one particular game callback.
+  //:Enumerated type used in method TTelemetryRecipient.SetGameCallback to set
+  //:one particular game callback.
   TGameCallback = (gcbLog, gcbEventReg, gcbEventUnreg, gcbChannelReg, gcbChannelUnreg);
 
-  // Event type used when recipient writes to game log.
+  //:Event type used when recipient writes to game log.
   TLogEvent = procedure(Sender: TObject; LogType: scs_log_type_t; const LogText: String) of object;
-  // Event type used when telemetry event is registered or unregistered.
+  //:Event type used when telemetry event is registered or unregistered.
   TEventRegisterEvent = procedure(Sender: TObject; Event: scs_event_t; UserData: Pointer) of object;
-  // Event type used when telemetery event occurs.
+  //:Event type used when telemetery event occurs.
   TEventEvent = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer) of object;
-  // Event type used when telemetry channel is registered.
+  //:Event type used when telemetry channel is registered.
   TChannelRegisterEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of object;
-  // Event type used when telemetry channel is unregistered.
+  //:Event type used when telemetry channel is unregistered.
   TChannelUnregisterEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of object;
-  // Event type used when telemetery channel callback occurs.
+  //:Event type used when telemetery channel callback occurs.
   TChannelEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of object;
-  // Event type used when config is parsed from configuration telemetry event.
+  //:Event type used when config is parsed from configuration telemetry event.
   TConfigEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
 {$IFDEF IncludeMulticastEventHandlers}
@@ -267,7 +267,7 @@ type
 {==============================================================================}
 {   TTelemetryRecipient // Class declaration                                   }
 {==============================================================================}
-{
+{:
   @abstract(@NoAutoLink(TTelemetryRecipient) is used as a main way to control
   the telemetry API.)
 
@@ -335,196 +335,196 @@ type
 }
   TTelemetryRecipient = class(TTelemetryVersionPrepareObject)
   private
-  {
+  {:
     Holds state indicating whether current instance is user managed (when not,
     it is managed automatically).@br
     This field is set automatically in constructor(s).
   }
     fUserManaged:               Boolean;
-  {
+  {:
     See AllowAutoRegistration property.
   }
     fAllowAutoRegistration:     Boolean;
-  {
+  {:
     See TelemetryInfoProvider property.
   }
     fInfoProvider:              TTelemetryInfoProvider;
-  {
+  {:
     See RegisteredEvents property.
   }
     fRegisteredEvents:          TRegisteredEventsList;
-  {
+  {:
     See RegisteredChannels property.
   }
     fRegisteredChannels:        TRegisteredChannelsList;
-  {
+  {:
     See StoredConfigs property.
   }
     fStoredConfigs:             TStoredConfigsList;
-  {
+  {:
     See StoredChannels property.
   }
     fStoredChannels:            TStoredChannelsList;
-  {
+  {:
     See LastTelemetryResult property.
   }
     fLastTelemetryResult:       scs_result_t;
-  {
+  {:
     See TelemetryVersion property.
   }
     fTelemetryVersion:          scs_u32_t;
-  {
+  {:
     See GameName property.
   }
     fGameName:                  TelemetryString;
-  {
+  {:
     See GameID property.
   }
     fGameID:                    TelemetryString;
-  {
+  {:
     See GameVersion property.
   }
     fGameVersion:               scs_u32_t;
-  {
+  {:
     See KeepUtilityEvents property.
   }
     fKeepUtilityEvents:         Boolean;
-  {
+  {:
     See StoreConfigurations property.
   }
     fStoreConfigurations:       Boolean;
-  {
+  {:
     See ManageIndexedChannels property.
   }
     fManageIndexedChannels:     Boolean;
-  {
+  {:
     See StoreChannels property.)
   }
     fStoreChannels:             Boolean;
-  {
+  {:
     Holds pointer to game callback routine intended for writing messages into
     game log.@br
     Assigned in constructor from passed parameters, or set to @nil.
   }
     cbLog:                      scs_log_t;
-  {
+  {:
     Holds pointer to game callback routine used for telemetry event
     registration.@br
     Assigned in constructor from passed parameters, or set to @nil.
   }
     cbRegisterEvent:            scs_telemetry_register_for_event_t;
-  {
+  {:
     Holds pointer to game callback routine used for telemetry event
     unregistration.@br
     Assigned in constructor from passed parameters, or set to @nil.
   }
     cbUnregisterEvent:          scs_telemetry_unregister_from_event_t;
-  {
+  {:
     Holds pointer to game callback routine used for telemetry channel
     registration.@br
     Assigned in constructor from passed parameters, or set to @nil.
   }
     cbRegisterChannel:          scs_telemetry_register_for_channel_t;
-  {
+  {:
     Holds pointer to game callback routine used for telemetry channel
     unregistration.@br
     Assigned in constructor from passed parameters, or set to @nil.
   }
     cbUnregisterChannel:        scs_telemetry_unregister_from_channel_t;
-  {
+  {:
     Holds referece to OnDestroy event handler.
   }
     fOnDestroy:                 TNotifyEvent;
-  {
+  {:
     Holds referece to OnLog event handler.
   }
     fOnLog:                     TLogEvent;
-  {
+  {:
     Holds referece to OnEventRegister event handler.
   }
     fOnEventRegister:           TEventRegisterEvent;
-  {
+  {:
     Holds referece to OnEventUnregister event handler.
   }
     fOnEventUnregister:         TEventRegisterEvent;
-  {
+  {:
     Holds referece to OnEvent event handler.
   }
     fOnEvent:                   TEventEvent;
-  {
+  {:
     Holds referece to OnChannelRegister event handler.
   }
     fOnChannelRegister:         TChannelRegisterEvent;
-  {
+  {:
     Holds referece to OnChannelUnregister event handler.
   }
     fOnChannelUnregister:       TChannelUnregisterEvent;
-  {
+  {:
     Holds referece to OnChannel event handler.
   }
     fOnChannel:                 TChannelEvent;
-  {
+  {:
     Holds referece to OnConfig event handler.
   }
     fOnConfig:                  TConfigEvent;
   {$IFDEF MulticastEvents}
-  {
+  {:
     Object managing multicast OnDestroyMulti event.
   }
     fOnDestroyMulti:            TMulticastNotifyEvent;
-  {
+  {:
     Object managing multicast OnLogMulti event.
   }
     fOnLogMulti:                TMulticastLogEvent;
-  {
+  {:
     Object managing multicast OnEventRegisterMulti event.
   }
     fOnEventRegisterMulti:      TMulticastEventRegisterEvent;
-  {
+  {:
     Object managing multicast OnEventUnregisterMulti event.
   }
     fOnEventUnregisterMulti:    TMulticastEventRegisterEvent;
-  {
+  {:
     Object managing multicast OnEventMulti event.
   }
     fOnEventMulti:              TMulticastEventEvent;
-  {
+  {:
     Object managing multicast OnChannelRegisterMulti event.
   }
     fOnChannelRegisterMulti:    TMulticastChannelRegisterEvent;
-  {
+  {:
     Object managing multicast OnChannelUnregister event.
   }
     fOnChannelUnregisterMulti:  TMulticastChannelUnregisterEvent;
-  {
+  {:
     Object managing multicast OnChannelMulti event.
   }
     fOnChannelMulti:            TMulticastChannelEvent;
-  {
+  {:
     Object managing multicast OnConfigMulti event.
   }
     fOnConfigMulti:             TMulticastConfigEvent;
   {$ENDIF}
-  {
+  {:
     Setter for KeepUtilityEvents property.
 
     @param Value New value to be stored in fKeepUtilityEvents.
   }
     procedure SetKeepUtilityEvents(Value: Boolean);
-  {
+  {:
     Setter for StoreConfigurations property.
 
     @param Value New value to be stored in fStoreConfigurations.
   }
     procedure SetStoreConfigurations(Value: Boolean);
-  {
+  {:
     Setter for StoreChannels property.
 
     @param Value New value to be stored in fStoreChannels.)
   }
     procedure SetStoreChannels(Value: Boolean);
   protected
-  {
+  {:
     Method called by plugin callback routine set to receive telemetry events.@br
     OnEvent event is called and received telemetry event is then processed.
 
@@ -533,7 +533,7 @@ type
                  @nil.)
   }
     procedure EventHandler(Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;
-  {
+  {:
     Method called by plugin callback routine set to receive telemetry
     channels.@br
 
@@ -543,7 +543,7 @@ type
     @param Value Pointer to actual value of received channel. Can be @nil.
   }
     procedure ChannelHandler(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;
-  {
+  {:
     Method used for processing configuration events. It is called from
     EventHandler method when configuration event is received.@br
     Received data are parsed and configuration informations are extracted and
@@ -557,66 +557,66 @@ type
   }
     procedure ProcessConfigurationEvent(const Data: scs_telemetry_configuration_t); virtual;
   public
-  {
+  {:
     Calls hanler(s) of OnDestroy event.
   }
     procedure DoOnDestroy(Sender: TObject); virtual;
-  {
+  {:
     Calls hanler(s) of OnLog event.
   }
     procedure DoOnLog(Sender: TObject; LogType: scs_log_type_t; const LogText: String); virtual;
-  {
+  {:
     Calls hanler(s) of OnEventRegister event.
   }
     procedure DoOnEventRegister(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;
-  {
+  {:
     Calls hanler(s) of OnEventUnregister event.
   }
     procedure DoOnEventUnregister(Sender: TObject; Event: scs_event_t; UserData: Pointer); virtual;
-  {
+  {:
     Calls hanler(s) of OnEvent event.
   }
     procedure DoOnEvent(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); virtual;
-  {
+  {:
     Calls hanler(s) of OnChannelRegister event.
   }
     procedure DoOnChannelRegister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); virtual;
-  {
+  {:
     Calls hanler(s) of OnChannelUnregister event.
   }
     procedure DoOnChannelUnregister(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); virtual;
-  {
+  {:
     Calls hanler(s) of OnChannel event.
   }
     procedure DoOnChannel(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); virtual;
-  {
+  {:
     Calls hanler(s) of OnConfig event.
   }
     procedure DoOnConfig(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
-  {
+  {:
     @returns Highest supported telemetry version.
   }
     class Function HighestSupportedTelemetryVersion: scs_u32_t; override;
-  {
+  {:
     @param GameID Game identifier.
 
     @returns Highest supported version of passed game.
   }
     class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; override;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
 
     @returns @True when given telemetry version is supported, otherwise @false.
   }
     class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
 
     @returns(@True when given telemetry major version is supported (minor part
              is ignored), otherwise @false.)
   }
     class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-  {
+  {:
     @param GameID       Game identifier.
     @param GameVersion  Version of game.
 
@@ -624,7 +624,7 @@ type
              @false.)
   }
     class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
     @param GameID           Game identifier.
     @param GameVersion      Version of game.
@@ -633,7 +633,7 @@ type
              otherwise @false.)
   }
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-  {
+  {:
     @param TelemetryVersion Version of telemetry.
     @param Parameters       Structure containing other version informations.
 
@@ -641,7 +641,7 @@ type
              otherwise @false.)
   }
     class Function SupportsTelemetryAndGameVersionParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; override;
-  {
+  {:
     Performs any preparations necessary to support required telemetry
     version.@br
     TelemetryVersion property is set in this method when successful.
@@ -653,7 +653,7 @@ type
              otherwise @false.)
   }
     Function PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-  {
+  {:
     Performs preparations necessary to support required game and its version.@br
     GameName, GameID and GameVersion properties are set in this method when
     successful.
@@ -666,18 +666,18 @@ type
              successfully, otherwise @false.)
   }
     Function PrepareForGameVersion(const GameName,GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-  {
+  {:
     Constructor containig initialization code common to both user-managed and
     automatically managed mode.@br
     This constructor is used only internally, never call it directly!
   }
     constructor CommonCreate;
-  {
+  {:
     No parameter object constructor.@br
     Creates an user-managed instance.@br
   }
     constructor Create; overload;
-  {
+  {:
     Parametrized object constructor.@br
     Creates automatically managed instance, but does not assign callbacks since
     they are not passed in paramters - you have to assign them manually after
@@ -692,7 +692,7 @@ type
     @param GameName         Name of the game (optional parameter).
   }
     constructor Create(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t; GameName: TelemetryString = ''); overload;
-  {
+  {:
     Parametrized object constructor.@br
     Creates automatically managed instance and automatically assigns API
     callbacks.@br
@@ -711,7 +711,7 @@ type
                                   register game events or not.)
   }
     constructor Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t; AllowAutoRegistration: Boolean = True); overload;
-  {
+  {:
     Specialized object constructor.@br
 
     This constructor is designed to create an automatically managed instance
@@ -728,14 +728,14 @@ type
                     procesed, only passed as is.)
   }
     constructor CreateCurrent(GameID: TelemetryString; GameName: TelemetryString = '');
-  {
+  {:
     Object destructor.@br
     Internal objects are automatically cleared in destructor, so it is
     not necessary to free them explicitly.@br
     Also, all registred telemetry events and channels are unregistered.
   }
     destructor Destroy; override;
-  {
+  {:
     Sets API informations (TelemetryVersion, GameID, GameVersion and GameName)
     from passed @noAutoLink(parameters).
 
@@ -743,14 +743,14 @@ type
     @param(Parameters       Structure containing other API informations.)
   }
     procedure SetAPIInfo(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); virtual;
-  {
+  {:
     Use this method to set all game callbacks in one call.
 
     @param(Parameters Structure provided by telemetry API that contains all
                       necessary callback pointers.)
   }
     procedure SetGameCallbacks(Parameters: scs_telemetry_init_params_t); virtual;
-  {
+  {:
     Use this method to set one specific game callback.@br
     Can be used to set specific callback to nil and thus disabling it (all
     calls to any callback are preceded by check for assignment).
@@ -763,7 +763,7 @@ type
     @param CallbackFunction Pointer to be assigned.
   }
     procedure SetGameCallback(Callback: TGameCallback; CallbackFunction: Pointer); virtual;
-  {
+  {:
     Use this method to write typed message to game log.@br
     Works only when cbLog callback is assigned.
 
@@ -772,7 +772,7 @@ type
     @param LogText Actual message text.
   }
     procedure Log(LogType: scs_log_type_t; const LogText: String); overload; virtual;
-  {
+  {:
     Use this method to write message to game log. Message will be written as
     normal text (LogType set to SCS_LOG_TYPE_message).@br
     Works only when cbLog callback is assigned.
@@ -780,7 +780,7 @@ type
     @param LogText Actual message text.
   }
     procedure Log(const LogText: String); overload; virtual;
-  {
+  {:
     Checks whether given event is present in RegisteredEvents list, when
     included, it is assumed that this event is registered in telemetry API.
 
@@ -789,7 +789,7 @@ type
     @returns @True when given event is found in list, otherwise @false.
   }
     Function EventRegistered(Event: scs_event_t): Boolean; virtual;
-  {
+  {:
     Registers specified telemetry event.@br
     Works only when cbRegisterEvent callback is assigned, when it is not,
     function returns false and LastTelemetryResult is set to
@@ -809,7 +809,7 @@ type
              LastTelemetryResult contains result code).)
   }
     Function EventRegister(Event: scs_event_t; UserData: Pointer = nil): Boolean; virtual;
-  {
+  {:
     Registers telemetry event that is listed in known events list at position
     given by @code(Index) parameter. When index falls out of allowed boundaries,
     no event is registered and function returns @false.
@@ -821,7 +821,7 @@ type
     @returns @True when requested event was registered, @false otherwise.
   }
     Function EventRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean; virtual;
-  {
+  {:
     Unregisters specified telemetry event.@br
     Works only when cbUnregisterEvent callback is assigned, when it is not,
     function returns false and LastTelemetryResult is set to
@@ -837,7 +837,7 @@ type
             (property LastTelemetryResult contains result code).)
   }
     Function EventUnregister(Event: scs_event_t): Boolean; virtual;
-  {
+  {:
     Unregister telemetry event that is listed in registered events list at
     position given by @code(Index) parameter.@br
     When index falls out of allowed boundaries, no channel is unregistered and
@@ -848,7 +848,7 @@ type
     @returns @True when requested event was unregistered, @false otherwise.
   }
     Function EventUnregisterIndex(Index: Integer): Boolean; virtual;
-  {
+  {:
     Unregisters telemetry event that is listed in known events list at position
     given by @code(Index) parameter. When index falls out of allowed boundaries,
     no event is unregistered and function returns @false.
@@ -858,20 +858,20 @@ type
     @returns @True when requested event was unregistered, @false otherwise.
   }
     Function EventUnregisterByIndex(Index: Integer): Boolean; virtual;
-  {
+  {:
     Registers all events that TTelemetryInfoProvider class is aware of for
     current telemetry and game version.
 
     @returns Number of successfully registered events.
   }
     Function EventRegisterAll: Integer; virtual;
-  {
+  {:
     Unregisters all events listed in RegisteredEvents list.
 
     @returns Number of successfully unregistered events.
   }
     Function EventUnregisterAll: Integer; virtual;
-  {
+  {:
     Checks whether given channel is present in RegisteredChannels list, when
     included, it is assumed that this channel is registered in telemetry API.
 
@@ -882,7 +882,7 @@ type
     @returns @True when given channel is found in list, otherwise @false.
   }
     Function ChannelRegistered(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;
-  {
+  {:
     Registers specified telemetry channel.@br
     Works only when cbRegisterChannel callback is assigned, when it is not,
     function returns false and LastTelemetryResult is set to
@@ -904,7 +904,7 @@ type
              LastTelemetryResult contains result code).)
   }
     Function ChannelRegister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; UserData: Pointer = nil): Boolean; virtual;
-  {
+  {:
     Registers telemetry channel that is listed in known channels list at
     position given by @code(Index) parameter.@br
     When channel is marked as indexed then all index-versions of such channel
@@ -920,7 +920,7 @@ type
     @returns @True when requested channel was registered, @false otherwise.
   }
     Function ChannelRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean; virtual;
-  {
+  {:
     Registers telemetry channel of a given name. Channel of this name must be
     listed in known channels list as other informations required for
     registration are taken from there.@br
@@ -937,7 +937,7 @@ type
     @returns @True when requested channel was registered, @false otherwise.
   }
     Function ChannelRegisterByName(const Name: TelemetryString; UserData: Pointer = nil): Boolean; virtual;
-  {
+  {:
     Unregisters specified telemetry channel.
     Works only when cbUnregisterChannel callback is assigned, when it is not,
     function returns false and LastTelemetryResult is set to
@@ -955,7 +955,7 @@ type
             (property LastTelemetryResult contains result code).)
   }
     Function ChannelUnregister(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;
-  {
+  {:
     Unregisters telemetry channel that is listed in registered channels list at
     position given by @code(Index) parameter.@br
     When index falls out of allowed boundaries, no channel is unregistered and
@@ -966,7 +966,7 @@ type
     @returns @True when requested channel was unregistered, @false otherwise.
   }
     Function ChannelUnregisterIndex(Index: Integer): Boolean; virtual;
-  {
+  {:
     Unregisters all registered telemetry channels with the same name as channel
     that is listed in known channels list at position given by @code(Index)
     parameter.@br
@@ -978,7 +978,7 @@ type
     @returns @True when requested channel was unregistered, @false otherwise.
   }
     Function ChannelUnregisterByIndex(Index: Integer): Boolean; virtual;
-  {
+  {:
     Unregisters all registered telemetry channels with the given name.@br
 
     @param Name Name of channel(s) to be unregistered.
@@ -986,7 +986,7 @@ type
     @returns @True when requested channel was unregistered, @false otherwise.
   }
     Function ChannelUnregisterByName(const Name: TelemetryString): Boolean; virtual;
-  {
+  {:
     This method registers all channels that the TTelemetryInfoProvider class is
     aware of for current telemetry and game version.@br
     When channel is marked as indexed, then all channel and index combinations
@@ -1007,13 +1007,13 @@ type
     @Returns Number of successfully registered channels.
   }
     Function ChannelRegisterAll(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;
-  {
+  {:
     Unregisters all channels listed in RegisteredChannels list.
 
     @returns Number of successfully unregistered channels.)
   }
     Function ChannelUnregisterAll: Integer; virtual;
-  {
+  {:
     Checks whether given config is stored in StoredConfigs list.
 
     @param Name  Name of checked configuration.
@@ -1022,7 +1022,7 @@ type
     @returns @True when given config is found in list, otherwise @false.
   }
     Function ConfigStored(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;
-  {
+  {:
     Checks whether given channel is stored in StoredChannels list.
 
     @param Name      Name of checked channel.
@@ -1033,72 +1033,72 @@ type
   }
     Function ChannelStored(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;
   published
-  {
+  {:
     @True when current instance is user managed, @false when it is managed
     automatically.
   }
     property UserManaged: Boolean read fUserManaged;
-  {
+  {:
     Indicates whether some events can be automatically registered at certain
     situations (see properties KeepUtilityEvents, StoreConfigurations and
     ManageIndexedChannels).@br
     Initial value depends on instance mode and constructor parameters.
   }
     property AllowAutoRegistration: Boolean read fAllowAutoRegistration write fAllowAutoRegistration;
-  {
+  {:
     This object provides lists of known events, channels and configs along with
     some methods around these lists/structures.@br
     Its main internal use is in registration of all known events and channels.
   }
     property TelemetryInfoProvider: TTelemetryInfoProvider read fInfoProvider;
-  {
+  {:
     Internal list that stores contexts for registered events.@br
     Its content is manager automatically during telemetry events
     (un)registrations.
   }
     property RegisteredEvents: TRegisteredEventsList read fRegisteredEvents;
-  {
+  {:
     Internal list that stores contexts for registered channel.@br
     Its content is manager automatically during telemetry channels
     (un)registrations.
   }
     property RegisteredChannels: TRegisteredChannelsList read fRegisteredChannels;
-  {
+  {:
     Internal list used to store received configurations when StoreConfigurations
     switch is set to @true.
   }
     property StoredConfigs: TStoredconfigsList read fStoredConfigs;
-  {
+  {:
     Internal list used to store received channels values when StoreChannels
     switch is set to @true.
   }
     property StoredChannels: TStoredChannelsList read fStoredChannels write fStoredChannels;
-  {
+  {:
     Result code of last executed API function.@br
     Initialized to SCS_RESULT_ok.
   }
     property LastTelemetryResult: scs_result_t read fLastTelemetryResult;
-  {
+  {:
     Telemetry version for which this object was created.@br
     Initialized to SCS_U32_NIL.
   }
     property TelemetryVersion: scs_u32_t read fTelemetryVersion write fTelemetryVersion;
-  {
+  {:
     Name of the game for which this object was created.@br
     Initialized to an empty string.
   }
     property GameName: TelemetryString read fGameName write fGameName;
-  {
+  {:
     ID of game for which this object was created.@br
     Initialized to an empty string.
   }
     property GameID: TelemetryString read fGameID write fGameID;
-  {
+  {:
     Version of game for which this object was created.@br
     Initialized to an SCS_U32_NIL.
   }
     property GameVersion: scs_u32_t read fGameVersion write fGameVersion;
-  {
+  {:
     When set to @true, the recipient automatically registers all known events
     marked as utility (property AllowAutoRegistration must be @true for this)
     and also refuses to unregister such events.@br
@@ -1109,7 +1109,7 @@ type
     Initialized to @true.
   }
     property KeepUtilityEvents: Boolean read fKeepUtilityEvents write SetKeepUtilityEvents;
-  {
+  {:
     If @true, any configuration data passed from the game are parsed and
     stored.@br
     When set to @true, the configuration event is automatically registered
@@ -1118,7 +1118,7 @@ type
     Initialized to @true.
   }
     property StoreConfigurations: Boolean read fStoreConfigurations write SetStoreConfigurations;
-  {
+  {:
     When @true, registration and unregistration of indexed channels that are
     index-binded to some configuration is automatically managed.@br
     Affected methods:
@@ -1139,49 +1139,49 @@ type
     Initialized to @false.
   }
     property ManageIndexedChannels: Boolean read fManageIndexedChannels write fManageIndexedChannels;
-  {
+  {:
     When @true, all incoming channels along with their values are stored in
     StoredChannels list.@br
     When set to @false, StoredChannels list is cleared.@br
     Initialized to @false.
   }
     property StoreChannels: Boolean read fStoreChannels write SetStoreChannels;
-  {
+  {:
     Event called before destruction of instance. It is called AFTER all
     registered channels and events are unregistered and KeepUtilityEvents is set
     to @false.
   }
     property OnDestroy: TNotifyEvent read fOnDestroy write fOnDestroy;
-  {
+  {:
     Event called when recipient attempts to write to game log.
   }
     property OnLog: TLogEvent read fOnLog write fOnLog;
-  {
+  {:
     Event called on every @bold(successful) event registration.@br
     It can be called multiple times when method EventRegisterAll is executed.
   }
     property OnEventRegister: TEventRegisterEvent read fOnEventRegister write fOnEventRegister;
-  {
+  {:
     Event called on every @bold(successful) event unregistration.@br
     It can be called multiple times when method EventUnregisterAll is executed.
   }
     property OnEventUnregister: TEventRegisterEvent read fOnEventUnregister write fOnEventUnregister;
-  {
+  {:
     Event called whenever the recipient receives any event from telemetry API.
   }
     property OnEvent: TEventEvent read fOnEvent write fOnEvent;
-  {
+  {:
     Event called on every @bold(successful) channel registration.@br
     It can be called multiple times when method ChannelRegisterAll is executed.
   }
     property OnChannelRegister: TChannelRegisterEvent read fOnChannelRegister write fOnChannelRegister;
-  {
+  {:
     Event called on every @bold(successful) channel unregistration.@br
     It can be called multiple times when method ChannelUnregisterAll is
     executed.
   }
     property OnChannelUnregister: TChannelUnregisterEvent read fOnChannelUnregister write fOnChannelUnregister;
-  {
+  {:
     Event called whenever the recipient receives any channel call from telemetry
     API.
 
@@ -1189,48 +1189,48 @@ type
     per frame).
   }
     property OnChannel: TChannelEvent read fOnChannel write fOnChannel;
-  {
+  {:
     Event called when config is parsed from configuration telemetry event data.
   }
     property OnConfig: TConfigEvent read fOnConfig write fOnConfig;
   {$IFDEF MulticastEvents}
-  {
+  {:
     Multicast event called before destruction of instance. It is called AFTER
     all registered channels and events are unregistered and KeepUtilityEvents is
     set to @false.
   }
     property OnDestroyMulti: TMulticastNotifyEvent read fOnDestroyMulti;
-  {
+  {:
     Multicast event called when recipient attempts to write to game log.
   }
     property OnLogMulti: TMulticastLogEvent read fOnLogMulti;
-  {
+  {:
     Multicast event called on every @bold(successful) event registration.@br
     It can be called multiple times when method EventRegisterAll is executed.
   }
     property OnEventRegisterMulti: TMulticastEventRegisterEvent read fOnEventRegisterMulti;
-  {
+  {:
     Multicast event called on every @bold(successful) event unregistration.@br
     It can be called multiple times when method EventUnregisterAll is executed.
   }
     property OnEventUnregisterMulti: TMulticastEventRegisterEvent read fOnEventUnregisterMulti;
-  {
+  {:
     Multicast event called whenever the recipient receives any event from
     telemetry API.
   }
     property OnEventMulti: TMulticastEventEvent read fOnEventMulti;
-  {
+  {:
     Multicast event called on every @bold(successful) channel registration.@br
     It can be called multiple times when method ChannelRegisterAll is executed.
   }
     property OnChannelRegisterMulti: TMulticastChannelRegisterEvent read fOnChannelRegisterMulti;
-  {
+  {:
     Multicast event called on every @bold(successful) channel unregistration.@br
     It can be called multiple times when method ChannelUnregisterAll is
     executed.
   }
     property OnChannelUnregisterMulti: TMulticastChannelUnregisterEvent read fOnChannelUnregisterMulti;
-  {
+  {:
     Multicast event called whenever the recipient receives any channel call from
     telemetry API.
 
@@ -1238,7 +1238,7 @@ type
     per frame).
   }
     property OnChannelMulti: TMulticastChannelEvent read fOnChannelMulti;
-  {
+  {:
     Multicast event called when config is parsed from configuration telemetry
     event data.
   }
@@ -1250,7 +1250,7 @@ type
 {   Unit functions and procedures // Declaration                               }
 {==============================================================================}
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             channel name to ID.)
   @code(UserData) passed to streaming function along with this callback must
@@ -1264,7 +1264,7 @@ type
 }
 Function RecipientGetChannelIDFromName(const Name: TelemetryString; Recipient: Pointer): TChannelID;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             channel ID to name.)
   @code(UserData) passed to streaming function along with this callback must
@@ -1278,7 +1278,7 @@ Function RecipientGetChannelIDFromName(const Name: TelemetryString; Recipient: P
 }
 Function RecipientGetChannelNameFromID(ID: TChannelID; Recipient: Pointer): TelemetryString;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             config name to ID.)
   @code(UserData) passed to streaming function along with this callback must
@@ -1292,7 +1292,7 @@ Function RecipientGetChannelNameFromID(ID: TChannelID; Recipient: Pointer): Tele
 }
 Function RecipientGetConfigIDFromName(const Name: TelemetryString; Recipient: Pointer): TConfigID;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             ID to config name.)
   @code(UserData) passed to streaming function along with this callback must

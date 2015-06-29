@@ -9,7 +9,7 @@
 {==============================================================================}
 {   TMulticastLogEvent // Class declaration                                    }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when recipient writes
   to game log.)
 
@@ -59,7 +59,7 @@
 {==============================================================================}
 {   TMulticastEventRegisterEvent // Class declaration                          }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when telemetry event is
   registered or unregistered.)
 
@@ -109,7 +109,7 @@
 {==============================================================================}
 {   TMulticastEventEvent // Class declaration                                  }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when telemetry when
   telemetery event occurs.)
 
@@ -159,7 +159,7 @@
 {==============================================================================}
 {   TMulticastChannelRegisterEvent // Class declaration                        }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when telemetry channel
   is registered.)
 
@@ -209,7 +209,7 @@
 {==============================================================================}
 {   TMulticastChannelUnregisterEvent // Class declaration                      }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when telemetry channel
   is unregistered.)
 
@@ -259,7 +259,7 @@
 {==============================================================================}
 {   TMulticastChannelEvent // Class declaration                                }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when telemetery channel
   callback occurs.)
 
@@ -309,7 +309,7 @@
 {==============================================================================}
 {   TMulticastConfigEvent // Class declaration                                 }
 {==============================================================================}
-{
+{:
   @abstract(Class used to manage multicast event called when config is parsed
   from configuration telemetry event.)
 

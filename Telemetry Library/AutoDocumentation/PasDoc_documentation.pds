@@ -33,7 +33,7 @@ AutoLink=1
 HandleMacros=1
 UseTipueSearch=1
 LineBreakQuality=0
-SpecialMarkerTreatment=1
+SpecialMarkerTreatment=2
 Title=SCS Telemetry library
 VizGraphClasses=1
 VizGraphUses=1
@@ -55,27 +55,25 @@ Count=1
 Item_0=..\Source
 
 [Files]
-Count=14
-Item_0=..\Source\Log\TelemetryLogBinary.pas
-Item_1=..\Source\Log\TelemetryLogBinaryParser.pas
-Item_2=..\Source\Log\TelemetryLogText.pas
-Item_3=..\Source\TelemetryCommon.pas
-Item_4=..\Source\TelemetryConversions.pas
-Item_5=..\Source\TelemetryIDs.pas
-Item_6=..\Source\TelemetryInfoProvider.pas
-Item_7=..\Source\TelemetryLists.pas
-Item_8=..\Source\TelemetryRecipient.pas
-Item_9=..\Source\TelemetryRecipientBinder.pas
-Item_10=..\Source\TelemetryStreaming.pas
-Item_11=..\Source\TelemetryStrings.pas
-Item_12=..\Source\TelemetryValueTypeUtils.pas
-Item_13=..\Source\TelemetryVersionObjects.pas
+Count=11
+Item_0=..\Source\TelemetryCommon.pas
+Item_1=..\Source\TelemetryConversions.pas
+Item_2=..\Source\TelemetryIDs.pas
+Item_3=..\Source\TelemetryInfoProvider.pas
+Item_4=..\Source\TelemetryLists.pas
+Item_5=..\Source\TelemetryRecipient.pas
+Item_6=..\Source\TelemetryRecipientBinder.pas
+Item_7=..\Source\TelemetryStreaming.pas
+Item_8=..\Source\TelemetryStrings.pas
+Item_9=..\Source\TelemetryValueTypeUtils.pas
+Item_10=..\Source\TelemetryVersionObjects.pas
 
 [HyphenatedWords]
 Count=0
 
 [SpecialMarkers]
-Count=0
+Count=1
+Item_0=:
 
 [IgnoreWords]
 Count=0
