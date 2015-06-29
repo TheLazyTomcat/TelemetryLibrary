@@ -35,6 +35,9 @@ start /wait .\PasDoc\pasdoc.exe^
  ..\Source\TelemetryVersionObjects.pas^
  ..\Source\TelemetryInfoProvider.pas^
  ..\Source\TelemetryRecipient.pas^
- ..\Source\TelemetryRecipientBinder.pas
+ ..\Source\TelemetryRecipientBinder.pas^
+ ..\Source\SCS\TelemetrySCSExample_telemetry.pas^
+ ..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas^
+ ..\Source\SCS\TelemetrySCSExample_telemetry_position.pas
 
 call PostProcessing.bat
