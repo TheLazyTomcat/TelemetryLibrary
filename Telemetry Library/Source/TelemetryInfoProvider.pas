@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Information provider class (known telemetry events, channels, etc.).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
@@ -96,7 +96,7 @@ uses
 {==============================================================================}
 
 type
-{ @deprecated
+{: @deprecated
   Used to distinguish which value type should method
   TTelemetryInfoProvider.ChannelGetValueType return for given channel.
   @value(cvtpPrimary   Basic value type.)
@@ -109,7 +109,7 @@ type
 {==============================================================================}
 {   TTelemetryInfoProvider // Class declaration                                }
 {==============================================================================}
-{
+{:
   @abstract(@NoAutoLink(TTelemetryInfoProvider) class provide lists of all known
   game events, channels and configurations along with some methods operating on
   them.)
@@ -126,62 +126,62 @@ type
 }
   TTelemetryInfoProvider = class(TTelemetryVersionPrepareObject)
   private
-  {
+  {:
     Holds state indicating whether current instance is user managed (when not,
     it is managed automatically).@br
     This field is set automatically in constructor(s).
   }
     fUserManaged:   Boolean;
-  {
+  {:
     See KnownEvents property.
   }
     fKnownEvents:   TKnownEventsList;
-  {
+  {:
     See KnownChannels property.
   }
     fKnownChannels: TKnownChannelsList;
-  {
+  {:
     See KnownConfigs property.
   }
     fKnownConfigs:  TKnownConfigsList;
   protected
-  {
+  {:
     Preparation for telemetry 1.0.
   }
     procedure Prepare_Telemetry_1_0; override;
-  {
+  {:
     Preparation for eut2 1.0.
   }
     procedure Prepare_Game_eut2_1_0; override;
-  {
+  {:
     Preparation for eut2 1.1.
   }
     procedure Prepare_Game_eut2_1_1; override;
-  {
+  {:
     Preparation for eut2 1.2.
   }
     procedure Prepare_Game_eut2_1_2; override;
-  {
+  {:
     Preparation for eut2 1.4.
   }
     procedure Prepare_Game_eut2_1_4; override;
-  {
+  {:
     Preparation for eut2 1.9.
   }
     procedure Prepare_Game_eut2_1_9; override;
-  {
+  {:
     Preparation for eut2 1.10.
   }
     procedure Prepare_Game_eut2_1_10; override;
   public
-  {
+  {:
     Basic object constructor.@br
 
     Call this no-parameter constructor when creating user managed info provider.
     Lists of known items are created empty.
   }
     constructor Create; overload;
-  {
+  {:
     Parameterized object constructor.@br
 
     Call this constructor when creating automatically managed info provider.@br
@@ -195,7 +195,7 @@ type
     @param GameVersion      Version of game.
   }
     constructor Create(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t); overload;
-  {
+  {:
     Parameterized object constructor.@br
 
     Works exactly the same as first parametrized constructor (actually calls
@@ -210,7 +210,7 @@ type
                             version informations.)
   }
     constructor Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); overload;
-  {
+  {:
     Specialized object constructor.@br
 
     This constructor is designed to automatically fill lists with latest data
@@ -223,28 +223,28 @@ type
     @param GameID Game identifier.
   }
     constructor CreateCurrent(GameID: TelemetryString); virtual;
-  {
+  {:
     Object destructor.@br
     Internal lists are automatically cleared in destructor, so it is unnecessary
     to @noAutoLink(clear) them explicitly.
   }
     destructor Destroy; override;
-  {
+  {:
     When current instance is created as user managed, calling this procedure
     will clear all internal lists. When it is called on automatically managed
     object, it does nothing.)
   }
     procedure Clear;
-  {
+  {:
     Returns internal (ie. not defined by the API) name of passed event.
 
     @param Event Event whose name is requested.
 
     @returns(Name of given event or an empty string when no such event is
-             known.))
+             known.)
   }
     Function EventGetName(Event: scs_event_t): TelemetryString; virtual;
-  { @deprecated
+  {:@deprecated   
     Returns type of value for given channel and selected priority.
 
     @param Name         Name of requested channel.
@@ -255,7 +255,7 @@ type
   }             
     Function ChannelGetValueType(const Name: TelemetryString; TypePriority: TChannelValueTypePriority = cvtpPrimary): scs_value_type_t; overload; virtual;
       deprecated {$IFDEF DeprecatedMessage}'Please use other methods with the same name instead of this one.'{$ENDIF};
-  {
+  {:
     Returns type of value for given channel and selected priority.
 
     @param Name         Name of requested channel.
@@ -273,20 +273,20 @@ type
   }
     Function ChannelGetValueType(const Name: TelemetryString; TypePriority: Integer): scs_value_type_t; overload; virtual;
   published
-  {
+  {:
     @True when current instance is user managed, @false when it is managed
     automatically.
   }
     property UserManaged: Boolean read fUserManaged;
-  {
+  {:
     List containing informations about known telemetry events.
   }
     property KnownEvents: TKnownEventsList read fKnownEvents;
-  {
+  {:
     List containing informations about known telemetry channels.
   }
     property KnownChannels: TKnownChannelsList read fKnownChannels;
-  {
+  {:
     List containing informations about known telemetry configs.
   }
     property KnownConfigs: TKnownConfigsList read fKnownConfigs;
@@ -296,7 +296,7 @@ type
 {   Unit functions and procedures // Declaration                               }
 {==============================================================================}
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             channel name to ID.)
   @code(UserData) passed to streaming function along with this callback must
@@ -310,7 +310,7 @@ type
 }
 Function InfoProviderGetChannelIDFromName(const Name: TelemetryString; TelemetryInfoProvider: Pointer): TChannelID;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             channel ID to name.)
   @code(UserData) passed to streaming function along with this callback must
@@ -324,7 +324,7 @@ Function InfoProviderGetChannelIDFromName(const Name: TelemetryString; Telemetry
 }
 Function InfoProviderGetChannelNameFromID(ID: TChannelID; TelemetryInfoProvider: Pointer): TelemetryString;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             config name to ID.)
   @code(UserData) passed to streaming function along with this callback must
@@ -338,7 +338,7 @@ Function InfoProviderGetChannelNameFromID(ID: TChannelID; TelemetryInfoProvider:
 }
 Function InfoProviderGetConfigIDFromName(const Name: TelemetryString; TelemetryInfoProvider: Pointer): TConfigID;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             ID to config name.)
   @code(UserData) passed to streaming function along with this callback must

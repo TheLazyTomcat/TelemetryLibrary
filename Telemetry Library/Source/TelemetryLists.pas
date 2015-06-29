@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
@@ -181,8 +181,8 @@ uses
 {$ENDIF}
 
 type
-  // Event type used when user data stored in event or channel context should be
-  // freed.
+  //:Event type used when user data stored in event or channel context should be
+  //:freed.
   TUserDataFreeEvent = procedure(Sender: TObject; var UserData: Pointer) of object;
 
 {==============================================================================}
@@ -194,7 +194,7 @@ type
 {==============================================================================}
 {   TCustomTelemetryList // Class declaration                                  }
 {==============================================================================}
-{ @abstract(Ancestor class for all other list classes in TelemetryLists unit.)
+{: @abstract(Ancestor class for all other list classes in TelemetryLists unit.)
 
   TCustomTelemetryList serves as ancestor for all other list classes declared in
   this unit. It wrapps around TList class and adds methods used for easier list
@@ -203,34 +203,34 @@ type
 type
   TCustomTelemetryList = class(TObject)
   private
-  {
+  {:
     Internal list used to hold actual items. It is not publicly visible and is
     therefore managed automatically.
   }
     fMainList:      TList;
-  {
+  {:
     When this variable is set to @true, it indicates that the list is updated
     from outside and OnChange event should not be called.@br
     It is set by methods BeginUpdate and EndUpdate.
   }
     fUpdating:      Boolean;
-  {
+  {:
     Holds reference to OnChange event handler.
   }
     fOnChange:      TNotifyEvent;
   {$IFDEF MulticastEvents}
-  {
+  {:
     Object handling multicast OnChange event.
   }
     fOnChangeMulti: TMulticastNotifyEvent;
   {$ENDIF}
-  {
+  {:
     Getter for property Count.@br
     Returns number of items in the list.
   }
     Function GetCount: Integer;
   protected
-  {
+  {:
     Returns item (pointer) from internal list on position given by @code(Index)
     parameter.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
@@ -241,7 +241,7 @@ type
     @returns Item at position given by @code(Index).
   }
     Function PtrGetItem(Index: Integer): Pointer; virtual;
-  {
+  {:
     Returns index at which the passed item (pointer) is located in the list.@br
     When passed pointer is not found in list, -1 is returned.
 
@@ -250,7 +250,7 @@ type
     @returns Index of passed item in the list, -1 when not found.
   }
     Function PtrIndexOf(Item: Pointer): Integer; virtual;
-  {
+  {:
     Method used to add new item into list. Added item can be @nil.@br
     Calls method DoChange when addition is successful.
 
@@ -259,7 +259,7 @@ type
     @returns Index at which the new item was put, -1 when the operation failed.
   }
     Function PtrAdd(Item: Pointer): Integer; virtual;
-  {
+  {:
     Replaces item (change its value) at position given by @code(Index)
     parameter. Item can be @nil. When index falls out of allowed boundary
     (<0,Count - 1>), an exception is raised.@br
@@ -269,7 +269,7 @@ type
     @param Item  New walue of the replaced item.)
   }
     procedure PtrReplace(Index: Integer; Item: Pointer); virtual;
-  {
+  {:
     Inserts new item at position given by @code(Index). List Count is increased
     by one and all existing items from given position (included) up are moved
     higher. @code(Item) can be @nil. When index falls out of allowed boundary
@@ -281,7 +281,7 @@ type
     @param Item  Inserted item.
   }
     procedure PtrInsert(Index: Integer; Item: Pointer); virtual;
-  {
+  {:
     Removes item passed in @code(Item) parameter. @code(Item) should not be, but
     can be @nil. When given item is not found in list, nothing is removed and
     the function fails with no error (-1 is returned). If the list contains more
@@ -294,7 +294,7 @@ type
              given item was not found in the list.)
   }
     Function PtrRemove(Item: Pointer): Integer; virtual;
-  {
+  {:
     Deletes item at position given by @code(Index) parameter. When index falls
     out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     Calls method DoChange when item is successfully deleted.
@@ -303,11 +303,11 @@ type
   }
     procedure PtrDelete(Index: Integer); virtual;
   public
-  {
+  {:
     Object constructor.
   }
     constructor Create;
-  {
+  {:
     ObjectDestructor.@br
     Method Clear is called within destructor, so it is not necessary to
     explicitly call it when class instance is freed.
@@ -315,21 +315,21 @@ type
     @bold(Note:) OnChange event is not called.
   }
     destructor Destroy; override;
-  {
+  {:
     Sets fUpdating to @true.
   }
     procedure BeginUpdate; virtual;
-  {
+  {:
     Sets fUpdating to @false and calls DoChange method.
   }
     procedure EndUpdate; virtual;
-  {
+  {:
     Calls handler of OnChange event (if assigned) - but only if fUpdating is set
     to @false, otherwise the handler is not called and method returns
     immediately.
   }
     procedure DoChange; virtual;
-  {
+  {:
     Deletes all items in the list. Only deletes stored pointers, allocated
     memory they are pointing to is not freed. Override this method in
     descendants to free memory used by items (put inherited code at the end).@br
@@ -337,18 +337,18 @@ type
   }
     procedure Clear; virtual;
   published
-  {
+  {:
     Number of items stored in the list.
   }
     property Count: Integer read GetCount;
-  {
+  {:
     Event called whenever the list is changed. It can also be called manually by
     calling DoChange method. It is NOT called when fUpdating is set to @true
     (but can be still called directly if handler is assigned).
   }
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
   {$IFDEF MulticastEvents}
-  {
+  {:
     Multicast event called whenever the list is changed. It can also be called
     manually by calling DoChange method. It is NOT called when fUpdating is set
     to @true (but can be still called directly).@br
@@ -368,7 +368,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-{
+{:
   Structure used as an item in TKnownEventsList class.
 
   @member(Event   @NoAutoLink(Event) identification number.)
@@ -388,11 +388,11 @@ type
     Valid:    Boolean;
     Utility:  Boolean;
   end;
-  // Pointer to TKnownEvent structure.
+  //:Pointer to TKnownEvent structure.
   PKnownEvent = ^TKnownEvent;
 
 const
-  // Empty TKnownEvent structure.
+  //:Empty TKnownEvent structure.
   EmptyKnownEvent: TKnownEvent =
    (Event:    SCS_TELEMETRY_EVENT_invalid;
     Name:     '';
@@ -402,13 +402,13 @@ const
 {==============================================================================}
 {   TKnownEventsList // Class declaration                                      }
 {==============================================================================}
-{
+{:
   List used to store informations about known telemetry @noAutoLink(events).
 }
 type
   TKnownEventsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Getter for Pointers property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -418,7 +418,7 @@ type
     @returns Pointer to requested item.
   }
     Function GetKnownEventPointer(Index: Integer): PKnownEvent;
-  {
+  {:
     Getter for Events property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -429,12 +429,12 @@ type
   }
     Function GetKnownEvent(Index: Integer): TKnownEvent;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for given event. When the event is not found, -1 is
     returned.
 
@@ -443,7 +443,7 @@ type
     @returns Index of requested event, -1 when not found.
   }
     Function IndexOf(Event: scs_event_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for event with given name (case-insensitive). When
     event with that name is not found, -1 is returned.
 
@@ -452,7 +452,7 @@ type
     @returns Index of event with requested name, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
-  {
+  {:
     Adds new known game event into the list.@br
     OnChange event is called after successful addition.
 
@@ -464,7 +464,7 @@ type
     @returns Index at which the new event was added, -1 when addition failed.
   }
     Function Add(Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;
-  {
+  {:
     Replaces event at position given by @code(Index) parameter. When index falls
     out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful replacement.
@@ -477,7 +477,7 @@ type
                    utility.)
   }
     procedure ReplaceIndex(Index: Integer; Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False); virtual;
-  {
+  {:
     Replaces event given by @code(OldEvent) parameter. When this old event is
     not found in the list, nothing happens and the method returns -1.@br
     OnChange event is called after successful replacement.
@@ -494,7 +494,7 @@ type
              found.)
   }
     Function Replace(OldEvent, Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;
-  {
+  {:
     Inserts new event at position given by @code(Index) parameter. Count is
     increased by one and all existing items from given position (included) up
     are moved higher. When index falls out of allowed boundary (<0,Count> -
@@ -511,7 +511,7 @@ type
     @returns Actual position where the new event was inserted.
   }
     Function Insert(Index: Integer; Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False): Integer; virtual;
-  {
+  {:
     Removes given event from the list. When this event is not found in the list,
     method returns -1 and nothing is removed.@br
     OnChange event is called after successful removal.
@@ -523,7 +523,7 @@ type
              found.)
   }
     Function Remove(Event: scs_event_t): Integer; virtual;
-  {
+  {:
     Deletes event at position given by @code(Index) parameter. When index falls
     out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful deletion.
@@ -531,7 +531,7 @@ type
     @param Index Index of item that has to be deleted.
   }
     procedure Delete(Index: Integer); virtual;
-  {
+  {:
     Returns @true when given event is valid, @false when it is not valid or when
     that event is not in list.
 
@@ -540,7 +540,7 @@ type
     @returns Validity of requested event.
   }
     Function IsValid(Event: scs_event_t): Boolean; virtual;
-  {
+  {:
     Returns @true when given event is marked as Utility, @false when it is not
     or when not found in the list.
 
@@ -549,14 +549,14 @@ type
     @returns Utility state of requested event.
   }
     Function IsUtility(Event: scs_event_t): Boolean; virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored items.@br
     Unlike Events property, you can use returned pointer to change values of
     stored items.
   }
     property Pointers[Index: Integer]: PKnownEvent read GetKnownEventPointer;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.
   }
@@ -570,7 +570,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-{
+{:
   Structure used as an item in TKnownChannelsList class.
 
   @member(Name           @NoAutoLink(Name) of the channel.)
@@ -599,11 +599,11 @@ type
     IndexConfigID:  TConfigID;
     MaxIndex:       scs_u32_t;
   end;
-  // Pointer to TKnownChannel structure.
+  //:Pointer to TKnownChannel structure.
   PKnownChannel = ^TKnownChannel;
 
 const
-  // Empty TKnownChannel structure.
+  //:Empty TKnownChannel structure.
   EmptyKnownChannel: TKnownChannel =
    (Name:           '';
     ID:             0;
@@ -618,13 +618,13 @@ const
 {==============================================================================}
 {   TKnownChannelsList // Class declaration                                    }
 {==============================================================================}
-{
+{:
   List used to store informations about known telemetry @noAutoLink(channels).
 }
 type
   TKnownChannelsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Getter for Pointers property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -634,7 +634,7 @@ type
     @returns Pointer to requested item.
   }
     Function GetKnownChannelPointer(Index: Integer): PKnownChannel;
-  {
+  {:
     Getter for Events property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -645,12 +645,12 @@ type
   }
     Function GetKnownChannel(Index: Integer): TKnownChannel;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for channel with given name (case-sensitive). When
     the channel is not found, -1 is returned.
 
@@ -659,7 +659,7 @@ type
     @returns Index of channel with requested name, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
-  {
+  {:
     Searches through list for channel with given ID. When channel with that ID
     is not found, -1 is returned.
 
@@ -668,7 +668,7 @@ type
     @returns Index of channel with requested ID, -1 when not found.
   }
     Function IndexOf(ID: TChannelID): Integer; overload; virtual;
-  {
+  {:
     Adds new known channel into the list.@br
     OnChange event is called after successful addition.
 
@@ -685,7 +685,7 @@ type
     @returns Index at which the new channel was added, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Adds new known channel into the list.@br
     Internally calls variant of this method that has parameter
     @code(SecondaryTypes) with this parameter filled by function
@@ -703,7 +703,7 @@ type
     @returns Index at which the new channel was added, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Adds new known channel into the list.@br
     Internally calls variant of this method that has parameter
     @code(SecondaryTypes) with this parameter filled by function
@@ -726,7 +726,7 @@ type
     @returns Index at which the new channel was added, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Replaces channel at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful replacement.
@@ -743,7 +743,7 @@ type
                           indexed.)
   }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
-  {
+  {:
     Replaces channel at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     Internally calls variant of this method that has parameter
@@ -761,7 +761,7 @@ type
                        indices. Has no meaning when the channel is not indexed.)
   }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
-  {
+  {:
     Replaces channel at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     Internally calls variant of this method that has parameter
@@ -784,7 +784,7 @@ type
                          indexed.)
   }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
-  {
+  {:
     Replaces channel with name given by @code(OldChannel) parameter. When this
     channel is not found in the list, nothing happens and the method returns
     -1.@br
@@ -806,7 +806,7 @@ type
              found.)
   }
     Function Replace(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Replaces channel with name given by @code(OldChannel) parameter. When this
     channel is not found in the list, nothing happens and the method returns
     -1.@br
@@ -828,7 +828,7 @@ type
              found.)
   }
     Function Replace(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Replaces channel with name given by @code(OldChannel) parameter. When this
     channel is not found in the list, nothing happens and the method returns
     -1.@br
@@ -856,7 +856,7 @@ type
              found.)
   }
     Function Replace(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Inserts new channel at position given by @code(Index) parameter. Count is
     increased by one and all existing items from given position (included) up
     are moved higher. When index falls out of allowed boundary (<0,Count> -
@@ -878,7 +878,7 @@ type
     @returns Actual position where the new channel was inserted.
   }
     Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Inserts new channel at position given by @code(Index) parameter. Count is
     increased by one and all existing items from given position (included) up
     are moved higher. When index falls out of allowed boundary (<0,Count> -
@@ -901,7 +901,7 @@ type
     @returns Actual position where the new channel was inserted.
   }
     Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Inserts new channel at position given by @code(Index) parameter. Count is
     increased by one and all existing items from given position (included) up
     are moved higher. When index falls out of allowed boundary (<0,Count> -
@@ -929,7 +929,7 @@ type
     @returns Actual position where the new channel was inserted.
   }
     Function Insert(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Removes channel with given name from the list. When this channel is not
     found in the list, method returns -1 and nothing is removed.@br
     OnChange event is called after successful removal.
@@ -940,7 +940,7 @@ type
              found.)
   }
     Function Remove(const Name: TelemetryString): Integer; virtual;
-  {
+  {:
     Deletes channel at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful deletion.
@@ -948,7 +948,7 @@ type
     @param Index Index of item that has to be deleted.
   }
     procedure Delete(Index: Integer); virtual;
-  {
+  {:
     Returns @code(IndexConfigID) for channel with name given in @code(Name)
     parameter. When such channel is not found in the list, ID with value
     0x00000000 is returned.
@@ -958,7 +958,7 @@ type
     @returns ID of index-configuration for requested channel.
   }
     Function ChannelIndexConfigID(const Name: TelemetryString): TItemID; virtual;
-  {
+  {:
     Returns ID for passed channel name.
 
     @param Name Name of chanel for which you want an ID.
@@ -966,7 +966,7 @@ type
     @returns ID of passed channel name.
   }
     Function ChannelNameToID(const Name: TelemetryString): TChannelID; virtual;
-  {
+  {:
     Returns name of channel with the same ID as is passed in @code(ID) prameter.
     This method actually searches through the list for channel with appropriate
     ID. When such channel is not found, an empty string is returned.
@@ -976,14 +976,14 @@ type
     @returns Name of the channel with appropriate ID.
   }
     Function ChannelIDToName(ID: TChannelID): TelemetryString; virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored items.@br
     Unlike Channels property, you can use returned pointer to change values of
     stored items.
   }
     property Pointers[Index: Integer]: PKnownChannel read GetKnownChannelPointer;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.
   }
@@ -997,7 +997,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-{
+{:
   Structure used as item in TKnownConfigsList class.
 
   @member(Name      Full @NoAutoLink(name) of the config.)
@@ -1016,11 +1016,11 @@ type
     Indexed:    Boolean;
     Binded:     Boolean;
   end;
-  // Pointer to TKnownConfig structure.
+  //:Pointer to TKnownConfig structure.
   PKnownConfig = ^TKnownConfig;
 
 const
-  // Empty TKnownConfig structure.
+  //:Empty TKnownConfig structure.
   EmptyKnownConfig: TKnownConfig =
    (Name:       '';
     ID:         0;
@@ -1031,13 +1031,13 @@ const
 {==============================================================================}
 {   TKnownConfigsList // Class declaration                                     }
 {==============================================================================}
-{
+{:
   List used to store informations about known telemetry configurations values.
 }
 type
   TKnownConfigsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Getter for Pointers property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1047,7 +1047,7 @@ type
     @returns Pointer to requested item.
   }
     Function GetKnownConfigPointer(Index: Integer): PKnownConfig;
-  {
+  {:
     Getter for Configs property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1058,12 +1058,12 @@ type
   }
     Function GetKnownConfig(Index: Integer): TKnownConfig;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for config with given name (case-sensitive). When the
     config is not found, -1 is returned.
 
@@ -1072,7 +1072,7 @@ type
     @returns Index of config with requested name, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
-  {
+  {:
     Searches through list for config with given ID. When config with that ID is
     not found, -1 is returned.
 
@@ -1081,7 +1081,7 @@ type
     @returns Index of config with requested ID, -1 when not found.
   }
     Function IndexOf(ID: TConfigID): Integer; overload; virtual;
-  {
+  {:
     Adds new known config into the list.@br
     OnChange event is called after successful addition.
 
@@ -1095,7 +1095,7 @@ type
     @returns Index at which the new config was added, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
-  {
+  {:
     Replaces config at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful replacement.
@@ -1109,7 +1109,7 @@ type
                          IndexConfig property).)
   }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False); virtual;
-  {
+  {:
     Replaces config with name given by @code(OldConfig) parameter. When this
     config is not found in the list, nothing happens and the method returns
     -1.@br
@@ -1127,7 +1127,7 @@ type
              found.)
   }
     Function Replace(const OldConfig, Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
-  {
+  {:
     Inserts new config at position given by @code(Index) parameter. Count is
     increased by one and all existing items from given position (included) up
     are moved higher. When index falls out of allowed boundary (<0,Count> -
@@ -1146,7 +1146,7 @@ type
     @returns Actual position where the new config was inserted.
   }
     Function Insert(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
-  {
+  {:
     Removes config with given name from the list. When this config is not found
     in the list, method returns -1 and nothing is removed.@br
     OnChange event is called after successful removal.
@@ -1157,7 +1157,7 @@ type
              found.)
   }
     Function Remove(const Name: TelemetryString): Integer; virtual;
-  {
+  {:
     Deletes config at position given by @code(Index) parameter. When index falls
     out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful deletion.
@@ -1165,7 +1165,7 @@ type
     @param Index Index of item that has to be deleted.
   }
     procedure Delete(Index: Integer); virtual;
-  {
+  {:
     Returns @true when given config is binded, @false when it is not binded or
     when not found in list.
 
@@ -1174,7 +1174,7 @@ type
     @returns Binded state of requested config.
   }
     Function IsBinded(const Name: TelemetryString): Boolean; virtual;
-  {
+  {:
     Returns @true when given config is Indexed, @false when it is not Indexed or
     when not found in list.
 
@@ -1183,7 +1183,7 @@ type
     @returns Indexed state of requested config.
   }
     Function IsIndexed(const Name: TelemetryString): Boolean; virtual;
-  {
+  {:
     Returns ID for passed Config name.
 
     @param Name Full name of config for which you want an ID.
@@ -1191,7 +1191,7 @@ type
     @returns ID of passed Config name.
   }
     Function ConfigNameToID(const Name: TelemetryString): TConfigID;
-  {
+  {:
     Returns name of Config with the same ID as is passed in "ID" prameter. This
     method actually searches through the list for Config with appropriate ID.
     When such Config is not found, an empty string is returned.
@@ -1201,14 +1201,14 @@ type
     @returns Full name of the config with appropriate ID.
   }
     Function ConfigIDToName(ID: TConfigID): TelemetryString; virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored items.@br
     Unlike Configs property, you can use returned pointer to change values of
     stored items.
   }
     property Pointers[Index: Integer]: PKnownConfig read GetKnownConfigPointer;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.
   }
@@ -1222,7 +1222,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-{
+{:
   Structure holding informations about registered @noAutoLink(event).
 
   @member(Event    @NoAutoLink(Event) identifier.)
@@ -1233,16 +1233,16 @@ type
     Event:    scs_event_t;
     Utility:  Boolean;
   end;
-  // Pointer to TEventInfo structure.
+  //:Pointer to TEventInfo structure.
   PEventInfo = ^TEventInfo;
 
 const
-  // Empty TEventInfo structure.
+  //:Empty TEventInfo structure.
   EmptyEventInfo: TEventInfo =
    (Event:    SCS_TELEMETRY_EVENT_invalid;
     Utility:  False);
 
-{
+{:
   @abstract(Structure used as item in TRegisteredEventsList.)
   Pointer to this structure is passed as @noAutoLink(context) in telemetry API
   calls when registering telemetry event.
@@ -1257,13 +1257,13 @@ type
     EventInfo:  TEventInfo;
     UserData:   Pointer;
   end;
-  // Pointer to TEventContext structure.
+  //:Pointer to TEventContext structure.
   PEventContext = ^TEventContext;
 
 {==============================================================================}
 {   TRegisteredEventsList // Class declaration                                 }
 {==============================================================================}
-{
+{:
   @abstract(List used to store @noAutoLink(contexts of registered events).)
 
   When new event is registered in the telemetry API, it is registered with
@@ -1273,11 +1273,11 @@ type
 }
   TRegisteredEventsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Holds reference to OnUserDataFree event handler.
   }
     fOnUserDataFree:  TUserDataFreeEvent;
-  {
+  {:
     Getter for Contexts property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1287,7 +1287,7 @@ type
     @returns Pointer to requested item.
   }
     Function GetEventContext(Index: Integer): PEventContext;
-  {
+  {:
     Getter for Events property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1298,14 +1298,14 @@ type
   }
     Function GetEventInfo(Index: Integer): TEventInfo;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.@br
     Contexts are freed using method FreeContext (OnUserDataFree event is
     called).
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for context with requested event. When the context is
     not found, -1 is returned.
 
@@ -1314,7 +1314,7 @@ type
     @returns Index of context with requested event, -1 when not found.
   }
     Function IndexOf(Event: scs_event_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for given context. When the context is not found,
     -1 is returned.
 
@@ -1323,7 +1323,7 @@ type
     @returns Index of requested context, -1 when not found.
   }
     Function IndexOf(EventContext: PEventContext): Integer; overload; virtual;
-  {
+  {:
     Adds new context into the list. @code(EventContext) parameter must not be
     @nil, otherwise an exception is raised.@br
     OnChange event is called after successful addition.
@@ -1334,7 +1334,7 @@ type
     @returns Index at which the new context was added, -1 when addition failed.
   }
     Function Add(EventContext: PEventContext): Integer; overload; virtual;
-  {
+  {:
     Creates and adds new context into the list.@br
     OnChange event is called after successful addition.
 
@@ -1347,7 +1347,7 @@ type
     @returns Index at which the new context was added, -1 when addition failed.
   }
     Function Add(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;
-  {
+  {:
     Creates and adds new context into the list. Created context has
     @code(Recipient) field set to @nil.@br
     OnChange event is called after successful addition.
@@ -1360,7 +1360,7 @@ type
     @returns Index at which the new context was added, -1 when addition failed.
   }
     Function Add(Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): Integer; overload; virtual;
-  {
+  {:
     Removes context with given event from the list.@br
     OnChange event is called after successful removal.
 
@@ -1371,7 +1371,7 @@ type
              event was not found.)
   }
     Function Remove(Event: scs_event_t): Integer; overload; virtual;
-  {
+  {:
     Removes given context from the list.@br
     OnChange event is called after successful removal.
 
@@ -1381,7 +1381,7 @@ type
              found.)
   }
     Function Remove(EventContext: PEventContext): Integer; overload; virtual;
-  {
+  {:
     Deletes context at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful deletion.@br
@@ -1391,7 +1391,7 @@ type
     @param Index Index of item that has to be deleted.
   }
     procedure Delete(Index: Integer); virtual;
-  {
+  {:
     This method creates new event context variable, fills it from parameters and
     returns pointer to this variable. It is used when registering new telemetry
     event, because actual context is needed for this registration, but cannot be
@@ -1415,25 +1415,25 @@ type
     @returns Pointer to created event context.
   }
     Function CreateContext(Recipient: TObject; Event: scs_event_t; Utility: Boolean = False; UserData: Pointer = nil): PEventContext; virtual;
-  {
+  {:
     Frees memory allocated for event context and sets this pointer to @nil.@br
     Calls OnUserDataFree event before the context is freed.
 
     @param EventContext Pointer to event context to be freed.
   }
     procedure FreeContext(var EventContext: PEventContext); virtual;
-  {
+  {:
     Calls handler of OnUserDataFree event (if assigned).
   }
     procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored contexts.@br
     Unlike Events property, you can use returned pointer to change values of
     stored items.
   }
     property Contexts[Index: Integer]: PEventContext read GetEventContext;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.@br
     This property does not return whole context structure, only its "EventInfo"
@@ -1441,7 +1441,7 @@ type
   }
     property Events[Index: Integer]: TEventInfo read GetEventInfo; default;
   published
-  {
+  {:
     Bind this event when you need to free user data stored inside a context when
     such context is destroyed.)
   }
@@ -1455,7 +1455,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-{
+{:
   Structure holding informations about registered channel.
 
   @member(Name          @NoAutoLink(Name) of the channel.)
@@ -1474,11 +1474,11 @@ type
     Flags:          scs_u32_t;
     IndexConfigID:  TItemID;
   end;
-  // Pointer to TChannelInfo structure.
+  //:Pointer to TChannelInfo structure.
   PChannelInfo = ^TChannelInfo;
 
 const
-  // Empty TEventInfo structure.
+  //:Empty TEventInfo structure.
   EmptyChannelInfo: TChannelInfo =
    (Name:           '';
     ID:             0;
@@ -1487,7 +1487,7 @@ const
     Flags:          0;
     IndexConfigID:  0);
 
-{
+{:
   @abstract(Structure used as item in TRegisteredEventsList.)
   Pointer to this structure is passed as @noAutoLink(context) in telemetry API
   calls when registering telemetry channel.
@@ -1502,13 +1502,13 @@ type
     ChannelInfo:  TChannelInfo;
     UserData:     Pointer;
   end;
-  // Pointer to TChannelContext structure.
+  //:Pointer to TChannelContext structure.
   PChannelContext = ^TChannelContext;
 
 {==============================================================================}
 {   TRegisteredChannelsList // Class declaration                               }
 {==============================================================================}
-{
+{:
   @abstract(List used to store @noAutoLink(contexts of registered channels).)
 
   When new channel is registered in the telemetry API, it is registered with
@@ -1519,11 +1519,11 @@ type
 }
   TRegisteredChannelsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Holds reference to OnUserDataFree event handler.
   }
     fOnUserDataFree:  TUserDataFreeEvent;
-  {
+  {:
     Getter for Contexts property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1533,7 +1533,7 @@ type
     @returns Pointer to requested item.
   }
     Function GetChannelContext(Index: Integer): PChannelContext;
-  {
+  {:
     Getter for Channels property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1544,14 +1544,14 @@ type
   }
     Function GetChannelInfo(Index: Integer): TChannelInfo;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.@br
     Contexts are freed using method FreeContext (OnUserDataFree event is
     called).
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for context created for channel with appropriate name.
     When the context is not found, -1 is returned.
 
@@ -1560,7 +1560,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate ID.
     When the context is not found, -1 is returned.
 
@@ -1569,7 +1569,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(ID: TChannelID): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate name
     and index. When the context is not found, -1 is returned.
 
@@ -1579,7 +1579,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate ID
     and index. When the context is not found, -1 is returned.
 
@@ -1589,7 +1589,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(ID: TChannelID; Index: scs_u32_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate name,
     index and value type. When the context is not found, -1 is returned.
 
@@ -1600,7 +1600,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate ID,
     index and value type. When the context is not found, -1 is returned.
 
@@ -1611,7 +1611,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate name,
     index, value type and flags. When the context is not found, -1 is returned.
 
@@ -1623,7 +1623,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for context created for channel with appropriate ID,
     index, value type and flags. When the context is not found, -1 is returned.
 
@@ -1635,7 +1635,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list given context. When the context is not found, -1 is returned.
 
     @param ChannelContext Requested channel context.
@@ -1643,7 +1643,7 @@ type
     @returns Index of requested context, -1 when not found.
   }
     Function IndexOf(ChannelContext: PChannelContext): Integer; overload; virtual;
-  {
+  {:
     Adds new context into the list. @code(ChannelContext) parameter must not be
     @nil, otherwise an exception is raised.@br
     OnChange event is called after successful addition.
@@ -1654,7 +1654,7 @@ type
     @returns Index at which the new context was added, -1 when addition failed.
   }
     Function Add(ChannelContext: PChannelContext): Integer; overload; virtual;
-  {
+  {:
     Creates and adds new context into the list.@br
     OnChange event is called after successful addition.
 
@@ -1672,7 +1672,7 @@ type
     @returns Index at which the new context was added, -1 when addition failed.
   }
     Function Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer; overload; virtual;
-  {
+  {:
     Creates and adds new context into the list. Created context has
     @code(Recipient) field set to @nil.@br
     OnChange event is called after successful addition.
@@ -1690,7 +1690,7 @@ type
     @returns Index at which the new context was added, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer; overload; virtual;
-  {
+  {:
     Removes context created for given channel from the list.@br
     OnChange event is called after successful removal.
 
@@ -1703,7 +1703,7 @@ type
              channel was not found.)
   }
     Function Remove(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
-  {
+  {:
     Removes context created for given channel from the list.@br
     OnChange event is called after successful removal.
 
@@ -1716,7 +1716,7 @@ type
              channel was not found.)
   }
     Function Remove(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
-  {
+  {:
     Removes given context from the list.@br
     OnChange event is called after successful removal.
 
@@ -1726,7 +1726,7 @@ type
              found.)
   }    
     Function Remove(ChannelContext: PChannelContext): Integer; overload; virtual;
-  {
+  {:
     Deletes context at position given by @code(Index) parameter. When index
     falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
     OnChange event is called after successful deletion.@br
@@ -1736,7 +1736,7 @@ type
     @param Index Index of item that has to be deleted.
   }
     procedure Delete(Index: Integer); virtual;
-  {
+  {:
     This method creates new channel context variable, fills it from parameters
     and returns pointer to this variable. It is used when registering new
     telemetry channel, because actual context is needed for this registration,
@@ -1764,25 +1764,25 @@ type
     @returns Pointer to created channel context.
   }
     Function CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): PChannelContext; virtual;
-  {
+  {:
     Frees memory allocated for channel context and sets this pointer to @nil.@br
     Calls OnUserDataFree event before the context is freed.
 
     @param ChannelContext Pointer to channel context to be freed.
   }
     procedure FreeContext(var ChannelContext: PChannelContext); virtual;
-  {
+  {:
     Calls handler of OnUserDataFree event (if assigned).
   }
     procedure DoOnUserDataFree(Sender: TObject; var UserData: Pointer); virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored contexts.@br
     Unlike Channels property, you can use returned pointer to change values of
     stored items.
   }
     property Contexts[Index: Integer]: PChannelContext read GetChannelContext;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.@br
     This property does not return whole context structure, only its
@@ -1790,7 +1790,7 @@ type
   }
     property Channels[Index: Integer]: TChannelInfo read GetChannelInfo; default;
   published
-  {
+  {:
     Bind this event when you need to free user data stored inside a context when
     such context is destroyed.
   }
@@ -1804,7 +1804,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-{
+{:
   @abstract(Structure used as item in TStoredConfigsList.)
   This structure is used to store configuration @noAutoLink(value) obtained from
   the API call.
@@ -1822,11 +1822,11 @@ type
     Value:  scs_value_localized_t;
     Binded: Boolean;
   end;
-  // Pointer to TStoredConfig structure.
+  //:Pointer to TStoredConfig structure.
   PStoredConfig = ^TStoredConfig;
 
 const
-  // Empty TStoredConfig structure.
+  //:Empty TStoredConfig structure.
   EmptyStoredConfig: TStoredConfig =
    (Name:   '';
     ID:     0;
@@ -1846,13 +1846,13 @@ const
 {==============================================================================}
 {   TStoredConfigsList // Class declaration                                    }
 {==============================================================================}
-{
+{:
   List used to store configuration values obtained from API calls.
 }
 type
   TStoredConfigsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Getter for Pointers property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1862,7 +1862,7 @@ type
     @returns Pointer to requested item.
   }
     Function GetStoredConfigPointer(Index: Integer): PStoredConfig;
-  {
+  {:
     Getter for Configs property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -1873,12 +1873,12 @@ type
   }
     Function GetStoredConfig(Index: Integer): TStoredConfig;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for stored config with appropriate name.
     When matching config is not found, -1 is returned.
 
@@ -1887,7 +1887,7 @@ type
     @returns Index of requested config, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
-  {
+  {:
     Searches through list for stored config with appropriate ID.
     When matching config is not found, -1 is returned.
 
@@ -1896,7 +1896,7 @@ type
     @returns Index of requested config, -1 when not found.
   }
     Function IndexOf(ID: TConfigID): Integer; overload; virtual;
-  {
+  {:
     Searches through list for stored config with appropriate name and index.
     When matching config is not found, -1 is returned.
 
@@ -1906,7 +1906,7 @@ type
     @returns Index of requested config, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for stored config with appropriate ID and index.
     When matching config is not found, -1 is returned.
 
@@ -1916,7 +1916,7 @@ type
     @returns Index of requested config, -1 when not found.
   }
     Function IndexOf(ID: TConfigID; Index: scs_u32_t): Integer; overload; virtual;
-  {
+  {:
     Stores new config with its value into the list.@br
     OnChange event is called after successful addition.
 
@@ -1930,7 +1930,7 @@ type
     @returns Index at which the new config was stored, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer; overload; virtual;
-  {
+  {:
     Stores new config with its value into the list.@br
     OnChange event is called after successful addition.
 
@@ -1944,7 +1944,7 @@ type
     @returns Index at which the new config was stored, -1 when addition failed.
   }
     Function Add(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;
-  {
+  {:
     Removes stored config from the list.@br
     OnChange event is called after successful removal.
 
@@ -1955,7 +1955,7 @@ type
              found.)
   }
     Function Remove(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Removes stored config from the list.@br
     OnChange event is called after successful removal.
 
@@ -1966,7 +1966,7 @@ type
              found.)
   }
     Function Remove(ID: TChannelID; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
-  {
+  {:
     Deletes stored config at position given by @code(Index) parameter. When
     index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.@br
@@ -1975,7 +1975,7 @@ type
     @param Index Index of item that has to be deleted.
   }
     procedure Delete(Index: Integer); virtual;
-  {
+  {:
     Changes stored value in config defined by name and index.
     OnChange event is called after successful removal.
 
@@ -1986,7 +1986,7 @@ type
              config was not found.)
   }
     Function ChangeConfigValue(const Name: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
-  {
+  {:
     Changes stored value in config defined by ID and index.
     OnChange event is called after successful removal.
 
@@ -1997,14 +1997,14 @@ type
              config was not found.)
   }
     Function ChangeConfigValue(ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored items.@br
     Unlike Configs property, you can use returned pointer to change values of
     stored items.
   }
     property Pointers[Index: Integer]: PStoredConfig read GetStoredConfigPointer;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.
   }
@@ -2018,10 +2018,10 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-  // Identification number used in TStoredChannelsList for faster searching.
+  //:Identification number used in TStoredChannelsList for faster searching.
   TMasterID = LongWord;
 
-{
+{:
   @abstract(Function used to calculate master identification number which is
   used in TStoredChannelsList.)@br
   This number is used in searching and sorting algorithms and is calculated from
@@ -2038,7 +2038,7 @@ type
   Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register;
 
 type
-{
+{:
   @abstract(Structure used to store channel @noAutoLink(value) obtained form 
             API.)
 
@@ -2053,10 +2053,10 @@ type
     Index:      scs_u32_t;
     Value:      scs_value_localized_t;
   end;
-  // Pointer to TStoredChannel structure.
+  //:Pointer to TStoredChannel structure.
   PStoredChannel = ^TStoredChannel;
 
-{
+{:
   @abstract(Structure used as item in TStoredChannelsList.)
   This structure is used to store channels @noAutoLink(values) obtained from API
   calls in an list sorted by items master ID.
@@ -2068,20 +2068,20 @@ type
     MasterID:       TMasterID;
     StoredChannel:  TStoredChannel;
   end;
-  // Pointer to TStoredChannelSorted structure.
+  //:Pointer to TStoredChannelSorted structure.
   PStoredChannelMasterID = ^TStoredChannelMasterID;
 
 {==============================================================================}
 {   TStoredChannelsList // Class declaration                                   }
 {==============================================================================}
-{
+{:
   @abstract(List used to store channels values obtained from API calls.)
 
   Items in this list are sorted by their master ID.
 }
   TStoredChannelsList = class(TCustomTelemetryList)
   private
-  {
+  {:
     Getter for StoredChannelValues property.@br
     When index falls out of allowed boundary (<0,Count - 1>), an exception is
     raised.
@@ -2092,7 +2092,7 @@ type
   }
     Function GetStoredChannelValue(Index: Integer): TStoredChannel;
   protected
-  {
+  {:
     This function is used to get position at which should the new item with
     given master ID be put in order for the list to stay sorted.
 
@@ -2102,12 +2102,12 @@ type
   }
     Function GetInsertIndex(MasterID: TMasterID): Integer; virtual;
   public
-  {
+  {:
     Deletes all items in the list.@br
     OnChange event is called after items deletion.
   }
     procedure Clear; override;
-  {
+  {:
     Searches through list for stored channel with appropriate master index.
     When matching config is not found, -1 is returned.
 
@@ -2116,7 +2116,7 @@ type
     @returns Index of requested channel, -1 when not found.
   }
     Function IndexOf(MasterID: TMasterID): Integer; overload; virtual;
-  {
+  {:
     Searches through list for stored channel with appropriate ID, index and
     value type. When the context is not found, -1 is returned.
 
@@ -2127,7 +2127,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
-  {
+  {:
     Searches through list for stored channel with appropriate name, index and
     value type. When the context is not found, -1 is returned.
 
@@ -2138,7 +2138,7 @@ type
     @returns Index of context with requested channel, -1 when not found.
   }
     Function IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer; overload; virtual;
-  {
+  {:
     Method used to store new value for already present channel. If such channel
     is not yet stored in the list, it is added as new item. Function can, in
     extreme cases, return -1 (when the channel is not already stored and
@@ -2154,7 +2154,7 @@ type
              found, -1 on failure.)
   }
     Function StoreChannelValue(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t): Integer; virtual;
-  {
+  {:
     Array property mapped directly to internal list. Use it to obtain values of
     individual stored items.
   }
@@ -2165,7 +2165,7 @@ type
 {   Unit functions and procedures // Declaration                               }
 {==============================================================================}
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             channel name to ID.)
   @code(UserData) passed to streaming function along with this callback must
@@ -2179,7 +2179,7 @@ type
 }
 Function GetChannelIDFromName(const Name: TelemetryString; KnownChannels: Pointer): TChannelID;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             channel ID to name.)
   @code(UserData) passed to streaming function along with this callback must
@@ -2193,7 +2193,7 @@ Function GetChannelIDFromName(const Name: TelemetryString; KnownChannels: Pointe
 }
 Function GetChannelNameFromID(ID: TChannelID; KnownChannels: Pointer): TelemetryString;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             config name to ID.)
   @code(UserData) passed to streaming function along with this callback must
@@ -2207,7 +2207,7 @@ Function GetChannelNameFromID(ID: TChannelID; KnownChannels: Pointer): Telemetry
 }
 Function GetConfigIDFromName(const Name: TelemetryString; KnownConfigs: Pointer): TConfigID;
 
-{
+{:
   @abstract(Function intended as callback for streaming functions, converting
             ID to config name.)
   @code(UserData) passed to streaming function along with this callback must

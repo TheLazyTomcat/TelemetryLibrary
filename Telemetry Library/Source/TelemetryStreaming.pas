@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Routines designed to store and load complex variables to/from memory
           or stream.)
 @author(František Milt <fmilt@seznam.cz>)
@@ -101,7 +101,7 @@ uses
 {==============================================================================}
 
 type
-{
+{:
   Prototype of function used to convert item name into its ID.
 
   @param Name      Item name.
@@ -111,7 +111,7 @@ type
 }
   TNameIDFunc = Function(const Name: TelemetryString; UserData: Pointer): TItemID;
 
-{
+{:
   Prototype of function used to convert item ID back into its name.
 
   @param ID        Item ID.
@@ -125,7 +125,7 @@ type
 {   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
-{
+{:
   @abstract(Returns number of bytes required for a given string to be stored in
   memory.)
   When an empty string is passed, only size of string length (Int32 => 4Bytes)
@@ -139,7 +139,7 @@ Function SizeOfString(const Str: UTF8String = ''): TMemSize; overload;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns number of bytes required for a given string to be stored in
   memory.)
   When passed string is is not assigned or is empty, then only size of string
@@ -154,7 +154,7 @@ Function SizeOfString(Str: scs_string_t): TMemSize; overload;
 {==============================================================================}
 {   Simple varibles storing and loading (memory)                               }
 {==============================================================================}
-{
+{:
   @abstract(Writes string to general memory location.)
   Strings are stored as two fields - signed 32bit integer containing length of
   string in bytes (length of following array), followed by an array of bytes
@@ -178,7 +178,7 @@ Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advanc
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes string to general memory location.)
   Resulting memory layour is the same as in case of function that accepts normal
   string as an input parameter.
@@ -194,7 +194,7 @@ Function Ptr_WriteString(var Destination: Pointer; Str: scs_string_t; Advance: B
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads string from general memory location.)
   Can return an empty string.
 
@@ -209,7 +209,7 @@ Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boole
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 32bit integer value to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -223,7 +223,7 @@ Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boo
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit integer value from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -237,7 +237,7 @@ Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boole
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 64bit integer value to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -251,7 +251,7 @@ Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit integer value from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -265,7 +265,7 @@ Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean =
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 32bit floating point value to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -279,7 +279,7 @@ Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boole
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit floating point value from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -293,7 +293,7 @@ Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 64bit floating point value to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -307,7 +307,7 @@ Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boole
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit floating point value from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -321,7 +321,7 @@ Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes Boolean value (1byte) to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -335,7 +335,7 @@ Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boo
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads Boolean value (1byte) from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -349,7 +349,7 @@ Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boole
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes one byte to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -363,7 +363,7 @@ Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean =
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads one byte from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -377,7 +377,7 @@ Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = T
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes buffer to general memory location.
 
   @param Destination Memory location where to write. Must not be @nil.
@@ -392,7 +392,7 @@ Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads buffer from general memory location.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -407,7 +407,7 @@ Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: TMemSize; Advance
 
 //==============================================================================
 
-{
+{:
   Reads string from general memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -420,7 +420,7 @@ Function Ptr_ReadoutString(var Source: Pointer; Advance: Boolean = True): UTF8St
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit integer value from general memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -433,7 +433,7 @@ Function Ptr_ReadoutInteger(var Source: Pointer; Advance: Boolean = True): LongI
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit integer value from general memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -446,7 +446,7 @@ Function Ptr_ReadoutInt64(var Source: Pointer; Advance: Boolean = True): Int64;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit floating point value from general memory location given by
   pointer.
 
@@ -460,7 +460,7 @@ Function Ptr_ReadoutSingle(var Source: Pointer; Advance: Boolean = True): Single
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit floating point value from general memory location given by
   pointer.
 
@@ -474,7 +474,7 @@ Function Ptr_ReadoutDouble(var Source: Pointer; Advance: Boolean = True): Double
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads boolean value (one byte) from general memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -487,7 +487,7 @@ Function Ptr_ReadoutBoolean(var Source: Pointer; Advance: Boolean = True): Boole
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads one byte from general memory location given by pointer.
   
   @param Source  Memory location where to read. Must not be @nil.
@@ -502,7 +502,7 @@ Function Ptr_ReadoutByte(var Source: Pointer; Advance: Boolean = True): Byte;
 {   Simple varibles storing and loading (stream)                               }
 {==============================================================================}
 
-{
+{:
   @abstract(Writes string into stream.)
   Strings are writen in the same manner as in Ptr_WriteString function.
 
@@ -515,7 +515,7 @@ Function Stream_WriteString(Stream: TStream; const Str: UTF8String): TMemSize; o
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes string into stream.)
   Strings are writen in the same manner as in Ptr_WriteString function.
 
@@ -528,7 +528,7 @@ Function Stream_WriteString(Stream: TStream; Str: scs_string_t): TMemSize; overl
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads string from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -540,7 +540,7 @@ Function Stream_ReadString(Stream: TStream; out Str: UTF8String): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads string from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -551,7 +551,7 @@ Function Stream_ReadoutString(Stream: TStream): UTF8String;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 32bit integer value into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -563,7 +563,7 @@ Function Stream_WriteInteger(Stream: TStream; Value: LongInt): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit integer value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -575,7 +575,7 @@ Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit integer value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -586,7 +586,7 @@ Function Stream_ReadoutInteger(Stream: TStream): LongInt;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 64bit integer value into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -598,7 +598,7 @@ Function Stream_WriteInt64(Stream: TStream; Value: Int64): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit integer value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -610,7 +610,7 @@ Function Stream_ReadInt64(Stream: TStream; out Value: Int64): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit integer value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -621,7 +621,7 @@ Function Stream_ReadoutInt64(Stream: TStream): Int64;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 32bit floating point value into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -633,7 +633,7 @@ Function Stream_WriteSingle(Stream: TStream; Value: Single): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit floating point value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -645,7 +645,7 @@ Function Stream_ReadSingle(Stream: TStream; out Value: Single): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 32bit floating point value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -656,7 +656,7 @@ Function Stream_ReadoutSingle(Stream: TStream): Single;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes 64bit floating point value into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -668,7 +668,7 @@ Function Stream_WriteDouble(Stream: TStream; Value: Double): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit floating point value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -680,7 +680,7 @@ Function Stream_ReadDouble(Stream: TStream; out Value: Double): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads 64bit floating point value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -691,7 +691,7 @@ Function Stream_ReadoutDouble(Stream: TStream): Double;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes boolean (one byte) value into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -703,7 +703,7 @@ Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads boolean (one byte) value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -715,7 +715,7 @@ Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads boolean (one byte) value from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -726,7 +726,7 @@ Function Stream_ReadoutBoolean(Stream: TStream): Boolean;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes one byte into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -738,7 +738,7 @@ Function Stream_WriteByte(Stream: TStream; Value: Byte): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads one byte from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -750,7 +750,7 @@ Function Stream_ReadByte(Stream: TStream; out Value: Byte): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads one byte from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -761,7 +761,7 @@ Function Stream_ReadoutByte(Stream: TStream): Byte;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Writes buffer into stream.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
@@ -774,7 +774,7 @@ Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: TMemSize): TMem
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads buffer from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -789,7 +789,7 @@ Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: TMemSize): TMemSiz
 {   SDK types storing and loading                                              }
 {==============================================================================}
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -804,7 +804,7 @@ Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type @code(scs_value_t) into memory location
             given by pointer.)
   Data can be stored in three ways, standard binary, minimized binary and third
@@ -850,7 +850,7 @@ Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size:
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type @code(scs_value_t) into memory.)
   Unlike Ptr_Write_scs_value, this function does not need preallocated memory.
   Instead, it first allocates memory required for storing of passed value and
@@ -871,7 +871,7 @@ Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boo
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_value_t) from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -887,7 +887,7 @@ Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_value_t) from memory location given by pointer.
 
   @param Source     Memory location where to read. Must not be @nil.
@@ -903,7 +903,7 @@ Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: TMemSize; Adv
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type @code(scs_value_t) into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_scs_value.
@@ -919,7 +919,7 @@ Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: B
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_value_t) from a stream.
 
   @param Stream     Stream from which the value will be read. Must not be @nil.
@@ -933,7 +933,7 @@ Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimize
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_value_t) from a stream.
 
   @param Stream     Stream from which the value will be read. Must not be @nil.
@@ -947,7 +947,7 @@ Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: TMemSize; Mini
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -962,7 +962,7 @@ Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolea
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type scs_value_localized_t into memory
             location given by pointer.)
   All saving options and resulting memory layout is exactly the same as in
@@ -988,7 +988,7 @@ Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_valu
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type scs_value_localized_t into memory.)
   Unlike Ptr_Write_scs_value_localized, this function does not need preallocated
   memory. Instead, it first allocates memory required for storing of passed 
@@ -1009,7 +1009,7 @@ Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_locali
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_value_localized_t from memory location given by
   pointer.
 
@@ -1026,7 +1026,7 @@ Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_value_localized_t from memory location given by
   pointer.
 
@@ -1043,7 +1043,7 @@ Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: TMe
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type scs_value_localized_t into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_scs_value_localized.
@@ -1059,7 +1059,7 @@ Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_loca
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_value_localized_t from a stream.
 
   @param Stream     Stream from which the value will be read. Must not be @nil.
@@ -1073,7 +1073,7 @@ Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_l
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_value_localized_t from a stream.
 
   @param Stream     Stream from which the value will be read. Must not be @nil.
@@ -1087,7 +1087,7 @@ Function Stream_Readout_scs_value_localized(Stream: TStream; out BytesRead: TMem
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -1104,7 +1104,7 @@ Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = Fals
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type @code(scs_named_value_t) into memory
             location given by pointer.)
   Field @code(value) of passed variable is saved using Ptr_Write_scs_value
@@ -1148,7 +1148,7 @@ Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_va
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type @code(scs_named_value_t) into memory.)
   Unlike Ptr_Write_scs_named_value, this function does not need preallocated
   memory. Instead, it first allocates memory required for storing of passed 
@@ -1177,7 +1177,7 @@ Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; M
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_named_value_t) from memory location given by
   pointer.
 
@@ -1202,7 +1202,7 @@ Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_valu
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_named_value_t) from memory location given by
   pointer.
 
@@ -1227,7 +1227,7 @@ Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: TMemSiz
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type @code(scs_named_value_t) into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_scs_named_value.
@@ -1252,7 +1252,7 @@ Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_named_value_t) from a stream.
 
   @param Stream      Stream from which the value will be read. Must not be @nil.
@@ -1274,7 +1274,7 @@ Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type @code(scs_named_value_t) from a stream.
 
   @param Stream      Stream from which the value will be read. Must not be @nil.
@@ -1296,7 +1296,7 @@ Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: TMemSize
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -1313,7 +1313,7 @@ Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Mini
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type scs_named_value_localized_t into memory
             location given by pointer.)
   Field @code(Value) of passed variable is saved using
@@ -1349,7 +1349,7 @@ Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: sc
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type @code(scs_named_value_t) into memory.)
   Unlike Ptr_Write_scs_named_value_localized, this function does not need
   preallocated memory. Instead, it first allocates memory required for storing 
@@ -1378,7 +1378,7 @@ Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_named_value_localized_t from memory location given by
   pointer.
 
@@ -1403,7 +1403,7 @@ Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_named_value_localized_t from memory location given by
   pointer.
 
@@ -1428,7 +1428,7 @@ Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRea
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type scs_named_value_localized_t into a
             stream.)
   All saving options and resulting memory layout are the same as in function
@@ -1454,7 +1454,7 @@ Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_name
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_named_value_localized_t from a stream.
 
   @param Stream      Stream from which the value will be read. Must not be @nil.
@@ -1476,7 +1476,7 @@ Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_n
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type scs_named_value_localized_t from a stream.
 
   @param Stream      Stream from which the value will be read. Must not be @nil.
@@ -1498,7 +1498,7 @@ Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -1515,7 +1515,7 @@ Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type @code(scs_telemetry_configuration_t)
             into memory location given by pointer.)
   Individual attributes of passed configuration are saved using
@@ -1571,7 +1571,7 @@ Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type @code(scs_telemetry_configuration_t)
   into memory.)
   Unlike Ptr_Write_scs_telemetry_configuration, this function does not need
@@ -1603,7 +1603,7 @@ Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_tele
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type @code(scs_telemetry_configuration_t) from memory 
   location given by pointer.)
   @bold(Note) - when names of individual attributes are stored only as IDs -
@@ -1631,7 +1631,7 @@ Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: sc
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type @code(scs_telemetry_configuration_t) from memory
   location given by pointer.)
   @bold(Note) - when names of individual attributes are stored only as IDs -
@@ -1659,7 +1659,7 @@ Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesR
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type @code(scs_telemetry_configuration_t)
   into a stream.)
   All saving options and resulting memory layout are the same as in function
@@ -1686,7 +1686,7 @@ Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_te
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type @code(scs_telemetry_configuration_t) from a
   stream.)
   All loading options are the same as in function
@@ -1710,7 +1710,7 @@ Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type @code(scs_telemetry_configuration_t) from a
   stream.)
   All loading options are the same as in function
@@ -1734,7 +1734,7 @@ Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRe
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -1751,7 +1751,7 @@ Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configu
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type scs_telemetry_configuration_localized_t
             into memory location given by pointer.)
   Individual attributes of passed configuration are saved using
@@ -1789,7 +1789,7 @@ Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointe
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type scs_telemetry_configuration_localized_t
   into memory.)
   Unlike Ptr_Write_scs_telemetry_configuration_localized, this function does not
@@ -1820,7 +1820,7 @@ Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type scs_telemetry_configuration_localized_t from 
   memory location given by pointer.)
   @bold(Note) - when names of individual attributes are stored only as IDs -
@@ -1848,7 +1848,7 @@ Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type scs_telemetry_configuration_localized_t from 
   memory location given by pointer.)
   @bold(Note) - when names of individual attributes are stored only as IDs -
@@ -1876,7 +1876,7 @@ Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type scs_telemetry_configuration_localized_t
   into a stream.)
   All saving options and resulting memory layout are the same as in function
@@ -1903,7 +1903,7 @@ Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Val
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type scs_telemetry_configuration_localized_t from a
   stream.)
   All loading options are the same as in function
@@ -1927,7 +1927,7 @@ Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Reads value of type scs_telemetry_configuration_localized_t from a
   stream.)
   All loading options are the same as in function
@@ -1953,7 +1953,7 @@ Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; o
 {   Telemetry library types storing and loading                                }
 {==============================================================================}
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -1965,7 +1965,7 @@ Function Size_KnownEvent(Value: TKnownEvent): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TKnownEvent into memory location given
             by pointer.)
 
@@ -1993,7 +1993,7 @@ Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TKnownEvent into memory.)
   Unlike Ptr_Write_KnownEvent, this function does not need preallocated memory.
   Instead, it first allocates memory required for storing of passed value and
@@ -2012,7 +2012,7 @@ Function Ptr_Store_KnownEvent(out Ptr: Pointer; Value: TKnownEvent): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownEvent from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2026,7 +2026,7 @@ Function Ptr_Read_KnownEvent(var Source: Pointer; out Value: TKnownEvent; Advanc
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownEvent from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2040,7 +2040,7 @@ Function Ptr_Readout_KnownEvent(var Source: Pointer; out BytesRead: TMemSize; Ad
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TKnownEvent into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_KnownEvent.
@@ -2054,7 +2054,7 @@ Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownEvent from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2066,7 +2066,7 @@ Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): TMemSi
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownEvent from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
@@ -2078,7 +2078,7 @@ Function Stream_Readout_KnownEvent(Stream: TStream; out BytesRead: TMemSize): TK
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -2090,7 +2090,7 @@ Function Size_KnownChannel(Value: TKnownChannel): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TKnownChannel into memory location given
             by pointer.)
 
@@ -2122,7 +2122,7 @@ Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TKnownChannel into memory.)
   Unlike Ptr_Write_KnownChannel, this function does not need preallocated
   memory. Instead, it first allocates memory required for storing of passed 
@@ -2141,7 +2141,7 @@ Function Ptr_Store_KnownChannel(out Ptr: Pointer; Value: TKnownChannel): TMemSiz
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownChannel from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2155,7 +2155,7 @@ Function Ptr_Read_KnownChannel(var Source: Pointer; out Value: TKnownChannel; Ad
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownChannel from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2169,7 +2169,7 @@ Function Ptr_Readout_KnownChannel(var Source: Pointer; out BytesRead: TMemSize; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TKnownChannel into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_KnownChannel.
@@ -2183,7 +2183,7 @@ Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): TMemS
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownChannel from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2195,7 +2195,7 @@ Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): TM
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownChannel from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
@@ -2207,7 +2207,7 @@ Function Stream_Readout_KnownChannel(Stream: TStream; out BytesRead: TMemSize): 
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -2219,7 +2219,7 @@ Function Size_KnownConfig(Value: TKnownConfig): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TKnownConfig into memory location given
             by pointer.)
 
@@ -2248,7 +2248,7 @@ Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Si
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TKnownConfig into memory.)
   Unlike Ptr_Write_KnownConfig, this function does not need preallocated
   memory. Instead, it first allocates memory required for storing of passed 
@@ -2267,7 +2267,7 @@ Function Ptr_Store_KnownConfig(out Ptr: Pointer; Value: TKnownConfig): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownConfig from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2281,7 +2281,7 @@ Function Ptr_Read_KnownConfig(var Source: Pointer; out Value: TKnownConfig; Adva
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownConfig from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2295,7 +2295,7 @@ Function Ptr_Readout_KnownConfig(var Source: Pointer; out BytesRead: TMemSize; A
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TKnownConfig into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_KnownConfig.
@@ -2309,7 +2309,7 @@ Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): TMemSiz
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownConfig from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2321,7 +2321,7 @@ Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): TMem
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TKnownConfig from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
@@ -2333,7 +2333,7 @@ Function Stream_Readout_KnownConfig(Stream: TStream; out BytesRead: TMemSize): T
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -2345,7 +2345,7 @@ Function Size_EventInfo({%H-}Value: TEventInfo): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TEventInfo into memory location given
             by pointer.)
 
@@ -2371,7 +2371,7 @@ Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TEventInfo into memory.)
   Unlike Ptr_Write_EventInfo, this function does not need preallocated memory.
   Instead, it first allocates memory required for storing of passed value and
@@ -2390,7 +2390,7 @@ Function Ptr_Store_EventInfo(out Ptr: Pointer; Value: TEventInfo): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TEventInfo from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2404,7 +2404,7 @@ Function Ptr_Read_EventInfo(var Source: Pointer; out Value: TEventInfo; Advance:
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TEventInfo from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2418,7 +2418,7 @@ Function Ptr_Readout_EventInfo(var Source: Pointer; out BytesRead: TMemSize; Adv
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TEventInfo into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_EventInfo.
@@ -2432,7 +2432,7 @@ Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TEventInfo from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2444,7 +2444,7 @@ Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): TMemSize
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TEventInfo from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
@@ -2456,7 +2456,7 @@ Function Stream_Readout_EventInfo(Stream: TStream; out BytesRead: TMemSize): TEv
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -2468,7 +2468,7 @@ Function Size_ChannelInfo(Value: TChannelInfo): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TChannelInfo into memory location given
             by pointer.)
 
@@ -2498,7 +2498,7 @@ Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Si
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TChannelInfo into memory.)
   Unlike Ptr_Write_ChannelInfo, this function does not need preallocated memory.
   Instead, it first allocates memory required for storing of passed value and
@@ -2517,7 +2517,7 @@ Function Ptr_Store_ChannelInfo(out Ptr: Pointer; Value: TChannelInfo): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TChannelInfo from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2531,7 +2531,7 @@ Function Ptr_Read_ChannelInfo(var Source: Pointer; out Value: TChannelInfo; Adva
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TChannelInfo from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2545,7 +2545,7 @@ Function Ptr_Readout_ChannelInfo(var Source: Pointer; out BytesRead: TMemSize; A
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TChannelInfo into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_ChannelInfo.
@@ -2559,7 +2559,7 @@ Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): TMemSiz
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TChannelInfo from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2571,7 +2571,7 @@ Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): TMem
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TChannelInfo from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
@@ -2583,7 +2583,7 @@ Function Stream_Readout_ChannelInfo(Stream: TStream; out BytesRead: TMemSize): T
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -2595,7 +2595,7 @@ Function Size_StoredConfig(Value: TStoredConfig): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TStoredConfig into memory location given
             by pointer.)
   Field @code(Value) is saved using function Ptr_Write_scs_value_localized or
@@ -2627,7 +2627,7 @@ Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TStoredConfig into memory.)
   Unlike Ptr_Write_StoredConfig, this function does not need preallocated
   memory. Instead, it first allocates memory required for storing of passed
@@ -2646,7 +2646,7 @@ Function Ptr_Store_StoredConfig(out Ptr: Pointer; Value: TStoredConfig): TMemSiz
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredConfig from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2660,7 +2660,7 @@ Function Ptr_Read_StoredConfig(var Source: Pointer; out Value: TStoredConfig; Ad
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredConfig from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2674,7 +2674,7 @@ Function Ptr_Readout_StoredConfig(var Source: Pointer; out BytesRead: TMemSize; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TStoredConfig into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_StoredConfig.
@@ -2688,7 +2688,7 @@ Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): TMemS
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredConfig from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2700,7 +2700,7 @@ Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): TM
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredConfig from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
@@ -2713,7 +2713,7 @@ Function Stream_Readout_StoredConfig(Stream: TStream; out BytesRead: TMemSize): 
 
 //==============================================================================
 
-{
+{:
   Returns number of bytes required for storing passed value into memory or
   stream.
 
@@ -2725,7 +2725,7 @@ Function Size_StoredChannel(Value: TStoredChannel): TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TStoredChannel into memory location
             given by pointer.)
   Field @code(Value) is saved using function Ptr_Write_scs_value_localized or
@@ -2756,7 +2756,7 @@ Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Stores passed value of type TStoredChannel into memory.)
   Unlike Ptr_Write_StoredChannel, this function does not need preallocated
   memory. Instead, it first allocates memory required for storing of passed
@@ -2775,7 +2775,7 @@ Function Ptr_Store_StoredChannel(out Ptr: Pointer; Value: TStoredChannel): TMemS
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredChannel from memory location given by pointer.
 
   @param Source  Memory location where to read. Must not be @nil.
@@ -2789,7 +2789,7 @@ Function Ptr_Read_StoredChannel(var Source: Pointer; out Value: TStoredChannel; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredChannel from memory location given by pointer.
 
   @param Source    Memory location where to read. Must not be @nil.
@@ -2803,7 +2803,7 @@ Function Ptr_Readout_StoredChannel(var Source: Pointer; out BytesRead: TMemSize;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Writes passed value of type TStoredChannel into a stream.)
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_StoredChannel.
@@ -2817,7 +2817,7 @@ Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): TMe
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredChannel from a stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
@@ -2829,7 +2829,7 @@ Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Reads value of type TStoredChannel from a stream.
 
   @param Stream    Stream from which the value will be read. Must not be @nil.
