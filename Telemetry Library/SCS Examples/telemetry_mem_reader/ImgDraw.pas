@@ -15,7 +15,7 @@ interface
 uses
   SysUtils,
   Graphics,
-  TelemetrySCS_Examples_telemetry_mem,
+  TelemetrySCSExample_telemetry_mem,
   TelemetryStrings,
 {$IFDEF UseCondensedHeader}
   SCS_Telemetry_Condensed;

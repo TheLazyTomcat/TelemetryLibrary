@@ -41,7 +41,7 @@ uses
   TelemetryRecipient,
   TelemetryRecipientBinder,
 
-  TelemetrySCS_Examples_telemetry_mem,
+  TelemetrySCSExample_telemetry_mem,
 
   Forms, ImgDraw, MainForm
   { you can add units after this };
@@ -55,4 +55,3 @@ begin
   Application.CreateForm(TfMainForm, fMainForm);
   Application.Run;
 end.
-

@@ -48,7 +48,7 @@ uses
   TelemetryRecipient        in '..\..\..\Source\TelemetryRecipient.pas',
   TelemetryRecipientBinder  in '..\..\..\Source\TelemetryRecipientBinder.pas',
 
-  TelemetrySCS_Examples_telemetry_mem in '..\..\..\Source\SCS\TelemetrySCS_Examples_telemetry_mem.pas',
+  TelemetrySCSExample_telemetry_mem in '..\..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas',
 
   Forms,
   MainForm in '..\MainForm.pas' {fMainForm},

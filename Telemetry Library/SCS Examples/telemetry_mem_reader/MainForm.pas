@@ -11,7 +11,7 @@ interface
 
 uses
   SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, ComCtrls,
-  TelemetrySCS_Examples_telemetry_mem, ImgDraw;
+  TelemetrySCSExample_telemetry_mem, ImgDraw;
 
 type
   TfMainForm = class(TForm)
