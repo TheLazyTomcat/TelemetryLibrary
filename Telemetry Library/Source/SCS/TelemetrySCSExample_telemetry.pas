@@ -5,8 +5,8 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-// todo: documentation
-unit TelemetrySCS_Examples_telemetry;
+//todo: documentation
+unit TelemetrySCSExample_telemetry;
 
 interface
 
@@ -70,12 +70,12 @@ type
   public
     constructor Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
     destructor Destroy; override;
-    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; {%H-}const LogText: String); override;
+    procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; const {%H-}LogText: String); override;
     procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
     procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
-    procedure ChannelRegisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
-    procedure ChannelUnregisterHandler(Sender: TObject; {%H-}const Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+    procedure ChannelRegisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+    procedure ChannelUnregisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
     procedure ChannelHandler(Sender: TObject; const {%H-}Name: TelemetryString; ID: TChannelID; {%H-}Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
     procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
   end;
@@ -123,7 +123,9 @@ begin
 inherited Create(aRecipient);
 If not Assigned(aRecipient) then
   raise Exception.Create('TSCSExm_Telemetry.Create: Recipient is not assigned.');
+{$WARN SYMBOL_PLATFORM OFF}
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
+{$WARN SYMBOL_PLATFORM ON}
 fFormatSettings.DecimalSeparator := '.';
 aRecipient.KeepUtilityEvents := False;
 aRecipient.StoreConfigurations := False;
@@ -138,7 +140,7 @@ If not InitLog then
 fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' '
                             + IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.'
                             + IntToStr(SCSGetMinorVersion(aRecipient.GameVersion)));
-If not TelemetrySameStrSwitch(aRecipient.GameID, SCS_GAME_ID_EUT2) then
+If not TelemetrySameStr(aRecipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
   end

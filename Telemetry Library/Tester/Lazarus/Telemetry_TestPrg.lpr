@@ -45,9 +45,9 @@ uses
   TelemetryRecipient,                                        //* -
   TelemetryRecipientBinder,                                  //* -
 
-//  TelemetrySCS_Examples_telemetry,                           //*
-//  TelemetrySCS_Examples_telemetry_position,                  //*
-//  TelemetrySCS_Examples_telemetry_mem,                       //*
+  TelemetrySCSExample_telemetry,                           //* -
+  TelemetrySCSExample_telemetry_position,                  //* -
+  TelemetrySCSExample_telemetry_mem,                       //* -
 
 //  TelemetryLogText,                                          //*
 //  TelemetryLogBinary,                                        //*
