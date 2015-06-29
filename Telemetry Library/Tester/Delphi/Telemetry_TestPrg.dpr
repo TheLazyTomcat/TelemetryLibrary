@@ -43,7 +43,7 @@ uses
   TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
   TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
   TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
-//  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
+  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
 //  TelemetrySCS_Examples_telemetry          in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry.pas',
 //  TelemetrySCS_Examples_telemetry_position in '..\..\Source\SCS\TelemetrySCS_Examples_telemetry_position.pas',

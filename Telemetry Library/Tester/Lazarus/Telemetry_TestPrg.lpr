@@ -42,8 +42,8 @@ uses
   TelemetryStreaming,                                        //* -
   TelemetryVersionObjects,                                   //* -
   TelemetryInfoProvider,                                     //* -
-  TelemetryRecipient,                                        //*
-//  TelemetryRecipientBinder,
+  TelemetryRecipient,                                        //* -
+  TelemetryRecipientBinder,                                  //*
 
 //  TelemetrySCS_Examples_telemetry,                           //*
 //  TelemetrySCS_Examples_telemetry_position,                  //*
