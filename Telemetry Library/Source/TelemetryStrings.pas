@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Unit providing routines operating on @code(TelemetryString) type and
           routines converting selected binary types to text.)
 @author(František Milt <fmilt@seznam.cz>)
@@ -77,7 +77,7 @@ uses
 {   Unit constants, types, variables, etc...                                   }
 {==============================================================================}
 var
-{
+{:
   @abstract(Used for thread safety in conversions dependent on LocaleID.)
   Initialized in Initialization section of this unit (with id set to
   LOCALE_USER_DEFAULT).@br
@@ -90,7 +90,7 @@ var
 {   Unit functions and procedures declarations                                 }
 {==============================================================================}
 
-{
+{:
   @abstract(Compares strings based on the current locale with case sensitivity.)
   Since the @code(TelemetryString) is UTF8-encoded and there is no function
   for comparison of such strings, both strings are converted to WideString
@@ -105,7 +105,7 @@ var
 }
 Function TelemetrySameStrConv(const S1, S2: TelemetryString): Boolean;
 
-{
+{:
   @abstract(Compares strings based on the current locale without case
   sensitivity.)
   Since the @code(TelemetryString) is UTF8-encoded and there is no function
@@ -121,7 +121,7 @@ Function TelemetrySameStrConv(const S1, S2: TelemetryString): Boolean;
 }
 Function TelemetrySameTextConv(const S1, S2: TelemetryString): Boolean;
 
-{
+{:
   @abstract(Compares strings based on the current locale with case sensitivity
   and without internal conversions.)
   Unlike TelemetrySameStrConv, this function does not convert input strings to
@@ -137,7 +137,7 @@ Function TelemetrySameTextConv(const S1, S2: TelemetryString): Boolean;
 }
 Function TelemetrySameStrNoConv(const S1, S2: TelemetryString): Boolean;
 
-{
+{:
   @abstract(Compares strings based on the current locale without case
   sensitivity and without internal conversions.)
   Unlike TelemetrySameTextConv, this function does not convert input strings to
@@ -153,7 +153,7 @@ Function TelemetrySameStrNoConv(const S1, S2: TelemetryString): Boolean;
 }
 Function TelemetrySameTextNoConv(const S1, S2: TelemetryString): Boolean;
 
-{
+{:
   @abstract(Compares strings based on the current locale with case sensitivity.)
   This function internally calls TelemetrySameStrNoConv when switch
   @code(AssumeASCIIString) is defined. When it is not defined, it calls
@@ -166,7 +166,7 @@ Function TelemetrySameTextNoConv(const S1, S2: TelemetryString): Boolean;
 }
 Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
 
-{
+{:
   @abstract(Compares strings based on the current locale without case
   sensitivity.)
   This function internally calls TelemetrySameTextNoConv when switch
@@ -182,7 +182,7 @@ Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
 
 //==============================================================================
 
-{
+{:
   @abstract(Returns identifier of given SCS value type.)
   Identifiers are not defined by the API, for details about naming individual
   types refer to function implementation.
@@ -195,7 +195,7 @@ Function SCSValueTypeToStr(SCSValueType: scs_value_type_t): String;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns value type given by identifier.)
   If identifier is not recognized, then @code(SCS_VALUE_TYPE_INVALID) is
   returned.@br
@@ -211,7 +211,7 @@ Function SCSValueTypeFromStr(const Str: String): scs_value_type_t;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns textual representation of value passed in general buffer.)
   Actual type of the value must be passed in parameter ValueType. When passed
   type of the value is not known or is not valid, an empty string is returned.
@@ -227,7 +227,7 @@ Function SCSValueTypeFromStr(const Str: String): scs_value_type_t;
 }
 Function ValueToStr(const Value; ValueType: scs_value_type_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of value passed in general buffer.)
   Actual type of the value must be passed in parameter ValueType. When passed
   type of the value is not known or is not valid, an empty string is returned.
@@ -245,7 +245,7 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; TypeName: Boolean 
 }
 Function ValueToStr(const Value; ValueType: scs_value_type_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of value passed in general buffer.)
   Actual type of the value must be passed in parameter ValueType. When passed
   type of the value is not known or is not valid, an empty string is returned.
@@ -271,7 +271,7 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; Format: TFloatForm
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns textual representation of @code(scs_value_t) structure.)
   When type of the value is not known, an empty string is returned.
 
@@ -285,7 +285,7 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; Format: TFloatForm
 }
 Function SCSValueToStr(const Value: scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of @code(scs_value_t) structure.)
   When type of the value is not known, an empty string is returned.
 
@@ -301,7 +301,7 @@ Function SCSValueToStr(const Value: scs_value_t; TypeName: Boolean = False; Show
 }
 Function SCSValueToStr(const Value: scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of @code(scs_value_t) structure.)
   When type of the value is not known, an empty string is returned.
 
@@ -325,7 +325,7 @@ Function SCSValueToStr(const Value: scs_value_t; Format: TFloatFormat; Precision
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns textual representation of scs_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
@@ -338,7 +338,7 @@ Function SCSValueToStr(const Value: scs_value_t; Format: TFloatFormat; Precision
 }
 Function SCSValueLocalizedToStr(Value: scs_value_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of scs_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
@@ -353,7 +353,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; TypeName: Boolean 
 }
 Function SCSValueLocalizedToStr(Value: scs_value_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of scs_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
@@ -376,7 +376,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; Format: TFloatForm
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns textual representation of @code(scs_named_value_t) structure.
 
   @param Value           Actual value to be converted to text.
@@ -389,7 +389,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; Format: TFloatForm
 }
 Function SCSNamedValueToStr(const Value: scs_named_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of @code(scs_named_value_t) structure.
 
   @param Value           Actual value to be converted to text.
@@ -404,7 +404,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; TypeName: Boolean = 
 }
 Function SCSNamedValueToStr(const Value: scs_named_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of @code(scs_named_value_t) structure.
 
   @param Value           Actual value to be converted to text.
@@ -427,7 +427,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; Format: TFloatFormat
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns textual representation of scs_named_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
@@ -440,7 +440,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; Format: TFloatFormat
 }
 Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of scs_named_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
@@ -455,7 +455,7 @@ Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; T
 }
 Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of scs_named_value_localized_t structure.
 
   @param Value           Actual value to be converted to text.
@@ -478,7 +478,7 @@ Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; F
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns textual representation of @code(scs_telemetry_frame_start_t) structure.
 
   @param Data     Structure to be converted to text.
@@ -491,7 +491,7 @@ Function TelemetryEventFrameStartToStr(const Data: scs_telemetry_frame_start_t; 
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
   @param Data            Structure to be converted to text.
@@ -504,7 +504,7 @@ Function TelemetryEventFrameStartToStr(const Data: scs_telemetry_frame_start_t; 
 }
 Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuration_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
   @param Data            Structure to be converted to text.
@@ -519,7 +519,7 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 }
 Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuration_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
   @param Data            Structure to be converted to text.
@@ -542,7 +542,7 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 
 //------------------------------------------------------------------------------
 
-{
+{:
   Returns textual representation of scs_telemetry_configuration_localized_t
   structure.
 
@@ -556,7 +556,7 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 }
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of scs_telemetry_configuration_localized_t
   structure.
 
@@ -572,7 +572,7 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
 }
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   Returns textual representation of scs_telemetry_configuration_localized_t
   structure.
 
@@ -596,7 +596,7 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns textual representation of event data.)
   If there are no data to bo converted, then an empty string is returned.
 
@@ -611,7 +611,7 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
 }
 Function EventDataToStr(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of event data.)
   If there are no data to bo converted, then an empty string is returned.
 
@@ -628,7 +628,7 @@ Function EventDataToStr(Event: scs_event_t; Data: Pointer; TypeName: Boolean = F
 }
 Function EventDataToStr(Event: scs_event_t; Data: Pointer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of event data.)
   If there are no data to bo converted, then an empty string is returned.
 
@@ -653,7 +653,7 @@ Function EventDataToStr(Event: scs_event_t; Data: Pointer; Format: TFloatFormat;
 
 //------------------------------------------------------------------------------
 
-{
+{:
   @abstract(Returns textual representation of channel value passed as a pointer.)
   When the pointer is not assigned, this function will return an empty string.
 
@@ -667,7 +667,7 @@ Function EventDataToStr(Event: scs_event_t; Data: Pointer; Format: TFloatFormat;
 }
 Function ChannelValueToStr(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of channel value passed as a pointer.)
   When the pointer is not assigned, this function will return an empty string.
 
@@ -683,7 +683,7 @@ Function ChannelValueToStr(Value: p_scs_value_t; TypeName: Boolean = False; Show
 }
 Function ChannelValueToStr(Value: p_scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
-{
+{:
   @abstract(Returns textual representation of channel value passed as a pointer.)
   When the pointer is not assigned, this function will return an empty string.
 

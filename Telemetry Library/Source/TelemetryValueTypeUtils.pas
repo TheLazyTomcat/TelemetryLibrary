@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-(*
+{:
 @abstract(todo: documentation)
 
 @preformatted(
@@ -24,7 +24,7 @@
   SCS_VALUE_TYPE_dplacement ->  fplacement, dvector, fvector, euler
   SCS_VALUE_TYPE_string     ->  /
 )
-*)
+}
 unit TelemetryValueTypeUtils;
 
 interface
