@@ -126,7 +126,8 @@ type
                      property and handlers will be assigned to its events using
                      AssignHandlers method.)
     @param(FileName  Name of the output log file. It is not mandatory to assign
-                     full file path, but it is a good practice.@br
+                     full file path (file should be saved to current directory
+                     if no path is provided), but it is a good practice.@br
                      When this parameter contains an empty string, then output
                      file is created in the same folder where a module (exe/dll)
                      containing this unit is placed, with the name set to the
