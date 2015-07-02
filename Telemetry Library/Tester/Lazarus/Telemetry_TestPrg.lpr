@@ -33,26 +33,25 @@ uses
   SimpleLog,
   BitOps,
 
-  TelemetryCommon,                                           //* -
-  TelemetryIDs,                                              //* -
-  TelemetryConversions,                                      //* -
-  TelemetryStrings,                                          //* -
-  TelemetryValueTypeUtils,                                   //* -
-  TelemetryLists,                                            //* -
-  TelemetryStreaming,                                        //* -
-  TelemetryVersionObjects,                                   //* -
-  TelemetryInfoProvider,                                     //* -
-  TelemetryRecipient,                                        //* -
-  TelemetryRecipientBinder,                                  //* -
+  TelemetryCommon,
+  TelemetryIDs,
+  TelemetryConversions,
+  TelemetryStrings,
+  TelemetryValueTypeUtils,
+  TelemetryLists,
+  TelemetryStreaming,
+  TelemetryVersionObjects,
+  TelemetryInfoProvider,
+  TelemetryRecipient,
+  TelemetryRecipientBinder,
 
-  TelemetrySCSExample_telemetry,                           //* -
-  TelemetrySCSExample_telemetry_position,                  //* -
-  TelemetrySCSExample_telemetry_mem,                       //* -
+  TelemetrySCSExample_telemetry,
+  TelemetrySCSExample_telemetry_position,
+  TelemetrySCSExample_telemetry_mem,
 
-//  TelemetryLogText,                                          //*
-//  TelemetryLogBinary,                                        //*
-//  TelemetryLogBinaryParser;                                  //*
-  strutils; //remove
+  TelemetryLogText,
+  TelemetryLogBinary,
+  TelemetryLogBinaryParser;
 
 procedure RandomizeArray(out Value: TValueTypesArray);
 var
