@@ -49,10 +49,9 @@ uses
   TelemetrySCSExample_telemetry_position in '..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas',
   TelemetrySCSExample_telemetry_mem      in '..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas',
 
-//  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
-//  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
-//  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
-strutils; //remove
+  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
+  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
+  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
 
 
   procedure RandomizeArray(var Value: TValueTypesArray);
