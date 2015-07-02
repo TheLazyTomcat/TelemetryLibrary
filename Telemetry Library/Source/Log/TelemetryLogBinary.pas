@@ -78,7 +78,7 @@
     Reserved field 1    4 bytes
     Reserved field 2    4 bytes
 )
-  Each file must contain this header and API informations section, if it is
+  Each file must start with this header and API informations section, if it is
   smaller (minimum size of API info section is 16 bytes), then it is broken.
   Also, each valid file must start with valid magic number
   (@code(0x6C624C54)).@br
@@ -98,8 +98,8 @@
   Do not use reserved fields and do not assume nothing about their content!
 
   After the header, API informations are stored. They are not part of the header
-  bacause they have variable size - you have to write or read each field at a
-  time. They can be used when reading the file, for example when there is need
+  because they have variable size - you have to write or read each field at a
+  time. They are be used when reading the file, for example when there is need
   to convert item IDs to valid item names. These informations are stored as
   follows:
 @preformatted(
@@ -297,7 +297,7 @@
   Informations about occuring channel and its value.@br
   Data are stored using function Stream_Write_scs_named_value_localized or its
   alternatives, refer to this function for informations regarding resulting data
-   layout.
+  layout.
 )
 
 @item(Block type 0x0A (dec 010) - Config block
@@ -502,8 +502,7 @@ type
 
   @member BlockType        Type of block.
   @member BlockFlags       Flags of the block.
-  @member(BlockTime        Time when the block was saved (Relative to a time
-                           of file creation).)
+  @member(BlockTime        Time when the block was saved.)
   @member BlockPayloadSize Size of block payload (actual data the block stores).
 }
   TTelemetryLogBinaryBlockHeader = packed record
@@ -930,8 +929,7 @@ type
                          property or passed in @code(Sender) paramater.)
     @param(Stream        @noAutoLink(Stream) to which the output will be
                          written.@br
-                         Position should be set to a beginning, but it is not
-                         mandatory.)
+                         Stream is cleared before any writing occurs.)
     @param(DataStructure Structure of output binary log. See binary log
                          documentation for details. If you pass unsupported
                          structure, the constructor raises an exception.)
@@ -1560,6 +1558,7 @@ If not Assigned(aRecipient) then
 inherited Create(aRecipient);
 If Assigned(Stream) then fStream := Stream
   else raise Exception.Create('TTelemetryLogBinaryStream.Create: Stream not assigned.');
+fStream.Size := 0;
 PrepareFileInfo(fFileInfo);
 fFileInfo.Header.DataStructure := DataStructure;
 case DataStructure of
