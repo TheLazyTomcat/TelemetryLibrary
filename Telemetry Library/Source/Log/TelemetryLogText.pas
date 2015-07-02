@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Contains class designed to log telemetry API traffic to text file.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-18)
@@ -31,7 +31,7 @@
                          @item(TTelemetryLogText.ChannelRegisterHandler)
                          @item(TTelemetryLogText.ChannelUnregisterHandler)
                          @item(TTelemetryLogText.ChannelHandler)))
-    @item(2015-06-30 - Small implementation changes.)
+    @item(2015-06-30 - Small implementation changes.))
 
 @html(<hr>)}
 unit TelemetryLogText;
@@ -66,7 +66,7 @@ uses
 {==============================================================================}
 {   TTelemetryLogText // Class declaration                                     }
 {==============================================================================}
-{
+{:
   @abstract(Class designed to log all traffic on telemetry API to human readable
             output file.)
   To use it, just assign individual *Handler methods to appropriate telemetry
@@ -84,20 +84,20 @@ uses
 type
   TTelemetryLogText = class(TTelemetryRecipientBinder)
   private
-  {
+  {:
     See Logger property for details.
   }
     fLogger:          TSimpleLog;
-  {
+  {:
     See ShowTypesNames property for details.
   }
     fShowTypesNames:  Boolean;
-  {
+  {:
     See ShowDescriptors for details.
   }
     fShowDescriptors: Boolean;
   protected
-  {
+  {:
     Returns passed ID converted to text in the form @italic("(id_string)").
 
     @param ID ID to be converted to text.
@@ -105,7 +105,7 @@ type
     @returns Textual representation of passed ID.
   }
     Function ItemIDString(ID: TItemID): String; virtual;
-  {
+  {:
     Returns textual representation of passed index in the form
     @italic("[index]") when index differs from @code(SCS_U32_NIL), or an empty
     string otherwise.
@@ -116,7 +116,7 @@ type
   }
     Function IndexString(Index: scs_u32_t): String; virtual;
   public
-  {
+  {:
     Class constructor.
 
     Creates Logger object.
@@ -135,19 +135,19 @@ type
                      time the file was created, and with .log extension.)
   }
     constructor Create(aRecipient: TTelemetryRecipient = nil; FileName: String = '');
-  {
+  {:
     Class destructor.
 
     Frees Logger object.
   }
     destructor Destroy; override;
-  {
+  {:
     Calls appropriate methods of Logger that actually writes log text to output.
 
     @param LogText      Text to be written to output(s).
   }
     procedure AddLog(LogText: String); virtual;
-  {
+  {:
     Adds informations about write to a game log.@br
 
     @param(Sender  Object that called this method (should be of type
@@ -156,7 +156,7 @@ type
     @param LogText Actual text written into game log.
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
-  {
+  {:
     Adds informations about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
@@ -166,7 +166,7 @@ type
     @param UserData User defined data stored in the event context.
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
-  {
+  {:
     Adds informations about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
@@ -176,7 +176,7 @@ type
     @param UserData User defined data stored in the event context.
   }
     procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
-  {
+  {:
     Adds informations about game event to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
@@ -187,7 +187,7 @@ type
     @param UserData User defined data stored in the event context.
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
-  {
+  {:
     Adds informations about channel registration to the log.
 
     @param(Sender    Object that called this method (should be of type
@@ -200,7 +200,7 @@ type
     @param UserData  User defined data stored in the channel context.
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
-  {
+  {:
     Adds informations about channel unregistration to the log.
 
     @param(Sender    Object that called this method (should be of type
@@ -212,7 +212,7 @@ type
     @param UserData  User defined data stored in the channel context.
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
-  {
+  {:
     Adds informations about channel to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
@@ -225,7 +225,7 @@ type
     @param UserData  User defined data stored in the channel context.
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
-  {
+  {:
     Adds informations about received configuration to the log.
 
     @param(Sender    Object that called this method (should be of type
@@ -236,59 +236,59 @@ type
     @param Value     Actual value of the config.
   }
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
-  {
+  {:
     Calls method LogHandler with unchanged parameters and @code(Sender) set to
     @nil. Refer to LogHandler for details.
   }
     procedure LogLog(LogType: scs_log_type_t; const LogText: String); virtual;
-  {
+  {:
     Calls method EventRegisterHandler with unchanged parameters and
     @code(Sender) set to @nil. Refer to EventRegisterHandler for details.
   }
     procedure LogEventRegister(Event: scs_event_t); virtual;
-  {
+  {:
     Calls method EventUnregisterHandler with unchanged parameters and
     @code(Sender) set to @nil. Refer to EventUnregisterHandler for details.
   }
     procedure LogEventUnregister(Event: scs_event_t); virtual;
-  {
+  {:
     Calls method EventHandler with unchanged parameters and @code(Sender) set to
     @nil. Refer to EventHandler for details.
   }
     procedure LogEvent(Event: scs_event_t; Data: Pointer); virtual;
-  {
+  {:
     Calls method ChannelRegisterHandler with unchanged parameters and
     @code(Sender) set to @nil. Refer to ChannelRegisterHandler for details.
   }
     procedure LogChannelRegister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;
-  {
+  {:
     Calls method ChannelUnregisterHandler with unchanged parameters and
     @code(Sender) set to @nil. Refer to ChannelUnregisterHandler for details.
   }
     procedure LogChannelUnregister(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;
-  {
+  {:
     Calls method ChannelHandler with unchanged parameters and @code(Sender) set
     to @nil. Refer to ChannelHandler for details.
   }
     procedure LogChannel(const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual;
-  {
+  {:
     Calls method ConfigHandler with unchanged parameters and @code(Sender) set
     to @nil. Refer to ConfigHandler for details.
   }
     procedure LogConfig(const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
   published
-  {
+  {:
     Reference to internally used object that actually performs all writes to
     outputs.
   }
     property Logger: TSimpleLog read fLogger;
-  {
+  {:
     Determines whether type identifiers should be added into output when
     converting values to text.@br
     Initialized to @false.
   }
     property ShowTypesNames: Boolean read fShowTypesNames write fShowTypesNames;
-  {
+  {:
     Determines whether field descriptors should be added into output when
     converting composite values to text.@br
     Initialized to @false.
@@ -311,7 +311,6 @@ uses
 {------------------------------------------------------------------------------}
 
 const
-
   // Default (initial) values for selected logger properties.
   def_InMemoryLog     = False;
   def_StreamToFile    = True;

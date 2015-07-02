@@ -51,26 +51,30 @@ Count=0
 Count=0
 
 [IncludeDirectories]
-Count=2
+Count=3
 Item_0=..\Source
 Item_1=..\Source\SCS
+Item_2=..\Source\Log
 
 [Files]
-Count=14
-Item_0=..\Source\SCS\TelemetrySCSExample_telemetry.pas
-Item_1=..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas
-Item_2=..\Source\SCS\TelemetrySCSExample_telemetry_position.pas
-Item_3=..\Source\TelemetryCommon.pas
-Item_4=..\Source\TelemetryConversions.pas
-Item_5=..\Source\TelemetryIDs.pas
-Item_6=..\Source\TelemetryInfoProvider.pas
-Item_7=..\Source\TelemetryLists.pas
-Item_8=..\Source\TelemetryRecipient.pas
-Item_9=..\Source\TelemetryRecipientBinder.pas
-Item_10=..\Source\TelemetryStreaming.pas
-Item_11=..\Source\TelemetryStrings.pas
-Item_12=..\Source\TelemetryValueTypeUtils.pas
-Item_13=..\Source\TelemetryVersionObjects.pas
+Count=17
+Item_0=..\Source\Log\TelemetryLogBinary.pas
+Item_1=..\Source\Log\TelemetryLogBinaryParser.pas
+Item_2=..\Source\Log\TelemetryLogText.pas
+Item_3=..\Source\SCS\TelemetrySCSExample_telemetry.pas
+Item_4=..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas
+Item_5=..\Source\SCS\TelemetrySCSExample_telemetry_position.pas
+Item_6=..\Source\TelemetryCommon.pas
+Item_7=..\Source\TelemetryConversions.pas
+Item_8=..\Source\TelemetryIDs.pas
+Item_9=..\Source\TelemetryInfoProvider.pas
+Item_10=..\Source\TelemetryLists.pas
+Item_11=..\Source\TelemetryRecipient.pas
+Item_12=..\Source\TelemetryRecipientBinder.pas
+Item_13=..\Source\TelemetryStreaming.pas
+Item_14=..\Source\TelemetryStrings.pas
+Item_15=..\Source\TelemetryValueTypeUtils.pas
+Item_16=..\Source\TelemetryVersionObjects.pas
 
 [HyphenatedWords]
 Count=0
