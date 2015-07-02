@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-{@html(<hr>)
+{:@html(<hr>)
 @abstract(Contains classes designed to parse binary logs.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-10)
@@ -89,28 +89,28 @@ uses
 {$ENDIF}
 
 type
-  // Event type used when reader/parser passes unprocessed log data.
+  //:Event type used when reader/parser passes unprocessed log data.
   TDataLogEvent = procedure(Sender: TObject; Data: Pointer; Size: LongWord) of object;
-  // Event type used when reader/parser passes text log data or any interpreted data.
+  //:Event type used when reader/parser passes text log data or any interpreted data.
   TTextLogEvent = procedure(Sender: TObject; const Text: String) of object;
 
-  // Event type used when reader/parser passes unprocessed log data with time.
+  //:Event type used when reader/parser passes unprocessed log data with time.
   TDataTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord) of object;
-  // Event type used when reader/parser passes text log data or any interpreted data with time.
+  //:Event type used when reader/parser passes text log data or any interpreted data with time.
   TTextTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Text: String) of object;
-  // Event type used when reader/parser passes informations about a write to game log with time.
+  //:Event type used when reader/parser passes informations about a write to game log with time.
   TLogTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String) of object;
-  // Event type used when reader/parser passes log data containing informations about game event (un)registration with time.
+  //:Event type used when reader/parser passes log data containing informations about game event (un)registration with time.
   TEventRegisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Event: scs_event_t) of object;
-  // Event type used when reader/parser passes log data containing informations about game event with time.
+  //:Event type used when reader/parser passes log data containing informations about game event with time.
   TEventTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer) of object;
-  // Event type used when reader/parser passes log data containing informations about channel registration with time.
+  //:Event type used when reader/parser passes log data containing informations about channel registration with time.
   TChannelRegisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t) of Object;
-  // Event type used when reader/parser passes log data containing informations about channel unregistration with time.
+  //:Event type used when reader/parser passes log data containing informations about channel unregistration with time.
   TChannelUnregisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t) of Object;
-  // Event type used when reader/parser passes log data containing informations about channel value with time.
+  //:Event type used when reader/parser passes log data containing informations about channel value with time.
   TChannelTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t) of Object;
-  // Event type used when reader/parser passes log data containing informations about config value with time.
+  //:Event type used when reader/parser passes log data containing informations about config value with time.
   TConfigTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
 
@@ -120,7 +120,7 @@ type
   {$UNDEF DeclarationPart}
 {$ENDIF}
 
-{
+{:
   Structure returned by parser when you access specific log in the stream by its
   index.
   
@@ -142,7 +142,7 @@ type
   end;
 
 const
-  // Contains empty/invalid value of type TLogEntry.
+  //:Contains empty/invalid value of type TLogEntry.
   InvalidLogEntry: TLogEntry = (Time: 0; Data: nil; Info: 0);
 
 {==============================================================================}
@@ -154,7 +154,7 @@ const
 {==============================================================================}
 {   TTelemetryLogBinaryReader // Class declaration                             }
 {==============================================================================}
-{
+{:
   @abstract(Base class for all internal readers used to write binary logs.)
   This class is intended as common ancestor for all internal reader classes.
   These classes are used internaly to read different binary log structures, and
@@ -165,87 +165,87 @@ const
 type
   TTelemetryLogBinaryReader = class(TObject)
   private
-  {
+  {:
     See Stream property for details.
   }
     fStream:                    TStream;
-  {
+  {:
     See FileInfo property for details.
   }
     fFileInfo:                  TTelemetryLogBinaryFileInfo;
-  {
+  {:
     See LogCounter property for details.
   }
     fLogCounter:                Integer;
-  {
+  {:
     See TelemetryInfoProvider property for details.
   }
     fTelemetryInfoProvider:     TTelemetryInfoProvider;
-  {
+  {:
     See FirstStreamPosition property for details.
   }
     fFirstStreamPosition:       Int64;
-  {
+  {:
     See ReadingTerminated property for details.
   }
     fReadingTerminated:         Boolean;
-  {
+  {:
     Stores reference to OnDataLog event handler.
   }
     fOnDataLog:                 TDataTimeLogEvent;
-  {
+  {:
     Stores reference to OnTextLog event handler.
   }
     fOnTextLog:                 TTextTimeLogEvent;
-  {
+  {:
     Stores reference to OnLogLog event handler.
   }
     fOnLogLog:                  TLogTimeLogEvent;
-  {
+  {:
     Stores reference to OnEventRegister event handler.
   }
     fOnEventRegister:           TEventRegisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnEventUnregister event handler.
   }
     fOnEventUnregister:         TEventRegisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnEvent event handler.
   }
     fOnEvent:                   TEventTimeLogEvent;
-  {
+  {:
     Stores reference to OnChannelRegister event handler.
   }
     fOnChannelRegister:         TChannelRegisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnChannelUnregister event handler.
   }
     fOnChannelUnregister:       TChannelUnregisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnChannel event handler.
   }
     fOnChannel:                 TChannelTimeLogEvent;
-  {
+  {:
     Stores reference to OnConfig event handler.
   }
     fOnConfig:                  TConfigTimeLogEvent;
   protected
-  {
+  {:
     Increases LogCounter property by a number passed in @code(N) parameter.
 
     @param N Number by which the LogCounter will be increased.
   }
     procedure IncLogCounter(N: Integer = 1); virtual;
-  {
+  {:
     Getter for LogCount property.
   }
     Function GetLogCount: Integer; virtual; abstract;
-  {
+  {:
     Getter for LogEntries array property.
   }
     Function GetLogEntry(Index: Integer): TLogEntry; virtual; abstract;
   public
-  {
+  {:
     Class constructor.
 
     Creates internal telemetry info provider.
@@ -261,13 +261,13 @@ type
                     not filled, the behavior of this class is not defined.)
   }
     constructor Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
-  {
+  {:
     Class destructor.
 
     Frees internal telemetry info provider.
   }
     destructor Destroy; override;
-  {
+  {:
     Method that must be called before any log is read. Its job is to prepare
     anything that is necesary for actual reading (variables initialization,
     ...).@br
@@ -276,12 +276,12 @@ type
     Can be used to effectively reset the reading.
   }
     procedure StartReading; virtual;
-  {
+  {:
     Method that must be called before destruction of instance. Its job is to
     free any allocated resources.
   }
     procedure EndReading; virtual;
-  {
+  {:
     Reads next log entry from current position in Stream. When parameter
     @code(IncreaseLogCounter) is set to @true and result is also @true, then
     LogCounter is increased by one.@br
@@ -292,12 +292,12 @@ type
     @returns @True when log was read successfuly, @false otherwise.
   }
     Function ReadNextLogEntry(IncreaseLogCounter: Boolean = True): Boolean; virtual; abstract;
-  {
+  {:
     Reads all log entries from current position in Stream.@br
     Repeatedly calls ReadNextLogEntry until it returns @false.)
   }
     procedure ReadAllLogEntries; virtual;
-  {
+  {:
     Reads log entry selected by passed index. Works only for structures that
     supports non-sequential reading (eg. structure 0).@br
     Position in Stream is not changed in this method.
@@ -307,7 +307,7 @@ type
     @returns @True when the entry was read successfuly, @false otherwise.
   }
     Function ReadLogEntry(Index: Integer): Boolean; virtual; abstract;
-  {
+  {:
     Array property mapped to log entries - that is, each item in this array
     corresponds to one log entry.@br
     When you try to access item that is out of allowed boundary or the reading
@@ -315,85 +315,85 @@ type
     Works only for structures that supports non-sequential reading.@br
   }
     property LogEntries[Index: Integer]: TLogEntry read GetLogEntry; default;
-  {
+  {:
     Information about file that is being read. Filled in constructor.)
   }
     property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
   published
-  {
+  {:
     Event called when reader reads log with undefined internal data structure.
   }
     property OnDataLog: TDataTimeLogEvent read fOnDataLog write fOnDataLog;
-  {
+  {:
     Event called when reader reads text log or log that can be interpreted as a
     text.
   }
     property OnTextLog: TTextTimeLogEvent read fOnTextLog write fOnTextLog;
-  {
+  {:
     Event called when reader reads log containing informations about a write to
     game log.
   }
     property OnLogLog: TLogTimeLogEvent read fOnLogLog write fOnLogLog;
-  {
+  {:
     Event called when reader reads log containing informations about game event
     registration.
   }
     property OnEventRegister: TEventRegisterTimeLogEvent read fOnEventRegister write fOnEventRegister;
-  {
+  {:
     Event called when reader reads log containing informations about game event
     unregistration.
   }
     property OnEventUnregister: TEventRegisterTimeLogEvent read fOnEventUnregister write fOnEventUnregister;
-  {
+  {:
     Event called when reader reads log containing informations about game
     event.
   }
     property OnEvent: TEventTimeLogEvent read fOnEvent write fOnEvent;
-  {
+  {:
     Event called when reader reads log containing informations about channel
     registration.
   }
     property OnChannelRegister: TChannelRegisterTimeLogEvent read fOnChannelRegister write fOnChannelRegister;
-  {
+  {:
     Event called when reader reads log containing informations about channel
     unregistration.
   }
     property OnChannelUnregister: TChannelUnregisterTimeLogEvent read fOnChannelUnregister write fOnChannelUnregister;
-  {
+  {:
     Event called when reader reads log containing informations about channel.
   }
     property OnChannel: TChannelTimeLogEvent read fOnChannel write fOnChannel;
-  {
+  {:
     Event called when reader reads log containing informations about config.
   }
     property OnConfig: TConfigTimeLogEvent read fOnConfig write fOnConfig;
-  {
+  {:
     Contains number of log entries in input. Works only for structures that
     supports non-sequential reading.@br
     If current structure does not support non-sequential reading, it will return
     -1.
   }
     property LogCount: Integer read GetLogCount;
-  {
+  {:
     Contains number of logs read so far.
   }
     property LogCounter: Integer read fLogCounter;
-  {
+  {:
     Contains reference to a @noAutoLink(stream) that is used to read the log.
     Not initialized, filled in constructor.@br
     @bold(Warning) - do not change properties of this object!
   }
     property Stream: TStream read fStream;
-  {
+  {:
     Telemetry info provider that is used internally when reading some values
     (eg. for ID <> Name conversions). Managed automatically.
   }
     property TelemetryInfoProvider: TTelemetryInfoProvider read fTelemetryInfoProvider;
-  {
+  {:
     Contains position property of Stream when it was passed to constructor.
   }
     property FirstStreamPosition: Int64 read fFirstStreamPosition;
-  {
+  {:
     Determines whether sequential reading can or cannot continue (eg. end of
     @noAutoLink(stream)/file, termination block was read, an error occured,
     etc.).
@@ -410,22 +410,20 @@ type
 {==============================================================================}
 {   TTelemetryLogBinaryReader_1 // Class declaration                           }
 {==============================================================================}
-{
-  @abstract(Internal reader class used to read file of structure 0 and 1.)
-  @bold(Note) - when reading payload af a block, the position in Stream advances
-  exactly by a value stored in a block header as payload size, no more, no less.
+{:
+  Internal reader class used to read file of structure 1.
 }
   TTelemetryLogBinaryReader_1 = class(TTelemetryLogBinaryReader)
   protected
-  {
+  {:
     Getter for LogCount property. Returns -1.
   }
     Function GetLogCount: Integer; override;
-  {
+  {:
     Getter for LogEntries array property. Returns InvalidLogEntry.
   }
     Function GetLogEntry({%H-}Index: Integer): TLogEntry; override;
-  {
+  {:
     Returns value of flag selected by flag mask and stored in @code(Flags)
     parameter.
 
@@ -435,13 +433,13 @@ type
     @returns Value of the selected flag.
   }
     Function GetFlagValue(Flags, FlagMask: Byte): Boolean; virtual;
-  {
+  {:
     Reads block header at current Stream position.
 
     @param BlockHeader Variable in which the read header is returned.
   }
     Function ReadBlockHeader(var BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Does not read any data as payload of invalid block must be empty.
 
     @param BlockHeader Informations read from header of the block.
@@ -449,15 +447,15 @@ type
     @returns Always returns @true.
   }
     Function ReadBlockPayload_Invalid({%H-}BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of generic block and passes it to appropriate event.
 
     @param BlockHeader Informations read from header of the block.
 
-    @returns(@True when the payload was read successfuly, @false othewise.
+    @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_Generic(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of text block and passes it to appropriate event.
 
     @param BlockHeader Informations read from header of the block.
@@ -465,7 +463,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_Text(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of log block and passes it to appropriate event.
 
     @param BlockHeader Informations read from header of the block.
@@ -473,7 +471,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_Log(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of game event registration block and passes it to appropriate
     event.
 
@@ -482,7 +480,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_EventReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of game event unregistration block and passes it to
     appropriate event.
 
@@ -491,7 +489,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_EventUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of game event block and passes it to appropriate event.
 
     @param BlockHeader Informations read from header of the block.
@@ -499,7 +497,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_Event(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of channel registration block and passes it to appropriate
     event.
 
@@ -508,7 +506,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_ChannelReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of channel unregistration block and passes it to appropriate
     event.
 
@@ -517,7 +515,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_ChannelUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of channel block and passes it to appropriate event.
 
     @param BlockHeader Informations read from header of the block.
@@ -525,7 +523,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_Channel(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of config block and passes it to appropriate event.
 
     @param BlockHeader Informations read from header of the block.
@@ -533,7 +531,7 @@ type
     @returns @True when the payload was read successfuly, @false othewise.
   }
     Function ReadBlockPayload_Config(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads payload of termination block.
 
     @param BlockHeader Informations read from header of the block.
@@ -541,27 +539,27 @@ type
     @returns Always returns @false as reading should terminate at this block.
   }
     Function ReadBlockPayload_Termination({%H-}BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
-  {
+  {:
     Reads block at current Stream position.
 
     @returns(@True when the block was read successfuly, @false othewise.)
   }
     Function ReadBlock: Boolean; virtual;
   public
-  {
+  {:
     See @inherited.
   }
     procedure StartReading; override;
-  {
+  {:
     See @inherited.
   }
     procedure EndReading; override;
-  {
+  {:
     See @inherited.
     Internally calls ReadBlock method.
   }
     Function ReadNextLogEntry(IncreaseLogCounter: Boolean = True): Boolean; override;
-  {
+  {:
     See @inherited.
     Always returns @false.
   }
@@ -577,39 +575,41 @@ type
 {==============================================================================}
 {   TTelemetryLogBinaryReader_0 // Class declaration                           }
 {==============================================================================}
-
+{:
+  Internal reader class used to read file of structure 0.
+}
   TTelemetryLogBinaryReader_0 = class(TTelemetryLogBinaryReader_1)
   private
-  {
+  {:
     Array that stores table of blocks offsets.
   }
     fBlocksOffsets: array of LongWord;
   protected
-  {
+  {:
     Getter for LogCount property. Returns length of fBlocksOffsets array.
   }
     Function GetLogCount: Integer; override;
-  {
+  {:
     Getter for LogEntries array property. It find and accesses individual
     entries by offsets stored in fBlocksOffsets array. See LogEntries property
     for other informations.
   }
     Function GetLogEntry(Index: Integer): TLogEntry; override;
-  {
+  {:
     Reads table of block offsets from the stream. Stream position is
     not changed in this method.
   }
     procedure ReadBlocksOffsets;
   public
-  {
+  {:
     See @inherited.
   }
     procedure StartReading; override;
-  {
+  {:
     See @inherited. Empties the table of block offsets.
   }
     procedure EndReading; override;
-  {
+  {:
     Reads log entry selected by passed index.
     Position in Stream is not changed in this method.
 
@@ -629,7 +629,7 @@ type
 {==============================================================================}
 {   TTelemetryLogBinaryStreamParser // Class declaration                       }
 {==============================================================================}
-{
+{:
   @abstract(Class designed to parse a @noAutoLink(stream) containing binary
             log.)
   It is designed as a @noAutoLink(stream) parser, meaning it reads over the
@@ -644,239 +644,239 @@ type
 }
   TTelemetryLogBinaryStreamParser = class(TObject)
   private
-  {
+  {:
     See Stream property for details.
   }
     fStream:                          TStream;
-  {
+  {:
     Internal reader used to read files with different structures. Managed
     automatically. Crated in constructor as an instance of one of the
     TTelemetryLogBinaryReader descendants. Actual class used depends on
     structure of readed file.
   }
     fLogReader:                       TTelemetryLogBinaryReader;
-  {
+  {:
     See FileInfo property for details.
   }
     fFileInfo:                        TTelemetryLogBinaryFileInfo;
-  {
+  {:
     Stores reference to OnDataTimeLog event handler.
   }
     fOnDataTimeLog:                   TDataTimeLogEvent;
-  {
+  {:
     Stores reference to OnTextTimeLog event handler.
   }
     fOnTextTimeLog:                   TTextTimeLogEvent;
-  {
+  {:
     Stores reference to OnLogTimeLog event handler.
   }
     fOnLogTimeLog:                    TLogTimeLogEvent;
-  {
+  {:
     Stores reference to OnEventRegisterTimeLog event handler.
   }
     fOnEventRegisterTimeLog:          TEventRegisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnEventUnregisterTimeLog event handler.
   }
     fOnEventUnregisterTimeLog:        TEventRegisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnEventTimeLog event handler.
   }
     fOnEventTimeLog:                  TEventTimeLogEvent;
-  {
+  {:
     Stores reference to OnChannelRegisterTimeLog event handler.
   }
     fOnChannelRegisterTimeLog:        TChannelRegisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnChannelUnregisterTimeLog event handler.
   }
     fOnChannelUnregisterTimeLog:      TChannelUnregisterTimeLogEvent;
-  {
+  {:
     Stores reference to OnChannelTimeLog event handler.
   }
     fOnChannelTimeLog:                TChannelTimeLogEvent;
-  {
+  {:
     Stores reference to OnConfigTimeLog event handler.
   }
     fOnConfigTimeLog:                 TConfigTimeLogEvent;
   {$IFDEF NoTimeLogEvents}
-  {
+  {:
     Stores reference to OnDataLog event handler.
   }
     fOnDataLog:                       TDataLogEvent;
-  {
+  {:
     Stores reference to OnTextLog event handler.
   }
     fOnTextLog:                       TTextLogEvent;
-  {
+  {:
     Stores reference to OnLogLog event handler.
   }
     fOnLogLog:                        TLogEvent;
-  {
+  {:
     Stores reference to OnEventRegisterLog event handler.
   }
     fOnEventRegisterLog:              TEventRegisterEvent;
-  {
+  {:
     Stores reference to OnEventUnregisterLog event handler.
   }
     fOnEventUnregisterLog:            TEventRegisterEvent;
-  {
+  {:
     Stores reference to OnEventLog event handler.
   }
     fOnEventLog:                      TEventEvent;
-  {
+  {:
     Stores reference to OnChannelRegisterLog event handler.
   }
     fOnChannelRegisterLog:            TChannelRegisterEvent;
-  {
+  {:
     Stores reference to OnChannelUnregisterLog event handler.
   }
     fOnChannelUnregisterLog:          TChannelUnregisterEvent;
-  {
+  {:
     Stores reference to OnChannelLog event handler.
   }
     fOnChannelLog:                    TChannelEvent;
-  {
+  {:
     Stores reference to OnConfigLog event handler.
   }
     fOnConfigLog:                     TConfigEvent;
   {$ENDIF}
   {$IFDEF MulticastEvents}
-  {
+  {:
     Object managing multicast OnDataTimeLogMulti event.
   }
     fOnDataTimeLogMulti:              TMulticastDataTimeLogEvent;
-  {
+  {:
     Object managing multicast OnTextTimeLogMulti event.
   }
     fOnTextTimeLogMulti:              TMulticastTextTimeLogEvent;
-  {
+  {:
     Object managing multicast OnLogTimeLogMulti event.
   }
     fOnLogTimeLogMulti:               TMulticastLogTimeLogEvent;
-  {
+  {:
     Object managing multicast OnEventRegisterTimeLogMulti event.
   }
     fOnEventRegisterTimeLogMulti:     TMulticastEventRegisterTimeLogEvent;
-  {
+  {:
     Object managing multicast OnEventUnregisterTimeLogMulti event.
   }
     fOnEventUnregisterTimeLogMulti:   TMulticastEventRegisterTimeLogEvent;
-  {
+  {:
     Object managing multicast OnEventTimeLogMulti event.
   }
     fOnEventTimeLogMulti:             TMulticastEventTimeLogEvent;
-  {
+  {:
     Object managing multicast OnChannelRegisterTimeLogMulti event.
   }
     fOnChannelRegisterTimeLogMulti:   TMulticastChannelRegisterTimeLogEvent;
-  {
+  {:
     Object managing multicast OnChannelUnregisterTimeLogMulti event.
   }
     fOnChannelUnregisterTimeLogMulti: TMulticastChannelUnregisterTimeLogEvent;
-  {
+  {:
     Object managing multicast OnChannelTimeLogMulti event.
   }
     fOnChannelTimeLogMulti:           TMulticastChannelTimeLogEvent;
-  {
+  {:
     Object managing multicast OnConfigTimeLogMulti event.
   }
     fOnConfigTimeLogMulti:            TMulticastConfigTimeLogEvent;
   {$IFDEF NoTimeLogEvents}
-  {
+  {:
     Object managing multicast OnDataLogMulti event.
   }
     fOnDataLogMulti:                  TMulticastDataLogEvent;
-  {
+  {:
     Object managing multicast OnTextLogMulti event.
   }
     fOnTextLogMulti:                  TMulticastTextLogEvent;
-  {
+  {:
     Object managing multicast OnLogLogMulti event.
   }
     fOnLogLogMulti:                   TMulticastLogEvent;
-  {
+  {:
     Object managing multicast OnEventRegisterLogMulti event.
   }
     fOnEventRegisterLogMulti:         TMulticastEventRegisterEvent;
-  {
+  {:
     Object managing multicast OnEventUnregisterLogMulti event.
   }
     fOnEventUnregisterLogMulti:       TMulticastEventRegisterEvent;
-  {
+  {:
     Object managing multicast OnEventLogMulti event.
   }
     fOnEventLogMulti:                 TMulticastEventEvent;
-  {
+  {:
     Object managing multicast OnChannelRegisterLogMulti event.
   }
     fOnChannelRegisterLogMulti:       TMulticastChannelRegisterEvent;
-  {
+  {:
     Object managing multicast OnChannelUnregisterLogMulti event.
   }
     fOnChannelUnregisterLogMulti:     TMulticastChannelUnregisterEvent;
-  {
+  {:
     Object managing multicast OnChannelLogMulti event.
   }
     fOnChannelLogMulti:               TMulticastChannelEvent;
-  {
+  {:
     Object managing multicast OnConfigLogMulti event.
   }
     fOnConfigLogMulti:                TMulticastConfigEvent;
   {$ENDIF}
   {$ENDIF}
-  {
+  {:
     Getter for LogCount property. Gets the value from internal reader object.
   }
     Function GetLogCount: Integer;
-  {
+  {:
     Getter for LogCounter property. Gets the value from internal reader object.
   }
     Function GetLogCounter: Integer;
-  {
+  {:
     Getter for LogEntries array property. Gets actual value from internal reader
     object.
   }
     Function GetLogEntry(Index: Integer): TLogEntry;
   protected
-  {
+  {:
     Reads file header and API informations from current Stream position and
     returns them in @code(@noAutoLink(FileInfo)) parameter.
 
-    @rapam FileInfo Variable to which a read informations are stored.
+    @param FileInfo Variable to which a read informations are stored.
 
     @param FileInfo Output value containing read data.
   }
     procedure ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
-  {
+  {:
     Method managing OnData* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnDataLog OnDataLog) event.
   }
     procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); virtual;
-  {
+  {:
     Method managing OnText* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnTextLog OnTextLog) event.
   }
     procedure DoOnTextLog(Sender: TObject; Time: TDateTime; const Text: String); virtual;
-  {
+  {:
     Method managing OnLog* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnLogLog OnLogLog) event.
   }
     procedure DoOnLog(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); virtual;
-  {
+  {:
     Method managing OnEventRegister* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnEventRegister OnEventRegister) event.
   }
     procedure DoOnEventRegister(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;
-  {
+  {:
     Method managing OnEventUnregister* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
@@ -884,21 +884,21 @@ type
     event.
   }
     procedure DoOnEventUnregister(Sender: TObject; Time: TDateTime; Event: scs_event_t); virtual;
-  {
+  {:
     Method managing OnEvent* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnEvent OnEvent) event.
   }
     procedure DoOnEvent(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer); virtual;
-  {
+  {:
     Method managing OnChannelRegister* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnChannelRegister OnChannelRegister) event.
   }
     procedure DoOnChannelRegister(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual;
-  {
+  {:
     Method managing OnChannelUnregister* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
@@ -906,14 +906,14 @@ type
     event.
   }
     procedure DoOnChannelUnregister(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual;
-  {
+  {:
     Method managing OnChannel* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnChannel OnChannel) event.
   }
     procedure DoOnChannel(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual;
-  {
+  {:
     Method managing OnConfig* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
     This method is assigned in constructor to internal reader
@@ -921,7 +921,7 @@ type
   }
     procedure DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
   public
-  {
+  {:
     Class constructor.
 
     Creates all automatically managed objects, reads file header (by calling
@@ -931,13 +931,13 @@ type
                   be @nil.)
   }
     constructor Create(Stream: TStream);
-  {
+  {:
     Class destructor.
 
     Frees all automatically managed objects.
   }
     destructor Destroy; override;
-  {
+  {:
     Reads next log entry from current position in Stream. Read data are
     processed and passed to appropriate event.@br
     Calls internal readers @link(TTelemetryLogBinaryReader.ReadNextLogEntry
@@ -946,13 +946,13 @@ type
     @returns @True when log was read successfuly, @false otherwise.
   }
     Function ReadNextLogEntry: Boolean; virtual;
-  {
+  {:
     Reads all log entries from current position in Stream.@br
     Calls internal readers @link(TTelemetryLogBinaryReader.ReadAllLogEntries
     ReadAllLogEntries) method.
   }
     procedure ReadAllLogEntries; virtual;
-  {
+  {:
     Reads log entry selected by passed index. Works only for structures that
     supports non-sequential reading (eg. structure 0).@br
     Calls internal readers @link(TTelemetryLogBinaryReader.ReadLogEntry
@@ -964,7 +964,7 @@ type
     @returns @True when the entry was read successfuly, @false otherwise.
   }
     Function ReadLogEntry(Index: Integer): Boolean; virtual;
-  {
+  {:
     Array property mapped to log entries - that is, each item in this array
     corresponds to one log entry.@br
     When you try to access item that is out of allowed boundary or the reading
@@ -972,226 +972,226 @@ type
     Works only for structures that supports non-sequential reading.@br
   }
     property LogEntries[Index: Integer]: TLogEntry read GetLogEntry; default;
-  {
+  {:
     Information about file that is being read. Filled in constructor.
   }
     property FileInfo: TTelemetryLogBinaryFileInfo read fFileInfo;
   published
-  {
+  {:
     Contains reference to a @noAutoLink(stream) that is used to read the log.
     Not initialized, filled in constructor.@br
     @bold(Warning) - do not change properties of this object!
   }
     property Stream: TStream read fStream;
-  {
+  {:
     Contains number of log entries in input. Works only for structures that
     supports non-sequential reading.
   }
     property LogCount: Integer read GetLogCount;
-  {
+  {:
     Contains number of logs read so far.
   }
     property LogCounter: Integer read GetLogCounter;
-  {
+  {:
     Event called to pass unprocessed data with time when parser finds log with
     data of unknown structure.
   }
     property OnDataTimeLog: TDataTimeLogEvent read fOnDataTimeLog write fOnDataTimeLog;
-  {
+  {:
     Event called to pass text with time when parser finds log containing only
     text or log containing data which can be expressed as text.
   }
     property OnTextTimeLog: TTextTimeLogEvent read fOnTextTimeLog write fOnTextTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser fings log containing
     informations about a write to game log.
   }
     property OnLogTimeLog: TLogTimeLogEvent read fOnLogTimeLog write fOnLogTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about game event registration.
   }
     property OnEventRegisterTimeLog: TEventRegisterTimeLogEvent read fOnEventRegisterTimeLog write fOnEventRegisterTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about game event unregistration.
   }
     property OnEventUnregisterTimeLog: TEventRegisterTimeLogEvent read fOnEventUnregisterTimeLog write fOnEventUnregisterTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about game event.
   }
     property OnEventTimeLog: TEventTimeLogEvent read fOnEventTimeLog write fOnEventTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about channel registration.
   }
     property OnChannelRegisterTimeLog: TChannelRegisterTimeLogEvent read fOnChannelRegisterTimeLog write fOnChannelRegisterTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about channel unregistration.
   }
     property OnChannelUnregisterTimeLog: TChannelUnregisterTimeLogEvent read fOnChannelUnregisterTimeLog write fOnChannelUnregisterTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about channel value.
   }
     property OnChannelTimeLog: TChannelTimeLogEvent read fOnChannelTimeLog write fOnChannelTimeLog;
-  {
+  {:
     Event called to pass read data with time when parser finds log containing
     informations about config value.
   }
     property OnConfigTimeLog: TConfigTimeLogEvent read fOnConfigTimeLog write fOnConfigTimeLog;
   {$IFDEF NoTimeLogEvents}
-  {
+  {:
     Event called to pass unprocessed data when parser finds log with data of
     unknown structure.
   }
     property OnDataLog: TDataLogEvent read fOnDataLog write fOnDataLog;
-  {
+  {:
     Event called to pass text when parser finds log containing only text or log
     containing data which can be expressed as text.
   }
     property OnTextLog: TTextLogEvent read fOnTextLog write fOnTextLog;
-  {
+  {:
     Event called to pass read data when parser fings log containing informations
     about a write to game log.
   }
     property OnLogLog: TLogEvent read fOnLogLog write fOnLogLog;
-  {
+  {:
     Event called to pass read data when parser finds log containing informations
     about game event registration.
   }
     property OnEventRegisterLog: TEventRegisterEvent read fOnEventRegisterLog write fOnEventRegisterLog;
-  {
+  {:
     Event called to pass read time when parser finds log containing informations
     about game event unregistration.
   }
     property OnEventUnregisterLog: TEventRegisterEvent read fOnEventUnregisterLog write fOnEventUnregisterLog;
-  {
+  {:
     Event called to pass read data when parser finds log containing informations
     about game event.
   }
     property OnEventLog: TEventEvent read fOnEventLog write fOnEventLog;
-  {
+  {:
     Event called to pass read data when parser finds log containing informations
     about channel registration.
   }
     property OnChannelRegisterLog: TChannelRegisterEvent read fOnChannelRegisterLog write fOnChannelRegisterLog;
-  {
+  {:
     Event called to pass read data when parser finds log containing informations
     about channel unregistration.
   }
     property OnChannelUnregisterLog: TChannelUnregisterEvent read fOnChannelUnregisterLog write fOnChannelUnregisterLog;
-  {
+  {:
     Event called to pass read data when parser finds log containing informations
     about channel value.
   }
     property OnChannelLog: TChannelEvent read fOnChannelLog write fOnChannelLog;
-  {
+  {:
     Event called to pass read data when parser finds log containing informations
     about config value.
   }
     property OnConfigLog: TConfigEvent read fOnConfigLog write fOnConfigLog;
   {$ENDIF}
   {$IFDEF MulticastEvents}
-  {
+  {:
     Muticast event called to pass unprocessed data with time when parser finds
     log with data of unknown structure.
   }
     property OnDataTimeLogMulti: TMulticastDataTimeLogEvent read fOnDataTimeLogMulti;
-  {
+  {:
     Muticast event called to pass text with time when parser finds log
     containing only text or log containing data which can be expressed as text.
   }
     property OnTextTimeLogMulti: TMulticastTextTimeLogEvent read fOnTextTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser fings log
     containing informations about a write to game log.
   }
     property OnLogTimeLogMulti: TMulticastLogTimeLogEvent read fOnLogTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about game event registration.
   }
     property OnEventRegisterTimeLogMulti: TMulticastEventRegisterTimeLogEvent read fOnEventRegisterTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about game event unregistration.
   }
     property OnEventUnregisterTimeLogMulti: TMulticastEventRegisterTimeLogEvent read fOnEventUnregisterTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about game event.
   }
     property OnEventTimeLogMulti: TMulticastEventTimeLogEvent read fOnEventTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about channel registration.
   }
     property OnChannelRegisterTimeLogMulti: TMulticastChannelRegisterTimeLogEvent read fOnChannelRegisterTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about channel unregistration.
   }
     property OnChannelUnregisterTimeLogMulti: TMulticastChannelUnregisterTimeLogEvent read fOnChannelUnregisterTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about channel registration.
   }
     property OnChannelTimeLogMulti: TMulticastChannelTimeLogEvent read fOnChannelTimeLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser finds log
     containing informations about config value.
   }
     property OnConfigTimeLogMulti: TMulticastConfigTimeLogEvent read fOnConfigTimeLogMulti;
   {$IFDEF NoTimeLogEvents}
-  {
+  {:
     Muticast event called to pass unprocessed data when parser finds log with
     data of unknown structure.
   }
     property OnDataLogMulti: TMulticastDataLogEvent read fOnDataLogMulti;
-  {
+  {:
     Muticast event called to pass text when parser finds log containing only
     text or log containing data which can be expressed as text.
   }
     property OnTextLogMulti: TMulticastTextLogEvent read fOnTextLogMulti;
-  {
+  {:
     Muticast event called to pass read data with time when parser fings log
     containing informations about a write to game log.
   }
     property OnLogLogMulti: TMulticastLogEvent read fOnLogLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about game event registration.
   }
     property OnEventRegisterLogMulti: TMulticastEventRegisterEvent read fOnEventRegisterLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about game event unregistration.
   }
     property OnEventUnregisterLogMulti: TMulticastEventRegisterEvent read fOnEventUnregisterLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about game event.
   }
     property OnEventLogMulti: TMulticastEventEvent read fOnEventLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about channel registration.
   }
     property OnChannelRegisterLogMulti: TMulticastChannelRegisterEvent read fOnChannelRegisterLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about channel unregistration.
   }
     property OnChannelUnregisterLogMulti: TMulticastChannelUnregisterEvent read fOnChannelUnregisterLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about channel registration.
   }
     property OnChannelLogMulti: TMulticastChannelEvent read fOnChannelLogMulti;
-  {
+  {:
     Muticast event called to pass read data when parser finds log containing
     informations about config value.
   }
@@ -1209,7 +1209,7 @@ type
 {==============================================================================}
 {   TTelemetryLogBinaryFileParser // Class declaration                         }
 {==============================================================================}
-{
+{:
   @abstract(Class designed to parse a file containing binary log.)
   It is implemented as direct descendant of TTelemetryLogBinaryStreamParser
   class, you can refer to it for more details.@br
@@ -1218,12 +1218,12 @@ type
 }
   TTelemetryLogBinaryFileParser = class(TTelemetryLogBinaryStreamParser)
   private
-  {
+  {:
     See FileName property for details.
   }
     fFileName: String;
   public
-  {
+  {:
     Class constructor.
 
     Creates internal file stream and passes it to inherited constructor.
@@ -1232,14 +1232,14 @@ type
                     but it is not mandatory to assign full file path.)
   }
     constructor Create(FileName: String);
-  {
+  {:
     Class destructor.
 
     Frees internal file stream.
   }
     destructor Destroy; override;
   published
-  {
+  {:
     Contains actual name of the read file.
   }
     property FileName: String read fFileName;
@@ -1254,7 +1254,7 @@ type
 {==============================================================================}
 {   TTelemetryLogBinaryToTextConverter // Class declaration                    }
 {==============================================================================}
-{
+{:
   @abstract(Converts given binary log file to a text log file.)
   Implemented as descendant of TTelemetryLogBinaryFileParser class. It creates
   internal text logger and uses own methods to pass parsed data to it. It also
@@ -1263,73 +1263,73 @@ type
 }
   TTelemetryLogBinaryToTextConverter = class(TTelemetryLogBinaryFileParser)
   private
-  {
+  {:
     See OutFileName property for details.
   }
     fOutFileName:     String;
-  {
+  {:
     Telemetry recipient created for internal text logger. Parameters (telemetry
     version, etc.) required to create this object are obtained from input log
     file API information section.
   }
     fDummyRecipient:  TTelemetryRecipient;
-  {
+  {:
     Object used to write text output.
   }
     fTextLogger:      TTelemetryLogText;
   protected
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnTextLog(Sender: TObject; Time: TDateTime; const Text: String); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnLog(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnEventRegister(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnEventUnregister(Sender: TObject; Time: TDateTime; Event: scs_event_t); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnEvent(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnChannelRegister(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnChannelUnregister(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnChannel(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
-  {
+  {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
     procedure DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
   public
-  {
+  {:
     Class constructor.
 
     Creates dummy recipient and text logger.
@@ -1341,18 +1341,18 @@ type
                        extension to the name of the input file.)
   }
     constructor Create(aFileName: String; OutFileName: String = '');
-  {
+  {:
     Class destructor.
 
     Frees all internal objects.
   }
     destructor Destroy; override;
-  {
+  {:
     Runs the conversions. Calls ReadAllLogEntries method.
   }
     procedure Convert; virtual;
   published
-  {
+  {:
     Name of the output file, that is a file to which the text log is written.
   }
     property OutFileName: String read fOutFileName;
