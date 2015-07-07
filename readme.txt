@@ -68,6 +68,10 @@ This section describes nature of content of individual folders in this project.
 
   Project-wide documents.
 
+./Scripts
+
+  Scripts for batch compilation. 
+
 ./Telemetry Library/Source
 
   All source files for Telemetry Library. All files directly in this folder are

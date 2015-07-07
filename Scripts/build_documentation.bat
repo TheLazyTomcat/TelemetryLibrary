@@ -1,5 +1,9 @@
 @echo off
 
+pushd .\
+
+cd "..\Telemetry Library\AutoDocumentation"
+
 pushd ..\Documentation 
 for /F "delims=" %%i in ('dir /b') do (
   rd "%%i" /S /Q . 2> NUL || del "%%i" /S /Q . 2> NUL 
@@ -44,4 +48,4 @@ start /wait .\PasDoc\pasdoc.exe^
  ..\Source\Log\TelemetryLogBinary.pas^
  ..\Source\Log\TelemetryLogBinaryParser.pas 
 
-call PostProcessing.bat
+popd
