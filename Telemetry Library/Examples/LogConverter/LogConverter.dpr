@@ -11,8 +11,8 @@ program LogConverter;
 {$INCLUDE '..\..\Source\Telemetry_defs.inc'}
 
 uses
-  FastMM4         in 'Libs\FastMM\FastMM4.pas',
-  FastMM4Messages in 'Libs\FastMM\FastMM4Messages.pas',
+  FastMM4         in '..\..\..\..\Libs\FastMM\Prg\FastMM4.pas',
+  FastMM4Messages in '..\..\..\..\Libs\FastMM\Prg\FastMM4Messages.pas',
   SysUtils,
 
 {$IFDEF UseCondensedHeader}

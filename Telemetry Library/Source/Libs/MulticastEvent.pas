@@ -1,3 +1,10 @@
+{-------------------------------------------------------------------------------
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-------------------------------------------------------------------------------}
 {==============================================================================}
 {                                                                              }
 {   Multicast event handling class                                             }
@@ -28,7 +35,6 @@ type
     fMethods: TList;
     Function GetMethods(Index: Integer): TMethod;
     Function GetMethodsCount: Integer;
-  protected
   public
     constructor Create(aOwner: TObject = nil);
     destructor Destroy; override;

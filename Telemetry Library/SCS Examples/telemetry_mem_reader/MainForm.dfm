@@ -1,6 +1,6 @@
 object fMainForm: TfMainForm
-  Left = 327
-  Top = 124
+  Left = 458
+  Top = 121
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Telemetry Mem Reader'

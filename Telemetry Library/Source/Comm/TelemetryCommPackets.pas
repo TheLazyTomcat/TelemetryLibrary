@@ -2048,7 +2048,7 @@ end;
 
 Function GetPayloadAddress(Packet: TPacketBuffer): Pointer;
 begin
-Result := Pointer(PtrUInt(Packet.Data) + SizeOf(TPacketHeader));
+Result := {%H-}Pointer(PtrUInt(Packet.Data) + SizeOf(TPacketHeader));
 end;
 
 end.

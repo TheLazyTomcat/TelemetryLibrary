@@ -1,187 +1,187 @@
 {$IFDEF DeclarationPart}
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_COMMON packets                                                   }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_PING packet.}
-procedure ProcessPacket_TC_PACKET_PING(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_PING_RESPONSE packet.}
-procedure ProcessPacket_TC_PACKET_PING_RESPONSE(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_PROTOCOL_VERSION_GET packet.}
-procedure ProcessPacket_TC_PACKET_PROTOCOL_VERSION_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_PROTOCOL_VERSION packet.}
-procedure ProcessPacket_TC_PACKET_PROTOCOL_VERSION(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_TELEMETRY_INFO_GET packet.}
-procedure ProcessPacket_TC_PACKET_TELEMETRY_INFO_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_TELEMETRY_INFO packet.}
-procedure ProcessPacket_TC_PACKET_TELEMETRY_INFO(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_PACKET packet.}
-procedure ProcessPacket_TC_PACKET_PACKET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_ERROR packet.}
-procedure ProcessPacket_TC_PACKET_ERROR(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_DEFFERED packet.}
-procedure ProcessPacket_TC_PACKET_DEFFERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_COMMON packets                                                   }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_PING packet.}
+    procedure ProcessPacket_TC_PACKET_PING(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_PING_RESPONSE packet.}
+    procedure ProcessPacket_TC_PACKET_PING_RESPONSE(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_PROTOCOL_VERSION_GET packet.}
+    procedure ProcessPacket_TC_PACKET_PROTOCOL_VERSION_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_PROTOCOL_VERSION packet.}
+    procedure ProcessPacket_TC_PACKET_PROTOCOL_VERSION(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_TELEMETRY_INFO_GET packet.}
+    procedure ProcessPacket_TC_PACKET_TELEMETRY_INFO_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_TELEMETRY_INFO packet.}
+    procedure ProcessPacket_TC_PACKET_TELEMETRY_INFO(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_PACKET packet.}
+    procedure ProcessPacket_TC_PACKET_PACKET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_ERROR packet.}
+    procedure ProcessPacket_TC_PACKET_ERROR({%H-}var Packet: TPacketBuffer; {%H-}ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_DEFFERED packet.}
+    procedure ProcessPacket_TC_PACKET_DEFFERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_KNOWN_EVENTS packets                                             }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_KNOWN_EVENTS_COUNT_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_COUNT packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_ALL packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_KNOWN_EVENTS packets                                             }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_KNOWN_EVENTS_COUNT_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_COUNT_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_COUNT packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_INDEX_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_EVENTS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_KNOWN_CHANNELS packets                                           }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_KNOWN_CHANNELS_COUNT_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CHANNELS_COUNT packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CHANNELS_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CHANNELS_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CHANNELS_ALL packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_KNOWN_CHANNELS packets                                           }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_KNOWN_CHANNELS_COUNT_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_COUNT_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CHANNELS_COUNT packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CHANNELS_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_INDEX_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CHANNELS_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CHANNELS_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CHANNELS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_KNOWN_CONFIGS packets                                            }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_KNOWN_CONFIGS_COUNT_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CONFIGS_COUNT packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CONFIGS_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CONFIGS_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_KNOWN_CONFIGS_ALL packet.}
-procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_KNOWN_CONFIGS packets                                            }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_KNOWN_CONFIGS_COUNT_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_COUNT_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CONFIGS_COUNT packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CONFIGS_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_INDEX_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CONFIGS_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_KNOWN_CONFIGS_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_KNOWN_CONFIGS_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_EVENT packets                                                    }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_EVENT_REGISTER packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTER_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTER_ALL packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTER_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_UNREGISTER packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_UNREGISTER_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_UNREGISTER_BY_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_UNREGISTER_ALL packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_EVENT packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_EVENT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_COUNT_GET packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_COUNT packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_INDEX_GET packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_EVENT_REGISTERED_ALL packet.}
-procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_EVENT packets                                                    }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_EVENT_REGISTER packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTER_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTER_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTER_ALL({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_UNREGISTER packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_UNREGISTER_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_UNREGISTER_BY_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_UNREGISTER_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_UNREGISTER_ALL({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_EVENT packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_EVENT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_COUNT_GET packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_COUNT_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_COUNT packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_INDEX_GET packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_EVENT_REGISTERED_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_EVENT_REGISTERED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_CHANNEL packets                                                  }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_CHANNEL_REGISTER packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTER_BY_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTER_BY_NAME packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER_BY_NAME(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTER_ALL packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_UNREGISTER packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_UNREGISTER_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_UNREGISTER_BY_NAME packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_BY_NAME(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_UNREGISTER_ALL packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_CHANNEL packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_CHANNEL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_CHANNEL_BUFFERED packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_CHANNEL_BUFFERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_COUNT_GET packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_COUNT packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_INDEX_GET packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_REGISTERED_ALL packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CHANNEL_STORED_SEND_ALL packet.}
-procedure ProcessPacket_TC_PACKET_CHANNEL_STORED_SEND_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_CHANNEL packets                                                  }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_CHANNEL_REGISTER packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTER_BY_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTER_BY_NAME packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER_BY_NAME(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTER_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTER_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_UNREGISTER packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_UNREGISTER_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_BY_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_UNREGISTER_BY_NAME packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_BY_NAME(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_UNREGISTER_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_UNREGISTER_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_CHANNEL packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_CHANNEL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_CHANNEL_BUFFERED packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_CHANNEL_BUFFERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_COUNT_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_COUNT_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_COUNT packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_INDEX_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_INDEX_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_REGISTERED_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_REGISTERED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CHANNEL_STORED_SEND_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_CHANNEL_STORED_SEND_ALL({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_CONFIG packets                                                   }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_CONFIG_CONFIG packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_CONFIG(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_COUNT_GET packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_COUNT_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_COUNT packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_INDEX_GE packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_INDEX packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_INDEX_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_INDEX_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_ALL_GET packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_ALL_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
-{Method processing TC_PACKET_CONFIG_STORED_ALL packet.}
-procedure ProcessPacket_TC_PACKET_CONFIG_STORED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_CONFIG packets                                                   }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_CONFIG_CONFIG packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_CONFIG(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_COUNT_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_COUNT_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_COUNT packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_COUNT(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_INDEX_GE packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_INDEX_GET(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_INDEX packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_INDEX(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_INDEX_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_INDEX_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_ALL_GET packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_ALL_GET({%H-}var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {Method processing TC_PACKET_CONFIG_STORED_ALL packet.}
+    procedure ProcessPacket_TC_PACKET_CONFIG_STORED_ALL(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 
-{------------------------------------------------------------------------------}
-{   TC_PREFIX_LOG packets                                                      }
-{------------------------------------------------------------------------------}
-{Method processing TC_PACKET_LOG_LOG packet.}
-procedure ProcessPacket_TC_PACKET_LOG_LOG(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
+    {------------------------------------------------------------------------------}
+    {   TC_PREFIX_LOG packets                                                      }
+    {------------------------------------------------------------------------------}
+    {Method processing TC_PACKET_LOG_LOG packet.}
+    procedure ProcessPacket_TC_PACKET_LOG_LOG(var Packet: TPacketBuffer; ConnectionData: Pointer); override;
 {$ENDIF}
 
 {$IFDEF ImplementationPart}

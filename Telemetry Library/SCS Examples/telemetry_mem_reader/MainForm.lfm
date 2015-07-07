@@ -1,0 +1,45 @@
+object fMainForm: TfMainForm
+  Left = 455
+  Height = 570
+  Top = 120
+  Width = 812
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Telemetry Mem Reader'
+  ClientHeight = 570
+  ClientWidth = 812
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  LCLVersion = '1.2.6.0'
+  object imgMainImage: TImage
+    Left = 0
+    Height = 547
+    Top = 0
+    Width = 812
+    Align = alClient
+  end
+  object stbStatusBar: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 547
+    Width = 812
+    Panels = <    
+      item
+        Alignment = taRightJustify
+        Text = 'Telemetry Library - Telemetry Mem Reader Example, © František Milt 2014'
+        Width = 150
+      end>
+    SimplePanel = False
+  end
+  object tmrReadTimer: TTimer
+    Interval = 50
+    OnTimer = tmrReadTimerTimer
+    left = 8
+    top = 8
+  end
+end
