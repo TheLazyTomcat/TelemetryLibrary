@@ -749,47 +749,47 @@ type
   }
     procedure LogTerminationBlock; virtual;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogData({%H-}Recipient: TTelemetryRecipient; Data: Pointer; Size: Word); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogStr({%H-}Recipient: TTelemetryRecipient; Str: TelemetryString); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogLog({%H-}Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogEventRegister({%H-}Recipient: TTelemetryRecipient; Event: scs_event_t); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogEventUnregister({%H-}Recipient: TTelemetryRecipient; Event: scs_event_t); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogChannelRegister({%H-}Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogChannelUnregister({%H-}Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; {%H-}ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; {%H-}ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
   {:
-  See @inherited.
+    See @inherited.
   }
     procedure EndWriting; override;
   end;

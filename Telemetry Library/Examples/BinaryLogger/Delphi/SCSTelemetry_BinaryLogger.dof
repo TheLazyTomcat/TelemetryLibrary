@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=S:\Program Files\Euro Truck Simulator 2\bin\win_x86\plugins
+OutputDir=
 UnitOutputDir=.\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -101,10 +101,10 @@ DebugSourceDirs=
 UsePackages=0
 [Parameters]
 RunParams=
-HostApplication=S:\Program Files\Euro Truck Simulator 2\bin\win_x86\eurotrucks2.exe
+HostApplication=
 Launcher=
 UseLauncher=0
-DebugCWD=S:\Program Files\Euro Truck Simulator 2\bin\win_x86
+DebugCWD=
 [Version Info]
 IncludeVerInfo=0
 AutoIncBuild=0
