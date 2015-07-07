@@ -232,7 +232,7 @@ type
   {:
     When current instance is created as user managed, calling this procedure
     will clear all internal lists. When it is called on automatically managed
-    object, it does nothing.)
+    object, it does nothing.
   }
     procedure Clear;
   {:
@@ -259,14 +259,14 @@ type
     Returns type of value for given channel and selected priority.
 
     @param Name         Name of requested channel.
-    @param TypePriority Priority of value type that should be returned. It must
-                        be a number from interval <0,33), if it is not from this
+    @param(TypePriority Priority of value type that should be returned. It must
+                        be a number from interval <0,33@), if it is not from this
                         interval, SCS_VALUE_TYPE_INVALID is returned.@br
                         0 corresponds to primary value type, 1 to first
                         secondary type, 2 to second secondary type and so on.
                         If selected type is beyond what a given channel can
                         support (eg. 5 for channel with only one secondary type),
-                        SCS_VALUE_TYPE_INVALID is returned.
+                        SCS_VALUE_TYPE_INVALID is returned.)
 
     @returns(Type of value for selected channel and priority. When requested
              channel is not found, @code(SCS_VALUE_TYPE_INVALID) is returned.)

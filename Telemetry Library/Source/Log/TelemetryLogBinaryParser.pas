@@ -26,6 +26,10 @@
    |- TTelemetryLogBinaryFileParser
        |- TTelemetryLogBinaryToTextConverter
 )
+  Included files:@preformatted(
+    .\Inc\TelemetryMulticastEvents.pas
+      Contains declarations and implementations of multicast event classes.)
+      
   Last change:  2015-07-02
 
   Change List:@unorderedList(
