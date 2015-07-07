@@ -11,13 +11,14 @@ pascal, but has grown significantly since then. It contains set of functions and
 classes which encapsulates calls to the API and many more. You should refer to 
 source files and documentation for details about individual functions and 
 classes and their use.
-Currently, it is developed in Delphi 7 Personal, so it can be compiled in it
-and possibly in newer versions of Delphi as well. FreePascal/Lazarus is not 
-supported and probably will not compile it (but support for these compilers is
-planned).
-A word of warning - do not compile this library into 64bit application/dll. 
-64bit mode is not fully supported and probably will not work. Adding 64bit 
-compatibility is planned in longer horizon.
+It is developed primarily in Delphi 7 Personal, so it can be compiled in it and 
+possibly in newer versions of Delphi as well. Compilation in FPC/Lazarus is 
+supported and some parts of the library are written in Lazarus, so you can 
+compile them without a need for conversion. It is also possible to compile the 
+library in 64bit mode, but please note that it was not tested.
+
+Warning - If you want to compile Telemetry Library for 64bit target, you must 
+          define project-wide symbol "x64" (without the quotes). 
 
 
 
@@ -57,6 +58,15 @@ This section describes nature of content of individual folders in this project.
 ./Condensed Tester
 
   Simple program used for basic control of condensed (merged) headers.
+  
+./Libs
+
+  Libraries used throughout the project. Currently only contains two versions of 
+  FastMM, one adapted for use in libraries (DLLs) and one in programs. 
+  
+./Documents
+
+  Project-wide documents.    
 
 ./Telemetry Library/Source
 
@@ -79,7 +89,7 @@ This section describes nature of content of individual folders in this project.
       to imitate behavior of originals.
 
   ./Telemetry Library/Source/Comm
-      Communication part, currently under development.
+      Communication part - development of this part is currently suspended.
 
 ./Telemetry Library/Tester
 
@@ -154,10 +164,31 @@ Exception being following folders and their entire content:
   Content of this folder is licensed under Creative Commons 
   Attribution-ShareAlike 4.0 (CC BY-SA 4.0) license (see above for details).
 
-FastMM
+./Libs/FastMM
 
   Some parts of this project are using FastMM as memory manager. For information
-  about FastMM license, please refer to its source files.
+  about FastMM license, please refer to its source files located in this folder.
+
+
+
+Symbols
+----------------------------------------
+Following are symbols that can/must be defined project-wide when compiling the
+library. There is number of other symbols used internally, for these, refer to
+appropriate source file for details. 
+
+x64
+  
+  Must be defined for compilation for 64bit target. 32bit target inferred when
+  not defined.
+  
+Debug
+
+  Define for debugging builds. Release is inferred when not defined.
+  
+PurePascal
+
+  ASM code will not be used where possible when this symbol is defined.    
 
 
 
@@ -178,4 +209,4 @@ František Milt, frantisek.milt@gmail.com
 
 Copyright
 ----------------------------------------
-©2013-2014 František Milt, all rights reserved
+©2013-2015 František Milt, all rights reserved
