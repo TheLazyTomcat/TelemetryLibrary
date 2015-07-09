@@ -57,101 +57,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 
 <p>
 
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>These methods: </p>
+<p>Following methods: </p>
 
 <pre class="preformatted">
     HighestSupportedTelemetryVersion
@@ -160,157 +66,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
     SupportsGameVersion
     SupportsTelemetryAndGameVersion</pre>
 
-<p> ...can and actually must be called directly on class. They should be used to check whether both this class and <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class supports required telemetry and game version before instantiation (creation of class instance).
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+<p> ...can and actually must be called directly on class. They should be used to check whether both this class and <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class supports required telemetry and game version before instantiation (creation of class instance).</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a></li>
@@ -345,7 +101,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannelsValues">fStoredChannelsValues</a></b>:      <a  href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannels">fStoredChannels</a></b>:            <a  href="TelemetryLists.TStoredChannelsList.html">TStoredChannelsList</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
@@ -381,7 +137,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannelsValues">fStoreChannelsValues</a></b>:       Boolean;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannels">fStoreChannels</a></b>:             Boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
@@ -488,7 +244,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannelsValues">SetStoreChannelsValues</a></b>(Value: Boolean);</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannels">SetStoreChannels</a></b>(Value: Boolean);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -652,51 +408,43 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#EventGetDataAsString">EventGetDataAsString</a></b>(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegistered">ChannelRegistered</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegister">ChannelRegister</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByIndex">ChannelRegisterByIndex</a></b>(Index: Integer; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterByName">ChannelRegisterByName</a></b>(const Name: TelemetryString; UserData: Pointer = nil): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregister">ChannelUnregister</a></b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterIndex">ChannelUnregisterIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterByIndex">ChannelUnregisterByIndex</a></b>(Index: Integer): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterByName">ChannelUnregisterByName</a></b>(const Name: TelemetryString): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
-</tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterAll">ChannelUnregisterAll</a></b>: Integer; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelGetValueAsString">ChannelGetValueAsString</a></b>(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelUnregisterAll">ChannelUnregisterAll</a></b>: Integer; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -735,7 +483,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannelsValues">StoredChannelsValues</a></b>: <a  href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannelsValues">fStoredChannelsValues</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannelsValues">fStoredChannelsValues</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannels">StoredChannels</a></b>: <a  href="TelemetryLists.TStoredChannelsList.html">TStoredChannelsList</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannels">fStoredChannels</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannels">fStoredChannels</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -771,7 +519,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannelsValues">StoreChannelsValues</a></b>: Boolean read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannelsValues">fStoreChannelsValues</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannelsValues">SetStoreChannelsValues</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannels">StoreChannels</a></b>: Boolean read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannels">fStoreChannels</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannels">SetStoreChannels</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -911,11 +659,11 @@ See <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredCo
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fStoredChannelsValues"></a><code><b>fStoredChannelsValues</b>:      <a  href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a>;</code></td>
+<td class="itemcode"><a name="fStoredChannels"></a><code><b>fStoredChannels</b>:            <a  href="TelemetryLists.TStoredChannelsList.html">TStoredChannelsList</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannelsValues">StoredChannelsValues</a> property.</p>
+See <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannels">StoredChannels</a> property.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1001,11 +749,11 @@ See <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIn
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fStoreChannelsValues"></a><code><b>fStoreChannelsValues</b>:       Boolean;</code></td>
+<td class="itemcode"><a name="fStoreChannels"></a><code><b>fStoreChannels</b>:             Boolean;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannelsValues">StoreChannelsValues</a> property.</p>
+See <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannels">StoreChannels</a> property.)</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1276,17 +1024,17 @@ Setter for <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#S
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="SetStoreChannelsValues"></a><code>procedure <b>SetStoreChannelsValues</b>(Value: Boolean);</code></td>
+<td class="itemcode"><a name="SetStoreChannels"></a><code>procedure <b>SetStoreChannels</b>(Value: Boolean);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Setter for <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannelsValues">StoreChannelsValues</a> property.
+Setter for <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannels">StoreChannels</a> property.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Value</dt>
-<dd>New value to be stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannelsValues">fStoreChannelsValues</a>.</dd>
+<dd>New value to be stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannels">fStoreChannels</a>.)</dd>
 </dl>
 </td></tr>
 </table>
@@ -1658,7 +1406,7 @@ Parametrized object constructor.<br> Creates automatically managed instance, but
 </tr>
 <tr><td colspan="2">
 <p>
-Parametrized object constructor.<br> Creates automatically managed instance.<br> Internally calls previous parametrized constructor.<br> If passed telemetry/game versions are not supported then an exception is raised.
+Parametrized object constructor.<br> Creates automatically managed instance and automatically assigns API callbacks.<br> If passed telemetry/game versions are not supported then an exception is raised.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -1700,7 +1448,7 @@ Specialized object constructor.<br>
 </tr>
 <tr><td colspan="2">
 <p>
-Object destructor.<br> Internal objects are automatically cleared in destructor, so it is unnecessary to free them explicitly.<br> Also, all telemetry events and channels are unregistered.</p>
+Object destructor.<br> Internal objects are automatically cleared in destructor, so it is not necessary to free them explicitly.<br> Also, all registred telemetry events and channels are unregistered.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1823,15 +1571,17 @@ Checks whether given event is present in <a class="normal" href="TelemetryRecipi
 </tr>
 <tr><td colspan="2">
 <p>
-Registers specific telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterEvent">cbRegisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_already_registered. User-managed instance does not perform this check.
+Registers specified telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterEvent">cbRegisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_already_registered. User-managed instance does not perform this check.
 
-<p>
+<p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Event</dt>
 <dd>Event to be registered.</dd>
+<dt>UserData</dt>
+<dd>Any user data. Passed pointer will be stored with event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when registration was successful, otherwise <code>False</code> (property <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> contains result code).</p></td></tr>
@@ -1845,13 +1595,15 @@ Registers specific telemetry event.<br> Works only when <a class="normal" href="
 <p>
 Registers telemetry event that is listed in known events list at position given by <code>Index</code> parameter. When index falls out of allowed boundaries, no event is registered and function returns <code>False</code>.
 
-<p>
+<p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of requested event in known events list.</dd>
+<dt>UserData</dt>
+<dd>Any user data. Passed pointer will be stored with event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when requested event was registered, <code>False</code> otherwise.</p></td></tr>
@@ -1863,7 +1615,7 @@ Registers telemetry event that is listed in known events list at position given 
 </tr>
 <tr><td colspan="2">
 <p>
-Unregisters specific telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterEvent">cbUnregisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_not_found. User-managed instance does not perform this check.
+Unregisters specified telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterEvent">cbUnregisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_not_found. User-managed instance does not perform this check.
 
 <p>
 
@@ -1945,32 +1697,6 @@ Unregisters all events listed in <a class="normal" href="TelemetryRecipient.TTel
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="EventGetDataAsString"></a><code>Function <b>EventGetDataAsString</b>(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Returns textual representation of event data (e.g. for displaying to user). If no data can be converted to text, only name of event is returned. When <code>TypeName</code> is set to true, all values are marked with type identifiers.
-
-<p>   
-
-<p></p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Event</dt>
-<dd>Type of event that is converted to text.</dd>
-<dt>Data</dt>
-<dd>Data for given event. Can be <code>Nil</code>.</dd>
-<dt>TypeName</dt>
-<dd>Indicating whether type identifiers should be included in resulting text.</dd>
-<dt>ShowDescriptors</dt>
-<dd>When set, fields descriptors are shown for composite values.</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">Textual representation of event (event name) and its data.</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="ChannelRegistered"></a><code>Function <b>ChannelRegistered</b>(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -1999,9 +1725,9 @@ Checks whether given channel is present in <a class="normal" href="TelemetryReci
 </tr>
 <tr><td colspan="2">
 <p>
-Registers specific telemetry channel.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterChannel">cbRegisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_already_registered. User-managed instance does not perform this check.
+Registers specified telemetry channel.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterChannel">cbRegisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_already_registered. User-managed instance does not perform this check.
 
-<p>   
+<p>    
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -2014,6 +1740,8 @@ Registers specific telemetry channel.<br> Works only when <a class="normal" href
 <dd>Value type of registered channel.</dd>
 <dt>Flags</dt>
 <dd>Registration flags.</dd>
+<dt>UserData</dt>
+<dd>Any user data. Passed pointer will be stored with event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when registration was successful, otherwise <code>False</code> (property <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> contains result code).</p></td></tr>
@@ -2027,13 +1755,15 @@ Registers specific telemetry channel.<br> Works only when <a class="normal" href
 <p>
 Registers telemetry channel that is listed in known channels list at position given by <code>Index</code> parameter.<br> When channel is marked as indexed then all index-versions of such channel are registered.<br> Channel is registered only for its primary value type.<br> When index falls out of allowed boundaries, no channel is registered and function returns <code>False</code>.
 
-<p>
+<p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of requested channel in known channels list.</dd>
+<dt>UserData</dt>
+<dd>Any user data. Passed pointer will be stored with event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when requested channel was registered, <code>False</code> otherwise.</p></td></tr>
@@ -2045,15 +1775,17 @@ Registers telemetry channel that is listed in known channels list at position gi
 </tr>
 <tr><td colspan="2">
 <p>
-Registers telemetry channel of given name. Channel of this name must be listed in known channels list as other informations required for registration are taken from there.<br> When channel is marked as indexed then all index-versions of such channel are registered.<br> Channel is registered only for its primary value type.<br> When channel of given name is not listed between known channels, then no channel is registered and function returns <code>False</code>.
+Registers telemetry channel of a given name. Channel of this name must be listed in known channels list as other informations required for registration are taken from there.<br> When channel is marked as indexed then all posible indices of such channel are registered.<br> Channel is registered only for its primary value type.<br> When channel of given name is not listed between known channels, then no channel is registered and function returns <code>False</code>.
 
-<p>
+<p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Name</dt>
 <dd>Name of channel to be registered.</dd>
+<dt>UserData</dt>
+<dd>Any user data. Passed pointer will be stored with event context.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when requested channel was registered, <code>False</code> otherwise.</p></td></tr>
@@ -2065,7 +1797,7 @@ Registers telemetry channel of given name. Channel of this name must be listed i
 </tr>
 <tr><td colspan="2">
 <p>
-Unregister specific telemetry channel. Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterChannel">cbUnregisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_not_found. User-managed instance does not perform this check.
+Unregisters specified telemetry channel. Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterChannel">cbUnregisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_not_found. User-managed instance does not perform this check.
 
 <p>  
 
@@ -2089,7 +1821,7 @@ Unregister specific telemetry channel. Works only when <a class="normal" href="T
 </tr>
 <tr><td colspan="2">
 <p>
-Unregister telemetry channel that is listed in registered channels list at position given by <code>Index</code> parameter.<br> When index falls out of allowed boundaries, no channel is unregistered and function returns <code>False</code>.
+Unregisters telemetry channel that is listed in registered channels list at position given by <code>Index</code> parameter.<br> When index falls out of allowed boundaries, no channel is unregistered and function returns <code>False</code>.
 
 <p>
 
@@ -2145,7 +1877,7 @@ Unregisters all registered telemetry channels with the given name.<br>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegisterAll"></a><code>Function <b>ChannelRegisterAll</b>(RegPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
+<td class="itemcode"><a name="ChannelRegisterAll"></a><code>Function <b>ChannelRegisterAll</b>(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2175,31 +1907,7 @@ Unregisters all channels listed in <a class="normal" href="TelemetryRecipient.TT
 
 <p></p>
 <h6 class="description_section">Returns</h6>
-<p class="return">Number of successfully unregistered channels.</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelGetValueAsString"></a><code>Function <b>ChannelGetValueAsString</b>(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; virtual;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Returns textual representation of channel value. When <code>TypeName</code> is set to true, all values are marked with type identifiers.
-
-<p>  
-
-<p></p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Value</dt>
-<dd>Pointer to actual channel value. Can be <code>Nil</code>.</dd>
-<dt>TypeName</dt>
-<dd>Indicating whether type identifiers should be included in resulting text.</dd>
-<dt>ShowDescriptors</dt>
-<dd>When set, fields descriptors are shown for composite values.</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">Textual representation of channel value, an empty string when value is not assigned.</p></td></tr>
+<p class="return">Number of successfully unregistered channels.)</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -2230,7 +1938,7 @@ Checks whether given config is stored in <a class="normal" href="TelemetryRecipi
 </tr>
 <tr><td colspan="2">
 <p>
-Checks whether given channel is stored in StoredChannelValues list.
+Checks whether given channel is stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannels">StoredChannels</a> list.
 
 <p>  
 
@@ -2275,7 +1983,7 @@ Indicates whether some events can be automatically registered at certain situati
 </tr>
 <tr><td colspan="2">
 <p>
-This object provides lists of known events, channels and configs along with some methods around these lists/structures.<br> Its main use is in registration of all known events and channels.<br> It is created in constructor as automatically managed, so the lists are filled automatically accordingly to telemetry and game versions passed to it.</p>
+This object provides lists of known events, channels and configs along with some methods around these lists/structures.<br> Its main internal use is in registration of all known events and channels.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -2311,11 +2019,11 @@ Internal list used to store received configurations when <a class="normal" href=
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="StoredChannelsValues"></a><code>property <b>StoredChannelsValues</b>: <a  href="TelemetryLists.TStoredChannelsValuesList.html">TStoredChannelsValuesList</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannelsValues">fStoredChannelsValues</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannelsValues">fStoredChannelsValues</a>;</code></td>
+<td class="itemcode"><a name="StoredChannels"></a><code>property <b>StoredChannels</b>: <a  href="TelemetryLists.TStoredChannelsList.html">TStoredChannelsList</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannels">fStoredChannels</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannels">fStoredChannels</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Internal list used to store received channels values when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannelsValues">StoreChannelsValues</a> switch is set to <code>True</code>.</p>
+Internal list used to store received channels values when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannels">StoreChannels</a> switch is set to <code>True</code>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -2408,11 +2116,11 @@ When <code>True</code>, registration and unregistration of indexed channels that
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="StoreChannelsValues"></a><code>property <b>StoreChannelsValues</b>: Boolean read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannelsValues">fStoreChannelsValues</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannelsValues">SetStoreChannelsValues</a>;</code></td>
+<td class="itemcode"><a name="StoreChannels"></a><code>property <b>StoreChannels</b>: Boolean read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannels">fStoreChannels</a> write <a  href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannels">SetStoreChannels</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-When <code>True</code>, all incoming channels along with their values are stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannelsValues">StoredChannelsValues</a> list.<br> When set to <code>False</code>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannelsValues">StoredChannelsValues</a> list is cleared.<br> Initialized to <code>False</code>.</p>
+When <code>True</code>, all incoming channels along with their values are stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannels">StoredChannels</a> list.<br> When set to <code>False</code>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannels">StoredChannels</a> list is cleared.<br> Initialized to <code>False</code>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -2599,7 +2307,7 @@ Multicast event called whenever the recipient receives any channel call from tel
 Multicast event called when config is parsed from configuration telemetry event data.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

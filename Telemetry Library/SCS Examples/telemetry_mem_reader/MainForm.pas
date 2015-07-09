@@ -10,9 +10,8 @@ unit MainForm;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, ComCtrls, StdCtrls,
-  TelemetrySCS_Examples_telemetry_mem, ImgDraw;
+  SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, ComCtrls,
+  TelemetrySCSExample_telemetry_mem, ImgDraw;
 
 type
   TfMainForm = class(TForm)
@@ -36,7 +35,11 @@ var
 
 implementation
 
-{$R *.dfm}
+{$IFDEF FPC}
+  {$R *.lfm}
+{$ELSE}
+  {$R *.dfm}
+{$ENDIF}
 
 procedure TfMainForm.ClearShownData;
 begin

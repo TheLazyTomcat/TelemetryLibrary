@@ -1,1 +1,0 @@
-This folder contains obsolete code that will be removed in the future. Do not use it.

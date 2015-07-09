@@ -42,7 +42,7 @@ type
 
 const
   // Constant used as connection data when packet should be sent to all peers.
-  cSendToAll = nil;
+  SendToAll = nil;
 
 implementation
 

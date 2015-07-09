@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Devel_win_x86"/>
+    <Units Count="2">
+      <Unit0>
+        <Filename Value="Condensed_tester.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="42" Y="16"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCS_Telemetry_Condensed"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="149"/>
+        <CursorPos X="34" Y="166"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+    </Units>
+    <CustomDefines Count="7">
+      <Define0 Value="FPC"/>
+      <Define1 Value="Windows"/>
+      <Define2 Value="Debug"/>
+      <Define3 Value="Release"/>
+      <Define4 Value="x86"/>
+      <Define5 Value="x64"/>
+      <Define6 Value="PurePascal"/>
+    </CustomDefines>
+    <JumpHistory HistoryIndex="-1"/>
+  </ProjectSession>
+</CONFIG>

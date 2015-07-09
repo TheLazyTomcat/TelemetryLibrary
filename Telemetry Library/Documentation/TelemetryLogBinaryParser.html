@@ -10,7 +10,7 @@
 <h1 class="unit">Unit TelemetryLogBinaryParser</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
 <a name="PasDoc-Description"></a><h2 class="description">Description</h2>
 <p>
 Contains classes designed to parse binary logs.</p>
@@ -25,14 +25,23 @@ Contains classes designed to parse binary logs.</p>
 
 <pre class="preformatted">
   TTelemetryLogBinaryReader
-   |- TTelemetryLogBinaryReader_0_1
+   |- TTelemetryLogBinaryReader_1
+       |- TTelemetryLogBinaryReader_0
 
   TTelemetryLogBinaryStreamParser
    |- TTelemetryLogBinaryFileParser
        |- TTelemetryLogBinaryToTextConverter
 </pre>
 
-<p> Last change: 2014-11-05
+<p> Included files:</p>
+
+<pre class="preformatted">
+    .\Inc\TelemetryMulticastEvents.pas
+      Contains declarations and implementations of multicast event classes.</pre>
+
+<p>
+
+<p>Last change: 2015-07-02
 
 <p>Change List:</p>
 
@@ -44,13 +53,18 @@ Contains classes designed to parse binary logs.</p>
 <ul class="compact_spacing">
   <li><p>event type <a class="normal" href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a></p></li>
   <li><p>event type <a class="normal" href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a></p></li>
-  <li><p>fields <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html#Size">TLogEntry.Size</a> and <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html#Info">TLogEntry.Info</a></p></li>
+  <li><p>fields TLogEntry.Size and <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html#Info">TLogEntry.Info</a></p></li>
   <li><p><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnDataLog">TTelemetryLogBinaryStreamParser.DoOnDataLog</a></p></li>
   <li><p><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnDataLog">TTelemetryLogBinaryToTextConverter.DoOnDataLog</a></p></li>
 </ul>
 
 <p></p></li>
   <li><p>2014-11-05 - Small implementation changes.</p></li>
+  <li><p>2015-07-01 - Class <code>TTelemetryLogBinaryReader_0_1</code> renamed to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a> as it now reads only structure 1.</p></li>
+  <li><p>2015-07-01 - Added class <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0.html">TTelemetryLogBinaryReader_0</a> for reading of structure 0.</p></li>
+  <li><p>2015-07-02 - Implementation changes.</p></li>
+  <li><p>2015-07-02 - Changed <code>Data</code> field of structure <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> to a managed type (dynamic array) so it does not need explicit finalization.</p></li>
+  <li><p>2015-07-02 - Removed function <code>LogEntryFree</code> as it is no longer needed.</p></li>
 </ul>
 
 <p>
@@ -82,7 +96,7 @@ Contains classes designed to parse binary logs.</p>
 </tr>
 <tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html"><code>TMulticastLogTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes informations about a write to game log with time</td>
+<td class="itemdesc">Class used to manage multicast event called when reader/parser passes informations about a write to game log with time.</td>
 </tr>
 <tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html"><code>TMulticastEventRegisterTimeLogEvent</code></a></td>
@@ -117,26 +131,24 @@ Contains classes designed to parse binary logs.</p>
 <td class="itemdesc">Base class for all internal readers used to write binary logs.</td>
 </tr>
 <tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html"><code>TTelemetryLogBinaryReader_0_1</code></a></td>
-<td class="itemdesc">Internal reader class used to read file of structure 0 and 1.</td>
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_1.html"><code>TTelemetryLogBinaryReader_1</code></a></td>
+<td class="itemdesc">Internal reader class used to read file of structure 1.</td>
 </tr>
 <tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0.html"><code>TTelemetryLogBinaryReader_0</code></a></td>
+<td class="itemdesc">Internal reader class used to read file of structure 0.</td>
+</tr>
+<tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html"><code>TTelemetryLogBinaryStreamParser</code></a></td>
 <td class="itemdesc">Class designed to parse a stream containing binary log.</td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryFileParser.html"><code>TTelemetryLogBinaryFileParser</code></a></td>
 <td class="itemdesc">Class designed to parse a file containing binary log.</td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html"><code>TTelemetryLogBinaryToTextConverter</code></a></td>
 <td class="itemdesc">Converts given binary log file to a text log file.</td>
-</tr>
-</table>
-<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.html#LogEntryFree">LogEntryFree</a></b>(var Value: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>);</code></td>
 </tr>
 </table>
 <a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
@@ -178,27 +190,10 @@ Contains classes designed to parse binary logs.</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#cInvalidLogEntry">cInvalidLogEntry</a></b>: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> = (Time: 0; Data: nil; Size: 0; Info: 0);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#InvalidLogEntry">InvalidLogEntry</a></b>: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> = (Time: 0; Data: nil; Info: 0);</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
-<h3 class="detail">Functions and Procedures</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="LogEntryFree"></a><code>procedure <b>LogEntryFree</b>(var Value: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>);</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Use this procedure to free resources taken by variable of type <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a>.
-
-<p></p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Value</dt>
-<dd>Variable whose resources should be freed.</dd>
-</dl>
-</td></tr>
-</table>
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -302,7 +297,7 @@ Event type used when reader/parser passes log data containing informations about
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="cInvalidLogEntry"></a><code><b>cInvalidLogEntry</b>: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> = (Time: 0; Data: nil; Size: 0; Info: 0);</code></td>
+<td class="itemcode"><a name="InvalidLogEntry"></a><code><b>InvalidLogEntry</b>: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> = (Time: 0; Data: nil; Info: 0);</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -319,9 +314,9 @@ Contains empty/invalid value of type <a class="normal" href="TelemetryLogBinaryP
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-05
+2015-07-02
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

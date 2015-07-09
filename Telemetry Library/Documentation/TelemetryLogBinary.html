@@ -25,7 +25,8 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <pre class="preformatted">
   TTelemetryLogBinaryWriter
-   |- TTelemetryLogBinaryWriter_0_1
+   |- TTelemetryLogBinaryWriter_1
+       |- TTelemetryLogBinaryWriter_0
 
   TTelemetryLogBinaryStream
    |- TTelemetryLogBinaryFile
@@ -33,7 +34,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <p>
 
-<p>Last change: 2014-11-05
+<p>Last change: 2015-07-01
 
 <p>Change List:</p>
 
@@ -44,7 +45,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <ul class="compact_spacing">
   <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">TTelemetryLogBinaryWriter.LogData</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0_1.html#LogData">TTelemetryLogBinaryWriter_0_1.LogData</a></p></li>
+  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#LogData">TTelemetryLogBinaryWriter_1.LogData</a></p></li>
   <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">TTelemetryLogBinaryStream.LogData</a></p></li>
 </ul>
 
@@ -61,6 +62,11 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 </ul>
 
 <p></p></li>
+  <li><p>2015-06-30 - Constant <code>cMinimumAPIInfoSectionSize</code> renamed to <a class="normal" href="TelemetryLogBinary.html#MinimumAPIInfoSectionSize">MinimumAPIInfoSectionSize</a>.</p></li>
+  <li><p>2015-06-30 - Constant <code>LB_MAGIC_NUMBER</code> renamed to <a class="normal" href="TelemetryLogBinary.html#LB_SIGNATURE">LB_SIGNATURE</a>.</p></li>
+  <li><p>2015-06-30 - Class <code>TTelemetryLogBinaryWriter_0_1</code> renamed to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a> as it now writes only structure 1.</p></li>
+  <li><p>2015-06-30 - Added class <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html">TTelemetryLogBinaryWriter_0</a> for writing structure 0.</p></li>
+  <li><p>2015-07-01 - Small implementation changes.</p></li>
 </ul>
 
 <p>
@@ -70,6 +76,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <ul class="paragraph_spacing">
   <li><p>Add 64bit variant of structure 0 (64bit blocks offsets).</p></li>
   <li><p>Add structure that saves data in some compressed format.</p></li>
+  <li><p>Optimize reallocation and saving of block offset table.</p></li>
 </ul>
 
 <p>
@@ -92,7 +99,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
     Reserved field 2    4 bytes
 </pre>
 
-<p> Each file must contain this header and API informations section, if it is smaller (minimum size of API info section is 16 bytes), then it is broken. Also, each valid file must start with valid magic number (<code>0x6C624C54</code>).<br> Time of creation is the local system time when the header was saved. It is stored as TTimeStamp structure which is declared as follows: </p>
+<p> Each file must start with this header and API informations section, if it is smaller (minimum size of API info section is 16 bytes), then it is broken. Also, each valid file must start with valid magic number (<code>0x6C624C54</code>).<br> Time of creation is the local system time when the header was saved. It is stored as TTimeStamp structure which is declared as follows: </p>
 
 <pre class="preformatted">
     value |   size   | value type
@@ -103,7 +110,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <p> ...where Time is number of milliseconds that have elapsed since midnight, and Date indicates the number of calendar days since the start of the calendar (the number of days since 1/1/0001 plus one). Data structure determines how content of the file looks like after the API informations section.<br> Do not use reserved fields and do not assume nothing about their content!
 
-<p>After the header, API informations are stored. They are not part of the header bacause they have variable size - you have to write or read each field at a time. They can be used when reading the file, for example when there is need to convert item IDs to valid item names. These informations are stored as follows: </p>
+<p>After the header, API informations are stored. They are not part of the header because they have variable size - you have to write or read each field at a time. They are be used when reading the file, for example when there is need to convert item IDs to valid item names. These informations are stored as follows: </p>
 
 <pre class="preformatted">
        value          |   size   |  value type
@@ -331,7 +338,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 </tr>
 <tr class="list2">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryAPIInfo.html"><code>TTelemetryLogBinaryAPIInfo</code></a></td>
-<td class="itemdesc">Structure used to store informations about telemetry API (versions, ID).</td>
+<td class="itemdesc">Structure used to store informations about telemetry API (versions, ID, ...).</td>
 </tr>
 <tr class="list">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html"><code>TTelemetryLogBinaryFileInfo</code></a></td>
@@ -346,14 +353,18 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <td class="itemdesc">Base class for all writers used to write binary logs.</td>
 </tr>
 <tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0_1.html"><code>TTelemetryLogBinaryWriter_0_1</code></a></td>
-<td class="itemdesc">Writer class used to write binary log of structures 0 and 1.</td>
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html"><code>TTelemetryLogBinaryWriter_1</code></a></td>
+<td class="itemdesc">Writer class used to write binary log of structure 1.</td>
 </tr>
 <tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html"><code>TTelemetryLogBinaryWriter_0</code></a></td>
+<td class="itemdesc">Writer class used to write binary log of structure 0.</td>
+</tr>
+<tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html"><code>TTelemetryLogBinaryStream</code></a></td>
 <td class="itemdesc">Class designed to log all traffic on telemetry API as a binary log into provided stream.</td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryFile.html"><code>TTelemetryLogBinaryFile</code></a></td>
 <td class="itemdesc">Class designed to log all traffic on telemetry API to a binary log file.</td>
 </tr>
@@ -376,7 +387,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_MAGIC_NUMBER">LB_MAGIC_NUMBER</a></b>          = $6C624C54;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_SIGNATURE">LB_SIGNATURE</a></b>             = $6C624C54;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_STRUCT0_CONTROLNUMBER">LB_STRUCT0_CONTROLNUMBER</a></b> = $616F4C54;</code></td>
@@ -424,7 +435,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_BLOCK_FLAG_MINIMIZED">LB_BLOCK_FLAG_MINIMIZED</a></b> = $04;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#cMinimumAPIInfoSectionSize">cMinimumAPIInfoSectionSize</a></b> = 16;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#MinimumAPIInfoSectionSize">MinimumAPIInfoSectionSize</a></b> = 16;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -468,7 +479,7 @@ Pointer to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryBlockHe
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="LB_MAGIC_NUMBER"></a><code><b>LB_MAGIC_NUMBER</b>          = $6C624C54;</code></td>
+<td class="itemcode"><a name="LB_SIGNATURE"></a><code><b>LB_SIGNATURE</b>             = $6C624C54;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -612,7 +623,7 @@ Flag mask for Minimized block flag.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="cMinimumAPIInfoSectionSize"></a><code><b>cMinimumAPIInfoSectionSize</b> = 16;</code></td>
+<td class="itemcode"><a name="MinimumAPIInfoSectionSize"></a><code><b>MinimumAPIInfoSectionSize</b> = 16;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -629,9 +640,9 @@ Minimum number of bytes required to store API information section.</p>
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-05
+2015-07-01
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

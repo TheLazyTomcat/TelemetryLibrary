@@ -67,6 +67,7 @@ const
  * @li fuel_capacity
  * @li fuel_warning_factor
  * @li adblue_capacity
+ * @li ablue_warning_factor 
  * @li air_pressure_warning
  * @li air_pressure_emergency
  * @li oil_pressure_warning
@@ -190,6 +191,14 @@ const
   SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity = TelemetryString('adblue.capacity');
 
 (**
+ * @brief Fraction of the adblue capacity bellow which
+ * is activated the adblue warning.
+ *
+ * Type: float
+ *)
+  SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_warning_factor = TelemetryString('adblue.warning.factor');
+
+(**
  * @brief Pressure of the air in the tank bellow which
  * the warning activates.
  *
@@ -248,6 +257,13 @@ const
   SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count = TelemetryString('gears.reverse');
 
 (**
+ * @brief Differential ratio of the truck.
+ *
+ * Type: float
+ *)
+  SCS_TELEMETRY_CONFIG_ATTRIBUTE_differential_ratio = TelemetryString('differential.ratio');
+
+(**
  * @brief Number of steps in the retarder.
  *
  * Set to zero if retarder is not mounted to the truck.
@@ -255,6 +271,20 @@ const
  * Type: u32
  *)
   SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count = TelemetryString('retarder.steps');
+
+(**
+ * @brief Forward transmission ratios.
+ *
+ * Type: indexed float
+ *)
+  SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_ratio = TelemetryString('forward.ratio');
+
+(**
+ * @brief Reverse transmission ratios.
+ *
+ * Type: indexed float
+ *)
+  SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_ratio = TelemetryString('reverse.ratio');
 
 (**
  * @brief Position of the cabin in the vehicle space.

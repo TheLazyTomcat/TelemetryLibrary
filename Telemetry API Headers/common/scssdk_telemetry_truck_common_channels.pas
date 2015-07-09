@@ -138,6 +138,17 @@ const
  *)
   SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear                 = TelemetryString('truck.engine.gear');
 
+(**
+ * @brief Gear currently displayed on dashboard.
+ *
+ * @li >0 - Forwad gears
+ * @li 0 - Neutral
+ * @li <0 - Reverse gears
+ *
+ * Type: s32
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_displayed_gear              = TelemetryString('truck.displayed.gear');
+
 // Driving
 
 (**
@@ -332,6 +343,13 @@ const
  * Type: float
  *)
   SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption    = TelemetryString('truck.fuel.consumption.average');
+
+(**
+ * @brief Estimated range of truck with current amount of fuel in km
+ *
+ * Type: float
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_fuel_range                  = TelemetryString('truck.fuel.range');
 
 (**
  * @brief Amount of AdBlue in liters
@@ -584,6 +602,34 @@ const
  * Type: float
  *)
   SCS_TELEMETRY_TRUCK_CHANNEL_odometer                    = TelemetryString('truck.odometer');
+
+(**
+ * @brief The value of truck's navigation distance (in meters).
+ *
+ * This is the value used by the advisor.
+ *
+ * Type: float
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_navigation_distance         = TelemetryString('truck.navigation.distance');
+
+(**
+ * @brief The value of truck's navigation eta (in second).
+ *
+ * This is the value used by the advisor.
+ *
+ * Type: float
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_navigation_time             = TelemetryString('truck.navigation.time');
+
+(**
+ * @brief The value of truck's navigation speed limit (in m/s).
+ *
+ * This is the value used by the advisor and respects the
+ * current state of the "Route Advisor speed limit" option.
+ *
+ * Type: float
+ *)
+  SCS_TELEMETRY_TRUCK_CHANNEL_navigation_speed_limit      = TelemetryString('truck.navigation.speed.limit');
 
 // Wheels.
 

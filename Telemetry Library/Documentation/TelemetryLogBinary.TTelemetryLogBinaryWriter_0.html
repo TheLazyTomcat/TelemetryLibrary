@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryWriter_0</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TTelemetryLogBinaryWriter_0"></a><h1 class="cio">Class TTelemetryLogBinaryWriter_0</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetryLogBinary.html">TelemetryLogBinary</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TTelemetryLogBinaryWriter_0 = class(<a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Writer class used to write binary log of structure 0.</p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html">TTelemetryLogBinaryWriter</a></li>
+<li class="ancestor"><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a></li>
+<li class="thisitem">TTelemetryLogBinaryWriter_0</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#fBlocksOffsets">fBlocksOffsets</a></b>: array of LongWord;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#AddBlockOffset">AddBlockOffset</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#WriteBlockHeader">WriteBlockHeader</a></b>(BlockType, BlockFlags: Byte; BlockPayloadSize: Word); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#StartWriting">StartWriting</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#EndWriting">EndWriting</a></b>; override;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fBlocksOffsets"></a><code><b>fBlocksOffsets</b>: array of LongWord;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Array used to store table of blocks offsets.</p>
+</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="AddBlockOffset"></a><code>procedure <b>AddBlockOffset</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Adds current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position as a new item into blocks offsets table (<a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#fBlocksOffsets">fBlocksOffsets</a> array).</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="WriteBlockHeader"></a><code>procedure <b>WriteBlockHeader</b>(BlockType, BlockFlags: Byte; BlockPayloadSize: Word); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#WriteBlockHeader">TTelemetryLogBinaryWriter_1.WriteBlockHeader</a>. Adds new offset to the table of blocks offsets by calling <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#AddBlockOffset">AddBlockOffset</a> method.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="StartWriting"></a><code>procedure <b>StartWriting</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#StartWriting">TTelemetryLogBinaryWriter_1.StartWriting</a>.<br> Empties table of blocks offsets.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EndWriting"></a><code>procedure <b>EndWriting</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#EndWriting">TTelemetryLogBinaryWriter_1.EndWriting</a>.<br> Writes table of block offsets into output.</p>
+</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+</span>
+
+</body>
+</html>

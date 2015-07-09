@@ -23,43 +23,7 @@ TTelemetryInfoProvider class provide lists of all known game events, channels an
 <p>
 
 
-<p>It can be created in two ways, user managed or automatically managed.<br> When created as user managed (using no-paramater constructor), the object is created with empty lists and it is up to the user to fill them (use methods of individual lists to do so).<br> When automatically managed (object is created using parametrized constructor), the telemetry and game versions are passed to the constructor and it checks whether they are supported or not. If they are, the lists are filled accordingly to them, if they are not supported, the constructor raises an exception.<br>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+<p>It can be created in two ways, user managed or automatically managed.<br> When created as user managed (using no-paramater constructor), the object is created with empty lists and it is up to the user to fill them (use methods of individual lists to do so).<br> When automatically managed (object is created using parametrized constructor), the telemetry and game versions are passed to the constructor and it checks whether they are supported or not. If they are, the lists are filled accordingly to them, if they are not supported, the constructor raises an exception.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html">TTelemetryAbstractVersionObject</a></li>
@@ -145,7 +109,7 @@ TTelemetryInfoProvider class provide lists of all known game events, channels an
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryInfoProvider.TTelemetryInfoProvider.html#ChannelGetValueType">ChannelGetValueType</a></b>(const Name: TelemetryString; TypePriority: <a  href="TelemetryInfoProvider.html#TChannelValueTypePriority">TChannelValueTypePriority</a> = cvtpPrimary): scs_value_type_t; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryInfoProvider.TTelemetryInfoProvider.html#ChannelGetValueType">ChannelGetValueType</a></b>(const Name: TelemetryString; TypePriority: <a  href="TelemetryInfoProvider.html#TChannelValueTypePriority">TChannelValueTypePriority</a> = cvtpPrimary): scs_value_type_t; overload; virtual; deprecated 'Please use other methods with the same name instead of this one.';</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -386,7 +350,7 @@ When current instance is created as user managed, calling this procedure will <c
 </tr>
 <tr><td colspan="2">
 <p>
-Returns internal (i.e. not defined by the API) name of passed event.
+Returns internal (ie. not defined by the API) name of passed event.
 
 <p>
 
@@ -402,11 +366,11 @@ Returns internal (i.e. not defined by the API) name of passed event.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelGetValueType"></a><code>Function <b>ChannelGetValueType</b>(const Name: TelemetryString; TypePriority: <a  href="TelemetryInfoProvider.html#TChannelValueTypePriority">TChannelValueTypePriority</a> = cvtpPrimary): scs_value_type_t; overload; virtual;</code></td>
+<td class="itemcode"><a name="ChannelGetValueType"></a><code>Function <b>ChannelGetValueType</b>(const Name: TelemetryString; TypePriority: <a  href="TelemetryInfoProvider.html#TChannelValueTypePriority">TChannelValueTypePriority</a> = cvtpPrimary): scs_value_type_t; overload; virtual; deprecated 'Please use other methods with the same name instead of this one.';</code></td>
 </tr>
 <tr><td colspan="2">
-<p>
-Returns type of value for given channel and selected priority.
+<p class="hint_directive">Warning: this symbol is deprecated.</p><p>
+ Returns type of value for given channel and selected priority.
 
 <p> 
 
@@ -430,7 +394,7 @@ Returns type of value for given channel and selected priority.
 <p>
 Returns type of value for given channel and selected priority.
 
-<p>  be a number from interval &lt;0,33), if it is not from this interval, SCS_VALUE_TYPE_INVALID is returned.<br> 0 corresponds to primary value type, 1 to first secondary type, 2 to second secondary type and so on. If selected type is beyond what a given channel can support (ie. 5 for channel with only one secondary type), SCS_VALUE_TYPE_INVALID is returned.
+<p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -438,7 +402,7 @@ Returns type of value for given channel and selected priority.
 <dt>Name</dt>
 <dd>Name of requested channel.</dd>
 <dt>TypePriority</dt>
-<dd>Priority of value type that should be returned. It must</dd>
+<dd>Priority of value type that should be returned. It must be a number from interval &lt;0,33), if it is not from this interval, SCS_VALUE_TYPE_INVALID is returned.<br> 0 corresponds to primary value type, 1 to first secondary type, 2 to second secondary type and so on. If selected type is beyond what a given channel can support (eg. 5 for channel with only one secondary type), SCS_VALUE_TYPE_INVALID is returned.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Type of value for selected channel and priority. When requested channel is not found, <code>SCS_VALUE_TYPE_INVALID</code> is returned.</p></td></tr>
@@ -484,7 +448,7 @@ List containing informations about known telemetry channels.</p>
 List containing informations about known telemetry configs.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

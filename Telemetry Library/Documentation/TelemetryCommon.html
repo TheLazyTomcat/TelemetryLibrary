@@ -19,18 +19,18 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 
 <p><b>TelemetryCommon</b>
 
-<p>©2013-2014 František Milt, all rights reserved.
+<p>©2013-2015 František Milt, all rights reserved.
 
 <p>This file is intended to provide types, constants, routines, etc. used throughout the Telemetry library (that is, in more than one unit).
 
-<p>Last change: 2014-11-02
+<p>Last change: 2015-06-25
 
 <p>Change List:</p>
 
 <ul class="paragraph_spacing">
   <li><p>2013-10-04 - First stable version.</p></li>
-  <li><p>2014-04-06 - <a class="normal" href="TelemetryCommon.TGameSupportInfo.html#GameID">TGameSupportInfo.GameID</a> and <a class="normal" href="TelemetryCommon.scs_value_localized_t.html#StringData">scs_value_localized_t.StringData</a> fields type changed to <code>TelemetryString</code>.</p></li>
-  <li><p>2014-04-18 - <a class="normal" href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> constant moved to <a class="normal" href="TelemetryIDs.html">TelemetryIDs</a> unit.</p></li>
+  <li><p>2014-04-06 - TGameSupportInfo.GameID and <a class="normal" href="TelemetryCommon.scs_value_localized_t.html#StringData">scs_value_localized_t.StringData</a> fields type changed to <code>TelemetryString</code>.</p></li>
+  <li><p>2014-04-18 - cConfigFieldsSeparator constant moved to <a class="normal" href="TelemetryIDs.html">TelemetryIDs</a> unit.</p></li>
   <li><p>2014-04-20 - Added following types:</p>
 
 <ul class="compact_spacing">
@@ -44,6 +44,21 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
   <li><p>2014-04-20 - Functions <a class="normal" href="TelemetryConversions.html#scs_value_localized">scs_value_localized</a> and <a class="normal" href="TelemetryConversions.html#scs_value">scs_value</a> moved to <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> unit.</p></li>
   <li><p>2014-05-05 - <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder added.</p></li>
   <li><p>2014-11-02 - Added types <code><a class="normal" href="TelemetryCommon.html#PtrInt">PtrInt</a></code> and <code><a class="normal" href="TelemetryCommon.html#PtrUInt">PtrUInt</a></code>.</p></li>
+  <li><p>2015-04-20 - Added <a class="normal" href="TelemetryCommon.html#TMemSize">TMemSize</a> type.</p></li>
+  <li><p>2015-04-20 - Constants <code>cEmptySCSValue</code> and <code>cEmptySCSValueLocalized</code> renamed to <code>EmptySCSValue</code> and <code>EmptySCSValueLocalized</code> respectively.</p></li>
+  <li><p>2015-06-25 - Removed <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder.</p></li>
+  <li><p>2015-06-25 - Added <a class="normal" href="TelemetryCommon.html#TStrSize">TStrSize</a> type.</p></li>
+  <li><p>2015-06-25 - TGameSupportInfo changed to <a class="normal" href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a>, PGameSupportInfo changed to <a class="normal" href="TelemetryCommon.html#PSupportedGame">PSupportedGame</a>.</p></li>
+  <li><p>2015-06-25 - Added list of supported API versions and list of supported games (<a class="normal" href="TelemetryCommon.html#SupportedTelemetryVersions">SupportedTelemetryVersions</a>, <a class="normal" href="TelemetryCommon.html#SupportedGames">SupportedGames</a>).</p></li>
+  <li><p>2015-06-25 - Renamed and completed following constants:</p>
+
+<ul class="compact_spacing">
+  <li><p><code>EmptySCSValue</code> renamed to <a class="normal" href="TelemetryCommon.html#scs_value_empty">scs_value_empty</a></p></li>
+  <li><p><code>EmptySCSValueLocalized</code> renamed to <a class="normal" href="TelemetryCommon.html#scs_value_localized_empty">scs_value_localized_empty</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2015-06-29 - Returned <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder.</p></li>
 </ul>
 
 <p>
@@ -62,8 +77,8 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 <td class="itemdesc">Placeholder intended to complete the classes hierarchy tree in documentation.</td>
 </tr>
 <tr class="list2">
-<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.TGameSupportInfo.html"><code>TGameSupportInfo</code></a></td>
-<td class="itemdesc">Structure used internally in tables that keeps informations about supported games and their versions.</td>
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.TSupportedGame.html"><code>TSupportedGame</code></a></td>
+<td class="itemdesc">Structure used in lists of supported games and their versions.</td>
 </tr>
 <tr class="list">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.scs_value_localized_t.html"><code>scs_value_localized_t</code></a></td>
@@ -87,7 +102,13 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 <td class="itemcode"><code><b><a  href="TelemetryCommon.html#PtrUInt">PtrUInt</a></b> = LongWord;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PGameSupportInfo">PGameSupportInfo</a></b> = &circ;<a  href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#TMemSize">TMemSize</a></b> = <a  href="TelemetryCommon.html#PtrUInt">PtrUInt</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#TStrSize">TStrSize</a></b> = <a  href="TelemetryCommon.html#PtrInt">PtrInt</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PSupportedGame">PSupportedGame</a></b> = &circ;<a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryCommon.html#p_scs_value_localized_t">p_scs_value_localized_t</a></b> = &circ;<a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
@@ -102,10 +123,43 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#cEmptySCSValue">cEmptySCSValue</a></b>: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#SupportedTelemetryVersions">SupportedTelemetryVersions</a></b>: Array[0..0] of scs_u32_t =
+   (SCS_TELEMETRY_VERSION_1_00 );</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#cEmptySCSValueLocalized">cEmptySCSValueLocalized</a></b>: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> = (ValueType: SCS_VALUE_TYPE_INVALID);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#SupportedGames">SupportedGames</a></b>: Array[0..10] of <a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a> =
+   ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_04 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_05 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_06 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 ));</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#scs_value_empty">scs_value_empty</a></b>: scs_value_t = (
+    _type:            SCS_VALUE_TYPE_INVALID;
+    _padding:         $00000000;
+    value_dplacement: (
+      position:         (x: 0.0; y: 0.0; z: 0.0);
+      orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+      _padding:         $00000000));</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#scs_value_localized_empty">scs_value_localized_empty</a></b>: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> = (
+    ValueType:  SCS_VALUE_TYPE_INVALID;
+    BinaryData: (
+      _type:            SCS_VALUE_TYPE_INVALID;
+      _padding:         $00000000;
+      value_dplacement: (
+        position:         (x: 0.0; y: 0.0; z: 0.0);
+        orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+        _padding:         $00000000));
+    StringData: '');</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -130,11 +184,29 @@ Type used to cast pointer to an unsigned integer for calculation of arbitrary ad
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="PGameSupportInfo"></a><code><b>PGameSupportInfo</b> = &circ;<a  href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a>;</code></td>
+<td class="itemcode"><a name="TMemSize"></a><code><b>TMemSize</b> = <a  href="TelemetryCommon.html#PtrUInt">PtrUInt</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Pointer to <a class="normal" href="TelemetryCommon.TGameSupportInfo.html">TGameSupportInfo</a> structure.</p>
+Type used to pass or get size of memory, e.g. when allocating memory.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="TStrSize"></a><code><b>TStrSize</b> = <a  href="TelemetryCommon.html#PtrInt">PtrInt</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Type used to pass or get length of a string.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PSupportedGame"></a><code><b>PSupportedGame</b> = &circ;<a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to TGameSupportInfo structure.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -167,7 +239,43 @@ Pointer to <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_l
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="cEmptySCSValue"></a><code><b>cEmptySCSValue</b>: scs_value_t = (_type: SCS_VALUE_TYPE_INVALID);</code></td>
+<td class="itemcode"><a name="SupportedTelemetryVersions"></a><code><b>SupportedTelemetryVersions</b>: Array[0..0] of scs_u32_t =
+   (SCS_TELEMETRY_VERSION_1_00 );</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+List of Telemetry API versions supported by this library.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="SupportedGames"></a><code><b>SupportedGames</b>: Array[0..10] of <a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a> =
+   ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_04 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_05 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_06 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 ));</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+List of games and their versions supported by this library.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="scs_value_empty"></a><code><b>scs_value_empty</b>: scs_value_t = (
+    _type:            SCS_VALUE_TYPE_INVALID;
+    _padding:         $00000000;
+    value_dplacement: (
+      position:         (x: 0.0; y: 0.0; z: 0.0);
+      orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+      _padding:         $00000000));</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -176,7 +284,16 @@ Constant containing an empty <code>scs_value_t</code> structure, or, more precis
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="cEmptySCSValueLocalized"></a><code><b>cEmptySCSValueLocalized</b>: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> = (ValueType: SCS_VALUE_TYPE_INVALID);</code></td>
+<td class="itemcode"><a name="scs_value_localized_empty"></a><code><b>scs_value_localized_empty</b>: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> = (
+    ValueType:  SCS_VALUE_TYPE_INVALID;
+    BinaryData: (
+      _type:            SCS_VALUE_TYPE_INVALID;
+      _padding:         $00000000;
+      value_dplacement: (
+        position:         (x: 0.0; y: 0.0; z: 0.0);
+        orientation:      (heading: 0.0; pitch: 0.0; roll:0.0);
+        _padding:         $00000000));
+    StringData: '');</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -193,9 +310,9 @@ Constant containing an empty <a class="normal" href="TelemetryCommon.scs_value_l
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-02
+2015-06-25
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

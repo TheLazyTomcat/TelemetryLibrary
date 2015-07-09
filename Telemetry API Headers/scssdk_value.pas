@@ -110,7 +110,7 @@ type
  *)
   scs_value_euler_t = Record
     (**
-     * @name Heading.
+     * @brief Heading.
      *
      * Stored in unit range where <0,1) corresponds to <0,360).
      *
@@ -120,7 +120,7 @@ type
      *)
     heading:  scs_float_t;
     (**
-     * @name Pitch
+     * @brief Pitch
      *
      * Stored in unit range where <-0.25,0.25> corresponds to <-90,90>.
      *
@@ -130,7 +130,7 @@ type
      *)
     pitch:    scs_float_t;
     (**
-     * @name Rool
+     * @brief Rool
      *
      * Stored in unit range where <-0.5,0.5> corresponds to <-180,180>.
      *

@@ -35,6 +35,11 @@ interface
  *        (e.g. after completion of quick job)
  * 1.09 - added time and job related info
  * 1.10 - added information about liftable axes
+ * 1.11 - u32 channels can provide u64 as documented, added displayed_gear channel, increased
+ *        maximal number of supported wheel channels to 14
+ * 1.12 - added information about transmission (differential_ratio, forward_ratio, reverse_ratio),
+ *        navigation channels (navigation_distance, navigation_time, navigation_speed_limit)
+ *        and adblue related data are now provided.
  *)
 //@{
 const
@@ -49,7 +54,9 @@ const
   SCS_TELEMETRY_EUT2_GAME_VERSION_1_08    = (1 shl 16) or 8   {0x00010008};	// Patch 1.9
   SCS_TELEMETRY_EUT2_GAME_VERSION_1_09    = (1 shl 16) or 9   {0x00010009};	// Patch 1.14 beta
   SCS_TELEMETRY_EUT2_GAME_VERSION_1_10    = (1 shl 16) or 10  {0x0001000A};	// Patch 1.14
-  SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT = SCS_TELEMETRY_EUT2_GAME_VERSION_1_10;
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_11    = (1 shl 16) or 11  {0x0001000B};
+  SCS_TELEMETRY_EUT2_GAME_VERSION_1_12    = (1 shl 16) or 12  {0x0001000C};	// Patch 1.17
+  SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT = SCS_TELEMETRY_EUT2_GAME_VERSION_1_12;
 //@}
 
 // Game specific units.
@@ -62,10 +69,6 @@ const
 // scssdk_telemetry_trailer_common_channels.h are supported
 // with following exceptions and limitations as of v1.00:
 //
-// @li Adblue related channels are not supported.
-// @li The fuel_average_consumption is currently mostly static and depends
-//     on presence of the trailer and skills of the driver instead
-//     of the workload of the engine.
 // @li Rolling rotation of trailer wheels is determined from linear
 //     movement.
 // @li The pressures, temperatures and voltages are not simulated.

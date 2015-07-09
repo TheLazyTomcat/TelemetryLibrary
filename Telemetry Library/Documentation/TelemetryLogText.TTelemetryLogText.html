@@ -21,61 +21,7 @@
 <p>
 Class designed to log all traffic on telemetry API to human readable output file.</p>
 <p>
- To use it, just assign individual *Handler methods to appropriate telemetry recipient events, or use method <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> for automatic assigning (<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property must be assigned).<br> <b>Note</b> - some functions (they are marked) are using recipient methods to convert data to text, so you are strongly advised to assign telemetry recipient to <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property or using constructor. If you don't assign it, then you have to make sure you pass valid telemetry recipient in <code>Sender</code> parameters of called methods (in this case, do not use Log* methods as they don't have <code>Sender</code> parameter). When no valid recipient is provided, then these methods write error note directly into log output.
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+ To use it, just assign individual *Handler methods to appropriate telemetry recipient events, or use method <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> for automatic assigning (<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property must be assigned).<br> <b>Note</b> - some functions (they are marked) are using recipient methods to convert data to text, so you are strongly advised to assign telemetry recipient to <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property or using constructor. If you don't assign it, then you have to make sure you pass valid telemetry recipient in <code>Sender</code> parameters of called methods (in this case, do not use Log* methods as they don't have <code>Sender</code> parameter). When no valid recipient is provided, then these methods write error note directly into log output.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></li>
@@ -107,7 +53,7 @@ Class designed to log all traffic on telemetry API to human readable output file
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="TelemetryLogText.TTelemetryLogText.html#Create">Create</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> = nil; FileName: String = '');</code></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogText.TTelemetryLogText.html#Create">Create</a></b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> = nil; FileName: String = '');</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -206,7 +152,7 @@ Class designed to log all traffic on telemetry API to human readable output file
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Logger">Logger</a> for details.</p>
+See <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Logger">Logger</a> property for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -216,7 +162,7 @@ See <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Logger">Logg
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ShowTypesNames">ShowTypesNames</a> for details.</p>
+See <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ShowTypesNames">ShowTypesNames</a> property for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -273,7 +219,7 @@ Returns textual representation of passed index in the form <i>&quot;[index]&quot
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> = nil; FileName: String = '');</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> = nil; FileName: String = '');</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -287,7 +233,7 @@ Class constructor.
 <dt>Recipient</dt>
 <dd>Telemetry recipient that operates on API. When you assign this parameter, it will be assigned to <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property and handlers will be assigned to its events using <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> method.</dd>
 <dt>FileName</dt>
-<dd>Name of the output log file. It is not mandatory to assign full file path (file should be saved to current directory), but it is a good practice.<br> When this parameter contains an empty string, then output file is created in the same folder where a module (exe/dll) containing this unit is placed, with the name set to the name of that module (without extension) followed by the time the file was created, and with .log extension.</dd>
+<dd>Name of the output log file. It is not mandatory to assign full file path (file should be saved to current directory if no path is provided), but it is a good practice.<br> When this parameter contains an empty string, then output file is created in the same folder where a module (exe/dll) containing this unit is placed, with the name set to the name of that module (without extension) followed by the time the file was created, and with .log extension.</dd>
 </dl>
 </td></tr>
 </table>
@@ -327,7 +273,7 @@ Calls appropriate methods of <a class="normal" href="TelemetryLogText.TTelemetry
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations from a write to game log.<br>
+Adds informations about write to a game log.<br>
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -348,7 +294,7 @@ Method adding informations from a write to game log.<br>
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about game event registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Adds informations about game event registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -369,7 +315,7 @@ Method adding informations about game event registration to the log.<br> <b>Note
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about game event unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Adds informations about game event unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -390,7 +336,7 @@ Method adding informations about game event unregistration to the log.<br> <b>No
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding information about game event to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Adds informations about game event to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
 <p>   </p>
 <h6 class="description_section">Parameters</h6>
@@ -413,7 +359,7 @@ Method adding information about game event to the log.<br> <b>Note</b> - require
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about channel registration to the log.
+Adds informations about channel registration to the log.
 
 <p>      </p>
 <h6 class="description_section">Parameters</h6>
@@ -442,7 +388,7 @@ Method adding informations about channel registration to the log.
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about channel unregistration to the log.
+Adds informations about channel unregistration to the log.
 
 <p>     </p>
 <h6 class="description_section">Parameters</h6>
@@ -469,7 +415,7 @@ Method adding informations about channel unregistration to the log.
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about channel to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Adds informations about channel to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
 <p>     </p>
 <h6 class="description_section">Parameters</h6>
@@ -496,7 +442,7 @@ Method adding informations about channel to the log.<br> <b>Note</b> - requires 
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about received configuration to the log.
+Adds informations about received configuration to the log.
 
 <p>    </p>
 <h6 class="description_section">Parameters</h6>
@@ -521,7 +467,7 @@ Method adding informations about received configuration to the log.
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#LogHandler">LogHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#LogHandler">LogHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#LogHandler">LogHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -531,7 +477,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Log
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventRegisterHandler">EventRegisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventRegisterHandler">EventRegisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventRegisterHandler">EventRegisterHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -541,7 +487,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Eve
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventUnregisterHandler">EventUnregisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventUnregisterHandler">EventUnregisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventUnregisterHandler">EventUnregisterHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -551,7 +497,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Eve
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventHandler">EventHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventHandler">EventHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#EventHandler">EventHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -561,7 +507,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Eve
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelRegisterHandler">ChannelRegisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelRegisterHandler">ChannelRegisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelRegisterHandler">ChannelRegisterHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -571,7 +517,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Cha
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -581,7 +527,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Cha
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelHandler">ChannelHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelHandler">ChannelHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ChannelHandler">ChannelHandler</a> for details.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -591,7 +537,7 @@ Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#Cha
 </tr>
 <tr><td colspan="2">
 <p>
-Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ConfigHandler">ConfigHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to it for details.</p>
+Calls method <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ConfigHandler">ConfigHandler</a> with unchanged parameters and <code>Sender</code> set to <code>Nil</code>. Refer to <a class="normal" href="TelemetryLogText.TTelemetryLogText.html#ConfigHandler">ConfigHandler</a> for details.</p>
 </td></tr>
 </table>
 <h3 class="detail">Properties</h3>
@@ -625,7 +571,7 @@ Determines whether type identifiers should be added into output when converting 
 Determines whether field descriptors should be added into output when converting composite values to text.<br> Initialized to <code>False</code>.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

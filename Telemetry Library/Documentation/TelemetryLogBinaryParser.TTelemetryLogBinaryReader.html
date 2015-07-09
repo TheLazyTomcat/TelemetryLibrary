@@ -21,95 +21,7 @@
 <p>
 Base class for all internal readers used to write binary logs.</p>
 <p>
- This class is intended as common ancestor for all internal reader classes. These classes are used internaly to read different binary log structures, and should not be used outside of parsers. All descendants must implement all abstract methods. They also may add some new methods, but they should be used in parsers wery carefully and only if really needed.
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+ This class is intended as common ancestor for all internal reader classes. These classes are used internaly to read different binary log structures, and should not be used outside of parsers. All descendants must implement all abstract methods. They also may add some new methods, but they should be used in parsers wery carefully and only if really needed.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">TTelemetryLogBinaryReader</li></ul><h2 class="overview">Overview</h2>
@@ -230,60 +142,60 @@ Base class for all internal readers used to write binary logs.</p>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogEntries">LogEntries</a></b>[Index:Integer]: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#GetLogEntry">GetLogEntry</a>;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnDataLog">OnDataLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnDataLog">fOnDataLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnDataLog">fOnDataLog</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnTextLog">OnTextLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TTextTimeLogEvent">TTextTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnTextLog">fOnTextLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnTextLog">fOnTextLog</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnLogLog">OnLogLog</a></b>: <a  href="TelemetryLogBinaryParser.html#TLogTimeLogEvent">TLogTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnLogLog">fOnLogLog</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnLogLog">fOnLogLog</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnEventRegister">OnEventRegister</a></b>: <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnEventRegister">fOnEventRegister</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnEventRegister">fOnEventRegister</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnEventUnregister">OnEventUnregister</a></b>: <a  href="TelemetryLogBinaryParser.html#TEventRegisterTimeLogEvent">TEventRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnEventUnregister">fOnEventUnregister</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnEventUnregister">fOnEventUnregister</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnEvent">OnEvent</a></b>: <a  href="TelemetryLogBinaryParser.html#TEventTimeLogEvent">TEventTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnEvent">fOnEvent</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnEvent">fOnEvent</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnChannelRegister">OnChannelRegister</a></b>: <a  href="TelemetryLogBinaryParser.html#TChannelRegisterTimeLogEvent">TChannelRegisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnChannelRegister">fOnChannelRegister</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnChannelRegister">fOnChannelRegister</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnChannelUnregister">OnChannelUnregister</a></b>: <a  href="TelemetryLogBinaryParser.html#TChannelUnregisterTimeLogEvent">TChannelUnregisterTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnChannelUnregister">fOnChannelUnregister</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnChannelUnregister">fOnChannelUnregister</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnChannel">OnChannel</a></b>: <a  href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnChannel">fOnChannel</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnChannel">fOnChannel</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#OnConfig">OnConfig</a></b>: <a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnConfig">fOnConfig</a> write <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fOnConfig">fOnConfig</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogCount">LogCount</a></b>: Integer read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#GetLogCount">GetLogCount</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogCounter">LogCounter</a></b>: Integer read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fLogCounter">fLogCounter</a>;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fStream">fStream</a>;</code></td>
-</tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fFileInfo">fFileInfo</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fStream">fStream</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -578,7 +490,7 @@ Reads next log entry from current position in <a class="normal" href="TelemetryL
 </tr>
 <tr><td colspan="2">
 <p>
-Reads all log entries from current position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a>.<br> Internally calls <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadNextLogEntry">ReadNextLogEntry</a> so long until it returns <code>False</code>.</p>
+Reads all log entries from current position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a>.<br> Repeatedly calls <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadNextLogEntry">ReadNextLogEntry</a> until it returns <code>False</code>.)</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -588,7 +500,7 @@ Reads all log entries from current position in <a class="normal" href="Telemetry
 </tr>
 <tr><td colspan="2">
 <p>
-Reads log entry selected by passed index. Works only for structures that supports non-sequential reading (eg. structure 0).<br> Internally calls <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#ReadNextLogEntry">ReadNextLogEntry</a>.<br> Position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> is not changed in this method.
+Reads log entry selected by passed index. Works only for structures that supports non-sequential reading (eg. structure 0).<br> Position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> is not changed in this method.
 
 <p>
 
@@ -609,7 +521,17 @@ Reads log entry selected by passed index. Works only for structures that support
 </tr>
 <tr><td colspan="2">
 <p>
-Array property mapped to log entries - that is, each item in this array corresponds to one log entry.<br> When you try to access item that is out of allowed boundary or the reading fails, then it returns <a class="normal" href="TelemetryLogBinaryParser.html#cInvalidLogEntry">cInvalidLogEntry</a>.<br> Works only for structures that supports non-sequential reading.<br> <b>Warning</b> - you have to manually free returned pointer (you can use procedure <a class="normal" href="TelemetryLogBinaryParser.html#LogEntryFree">LogEntryFree</a> for that purpose).</p>
+Array property mapped to log entries - that is, each item in this array corresponds to one log entry.<br> When you try to access item that is out of allowed boundary or the reading fails, then it returns <a class="normal" href="TelemetryLogBinaryParser.html#InvalidLogEntry">InvalidLogEntry</a>.<br> Works only for structures that supports non-sequential reading.<br></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Information about file that is being read. Filled in constructor.)</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -719,7 +641,7 @@ Event called when reader reads log containing informations about config.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Contains number of log entries in input. Works only for structures that supports non-sequential reading.</p>
+Contains number of log entries in input. Works only for structures that supports non-sequential reading.<br> If current structure does not support non-sequential reading, it will return -1.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -740,16 +662,6 @@ Contains number of logs read so far.</p>
 <tr><td colspan="2">
 <p>
 Contains reference to a stream that is used to read the log. Not initialized, filled in constructor.<br> <b>Warning</b> - do not change properties of this object!</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#fFileInfo">fFileInfo</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Information about file that is being read. Filled in constructor.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -782,7 +694,7 @@ Contains position property of <a class="normal" href="TelemetryLogBinaryParser.T
 Determines whether sequential reading can or cannot continue (eg. end of stream/file, termination block was read, an error occured, etc.).</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

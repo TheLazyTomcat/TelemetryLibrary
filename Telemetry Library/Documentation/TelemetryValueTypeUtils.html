@@ -14,6 +14,29 @@
 <a name="PasDoc-Description"></a><h2 class="description">Description</h2>
 <p>
 todo: documentation</p>
+<p>
+
+
+<p></p>
+
+<pre class="preformatted">
+    primary type                  secondary types
+
+  SCS_VALUE_TYPE_bool       -&gt;  /
+  SCS_VALUE_TYPE_s32        -&gt;  /
+  SCS_VALUE_TYPE_u32        -&gt;  u64
+  SCS_VALUE_TYPE_u64        -&gt;  /
+  SCS_VALUE_TYPE_float      -&gt;  double
+  SCS_VALUE_TYPE_double     -&gt;  float
+  SCS_VALUE_TYPE_fvector    -&gt;  dvector
+  SCS_VALUE_TYPE_dvector    -&gt;  fvector
+  SCS_VALUE_TYPE_euler      -&gt;  /
+  SCS_VALUE_TYPE_fplacement -&gt;  dplacement, fvector, dvector, euler
+  SCS_VALUE_TYPE_dplacement -&gt;  fplacement, dvector, fvector, euler
+  SCS_VALUE_TYPE_string     -&gt;  /
+</pre>
+
+<p></p>
 <a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
 <ul class="useslist"><li>BitOps</li><li><a  href="TelemetryStrings.html">TelemetryStrings</a></li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
 <a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
@@ -94,46 +117,46 @@ todo: documentation</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#cNoValueType">cNoValueType</a></b> = <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>(0);</code></td>
-</tr>
-<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_1">TVT_REG_SEC_1</a></b>   = 1;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_2">TVT_REG_SEC_2</a></b>   = 2;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_3">TVT_REG_SEC_3</a></b>   = 4;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_4">TVT_REG_SEC_4</a></b>   = 8;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_5">TVT_REG_SEC_5</a></b>   = 16;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_6">TVT_REG_SEC_6</a></b>   = 32;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_7">TVT_REG_SEC_7</a></b>   = 64;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_8">TVT_REG_SEC_8</a></b>   = 128;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_9">TVT_REG_SEC_9</a></b>   = 256;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_10">TVT_REG_SEC_10</a></b>  = 512;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_11">TVT_REG_SEC_11</a></b>  = 1024;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_12">TVT_REG_SEC_12</a></b>  = 2048;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TVT_REG_SEC_ALL">TVT_REG_SEC_ALL</a></b> = $FFFFFFFF;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#NoValueType">NoValueType</a></b> = <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>(0);</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -291,11 +314,7 @@ todo: documentation</p>
 <td class="itemcode"><a name="TValueTypeBitmask"></a><code><b>TValueTypeBitmask</b> = LongWord;</code></td>
 </tr>
 <tr><td colspan="1">
-<p>
-primary type secondary types
-
-<p>SCS_VALUE_TYPE_bool -&gt; / SCS_VALUE_TYPE_s32 -&gt; / SCS_VALUE_TYPE_u32 -&gt; u64 SCS_VALUE_TYPE_u64 -&gt; / SCS_VALUE_TYPE_float -&gt; double SCS_VALUE_TYPE_double -&gt; float SCS_VALUE_TYPE_fvector -&gt; dvector SCS_VALUE_TYPE_dvector -&gt; fvector SCS_VALUE_TYPE_euler -&gt; / SCS_VALUE_TYPE_fplacement -&gt; dplacement, fvector, dvector, euler SCS_VALUE_TYPE_dplacement -&gt; fplacement, dvector, fvector, euler SCS_VALUE_TYPE_string -&gt; /</p>
-</td></tr>
+&nbsp;</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -305,15 +324,6 @@ primary type secondary types
 &nbsp;</td></tr>
 </table>
 <h3 class="detail">Constants</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="cNoValueType"></a><code><b>cNoValueType</b> = <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>(0);</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-33 items</p>
-</td></tr>
-</table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_1"></a><code><b>TVT_REG_SEC_1</b>   = 1;</code></td>
@@ -405,7 +415,14 @@ primary type secondary types
 <tr><td colspan="1">
 &nbsp;</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:24</em>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="NoValueType"></a><code><b>NoValueType</b> = <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>(0);</code></td>
+</tr>
+<tr><td colspan="1">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

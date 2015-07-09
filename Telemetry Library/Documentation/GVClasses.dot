@@ -12,8 +12,8 @@ rankdir="LR"
   TRegisteredChannelsList [href="TelemetryLists.TRegisteredChannelsList.html"]
   TRegisteredEventsList -> TCustomTelemetryList
   TRegisteredEventsList [href="TelemetryLists.TRegisteredEventsList.html"]
-  TStoredChannelsValuesList -> TCustomTelemetryList
-  TStoredChannelsValuesList [href="TelemetryLists.TStoredChannelsValuesList.html"]
+  TStoredChannelsList -> TCustomTelemetryList
+  TStoredChannelsList [href="TelemetryLists.TStoredChannelsList.html"]
   TStoredConfigsList -> TCustomTelemetryList
   TStoredConfigsList [href="TelemetryLists.TStoredConfigsList.html"]
   TMulticastEvent -> TObject
@@ -54,6 +54,8 @@ rankdir="LR"
   TMulticastTextLogEvent [href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html"]
   TMulticastTextTimeLogEvent -> TMulticastEvent
   TMulticastTextTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html"]
+  TSCSExm_TelemetryMem_Reader -> TObject
+  TSCSExm_TelemetryMem_Reader [href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html"]
   TTelemetryAbstractVersionObject -> TObject
   TTelemetryAbstractVersionObject [href="TelemetryVersionObjects.TTelemetryAbstractVersionObject.html"]
   TTelemetryVersionObject -> TTelemetryAbstractVersionObject
@@ -66,8 +68,10 @@ rankdir="LR"
   TTelemetryRecipient [href="TelemetryRecipient.TTelemetryRecipient.html"]
   TTelemetryLogBinaryReader -> TObject
   TTelemetryLogBinaryReader [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html"]
-  TTelemetryLogBinaryReader_0_1 -> TTelemetryLogBinaryReader
-  TTelemetryLogBinaryReader_0_1 [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0_1.html"]
+  TTelemetryLogBinaryReader_1 -> TTelemetryLogBinaryReader
+  TTelemetryLogBinaryReader_1 [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_1.html"]
+  TTelemetryLogBinaryReader_0 -> TTelemetryLogBinaryReader_1
+  TTelemetryLogBinaryReader_0 [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0.html"]
   TTelemetryLogBinaryStreamParser -> TObject
   TTelemetryLogBinaryStreamParser [href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html"]
   TTelemetryLogBinaryFileParser -> TTelemetryLogBinaryStreamParser
@@ -76,10 +80,18 @@ rankdir="LR"
   TTelemetryLogBinaryToTextConverter [href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html"]
   TTelemetryLogBinaryWriter -> TObject
   TTelemetryLogBinaryWriter [href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html"]
-  TTelemetryLogBinaryWriter_0_1 -> TTelemetryLogBinaryWriter
-  TTelemetryLogBinaryWriter_0_1 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0_1.html"]
+  TTelemetryLogBinaryWriter_1 -> TTelemetryLogBinaryWriter
+  TTelemetryLogBinaryWriter_1 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html"]
+  TTelemetryLogBinaryWriter_0 -> TTelemetryLogBinaryWriter_1
+  TTelemetryLogBinaryWriter_0 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html"]
   TTelemetryRecipientBinder -> TObject
   TTelemetryRecipientBinder [href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html"]
+  TSCSExm_Telemetry -> TTelemetryRecipientBinder
+  TSCSExm_Telemetry [href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html"]
+  TSCSExm_TelemetryMem -> TTelemetryRecipientBinder
+  TSCSExm_TelemetryMem [href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html"]
+  TSCSExm_TelemetryPosition -> TTelemetryRecipientBinder
+  TSCSExm_TelemetryPosition [href="TelemetrySCSExample_telemetry_position.TSCSExm_TelemetryPosition.html"]
   TTelemetryLogBinaryStream -> TTelemetryRecipientBinder
   TTelemetryLogBinaryStream [href="TelemetryLogBinary.TTelemetryLogBinaryStream.html"]
   TTelemetryLogBinaryFile -> TTelemetryLogBinaryStream

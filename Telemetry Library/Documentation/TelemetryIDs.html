@@ -19,28 +19,30 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
 
 <p><b>TelemetryIDs</b>
 
-<p>©František Milt, all rights reserved.
+<p>©2013-2015 František Milt, all rights reserved.
 
 <p>This unit contains definitions of identification number types, set of constants containing full configuration names, constants with IDs for individual configs and channel, as well as function used to obtain those IDs.
 
-<p>Last change: 2014-11-07
+<p>Last change: 2015-04-20
 
 <p>Change List:</p>
 
 <ul class="paragraph_spacing">
   <li><p>2014-04-15 - First stable version.</p></li>
   <li><p>2014-04-15 - Function <a class="normal" href="TelemetryIDs.html#GetItemID">GetItemID</a> was moved to this unit.</p></li>
-  <li><p>2014-04-18 - Constant <a class="normal" href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> was moved to this unit.</p></li>
+  <li><p>2014-04-18 - Constant cConfigFieldsSeparator was moved to this unit.</p></li>
   <li><p>2014-10-23 - Added support for eut2 1.9.</p></li>
   <li><p>2014-10-23 - Added true constants when precomputed IDs are used (optional, can be reconfigured to use writeable constans instead).</p></li>
   <li><p>2014-11-07 - Added support for eut2 1.10.</p></li>
+  <li><p>2015-04-20 - Constant cConfigFieldsSeparator renamed to <a class="normal" href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a>.</p></li>
+  <li><p>2015-04-20 - Slight implementation changes.</p></li>
 </ul>
 
 <p>
 
 <p><hr>
 
-<p>Table of precomputed IDs for channels names.<br> IDs are stored in constans whose identifiers corresponds to indetifiers of constants containing string value. For example, for name stored in constant <code>SCS_TELEMETRY_CHANNEL_local_scale</code>, the ID is stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CHANNEL_ID_local_scale">SCS_TELEMETRY_CHANNEL_ID_local_scale</a>. </p>
+<p>Table of precomputed IDs for channel names.<br> IDs are stored in constans whose identifiers corresponds to indetifiers of constants containing string value. For example, for name stored in constant <code>SCS_TELEMETRY_CHANNEL_local_scale</code>, the ID is stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CHANNEL_ID_local_scale">SCS_TELEMETRY_CHANNEL_ID_local_scale</a>. </p>
 
 <table class="table_tag">
   <tr class="head">
@@ -500,7 +502,7 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
   </tr>
 </table>
 
-<p> <code>*</code> - This constant does not actually exist (it was removed from telemetry SDK and replaced by <code>SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset</code> ).<br> <code>**</code> - These channels does not work in current SDK.<br> <br> Table of precomputed IDs for configs names.<br> IDs are stored in constans whose identifiers corresponds to indetifiers of constants containing string value. For example, for name stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</a>, the ID is stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id</a>. </p>
+<p> <code>*</code> - This constant does not actually exist (it was removed from telemetry SDK and replaced by <code>SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset</code> ).<br> <code>**</code> - These channels does not work in current SDK.<br> <br> Table of precomputed IDs for config names.<br> IDs are stored in constans whose identifiers corresponds to indetifiers of constants containing string value. For example, for name stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</a>, the ID is stored in constant <a class="normal" href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id</a>. </p>
 
 <table class="table_tag">
   <tr class="head">
@@ -817,163 +819,163 @@ Unit providing constans with precalculated IDs a others stuff around IDs general
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a></b> = '.';</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a></b> = '.';</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</a></b>                   = TelemetryString(SCS_TELEMETRY_CONFIG_substances + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</a></b>: TelemetryString = SCS_TELEMETRY_CONFIG_substances + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type">SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_controls + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type">SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type</a></b>: TelemetryString = SCS_TELEMETRY_CONFIG_controls + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count</a></b>:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear</a></b>:            TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position</a></b>   = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position</a></b>: TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors">SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors</a></b>:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id</a></b>                  = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id</a></b>:                  TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand</a></b>                     = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand</a></b>:                     TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id</a></b>                        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id</a></b>:                        TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name</a></b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name</a></b>:                      TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity</a></b>             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity</a></b>:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor</a></b>       = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor</a></b>:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity</a></b>:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning</a></b>      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning</a></b>:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency</a></b>    = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency</a></b>:    TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning</a></b>      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning</a></b>:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning</a></b> = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning</a></b>: TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning</a></b>   = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning</a></b>:   TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit</a></b>                 = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit</a></b>:                 TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count</a></b>        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count</a></b>:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count</a></b>        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count</a></b>:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count</a></b>       = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count</a></b>:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position</a></b>:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position</a></b>             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position</a></b>:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position</a></b>             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position</a></b>:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count</a></b>               = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count</a></b>:               TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position</a></b>:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable</a></b>:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated</a></b>:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius</a></b>:              TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable">SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</a></b>:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id</a></b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id</a></b>:                  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id</a></b>      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id</a></b>:  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position</a></b>:       TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count</a></b>             = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count</a></b>:         TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position</a></b>          = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position</a></b>:      TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable</a></b>:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated</a></b>:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius">SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius</a></b>:        TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id</a></b>                    = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id</a></b>:                TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo</a></b>                       = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo</a></b>:                   TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass</a></b>                  = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass</a></b>:              TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id</a></b>:     TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city</a></b>            = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city</a></b>:        TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id</a></b>      = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id</a></b>:  TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company</a></b>         = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company</a></b>:     TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id</a></b>:          TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city</a></b>                 = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city</a></b>:             TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id</a></b>           = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id</a></b>:       TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company</a></b>              = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company</a></b>:          TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income</a></b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income</a></b>:                  TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time</a></b>               = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time);</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time">SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time</a></b>:           TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryIDs.html#SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id">SCS_TELEMETRY_CONFIG_ID_substances_ATTRIBUTE_id</a></b>:                   <a  href="TelemetryIDs.html#TConfigID">TConfigID</a> = $A1E920F4;</code></td>
@@ -1423,7 +1425,7 @@ Function used to get identifier of passed item name.</p>
 <dd>Item name.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Item identificator.</p></td></tr>
+<p class="return">Item identification number.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -1463,7 +1465,7 @@ Procedure calculating identification numbers for channels and configs.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-Returns full config name composed from config id and attribute name separated by <a class="normal" href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a>.
+Returns full config name composed from config ID and attribute name separated by <a class="normal" href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a>.
 
 <p> 
 
@@ -1484,9 +1486,9 @@ Returns full config name composed from config id and attribute name separated by
 </tr>
 <tr><td colspan="1">
 <p>
-Removes passed config id from full config name.</p>
+Removes passed config ID from full config name.</p>
 <p>
- <b>Note</b> - function does not control whether passed name truly starts with given config id. It simply removes number of characters corresponding to length of config id from the start of config name.
+ <b>Note</b> - function does not control whether passed name truly starts with given config ID. It simply removes number of characters corresponding to length of config ID from the start of config name.
 
 <p> 
 
@@ -1494,12 +1496,12 @@ Removes passed config id from full config name.</p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>ConfigName</dt>
-<dd>Name of config from which id should be removed.</dd>
+<dd>Name of config from which ID should be removed.</dd>
 <dt>ConfigID</dt>
-<dd>Id that has be removed from passed config name.</dd>
+<dd>ID that has be removed from passed config name.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Config name with removed id.</p></td></tr>
+<p class="return">Config name with removed ID.</p></td></tr>
 </table>
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
@@ -1508,7 +1510,7 @@ Removes passed config id from full config name.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-General item identificator. All other item identifiers are of this type.</p>
+General item identifier. All other item identifiers are of this type.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1526,7 +1528,7 @@ Pointer to a variable of type <a class="normal" href="TelemetryIDs.html#TItemID"
 </tr>
 <tr><td colspan="1">
 <p>
-Channel identificator obtained from its name.</p>
+Channel identifier obtained from its name.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1544,7 +1546,7 @@ Pointer to a variable of type <a class="normal" href="TelemetryIDs.html#TChannel
 </tr>
 <tr><td colspan="1">
 <p>
-Configuration identificator obtained from full config name.</p>
+Configuration identifier obtained from full config name.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1559,7 +1561,7 @@ Pointer to a variable of type <a class="normal" href="TelemetryIDs.html#TConfigI
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="cConfigFieldsSeparator"></a><code><b>cConfigFieldsSeparator</b> = '.';</code></td>
+<td class="itemcode"><a name="ConfigFieldsSeparator"></a><code><b>ConfigFieldsSeparator</b> = '.';</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1568,7 +1570,7 @@ Character used as a separator for config + config_attribute conglomerate.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id"></a><code><b>SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</b>                   = TelemetryString(SCS_TELEMETRY_CONFIG_substances + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id"></a><code><b>SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id</b>: TelemetryString = SCS_TELEMETRY_CONFIG_substances + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1577,7 +1579,7 @@ Full name of config attribute <code>id</code> in <code>substances</code> configu
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type"></a><code><b>SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type</b>           = TelemetryString(SCS_TELEMETRY_CONFIG_controls + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type"></a><code><b>SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type</b>: TelemetryString = SCS_TELEMETRY_CONFIG_controls + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1586,7 +1588,7 @@ Full name of config attribute <code>shifter_type</code> in <code>controls</code>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count</b>         = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count</b>:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1595,7 +1597,7 @@ Full name of config attribute <code>selector_count</code> in <code>hshifter</cod
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear</b>              = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear</b>:            TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1604,7 +1606,7 @@ Full name of config attribute <code>slot_gear</code> in <code>hshifter</code> co
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position</b>   = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position</b>: TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1613,7 +1615,7 @@ Full name of config attribute <code>slot_handle_position</code> in <code>hshifte
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors</b>         = TelemetryString(SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors"></a><code><b>SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors</b>:       TelemetryString = SCS_TELEMETRY_CONFIG_hshifter + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1622,7 +1624,7 @@ Full name of config attribute <code>slot_selectors</code> in <code>hshifter</cod
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id</b>                  = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id</b>:                  TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1631,7 +1633,7 @@ Full name of config attribute <code>brand_id</code> in <code>truck</code> config
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand</b>                     = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand</b>:                     TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1640,7 +1642,7 @@ Full name of config attribute <code>brand</code> in <code>truck</code> configura
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id</b>                        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id</b>:                        TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1649,7 +1651,7 @@ Full name of config attribute <code>id</code> in <code>truck</code> configuratio
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name</b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name</b>:                      TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_name;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1658,7 +1660,7 @@ Full name of config attribute <code>name</code> in <code>truck</code> configurat
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity</b>             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity</b>:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1667,7 +1669,7 @@ Full name of config attribute <code>fuel_capacity</code> in <code>truck</code> c
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor</b>       = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor</b>:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1676,7 +1678,7 @@ Full name of config attribute <code>fuel_warning_factor</code> in <code>truck</c
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity</b>           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity</b>:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1685,7 +1687,7 @@ Full name of config attribute <code>adblue_capacity </code> in <code>truck</code
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning</b>      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning</b>:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1694,7 +1696,7 @@ Full name of config attribute <code>air_pressure_warning </code> in <code>truck<
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency</b>    = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency</b>:    TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1703,7 +1705,7 @@ Full name of config attribute <code>air_pressure_emergency</code> in <code>truck
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning</b>      = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning</b>:      TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1712,7 +1714,7 @@ Full name of config attribute <code>oil_pressure_warning</code> in <code>truck</
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning</b> = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning</b>: TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1721,7 +1723,7 @@ Full name of config attribute <code>water_temperature_warning</code> in <code>tr
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning</b>   = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning</b>:   TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1730,7 +1732,7 @@ Full name of config attribute <code>battery_voltage_warning</code> in <code>truc
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit</b>                 = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit</b>:                 TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1739,7 +1741,7 @@ Full name of config attribute <code>rpm_limit</code> in <code>truck</code> confi
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count</b>        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count</b>:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1748,7 +1750,7 @@ Full name of config attribute <code>forward_gear_count</code> in <code>truck</co
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count</b>        = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count</b>:        TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1757,7 +1759,7 @@ Full name of config attribute <code>reverse_gear_count</code> in <code>truck</co
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count</b>       = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count</b>:       TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1766,7 +1768,7 @@ Full name of config attribute <code>retarder_step_count</code> in <code>truck</c
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position</b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position</b>:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1775,7 +1777,7 @@ Full name of config attribute <code>cabin_position</code> in <code>truck</code> 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position</b>             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position</b>:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1784,7 +1786,7 @@ Full name of config attribute <code>head_position</code> in <code>truck</code> c
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position</b>             = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position</b>:             TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1793,7 +1795,7 @@ Full name of config attribute <code>hook_position</code> in <code>truck</code> c
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count</b>               = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count</b>:               TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1802,7 +1804,7 @@ Full name of config attribute <code>wheel_count</code> in <code>truck</code> con
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position</b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position</b>:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1811,7 +1813,7 @@ Full name of config attribute <code>wheel_position</code> in <code>truck</code> 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable</b>           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable</b>:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1820,7 +1822,7 @@ Full name of config attribute <code>wheel_steerable</code> in <code>truck</code>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated</b>           = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated</b>:           TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1829,7 +1831,7 @@ Full name of config attribute <code>wheel_simulated</code> in <code>truck</code>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius</b>              = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius</b>:              TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1838,7 +1840,7 @@ Full name of config attribute <code>wheel_radius</code> in <code>truck</code> co
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</b>            = TelemetryString(SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable"></a><code><b>SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable</b>:            TelemetryString = SCS_TELEMETRY_CONFIG_truck + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1847,7 +1849,7 @@ Full name of config attribute <code>wheel_liftable</code> in <code>truck</code> 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id</b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id</b>:                  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1856,7 +1858,7 @@ Full name of config attribute <code>id</code> in <code>trailer</code> configurat
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id</b>      = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id</b>:  TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1865,7 +1867,7 @@ Full name of config attribute <code>cargo_accessory_id</code> in <code>trailer</
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position</b>           = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position</b>:       TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1874,7 +1876,7 @@ Full name of config attribute <code>hook_position</code> in <code>trailer</code>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count</b>             = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count</b>:         TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1883,7 +1885,7 @@ Full name of config attribute <code>wheel_count</code> in <code>trailer</code> c
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position</b>          = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position</b>:      TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1892,7 +1894,7 @@ Full name of config attribute <code>wheel_position</code> in <code>trailer</code
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable</b>         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable</b>:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1901,7 +1903,7 @@ Full name of config attribute <code>wheel_steerable</code> in <code>trailer</cod
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated</b>         = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated</b>:     TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1910,7 +1912,7 @@ Full name of config attribute <code>wheel_simulated</code> in <code>trailer</cod
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius</b>            = TelemetryString(SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius"></a><code><b>SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius</b>:        TelemetryString = SCS_TELEMETRY_CONFIG_trailer + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1919,7 +1921,7 @@ Full name of config attribute <code>wheel_radius</code> in <code>trailer</code> 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id</b>                    = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id</b>:                TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1928,7 +1930,7 @@ Full name of config attribute <code>cargo_id</code> in <code>job</code> configur
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo</b>                       = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo</b>:                   TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1937,7 +1939,7 @@ Full name of config attribute <code>cargo</code> in <code>job</code> configurati
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass</b>                  = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass</b>:              TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1946,7 +1948,7 @@ Full name of config attribute <code>cargo_mass</code> in <code>job</code> config
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id</b>         = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id</b>:     TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1955,7 +1957,7 @@ Full name of config attribute <code>destination_city_id</code> in <code>job</cod
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city</b>            = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city</b>:        TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1964,7 +1966,7 @@ Full name of config attribute <code>destination_city</code> in <code>job</code> 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id</b>      = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id</b>:  TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1973,7 +1975,7 @@ Full name of config attribute <code>destination_company_id</code> in <code>job</
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company</b>         = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company</b>:     TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1982,7 +1984,7 @@ Full name of config attribute <code>destination_company</code> in <code>job</cod
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id</b>              = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id</b>:          TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1991,7 +1993,7 @@ Full name of config attribute <code>source_city_id</code> in <code>job</code> co
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city</b>                 = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city</b>:             TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2000,7 +2002,7 @@ Full name of config attribute <code>source_city</code> in <code>job</code> confi
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id</b>           = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id</b>:       TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2009,7 +2011,7 @@ Full name of config attribute <code>source_company_id</code> in <code>job</code>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company</b>              = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company</b>:          TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2018,7 +2020,7 @@ Full name of config attribute <code>source_company</code> in <code>job</code> co
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income</b>                      = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income</b>:                  TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_income;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2027,7 +2029,7 @@ Full name of config attribute <code>income</code> in <code>job</code> configurat
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time</b>               = TelemetryString(SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#cConfigFieldsSeparator">cConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time);</code></td>
+<td class="itemcode"><a name="SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time"></a><code><b>SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time</b>:           TelemetryString = SCS_TELEMETRY_CONFIG_job + <a  href="TelemetryIDs.html#ConfigFieldsSeparator">ConfigFieldsSeparator</a> + SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3322,9 +3324,9 @@ Identification number for <code>SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset</c
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-07
+2015-04-20
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetrySCSExample_telemetry_mem: Class TSCSExm_TelemetryMem_Reader</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TSCSExm_TelemetryMem_Reader"></a><h1 class="cio">Class TSCSExm_TelemetryMem_Reader</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetrySCSExample_telemetry_mem.html">TelemetrySCSExample_telemetry_mem</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TSCSExm_TelemetryMem_Reader = class(TObject)</code></p>
+<h2 class="description">Description</h2>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="thisitem">TSCSExm_TelemetryMem_Reader</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapName">fMemoryMapName</a></b>: AnsiString;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapping">fMemoryMapping</a></b>: THandle;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fSharedMemory">fSharedMemory</a></b>:  <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fStoredState">fStoredState</a></b>:   <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#GetInitialized">GetInitialized</a></b>: Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Create">Create</a></b>(const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Initialize">Initialize</a></b>: Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Deinitialize">Deinitialize</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#RetrieveCurrentState">RetrieveCurrentState</a></b>: Boolean; virtual;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#SharedMemory">SharedMemory</a></b>: <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a> read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fSharedMemory">fSharedMemory</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#StoredState">StoredState</a></b>: <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a> read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fStoredState">fStoredState</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Initialized">Initialized</a></b>: Boolean read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#GetInitialized">GetInitialized</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#MemoryMapName">MemoryMapName</a></b>: AnsiString read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapName">fMemoryMapName</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#MemoryMapping">MemoryMapping</a></b>: THandle read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapping">fMemoryMapping</a>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fMemoryMapName"></a><code><b>fMemoryMapName</b>: AnsiString;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fMemoryMapping"></a><code><b>fMemoryMapping</b>: THandle;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fSharedMemory"></a><code><b>fSharedMemory</b>:  <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fStoredState"></a><code><b>fStoredState</b>:   <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="GetInitialized"></a><code>Function <b>GetInitialized</b>: Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Initialize"></a><code>Function <b>Initialize</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Deinitialize"></a><code>procedure <b>Deinitialize</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="RetrieveCurrentState"></a><code>Function <b>RetrieveCurrentState</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SharedMemory"></a><code>property <b>SharedMemory</b>: <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a> read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fSharedMemory">fSharedMemory</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="StoredState"></a><code>property <b>StoredState</b>: <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a> read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fStoredState">fStoredState</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Initialized"></a><code>property <b>Initialized</b>: Boolean read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#GetInitialized">GetInitialized</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MemoryMapName"></a><code>property <b>MemoryMapName</b>: AnsiString read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapName">fMemoryMapName</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MemoryMapping"></a><code>property <b>MemoryMapping</b>: THandle read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapping">fMemoryMapping</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+</span>
+
+</body>
+</html>

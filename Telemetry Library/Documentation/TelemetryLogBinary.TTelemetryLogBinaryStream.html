@@ -21,73 +21,7 @@
 <p>
 Class designed to log all traffic on telemetry API as a binary log into provided stream.</p>
 <p>
- Only file header and API informations are actually written in this class, everything else (log data) is written using instance of appropriate (for selected file structure) writer.<br> *Handler methods all require valid telemetry recipient object. It can be provided in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property (prefered) or in <code>Sender</code> parameter of a method. If you fail to provide it, these methods raise an exception.
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+ Only file header and API informations are actually written in this class, everything else (log data) is written using instance of appropriate (for selected file structure) writer.<br> *Handler methods all require valid telemetry recipient object. It can be provided in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property (prefered) or in <code>Sender</code> parameter of a method. If you fail to provide it, these methods will raise an exception.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></li>
@@ -135,7 +69,7 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Create">Create</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Create">Create</a></b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -143,11 +77,11 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">LogData</a></b>(Sender: TObject; Data: Pointer; Size: LongWord); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">LogData</a></b>(Sender: TObject; Data: Pointer; Size: Word); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogText">LogText</a></b>(Sender: TObject; Text: TelemetryString); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogStr">LogStr</a></b>(Sender: TObject; Str: TelemetryString); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -217,12 +151,12 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 <a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fStream">fStream</a>;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fFileInfo">fFileInfo</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fFileInfo">fFileInfo</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fStream">fStream</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -357,7 +291,7 @@ Writes passed file header and API informations section into <a class="normal" hr
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -371,7 +305,7 @@ Class constructor.
 <dt>Recipient</dt>
 <dd>Telemetry recipient that operates on API. You must provide valid instance as API informations section will be filled usig its properties. Constructor also assigns all handler methods to its event - you can change that (deassign handlers, set <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property to other instance, etc.) after the constructor returns, but rememeber that handlers require valid recipient instance either in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property or passed in <code>Sender</code> paramater.</dd>
 <dt>Stream</dt>
-<dd>Stream to which the output will be written.<br> Position should be set to a beginning, but it is not mandatory.</dd>
+<dd>Stream to which the output will be written.<br> <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Stream">Stream</a> is cleared before any writing occurs.</dd>
 <dt>DataStructure</dt>
 <dd>Structure of output binary log. See binary log documentation for details. If you pass unsupported structure, the constructor raises an exception.</dd>
 </dl>
@@ -392,7 +326,7 @@ Class destructor.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Sender: TObject; Data: Pointer; Size: LongWord); virtual;</code></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Sender: TObject; Data: Pointer; Size: Word); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -413,7 +347,7 @@ Method adding generic data to output.<br> <b>Note</b> - requires valid telemetry
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogText"></a><code>procedure <b>LogText</b>(Sender: TObject; Text: TelemetryString); virtual;</code></td>
+<td class="itemcode"><a name="LogStr"></a><code>procedure <b>LogStr</b>(Sender: TObject; Str: TelemetryString); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -424,7 +358,7 @@ Method adding a text entry to the log.<br> <b>Note</b> - requires valid telemetr
 <dl class="parameters">
 <dt>Sender</dt>
 <dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
-<dt>Text</dt>
+<dt>Str</dt>
 <dd>Text to be written. Can be empty.</dd>
 </dl>
 </td></tr>
@@ -706,22 +640,22 @@ Calls method <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStrea
 <h3 class="detail">Properties</h3>
 <table class="detail wide_list">
 <tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Information about file that is being written. Filled in constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><a name="Stream"></a><code>property <b>Stream</b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fStream">fStream</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Contains reference to a stream that is used as output for writing the log.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#fFileInfo">fFileInfo</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Information about file that is being written. Filled in constructor.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -744,7 +678,7 @@ Determines whether some values are stored minimized. Refer to writer <a class="n
 Determines whether item names are stored as full strings or only as IDs. Refer to writer <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveItemIDOnly">property</a> of the same name for details.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

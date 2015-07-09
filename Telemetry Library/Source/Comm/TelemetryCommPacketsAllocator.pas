@@ -34,6 +34,7 @@ interface
 {$INCLUDE '..\Telemetry_defs.inc'}
 
 uses
+  TelemetryCommon,
   TelemetryCommPackets;
 
 {==============================================================================}
@@ -66,7 +67,7 @@ type
     @param Packer Packet to be initialized.
     @param Size   Requiered memory size.
   }
-    procedure AllocatePacket(out Packet: TPacketBuffer; Size: LongWord); overload;
+    procedure AllocatePacket(out Packet: TPacketBuffer; Size: TMemSize); overload;
   {
     Allocates memory for @code(Packet) (@code(Packet.Data) field). Memory is
     allocated to a size passed in @code(Packet.Size) field.
@@ -97,7 +98,7 @@ uses
 {   TTelemetryCommPacketsAllocator  // Public methods                          }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryCommPacketsAllocator.AllocatePacket(out Packet: TPacketBuffer; Size: LongWord);
+procedure TTelemetryCommPacketsAllocator.AllocatePacket(out Packet: TPacketBuffer; Size: TMemSize);
 begin
 Packet.Size := Size;
 AllocatePacket(Packet);

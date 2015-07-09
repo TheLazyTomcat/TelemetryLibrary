@@ -36,12 +36,12 @@ Telemetry recipient class (API control and data receiver).</p>
 <p> Included files:</p>
 
 <pre class="preformatted">
-    .\Inc\TelemetryRecipient_MulticastEvents.pas
+    .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.</pre>
 
 <p>
 
-<p>Last change: 2014-11-25
+<p>Last change: 2015-06-29
 
 <p>Change List:</p>
 
@@ -130,7 +130,7 @@ Telemetry recipient class (API control and data receiver).</p>
 </ul>
 
 <p></p></li>
-  <li><p>2014-04-27 - Added parameter <code>ShowDescriptors</code> to methods <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#EventGetDataAsString">TTelemetryRecipient.EventGetDataAsString</a> and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelGetValueAsString">TTelemetryRecipient.ChannelGetValueAsString</a>.</p></li>
+  <li><p>2014-04-27 - Added parameter <code>ShowDescriptors</code> to methods TTelemetryRecipient.EventGetDataAsString and TTelemetryRecipient.ChannelGetValueAsString.</p></li>
   <li><p>2014-05-01 - Added method <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#HighestSupportedGameVersion">TTelemetryRecipient.HighestSupportedGameVersion</a>.</p></li>
   <li><p>2014-05-04 - Following callback functions were added:</p>
 
@@ -194,6 +194,20 @@ Telemetry recipient class (API control and data receiver).</p>
 </ul>
 
 <p></p></li>
+  <li><p>2015-06-28 - Constant cMaxChannelIndex renamed to <a class="normal" href="TelemetryRecipient.html#MaxChannelIndex">MaxChannelIndex</a> and its value changed from 7 to 13.</p></li>
+  <li><p>2015-06-28 - Renamed following identifiers:</p>
+
+<ul class="compact_spacing">
+  <li><p>Field <code>TTelemetryRecipient.fStoredChannelsValues</code> renamed to <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#fStoredChannels">TTelemetryRecipient.fStoredChannels</a></p></li>
+  <li><p>Field <code>TTelemetryRecipient.fStoreChannelsValues</code> renamed to <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#fStoreChannels">TTelemetryRecipient.fStoreChannels</a></p></li>
+  <li><p>Method <code>TTelemetryRecipient.SetStoreChannelsValues</code> renamed to <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#SetStoreChannels">TTelemetryRecipient.SetStoreChannels</a></p></li>
+  <li><p>Property <code>TTelemetryRecipient.StoredChannelsValues</code> renamed to <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredChannels">TTelemetryRecipient.StoredChannels</a></p></li>
+  <li><p>Property <code>TTelemetryRecipient.StoreChannelsValues</code> renamed to <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreChannels">TTelemetryRecipient.StoreChannels</a></p></li>
+  <li><p>Parameter <code>RegPrimaryType</code> of method <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">TTelemetryRecipient.ChannelRegisterAll</a> renamed to <code>RegisterPrimaryType</code></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2015-06-29 - Removed methods <code>TTelemetryRecipient.EventGetDataAsString</code> and <code>TTelemetryRecipient.ChannelGetValueAsString</code>. Their replacements can now be found in TelemetyStrings unit (functions <a class="normal" href="TelemetryStrings.html#EventDataToStr">EventDataToStr</a> and <a class="normal" href="TelemetryStrings.html#ChannelValueToStr">ChannelValueToStr</a>).</p></li>
 </ul>
 
 <p>
@@ -270,13 +284,13 @@ Telemetry recipient class (API control and data receiver).</p>
 <td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TEventEvent">TEventEvent</a></b> = procedure(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer) of object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of Object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelRegisterEvent">TChannelRegisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of Object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelUnregisterEvent">TChannelUnregisterEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of Object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TChannelEvent">TChannelEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryRecipient.html#TConfigEvent">TConfigEvent</a></b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>) of object;</code></td>
@@ -285,7 +299,7 @@ Telemetry recipient class (API control and data receiver).</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#cMaxChannelIndex">cMaxChannelIndex</a></b> = 7;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.html#MaxChannelIndex">MaxChannelIndex</a></b> = 13;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -434,7 +448,7 @@ Event type used when telemetery event occurs.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TChannelRegisterEvent"></a><code><b>TChannelRegisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of Object;</code></td>
+<td class="itemcode"><a name="TChannelRegisterEvent"></a><code><b>TChannelRegisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -443,7 +457,7 @@ Event type used when telemetry channel is registered.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TChannelUnregisterEvent"></a><code><b>TChannelUnregisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of Object;</code></td>
+<td class="itemcode"><a name="TChannelUnregisterEvent"></a><code><b>TChannelUnregisterEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -452,7 +466,7 @@ Event type used when telemetry channel is unregistered.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TChannelEvent"></a><code><b>TChannelEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of Object;</code></td>
+<td class="itemcode"><a name="TChannelEvent"></a><code><b>TChannelEvent</b> = procedure(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -471,7 +485,7 @@ Event type used when config is parsed from configuration telemetry event.</p>
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="cMaxChannelIndex"></a><code><b>cMaxChannelIndex</b> = 7;</code></td>
+<td class="itemcode"><a name="MaxChannelIndex"></a><code><b>MaxChannelIndex</b> = 13;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -488,9 +502,9 @@ Maximum allowed channel index, see <a class="normal" href="TelemetryRecipient.TT
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-25
+2015-06-29
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

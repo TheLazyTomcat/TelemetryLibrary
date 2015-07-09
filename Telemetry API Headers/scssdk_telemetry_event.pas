@@ -21,7 +21,7 @@ type
 (**
  * @name Telemetry event types.
  *)
-//{
+//@{
 const
 (**
  * @brief Used to mark invalid value of event type.

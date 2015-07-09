@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>SCS Telemetry library: TelemetrySCSExample_telemetry_mem: Class TSCSExm_TelemetryMem</title>
+<meta name="generator" content="PasDoc 0.13.0">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body class="content">
+<a name="TSCSExm_TelemetryMem"></a><h1 class="cio">Class TSCSExm_TelemetryMem</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="TelemetrySCSExample_telemetry_mem.html">TelemetrySCSExample_telemetry_mem</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TSCSExm_TelemetryMem = class(<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a>)</code></p>
+<h2 class="description">Description</h2>
+<div class="nodescription">no description available, TTelemetryRecipientBinder description follows</div><p>
+Class designed as a base for any class that is intended to bind itself to telemetry recipient events.</p>
+<p>
+ It has predefined abstract methods that can be assigned as handlers to recipient events one by one (when you want full control over what and when is called), or at once using <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> method (<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> must be assigned for this to work).</p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor"><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></li>
+<li class="thisitem">TSCSExm_TelemetryMem</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fFormatSettings">fFormatSettings</a></b>:  TFormatSettings;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fMemoryMapName">fMemoryMapName</a></b>:   AnsiString;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fMemoryMapping">fMemoryMapping</a></b>:   THandle;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fSharedMemory">fSharedMemory</a></b>:    <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#LogLine">LogLine</a></b>(LogType: scs_log_type_t; const Text: String); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#InitializeSharedMemory">InitializeSharedMemory</a></b>: Boolean; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#DeinitializeSharedMemory">DeinitializeSharedMemory</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#Create">Create</a></b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#LogHandler">LogHandler</a></b>(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#EventRegisterHandler">EventRegisterHandler</a></b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#EventUnregisterHandler">EventUnregisterHandler</a></b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#EventHandler">EventHandler</a></b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#ChannelRegisterHandler">ChannelRegisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#ChannelUnregisterHandler">ChannelUnregisterHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#ChannelHandler">ChannelHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fFormatSettings"></a><code><b>fFormatSettings</b>:  TFormatSettings;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fMemoryMapName"></a><code><b>fMemoryMapName</b>:   AnsiString;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fMemoryMapping"></a><code><b>fMemoryMapping</b>:   THandle;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
+<td class="itemcode"><a name="fSharedMemory"></a><code><b>fSharedMemory</b>:    <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="LogLine"></a><code>procedure <b>LogLine</b>(LogType: scs_log_type_t; const Text: String); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="InitializeSharedMemory"></a><code>Function <b>InitializeSharedMemory</b>: Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DeinitializeSharedMemory"></a><code>procedure <b>DeinitializeSharedMemory</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogHandler"></a><code>procedure <b>LogHandler</b>(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventRegisterHandler"></a><code>procedure <b>EventRegisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventUnregisterHandler"></a><code>procedure <b>EventUnregisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelRegisterHandler"></a><code>procedure <b>ChannelRegisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelUnregisterHandler"></a><code>procedure <b>ChannelUnregisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+</tr>
+<tr><td colspan="2">
+&nbsp;</td></tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+</span>
+
+</body>
+</html>

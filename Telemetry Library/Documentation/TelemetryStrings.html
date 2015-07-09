@@ -19,11 +19,11 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
 
 <p><b>TelemetryStrings</b>
 
-<p>©František Milt, all rights reserved.
+<p>©2013-2015 František Milt, all rights reserved.
 
 <p>This unit is intended to provide some basic routines for manipulation and processing of <code>TelemetryString</code> type (UTF8 encoded string) and also routines designed to return human readable (i.e. textual) representation of binary data stored in variables of selected types.
 
-<p>Last change: 2014-11-04
+<p>Last change: 2015-06-28
 
 <p>Change List:</p>
 
@@ -33,8 +33,8 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
   <li><p>2014-11-04 - Added following functions:</p>
 
 <ul class="compact_spacing">
-  <li><p><a class="normal" href="TelemetryStrings.html#TelemetrySameStrSwitch">TelemetrySameStrSwitch</a></p></li>
-  <li><p><a class="normal" href="TelemetryStrings.html#TelemetrySameTextSwitch">TelemetrySameTextSwitch</a></p></li>
+  <li><p>TelemetrySameStrSwitch</p></li>
+  <li><p>TelemetrySameTextSwitch</p></li>
   <li><p><a class="normal" href="TelemetryStrings.html#ValueToStr">ValueToStr</a> (multiple overloaded variants)</p></li>
   <li><p>new variants of <a class="normal" href="TelemetryStrings.html#SCSValueToStr">SCSValueToStr</a></p></li>
   <li><p>new variants of <a class="normal" href="TelemetryStrings.html#SCSValueLocalizedToStr">SCSValueLocalizedToStr</a></p></li>
@@ -46,6 +46,18 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
 
 <p></p></li>
   <li><p>2014-11-04 - Small implementation changes.</p></li>
+  <li><p>2015-06-25 - Following functions were renamed:</p>
+
+<ul class="compact_spacing">
+  <li><p>TelemetrySameStr renamed to <a class="normal" href="TelemetryStrings.html#TelemetrySameStrConv">TelemetrySameStrConv</a></p></li>
+  <li><p>TelemetrySameText renamed to <a class="normal" href="TelemetryStrings.html#TelemetrySameTextConv">TelemetrySameTextConv</a></p></li>
+  <li><p>TelemetrySameStrSwitch renamed to <a class="normal" href="TelemetryStrings.html#TelemetrySameStr">TelemetrySameStr</a></p></li>
+  <li><p>TelemetrySameTextSwitch renamed to <a class="normal" href="TelemetryStrings.html#TelemetrySameText">TelemetrySameText</a></p></li>
+</ul>
+
+<p></p></li>
+  <li><p>2015-06-25 - Implementation changes.</p></li>
+  <li><p>2015-06-28 - Added functions <a class="normal" href="TelemetryStrings.html#EventDataToStr">EventDataToStr</a> and <a class="normal" href="TelemetryStrings.html#ChannelValueToStr">ChannelValueToStr</a>.</p></li>
 </ul>
 
 <p>
@@ -56,10 +68,10 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
 <a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameStr">TelemetrySameStr</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameStrConv">TelemetrySameStrConv</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameText">TelemetrySameText</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameTextConv">TelemetrySameTextConv</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameStrNoConv">TelemetrySameStrNoConv</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
@@ -68,10 +80,10 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
 <td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameTextNoConv">TelemetrySameTextNoConv</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameStrSwitch">TelemetrySameStrSwitch</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameStr">TelemetrySameStr</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameTextSwitch">TelemetrySameTextSwitch</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetrySameText">TelemetrySameText</a></b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr class="list">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#SCSValueTypeToStr">SCSValueTypeToStr</a></b>(SCSValueType: scs_value_type_t): String;</code></td>
@@ -145,6 +157,24 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
 <tr class="list2">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#TelemetryEventConfigurationLocalizedToStr">TelemetryEventConfigurationLocalizedToStr</a></b>(const Data: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
 </tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#EventDataToStr">EventDataToStr</a></b>(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#EventDataToStr">EventDataToStr</a></b>(Event: scs_event_t; Data: Pointer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#EventDataToStr">EventDataToStr</a></b>(Event: scs_event_t; Data: Pointer; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#ChannelValueToStr">ChannelValueToStr</a></b>(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#ChannelValueToStr">ChannelValueToStr</a></b>(Value: p_scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStrings.html#ChannelValueToStr">ChannelValueToStr</a></b>(Value: p_scs_value_t; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
 </table>
 <a name="PasDoc-Variables"></a><h3 class="summary">Variables</h3>
 <table class="summary wide_list">
@@ -156,7 +186,7 @@ Unit providing routines operating on <code>TelemetryString</code> type and routi
 <h3 class="detail">Functions and Procedures</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TelemetrySameStr"></a><code>Function <b>TelemetrySameStr</b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><a name="TelemetrySameStrConv"></a><code>Function <b>TelemetrySameStrConv</b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -179,7 +209,7 @@ Compares strings based on the current locale with case sensitivity.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TelemetrySameText"></a><code>Function <b>TelemetrySameText</b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><a name="TelemetrySameTextConv"></a><code>Function <b>TelemetrySameTextConv</b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -208,7 +238,7 @@ Compares strings based on the current locale without case sensitivity.</p>
 <p>
 Compares strings based on the current locale with case sensitivity and without internal conversions.</p>
 <p>
- Unlike <a class="normal" href="TelemetryStrings.html#TelemetrySameStr">TelemetrySameStr</a>, this function does not convert input strings to WideString before comparison. Instead, both strings are treated as normal AnsiString. This requires that both strings contains only ASCII characters (that is, up to #126), otherwise the function can, and probably will, return wrong result.
+ Unlike <a class="normal" href="TelemetryStrings.html#TelemetrySameStrConv">TelemetrySameStrConv</a>, this function does not convert input strings to WideString before comparison. Instead, both strings are treated as normal AnsiString. This requires that both strings contains only ASCII characters (that is, up to #126), otherwise the function can, and probably will, return wrong result.
 
 <p> 
 
@@ -231,7 +261,7 @@ Compares strings based on the current locale with case sensitivity and without i
 <p>
 Compares strings based on the current locale without case sensitivity and without internal conversions.</p>
 <p>
- Unlike <a class="normal" href="TelemetryStrings.html#TelemetrySameText">TelemetrySameText</a>, this function does not convert input strings to WideString before comparison. Instead, both strings are treated as normal AnsiString. This requires that both strings contains only ASCII characters (that is, up to #126), otherwise the function can, and probably will, return wrong result.
+ Unlike <a class="normal" href="TelemetryStrings.html#TelemetrySameTextConv">TelemetrySameTextConv</a>, this function does not convert input strings to WideString before comparison. Instead, both strings are treated as normal AnsiString. This requires that both strings contains only ASCII characters (that is, up to #126), otherwise the function can, and probably will, return wrong result.
 
 <p> 
 
@@ -248,13 +278,13 @@ Compares strings based on the current locale without case sensitivity and withou
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TelemetrySameStrSwitch"></a><code>Function <b>TelemetrySameStrSwitch</b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><a name="TelemetrySameStr"></a><code>Function <b>TelemetrySameStr</b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
 Compares strings based on the current locale with case sensitivity.</p>
 <p>
- This function internally calls <a class="normal" href="TelemetryStrings.html#TelemetrySameStrNoConv">TelemetrySameStrNoConv</a> when switch <code>AssumeASCIIString</code> is defined. When it is not defined, it calls <a class="normal" href="TelemetryStrings.html#TelemetrySameStr">TelemetrySameStr</a>.
+ This function internally calls <a class="normal" href="TelemetryStrings.html#TelemetrySameStrNoConv">TelemetrySameStrNoConv</a> when switch <code>AssumeASCIIString</code> is defined. When it is not defined, it calls <a class="normal" href="TelemetryStrings.html#TelemetrySameStrConv">TelemetrySameStrConv</a>.
 
 <p> 
 
@@ -271,13 +301,13 @@ Compares strings based on the current locale with case sensitivity.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TelemetrySameTextSwitch"></a><code>Function <b>TelemetrySameTextSwitch</b>(const S1, S2: TelemetryString): Boolean;</code></td>
+<td class="itemcode"><a name="TelemetrySameText"></a><code>Function <b>TelemetrySameText</b>(const S1, S2: TelemetryString): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
 Compares strings based on the current locale without case sensitivity.</p>
 <p>
- This function internally calls <a class="normal" href="TelemetryStrings.html#TelemetrySameTextNoConv">TelemetrySameTextNoConv</a> when switch <code>AssumeASCIIString</code> is defined. When it is not defined, it calls <a class="normal" href="TelemetryStrings.html#TelemetrySameText">TelemetrySameText</a>.
+ This function internally calls <a class="normal" href="TelemetryStrings.html#TelemetrySameTextNoConv">TelemetrySameTextNoConv</a> when switch <code>AssumeASCIIString</code> is defined. When it is not defined, it calls <a class="normal" href="TelemetryStrings.html#TelemetrySameTextConv">TelemetrySameTextConv</a>.
 
 <p> 
 
@@ -516,9 +546,7 @@ Returns textual representation of <code>scs_value_t</code> structure.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.
 
 <p>  
 
@@ -541,9 +569,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_va
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.
 
 <p>   
 
@@ -568,9 +594,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_va
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a> structure.
 
 <p>      
 
@@ -601,9 +625,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_va
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_named_value_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_named_value_t</code> structure.
 
 <p>  
 
@@ -626,9 +648,7 @@ Returns textual representation of <code>scs_named_value_t</code> structure.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_named_value_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_named_value_t</code> structure.
 
 <p>   
 
@@ -653,9 +673,7 @@ Returns textual representation of <code>scs_named_value_t</code> structure.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_named_value_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_named_value_t</code> structure.
 
 <p>      
 
@@ -686,9 +704,7 @@ Returns textual representation of <code>scs_named_value_t</code> structure.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.
 
 <p>  
 
@@ -711,9 +727,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_na
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.
 
 <p>   
 
@@ -738,9 +752,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_na
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a> structure.
 
 <p>      
 
@@ -771,9 +783,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_na
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_telemetry_frame_start_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_telemetry_frame_start_t</code> structure.
 
 <p> 
 
@@ -794,9 +804,7 @@ Returns textual representation of <code>scs_telemetry_frame_start_t</code> struc
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.
 
 <p>  
 
@@ -819,9 +827,7 @@ Returns textual representation of <code>scs_telemetry_configuration_t</code> str
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.
 
 <p>   
 
@@ -846,9 +852,7 @@ Returns textual representation of <code>scs_telemetry_configuration_t</code> str
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.</p>
-<p>
-
+Returns textual representation of <code>scs_telemetry_configuration_t</code> structure.
 
 <p>      
 
@@ -879,9 +883,7 @@ Returns textual representation of <code>scs_telemetry_configuration_t</code> str
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.
 
 <p>  
 
@@ -904,9 +906,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_te
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.
 
 <p>   
 
@@ -931,9 +931,7 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_te
 </tr>
 <tr><td colspan="1">
 <p>
-Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.</p>
-<p>
-
+Returns textual representation of <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a> structure.
 
 <p>      
 
@@ -958,6 +956,182 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_te
 <h6 class="description_section">Returns</h6>
 <p class="return">Textual representation of given structure.</p></td></tr>
 </table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EventDataToStr"></a><code>Function <b>EventDataToStr</b>(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of event data.</p>
+<p>
+ If there are no data to bo converted, then an empty string is returned.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Type of event that is converted to text.</dd>
+<dt>Data</dt>
+<dd>Data for given event. Can be <code>Nil</code>.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptors</dt>
+<dd>When set, fields descriptors are shown for composite values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of event data.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EventDataToStr"></a><code>Function <b>EventDataToStr</b>(Event: scs_event_t; Data: Pointer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of event data.</p>
+<p>
+ If there are no data to bo converted, then an empty string is returned.
+
+<p>    
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Type of event that is converted to text.</dd>
+<dt>Data</dt>
+<dd>Data for given event. Can be <code>Nil</code>.</dd>
+<dt>FormatSettings</dt>
+<dd>Settings used for formatting an output string when floating point number is converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptors</dt>
+<dd>When set, fields descriptors are shown for composite values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of event data.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EventDataToStr"></a><code>Function <b>EventDataToStr</b>(Event: scs_event_t; Data: Pointer; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of event data.</p>
+<p>
+ If there are no data to bo converted, then an empty string is returned.
+
+<p>       
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Event</dt>
+<dd>Type of event that is converted to text.</dd>
+<dt>Data</dt>
+<dd>Data for given event. Can be <code>Nil</code>.</dd>
+<dt>Format</dt>
+<dd>Format of floating point number to text conversion (eg. scientific).</dd>
+<dt>Precision</dt>
+<dd>Precision of floating point number (affects number to text conversion).</dd>
+<dt>Digits</dt>
+<dd>Number of digits in output string for floating point number to text conversion.</dd>
+<dt>FormatSettings</dt>
+<dd>Settings used for formatting an output string when floating point number is converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptors</dt>
+<dd>When set, fields descriptors are shown for composite values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of event data.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ChannelValueToStr"></a><code>Function <b>ChannelValueToStr</b>(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of channel value passed as a pointer.</p>
+<p>
+ When the pointer is not assigned, this function will return an empty string.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>Pointer to actual channel value. Can be <code>Nil</code>.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptors</dt>
+<dd>When set, fields descriptors are shown for composite values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of channel value.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ChannelValueToStr"></a><code>Function <b>ChannelValueToStr</b>(Value: p_scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of channel value passed as a pointer.</p>
+<p>
+ When the pointer is not assigned, this function will return an empty string.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>Pointer to actual channel value. Can be <code>Nil</code>.</dd>
+<dt>FormatSettings</dt>
+<dd>Settings used for formatting an output string when floating point number is converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptors</dt>
+<dd>When set, fields descriptors are shown for composite values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of channel value.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ChannelValueToStr"></a><code>Function <b>ChannelValueToStr</b>(Value: p_scs_value_t; Format: TFloatFormat; Precision, Digits: Integer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns textual representation of channel value passed as a pointer.</p>
+<p>
+ When the pointer is not assigned, this function will return an empty string.
+
+<p>      
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>Pointer to actual channel value. Can be <code>Nil</code>.</dd>
+<dt>Format</dt>
+<dd>Format of floating point number to text conversion (eg. scientific).</dd>
+<dt>Precision</dt>
+<dd>Precision of floating point number (affects number to text conversion).</dd>
+<dt>Digits</dt>
+<dd>Number of digits in output string for floating point number to text conversion.</dd>
+<dt>FormatSettings</dt>
+<dd>Settings used for formatting an output string when floating point number is converted to text.</dd>
+<dt>TypeName</dt>
+<dd>When set, value type identifiers for individual attribute values are added to output.</dd>
+<dt>ShowDescriptors</dt>
+<dd>When set, fields descriptors are shown for composite values.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Textual representation of channel value.</p></td></tr>
+</table>
 <h3 class="detail">Variables</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -965,7 +1139,9 @@ Returns textual representation of <a class="normal" href="TelemetryCommon.scs_te
 </tr>
 <tr><td colspan="1">
 <p>
-Used for thread safety in conversions dependent on LocaleID. Initialized in Initialization section of this unit (with id set to LOCALE_USER_DEFAULT).</p>
+Used for thread safety in conversions dependent on LocaleID.</p>
+<p>
+ Initialized in Initialization section of this unit (with id set to LOCALE_USER_DEFAULT).<br> But note that this variable is NOT thread safe by itself. If you want to access it from multiple threads, then thread safety is your responsibility.</p>
 </td></tr>
 </table>
 <h2 class="authors">Author</h2>
@@ -978,9 +1154,9 @@ Used for thread safety in conversions dependent on LocaleID. Initialized in Init
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-04
+2015-06-28
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

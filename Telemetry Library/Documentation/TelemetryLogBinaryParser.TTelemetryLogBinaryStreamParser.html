@@ -21,221 +21,7 @@
 <p>
 Class designed to parse a stream containing binary log.</p>
 <p>
- It is designed as a stream parsers, meaning it reads over the input stream and when it runs into a valid log, it reads it, processes it when possible and calls appropriate event to which it passes all processed data. For example, when it finds entry containing information about channel registration, it reads it and calls event <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLog">OnChannelRegisterLog</a> (or similar alternative). These events have the same signature as events used by telemetry recipient, so you can bind the same handlers to them.<br> Parsers internally uses appropriate readers to read files with differnt structures.
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+ It is designed as a stream parser, meaning it reads over the input stream and when it runs into a valid log, it reads it, processes it when possible and calls appropriate event to which it passes all processed data. For example, when it finds entry containing information about channel registration, it reads it and calls event <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#OnChannelRegisterLog">OnChannelRegisterLog</a> (or similar alternative). These events have the same signature as events used by telemetry recipient, so you can bind the same handlers to them.<br> Parser internally uses appropriate readers to read files with different structures.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">TTelemetryLogBinaryStreamParser</li></ul><h2 class="overview">Overview</h2>
@@ -500,12 +286,12 @@ Class designed to parse a stream containing binary log.</p>
 <td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#LogEntries">LogEntries</a></b>[Index:Integer]: <a  href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#GetLogEntry">GetLogEntry</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fStream">fStream</a>;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fStream">fStream</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -1146,11 +932,15 @@ Getter for <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryS
 </tr>
 <tr><td colspan="2">
 <p>
-Read file hader and API informations from current <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a> position and returns them in <code>FileInfo</code> parameter.
+Reads file header and API informations from current <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#Stream">Stream</a> position and returns them in <code>FileInfo</code> parameter.
+
+<p>
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
+<dt>FileInfo</dt>
+<dd>Variable to which a read informations are stored.</dd>
 <dt>FileInfo</dt>
 <dd>Output value containing read data.</dd>
 </dl>
@@ -1338,7 +1128,17 @@ Reads log entry selected by passed index. Works only for structures that support
 </tr>
 <tr><td colspan="2">
 <p>
-Array property mapped to log entries - that is, each item in this array corresponds to one log entry.<br> When you try to access item that is out of allowed boundary or the reading fails, then it returns <a class="normal" href="TelemetryLogBinaryParser.html#cInvalidLogEntry">cInvalidLogEntry</a>.<br> Works only for structures that supports non-sequential reading.<br> <b>Warning</b> - you have to manually free returned pointer (you can use procedure <a class="normal" href="TelemetryLogBinaryParser.html#LogEntryFree">LogEntryFree</a> for that purpose).</p>
+Array property mapped to log entries - that is, each item in this array corresponds to one log entry.<br> When you try to access item that is out of allowed boundary or the reading fails, then it returns cInvalidLogEntry.<br> Works only for structures that supports non-sequential reading.<br></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Information about file that is being read. Filled in constructor.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1349,16 +1149,6 @@ Array property mapped to log entries - that is, each item in this array correspo
 <tr><td colspan="2">
 <p>
 Contains reference to a stream that is used to read the log. Not initialized, filled in constructor.<br> <b>Warning</b> - do not change properties of this object!</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#fFileInfo">fFileInfo</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Information about file that is being read. Filled in constructor.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1781,7 +1571,7 @@ Muticast event called to pass read data when parser finds log containing informa
 Muticast event called to pass read data when parser finds log containing informations about config value.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

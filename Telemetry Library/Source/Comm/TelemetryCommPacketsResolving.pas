@@ -147,7 +147,7 @@ Function Payload_ReadoutString(const Packet: TPacketBuffer; Offset: LongWord = 0
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutString(TempPtr,False);
 end;
 
@@ -157,7 +157,7 @@ Function Payload_ReadoutInteger(const Packet: TPacketBuffer; Offset: LongWord = 
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutInteger(TempPtr,False);
 end;
 
@@ -167,7 +167,7 @@ Function Payload_ReadoutInt64(const Packet: TPacketBuffer; Offset: LongWord = 0)
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutInt64(TempPtr,False);
 end;
 
@@ -177,7 +177,7 @@ Function Payload_ReadoutSingle(const Packet: TPacketBuffer; Offset: LongWord = 0
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutSingle(TempPtr,False);
 end;
 
@@ -187,7 +187,7 @@ Function Payload_ReadoutDouble(const Packet: TPacketBuffer; Offset: LongWord = 0
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutDouble(TempPtr,False);
 end;
 
@@ -197,7 +197,7 @@ Function Payload_ReadoutBoolean(const Packet: TPacketBuffer; Offset: LongWord = 
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutBoolean(TempPtr,False);
 end;
 
@@ -207,7 +207,7 @@ Function Payload_ReadoutByte(const Packet: TPacketBuffer; Offset: LongWord = 0):
 var
   TempPtr:  Pointer;
 begin
-TempPtr := Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
+TempPtr := {%H-}Pointer(PtrUInt(GetPayloadAddress(Packet)) + Offset);
 Result := Ptr_ReadoutByte(TempPtr,False);
 end;
 

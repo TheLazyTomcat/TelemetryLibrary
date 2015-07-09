@@ -21,49 +21,7 @@
 <p>
 Base class for all writers used to write binary logs.</p>
 <p>
- This class is intended as sort of template (common ancestor) for all writer classes. These classes are used internaly to write different binary log structures, and should not be used outside of loggers. All descendants must implement all abstract methods. They also may add some new methods, but they should be used in loggers wery carefully and only if really needed.<br> Log* methods all have <code>Recipient</code> parameter. This parameter must contain reference to a valid telemetry recipient, as its methods can be used in descendant classes for conversions or to obtain informations required to write a log.<br> All writing is done to current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position.
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p>
-
-<p></p>
+ This class is intended as sort of template (common ancestor) for all writer classes. These classes are used internaly to write different binary log structures, and should not be used outside of loggers. All descendants must implement all abstract methods. They also may add some new methods, but they should be used in loggers wery carefully and only if really needed.<br> Log* methods all have <code>Recipient</code> parameter. This parameter must contain reference to a valid telemetry recipient, as its methods can be used in descendant classes for conversions or to obtain informations required to write a log.<br> All writing is done at current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">TTelemetryLogBinaryWriter</li></ul><h2 class="overview">Overview</h2>
@@ -98,11 +56,11 @@ Base class for all writers used to write binary logs.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">LogData</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: LongWord); virtual; abstract;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">LogData</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: Word); virtual; abstract;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogText">LogText</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Text: TelemetryString); virtual; abstract;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogStr">LogStr</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Str: TelemetryString); virtual; abstract;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -144,12 +102,12 @@ Base class for all writers used to write binary logs.</p>
 <a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a>;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fFileInfo">fFileInfo</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#FileInfo">FileInfo</a></b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fFileInfo">fFileInfo</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a></b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -235,7 +193,7 @@ Method that must be called before any log is written. Its job is to prepare anyt
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: LongWord); virtual; abstract;</code></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: Word); virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -256,7 +214,7 @@ Method intended to write log containing generic data, that is, data without pred
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogText"></a><code>procedure <b>LogText</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Text: TelemetryString); virtual; abstract;</code></td>
+<td class="itemcode"><a name="LogStr"></a><code>procedure <b>LogStr</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Str: TelemetryString); virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -267,7 +225,7 @@ Method intended to write log containing any text.
 <dl class="parameters">
 <dt>Recipient</dt>
 <dd>Telemetry recipient. Must contain valid object.</dd>
-<dt>Text</dt>
+<dt>Str</dt>
 <dd>Text to be written. Can be empty.</dd>
 </dl>
 </td></tr>
@@ -467,22 +425,22 @@ Method that must be called before destruction of instance. Its job is to free an
 <h3 class="detail">Properties</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="Stream"></a><code>property <b>Stream</b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Contains reference to a stream that is used for to write log. Not initialized, filled in constructor.<br> <b>Warning</b> - do not change properties of this object!</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="FileInfo"></a><code>property <b>FileInfo</b>: <a  href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a> read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fFileInfo">fFileInfo</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Information about file that is being written. Filled in constructor.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Stream"></a><code>property <b>Stream</b>: TStream read <a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#fStream">fStream</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains reference to a stream that is used for writing. Not initialized, filled in constructor.<br> <b>Warning</b> - do not change properties of this object!</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -505,7 +463,7 @@ Determines whether some values are stored minimized. Refer to functions with par
 Determines whether item names are stored as full strings or only as IDs. Refer to functions with parameter <code>ItemIDOnly</code> in unit <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> (eg. <a class="normal" href="TelemetryStreaming.html#Ptr_Write_scs_named_value">Ptr_Write_scs_named_value</a>) and to binary output documentation for details.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:23</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>

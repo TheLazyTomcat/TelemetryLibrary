@@ -4,12 +4,10 @@
   {$DEFINE SCS_ARCHITECTURE_x86}
 {$ENDIF}
 
-{.$DEFINE AssertTypeSize}
-
 {$IFDEF Debug}
   {$DEFINE AssertTypeSize}
-{$ENDIF}
-
-{$IFDEF Release}
+{$ELSE}
   {$UNDEF AssertTypeSize}
 {$ENDIF}
+
+{.$DEFINE AssertTypeSize}

@@ -32,7 +32,7 @@ Routines designed to store and load complex variables to/from memory or stream.<
 
 <p>
 
-<p>Last change: 2014-11-24
+<p>Last change: 2015-06-28
 
 <p>Change List:</p>
 
@@ -51,6 +51,10 @@ Routines designed to store and load complex variables to/from memory or stream.<
 </ul>
 
 <p></p></li>
+  <li><p>2015-06-27 - All calls to function <code>CopyMemory</code> replaced by <code>Move</code>.</p></li>
+  <li><p>2015-06-27 - Added variant of function <code><a class="normal" href="TelemetryStreaming.html#SizeOfString">SizeOfString</a></code> that accepts API string (pointer, type scs_string_t) as a parameter.</p></li>
+  <li><p>2015-06-27 - Added variant of functions <code><a class="normal" href="TelemetryStreaming.html#Ptr_WriteString">Ptr_WriteString</a></code> and <code><a class="normal" href="TelemetryStreaming.html#Stream_WriteString">Stream_WriteString</a></code> that accepts API string as an input parameter.</p></li>
+  <li><p>2015-06-28 - Implementation changes.</p></li>
 </ul>
 
 <p>
@@ -61,55 +65,61 @@ Routines designed to store and load complex variables to/from memory or stream.<
 <a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#SizeOfString">SizeOfString</a></b>(const Str: UTF8String = ''): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#SizeOfString">SizeOfString</a></b>(const Str: UTF8String = ''): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteString">Ptr_WriteString</a></b>(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#SizeOfString">SizeOfString</a></b>(Str: scs_string_t): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadString">Ptr_ReadString</a></b>(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteString">Ptr_WriteString</a></b>(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteInteger">Ptr_WriteInteger</a></b>(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteString">Ptr_WriteString</a></b>(var Destination: Pointer; Str: scs_string_t; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadInteger">Ptr_ReadInteger</a></b>(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadString">Ptr_ReadString</a></b>(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteInt64">Ptr_WriteInt64</a></b>(var Destination: Pointer; Value: Int64; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteInteger">Ptr_WriteInteger</a></b>(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadInt64">Ptr_ReadInt64</a></b>(var Source: Pointer; out Value: Int64; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadInteger">Ptr_ReadInteger</a></b>(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteSingle">Ptr_WriteSingle</a></b>(var Destination: Pointer; Value: Single; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteInt64">Ptr_WriteInt64</a></b>(var Destination: Pointer; Value: Int64; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadSingle">Ptr_ReadSingle</a></b>(var Source: Pointer; out Value: Single; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadInt64">Ptr_ReadInt64</a></b>(var Source: Pointer; out Value: Int64; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteDouble">Ptr_WriteDouble</a></b>(var Destination: Pointer; Value: Double; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteSingle">Ptr_WriteSingle</a></b>(var Destination: Pointer; Value: Single; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadDouble">Ptr_ReadDouble</a></b>(var Source: Pointer; out Value: Double; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadSingle">Ptr_ReadSingle</a></b>(var Source: Pointer; out Value: Single; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteBoolean">Ptr_WriteBoolean</a></b>(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteDouble">Ptr_WriteDouble</a></b>(var Destination: Pointer; Value: Double; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadBoolean">Ptr_ReadBoolean</a></b>(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadDouble">Ptr_ReadDouble</a></b>(var Source: Pointer; out Value: Double; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteByte">Ptr_WriteByte</a></b>(var Destination: Pointer; Value: Byte; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteBoolean">Ptr_WriteBoolean</a></b>(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadByte">Ptr_ReadByte</a></b>(var Source: Pointer; out Value: Byte; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadBoolean">Ptr_ReadBoolean</a></b>(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteBuffer">Ptr_WriteBuffer</a></b>(var Destination: Pointer; const Buffer; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteByte">Ptr_WriteByte</a></b>(var Destination: Pointer; Value: Byte; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadBuffer">Ptr_ReadBuffer</a></b>(var Source: Pointer; var Buffer; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadByte">Ptr_ReadByte</a></b>(var Source: Pointer; out Value: Byte; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_WriteBuffer">Ptr_WriteBuffer</a></b>(var Destination: Pointer; const Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadBuffer">Ptr_ReadBuffer</a></b>(var Source: Pointer; var Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadoutString">Ptr_ReadoutString</a></b>(var Source: Pointer; Advance: Boolean = True): UTF8String;</code></td>
@@ -133,385 +143,388 @@ Routines designed to store and load complex variables to/from memory or stream.<
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_ReadoutByte">Ptr_ReadoutByte</a></b>(var Source: Pointer; Advance: Boolean = True): Byte;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteString">Stream_WriteString</a></b>(Stream: TStream; const Str: UTF8String): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteString">Stream_WriteString</a></b>(Stream: TStream; const Str: UTF8String): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadString">Stream_ReadString</a></b>(Stream: TStream; out Str: UTF8String): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteString">Stream_WriteString</a></b>(Stream: TStream; Str: scs_string_t): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadString">Stream_ReadString</a></b>(Stream: TStream; out Str: UTF8String): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
+<tr class="list2">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutString">Stream_ReadoutString</a></b>(Stream: TStream): UTF8String;</code></td>
 </tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteInteger">Stream_WriteInteger</a></b>(Stream: TStream; Value: LongInt): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteInteger">Stream_WriteInteger</a></b>(Stream: TStream; Value: LongInt): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadInteger">Stream_ReadInteger</a></b>(Stream: TStream; out Value: LongInt): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadInteger">Stream_ReadInteger</a></b>(Stream: TStream; out Value: LongInt): LongWord;</code></td>
-</tr>
-<tr class="list2">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutInteger">Stream_ReadoutInteger</a></b>(Stream: TStream): LongInt;</code></td>
 </tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteInt64">Stream_WriteInt64</a></b>(Stream: TStream; Value: Int64): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteInt64">Stream_WriteInt64</a></b>(Stream: TStream; Value: Int64): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadInt64">Stream_ReadInt64</a></b>(Stream: TStream; out Value: Int64): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadInt64">Stream_ReadInt64</a></b>(Stream: TStream; out Value: Int64): LongWord;</code></td>
-</tr>
-<tr class="list">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutInt64">Stream_ReadoutInt64</a></b>(Stream: TStream): Int64;</code></td>
 </tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteSingle">Stream_WriteSingle</a></b>(Stream: TStream; Value: Single): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteSingle">Stream_WriteSingle</a></b>(Stream: TStream; Value: Single): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadSingle">Stream_ReadSingle</a></b>(Stream: TStream; out Value: Single): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadSingle">Stream_ReadSingle</a></b>(Stream: TStream; out Value: Single): LongWord;</code></td>
-</tr>
-<tr class="list2">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutSingle">Stream_ReadoutSingle</a></b>(Stream: TStream): Single;</code></td>
 </tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteDouble">Stream_WriteDouble</a></b>(Stream: TStream; Value: Double): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteDouble">Stream_WriteDouble</a></b>(Stream: TStream; Value: Double): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadDouble">Stream_ReadDouble</a></b>(Stream: TStream; out Value: Double): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadDouble">Stream_ReadDouble</a></b>(Stream: TStream; out Value: Double): LongWord;</code></td>
-</tr>
-<tr class="list">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutDouble">Stream_ReadoutDouble</a></b>(Stream: TStream): Double;</code></td>
 </tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteBoolean">Stream_WriteBoolean</a></b>(Stream: TStream; Value: Boolean): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteBoolean">Stream_WriteBoolean</a></b>(Stream: TStream; Value: Boolean): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadBoolean">Stream_ReadBoolean</a></b>(Stream: TStream; out Value: Boolean): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadBoolean">Stream_ReadBoolean</a></b>(Stream: TStream; out Value: Boolean): LongWord;</code></td>
-</tr>
-<tr class="list2">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutBoolean">Stream_ReadoutBoolean</a></b>(Stream: TStream): Boolean;</code></td>
 </tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteByte">Stream_WriteByte</a></b>(Stream: TStream; Value: Byte): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteByte">Stream_WriteByte</a></b>(Stream: TStream; Value: Byte): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadByte">Stream_ReadByte</a></b>(Stream: TStream; out Value: Byte): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadByte">Stream_ReadByte</a></b>(Stream: TStream; out Value: Byte): LongWord;</code></td>
-</tr>
-<tr class="list">
 <td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadoutByte">Stream_ReadoutByte</a></b>(Stream: TStream): Byte;</code></td>
 </tr>
-<tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteBuffer">Stream_WriteBuffer</a></b>(Stream: TStream; const Buffer; Size: LongWord): LongWord;</code></td>
-</tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadBuffer">Stream_ReadBuffer</a></b>(Stream: TStream; out Buffer; Size: LongWord): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_WriteBuffer">Stream_WriteBuffer</a></b>(Stream: TStream; const Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_value">Size_scs_value</a></b>(Value: scs_value_t; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_ReadBuffer">Stream_ReadBuffer</a></b>(Stream: TStream; out Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_value">Ptr_Write_scs_value</a></b>(var Destination: Pointer; Value: scs_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_value">Size_scs_value</a></b>(Value: scs_value_t; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_value">Ptr_Store_scs_value</a></b>(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_value">Ptr_Write_scs_value</a></b>(var Destination: Pointer; Value: scs_value_t; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_value">Ptr_Read_scs_value</a></b>(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_value">Ptr_Store_scs_value</a></b>(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_value">Ptr_Readout_scs_value</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_value">Ptr_Read_scs_value</a></b>(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_value">Stream_Write_scs_value</a></b>(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_value">Ptr_Readout_scs_value</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_value">Stream_Read_scs_value</a></b>(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_value">Stream_Write_scs_value</a></b>(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_value">Stream_Readout_scs_value</a></b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): scs_value_t;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_value">Stream_Read_scs_value</a></b>(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_value_localized">Size_scs_value_localized</a></b>(Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_value">Stream_Readout_scs_value</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False): scs_value_t;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_value_localized">Ptr_Write_scs_value_localized</a></b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_value_localized">Size_scs_value_localized</a></b>(Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_value_localized">Ptr_Store_scs_value_localized</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_value_localized">Ptr_Write_scs_value_localized</a></b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_value_localized">Ptr_Read_scs_value_localized</a></b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_value_localized">Ptr_Store_scs_value_localized</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_value_localized">Ptr_Readout_scs_value_localized</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_value_localized">Ptr_Read_scs_value_localized</a></b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_value_localized">Stream_Write_scs_value_localized</a></b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_value_localized">Ptr_Readout_scs_value_localized</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_value_localized">Stream_Read_scs_value_localized</a></b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_value_localized">Stream_Write_scs_value_localized</a></b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_value_localized">Stream_Readout_scs_value_localized</a></b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_value_localized">Stream_Read_scs_value_localized</a></b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_named_value">Size_scs_named_value</a></b>(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_value_localized">Stream_Readout_scs_value_localized</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_named_value">Ptr_Write_scs_named_value</a></b>(var Destination: Pointer; Value: scs_named_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_named_value">Size_scs_named_value</a></b>(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_named_value">Ptr_Store_scs_named_value</a></b>(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_named_value">Ptr_Write_scs_named_value</a></b>(var Destination: Pointer; Value: scs_named_value_t; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_named_value">Ptr_Read_scs_named_value</a></b>(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_named_value">Ptr_Store_scs_named_value</a></b>(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_named_value">Ptr_Readout_scs_named_value</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_named_value">Ptr_Read_scs_named_value</a></b>(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_named_value">Stream_Write_scs_named_value</a></b>(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_named_value">Ptr_Readout_scs_named_value</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_named_value">Stream_Read_scs_named_value</a></b>(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_named_value">Stream_Write_scs_named_value</a></b>(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_named_value">Stream_Readout_scs_named_value</a></b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_named_value">Stream_Read_scs_named_value</a></b>(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_named_value_localized">Size_scs_named_value_localized</a></b>(Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_named_value">Stream_Readout_scs_named_value</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_named_value_localized">Ptr_Write_scs_named_value_localized</a></b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_named_value_localized">Size_scs_named_value_localized</a></b>(Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_named_value_localized">Ptr_Store_scs_named_value_localized</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_named_value_localized">Ptr_Write_scs_named_value_localized</a></b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_named_value_localized">Ptr_Read_scs_named_value_localized</a></b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_named_value_localized">Ptr_Store_scs_named_value_localized</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_named_value_localized">Ptr_Readout_scs_named_value_localized</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_named_value_localized">Ptr_Read_scs_named_value_localized</a></b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_named_value_localized">Stream_Write_scs_named_value_localized</a></b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_named_value_localized">Ptr_Readout_scs_named_value_localized</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_named_value_localized">Stream_Read_scs_named_value_localized</a></b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_named_value_localized">Stream_Write_scs_named_value_localized</a></b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_named_value_localized">Stream_Readout_scs_named_value_localized</a></b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_named_value_localized">Stream_Read_scs_named_value_localized</a></b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_telemetry_configuration">Size_scs_telemetry_configuration</a></b>(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_named_value_localized">Stream_Readout_scs_named_value_localized</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_telemetry_configuration">Ptr_Write_scs_telemetry_configuration</a></b>(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_telemetry_configuration">Size_scs_telemetry_configuration</a></b>(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_telemetry_configuration">Ptr_Store_scs_telemetry_configuration</a></b>(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_telemetry_configuration">Ptr_Write_scs_telemetry_configuration</a></b>(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_telemetry_configuration">Ptr_Read_scs_telemetry_configuration</a></b>(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_telemetry_configuration">Ptr_Store_scs_telemetry_configuration</a></b>(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_telemetry_configuration">Ptr_Readout_scs_telemetry_configuration</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_telemetry_configuration">Ptr_Read_scs_telemetry_configuration</a></b>(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_telemetry_configuration">Stream_Write_scs_telemetry_configuration</a></b>(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_telemetry_configuration">Ptr_Readout_scs_telemetry_configuration</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_telemetry_configuration">Stream_Read_scs_telemetry_configuration</a></b>(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_telemetry_configuration">Stream_Write_scs_telemetry_configuration</a></b>(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_telemetry_configuration">Stream_Readout_scs_telemetry_configuration</a></b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_telemetry_configuration">Stream_Read_scs_telemetry_configuration</a></b>(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_telemetry_configuration_localized">Size_scs_telemetry_configuration_localized</a></b>(Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_telemetry_configuration">Stream_Readout_scs_telemetry_configuration</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_telemetry_configuration_localized">Ptr_Write_scs_telemetry_configuration_localized</a></b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_scs_telemetry_configuration_localized">Size_scs_telemetry_configuration_localized</a></b>(Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_telemetry_configuration_localized">Ptr_Store_scs_telemetry_configuration_localized</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_scs_telemetry_configuration_localized">Ptr_Write_scs_telemetry_configuration_localized</a></b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_telemetry_configuration_localized">Ptr_Read_scs_telemetry_configuration_localized</a></b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_scs_telemetry_configuration_localized">Ptr_Store_scs_telemetry_configuration_localized</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_telemetry_configuration_localized">Ptr_Readout_scs_telemetry_configuration_localized</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_scs_telemetry_configuration_localized">Ptr_Read_scs_telemetry_configuration_localized</a></b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_telemetry_configuration_localized">Stream_Write_scs_telemetry_configuration_localized</a></b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_scs_telemetry_configuration_localized">Ptr_Readout_scs_telemetry_configuration_localized</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_telemetry_configuration_localized">Stream_Read_scs_telemetry_configuration_localized</a></b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_scs_telemetry_configuration_localized">Stream_Write_scs_telemetry_configuration_localized</a></b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_telemetry_configuration_localized">Stream_Readout_scs_telemetry_configuration_localized</a></b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_scs_telemetry_configuration_localized">Stream_Read_scs_telemetry_configuration_localized</a></b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_KnownEvent">Size_KnownEvent</a></b>(Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_scs_telemetry_configuration_localized">Stream_Readout_scs_telemetry_configuration_localized</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_KnownEvent">Ptr_Write_KnownEvent</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_KnownEvent">Size_KnownEvent</a></b>(Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_KnownEvent">Ptr_Store_KnownEvent</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_KnownEvent">Ptr_Write_KnownEvent</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_KnownEvent">Ptr_Read_KnownEvent</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_KnownEvent">Ptr_Store_KnownEvent</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_KnownEvent">Ptr_Readout_KnownEvent</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_KnownEvent">Ptr_Read_KnownEvent</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_KnownEvent">Stream_Write_KnownEvent</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_KnownEvent">Ptr_Readout_KnownEvent</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_KnownEvent">Stream_Read_KnownEvent</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_KnownEvent">Stream_Write_KnownEvent</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_KnownEvent">Stream_Readout_KnownEvent</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_KnownEvent">Stream_Read_KnownEvent</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_KnownChannel">Size_KnownChannel</a></b>(Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_KnownEvent">Stream_Readout_KnownEvent</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_KnownChannel">Ptr_Write_KnownChannel</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_KnownChannel">Size_KnownChannel</a></b>(Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_KnownChannel">Ptr_Store_KnownChannel</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_KnownChannel">Ptr_Write_KnownChannel</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_KnownChannel">Ptr_Read_KnownChannel</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_KnownChannel">Ptr_Store_KnownChannel</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_KnownChannel">Ptr_Readout_KnownChannel</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_KnownChannel">Ptr_Read_KnownChannel</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_KnownChannel">Stream_Write_KnownChannel</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_KnownChannel">Ptr_Readout_KnownChannel</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_KnownChannel">Stream_Read_KnownChannel</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_KnownChannel">Stream_Write_KnownChannel</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_KnownChannel">Stream_Readout_KnownChannel</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_KnownChannel">Stream_Read_KnownChannel</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_KnownConfig">Size_KnownConfig</a></b>(Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_KnownChannel">Stream_Readout_KnownChannel</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_KnownConfig">Ptr_Write_KnownConfig</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_KnownConfig">Size_KnownConfig</a></b>(Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_KnownConfig">Ptr_Store_KnownConfig</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_KnownConfig">Ptr_Write_KnownConfig</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_KnownConfig">Ptr_Read_KnownConfig</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_KnownConfig">Ptr_Store_KnownConfig</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_KnownConfig">Ptr_Readout_KnownConfig</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_KnownConfig">Ptr_Read_KnownConfig</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_KnownConfig">Stream_Write_KnownConfig</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_KnownConfig">Ptr_Readout_KnownConfig</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_KnownConfig">Stream_Read_KnownConfig</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_KnownConfig">Stream_Write_KnownConfig</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_KnownConfig">Stream_Readout_KnownConfig</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_KnownConfig">Stream_Read_KnownConfig</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_EventInfo">Size_EventInfo</a></b>(Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_KnownConfig">Stream_Readout_KnownConfig</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_EventInfo">Ptr_Write_EventInfo</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_EventInfo">Size_EventInfo</a></b>(Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_EventInfo">Ptr_Store_EventInfo</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_EventInfo">Ptr_Write_EventInfo</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_EventInfo">Ptr_Read_EventInfo</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_EventInfo">Ptr_Store_EventInfo</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_EventInfo">Ptr_Readout_EventInfo</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_EventInfo">Ptr_Read_EventInfo</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_EventInfo">Stream_Write_EventInfo</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_EventInfo">Ptr_Readout_EventInfo</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_EventInfo">Stream_Read_EventInfo</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_EventInfo">Stream_Write_EventInfo</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_EventInfo">Stream_Readout_EventInfo</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_EventInfo">Stream_Read_EventInfo</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_ChannelInfo">Size_ChannelInfo</a></b>(Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_EventInfo">Stream_Readout_EventInfo</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_ChannelInfo">Ptr_Write_ChannelInfo</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_ChannelInfo">Size_ChannelInfo</a></b>(Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_ChannelInfo">Ptr_Store_ChannelInfo</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_ChannelInfo">Ptr_Write_ChannelInfo</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_ChannelInfo">Ptr_Read_ChannelInfo</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_ChannelInfo">Ptr_Store_ChannelInfo</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_ChannelInfo">Ptr_Readout_ChannelInfo</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_ChannelInfo">Ptr_Read_ChannelInfo</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_ChannelInfo">Stream_Write_ChannelInfo</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_ChannelInfo">Ptr_Readout_ChannelInfo</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_ChannelInfo">Stream_Read_ChannelInfo</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_ChannelInfo">Stream_Write_ChannelInfo</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_ChannelInfo">Stream_Readout_ChannelInfo</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_ChannelInfo">Stream_Read_ChannelInfo</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_StoredConfig">Size_StoredConfig</a></b>(Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_ChannelInfo">Stream_Readout_ChannelInfo</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_StoredConfig">Ptr_Write_StoredConfig</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_StoredConfig">Size_StoredConfig</a></b>(Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_StoredConfig">Ptr_Store_StoredConfig</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_StoredConfig">Ptr_Write_StoredConfig</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_StoredConfig">Ptr_Read_StoredConfig</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_StoredConfig">Ptr_Store_StoredConfig</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_StoredConfig">Ptr_Readout_StoredConfig</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_StoredConfig">Ptr_Read_StoredConfig</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_StoredConfig">Stream_Write_StoredConfig</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_StoredConfig">Ptr_Readout_StoredConfig</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_StoredConfig">Stream_Read_StoredConfig</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_StoredConfig">Stream_Write_StoredConfig</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_StoredConfig">Stream_Readout_StoredConfig</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_StoredConfig">Stream_Read_StoredConfig</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_StoredChannel">Size_StoredChannel</a></b>(Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_StoredConfig">Stream_Readout_StoredConfig</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_StoredChannel">Ptr_Write_StoredChannel</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Size_StoredChannel">Size_StoredChannel</a></b>(Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_StoredChannel">Ptr_Store_StoredChannel</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Write_StoredChannel">Ptr_Write_StoredChannel</a></b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_StoredChannel">Ptr_Read_StoredChannel</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Store_StoredChannel">Ptr_Store_StoredChannel</a></b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_StoredChannel">Ptr_Readout_StoredChannel</a></b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Read_StoredChannel">Ptr_Read_StoredChannel</a></b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_StoredChannel">Stream_Write_StoredChannel</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Ptr_Readout_StoredChannel">Ptr_Readout_StoredChannel</a></b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_StoredChannel">Stream_Read_StoredChannel</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Write_StoredChannel">Stream_Write_StoredChannel</a></b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_StoredChannel">Stream_Readout_StoredChannel</a></b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Read_StoredChannel">Stream_Read_StoredChannel</a></b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryStreaming.html#Stream_Readout_StoredChannel">Stream_Readout_StoredChannel</a></b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
@@ -527,7 +540,7 @@ Routines designed to store and load complex variables to/from memory or stream.<
 <h3 class="detail">Functions and Procedures</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SizeOfString"></a><code>Function <b>SizeOfString</b>(const Str: UTF8String = ''): LongWord;</code></td>
+<td class="itemcode"><a name="SizeOfString"></a><code>Function <b>SizeOfString</b>(const Str: UTF8String = ''): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -548,7 +561,28 @@ Returns number of bytes required for a given string to be stored in memory.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteString"></a><code>Function <b>Ptr_WriteString</b>(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="SizeOfString"></a><code>Function <b>SizeOfString</b>(Str: scs_string_t): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns number of bytes required for a given string to be stored in memory.</p>
+<p>
+ When passed string is is not assigned or is empty, then only size of string length (Int32 =&gt; 4Bytes) is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Str</dt>
+<dd>String whose size will be returned.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Size required for storing passed string in general memory.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="Ptr_WriteString"></a><code>Function <b>Ptr_WriteString</b>(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -580,7 +614,32 @@ Writes string to general memory location.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadString"></a><code>Function <b>Ptr_ReadString</b>(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteString"></a><code>Function <b>Ptr_WriteString</b>(var Destination: Pointer; Str: scs_string_t; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Writes string to general memory location.</p>
+<p>
+ Resulting memory layour is the same as in case of function that accepts normal string as an input parameter.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Destination</dt>
+<dd>Memory location where to write. Must not be <code>Nil</code>.</dd>
+<dt>Str</dt>
+<dd>String to be written.</dd>
+<dt>Advance</dt>
+<dd>Indicating whether destination pointer should be increased by number of bytes written.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Number of bytes written.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="Ptr_ReadString"></a><code>Function <b>Ptr_ReadString</b>(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -605,7 +664,7 @@ Reads string from general memory location.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteInteger"></a><code>Function <b>Ptr_WriteInteger</b>(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteInteger"></a><code>Function <b>Ptr_WriteInteger</b>(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -628,7 +687,7 @@ Writes 32bit integer value to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadInteger"></a><code>Function <b>Ptr_ReadInteger</b>(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadInteger"></a><code>Function <b>Ptr_ReadInteger</b>(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -651,7 +710,7 @@ Reads 32bit integer value from general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteInt64"></a><code>Function <b>Ptr_WriteInt64</b>(var Destination: Pointer; Value: Int64; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteInt64"></a><code>Function <b>Ptr_WriteInt64</b>(var Destination: Pointer; Value: Int64; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -674,7 +733,7 @@ Writes 64bit integer value to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadInt64"></a><code>Function <b>Ptr_ReadInt64</b>(var Source: Pointer; out Value: Int64; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadInt64"></a><code>Function <b>Ptr_ReadInt64</b>(var Source: Pointer; out Value: Int64; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -697,7 +756,7 @@ Reads 64bit integer value from general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteSingle"></a><code>Function <b>Ptr_WriteSingle</b>(var Destination: Pointer; Value: Single; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteSingle"></a><code>Function <b>Ptr_WriteSingle</b>(var Destination: Pointer; Value: Single; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -720,7 +779,7 @@ Writes 32bit floating point value to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadSingle"></a><code>Function <b>Ptr_ReadSingle</b>(var Source: Pointer; out Value: Single; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadSingle"></a><code>Function <b>Ptr_ReadSingle</b>(var Source: Pointer; out Value: Single; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -743,7 +802,7 @@ Reads 32bit floating point value from general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteDouble"></a><code>Function <b>Ptr_WriteDouble</b>(var Destination: Pointer; Value: Double; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteDouble"></a><code>Function <b>Ptr_WriteDouble</b>(var Destination: Pointer; Value: Double; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -766,7 +825,7 @@ Writes 64bit floating point value to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadDouble"></a><code>Function <b>Ptr_ReadDouble</b>(var Source: Pointer; out Value: Double; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadDouble"></a><code>Function <b>Ptr_ReadDouble</b>(var Source: Pointer; out Value: Double; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -789,7 +848,7 @@ Reads 64bit floating point value from general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteBoolean"></a><code>Function <b>Ptr_WriteBoolean</b>(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteBoolean"></a><code>Function <b>Ptr_WriteBoolean</b>(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -812,7 +871,7 @@ Writes Boolean value (1byte) to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadBoolean"></a><code>Function <b>Ptr_ReadBoolean</b>(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadBoolean"></a><code>Function <b>Ptr_ReadBoolean</b>(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -835,7 +894,7 @@ Reads Boolean value (1byte) from general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteByte"></a><code>Function <b>Ptr_WriteByte</b>(var Destination: Pointer; Value: Byte; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteByte"></a><code>Function <b>Ptr_WriteByte</b>(var Destination: Pointer; Value: Byte; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -858,7 +917,7 @@ Writes one byte to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadByte"></a><code>Function <b>Ptr_ReadByte</b>(var Source: Pointer; out Value: Byte; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadByte"></a><code>Function <b>Ptr_ReadByte</b>(var Source: Pointer; out Value: Byte; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -881,7 +940,7 @@ Reads one byte from general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_WriteBuffer"></a><code>Function <b>Ptr_WriteBuffer</b>(var Destination: Pointer; const Buffer; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_WriteBuffer"></a><code>Function <b>Ptr_WriteBuffer</b>(var Destination: Pointer; const Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -906,7 +965,7 @@ Writes buffer to general memory location.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_ReadBuffer"></a><code>Function <b>Ptr_ReadBuffer</b>(var Source: Pointer; var Buffer; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_ReadBuffer"></a><code>Function <b>Ptr_ReadBuffer</b>(var Source: Pointer; var Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1078,7 +1137,7 @@ Reads one byte from general memory location given by pointer.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteString"></a><code>Function <b>Stream_WriteString</b>(Stream: TStream; const Str: UTF8String): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteString"></a><code>Function <b>Stream_WriteString</b>(Stream: TStream; const Str: UTF8String): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1101,7 +1160,30 @@ Writes string into stream.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadString"></a><code>Function <b>Stream_ReadString</b>(Stream: TStream; out Str: UTF8String): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteString"></a><code>Function <b>Stream_WriteString</b>(Stream: TStream; Str: scs_string_t): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Writes string into stream.</p>
+<p>
+ Strings are writen in the same manner as in <a class="normal" href="TelemetryStreaming.html#Ptr_WriteString">Ptr_WriteString</a> function.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Stream</dt>
+<dd>Stream to which the value will be written. Must not be <code>Nil</code>.</dd>
+<dt>Str</dt>
+<dd>Value to be written.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Number of bytes written.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="Stream_ReadString"></a><code>Function <b>Stream_ReadString</b>(Stream: TStream; out Str: UTF8String): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1141,7 +1223,7 @@ Reads string from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteInteger"></a><code>Function <b>Stream_WriteInteger</b>(Stream: TStream; Value: LongInt): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteInteger"></a><code>Function <b>Stream_WriteInteger</b>(Stream: TStream; Value: LongInt): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1162,7 +1244,7 @@ Writes 32bit integer value into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadInteger"></a><code>Function <b>Stream_ReadInteger</b>(Stream: TStream; out Value: LongInt): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadInteger"></a><code>Function <b>Stream_ReadInteger</b>(Stream: TStream; out Value: LongInt): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1202,7 +1284,7 @@ Reads 32bit integer value from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteInt64"></a><code>Function <b>Stream_WriteInt64</b>(Stream: TStream; Value: Int64): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteInt64"></a><code>Function <b>Stream_WriteInt64</b>(Stream: TStream; Value: Int64): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1223,7 +1305,7 @@ Writes 64bit integer value into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadInt64"></a><code>Function <b>Stream_ReadInt64</b>(Stream: TStream; out Value: Int64): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadInt64"></a><code>Function <b>Stream_ReadInt64</b>(Stream: TStream; out Value: Int64): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1263,7 +1345,7 @@ Reads 64bit integer value from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteSingle"></a><code>Function <b>Stream_WriteSingle</b>(Stream: TStream; Value: Single): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteSingle"></a><code>Function <b>Stream_WriteSingle</b>(Stream: TStream; Value: Single): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1284,7 +1366,7 @@ Writes 32bit floating point value into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadSingle"></a><code>Function <b>Stream_ReadSingle</b>(Stream: TStream; out Value: Single): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadSingle"></a><code>Function <b>Stream_ReadSingle</b>(Stream: TStream; out Value: Single): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1324,7 +1406,7 @@ Reads 32bit floating point value from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteDouble"></a><code>Function <b>Stream_WriteDouble</b>(Stream: TStream; Value: Double): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteDouble"></a><code>Function <b>Stream_WriteDouble</b>(Stream: TStream; Value: Double): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1345,7 +1427,7 @@ Writes 64bit floating point value into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadDouble"></a><code>Function <b>Stream_ReadDouble</b>(Stream: TStream; out Value: Double): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadDouble"></a><code>Function <b>Stream_ReadDouble</b>(Stream: TStream; out Value: Double): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1385,7 +1467,7 @@ Reads 64bit floating point value from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteBoolean"></a><code>Function <b>Stream_WriteBoolean</b>(Stream: TStream; Value: Boolean): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteBoolean"></a><code>Function <b>Stream_WriteBoolean</b>(Stream: TStream; Value: Boolean): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1406,7 +1488,7 @@ Writes boolean (one byte) value into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadBoolean"></a><code>Function <b>Stream_ReadBoolean</b>(Stream: TStream; out Value: Boolean): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadBoolean"></a><code>Function <b>Stream_ReadBoolean</b>(Stream: TStream; out Value: Boolean): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1446,7 +1528,7 @@ Reads boolean (one byte) value from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteByte"></a><code>Function <b>Stream_WriteByte</b>(Stream: TStream; Value: Byte): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteByte"></a><code>Function <b>Stream_WriteByte</b>(Stream: TStream; Value: Byte): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1467,7 +1549,7 @@ Writes one byte into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadByte"></a><code>Function <b>Stream_ReadByte</b>(Stream: TStream; out Value: Byte): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadByte"></a><code>Function <b>Stream_ReadByte</b>(Stream: TStream; out Value: Byte): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1507,7 +1589,7 @@ Reads one byte from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_WriteBuffer"></a><code>Function <b>Stream_WriteBuffer</b>(Stream: TStream; const Buffer; Size: LongWord): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_WriteBuffer"></a><code>Function <b>Stream_WriteBuffer</b>(Stream: TStream; const Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1530,7 +1612,7 @@ Writes buffer into stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_ReadBuffer"></a><code>Function <b>Stream_ReadBuffer</b>(Stream: TStream; out Buffer; Size: LongWord): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_ReadBuffer"></a><code>Function <b>Stream_ReadBuffer</b>(Stream: TStream; out Buffer; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1553,7 +1635,7 @@ Reads buffer from stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_scs_value"></a><code>Function <b>Size_scs_value</b>(Value: scs_value_t; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Size_scs_value"></a><code>Function <b>Size_scs_value</b>(Value: scs_value_t; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1574,7 +1656,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_scs_value"></a><code>Function <b>Ptr_Write_scs_value</b>(var Destination: Pointer; Value: scs_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_scs_value"></a><code>Function <b>Ptr_Write_scs_value</b>(var Destination: Pointer; Value: scs_value_t; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1620,7 +1702,7 @@ Writes passed value of type <code>scs_value_t</code> into memory location given 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_scs_value"></a><code>Function <b>Ptr_Store_scs_value</b>(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_scs_value"></a><code>Function <b>Ptr_Store_scs_value</b>(out Ptr: Pointer; Value: scs_value_t; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1645,7 +1727,7 @@ Stores passed value of type <code>scs_value_t</code> into memory.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_scs_value"></a><code>Function <b>Ptr_Read_scs_value</b>(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_scs_value"></a><code>Function <b>Ptr_Read_scs_value</b>(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1670,7 +1752,7 @@ Reads value of type <code>scs_value_t</code> from memory location given by point
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_scs_value"></a><code>Function <b>Ptr_Readout_scs_value</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_scs_value"></a><code>Function <b>Ptr_Readout_scs_value</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False): scs_value_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1695,7 +1777,7 @@ Reads value of type <code>scs_value_t</code> from memory location given by point
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_scs_value"></a><code>Function <b>Stream_Write_scs_value</b>(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_scs_value"></a><code>Function <b>Stream_Write_scs_value</b>(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1720,7 +1802,7 @@ Writes passed value of type <code>scs_value_t</code> into a stream.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_scs_value"></a><code>Function <b>Stream_Read_scs_value</b>(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_scs_value"></a><code>Function <b>Stream_Read_scs_value</b>(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1743,7 +1825,7 @@ Reads value of type <code>scs_value_t</code> from a stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_scs_value"></a><code>Function <b>Stream_Readout_scs_value</b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): scs_value_t;</code></td>
+<td class="itemcode"><a name="Stream_Readout_scs_value"></a><code>Function <b>Stream_Readout_scs_value</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False): scs_value_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1766,7 +1848,7 @@ Reads value of type <code>scs_value_t</code> from a stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_scs_value_localized"></a><code>Function <b>Size_scs_value_localized</b>(Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Size_scs_value_localized"></a><code>Function <b>Size_scs_value_localized</b>(Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1787,7 +1869,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_scs_value_localized"></a><code>Function <b>Ptr_Write_scs_value_localized</b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_scs_value_localized"></a><code>Function <b>Ptr_Write_scs_value_localized</b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1816,7 +1898,7 @@ Writes passed value of type <a class="normal" href="TelemetryCommon.scs_value_lo
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_scs_value_localized"></a><code>Function <b>Ptr_Store_scs_value_localized</b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_scs_value_localized"></a><code>Function <b>Ptr_Store_scs_value_localized</b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1841,7 +1923,7 @@ Stores passed value of type <a class="normal" href="TelemetryCommon.scs_value_lo
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_scs_value_localized"></a><code>Function <b>Ptr_Read_scs_value_localized</b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_scs_value_localized"></a><code>Function <b>Ptr_Read_scs_value_localized</b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1866,7 +1948,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_value_localized_
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_scs_value_localized"></a><code>Function <b>Ptr_Readout_scs_value_localized</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_scs_value_localized"></a><code>Function <b>Ptr_Readout_scs_value_localized</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1891,7 +1973,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_value_localized_
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_scs_value_localized"></a><code>Function <b>Stream_Write_scs_value_localized</b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_scs_value_localized"></a><code>Function <b>Stream_Write_scs_value_localized</b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimize: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1916,7 +1998,7 @@ Writes passed value of type <a class="normal" href="TelemetryCommon.scs_value_lo
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_scs_value_localized"></a><code>Function <b>Stream_Read_scs_value_localized</b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimized: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_scs_value_localized"></a><code>Function <b>Stream_Read_scs_value_localized</b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Minimized: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1939,7 +2021,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_value_localized_
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_scs_value_localized"></a><code>Function <b>Stream_Readout_scs_value_localized</b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_scs_value_localized"></a><code>Function <b>Stream_Readout_scs_value_localized</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False): <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1962,7 +2044,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_value_localized_
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_scs_named_value"></a><code>Function <b>Size_scs_named_value</b>(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Size_scs_named_value"></a><code>Function <b>Size_scs_named_value</b>(Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -1985,7 +2067,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_scs_named_value"></a><code>Function <b>Ptr_Write_scs_named_value</b>(var Destination: Pointer; Value: scs_named_value_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_scs_named_value"></a><code>Function <b>Ptr_Write_scs_named_value</b>(var Destination: Pointer; Value: scs_named_value_t; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2036,7 +2118,7 @@ Writes passed value of type <code>scs_named_value_t</code> into memory location 
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_scs_named_value"></a><code>Function <b>Ptr_Store_scs_named_value</b>(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_scs_named_value"></a><code>Function <b>Ptr_Store_scs_named_value</b>(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2067,7 +2149,7 @@ Stores passed value of type <code>scs_named_value_t</code> into memory.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_scs_named_value"></a><code>Function <b>Ptr_Read_scs_named_value</b>(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_scs_named_value"></a><code>Function <b>Ptr_Read_scs_named_value</b>(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2098,7 +2180,7 @@ Reads value of type <code>scs_named_value_t</code> from memory location given by
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_scs_named_value"></a><code>Function <b>Ptr_Readout_scs_named_value</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_scs_named_value"></a><code>Function <b>Ptr_Readout_scs_named_value</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2129,7 +2211,7 @@ Reads value of type <code>scs_named_value_t</code> from memory location given by
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_scs_named_value"></a><code>Function <b>Stream_Write_scs_named_value</b>(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_scs_named_value"></a><code>Function <b>Stream_Write_scs_named_value</b>(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2160,7 +2242,7 @@ Writes passed value of type <code>scs_named_value_t</code> into a stream.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_scs_named_value"></a><code>Function <b>Stream_Read_scs_named_value</b>(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_scs_named_value"></a><code>Function <b>Stream_Read_scs_named_value</b>(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2189,7 +2271,7 @@ Reads value of type <code>scs_named_value_t</code> from a stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_scs_named_value"></a><code>Function <b>Stream_Readout_scs_named_value</b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
+<td class="itemcode"><a name="Stream_Readout_scs_named_value"></a><code>Function <b>Stream_Readout_scs_named_value</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_named_value_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2218,7 +2300,7 @@ Reads value of type <code>scs_named_value_t</code> from a stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_scs_named_value_localized"></a><code>Function <b>Size_scs_named_value_localized</b>(Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Size_scs_named_value_localized"></a><code>Function <b>Size_scs_named_value_localized</b>(Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2241,7 +2323,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_scs_named_value_localized"></a><code>Function <b>Ptr_Write_scs_named_value_localized</b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_scs_named_value_localized"></a><code>Function <b>Ptr_Write_scs_named_value_localized</b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2276,7 +2358,7 @@ Writes passed value of type <a class="normal" href="TelemetryCommon.scs_named_va
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_scs_named_value_localized"></a><code>Function <b>Ptr_Store_scs_named_value_localized</b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_scs_named_value_localized"></a><code>Function <b>Ptr_Store_scs_named_value_localized</b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2307,7 +2389,7 @@ Stores passed value of type <code>scs_named_value_t</code> into memory.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_scs_named_value_localized"></a><code>Function <b>Ptr_Read_scs_named_value_localized</b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_scs_named_value_localized"></a><code>Function <b>Ptr_Read_scs_named_value_localized</b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2338,7 +2420,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_named_value_loca
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_scs_named_value_localized"></a><code>Function <b>Ptr_Readout_scs_named_value_localized</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_scs_named_value_localized"></a><code>Function <b>Ptr_Readout_scs_named_value_localized</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2369,7 +2451,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_named_value_loca
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_scs_named_value_localized"></a><code>Function <b>Stream_Write_scs_named_value_localized</b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_scs_named_value_localized"></a><code>Function <b>Stream_Write_scs_named_value_localized</b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2400,7 +2482,7 @@ Writes passed value of type <a class="normal" href="TelemetryCommon.scs_named_va
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_scs_named_value_localized"></a><code>Function <b>Stream_Read_scs_named_value_localized</b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_scs_named_value_localized"></a><code>Function <b>Stream_Read_scs_named_value_localized</b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2429,7 +2511,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_named_value_loca
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_scs_named_value_localized"></a><code>Function <b>Stream_Readout_scs_named_value_localized</b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_scs_named_value_localized"></a><code>Function <b>Stream_Readout_scs_named_value_localized</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2458,7 +2540,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_named_value_loca
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_scs_telemetry_configuration"></a><code>Function <b>Size_scs_telemetry_configuration</b>(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Size_scs_telemetry_configuration"></a><code>Function <b>Size_scs_telemetry_configuration</b>(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2481,7 +2563,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_scs_telemetry_configuration"></a><code>Function <b>Ptr_Write_scs_telemetry_configuration</b>(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_scs_telemetry_configuration"></a><code>Function <b>Ptr_Write_scs_telemetry_configuration</b>(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2535,7 +2617,7 @@ Writes passed value of type <code>scs_telemetry_configuration_t</code> into memo
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_scs_telemetry_configuration"></a><code>Function <b>Ptr_Store_scs_telemetry_configuration</b>(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_scs_telemetry_configuration"></a><code>Function <b>Ptr_Store_scs_telemetry_configuration</b>(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2566,7 +2648,7 @@ Stores passed value of type <code>scs_telemetry_configuration_t</code> into memo
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_scs_telemetry_configuration"></a><code>Function <b>Ptr_Read_scs_telemetry_configuration</b>(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_scs_telemetry_configuration"></a><code>Function <b>Ptr_Read_scs_telemetry_configuration</b>(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2599,7 +2681,7 @@ Reads value of type <code>scs_telemetry_configuration_t</code> from memory locat
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_scs_telemetry_configuration"></a><code>Function <b>Ptr_Readout_scs_telemetry_configuration</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_scs_telemetry_configuration"></a><code>Function <b>Ptr_Readout_scs_telemetry_configuration</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2632,7 +2714,7 @@ Reads value of type <code>scs_telemetry_configuration_t</code> from memory locat
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_scs_telemetry_configuration"></a><code>Function <b>Stream_Write_scs_telemetry_configuration</b>(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_scs_telemetry_configuration"></a><code>Function <b>Stream_Write_scs_telemetry_configuration</b>(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2663,7 +2745,7 @@ Writes passed value of type <code>scs_telemetry_configuration_t</code> into a st
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_scs_telemetry_configuration"></a><code>Function <b>Stream_Read_scs_telemetry_configuration</b>(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_scs_telemetry_configuration"></a><code>Function <b>Stream_Read_scs_telemetry_configuration</b>(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2694,7 +2776,7 @@ Reads value of type <code>scs_telemetry_configuration_t</code> from a stream.</p
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_scs_telemetry_configuration"></a><code>Function <b>Stream_Readout_scs_telemetry_configuration</b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
+<td class="itemcode"><a name="Stream_Readout_scs_telemetry_configuration"></a><code>Function <b>Stream_Readout_scs_telemetry_configuration</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2725,7 +2807,7 @@ Reads value of type <code>scs_telemetry_configuration_t</code> from a stream.</p
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_scs_telemetry_configuration_localized"></a><code>Function <b>Size_scs_telemetry_configuration_localized</b>(Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): LongWord;</code></td>
+<td class="itemcode"><a name="Size_scs_telemetry_configuration_localized"></a><code>Function <b>Size_scs_telemetry_configuration_localized</b>(Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2748,7 +2830,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Write_scs_telemetry_configuration_localized</b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Size: LongWord; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Write_scs_telemetry_configuration_localized</b>(var Destination: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2783,7 +2865,7 @@ Writes passed value of type <a class="normal" href="TelemetryCommon.scs_telemetr
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Store_scs_telemetry_configuration_localized</b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Store_scs_telemetry_configuration_localized</b>(out Ptr: Pointer; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2814,7 +2896,7 @@ Stores passed value of type <a class="normal" href="TelemetryCommon.scs_telemetr
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Read_scs_telemetry_configuration_localized</b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Read_scs_telemetry_configuration_localized</b>(var Source: Pointer; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2847,7 +2929,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_telemetry_config
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Readout_scs_telemetry_configuration_localized</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_scs_telemetry_configuration_localized"></a><code>Function <b>Ptr_Readout_scs_telemetry_configuration_localized</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2880,7 +2962,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_telemetry_config
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_scs_telemetry_configuration_localized"></a><code>Function <b>Stream_Write_scs_telemetry_configuration_localized</b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_scs_telemetry_configuration_localized"></a><code>Function <b>Stream_Write_scs_telemetry_configuration_localized</b>(Stream: TStream; Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: <a  href="TelemetryStreaming.html#TNameIDFunc">TNameIDFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2911,7 +2993,7 @@ Writes passed value of type <a class="normal" href="TelemetryCommon.scs_telemetr
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_scs_telemetry_configuration_localized"></a><code>Function <b>Stream_Read_scs_telemetry_configuration_localized</b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_scs_telemetry_configuration_localized"></a><code>Function <b>Stream_Read_scs_telemetry_configuration_localized</b>(Stream: TStream; out Value: <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2942,7 +3024,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_telemetry_config
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_scs_telemetry_configuration_localized"></a><code>Function <b>Stream_Readout_scs_telemetry_configuration_localized</b>(Stream: TStream; out BytesRead: LongWord; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_scs_telemetry_configuration_localized"></a><code>Function <b>Stream_Readout_scs_telemetry_configuration_localized</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: <a  href="TelemetryStreaming.html#TIDNameFunc">TIDNameFunc</a> = nil; UserData: Pointer = nil): <a  href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2973,7 +3055,7 @@ Reads value of type <a class="normal" href="TelemetryCommon.scs_telemetry_config
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_KnownEvent"></a><code>Function <b>Size_KnownEvent</b>(Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_KnownEvent"></a><code>Function <b>Size_KnownEvent</b>(Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -2992,7 +3074,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_KnownEvent"></a><code>Function <b>Ptr_Write_KnownEvent</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_KnownEvent"></a><code>Function <b>Ptr_Write_KnownEvent</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3032,7 +3114,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TKnownEvent.h
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_KnownEvent"></a><code>Function <b>Ptr_Store_KnownEvent</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_KnownEvent"></a><code>Function <b>Ptr_Store_KnownEvent</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3055,7 +3137,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TKnownEvent.h
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_KnownEvent"></a><code>Function <b>Ptr_Read_KnownEvent</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_KnownEvent"></a><code>Function <b>Ptr_Read_KnownEvent</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3078,7 +3160,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownEvent.html">TKn
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_KnownEvent"></a><code>Function <b>Ptr_Readout_KnownEvent</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_KnownEvent"></a><code>Function <b>Ptr_Readout_KnownEvent</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3101,7 +3183,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownEvent.html">TKn
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_KnownEvent"></a><code>Function <b>Stream_Write_KnownEvent</b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_KnownEvent"></a><code>Function <b>Stream_Write_KnownEvent</b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3124,7 +3206,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TKnownEvent.h
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_KnownEvent"></a><code>Function <b>Stream_Read_KnownEvent</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_KnownEvent"></a><code>Function <b>Stream_Read_KnownEvent</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3145,7 +3227,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownEvent.html">TKn
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_KnownEvent"></a><code>Function <b>Stream_Readout_KnownEvent</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_KnownEvent"></a><code>Function <b>Stream_Readout_KnownEvent</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TKnownEvent.html">TKnownEvent</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3166,7 +3248,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownEvent.html">TKn
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_KnownChannel"></a><code>Function <b>Size_KnownChannel</b>(Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_KnownChannel"></a><code>Function <b>Size_KnownChannel</b>(Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3185,7 +3267,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_KnownChannel"></a><code>Function <b>Ptr_Write_KnownChannel</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_KnownChannel"></a><code>Function <b>Ptr_Write_KnownChannel</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3229,7 +3311,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TKnownChannel
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_KnownChannel"></a><code>Function <b>Ptr_Store_KnownChannel</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_KnownChannel"></a><code>Function <b>Ptr_Store_KnownChannel</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3252,7 +3334,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TKnownChannel
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_KnownChannel"></a><code>Function <b>Ptr_Read_KnownChannel</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_KnownChannel"></a><code>Function <b>Ptr_Read_KnownChannel</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3275,7 +3357,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownChannel.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_KnownChannel"></a><code>Function <b>Ptr_Readout_KnownChannel</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_KnownChannel"></a><code>Function <b>Ptr_Readout_KnownChannel</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3298,7 +3380,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownChannel.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_KnownChannel"></a><code>Function <b>Stream_Write_KnownChannel</b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_KnownChannel"></a><code>Function <b>Stream_Write_KnownChannel</b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3321,7 +3403,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TKnownChannel
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_KnownChannel"></a><code>Function <b>Stream_Read_KnownChannel</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_KnownChannel"></a><code>Function <b>Stream_Read_KnownChannel</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3342,7 +3424,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownChannel.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_KnownChannel"></a><code>Function <b>Stream_Readout_KnownChannel</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_KnownChannel"></a><code>Function <b>Stream_Readout_KnownChannel</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TKnownChannel.html">TKnownChannel</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3363,7 +3445,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownChannel.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_KnownConfig"></a><code>Function <b>Size_KnownConfig</b>(Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_KnownConfig"></a><code>Function <b>Size_KnownConfig</b>(Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3382,7 +3464,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_KnownConfig"></a><code>Function <b>Ptr_Write_KnownConfig</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_KnownConfig"></a><code>Function <b>Ptr_Write_KnownConfig</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3423,7 +3505,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TKnownConfig.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_KnownConfig"></a><code>Function <b>Ptr_Store_KnownConfig</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_KnownConfig"></a><code>Function <b>Ptr_Store_KnownConfig</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3446,7 +3528,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TKnownConfig.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_KnownConfig"></a><code>Function <b>Ptr_Read_KnownConfig</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_KnownConfig"></a><code>Function <b>Ptr_Read_KnownConfig</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3469,7 +3551,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownConfig.html">TK
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_KnownConfig"></a><code>Function <b>Ptr_Readout_KnownConfig</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_KnownConfig"></a><code>Function <b>Ptr_Readout_KnownConfig</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3492,7 +3574,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownConfig.html">TK
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_KnownConfig"></a><code>Function <b>Stream_Write_KnownConfig</b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_KnownConfig"></a><code>Function <b>Stream_Write_KnownConfig</b>(Stream: TStream; Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3515,7 +3597,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TKnownConfig.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_KnownConfig"></a><code>Function <b>Stream_Read_KnownConfig</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_KnownConfig"></a><code>Function <b>Stream_Read_KnownConfig</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3536,7 +3618,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownConfig.html">TK
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_KnownConfig"></a><code>Function <b>Stream_Readout_KnownConfig</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_KnownConfig"></a><code>Function <b>Stream_Readout_KnownConfig</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TKnownConfig.html">TKnownConfig</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3557,7 +3639,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TKnownConfig.html">TK
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_EventInfo"></a><code>Function <b>Size_EventInfo</b>(Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_EventInfo"></a><code>Function <b>Size_EventInfo</b>(Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3576,7 +3658,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_EventInfo"></a><code>Function <b>Ptr_Write_EventInfo</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_EventInfo"></a><code>Function <b>Ptr_Write_EventInfo</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3614,7 +3696,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TEventInfo.ht
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_EventInfo"></a><code>Function <b>Ptr_Store_EventInfo</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_EventInfo"></a><code>Function <b>Ptr_Store_EventInfo</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3637,7 +3719,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TEventInfo.ht
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_EventInfo"></a><code>Function <b>Ptr_Read_EventInfo</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_EventInfo"></a><code>Function <b>Ptr_Read_EventInfo</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3660,7 +3742,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TEventInfo.html">TEve
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_EventInfo"></a><code>Function <b>Ptr_Readout_EventInfo</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_EventInfo"></a><code>Function <b>Ptr_Readout_EventInfo</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3683,7 +3765,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TEventInfo.html">TEve
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_EventInfo"></a><code>Function <b>Stream_Write_EventInfo</b>(Stream: TStream; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_EventInfo"></a><code>Function <b>Stream_Write_EventInfo</b>(Stream: TStream; Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3706,7 +3788,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TEventInfo.ht
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_EventInfo"></a><code>Function <b>Stream_Read_EventInfo</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_EventInfo"></a><code>Function <b>Stream_Read_EventInfo</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3727,7 +3809,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TEventInfo.html">TEve
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_EventInfo"></a><code>Function <b>Stream_Readout_EventInfo</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_EventInfo"></a><code>Function <b>Stream_Readout_EventInfo</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TEventInfo.html">TEventInfo</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3748,7 +3830,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TEventInfo.html">TEve
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_ChannelInfo"></a><code>Function <b>Size_ChannelInfo</b>(Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_ChannelInfo"></a><code>Function <b>Size_ChannelInfo</b>(Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3767,7 +3849,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_ChannelInfo"></a><code>Function <b>Ptr_Write_ChannelInfo</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_ChannelInfo"></a><code>Function <b>Ptr_Write_ChannelInfo</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3809,7 +3891,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TChannelInfo.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_ChannelInfo"></a><code>Function <b>Ptr_Store_ChannelInfo</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_ChannelInfo"></a><code>Function <b>Ptr_Store_ChannelInfo</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3832,7 +3914,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TChannelInfo.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_ChannelInfo"></a><code>Function <b>Ptr_Read_ChannelInfo</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_ChannelInfo"></a><code>Function <b>Ptr_Read_ChannelInfo</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3855,7 +3937,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TChannelInfo.html">TC
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_ChannelInfo"></a><code>Function <b>Ptr_Readout_ChannelInfo</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_ChannelInfo"></a><code>Function <b>Ptr_Readout_ChannelInfo</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3878,7 +3960,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TChannelInfo.html">TC
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_ChannelInfo"></a><code>Function <b>Stream_Write_ChannelInfo</b>(Stream: TStream; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_ChannelInfo"></a><code>Function <b>Stream_Write_ChannelInfo</b>(Stream: TStream; Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3901,7 +3983,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TChannelInfo.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_ChannelInfo"></a><code>Function <b>Stream_Read_ChannelInfo</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_ChannelInfo"></a><code>Function <b>Stream_Read_ChannelInfo</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3922,7 +4004,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TChannelInfo.html">TC
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_ChannelInfo"></a><code>Function <b>Stream_Readout_ChannelInfo</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_ChannelInfo"></a><code>Function <b>Stream_Readout_ChannelInfo</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TChannelInfo.html">TChannelInfo</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3943,7 +4025,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TChannelInfo.html">TC
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_StoredConfig"></a><code>Function <b>Size_StoredConfig</b>(Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_StoredConfig"></a><code>Function <b>Size_StoredConfig</b>(Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -3962,7 +4044,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_StoredConfig"></a><code>Function <b>Ptr_Write_StoredConfig</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_StoredConfig"></a><code>Function <b>Ptr_Write_StoredConfig</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4003,7 +4085,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TStoredConfig
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_StoredConfig"></a><code>Function <b>Ptr_Store_StoredConfig</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_StoredConfig"></a><code>Function <b>Ptr_Store_StoredConfig</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4026,7 +4108,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TStoredConfig
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_StoredConfig"></a><code>Function <b>Ptr_Read_StoredConfig</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_StoredConfig"></a><code>Function <b>Ptr_Read_StoredConfig</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4049,7 +4131,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredConfig.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_StoredConfig"></a><code>Function <b>Ptr_Readout_StoredConfig</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_StoredConfig"></a><code>Function <b>Ptr_Readout_StoredConfig</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4072,7 +4154,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredConfig.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_StoredConfig"></a><code>Function <b>Stream_Write_StoredConfig</b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_StoredConfig"></a><code>Function <b>Stream_Write_StoredConfig</b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4095,7 +4177,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TStoredConfig
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_StoredConfig"></a><code>Function <b>Stream_Read_StoredConfig</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_StoredConfig"></a><code>Function <b>Stream_Read_StoredConfig</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4116,7 +4198,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredConfig.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_StoredConfig"></a><code>Function <b>Stream_Readout_StoredConfig</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_StoredConfig"></a><code>Function <b>Stream_Readout_StoredConfig</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TStoredConfig.html">TStoredConfig</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4137,7 +4219,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredConfig.html">T
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Size_StoredChannel"></a><code>Function <b>Size_StoredChannel</b>(Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Size_StoredChannel"></a><code>Function <b>Size_StoredChannel</b>(Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4156,7 +4238,7 @@ Returns number of bytes required for storing passed value into memory or stream.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Write_StoredChannel"></a><code>Function <b>Ptr_Write_StoredChannel</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Size: LongWord; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Write_StoredChannel"></a><code>Function <b>Ptr_Write_StoredChannel</b>(var Destination: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Size: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4196,7 +4278,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TStoredChanne
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Store_StoredChannel"></a><code>Function <b>Ptr_Store_StoredChannel</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Store_StoredChannel"></a><code>Function <b>Ptr_Store_StoredChannel</b>(out Ptr: Pointer; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4219,7 +4301,7 @@ Stores passed value of type <a class="normal" href="TelemetryLists.TStoredChanne
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Read_StoredChannel"></a><code>Function <b>Ptr_Read_StoredChannel</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Advance: Boolean = True): LongWord;</code></td>
+<td class="itemcode"><a name="Ptr_Read_StoredChannel"></a><code>Function <b>Ptr_Read_StoredChannel</b>(var Source: Pointer; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>; Advance: Boolean = True): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4242,7 +4324,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredChannel.html">
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Ptr_Readout_StoredChannel"></a><code>Function <b>Ptr_Readout_StoredChannel</b>(var Source: Pointer; out BytesRead: LongWord; Advance: Boolean = True): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
+<td class="itemcode"><a name="Ptr_Readout_StoredChannel"></a><code>Function <b>Ptr_Readout_StoredChannel</b>(var Source: Pointer; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>; Advance: Boolean = True): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4265,7 +4347,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredChannel.html">
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Write_StoredChannel"></a><code>Function <b>Stream_Write_StoredChannel</b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Write_StoredChannel"></a><code>Function <b>Stream_Write_StoredChannel</b>(Stream: TStream; Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4288,7 +4370,7 @@ Writes passed value of type <a class="normal" href="TelemetryLists.TStoredChanne
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Read_StoredChannel"></a><code>Function <b>Stream_Read_StoredChannel</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): LongWord;</code></td>
+<td class="itemcode"><a name="Stream_Read_StoredChannel"></a><code>Function <b>Stream_Read_StoredChannel</b>(Stream: TStream; out Value: <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>): <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4309,7 +4391,7 @@ Reads value of type <a class="normal" href="TelemetryLists.TStoredChannel.html">
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Stream_Readout_StoredChannel"></a><code>Function <b>Stream_Readout_StoredChannel</b>(Stream: TStream; out BytesRead: LongWord): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
+<td class="itemcode"><a name="Stream_Readout_StoredChannel"></a><code>Function <b>Stream_Readout_StoredChannel</b>(Stream: TStream; out BytesRead: <a  href="TelemetryCommon.html#TMemSize">TMemSize</a>): <a  href="TelemetryLists.TStoredChannel.html">TStoredChannel</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -4381,9 +4463,9 @@ Prototype of function used to convert item ID back into its name.
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2014-11-24
+2015-06-28
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2014-12-04 14:44:24</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
 </span>
 
 </body>
