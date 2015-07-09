@@ -70,7 +70,7 @@ This section describes nature of content of individual folders in this project.
 
 ./Scripts
 
-  Scripts for batch compilation. 
+  Scripts for batch compilation.
 
 ./Telemetry Library/Source
 
@@ -141,7 +141,7 @@ This section describes nature of content of individual folders in this project.
 
 
 
-Symbols
+Symbols/Defines
 ----------------------------------------
 Following are symbols that can/must be defined project-wide when compiling the
 library. There is number of other symbols used internally, for these, refer to
@@ -149,7 +149,7 @@ appropriate source file for details.
 
 x64
 
-  Must be defined for compilation for 64bit target. 32bit target inferred when
+  Must be defined for compilation into 64bit target. 32bit target inferred when
   not defined.
 
 Debug
@@ -158,7 +158,7 @@ Debug
 
 PurePascal
 
-  ASM code will not be used where possible when this symbol is defined.
+  ASM code will NOT be used where possible when this symbol is defined.
 
 
 

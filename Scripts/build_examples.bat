@@ -24,7 +24,13 @@ lazbuild -B --bm=Debug_win_x64 SCSTelemetry_TextLogger.lpi
 
 
 
-cd "..\..\LogConverter" 
+cd "..\..\LogConverter\Delphi" 
 dcc32.exe -Q -B LogConverter.dpr
+
+cd ..\Lazarus
+lazbuild -B --bm=Release_win_x86 LogConverter.lpi
+lazbuild -B --bm=Release_win_x64 LogConverter.lpi
+lazbuild -B --bm=Debug_win_x86 LogConverter.lpi
+lazbuild -B --bm=Debug_win_x64 LogConverter.lpi
 
 popd
