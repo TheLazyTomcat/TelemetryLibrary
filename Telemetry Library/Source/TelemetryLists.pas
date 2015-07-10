@@ -9,7 +9,7 @@
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-06-27)
+@lastmod(2015-07-09)
 
   @bold(@NoAutoLink(TelemetryLists))
 
@@ -26,7 +26,7 @@
    |- TStoredConfigsList
    |- TStoredChannelsList
 )
-  Last change:  2015-06-27
+  Last change: 2015-07-09
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -148,7 +148,10 @@
                          @item(cEmptyStoredConfig renamed to EmptyStoredConfig)))
     @item(2015-06-27 - Small implementation changes.)
     @item(2015-06-27 - @code(TStoredChannelsValuesList) class renamed to
-                       TStoredChannelsList.))
+                       TStoredChannelsList.)
+    @item(2015-07-09 - Class of all exceptions changed to a proper internal
+                       class.)
+    @item(2015-07-09 - Added exceptions description into documentation.))
 
 @html(<hr>)}
 unit TelemetryLists;
@@ -239,6 +242,8 @@ type
     @param Index Index of requested item in list.
 
     @returns Item at position given by @code(Index).
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function PtrGetItem(Index: Integer): Pointer; virtual;
   {:
@@ -267,6 +272,8 @@ type
 
     @param Index Index of item that has to be replaced.
     @param Item  New walue of the replaced item.)
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@). 
   }
     procedure PtrReplace(Index: Integer; Item: Pointer); virtual;
   {:
@@ -279,6 +286,8 @@ type
 
     @param Index Index at which the new item should be added.
     @param Item  Inserted item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure PtrInsert(Index: Integer; Item: Pointer); virtual;
   {:
@@ -300,6 +309,8 @@ type
     Calls method DoChange when item is successfully deleted.
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure PtrDelete(Index: Integer); virtual;
   public
@@ -416,6 +427,8 @@ type
     @param Index Index of requested item.
 
     @returns Pointer to requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetKnownEventPointer(Index: Integer): PKnownEvent;
   {:
@@ -475,6 +488,8 @@ type
     @param Valid   Flag denoting whether replacement event is marked as valid.
     @param(Utility Flag denoting whether replacement event is marked as
                    utility.)
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).                
   }
     procedure ReplaceIndex(Index: Integer; Event: scs_event_t; const Name: TelemetryString; Valid: Boolean = True; Utility: Boolean = False); virtual;
   {:
@@ -529,6 +544,8 @@ type
     OnChange event is called after successful deletion.
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure Delete(Index: Integer); virtual;
   {:
@@ -632,6 +649,8 @@ type
     @param Index Index of requested item.
 
     @returns Pointer to requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetKnownChannelPointer(Index: Integer): PKnownChannel;
   {:
@@ -741,6 +760,8 @@ type
                           configuration containing @noAutoLink(count) for channel
                           indices. Has no meaning when the channel is not
                           indexed.)
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: TValueTypeBitmask; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;
   {:
@@ -946,6 +967,8 @@ type
     OnChange event is called after successful deletion.
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure Delete(Index: Integer); virtual;
   {:
@@ -1045,6 +1068,8 @@ type
     @param Index Index of requested item.
 
     @returns Pointer to requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetKnownConfigPointer(Index: Integer): PKnownConfig;
   {:
@@ -1107,6 +1132,8 @@ type
     @param(Binded        Flag denoting whether added config is binded by some
                          channel (i.e. some channel has this config as its
                          IndexConfig property).)
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False); virtual;
   {:
@@ -1163,6 +1190,8 @@ type
     OnChange event is called after successful deletion.
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure Delete(Index: Integer); virtual;
   {:
@@ -1285,6 +1314,8 @@ type
     @param Index Index of requested item.
 
     @returns Pointer to requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetEventContext(Index: Integer): PEventContext;
   {:
@@ -1332,6 +1363,8 @@ type
                         list.)
 
     @returns Index at which the new context was added, -1 when addition failed.
+
+    @raises ETLNilReference When context pointer is not assigned.
   }
     Function Add(EventContext: PEventContext): Integer; overload; virtual;
   {:
@@ -1389,6 +1422,8 @@ type
     called).
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure Delete(Index: Integer); virtual;
   {:
@@ -1531,6 +1566,8 @@ type
     @param Index Index of requested item.
 
     @returns Pointer to requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetChannelContext(Index: Integer): PChannelContext;
   {:
@@ -1652,6 +1689,8 @@ type
                           list.)
 
     @returns Index at which the new context was added, -1 when addition failed.
+
+    @raises ETLNilReference When context pointer is not assigned.
   }
     Function Add(ChannelContext: PChannelContext): Integer; overload; virtual;
   {:
@@ -1734,6 +1773,8 @@ type
     called).
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure Delete(Index: Integer); virtual;
   {:
@@ -1860,6 +1901,8 @@ type
     @param Index Index of requested item.
 
     @returns Pointer to requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetStoredConfigPointer(Index: Integer): PStoredConfig;
   {:
@@ -1973,6 +2016,8 @@ type
     OnChange event is called after successful deletion.
 
     @param Index Index of item that has to be deleted.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     procedure Delete(Index: Integer); virtual;
   {:
@@ -2089,6 +2134,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetStoredChannelValue(Index: Integer): TStoredChannel;
   protected
@@ -2326,7 +2373,7 @@ begin
 If (Index >= 0) and (Index < fMainList.Count) then
   Result := fMainList[Index]
 else
-  raise Exception.CreateFmt('TCustomTelemetryList.PtrGetItem: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TCustomTelemetryList.PtrGetItem: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2355,7 +2402,7 @@ If (Index >= 0) and (Index < fMainList.Count) then
     DoChange;
   end
 else
-  raise Exception.CreateFmt('TCustomTelemetryList.PtrReplace: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TCustomTelemetryList.PtrReplace: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2368,7 +2415,7 @@ If (Index >= 0) and (Index <= fMainList.Count) then
     DoChange;
   end
 else
-  raise Exception.CreateFmt('TCustomTelemetryList.PtrInsert: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TCustomTelemetryList.PtrInsert: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2389,7 +2436,7 @@ If (Index >= 0) and (Index < fMainList.Count) then
     DoChange;
   end
 else
-  raise Exception.CreateFmt('TCustomTelemetryList.PtrDelete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TCustomTelemetryList.PtrDelete: Index (%d) out of bounds.',[Index]);
 end;
 
 {------------------------------------------------------------------------------}
@@ -2475,7 +2522,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PKnownEvent(PtrGetItem(Index))
 else
-  raise Exception.CreateFmt('TKnownEventsList.GetKnownEventPointer: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownEventsList.GetKnownEventPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2547,7 +2594,7 @@ If (Index >= 0) and (Index < Count) then
     PtrReplace(Index,KnownEvent);
   end
 else
-  raise Exception.CreateFmt('TKnownEventsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownEventsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2596,7 +2643,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.CreateFmt('TKnownEventsList.Delete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownEventsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2642,7 +2689,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PKnownChannel(PtrGetItem(Index))
 else
-  raise Exception.CreateFmt('TKnownChannelsList.GetKnownChannelPointer: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownChannelsList.GetKnownChannelPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2736,7 +2783,7 @@ If (Index >= 0) and (Index < Count) then
     PtrReplace(Index,KnownChannel);
   end
 else
-  raise Exception.CreateFmt('TKnownChannelsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownChannelsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2831,7 +2878,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.CreateFmt('TKnownChannelsList.Delete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownChannelsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2882,7 +2929,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PKnownConfig(PtrGetItem(Index))
 else
-  raise Exception.CreateFmt('TKnownConfigsList.GetKnownConfigPointer: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownConfigsList.GetKnownConfigPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -2956,7 +3003,7 @@ If (Index >= 0) and (Index < Count) then
     PtrReplace(Index,KnownConfig);
   end
 else
-  raise Exception.CreateFmt('TKnownConfigsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownConfigsList.ReplaceIndex: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3007,7 +3054,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.CreateFmt('TKnownConfigsList.Delete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TKnownConfigsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3069,7 +3116,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PEventContext(PtrGetItem(Index))
 else
-  raise Exception.CreateFmt('TRegisteredEventsList.GetEventContext: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TRegisteredEventsList.GetEventContext: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3118,7 +3165,7 @@ Function TRegisteredEventsList.Add(EventContext: PEventContext): Integer;
 begin
 If Assigned(EventContext) then Result := PtrAdd(EventContext)
 else
-  raise Exception.Create('TRegisteredEventsList.Add: Context must not be nil.');
+  raise ETLNilReference.Create('TRegisteredEventsList.Add: Context must not be nil.');
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3168,7 +3215,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.CreateFmt('TRegisteredEventsList.Delete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TRegisteredEventsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3217,7 +3264,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PChannelContext(PtrGetItem(Index))
 else
-  raise Exception.CreateFmt('TRegisteredChannelsList.GetChannelContext: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TRegisteredChannelsList.GetChannelContext: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3367,7 +3414,7 @@ Function TRegisteredChannelsList.Add(ChannelContext: PChannelContext): Integer;
 begin
 If Assigned(ChannelContext) then Result := PtrAdd(ChannelContext)
 else
-  raise Exception.Create('TRegisteredChannelsList.Add: Context must not be nil.');
+  raise ETLNilReference.Create('TRegisteredChannelsList.Add: Context must not be nil.');
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3425,7 +3472,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.CreateFmt('TRegisteredChannelsList.Delete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TRegisteredChannelsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3478,7 +3525,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PStoredConfig(PtrGetItem(Index))
 else
-  raise Exception.CreateFmt('TStoredConfigsList.GetStoredConfigPointer: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TStoredConfigsList.GetStoredConfigPointer: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3589,7 +3636,7 @@ If (Index >= 0) and (Index < Count) then
     PtrDelete(Index);
   end
 else
-  raise Exception.CreateFmt('TStoredConfigsList.Delete: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TStoredConfigsList.Delete: Index (%d) out of bounds.',[Index]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3635,7 +3682,7 @@ begin
 If (Index >= 0) and (Index < Count) then
   Result := PStoredChannelMasterID(PtrGetItem(Index))^.StoredChannel
 else
-  raise Exception.CreateFmt('TStoredChannelsList.GetStoredChannelValue: Index (%d) out of bounds.',[Index]);
+  raise ETLIndexOfBounds.CreateFmt('TStoredChannelsList.GetStoredChannelValue: Index (%d) out of bounds.',[Index]);
 end;
 
 {------------------------------------------------------------------------------}

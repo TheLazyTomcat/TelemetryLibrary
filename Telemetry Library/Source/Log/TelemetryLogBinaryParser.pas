@@ -9,7 +9,7 @@
 @abstract(Contains classes designed to parse binary logs.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-10)
-@lastmod(2015-07-02)
+@lastmod(2015-07-10)
 
   @bold(@NoAutoLink(TelemetryLogBinaryParser))
 
@@ -30,7 +30,7 @@
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
       
-  Last change:  2015-07-02
+  Last change: 2015-07-10
 
   Change List:@unorderedList(
     @item(2014-05-10 - First stable version.)
@@ -54,7 +54,10 @@
                        managed type (dynamic array) so it does not need explicit
                        finalization.)
     @item(2015-07-02 - Removed function @code(LogEntryFree) as it is no longer
-                       needed.))
+                       needed.)
+    @item(2015-07-10 - Class of all exceptions changed to a proper internal
+                       class.)
+    @item(2015-07-10 - Added exceptions description into documentation.))
 
 @html(<hr>)}
 unit TelemetryLogBinaryParser;
@@ -263,6 +266,10 @@ type
                     this class to work properly. Provided information are used
                     as parameters when creating telemetry info provider. When
                     not filled, the behavior of this class is not defined.)
+
+    @raises ETLNilReference    When @noAutoLink(@code(Stream)) is not assigned.
+    @raises(ETLUnsupportedGame When telemetry version, game and/or its version
+                               are not supported by this class.)
   }
     constructor Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
   {:
@@ -465,6 +472,9 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
   }
     Function ReadBlockPayload_Text(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -473,6 +483,9 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
   }
     Function ReadBlockPayload_Log(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -482,6 +495,9 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBadData When stored payload size does not match size of stored
+                       data.)
   }
     Function ReadBlockPayload_EventReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -491,6 +507,9 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBadData When stored payload size does not match size of stored
+                       data.)
   }
     Function ReadBlockPayload_EventUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -499,6 +518,11 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_Event(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -508,6 +532,11 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_ChannelReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -517,6 +546,11 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)                              
   }
     Function ReadBlockPayload_ChannelUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -525,6 +559,11 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_Channel(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -533,6 +572,11 @@ type
     @param BlockHeader Informations read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_Config(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
@@ -547,6 +591,8 @@ type
     Reads block at current Stream position.
 
     @returns(@True when the block was read successfuly, @false othewise.)
+
+    @raises ETLUnknownData When block of unknown type is encountered.
   }
     Function ReadBlock: Boolean; virtual;
   public
@@ -850,6 +896,9 @@ type
     @param FileInfo Variable to which a read informations are stored.
 
     @param FileInfo Output value containing read data.
+
+    @raises ETLBufferTooSmall When file is too small to contain a valid header.
+    @raises ETLBadData        When file signature does not match.
   }
     procedure ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
   {:
@@ -933,6 +982,9 @@ type
 
     @param(Stream @noAutoLink(Stream) from which the parser will read. Must not
                   be @nil.)
+
+    @raises ETLNilReference When @noAutoLink(@code(Stream)) is not assigned.
+    @raises ETLUnknownData  When binary log of unknown data structure is read.
   }
     constructor Create(Stream: TStream);
   {:
@@ -1343,6 +1395,9 @@ type
     @param(OutFileName Name of output text file. When left empty, then name
                        of output file is created by appending @code(.LOG)
                        extension to the name of the input file.)
+
+    @raises(ETLUnsupportedGame When telemetry version, game and/or its version
+                               are not supported by this class.)                       
   }
     constructor Create(aFileName: String; OutFileName: String = '');
   {:
@@ -1401,7 +1456,7 @@ constructor TTelemetryLogBinaryReader.Create(Stream: TStream; FileInfo: TTelemet
 begin
 inherited Create;
 If Assigned(Stream) then fStream := Stream
-  else raise Exception.Create('TTelemetryLogBinaryReader.Create: Stream not assigned.');
+  else raise ETLNilReference.Create('TTelemetryLogBinaryReader.Create: Stream not assigned.');
 fFileInfo := FileInfo;
 If TTelemetryInfoProvider.SupportsTelemetryAndGameVersion(FileInfo.APIInfo.TelemetryVersion,
                                                               FileInfo.APIInfo.GameID,
@@ -1410,10 +1465,10 @@ If TTelemetryInfoProvider.SupportsTelemetryAndGameVersion(FileInfo.APIInfo.Telem
                                                           FileInfo.APIInfo.GameID,
                                                           FileInfo.APIInfo.GameVersion)
 else
-  raise Exception.CreateFmt('TTelemetryLogBinaryReader.Create: Game version (%s; %s %s) not supported.',
-                            [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
-                             TelemetryStringDecode(FileInfo.APIInfo.GameID),
-                             SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryLogBinaryReader.Create: Game version (%s; %s %s) not supported.',
+                                     [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
+                                     TelemetryStringDecode(FileInfo.APIInfo.GameID),
+                                     SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
 fFirstStreamPosition := Stream.Position;
 end;
 
@@ -1538,8 +1593,8 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Text: Payload is too small (got %d, minimum %d).',
-                                   [BlockHeader.BlockPayloadSize,SizeOf(Integer)]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Text: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,SizeOf(Integer)]);
   end
 else Result := False;
 end;
@@ -1564,8 +1619,8 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Log: Payload is too small (got %d, minimum %d).',
-                                   [BlockHeader.BlockPayloadSize,SizeOf(scs_log_type_t) + SizeOf(Integer)]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Log: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,SizeOf(scs_log_type_t) + SizeOf(Integer)]);
   end
 else Result := False;
 end;
@@ -1584,8 +1639,8 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
           Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_EventReg: Erroneous block payload size (expected %d, got %d).',
-                                   [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
+    else raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_EventReg: Erroneous block payload size (expected %d, got %d).',
+                                    [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
   end
 else Result := False;
 end;
@@ -1604,8 +1659,8 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
           Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_EventUnreg: Erroneous block payload size (expected %d, got %d).',
-                                   [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
+    else raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_EventUnreg: Erroneous block payload size (expected %d, got %d).',
+                                    [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
   end
 else Result := False;
 end;
@@ -1652,8 +1707,8 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
               If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
                 OnEvent(Self,TimeStampToDateTime(BlockHeader.BlockTime),Event,Data)
               else
-                raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Event: Stored payload size does not match (stored %d, reality %d)',
-                                          [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+                raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Event: Stored payload size does not match (stored %d, reality %d)',
+                                           [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
             finally
               If Event = SCS_TELEMETRY_EVENT_configuration then
                 scs_telemetry_configuration_free(Data_cfg,True);
@@ -1662,8 +1717,8 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Event: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,SizeOf(scs_event_t)]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Event: Payload is too small (got %d, minimum %d)..',
+                                           [BlockHeader.BlockPayloadSize,SizeOf(scs_event_t)]);
   end
 else Result := False;
 end;
@@ -1705,14 +1760,14 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
             If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
               OnChannelRegister(Self,TimeStampToDateTime(BlockHeader.BlockTime),ChannelName,ChannelID,ChannelIndex,ChannelValueType,ChannelRegFlags)
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg: Payload is too small (got %d, minimum %d)..',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
@@ -1751,14 +1806,14 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
             If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
               OnChannelUnregister(Self,TimeStampToDateTime(BlockHeader.BlockTime),ChannelName,ChannelID,ChannelIndex,ChannelValueType)
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg: Payload is too small (got %d, minimum %d)..',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
@@ -1802,14 +1857,14 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
                 end;
               end
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel: Payload is too small (got %d, minimum %d)..',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
@@ -1844,14 +1899,14 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
                          ConfigData.Index,ConfigData.Value);
               end
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Config: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Config: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Config: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Config: Payload is too small (got %d, minimum %d)..',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
@@ -1886,7 +1941,7 @@ If not ReadingTerminated and ReadBlockHeader({%H-}BlockHeader) then
       LB_BLOCK_TYPE_CONFIG:       Result := ReadBlockPayload_Config(BlockHeader);
       LB_BLOCK_TYPE_TERMINATE:    Result := ReadBlockPayload_Termination(BlockHeader);
     else
-      raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlock: Unknown block type (%d).',[BlockHeader.BlockType]);
+      raise ETLUnknownData.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlock: Unknown block type (%d).',[BlockHeader.BlockType]);
     end;
   end;
 ReadingTerminated := not Result;
@@ -2085,10 +2140,10 @@ end;
 procedure TTelemetryLogBinaryStreamParser.ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo);
 begin
 If (Stream.Size - Stream.Position) < (SizeOf(TTelemetryLogBinaryFileHeader) + MinimumAPIInfoSectionSize) then
-  raise Exception.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: File is too small.');
+  raise ETLBufferTooSmall.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: File is too small.');
 fStream.ReadBuffer(FileInfo.Header,SizeOf(TTelemetryLogBinaryFileHeader));
 If FileInfo.Header.MagicNumber <> LB_SIGNATURE then
-  raise Exception.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: Bad file signature.');
+  raise ETLBadData.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: Bad file signature.');
 FileInfo.APIInfo.TelemetryVersion := Stream_ReadoutInteger(fStream);
 FileInfo.APIInfo.GameID := Stream_ReadoutString(fStream);
 FileInfo.APIInfo.GameVersion := Stream_ReadoutInteger(fStream);
@@ -2263,14 +2318,14 @@ constructor TTelemetryLogBinaryStreamParser.Create(Stream: TStream);
 begin
 inherited Create;
 If Assigned(Stream) then fStream := Stream
-  else raise Exception.Create('TTelemetryLogBinaryStreamParser.Create: Telemetry Recipient not assigned.');
+  else raise ETLNilReference.Create('TTelemetryLogBinaryStreamParser.Create: Telemetry Recipient not assigned.');
 fStream.Position := 0;
 ReadFileHeader(fFileInfo);
 case fFileInfo.Header.DataStructure of
   0:  fLogReader := TTelemetryLogBinaryReader_0.Create(Stream,fFileInfo);
   1:  fLogReader := TTelemetryLogBinaryReader_1.Create(Stream,fFileInfo);
 else
-  raise Exception.CreateFmt('TTelemetryLogBinaryStreamParser.Create: Unknown data structure (%d).',[fFileInfo.Header.DataStructure]);
+  raise ETLUnknownData.CreateFmt('TTelemetryLogBinaryStreamParser.Create: Unknown data structure (%d).',[fFileInfo.Header.DataStructure]);
 end;
 {$IFDEF MulticastEvents}
 fOnDataTimeLogMulti := TMulticastDataTimeLogEvent.Create(Self);
@@ -2516,10 +2571,10 @@ If TTelemetryRecipient.SupportsTelemetryAndGameVersion(FileInfo.APIInfo.Telemetr
                                                 FileInfo.APIInfo.GameVersion,
                                                 FileInfo.APIInfo.GameName)
 else
-  raise Exception.CreateFmt('TTelemetryLogBinaryToTextConverter.Create: Game version (%s; %s %s) not supported.',
-                            [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
-                            TelemetryStringDecode(FileInfo.APIInfo.GameID),
-                            SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryLogBinaryToTextConverter.Create: Game version (%s; %s %s) not supported.',
+                                     [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
+                                     TelemetryStringDecode(FileInfo.APIInfo.GameID),
+                                     SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
 fTextLogger := TTelemetryLogText.Create(nil,fOutFileName);
 fTextLogger.Recipient := fDummyRecipient;
 end;

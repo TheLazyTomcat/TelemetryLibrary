@@ -10,7 +10,7 @@
           output.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-18)
-@lastmod(2015-07-01)
+@lastmod(2015-07-10)
 
   @bold(@NoAutoLink(TelemetryLogBinary))
 
@@ -26,7 +26,7 @@
    |- TTelemetryLogBinaryFile
 )
 
-  Last change:  2015-07-01
+  Last change: 2015-07-10
 
   Change List:@unorderedList(
     @item(2014-05-18 - First stable version.)
@@ -54,7 +54,10 @@
                        structure 1.)
     @item(2015-06-30 - Added class TTelemetryLogBinaryWriter_0 for writing
                        structure 0.)
-    @item(2015-07-01 - Small implementation changes.))
+    @item(2015-07-01 - Small implementation changes.)
+    @item(2015-07-10 - Class of all exceptions changed to a proper internal
+                       class.)
+    @item(2015-07-10 - Added exceptions description into documentation.))
 
   ToDo:@unorderedList(
     @item(Add 64bit variant of structure 0 (64bit blocks offsets).)
@@ -567,6 +570,9 @@ type
                     by logger that is creating current instance in order for
                     this class to work properly. When not filled, the behavior
                     of this class is not defined.)
+
+    @raises(ETLNilReference When parameter @noAutoLink(@code(Stream)) is not
+                            assigned.)
   }
     constructor Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
   {:
@@ -933,6 +939,11 @@ type
     @param(DataStructure Structure of output binary log. See binary log
                          documentation for details. If you pass unsupported
                          structure, the constructor raises an exception.)
+
+    @raises(ETLNilReference When either of parameters @code(aRecipient) and
+                            @noAutoLink(@code(Stream)) is not assigned.)
+    @raises(ETLUnknownData When number passed in parameter @code(DataStructure)
+                           is not known.)
   }
     constructor Create(aRecipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
   {:
@@ -949,6 +960,9 @@ type
                    TTelemetryRecipient).)
     @param Data    Pointer to data to be written. Must not be @nil.
     @param Size    Size of the data in bytes.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure LogData(Sender: TObject; Data: Pointer; Size: Word); virtual;
   {:
@@ -958,6 +972,9 @@ type
     @param(Sender  Object calling this method (must be of type
                    TTelemetryRecipient).)
     @param Str     Text to be written. Can be empty.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure LogStr(Sender: TObject; Str: TelemetryString); virtual;
   {:
@@ -968,6 +985,9 @@ type
                    TTelemetryRecipient).)
     @param LogType Type of log written into game log (error, warning, ...).
     @param LogText Text written into game log.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
   {:
@@ -978,6 +998,9 @@ type
                     TTelemetryRecipient).)
     @param Event    Game event identification number.
     @param UserData User defined data stored in the event context.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
@@ -988,6 +1011,9 @@ type
                     TTelemetryRecipient).)
     @param Event    Game event identification number.
     @param UserData User defined data stored in the event context.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
@@ -999,6 +1025,9 @@ type
     @param Event    Game event identification number.
     @param Data     Pointer to data accompanying the event. Can be @nil.
     @param UserData User defined data stored in the event context.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
   {:
@@ -1013,6 +1042,9 @@ type
     @param ValueType Value type of registered channel.
     @param Flags     Registration flags.
     @param UserData  User defined data stored in the channel context.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
   {:
@@ -1026,6 +1058,9 @@ type
     @param Index     Index of unregistered channel.
     @param ValueType Value type of unregistered channel.
     @param UserData  User defined data stored in the channel context.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
   {:
@@ -1039,6 +1074,9 @@ type
     @param Index     Index of the channel.
     @param Value     Actual value of the channel. Can be @nil.
     @param UserData  User defined data stored in the channel context.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
   {:
@@ -1051,6 +1089,9 @@ type
     @param ID        ID of the config.
     @param Index     Index of the config.
     @param Value     Actual value of the config.
+
+    @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
+                                obtained.)
   }
     procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
   {:
@@ -1198,7 +1239,7 @@ constructor TTelemetryLogBinaryWriter.Create(Stream: TStream; FileInfo: TTelemet
 begin
 inherited Create;
 If Assigned(Stream) then fStream := Stream
-  else raise Exception.Create('TTelemetryLogBinaryWriter.Create: Stream not assigned.');
+  else raise ETLNilReference.Create('TTelemetryLogBinaryWriter.Create: Stream not assigned.');
 fFileInfo := FileInfo;
 end;
 
@@ -1553,10 +1594,10 @@ end;
 constructor TTelemetryLogBinaryStream.Create(aRecipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
 begin
 If not Assigned(aRecipient) then
-  raise Exception.Create('TTelemetryLogBinaryStream.Create: Telemetry Recipient not assigned.');
+  raise ETLNilReference.Create('TTelemetryLogBinaryStream.Create: Telemetry recipient not assigned.');
 inherited Create(aRecipient);
 If Assigned(Stream) then fStream := Stream
-  else raise Exception.Create('TTelemetryLogBinaryStream.Create: Stream not assigned.');
+  else raise ETLNilReference.Create('TTelemetryLogBinaryStream.Create: Stream not assigned.');
 fStream.Size := 0;
 PrepareFileInfo(fFileInfo);
 fFileInfo.Header.DataStructure := DataStructure;
@@ -1564,7 +1605,7 @@ case DataStructure of
   0:  fLogWriter := TTelemetryLogBinaryWriter_0.Create(Stream,fFileInfo);
   1:  fLogWriter := TTelemetryLogBinaryWriter_1.Create(Stream,fFileInfo);
 else
-  raise Exception.Create('TTelemetryLogBinaryStream.Create: Unknown data structure (' + IntToStr(DataStructure) + ').');
+  raise ETLUnknownData.Create('TTelemetryLogBinaryStream.Create: Unknown data structure (' + IntToStr(DataStructure) + ').');
 end;
 SaveMinimized := def_SaveMinimized;
 SaveItemIDOnly := def_SaveItemIDOnly;

@@ -20,7 +20,7 @@
   for classes that are intended to bind itself to telemetry recipient events
   (eg. loggers, servers, ...).
 
-  Last change:  2014-11-05
+  Last change: 2014-11-05
 
   Change List:@unorderedList(
     @item(2014-05-03 - First stable version.)

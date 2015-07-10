@@ -64,33 +64,33 @@ type
 const
   NoValueType = TValueTypeBitmask(0);
 
-  procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);
-  Function ValueTypesArrayToStr(const ValueTypes: TValueTypesArray): String;
+procedure CompressValueTypesArray(var ValueTypes: TValueTypesArray);
+Function ValueTypesArrayToStr(const ValueTypes: TValueTypesArray): String;
 
-  Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
-  Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBitmask;
+Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
+Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBitmask;
 
-  Function BitmaskValueType(Bitmask: TValueTypeBitmask): scs_value_type_t;
-  Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
-  Function BitmaskValueTypesAddPrimary(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): TValueTypesArray;
+Function BitmaskValueType(Bitmask: TValueTypeBitmask): scs_value_type_t;
+Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
+Function BitmaskValueTypesAddPrimary(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): TValueTypesArray;
 
-  Function ValueTypeBitmaskAdd(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
-  Function ValueTypeBitmaskRemove(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
+Function ValueTypeBitmaskAdd(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
+Function ValueTypeBitmaskRemove(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
 
-  Function SecondaryValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
-  Function SecondaryValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
-  Function SecondaryValueTypesCount(PrimaryValueType: scs_value_type_t): Integer;
-  Function SupportedValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
-  Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
+Function SecondaryValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
+Function SecondaryValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
+Function SecondaryValueTypesCount(PrimaryValueType: scs_value_type_t): Integer;
+Function SupportedValueTypesBitmask(PrimaryValueType: scs_value_type_t): TValueTypeBitmask;
+Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArray;
 
-  Function ValidateSecondaryValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
-  Function ValidateSupportedValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
-  procedure MakeValidSecondaryValueTypesBitmask(var Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t);
-  procedure MakeValidSupportedValueTypesBitmask(var Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t);
+Function ValidateSecondaryValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
+Function ValidateSupportedValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t): Boolean;
+procedure MakeValidSecondaryValueTypesBitmask(var Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t);
+procedure MakeValidSupportedValueTypesBitmask(var Bitmask: TValueTypeBitmask; PrimaryValueType: scs_value_type_t);
 
-  Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
-  Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
-  Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): TValueTypesArray;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
+Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): TValueTypesArray;
 
 implementation
 

@@ -10,7 +10,7 @@
           or stream.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-06)
-@lastmod(2015-06-28)
+@lastmod(2015-07-09)
 
   @bold(@NoAutoLink(TelemetryStreaming))
 
@@ -42,7 +42,7 @@
         events, channels and configs).)
 )
 
-  Last change:  2015-06-28
+  Last change: 2015-07-09
 
   Change List:@unorderedList(
     @item(2014-05-06 - First stable version.)
@@ -72,7 +72,10 @@
     @item(2015-06-27 - Added variant of functions @code(Ptr_WriteString) and
                        @code(Stream_WriteString) that accepts API string as
                        an input parameter.)
-    @item(2015-06-28 - Implementation changes.))
+    @item(2015-06-28 - Implementation changes.)
+    @item(2015-07-09 - Class of all exceptions changed to a proper internal
+                       class.)
+    @item(2015-07-09 - Added exceptions description into documentation.))
 
 @html(<hr>)}
 unit TelemetryStreaming;
@@ -799,6 +802,8 @@ Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: TMemSize): TMemSiz
                   details).)
 
   @returns Number of bytes required for storing passed value.
+
+  @raises ETLUnknownData When parameter @code(Value) is of unknown type.
 }
 Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize;
 
@@ -845,6 +850,9 @@ Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize
                      only for binary values).)
 
   @returns Number of bytes written.
+
+  @raises ETLUnknownData When parameter @code(Value) is of unknown type.
+  @raises ETLBufferTooSmall When output buffer is too small for a written data.
 }
 Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 
@@ -882,6 +890,8 @@ Function Ptr_Store_scs_value(out Ptr: Pointer; Value: scs_value_t; Minimize: Boo
                    binary values).)
 
   @returns Number of bytes read.
+
+  @raises ETLUnknownData When read data are of unknown type.
 }
 Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 
@@ -914,6 +924,8 @@ Function Ptr_Readout_scs_value(var Source: Pointer; out BytesRead: TMemSize; Adv
                   for binary values).)
 
   @returns Number of bytes written.
+
+  @raises ETLUnknownData When parameter @code(Value) is of unknown type.
 }
 Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: Boolean = False): TMemSize;
 
@@ -928,6 +940,8 @@ Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: B
                     binary values).)
 
   @returns Number of bytes read.
+
+  @raises ETLUnknownData When read data are of unknown type.
 }
 Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): TMemSize;
 
@@ -957,6 +971,8 @@ Function Stream_Readout_scs_value(Stream: TStream; out BytesRead: TMemSize; Mini
                   function for details).)
 
   @returns Number of bytes required for storing passed value.
+
+  @raises ETLUnknownData When parameter @code(Value) is of unknown type.
 }
 Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolean = False): TMemSize;
 
@@ -983,6 +999,9 @@ Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolea
                      only for binary values).)
 
   @returns Number of bytes written.
+
+  @raises ETLUnknownData When parameter @code(Value) is of unknown type.
+  @raises ETLBufferTooSmall When output buffer is too small for a written data.
 }
 Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 
@@ -1021,6 +1040,8 @@ Function Ptr_Store_scs_value_localized(out Ptr: Pointer; Value: scs_value_locali
                    binary values).)
 
   @returns Number of bytes read.
+
+  @raises ETLUnknownData When read data are of unknown type.
 }
 Function Ptr_Read_scs_value_localized(var Source: Pointer; out Value: scs_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 
@@ -1054,6 +1075,8 @@ Function Ptr_Readout_scs_value_localized(var Source: Pointer; out BytesRead: TMe
                   for binary values).)
 
   @returns Number of bytes written.
+
+  @raises ETLUnknownData When parameter @code(Value) is of unknown type.
 }
 Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_localized_t; Minimize: Boolean = False): TMemSize;
 
@@ -1068,6 +1091,8 @@ Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_loca
                     binary values).)
 
   @returns Number of bytes read.
+
+  @raises ETLUnknownData When read data are of unknown type.
 }
 Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_localized_t; Minimized: Boolean = False): TMemSize;
 
@@ -1143,6 +1168,8 @@ Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = Fals
   @param UserData    User data passed to @code(NameIDFunc) function.
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
@@ -1344,6 +1371,8 @@ Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Mini
   @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
@@ -1566,6 +1595,8 @@ Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; 
   @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
@@ -1784,6 +1815,8 @@ Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configu
   @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
@@ -1988,6 +2021,8 @@ Function Size_KnownEvent(Value: TKnownEvent): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2117,6 +2152,8 @@ Function Size_KnownChannel(Value: TKnownChannel): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2243,6 +2280,8 @@ Function Size_KnownConfig(Value: TKnownConfig): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2366,6 +2405,8 @@ Function Size_EventInfo({%H-}Value: TEventInfo): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2493,6 +2534,8 @@ Function Size_ChannelInfo(Value: TChannelInfo): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2622,6 +2665,8 @@ Function Size_StoredConfig(Value: TStoredConfig): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2751,6 +2796,8 @@ Function Size_StoredChannel(Value: TStoredChannel): TMemSize;
                      by number of bytes written.)
 
   @returns Number of bytes written.
+
+  @raises ETLBufferTooSmall When output buffer is too small for written data.
 }
 Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -3277,7 +3324,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Result := SizeOf(scs_value_type_t) + SizeOf(scs_value_fplacement_t);
           SCS_VALUE_TYPE_dplacement:  Result := SizeOf(scs_value_type_t) + SizeOf(scs_value_dplacement_t);
         else
-          raise Exception.CreateFmt('Size_scs_value_t: Unknown value type (%d).',[Value._type]);
+          raise ETLUnknownData.CreateFmt('Size_scs_value_t: Unknown value type (%d).',[Value._type]);
         end;
       end
     else Result := SizeOf(scs_value_t);
@@ -3316,14 +3363,14 @@ If Size >= Size_scs_value(Value,Minimize) then
               SCS_VALUE_TYPE_fplacement:  Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.value_fplacement,SizeOf(scs_value_fplacement_t),True));
               SCS_VALUE_TYPE_dplacement:  Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.value_dplacement,SizeOf(scs_value_dplacement_t),True));
             else
-              raise Exception.CreateFmt('Ptr_Write_scs_value_t: Unknown value type (%d).',[Value._type]);
+              raise ETLUnknownData.CreateFmt('Ptr_Write_scs_value_t: Unknown value type (%d).',[Value._type]);
             end;
           end
         else Result := Ptr_WriteBuffer(WorkPtr,Value,SizeOf(scs_value_t),True);
       end;
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_scs_value: Output buffer too small (got %d, expected %d).',[Size,Size_scs_value(Value,Minimize)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_value: Output buffer too small (got %d, expected %d).',[Size,Size_scs_value(Value,Minimize)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3366,7 +3413,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.value_fplacement,SizeOf(scs_value_fplacement_t),True));
           SCS_VALUE_TYPE_dplacement:  Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.value_dplacement,SizeOf(scs_value_dplacement_t),True));
         else
-          raise Exception.CreateFmt('Ptr_Read_scs_value_t: Unknown value type (%d).',[Value._type]);
+          raise ETLUnknownData.CreateFmt('Ptr_Read_scs_value_t: Unknown value type (%d).',[Value._type]);
         end;
       end
     else
@@ -3412,7 +3459,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Inc(Result,Stream_WriteBuffer(Stream,Value.value_fplacement,SizeOf(scs_value_fplacement_t)));
           SCS_VALUE_TYPE_dplacement:  Inc(Result,Stream_WriteBuffer(Stream,Value.value_dplacement,SizeOf(scs_value_dplacement_t)));
         else
-          raise Exception.CreateFmt('Stream_Write_scs_value_t: Unknown value type (%d).',[Value._type]);
+          raise ETLUnknownData.CreateFmt('Stream_Write_scs_value_t: Unknown value type (%d).',[Value._type]);
         end;
       end
     else Result := Stream_WriteBuffer(Stream,Value,SizeOf(scs_value_t));
@@ -3448,7 +3495,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Inc(Result,Stream_ReadBuffer(Stream,Value.value_fplacement,SizeOf(scs_value_fplacement_t)));
           SCS_VALUE_TYPE_dplacement:  Inc(Result,Stream_ReadBuffer(Stream,Value.value_dplacement,SizeOf(scs_value_dplacement_t)));
         else
-          raise Exception.CreateFmt('Stream_Read_scs_value_t: Unknown value type (%d).',[Value._type]);
+          raise ETLUnknownData.CreateFmt('Stream_Read_scs_value_t: Unknown value type (%d).',[Value._type]);
         end;
       end
     else
@@ -3489,7 +3536,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Result := SizeOf(scs_value_type_t) + SizeOf(scs_value_fplacement_t);
           SCS_VALUE_TYPE_dplacement:  Result := SizeOf(scs_value_type_t) + SizeOf(scs_value_dplacement_t);
         else
-          raise Exception.CreateFmt('Size_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
+          raise ETLUnknownData.CreateFmt('Size_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
         end;
       end
     else Result := SizeOf(scs_value_t);
@@ -3528,7 +3575,7 @@ If Size >= Size_scs_value_localized(Value,Minimize) then
               SCS_VALUE_TYPE_fplacement:  Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.BinaryData.value_fplacement,SizeOf(scs_value_fplacement_t),True));
               SCS_VALUE_TYPE_dplacement:  Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.BinaryData.value_dplacement,SizeOf(scs_value_dplacement_t),True));
             else
-              raise Exception.CreateFmt('Ptr_Write_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
+              raise ETLUnknownData.CreateFmt('Ptr_Write_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
             end;
           end
         else
@@ -3539,7 +3586,7 @@ If Size >= Size_scs_value_localized(Value,Minimize) then
       end;
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_scs_value_localized: Output buffer too small (got %d, expected %d).',[Size,Size_scs_value_localized(Value,Minimize)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_value_localized: Output buffer too small (got %d, expected %d).',[Size,Size_scs_value_localized(Value,Minimize)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3582,7 +3629,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.BinaryData.value_fplacement,SizeOf(scs_value_fplacement_t),True));
           SCS_VALUE_TYPE_dplacement:  Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.BinaryData.value_dplacement,SizeOf(scs_value_dplacement_t),True));
         else
-          raise Exception.CreateFmt('Ptr_Read_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
+          raise ETLUnknownData.CreateFmt('Ptr_Read_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
         end;
         Value.BinaryData._type := Value.ValueType;
       end
@@ -3629,7 +3676,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Inc(Result,Stream_WriteBuffer(Stream,Value.BinaryData.value_fplacement,SizeOf(scs_value_fplacement_t)));
           SCS_VALUE_TYPE_dplacement:  Inc(Result,Stream_WriteBuffer(Stream,Value.BinaryData.value_dplacement,SizeOf(scs_value_dplacement_t)));
         else
-          raise Exception.CreateFmt('Stream_Write_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
+          raise ETLUnknownData.CreateFmt('Stream_Write_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
         end;
       end
     else
@@ -3668,7 +3715,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Inc(Result,Stream_ReadBuffer(Stream,Value.BinaryData.value_fplacement,SizeOf(scs_value_fplacement_t)));
           SCS_VALUE_TYPE_dplacement:  Inc(Result,Stream_ReadBuffer(Stream,Value.BinaryData.value_dplacement,SizeOf(scs_value_dplacement_t)));
         else
-          raise Exception.CreateFmt('Stream_Read_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
+          raise ETLUnknownData.CreateFmt('Stream_Read_scs_value_localized_t: Unknown value type (%d).',[Value.ValueType]);
         end;
         Value.BinaryData._type := Value.ValueType;
       end
@@ -3714,7 +3761,7 @@ If Size >= Size_scs_named_value(Value,Minimize,ItemIDOnly) then
     Inc(Result,Ptr_Write_scs_value(WorkPtr,Value.value,Size - Result,True,Minimize));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_scs_named_value: Output buffer too small (got %d, expected %d).',[Size,Size_scs_named_value(Value,Minimize,ItemIDOnly)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_named_value: Output buffer too small (got %d, expected %d).',[Size,Size_scs_named_value(Value,Minimize,ItemIDOnly)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3824,7 +3871,7 @@ If Size >= Size_scs_named_value_localized(Value,Minimize,ItemIDOnly) then
     Inc(Result,Ptr_Write_scs_value_localized(WorkPtr,Value.Value,Size - Result,True,Minimize));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_scs_named_value_localized: Output buffer too small (got %d, expected %d).',[Size,Size_scs_named_value_localized(Value,Minimize,ItemIDOnly)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_named_value_localized: Output buffer too small (got %d, expected %d).',[Size,Size_scs_named_value_localized(Value,Minimize,ItemIDOnly)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3959,7 +4006,7 @@ If Size >= Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly) then
     CountPtr^ := Count;
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_scs_telemetry_configuration: Output buffer too small (got %d, expected %d).',[Size,Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_telemetry_configuration: Output buffer too small (got %d, expected %d).',[Size,Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4132,7 +4179,7 @@ If Size >= Size_scs_telemetry_configuration_localized(Value,Minimize,ItemIDOnly)
       Inc(Result,Ptr_WriteString(WorkPtr,'',True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_scs_telemetry_configuration_localized: Output buffer too small (got %d, expected %d).',
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_telemetry_configuration_localized: Output buffer too small (got %d, expected %d).',
                                [Size,Size_scs_telemetry_configuration_localized(Value,Minimize,ItemIDOnly)]);
 end;
 
@@ -4250,7 +4297,7 @@ If Size >= Size_KnownEvent(Value) then
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Utility,True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_KnownEvent: Output buffer too small (got %d, expected %d).',[Size,Size_KnownEvent(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_KnownEvent: Output buffer too small (got %d, expected %d).',[Size,Size_KnownEvent(Value)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4337,7 +4384,7 @@ If Size >= Size_KnownChannel(Value) then
     Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.MaxIndex),True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_KnownChannel: Output buffer too small (got %d, expected %d).',[Size,Size_KnownChannel(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_KnownChannel: Output buffer too small (got %d, expected %d).',[Size,Size_KnownChannel(Value)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4432,7 +4479,7 @@ If Size >= Size_KnownConfig(Value) then
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Binded,True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_KnownConfig: Output buffer too small (got %d, expected %d).',[Size,Size_KnownConfig(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_KnownConfig: Output buffer too small (got %d, expected %d).',[Size,Size_KnownConfig(Value)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4515,7 +4562,7 @@ If Size >= Size_EventInfo(Value) then
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Utility,True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_EventInfo: Output buffer too small (got %d, expected %d).',[Size,Size_EventInfo(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_EventInfo: Output buffer too small (got %d, expected %d).',[Size,Size_EventInfo(Value)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4594,7 +4641,7 @@ If Size >= Size_ChannelInfo(Value) then
     Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.IndexConfigID),True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_ChannelInfo: Output buffer too small (got %d, expected %d).',[Size,Size_ChannelInfo(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_ChannelInfo: Output buffer too small (got %d, expected %d).',[Size,Size_ChannelInfo(Value)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4684,7 +4731,7 @@ If Size >= Size_StoredConfig(Value) then
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Binded,True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_StoredConfig: Output buffer too small (got %d, expected %d).',[Size,Size_StoredConfig(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_StoredConfig: Output buffer too small (got %d, expected %d).',[Size,Size_StoredConfig(Value)]);
 end;
 
 //------------------------------------------------------------------------------
@@ -4770,7 +4817,7 @@ If Size >= Size_StoredChannel(Value) then
     Inc(Result,Ptr_Write_scs_value_localized(WorkPtr,Value.Value,Size - Result,True,True));
     If Advance then Destination := WorkPtr;
   end
-else raise Exception.CreateFmt('Ptr_Write_StoredChannel: Output buffer too small (got %d, expected %d).',[Size,Size_StoredChannel(Value)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_StoredChannel: Output buffer too small (got %d, expected %d).',[Size,Size_StoredChannel(Value)]);
 end;
 
 //------------------------------------------------------------------------------

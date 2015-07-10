@@ -205,7 +205,7 @@ constructor TSCSExm_TelemetryMem.Create(aRecipient: TTelemetryRecipient; const M
 begin
 inherited Create(aRecipient);
 If not Assigned(aRecipient) then
-  raise Exception.Create('TSCSExm_TelemetryMem.Create: Recipient is not assigned.');
+  raise ETLNilReference.Create('TSCSExm_TelemetryMem.Create: Recipient is not assigned.');
 {$WARN SYMBOL_PLATFORM OFF}
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
 {$WARN SYMBOL_PLATFORM ON}
@@ -226,7 +226,7 @@ else
     If aRecipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 then
       begin
         LogLine(SCS_LOG_TYPE_error,'Too old version of the game');
-        raise Exception.Create('TSCSExm_TelemetryMem.Create: Unsupported (too old) version of the game (' + SCSGetVersionAsString(aRecipient.GameVersion) + ').');
+        raise ETLUnsupportedGame.Create('TSCSExm_TelemetryMem.Create: Unsupported (too old) version of the game (' + SCSGetVersionAsString(aRecipient.GameVersion) + ').');
       end;
     If aRecipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 then
       LogLine(SCS_LOG_TYPE_warning,'This version of the game has less precise output of angular acceleration of the cabin');
@@ -238,12 +238,12 @@ If not (aRecipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
         aRecipient.EventRegister(SCS_TELEMETRY_EVENT_configuration)) then
   begin
     LogLine(SCS_LOG_TYPE_error,'Unable to register event callbacks');
-    raise Exception.Create('TSCSExm_TelemetryMem.Create: Events registration failed.');
+    raise ETLRegFailed.Create('TSCSExm_TelemetryMem.Create: Events registration failed.');
   end;
 If not InitializeSharedMemory then
   begin
     LogLine(SCS_LOG_TYPE_error,'Unable to initialize shared memory');
-    raise Exception.Create('TSCSExm_TelemetryMem.Create: Shared memory initialization failed.');
+    raise ETLInitFailed.Create('TSCSExm_TelemetryMem.Create: Shared memory initialization failed.');
   end;
 aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,            SCS_U32_NIL, SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.WSTruckPlacement));
 aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                      SCS_U32_NIL, SCS_VALUE_TYPE_float,     SCS_TELEMETRY_CHANNEL_FLAG_none, Addr(fSharedMemory^.SpeedometerSpeed));

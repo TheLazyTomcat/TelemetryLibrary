@@ -18,7 +18,7 @@
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).
 
-  Last change:  2015-06-25
+  Last change: 2015-06-25
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -64,6 +64,9 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
+  SysUtils,
+{$ENDIF} 
 {$IFDEF UseCondensedHeader}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -75,6 +78,19 @@ uses
 {$ENDIF}
 
 type
+  ETLException        = class(Exception);
+  ETLUnsupportedAPI   = class(ETLException);
+  ETLUnsupportedGame  = class(ETLException);
+  ETLIndexOfBounds    = class(ETLException);
+  ETLNilReference     = class(ETLException);
+  ETLInvalidReference = class(ETLException);
+  ETLUnknownData      = class(ETLException);
+  ETLBufferTooSmall   = class(ETLException);
+  ETLRegFailed        = class(ETLException);
+  ETLInitFailed       = class(ETLException);
+  ETLBadData          = class(ETLException);
+
+
 {$IFDEF Documentation}
   {$IFDEF IncludeMulticastEventHandlers}
   {:

@@ -18,7 +18,7 @@
   This unit contains routines used for conversions between selected
   non-localized SDK types and their no-pointer alternatives.
 
-  Last change:  2015-04-20
+  Last change: 2015-04-20
 
   Change List:@unorderedList(
     @item(2014-04-30 - First stable version.)

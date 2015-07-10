@@ -1,6 +1,6 @@
 {.$DEFINE DevelopmentHints}
 {.$DEFINE Documentation}
-{$DEFINE DocumentMulticastEvents}
+{.$DEFINE DocumentMulticastEvents}
 {.$DEFINE IncludeMulticastEventHandlers}
 {.$DEFINE UseCondensedHeader}
 {$DEFINE MulticastEvents}

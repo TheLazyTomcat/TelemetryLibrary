@@ -9,7 +9,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2015-06-29)
+@lastmod(2015-07-10)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
@@ -31,7 +31,7 @@
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change:  2015-06-29
+  Last change: 2015-07-10
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -177,7 +177,11 @@
     @item(2015-06-29 - Removed methods @code(TTelemetryRecipient.EventGetDataAsString)
                        and @code(TTelemetryRecipient.ChannelGetValueAsString).
                        Their replacements can now be found in TelemetyStrings
-                       unit (functions EventDataToStr and ChannelValueToStr).))
+                       unit (functions EventDataToStr and ChannelValueToStr).)
+    @item(2015-07-09 - Class of all exceptions changed to a proper internal
+                       class.)
+    @item(2015-07-09 - Added exceptions description into documentation.)
+    @item(2015-07-10 - Exceptions do not propagate from API callbacks anymore.))
 
 @html(<hr>)}
 unit TelemetryRecipient;
@@ -690,6 +694,11 @@ type
     @param GameID           Game identifier.
     @param GameVersion      Version of game.
     @param GameName         Name of the game (optional parameter).
+
+    @raises(ETLUnsupportedAPI  When telemetry version is not supported by this
+                               class or when preparation for it fails.)
+    @raises(ETLUnsupportedGame When game and/or its version is not supported by
+                               this class or when preparation for it fails.)
   }
     constructor Create(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t; GameName: TelemetryString = ''); overload;
   {:
@@ -709,6 +718,11 @@ type
                                   appropriate functions (called from this
                                   constructor) whether they can automatically
                                   register game events or not.)
+
+    @raises(ETLUnsupportedAPI  When telemetry version is not supported by this
+                               class or when preparation for it fails.)
+    @raises(ETLUnsupportedGame When game and/or its version is not supported by
+                               this class or when preparation for it fails.)
   }
     constructor Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t; AllowAutoRegistration: Boolean = True); overload;
   {:
@@ -1365,9 +1379,21 @@ They are implemented pretty much only as wrappers to recipient methods.
 // Procedure used as library callback to receive events.
 procedure EventReceiver(event: scs_event_t; event_info: Pointer; context: scs_context_t); stdcall;
 begin
-If Assigned(context) then
-  If Assigned(PEventContext(context)^.Recipient) then
-    TTelemetryRecipient(PEventContext(context)^.Recipient).EventHandler(event,event_info,PEventContext(context)^.UserData);
+try
+  If Assigned(context) then
+    If Assigned(PEventContext(context)^.Recipient) then
+      try
+        TTelemetryRecipient(PEventContext(context)^.Recipient).EventHandler(event,event_info,PEventContext(context)^.UserData);
+      except
+      {$IFDEF Debug}
+        on E: ETLException do
+          TTelemetryRecipient(PEventContext(context)^.Recipient).Log(SCS_LOG_TYPE_error,
+            Format('[Telemetry Library](ECB) Exception intercepted: "%s"',[E.Message]));
+      {$ENDIF}
+      end;
+except
+// Do nothing, throw intercepted exception away.
+end;
 end;
 
 //------------------------------------------------------------------------------
@@ -1375,10 +1401,22 @@ end;
 // Procedure used as library callback to receive channels.
 procedure ChannelReceiver(name: scs_string_t; index: scs_u32_t; value: p_scs_value_t; context: scs_context_t); stdcall;
 begin
-If Assigned(context) then
-  If Assigned(PChannelContext(context)^.Recipient) then
-    with PChannelContext(context)^ do
-      TTelemetryRecipient(Recipient).ChannelHandler(APIStringToTelemetryString(name),ChannelInfo.ID,index,value,PChannelContext(context)^.UserData);
+try
+  If Assigned(context) then
+    If Assigned(PChannelContext(context)^.Recipient) then
+      try
+        with PChannelContext(context)^ do
+          TTelemetryRecipient(Recipient).ChannelHandler(APIStringToTelemetryString(name),ChannelInfo.ID,index,value,PChannelContext(context)^.UserData);
+      except
+      {$IFDEF Debug}
+        on E: ETLException do
+          TTelemetryRecipient(PEventContext(context)^.Recipient).Log(SCS_LOG_TYPE_error,
+            Format('[Telemetry Library](CCB) Exception intercepted: "%s"',[E.Message]));
+      {$ENDIF}
+      end;
+except
+// Do nothing, throw intercepted exception away.
+end;  
 end;
 
 {==============================================================================}
@@ -1758,11 +1796,11 @@ fUserManaged := False;
 // Prepare support for selected game and telemetry versions.
 // Raise exception for unsupported telemetry/game.
 If not PrepareForTelemetryVersion(TelemetryVersion) then
-  raise Exception.CreateFmt('TTelemetryRecipient.Create: Telemetry version (%s) not supported',
-                            [SCSGetVersionAsString(TelemetryVersion)]);
+  raise ETLUnsupportedAPI.CreateFmt('TTelemetryRecipient.Create: Telemetry version (%s) not supported',
+                                    [SCSGetVersionAsString(TelemetryVersion)]);
 If not PrepareForGameVersion(GameName,GameID,GameVersion) then
-  raise Exception.CreateFmt('TTelemetryRecipient.Create: Game version (%s %s) not supported',
-                            [TelemetryStringDecode(GameID),SCSGetVersionAsString(GameVersion)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryRecipient.Create: Game version (%s %s) not supported',
+                                     [TelemetryStringDecode(GameID),SCSGetVersionAsString(GameVersion)]);
 // Create telemetry info provider (list of known event, channels, etc.).
 fInfoProvider := TTelemetryInfoProvider.Create(TelemetryVersion,GameID,GameVersion);
 // Fields initialization.
@@ -1783,13 +1821,13 @@ fUserManaged := False;
 // Prepare support for selected game and telemetry versions.
 // Raise exception for unsupported telemetry/game.
 If not PrepareForTelemetryVersion(TelemetryVersion) then
-  raise Exception.CreateFmt('TTelemetryRecipient.Create: Telemetry version (%s) not supported',
-                            [SCSGetVersionAsString(TelemetryVersion)]);
+  raise ETLUnsupportedAPI.CreateFmt('TTelemetryRecipient.Create: Telemetry version (%s) not supported',
+                                    [SCSGetVersionAsString(TelemetryVersion)]);
 If not PrepareForGameVersion(APIStringToTelemetryString(Parameters.common.game_name),
   APIStringToTelemetryString(Parameters.common.game_id),Parameters.common.game_version) then
-  raise Exception.CreateFmt('TTelemetryRecipient.Create: Game version (%s %s) not supported',
-                            [TelemetryStringDecode(APIStringToTelemetryString(Parameters.common.game_id)),
-                             SCSGetVersionAsString(Parameters.common.game_version)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryRecipient.Create: Game version (%s %s) not supported',
+                                     [TelemetryStringDecode(APIStringToTelemetryString(Parameters.common.game_id)),
+                                     SCSGetVersionAsString(Parameters.common.game_version)]);
 // Create telemetry info provider (list of known event, channels, etc.).
 fInfoProvider := TTelemetryInfoProvider.Create(TelemetryVersion,
                    APIStringToTelemetryString(Parameters.common.game_id),

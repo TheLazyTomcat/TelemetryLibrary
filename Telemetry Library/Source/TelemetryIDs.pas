@@ -20,7 +20,7 @@
   constants containing full configuration names, constants with IDs for
   individual configs and channel, as well as function used to obtain those IDs.
 
-  Last change:  2015-04-20
+  Last change: 2015-04-20
 
   Change List:@unorderedList(
     @item(2014-04-15 - First stable version.)

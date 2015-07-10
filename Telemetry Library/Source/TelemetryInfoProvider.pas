@@ -9,7 +9,7 @@
 @abstract(Information provider class (known telemetry events, channels, etc.).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2015-06-28)
+@lastmod(2015-07-09)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
@@ -18,7 +18,7 @@
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
 
-  Last change:  2015-06-28
+  Last change: 2015-07-09
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -57,7 +57,10 @@
                        this type in one of its parameters are now both marked as
                        deprecated.)
     @item(2015-06-28 - Removed file inclusion, all content moved directly into
-                       this unit.))
+                       this unit.)
+    @item(2015-07-09 - Class of all exceptions changed to a proper internal
+                       class.)
+    @item(2015-07-09 - Added exceptions description into documentation.))
 
   ToDo:@unorderedList(
   @item(Add capability for loading information from file (text, ini, resources).))    
@@ -193,6 +196,11 @@ type
     @param TelemetryVersion Version of telemetry.
     @param GameID           Game identifier.
     @param GameVersion      Version of game.
+
+    @raises(ETLUnsupportedAPI  When telemetry version is not supported by this
+                               class or when preparation for it fails.)
+    @raises(ETLUnsupportedGame When game and/or its version is not supported by
+                               this class or when preparation for it fails.)
   }
     constructor Create(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t); overload;
   {:
@@ -668,11 +676,11 @@ fUserManaged := False;
 // Prepare for required telemetry/game version, raise exception on unsupported
 // versions.
 If not PrepareForTelemetryVersion(TelemetryVersion) then
-  raise Exception.CreateFmt('TTelemetryInfoProvider.Create: Telemetry version (%s) is not supported.',
-                            [SCSGetVersionAsString(TelemetryVersion)]);
+  raise ETLUnsupportedAPI.CreateFmt('TTelemetryInfoProvider.Create: Telemetry version (%s) is not supported.',
+                                    [SCSGetVersionAsString(TelemetryVersion)]);
 If not PrepareForGameVersion('',GameID,GameVersion) then
-  raise Exception.CreateFmt('TTelemetryInfoProvider.Create: Game version (%s %s) is not supported.',
-                            [TelemetryStringDecode(GameID),SCSGetVersionAsString(GameVersion)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryInfoProvider.Create: Game version (%s %s) is not supported.',
+                                     [TelemetryStringDecode(GameID),SCSGetVersionAsString(GameVersion)]);
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---

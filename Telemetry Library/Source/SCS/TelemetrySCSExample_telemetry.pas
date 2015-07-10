@@ -122,7 +122,7 @@ constructor TSCSExm_Telemetry.Create(aRecipient: TTelemetryRecipient; const LogF
 begin
 inherited Create(aRecipient);
 If not Assigned(aRecipient) then
-  raise Exception.Create('TSCSExm_Telemetry.Create: Recipient is not assigned.');
+  raise ETLNilReference.Create('TSCSExm_Telemetry.Create: Recipient is not assigned.');
 {$WARN SYMBOL_PLATFORM OFF}
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
 {$WARN SYMBOL_PLATFORM ON}
@@ -135,7 +135,7 @@ fLog := TSimpleLog.Create;
 If not InitLog then
   begin
     aRecipient.Log(SCS_LOG_TYPE_error,'Unable to initialize the log file');
-    raise Exception.Create('TSCSExm_Telemetry.Create: Log initialization failed.');
+    raise ETLInitFailed.Create('TSCSExm_Telemetry.Create: Log initialization failed.');
   end;
 fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' '
                             + IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.'
@@ -157,7 +157,7 @@ If not (aRecipient.EventRegister(SCS_TELEMETRY_EVENT_frame_start) and
         aRecipient.EventRegister(SCS_TELEMETRY_EVENT_started)) then
   begin
     aRecipient.Log(SCS_LOG_TYPE_error,'Unable to register event callbacks');
-    raise Exception.Create('TSCSExm_Telemetry.Create: Events registration failed.');
+    raise ETLRegFailed.Create('TSCSExm_Telemetry.Create: Events registration failed.');
   end;
 aRecipient.EventRegister(SCS_TELEMETRY_EVENT_configuration);
 aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_euler,SCS_TELEMETRY_CHANNEL_FLAG_no_value);

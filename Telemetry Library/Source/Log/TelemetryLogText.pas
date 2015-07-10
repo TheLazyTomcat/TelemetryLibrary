@@ -18,7 +18,7 @@
   This unit contains TTelemetryLogText class (see class declaration for
   details).
 
-  Last change:  2015-06-30
+  Last change: 2015-06-30
 
   Change List:@unorderedList(
     @item(2014-05-18 - First stable version.)
