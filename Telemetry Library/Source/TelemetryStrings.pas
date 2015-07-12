@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Unit providing routines operating on @code(TelemetryString) type and
+@abstract(Provides routines operating on @code(TelemetryString) type and
           routines converting selected binary types to text.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)

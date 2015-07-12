@@ -78,16 +78,62 @@ uses
 {$ENDIF}
 
 type
+{:
+  @abstract(Common ancestor for all exception classes in the library.)
+
+  Can be raised on error that does not fit any of the specific descendant
+  exception classes. All exceptions raised in the Telemetry library are of this
+  class or one of its descendant.
+
+  Note - exception of other class can be raised within any call, simply because
+         it is using RTL functions and other libraries that are not actual part
+         of Telemetry library.
+}
   ETLException        = class(Exception);
+{:
+  Raised when there is a need to operate on telemetry API but its version is not
+  supported.
+}
   ETLUnsupportedAPI   = class(ETLException);
+{:
+  Raised when there is need to operate on telemetry provided by a game that is
+  not supported.
+}
   ETLUnsupportedGame  = class(ETLException);
+{:
+  Raised when passed index is out of allowed boundary (arrays, lists, ...).
+}
   ETLIndexOfBounds    = class(ETLException);
+{:
+  Raised when a nil reference (pointer or object) is passed to where a valid
+  reference is required.  
+}
   ETLNilReference     = class(ETLException);
+{:
+  Raised when passed reference is of wrong type or class, or is generally
+  invalid.
+}
   ETLInvalidReference = class(ETLException);
+{:
+  Raised when code needs to work with some data but they are of unknown type or
+  structure.
+}
   ETLUnknownData      = class(ETLException);
+{:
+  Raised when a memory block or file is smaler than necessary.
+}
   ETLBufferTooSmall   = class(ETLException);
+{:
+  Raised when registration of telemetry event or channel fails.
+}
   ETLRegFailed        = class(ETLException);
+{:
+  Raised when an initialization of some part of the code fails.
+}
   ETLInitFailed       = class(ETLException);
+{:
+  Raised when data the library works with are in some way corrupted or invalid.
+}
   ETLBadData          = class(ETLException);
 
 

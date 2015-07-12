@@ -152,6 +152,11 @@ x64
   Must be defined for compilation into 64bit target. 32bit target inferred when
   not defined.
 
+FPC
+
+  Must be defined when the code is compiled in FPC/Lazarus. Delphi compiler is
+  inferred when not defined.
+
 Debug
 
   Define for debugging builds. Release is inferred when not defined.

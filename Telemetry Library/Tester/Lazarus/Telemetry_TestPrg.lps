@@ -9,8 +9,7 @@
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="29"/>
-        <CursorPos X="61" Y="46"/>
+        <CursorPos X="5" Y="5"/>
         <UsageCount Value="206"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -182,11 +181,10 @@
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryRecipient"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1309"/>
         <CursorPos X="73" Y="1312"/>
         <UsageCount Value="206"/>
-        <Loaded Value="True"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\Source\TelemetryRecipientBinder.pas"/>
@@ -202,7 +200,6 @@
       <Unit26>
         <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryStreaming"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1108"/>
         <CursorPos X="35" Y="1147"/>
@@ -245,7 +242,6 @@
       <Unit32>
         <Filename Value="..\..\Source\Log\TelemetryLogBinary.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryLogBinary"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1214"/>
         <CursorPos X="108" Y="46"/>
@@ -255,7 +251,7 @@
         <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TelemetryLogBinaryParser"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <CursorPos X="32" Y="119"/>
         <UsageCount Value="205"/>
@@ -263,7 +259,6 @@
           <Item0 X="53" Y="1262" ID="1"/>
           <Item1 X="10" Y="1353" ID="2"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\Source\Log\TelemetryLogText.pas"/>
@@ -278,10 +273,9 @@
       </Unit34>
       <Unit35>
         <Filename Value="..\..\Source\Telemetry_defs.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="2" Y="5"/>
         <UsageCount Value="103"/>
-        <Loaded Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\Source\Inc\TelemetryRecipient_MulticastEvents.pas"/>
@@ -292,7 +286,6 @@
       </Unit36>
       <Unit37>
         <Filename Value="..\..\Source\Inc\TelemetryMulticastEvents.pas"/>
-        <UnitName Value="TelemetryMulticastEvents"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="40" Y="7"/>
         <UsageCount Value="19"/>
@@ -306,7 +299,6 @@
       </Unit38>
       <Unit39>
         <Filename Value="..\..\Source\Log\Inc\TelemetryLogBinaryParser_MulticastEvents.pas"/>
-        <UnitName Value="TelemetryLogBinaryParser_MulticastEvents"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="941"/>
         <CursorPos X="18" Y="965"/>
@@ -322,124 +314,7 @@
       <Define5 Value="x64"/>
       <Define6 Value="PurePascal"/>
     </CustomDefines>
-    <JumpHistory Count="29" HistoryIndex="28">
-      <Position1>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1262" TopLine="1248"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1345" Column="55" TopLine="1325"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1264" TopLine="1247"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1362" Column="10" TopLine="1350"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1266" TopLine="1246"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1351" Column="55" TopLine="1343"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1262" TopLine="1246"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1348" Column="55" TopLine="1343"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1264" TopLine="1246"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1351" Column="55" TopLine="1343"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1266" TopLine="1246"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1354" Column="55" TopLine="1343"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1262" TopLine="1246"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1351" Column="55" TopLine="1337"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1264" TopLine="1246"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1354" Column="55" TopLine="1335"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1267" Column="2" TopLine="1255"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1358" Column="65" TopLine="1344"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1262" TopLine="1247"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1354" Column="32" TopLine="1346"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1264" TopLine="1246"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1357" Column="58" TopLine="1347"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1260" Column="41" TopLine="1246"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="64" Column="34" TopLine="106"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
-        <Caret Line="191" TopLine="241"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="69" Column="42" TopLine="1254"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1262" Column="53" TopLine="1152"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="1369" Column="32" TopLine="1360"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
-        <Caret Line="119" Column="32" TopLine="106"/>
-      </Position29>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <Watches Count="2">
