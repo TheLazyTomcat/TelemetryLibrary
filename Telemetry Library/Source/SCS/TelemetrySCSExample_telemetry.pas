@@ -5,7 +5,27 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-//:todo: documentation
+{:@html(<hr>)
+@abstract(Reimplementation of telemetry example distributed with the SDK.)
+@author(František Milt <fmilt@seznam.cz>)
+@created(2015-07-12)
+@lastmod(2015-07-12)
+
+  @bold(@NoAutoLink(TelemetrySCSExample_telemetry))
+
+  ©2013-2015 František Milt, all rights reserved.
+
+  This unit contains a class that is designed to imitate behavior of original
+  @italic(telemetry) example distributed with the Telemetry SDK. Output log file
+  created by this reimplementation should be exactly the same as is produced by
+  the original C++ implementation.
+
+  Last change: 2015-07-12
+
+  Change List:@unorderedList(
+    @item(2015-07-12 - First documentation added.))
+
+@html(<hr>)}
 unit TelemetrySCSExample_telemetry;
 
 interface
@@ -35,9 +55,35 @@ uses
 {$ENDIF}
 
 const
+  //:Default name of the file used for log output in TSCSExm_Telemetry class.
   def_LogFileName = 'telemetry.log';
 
 type
+{:
+  Structure used to hold data produced by the telemetry API in TSCSExm_Telemetry
+  class.
+
+  @member Timestamp                     Frame @noAutoLink(timestamp).
+  @member RawRenderingTimestamp         Time controlling the visualization.
+  @member(RawSimulationTimestamp        Time controlling the physical
+                                        simulation.)
+  @member(RawPausedSimulationTimestamp  Similar to simulation time however it
+                                        stops when the physics simulation is
+                                        paused.)
+  @member(OrientationAvailable          @True when orientation fields (Heading,
+                                        Pitch, Roll) contains valid data, @false
+                                        otherwise.)
+  @member(Heading                       @noAutoLink(Heading) (horizontal
+                                        direction) of the vehicle in degrees (0
+                                        = north, 90 = west, ...).)
+  @member(Pitch                         @noAutoLink(Pitch) of the vehicle in
+                                        degrees (90 = up, -90 = down).)
+  @member(Roll                          @noAutoLink(Roll) of the vehicle in
+                                        degrees (-180 -- +180).)
+  @member Speed                         @noAutoLink(Speed) of the vehicle in m/s.
+  @member RPM                           Engine revolutions per minute.
+  @member Gear                          Actual @noAutoLink(gear) engaged.
+}
   TSCSExm_TelemetryState = record
     Timestamp:                    scs_timestamp_t;
     RawRenderingTimestamp:        scs_timestamp_t;
@@ -54,29 +100,252 @@ type
 
 {==============================================================================}
 {   TSCSExm_Telemetry // Class declaration                                     }
-{==============================================================================}  
+{==============================================================================}
+{:
+  @abstract(Class designed to imitate behavior of @italic(telemetry) example
+  distributed with the Telemetry SDK.)
+  It writes data to a textual log file whe same way as mentioned example, so
+  parsers intended to read such log should have no problem reading log produced
+  by this class.@br
+  Note that there may be slight behavioral differences as a consequence of use
+  of different language and programming style (object instead of functions), but
+  they should not pose any problem.
+
+  It writes complete configurations data when they are received and also
+  following values on per-frame basis:
+  @unorderedList(
+    @item(Timestamp [@html(&#181)s])
+    @item(Raw rendering timestamp [@html(&#181)s])
+    @item(Raw simulation timestamp [@html(&#181)s])
+    @item(Raw paused simulation timestamp [@html(&#181)s])
+    @item(Vehicle heading [degrees])
+    @item(Vehicle pitch [degrees])
+    @item(Vehicle roll [degrees])
+    @item(Speed of the vehicle [m/s])
+    @item(Engine revolutions [min@html(<sup>-1</sup>)])
+    @item(Engaged gead)
+  )
+
+  Resulting file can then look like this (@code(<...>) means a part of the text
+  is removed):
+  @preformatted(
+  Log opened
+  Game 'eut2' 1.12
+
+  <...>
+
+  Configuration: truck
+    brand_id : string = volvo
+    brand : string = Volvo
+    id : string = vehicle.volvo.fh16_2012
+    name : string = FH
+    fuel.capacity : float = 800.000000
+    adblue.capacity : float = 80.000000
+    rpm.limit : float = 2500.000000
+    gears.forward : u32 = 12
+    gears.reverse : u32 = 1
+    differential.ratio : float = 3.080000
+    retarder.steps : u32 = 3
+    forward.ratio[0] : float = 11.730000
+    forward.ratio[1] : float = 9.210000
+    forward.ratio[2] : float = 7.090000
+    forward.ratio[3] : float = 5.570000
+    forward.ratio[4] : float = 4.350000
+    forward.ratio[5] : float = 3.410000
+    forward.ratio[6] : float = 2.700000
+    forward.ratio[7] : float = 2.120000
+    forward.ratio[8] : float = 1.630000
+    forward.ratio[9] : float = 1.280000
+    forward.ratio[10] : float = 1.000000
+    forward.ratio[11] : float = 0.780000
+    reverse.ratio[0] : float = -10.780000
+    cabin.position : fvector = (0.000000,1.288755,-1.445675)
+    head.position : fvector = (-0.717515,1.403714,-0.448380)
+    hook.position : fvector = (0.000000,1.000000,1.504521)
+    fuel.warning.factor : float = 0.150000
+    adblue.warning.factor : float = 0.150000
+    brake.air.pressure.warning : float = 65.000000
+    brake.air.pressure.emergency : float = 30.000000
+    oil.pressure.warning : float = 10.000000
+    water.temperature.warning : float = 105.000000
+    battery.voltage.warning : float = 22.000000
+    wheels.count : u32 = 6
+    wheel.position[0] : fvector = (-1.088030,0.501832,-1.757469)
+    wheel.steerable[0] : bool = True
+    wheel.simulated[0] : bool = True
+    wheel.radius[0] : float = 0.512435
+    wheel.powered[0] : bool = False
+    wheel.position[1] : fvector = (1.088030,0.501832,-1.757469)
+    wheel.steerable[1] : bool = True
+    wheel.simulated[1] : bool = True
+    wheel.radius[1] : float = 0.512435
+    wheel.powered[1] : bool = False
+    wheel.position[2] : fvector = (-0.951700,0.501832,2.504161)
+    wheel.steerable[2] : bool = False
+    wheel.simulated[2] : bool = True
+    wheel.radius[2] : float = 0.512435
+    wheel.powered[2] : bool = True
+    wheel.position[3] : fvector = (0.951700,0.501832,2.504161)
+    wheel.steerable[3] : bool = False
+    wheel.simulated[3] : bool = True
+    wheel.radius[3] : float = 0.512435
+    wheel.powered[3] : bool = True
+    wheel.position[4] : fvector = (-0.951700,0.501832,1.184254)
+    wheel.steerable[4] : bool = False
+    wheel.simulated[4] : bool = True
+    wheel.radius[4] : float = 0.512435
+    wheel.powered[4] : bool = True
+    wheel.position[5] : fvector = (0.951700,0.501832,1.184254)
+    wheel.steerable[5] : bool = False
+    wheel.simulated[5] : bool = True
+    wheel.radius[5] : float = 0.512435
+    wheel.powered[5] : bool = True
+  Configuration: trailer
+  Telemetry unpaused
+  timestamp[us];raw rendering timestamp[us];raw simulation timestamp[us];raw paused simulation timestamp[us];<...>
+  16666;4130731;4149834;16666;23.735498;-0.012581;0.000137;0.000000;0.000000;0
+  33332;4130731;4166500;33332;23.735533;-0.010737;0.000205;0.000053;0.000000;0
+  49998;4130731;4183166;49998;23.735512;0.074886;0.000382;0.001186;0.000000;0
+  66664;4130731;4199832;66664;23.735493;0.137273;0.000451;0.001307;0.000000;0
+  83330;4130731;4216498;83330;23.735472;0.188103;0.000437;0.000425;0.000000;0
+  99996;4130731;4233164;99996;23.735458;0.226516;0.000328;-0.000958;0.000000;0
+
+  <...>
+
+  14682746;18766034;18815914;14682746;333.018005;-0.048385;-0.038235;7.095694;1073.287476;7
+  14699412;18766034;18832580;14699412;333.103394;-0.048453;-0.035927;7.079689;1070.869019;7
+  Telemetry paused
+  Telemetry unpaused
+  timestamp[us];raw rendering timestamp[us];raw simulation timestamp[us];raw paused simulation timestamp[us];<...>
+  14716078;21770552;21799128;14716078;333.188049;-0.048453;-0.034479;7.063697;1068.457886;7
+
+  <...>
+
+  19115902;26140004;26198952;19115902;36.438198;-0.054396;-0.056363;8.529539;1289.598755;7
+  Telemetry paused
+  Log ended)
+}
   TSCSExm_Telemetry = class(TTelemetryRecipientBinder)
   private
+  {:
+    Holds format settings used when converting floating point values to text.
+  }
     fFormatSettings:  TFormatSettings;
+  {:
+    Object doing actual write into the output file.@br
+    Managed internally.
+  }
     fLog:             TSimpleLog;
+  {:
+    Name of the output log file.
+  }
     fLogFileName:     String;
+  {:
+    When @True, output is paused and nothing is written to it (eg. when game is
+    paused).
+  }
     fOutputPaused:    Boolean;
+  {:
+    When @True, a header should be written into the output in next
+    @code(SCS_TELEMETRY_EVENT_frame_end) event.
+  }
     fPrintHeader:     Boolean;
+  {:
+    Timestamp of the last frame (@code(SCS_TELEMETRY_EVENT_frame_start) event).@br
+    Initialized to -1. 
+  }
     fLastTimestamp:   scs_timestamp_t;
+  {:
+    Structure holding data obtained from the telemetry.
+  }
     fTelemetry:       TSCSExm_TelemetryState;
   protected
+  {:
+    Initialializes log.@br
+    Called at the class instantiation.
+
+    @returns @True when the log was initialized sucessfully, @false otherwise.
+  }
     Function InitLog: Boolean; virtual;
+  {:
+    Finalizes log.@br
+    Called on object destruction.
+  }
     procedure FinishLog; virtual;
   public
+  {:
+    Class constructor.
+
+    Manages everything what is necesary at the start of logging (clears fields,
+    initializes log, registers events and channels, creates internal objects,
+    ...).@br
+    @code(aRecipient) parameter must assigned, otherwise an exception is raised.
+    @code(LogFileName) must not be empty.
+
+    @param(aRecipient  Must contain valid reference to a TTelemetryRecipient
+                       instance.)
+    @param(LogFileName Name of the output log file. File is stored in the same
+                       folder where a module containing this code is placed.)
+
+    @raises ETLNilReference When @code(aRecipient) is not assigned.
+    @raises(ETLInitFailed   When log initialization fails (when method InitLog
+                            returns @false).)
+    @raises(ETLRegFailed    When registration of any of the following telemetry
+                            events fails:
+    @preformatted(
+    SCS_TELEMETRY_EVENT_frame_start
+    SCS_TELEMETRY_EVENT_frame_end
+    SCS_TELEMETRY_EVENT_paused
+    SCS_TELEMETRY_EVENT_started))
+  }
     constructor Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
+  {:
+    Class destructor.@br
+
+    Frees all internal objects and other used resources.
+  }
     destructor Destroy; override;
+  {:
+    Does nothing in this implementation.@br
+    For details see @inherited.
+  }
     procedure LogHandler(Sender: TObject; {%H-}LogType: scs_log_type_t; const {%H-}LogText: String); override;
+  {:
+    Does nothing in this implementation.@br
+    For details see @inherited.
+  }
     procedure EventRegisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+  {:
+    Does nothing in this implementation.@br
+    For details see @inherited.
+  }
     procedure EventUnregisterHandler(Sender: TObject; {%H-}Event: scs_event_t; {%H-}UserData: Pointer); override;
+  {:
+    Processes all events passed from the API. All writing to the output log is
+    done inside this method. For details see method implementation.@br
+    For details on parameters, see @inherited.
+  }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
+  {:
+    Does nothing in this implementation.@br
+    For details see @inherited.
+  }
     procedure ChannelRegisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}Flags: scs_u32_t; {%H-}UserData: Pointer); override;
+  {:
+    Does nothing in this implementation.@br
+    For details see @inherited.
+  }
     procedure ChannelUnregisterHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TChannelID; {%H-}Index: scs_u32_t; {%H-}ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
+  {:
+    Processes all channels passed from the API. Stores channel value to
+    appropriate field (see fTelemetry field) for further processing.@br
+    For details on parameters, see @inherited.
+  }
     procedure ChannelHandler(Sender: TObject; const {%H-}Name: TelemetryString; ID: TChannelID; {%H-}Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;
+  {:
+    Does nothing in this implementation.@br
+    For details see @inherited.
+  }    
     procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
   end;
 

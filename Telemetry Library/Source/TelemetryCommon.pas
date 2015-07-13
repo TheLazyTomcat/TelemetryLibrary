@@ -9,16 +9,29 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-06-25)
+@lastmod(2015-07-12)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
   ©2013-2015 František Milt, all rights reserved.
 
   This file is intended to provide types, constants, routines, etc. used
-  throughout the Telemetry library (that is, in more than one unit).
-
-  Last change: 2015-06-25
+  throughout the Telemetry library (that is, in more than one unit). It also
+  declares internal exception classes, specifically:
+@preformatted(
+  ETLException
+   |- ETLUnsupportedAPI
+   |- ETLUnsupportedGame
+   |- ETLIndexOfBounds
+   |- ETLNilReference
+   |- ETLInvalidReference
+   |- ETLUnknownData
+   |- ETLBufferTooSmall
+   |- ETLRegFailed
+   |- ETLInitFailed
+   |- ETLBadData
+)
+  Last change: 2015-07-12
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -54,7 +67,9 @@
                          @item(@code(EmptySCSValue) renamed to scs_value_empty)
                          @item(@code(EmptySCSValueLocalized) renamed to
                                scs_value_localized_empty)))
-    @item(2015-06-29 - Returned TMulticastEvent placeholder.))
+    @item(2015-06-29 - Returned TMulticastEvent placeholder.)
+    @item(2015-07-10 - Added declaration of internal exception classes.)
+    @item(2015-07-12 - Added documentation for exception classes.))
 
 @html(<hr>)}
 unit TelemetryCommon;
