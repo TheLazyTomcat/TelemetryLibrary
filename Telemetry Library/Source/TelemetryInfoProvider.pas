@@ -9,7 +9,7 @@
 @abstract(Information provider class (known telemetry events, channels, etc.).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2015-07-09)
+@lastmod(2015-07-14)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
@@ -18,7 +18,7 @@
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
 
-  Last change: 2015-07-09
+  Last change: 2015-07-14
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -60,7 +60,11 @@
                        this unit.)
     @item(2015-07-09 - Class of all exceptions changed to a proper internal
                        class.)
-    @item(2015-07-09 - Added exceptions description into documentation.))
+    @item(2015-07-09 - Added exceptions description into documentation.)
+    @item(2015-07-14 - Attribute @code(id) in configuration @code(substances)
+                       is now indexed.)
+    @item(2015-07-14 - Added constants def_ChannelWheelCount and
+                       def_ChannelSelectorCount.))
 
   ToDo:@unorderedList(
   @item(Add capability for loading information from file (text, ini, resources).))    
@@ -98,6 +102,14 @@ uses
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
+const
+  //:@abstract(Default number of wheels for appropriate indexed channels.)
+  //:Used to be 8 in the past.
+  def_ChannelWheelCount = 14;
+  //:Defualt number of selectors for indexed channel
+  //:@code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector).
+  def_ChannelSelectorCount = 2;
+
 type
 {: @deprecated
   Used to distinguish which value type should method
@@ -107,7 +119,7 @@ type
                        u32, ...).)
   @value(cvtpTertiary  Third type (e.g. euler for [f/d]placement).)
 }
-  TChannelValueTypePriority = (cvtpPrimary, cvtpSecondary, cvtpTertiary){$IFDEF FPC}deprecated{$ENDIF}; 
+  TChannelValueTypePriority = (cvtpPrimary, cvtpSecondary, cvtpTertiary){$IFDEF FPC}deprecated{$ENDIF};
 
 {==============================================================================}
 {   TTelemetryInfoProvider // Class declaration                                }
@@ -446,12 +458,12 @@ with fKnownChannels do
     // Damage
     Add(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis,               SCS_VALUE_TYPE_float,      False);
     // Wheels
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection,      SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance,            SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection,      SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance,            SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
 
     //--- Truck specific -------------------------------------------------------
     // Movement
@@ -480,7 +492,7 @@ with fKnownChannels do
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control,               SCS_VALUE_TYPE_float,      False);
     // Gearbox
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot,                SCS_VALUE_TYPE_u32,        False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,def_ChannelSelectorCount - 2);
     // Brakes
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake,                SCS_VALUE_TYPE_bool,       False);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake,                  SCS_VALUE_TYPE_bool,       False);
@@ -529,12 +541,12 @@ with fKnownChannels do
     // Odometer
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_odometer,                     SCS_VALUE_TYPE_float,      False);
     // Wheels
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,        SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground,              SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance,              SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,        SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground,              SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance,              SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
   end;
 
 //=== Adding Configs ===========================================================
@@ -542,7 +554,7 @@ with fKnownChannels do
 
 with fKnownConfigs do
   begin
-    Add(SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id,                   SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id,                   SCS_VALUE_TYPE_string,  True);
     Add(SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type,           SCS_VALUE_TYPE_string,  False);
     Add(SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,         SCS_VALUE_TYPE_u32,     False, True);
     Add(SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear,              SCS_VALUE_TYPE_s32,     True);

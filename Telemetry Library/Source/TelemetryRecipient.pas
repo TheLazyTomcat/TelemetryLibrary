@@ -9,7 +9,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2015-07-10)
+@lastmod(2015-07-14)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
@@ -31,7 +31,7 @@
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change: 2015-07-10
+  Last change: 2015-07-14
 
   Change List:@unorderedList(
     @item(2013-10-07 - First stable version.)
@@ -181,7 +181,8 @@
     @item(2015-07-09 - Class of all exceptions changed to a proper internal
                        class.)
     @item(2015-07-09 - Added exceptions description into documentation.)
-    @item(2015-07-10 - Exceptions do not propagate from API callbacks anymore.))
+    @item(2015-07-10 - Exceptions do not propagate from API callbacks anymore.)
+    @item(2015-07-14 - Simplified automated registration of indexed channels.))
 
 @html(<hr>)}
 unit TelemetryRecipient;
@@ -228,8 +229,12 @@ uses
 {==============================================================================}
 
 const
-  //:Maximum allowed channel index, see TTelemetryRecipient.ChannelRegisterAll
-  //:method for details.
+{:
+  @abstract(Maximum allowed channel index.)
+  This number is used when registering indexed channel where the channel does
+  not have default maximum index value, value of the config containing count is
+  not known or the channel is not binded to any config.
+}
 {$IFDEF SmallMaxChannelIndex}
   MaxChannelIndex = 13;
 {$ELSE}
@@ -311,7 +316,7 @@ type
     @item((Un)Registration methods check whether requested item is already
           registered or not before actual (un)registration))
 
-  User-manager mode (created using no-parameter constructor):@unorderedList(
+  User-managed mode (created using no-parameter constructor):@unorderedList(
     @itemSpacing(Compact)
     @item(TelemetryInfoProvider is created as user-managed)
     @item(No telemetry or game version-specific preparations are performed)
@@ -323,15 +328,17 @@ type
           is NOT automatically registered in constructor)
     @item(AllowAutoRegistration property is set to @false (value of this
           property can be changed later))
-    @item((Un)Registration methods does NOT check whether requested item is already
-          registered or not before actual (un)registration))
+    @item((Un)Registration methods do NOT check whether requested item is
+          already registered or not before actual (un)registration))
 
     Following methods: @preformatted(
     HighestSupportedTelemetryVersion
+    HighestSupportedGameVersion
     SupportsTelemetryVersion
     SupportsTelemetryMajorVersion
     SupportsGameVersion
-    SupportsTelemetryAndGameVersion)
+    SupportsTelemetryAndGameVersion
+    SupportsTelemetryAndGameVersionParam)
     ...can and actually must be called directly on class.
     They should be used to check whether both this class and
     TTelemetryInfoProvider class supports required telemetry and game version
@@ -554,8 +561,9 @@ type
     stored in StoredConfigs list (StoreConfigurations must be @true).
     OnConfig event is called for every extracted config (after it is stored /
     its stored value changed).@br
-    When ManageIndexedChannels is set to @true, then indexed channels are too
-    managed in this method (refer to source code for details).
+    When ManageIndexedChannels is set to @true, then indexed channels are
+    automatically (un)registered in this method (refer to source code for
+    details).
 
     @param Data Structure holding actual configuration data.
   }
@@ -1008,7 +1016,7 @@ type
     only channels with index set to SCS_U32_NIL are registered. When
     ManageIndexedChannels property is set to @true, then top index for indexed
     channel registration is taken from appropriate stored configuration value
-    (if such exixts).@br
+    (if such exists).@br
 
     @param RegPrimaryTypes          Register primary value type.
     @param(SecondarySelectionMask   Bitmask denoting what secondary value types
@@ -1137,17 +1145,22 @@ type
     index-binded to some configuration is automatically managed.@br
     Affected methods:
     @unorderedList(
-    @item(ChannelRegisterAll - binded channels are registered up to index
-      (count - 1) stored in appropriate config. If such config is not stored,
-      they are registered in the same way as not binded channels.)
+    @item(ChannelRegisterAll - indexed channels are registered up to index
+      (count - 1) stored in config a channel is binded to. If such config is not
+      stored or channel is not binded to any config, then indices are taken from
+      one of default values (@link(TKnownChannel.MaxIndex per-channel value) or
+      constant MaxChannelIndex).)
     @item(ProcessConfigurationEvent - when binded config is parsed, all
       registered channels are scanned and those binded to this config are
-      proccessed in following way:@br
-        New config value is greater than old value: channels with indices
-          above new config value are unregistered.@br
-        New config value is smaller than old value: when channels with all
-          indices from old config value are registered, then new channels with
-          indices up to the new value are registered.@br
+      proccessed in the following way:@unorderedList(
+        @itemSpacing(Compact)
+        @item(Channels with index above or equal to value stored in the config
+              are unregistered.)
+        @item(All channels with indices below value from the config are
+              registered, but only if they are not already.))
+      For example, when channels with indices 0 and 2 are registred, and binded
+      config is received containing 2, then channel with index 2 is unregistered
+      and channel with index 1 is regitered.@br
       Property AllowAutoRegistration must be also @true for this feature to work
       in this method))
     Initialized to @false.
@@ -1510,40 +1523,17 @@ var
   procedure ManageBindedChannels(ConfigID: TConfigID; NewMaxIndex: scs_u32_t);
   var
     i,j:          Integer;
-
-    // New channels can be registered only if all old indexes were used (i.e.
-    // all channels for given index were registered, and number of them was
-    // greater than zero).
-    Function CanRegisterNew(ChannelID: TChannelID): Boolean;
-    var
-      ii:           Integer;
-      OldMaxIndex:  scs_u32_t;
-      Counter:      LongWord;
-    begin
-      OldMaxIndex := 0;
-      Counter := 0;
-      ii := fStoredConfigs.IndexOf(ConfigID);
-      If ii >= 0 then
-        If fStoredConfigs[ii].Value.ValueType = SCS_VALUE_TYPE_u32 then
-          OldMaxIndex := fStoredConfigs[ii].Value.BinaryData.value_u32.value - 1;
-      For ii := 0 to OldMaxIndex do
-        If fRegisteredChannels.IndexOf(ChannelID,ii) >= 0 then Inc(Counter);
-      Result := Counter > OldMaxIndex;
-    end;
-
   begin
     // Unregister all channels above current max index.
     For i := (fRegisteredChannels.Count - 1) downto 0 do
       If fRegisteredChannels[i].IndexConfigID = ConfigID then
-        If fRegisteredChannels[i].Index > NewMaxIndex then
-          ChannelUnregister(fRegisteredChannels[i].Name,fRegisteredChannels[i].Index,fRegisteredChannels[i].ValueType);
+        If fRegisteredChannels[i].Index > NewMaxIndex then ChannelUnregisterIndex(i);
     // Register new channels up to current max index.      
     For i := 0 to (fInfoProvider.KnownChannels.Count - 1) do
       If fInfoProvider.KnownChannels[i].IndexConfigID = ConfigID then
-        If CanRegisterNew(fInfoProvider.KnownChannels[i].ID) then
-          For j := 0 to NewMaxIndex do
-            If not ChannelRegistered(fInfoProvider.KnownChannels[i].Name,j,fInfoProvider.KnownChannels[i].PrimaryType) then
-              ChannelRegister(fInfoProvider.KnownChannels[i].Name,j,fInfoProvider.KnownChannels[i].PrimaryType,SCS_TELEMETRY_CHANNEL_FLAG_none);
+        For j := 0 to NewMaxIndex do
+          If not ChannelRegistered(fInfoProvider.KnownChannels[i].Name,j,fInfoProvider.KnownChannels[i].PrimaryType) then
+            ChannelRegister(fInfoProvider.KnownChannels[i].Name,j,fInfoProvider.KnownChannels[i].PrimaryType,SCS_TELEMETRY_CHANNEL_FLAG_none);
   end;
 
 begin

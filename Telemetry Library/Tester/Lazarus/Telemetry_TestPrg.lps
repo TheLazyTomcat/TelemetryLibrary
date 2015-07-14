@@ -180,7 +180,6 @@
       <Unit24>
         <Filename Value="..\..\Source\TelemetryRecipient.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryRecipient"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1309"/>
         <CursorPos X="73" Y="1312"/>
@@ -250,7 +249,6 @@
       <Unit33>
         <Filename Value="..\..\Source\Log\TelemetryLogBinaryParser.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetryLogBinaryParser"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <CursorPos X="32" Y="119"/>
