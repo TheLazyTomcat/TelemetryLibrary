@@ -69,7 +69,13 @@
                                scs_value_localized_empty)))
     @item(2015-06-29 - Returned TMulticastEvent placeholder.)
     @item(2015-07-10 - Added declaration of internal exception classes.)
-    @item(2015-07-12 - Added documentation for exception classes.))
+    @item(2015-07-12 - Added documentation for exception classes.)
+    @item(2015-07-14 - Started rework of configs...)
+    @item(2015-07-14 - Added structures TConfigReference and TDoubleIndex.)
+    @item(2015-07-14 - Added types PConfigReference and PDoubleIndex.)
+    @item(2015-07-14 - Added constants InvalidDoubleIndex and
+                       EmptyConfigReference.)
+    @item(2015-07-14 - Added function ValidDoubleIndex.))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -201,7 +207,42 @@ type
   //:Pointer to TGameSupportInfo structure.
   PSupportedGame = ^TSupportedGame;
 
+{:
+  Structure used to reference a specific config (an @noAutoLink(attribute) in a
+  specified configuration).
+
+  @member ID        Idetifier of the configuration.
+  @member(Attribute Identifier of an @noAutoLink(attribute) in configuration
+                    specified by field @code(ID).)
+}
+  TConfigReference = record
+    ID:         TelemetryString;
+    Attribute:  TelemetryString;
+  end;
+  //:Pointer to TConfigReference structure.
+  PConfigReference = ^TConfigReference;
+
+{:
+  Used where there is need to pass or return two indices to fully define some
+  reference (eg. indices in two-dimensional array).
+
+  @member Index1 First-level index.
+  @member Index2 Second-level index.
+}
+  TDoubleIndex = record
+    Index1: Integer;
+    Index2: Integer;
+  end;
+  //:Pointer to TDoubleIndex structure.
+  PDoubleIndex = ^TDoubleIndex;
+
 const
+  //:Invalid TDoubleIndex value.
+  InvalidDoubleIndex: TDoubleIndex = (Index1: -1; Index2: -1);
+
+  //:Empty config reference.
+  EmptyConfigReference: TConfigReference = (Id: ''; Attribute: '');
+
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Remember to update.'}
 {:
@@ -316,6 +357,21 @@ const
         _padding:         $00000000));
     StringData: '');
 
+{:
+  Checks whether passed double index is valid (none of the field can be smaller
+  than zero).
+
+  @param Idx Double index to be checked for validity.
+
+  @returns @True when both internal indices are zero or above, @false otherwise.
+}
+Function ValidDoubleIndex(Idx: TDoubleIndex): Boolean;
+
 implementation
+
+Function ValidDoubleIndex(Idx: TDoubleIndex): Boolean;
+begin
+Result := (Idx.Index1 >= 0) and (Idx.Index2 >= 0);
+end;
 
 end.

@@ -45,7 +45,7 @@
   Last change: 2015-07-14
 
   Change List:@unorderedList(
-    @item(2015-07-14 - First documentation.))
+    @item(2015-07-14 - Documentation created.))
 
 @html(<hr>)}
 unit TelemetryValueTypeUtils;
