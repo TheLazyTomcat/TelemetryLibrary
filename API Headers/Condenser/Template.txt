@@ -6,7 +6,7 @@
 interface
 
 <file>
-..\Telemetry API Headers\scssdk_defs.inc
+..\Headers\scssdk_defs.inc
 </file>
 
 <interface_body>

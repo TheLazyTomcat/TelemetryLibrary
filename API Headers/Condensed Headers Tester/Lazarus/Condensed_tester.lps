@@ -8,6 +8,7 @@
       <Unit0>
         <Filename Value="Condensed_tester.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="42" Y="16"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -15,16 +16,13 @@
       <Unit1>
         <Filename Value="..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCS_Telemetry_Condensed"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="149"/>
         <CursorPos X="34" Y="166"/>
         <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit1>
     </Units>
-    <CustomDefines Count="7">
+    <OtherDefines Count="7">
       <Define0 Value="FPC"/>
       <Define1 Value="Windows"/>
       <Define2 Value="Debug"/>
@@ -32,7 +30,7 @@
       <Define4 Value="x86"/>
       <Define5 Value="x64"/>
       <Define6 Value="PurePascal"/>
-    </CustomDefines>
+    </OtherDefines>
     <JumpHistory HistoryIndex="-1"/>
   </ProjectSession>
 </CONFIG>

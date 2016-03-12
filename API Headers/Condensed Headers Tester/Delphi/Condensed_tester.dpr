@@ -4,7 +4,7 @@ program Condensed_tester;
 
 uses
   SysUtils,
-  SCS_Telemetry_Condensed in '..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas';
+  SCS_Telemetry_Condensed in '..\..\Condensed Headers\SCS_Telemetry_Condensed.pas';
 
 begin
   WriteLn('Condensed Tester');
