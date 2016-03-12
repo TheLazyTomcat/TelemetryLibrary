@@ -3,7 +3,7 @@
 {$ELSEIF defined(CPU386)}
   {$DEFINE SCS_ARCHITECTURE_x86}
 {$ELSE}
-  {$MESSAGE Fatal 'Unsupported system'}
+  {$MESSAGE Fatal 'Unsupported CPU architecture'}
 {$IFEND}
 
 {$IFDEF Debug}

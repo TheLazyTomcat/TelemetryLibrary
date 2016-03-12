@@ -2,7 +2,7 @@ unit SCS_Telemetry_Condensed;
 
 {==============================================================================}
 {  SCS Telemetry API headers condenser, version 1.0a                           }
-{  Condensed on: Saturday 2016-03-12 03:30:32                                  }
+{  Condensed on: Saturday 2016-03-12 03:53:31                                  }
 {==============================================================================}
 
 interface
@@ -12,7 +12,7 @@ interface
 {$ELSEIF defined(CPU386)}
   {$DEFINE SCS_ARCHITECTURE_x86}
 {$ELSE}
-  {$MESSAGE Fatal 'Unsupported system'}
+  {$MESSAGE Fatal 'Unsupported CPU architecture'}
 {$IFEND}
 
 {$IFDEF Debug}
