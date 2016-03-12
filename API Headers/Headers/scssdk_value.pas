@@ -130,7 +130,7 @@ type
      *)
     pitch:    scs_float_t;
     (**
-     * @brief Rool
+     * @brief Roll
      *
      * Stored in unit range where <-0.5,0.5> corresponds to <-180,180>.
      *

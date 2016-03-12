@@ -10,7 +10,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="Condensed_tester"/>
+      <Title Value="HT_SCS_TELEMETRY_DEV"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
@@ -27,11 +27,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="win_x64\Condensed_tester"/>
+            <Filename Value="win_x64\HT_SCS_TELEMETRY_DEV"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\Condensed API Headers"/>
+            <OtherUnitFiles Value="..\..\Headers;..\..\Headers\common;..\..\Headers\eurotrucks2"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -46,7 +46,6 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
             <TargetCPU Value="x86_64"/>
             <TargetOS Value="win64"/>
           </CodeGeneration>
@@ -72,27 +71,66 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="2">
+    <Units Count="12">
       <Unit0>
-        <Filename Value="Condensed_tester.lpr"/>
+        <Filename Value="HT_SCS_TELEMETRY_DEV.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
+        <Filename Value="..\..\Telemetry API Headers\scssdk.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCS_Telemetry_Condensed"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="..\..\Telemetry API Headers\scssdk_value.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\Telemetry API Headers\scssdk_telemetry_event.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\Telemetry API Headers\scssdk_telemetry_channel.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\Telemetry API Headers\scssdk_telemetry.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\Telemetry API Headers\common\scssdk_telemetry_common_configs.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\Telemetry API Headers\common\scssdk_telemetry_common_channels.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\Telemetry API Headers\common\scssdk_telemetry_trailer_common_channels.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\Telemetry API Headers\common\scssdk_telemetry_truck_common_channels.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\Telemetry API Headers\eurotrucks2\scssdk_eut2.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\Telemetry API Headers\eurotrucks2\scssdk_telemetry_eut2.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="win_x86\Condensed_tester"/>
+      <Filename Value="win_x86\HT_SCS_TELEMETRY_DEV"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\Condensed API Headers"/>
+      <OtherUnitFiles Value="..\..\Headers;..\..\Headers\common;..\..\Headers\eurotrucks2"/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -107,7 +145,6 @@
         <OverflowChecks Value="True"/>
         <StackChecks Value="True"/>
       </Checks>
-      <VerifyObjMethodCallValidity Value="True"/>
       <TargetCPU Value="i386"/>
       <TargetOS Value="win32"/>
     </CodeGeneration>
@@ -121,6 +158,15 @@
 -dWindows
 -dDebug
 -dx86"/>
+      <OtherDefines Count="7">
+        <Define0 Value="FPC"/>
+        <Define1 Value="Windows"/>
+        <Define2 Value="Debug"/>
+        <Define3 Value="Release"/>
+        <Define4 Value="x86"/>
+        <Define5 Value="x64"/>
+        <Define6 Value="PurePascal"/>
+      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>

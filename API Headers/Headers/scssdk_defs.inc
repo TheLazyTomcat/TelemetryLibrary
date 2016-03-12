@@ -1,13 +1,13 @@
-{$IFDEF x64}
+{$IF defined(CPUX86_64) or defined(CPUX64)}
   {$DEFINE SCS_ARCHITECTURE_x64}
-{$ELSE}
+{$ELSEIF defined(CPU386)}
   {$DEFINE SCS_ARCHITECTURE_x86}
-{$ENDIF}
+{$ELSE}
+  {$MESSAGE Fatal 'Unsupported system'}
+{$IFEND}
 
 {$IFDEF Debug}
   {$DEFINE AssertTypeSize}
 {$ELSE}
   {$UNDEF AssertTypeSize}
 {$ENDIF}
-
-{.$DEFINE AssertTypeSize}
