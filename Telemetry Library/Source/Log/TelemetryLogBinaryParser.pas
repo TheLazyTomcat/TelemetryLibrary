@@ -105,19 +105,19 @@ type
   TDataTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord) of object;
   //:Event type used when reader/parser passes text log data or any interpreted data with time.
   TTextTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Text: String) of object;
-  //:Event type used when reader/parser passes informations about a write to game log with time.
+  //:Event type used when reader/parser passes information about a write to game log with time.
   TLogTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String) of object;
-  //:Event type used when reader/parser passes log data containing informations about game event (un)registration with time.
+  //:Event type used when reader/parser passes log data containing information about game event (un)registration with time.
   TEventRegisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Event: scs_event_t) of object;
-  //:Event type used when reader/parser passes log data containing informations about game event with time.
+  //:Event type used when reader/parser passes log data containing information about game event with time.
   TEventTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer) of object;
-  //:Event type used when reader/parser passes log data containing informations about channel registration with time.
+  //:Event type used when reader/parser passes log data containing information about channel registration with time.
   TChannelRegisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t) of Object;
-  //:Event type used when reader/parser passes log data containing informations about channel unregistration with time.
+  //:Event type used when reader/parser passes log data containing information about channel unregistration with time.
   TChannelUnregisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t) of Object;
-  //:Event type used when reader/parser passes log data containing informations about channel value with time.
+  //:Event type used when reader/parser passes log data containing information about channel value with time.
   TChannelTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t) of Object;
-  //:Event type used when reader/parser passes log data containing informations about config value with time.
+  //:Event type used when reader/parser passes log data containing information about config value with time.
   TConfigTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
 
@@ -133,7 +133,7 @@ type
   
   @member Time @noAutoLink(Time) when the log was written.
   @member Data Unprocessed @noAutoLink(data) the accessed log contains.
-  @member(Info Other informations about the log. Content of this field differs
+  @member(Info Other information about the log. Content of this field differs
                for each file structure. Currently, these are implemented:
                @unorderedList(
                  @item(File structure 0 and 1:
@@ -261,7 +261,7 @@ type
                     not be @nil. Position must be set directly behind the file
                     header and API info section, not at the beginning of the
                     @noAutoLink(Stream) itself.)
-    @param(FileInfo Informations about input file. It must be completely filled
+    @param(FileInfo Information about input file. It must be completely filled
                     by parser that is creating current instance in order for
                     this class to work properly. Provided information are used
                     as parameters when creating telemetry info provider. When
@@ -341,41 +341,41 @@ type
   }
     property OnTextLog: TTextTimeLogEvent read fOnTextLog write fOnTextLog;
   {:
-    Event called when reader reads log containing informations about a write to
+    Event called when reader reads log containing information about a write to
     game log.
   }
     property OnLogLog: TLogTimeLogEvent read fOnLogLog write fOnLogLog;
   {:
-    Event called when reader reads log containing informations about game event
+    Event called when reader reads log containing information about game event
     registration.
   }
     property OnEventRegister: TEventRegisterTimeLogEvent read fOnEventRegister write fOnEventRegister;
   {:
-    Event called when reader reads log containing informations about game event
+    Event called when reader reads log containing information about game event
     unregistration.
   }
     property OnEventUnregister: TEventRegisterTimeLogEvent read fOnEventUnregister write fOnEventUnregister;
   {:
-    Event called when reader reads log containing informations about game
+    Event called when reader reads log containing information about game
     event.
   }
     property OnEvent: TEventTimeLogEvent read fOnEvent write fOnEvent;
   {:
-    Event called when reader reads log containing informations about channel
+    Event called when reader reads log containing information about channel
     registration.
   }
     property OnChannelRegister: TChannelRegisterTimeLogEvent read fOnChannelRegister write fOnChannelRegister;
   {:
-    Event called when reader reads log containing informations about channel
+    Event called when reader reads log containing information about channel
     unregistration.
   }
     property OnChannelUnregister: TChannelUnregisterTimeLogEvent read fOnChannelUnregister write fOnChannelUnregister;
   {:
-    Event called when reader reads log containing informations about channel.
+    Event called when reader reads log containing information about channel.
   }
     property OnChannel: TChannelTimeLogEvent read fOnChannel write fOnChannel;
   {:
-    Event called when reader reads log containing informations about config.
+    Event called when reader reads log containing information about config.
   }
     property OnConfig: TConfigTimeLogEvent read fOnConfig write fOnConfig;
   {:
@@ -453,7 +453,7 @@ type
   {:
     Does not read any data as payload of invalid block must be empty.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns Always returns @true.
   }
@@ -461,7 +461,7 @@ type
   {:
     Reads payload of generic block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
   }
@@ -469,7 +469,7 @@ type
   {:
     Reads payload of text block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -480,7 +480,7 @@ type
   {:
     Reads payload of log block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -492,7 +492,7 @@ type
     Reads payload of game event registration block and passes it to appropriate
     event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -504,7 +504,7 @@ type
     Reads payload of game event unregistration block and passes it to
     appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -515,7 +515,7 @@ type
   {:
     Reads payload of game event block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -529,7 +529,7 @@ type
     Reads payload of channel registration block and passes it to appropriate
     event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -543,7 +543,7 @@ type
     Reads payload of channel unregistration block and passes it to appropriate
     event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -556,7 +556,7 @@ type
   {:
     Reads payload of channel block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -569,7 +569,7 @@ type
   {:
     Reads payload of config block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
 
@@ -582,7 +582,7 @@ type
   {:
     Reads payload of termination block.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns Always returns @false as reading should terminate at this block.
   }
@@ -642,7 +642,7 @@ type
   {:
     Getter for LogEntries array property. It find and accesses individual
     entries by offsets stored in fBlocksOffsets array. See LogEntries property
-    for other informations.
+    for other information.
   }
     Function GetLogEntry(Index: Integer): TLogEntry; override;
   {:
@@ -890,10 +890,10 @@ type
     Function GetLogEntry(Index: Integer): TLogEntry;
   protected
   {:
-    Reads file header and API informations from current Stream position and
+    Reads file header and API information from current Stream position and
     returns them in @code(@noAutoLink(FileInfo)) parameter.
 
-    @param FileInfo Variable to which a read informations are stored.
+    @param FileInfo Variable to which a read information are stored.
 
     @param FileInfo Output value containing read data.
 
@@ -1060,42 +1060,42 @@ type
     property OnTextTimeLog: TTextTimeLogEvent read fOnTextTimeLog write fOnTextTimeLog;
   {:
     Event called to pass read data with time when parser fings log containing
-    informations about a write to game log.
+    information about a write to game log.
   }
     property OnLogTimeLog: TLogTimeLogEvent read fOnLogTimeLog write fOnLogTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about game event registration.
+    information about game event registration.
   }
     property OnEventRegisterTimeLog: TEventRegisterTimeLogEvent read fOnEventRegisterTimeLog write fOnEventRegisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about game event unregistration.
+    information about game event unregistration.
   }
     property OnEventUnregisterTimeLog: TEventRegisterTimeLogEvent read fOnEventUnregisterTimeLog write fOnEventUnregisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about game event.
+    information about game event.
   }
     property OnEventTimeLog: TEventTimeLogEvent read fOnEventTimeLog write fOnEventTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about channel registration.
+    information about channel registration.
   }
     property OnChannelRegisterTimeLog: TChannelRegisterTimeLogEvent read fOnChannelRegisterTimeLog write fOnChannelRegisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about channel unregistration.
+    information about channel unregistration.
   }
     property OnChannelUnregisterTimeLog: TChannelUnregisterTimeLogEvent read fOnChannelUnregisterTimeLog write fOnChannelUnregisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about channel value.
+    information about channel value.
   }
     property OnChannelTimeLog: TChannelTimeLogEvent read fOnChannelTimeLog write fOnChannelTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about config value.
+    information about config value.
   }
     property OnConfigTimeLog: TConfigTimeLogEvent read fOnConfigTimeLog write fOnConfigTimeLog;
   {$IFDEF NoTimeLogEvents}
@@ -1110,42 +1110,42 @@ type
   }
     property OnTextLog: TTextLogEvent read fOnTextLog write fOnTextLog;
   {:
-    Event called to pass read data when parser fings log containing informations
+    Event called to pass read data when parser fings log containing information
     about a write to game log.
   }
     property OnLogLog: TLogEvent read fOnLogLog write fOnLogLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about game event registration.
   }
     property OnEventRegisterLog: TEventRegisterEvent read fOnEventRegisterLog write fOnEventRegisterLog;
   {:
-    Event called to pass read time when parser finds log containing informations
+    Event called to pass read time when parser finds log containing information
     about game event unregistration.
   }
     property OnEventUnregisterLog: TEventRegisterEvent read fOnEventUnregisterLog write fOnEventUnregisterLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about game event.
   }
     property OnEventLog: TEventEvent read fOnEventLog write fOnEventLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about channel registration.
   }
     property OnChannelRegisterLog: TChannelRegisterEvent read fOnChannelRegisterLog write fOnChannelRegisterLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about channel unregistration.
   }
     property OnChannelUnregisterLog: TChannelUnregisterEvent read fOnChannelUnregisterLog write fOnChannelUnregisterLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about channel value.
   }
     property OnChannelLog: TChannelEvent read fOnChannelLog write fOnChannelLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about config value.
   }
     property OnConfigLog: TConfigEvent read fOnConfigLog write fOnConfigLog;
@@ -1163,42 +1163,42 @@ type
     property OnTextTimeLogMulti: TMulticastTextTimeLogEvent read fOnTextTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser fings log
-    containing informations about a write to game log.
+    containing information about a write to game log.
   }
     property OnLogTimeLogMulti: TMulticastLogTimeLogEvent read fOnLogTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about game event registration.
+    containing information about game event registration.
   }
     property OnEventRegisterTimeLogMulti: TMulticastEventRegisterTimeLogEvent read fOnEventRegisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about game event unregistration.
+    containing information about game event unregistration.
   }
     property OnEventUnregisterTimeLogMulti: TMulticastEventRegisterTimeLogEvent read fOnEventUnregisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about game event.
+    containing information about game event.
   }
     property OnEventTimeLogMulti: TMulticastEventTimeLogEvent read fOnEventTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about channel registration.
+    containing information about channel registration.
   }
     property OnChannelRegisterTimeLogMulti: TMulticastChannelRegisterTimeLogEvent read fOnChannelRegisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about channel unregistration.
+    containing information about channel unregistration.
   }
     property OnChannelUnregisterTimeLogMulti: TMulticastChannelUnregisterTimeLogEvent read fOnChannelUnregisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about channel registration.
+    containing information about channel registration.
   }
     property OnChannelTimeLogMulti: TMulticastChannelTimeLogEvent read fOnChannelTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about config value.
+    containing information about config value.
   }
     property OnConfigTimeLogMulti: TMulticastConfigTimeLogEvent read fOnConfigTimeLogMulti;
   {$IFDEF NoTimeLogEvents}
@@ -1214,42 +1214,42 @@ type
     property OnTextLogMulti: TMulticastTextLogEvent read fOnTextLogMulti;
   {:
     Muticast event called to pass read data with time when parser fings log
-    containing informations about a write to game log.
+    containing information about a write to game log.
   }
     property OnLogLogMulti: TMulticastLogEvent read fOnLogLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about game event registration.
+    information about game event registration.
   }
     property OnEventRegisterLogMulti: TMulticastEventRegisterEvent read fOnEventRegisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about game event unregistration.
+    information about game event unregistration.
   }
     property OnEventUnregisterLogMulti: TMulticastEventRegisterEvent read fOnEventUnregisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about game event.
+    information about game event.
   }
     property OnEventLogMulti: TMulticastEventEvent read fOnEventLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about channel registration.
+    information about channel registration.
   }
     property OnChannelRegisterLogMulti: TMulticastChannelRegisterEvent read fOnChannelRegisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about channel unregistration.
+    information about channel unregistration.
   }
     property OnChannelUnregisterLogMulti: TMulticastChannelUnregisterEvent read fOnChannelUnregisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about channel registration.
+    information about channel registration.
   }
     property OnChannelLogMulti: TMulticastChannelEvent read fOnChannelLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about config value.
+    information about config value.
   }
     property OnConfigLogMulti: TMulticastConfigEvent read fOnConfigLogMulti;
   {$ENDIF}

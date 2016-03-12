@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="5" Y="5"/>
         <UsageCount Value="206"/>
         <Loaded Value="True"/>
@@ -199,10 +198,13 @@
       <Unit26>
         <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1108"/>
-        <CursorPos X="35" Y="1147"/>
+        <UnitName Value="TelemetryStreaming"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="2242"/>
+        <CursorPos X="34" Y="2255"/>
         <UsageCount Value="206"/>
+        <Loaded Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\Source\TelemetryStrings.pas"/>
@@ -312,7 +314,12 @@
       <Define5 Value="x64"/>
       <Define6 Value="PurePascal"/>
     </CustomDefines>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="1">
+      <Position1>
+        <Filename Value="..\..\Source\TelemetryStreaming.pas"/>
+        <Caret Line="1147" Column="35" TopLine="1108"/>
+      </Position1>
+    </JumpHistory>
   </ProjectSession>
   <Debugging>
     <Watches Count="2">

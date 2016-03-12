@@ -631,7 +631,7 @@ const
 )
 
   Immediate response to TC_PACKET_KNOWN_EVENTS_INDEX_GET packet.@br
-  Contains informations about known event on position given by @code(Index).@br
+  Contains information about known event on position given by @code(Index).@br
   If @code(Index) in TC_PACKET_KNOWN_EVENTS_INDEX_GET packet pointed to invalid
   position, then @code(Index) in this packet is set to -1 and other fields
   (@code(Event), @code(Name), ...) are set to 0/@false/empty string.@br
@@ -689,7 +689,7 @@ const
 )
 
   Immediate response to TC_PACKET_KNOWN_EVENTS_ALL packet.@br
-  Contains array of known events informations.@br
+  Contains array of known events information.@br
   Info substructures are saved using function Ptr_Write_KnownEvent.
 }
   TC_PACKET_KNOWN_EVENTS_ALL = TC_PREFIX_KNOWN_EVENTS or $0007;
@@ -772,7 +772,7 @@ const
 )
 
   Immediate response to TC_PACKET_KNOWN_CHANNELS_INDEX_GET packet.@br
-  Contains informations about known channel on position given by
+  Contains information about known channel on position given by
   @code(Index).@br
   If @code(Index) in TC_PACKET_KNOWN_CHANNELS_INDEX_GET pointed to invalid
   position, then @code(Index) in this packet is set to -1 and other fields
@@ -836,7 +836,7 @@ const
 )
 
   Immediate response to TC_PACKET_KNOWN_CHANNELS_ALL packet.@br
-  Contains array of known channels informations.@br
+  Contains array of known channels information.@br
   Info substructures are saved using function Ptr_Write_KnownChannel.
 }
   TC_PACKET_KNOWN_CHANNELS_ALL = TC_PREFIX_KNOWN_CHANNELS or $0007;
@@ -916,7 +916,7 @@ const
 )
 
   Immediate response to TC_PACKET_KNOWN_CONFIGS_INDEX_GET packet.@br
-  Contains informations about known config on position given by @code(Index).@br
+  Contains information about known config on position given by @code(Index).@br
   If @code(Index) in TC_PACKET_KNOWN_CONFIGS_INDEX_GET pointed to invalid
   position, then @code(Index) in this packet is set to -1 and other fields
   (@code(Name), etc.) are set to 0/@false/empty string.@br
@@ -976,7 +976,7 @@ const
 )
 
   Immediate response to TC_PACKET_KNOWN_CONFIGS_ALL packet.@br
-  Contains array of known configs informations.@br
+  Contains array of known configs information.@br
   Info substructures are saved using function Ptr_Write_KnownConfig.
 }
   TC_PACKET_KNOWN_CONFIGS_ALL = TC_PREFIX_KNOWN_CONFIGS or $0007;
@@ -1232,7 +1232,7 @@ const
     Index   4 bytes     32b int     Index of requested registered event
 )
 
-  Instructs server to send informations about registered event on list position
+  Instructs server to send information about registered event on list position
   given by @code(Index).
 }
   TC_PACKET_EVENT_REGISTERED_INDEX_GET = TC_PREFIX_EVENT or $000C;
@@ -1273,7 +1273,7 @@ const
   Sender: Client@br
   Packet: Basic
 
-  Instructs server to send informations about all registered events. They are
+  Instructs server to send information about all registered events. They are
   immediately sent as a stream of TC_PACKET_EVENT_REGISTERED_INDEX packets.
 }
   TC_PACKET_EVENT_REGISTERED_INDEX_ALL_GET = TC_PREFIX_EVENT or $000E;
@@ -1286,7 +1286,7 @@ const
   Sender: Client@br
   Packet: Basic
 
-  Instructs server to send informations about all registered events. They are
+  Instructs server to send information about all registered events. They are
   all sent in one TC_PACKET_EVENT_REGISTERED_ALL packet (see below).
 }
   TC_PACKET_EVENT_REGISTERED_ALL_GET = TC_PREFIX_EVENT or $000F;
@@ -1679,7 +1679,7 @@ const
 )
 
   Immediate response to TC_PACKET_CHANNEL_REGISTERED_INDEX_GET packet .@br
-  Contains informations about registered channel on position given by
+  Contains information about registered channel on position given by
   @code(Index).@br
   If @code(Index) in TC_PACKET_CHANNEL_REGISTERED_INDEX_GET pointed to invalid
   position, then @code(List index) in this packet is set to -1, field
@@ -1743,7 +1743,7 @@ const
 )
 
   Immediate response to TC_PACKET_CHANNEL_REGISTERED_ALL_GET packet.@br
-  Contains array of registered channels informations.@br
+  Contains array of registered channels information.@br
   Info substructures are saved using function Ptr_Write_ChannelInfo.
 }
   TC_PACKET_CHANNEL_REGISTERED_ALL = TC_PREFIX_CHANNEL or $0013;
@@ -1887,7 +1887,7 @@ const
 )
 
   Immediate response to TC_PACKET_CONFIG_STORED_INDEX_GET packet.@br
-  Contains informations about and actual value of stored config on position
+  Contains information about and actual value of stored config on position
   given by @code(Index) (in TC_PACKET_CONFIG_STORED_INDEX_GET packet).@br
   If @code(Index) in TC_PACKET_CONFIG_STORED_INDEX_GET pointed to invalid
   position, then @code(List index) in this packet is set to -1, field

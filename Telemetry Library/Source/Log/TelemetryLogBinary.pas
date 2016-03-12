@@ -81,7 +81,7 @@
     Reserved field 1    4 bytes
     Reserved field 2    4 bytes
 )
-  Each file must start with this header and API informations section, if it is
+  Each file must start with this header and API information section, if it is
   smaller (minimum size of API info section is 16 bytes), then it is broken.
   Also, each valid file must start with valid magic number
   (@code(0x6C624C54)).@br
@@ -97,13 +97,13 @@
   Date indicates the number of calendar days since the start of the calendar
   (the number of days since 1/1/0001 plus one).
   Data structure determines how content of the file looks like after the
-  API informations section.@br
+  API information section.@br
   Do not use reserved fields and do not assume nothing about their content!
 
-  After the header, API informations are stored. They are not part of the header
+  After the header, API information are stored. They are not part of the header
   because they have variable size - you have to write or read each field at a
   time. They are be used when reading the file, for example when there is need
-  to convert item IDs to valid item names. These informations are stored as
+  to convert item IDs to valid item names. These information are stored as
   follows:
 @preformatted(
        value          |   size   |  value type
@@ -119,7 +119,7 @@
   Right now, two structures are implemented - structure 0 and structure 1.
   Structure 1 is exactly the same as structure 0, only it does not contain table
   of block offsets at the end, so it won't be described in detail - you can
-  refer to structure 0 for informations and just ommit blocks offsets info.
+  refer to structure 0 for information and just ommit blocks offsets info.
 
   Strings are stored in the file as following structure:
 @preformatted(
@@ -191,7 +191,7 @@
 @item(Block type 0x03 (dec 003) - Log block
   @code((LB_BLOCK_TYPE_LOG))
 
-  Contains informations about a write to game log (console).
+  Contains information about a write to game log (console).
 
   Structure of payload:
 @preformatted(
@@ -205,7 +205,7 @@
 @item(Block type 0x04 (dec 004) - Event registration block
   @code((LB_BLOCK_TYPE_EVENTREG))
 
-  Informations about registered game event.
+  Information about registered game event.
 
   Structure of payload:
 @preformatted(
@@ -217,7 +217,7 @@
 @item(Block type 0x05 (dec 005) - Event unregistration block
   @code((LB_BLOCK_TYPE_EVENTUNREG))
 
-  Informations about unregistered game event.
+  Information about unregistered game event.
 
   Structure of payload:
 @preformatted(
@@ -228,7 +228,7 @@
 
 @item(Block type 0x06 (dec 006) - Event block @code((LB_BLOCK_TYPE_EVENT))
 
-  Informations about occuring game event.
+  Information about occuring game event.
 
   Structure of payload:
 @preformatted(
@@ -251,7 +251,7 @@
 @item(Block type 0x07 (dec 007) - Channel registration block
   @code((LB_BLOCK_TYPE_CHANNELREG))
 
-  Informations about registered channel.
+  Information about registered channel.
 
   Structure of payload:
 @preformatted(
@@ -275,7 +275,7 @@
 @item(Block type 0x08 (dec 008) - Channel unregistration block
   @code((LB_BLOCK_TYPE_CHANNELUNREG))
 
-  Informations about unregistered channel.
+  Information about unregistered channel.
 
   Structure of payload:
 @preformatted(
@@ -297,18 +297,18 @@
 @item(Block type 0x09 (dec 009) - Channel block
   @code((LB_BLOCK_TYPE_CHANNEL))
 
-  Informations about occuring channel and its value.@br
+  Information about occuring channel and its value.@br
   Data are stored using function Stream_Write_scs_named_value_localized or its
-  alternatives, refer to this function for informations regarding resulting data
+  alternatives, refer to this function for information regarding resulting data
   layout.
 )
 
 @item(Block type 0x0A (dec 010) - Config block
   @code((LB_BLOCK_TYPE_CONFIG))
 
-  Contains informations about stored config including its value.@br
+  Contains information about stored config including its value.@br
   Data are stored using function Stream_Write_scs_named_value_localized or its
-  alternatives, refer to this function for informations regarding resulting data
+  alternatives, refer to this function for information regarding resulting data
   layout.
 )
 
@@ -374,7 +374,7 @@
   Data in structure 1 are stored exactly the same as in structure 0. Only
   difference is, that structure 1 does not store table of block offsets at the
   end of file.@br
-  You can refer to structure 0 definition for informations about structure 1
+  You can refer to structure 0 definition for information about structure 1
   resulting layout, just ommit the offsets table. 
 
 @html(<hr>)}
@@ -450,7 +450,7 @@ const
 type
 {:
   @abstract(Structure corresponding to a binary log output header.)
-  Used to read/write binary output header and store informations about a file.
+  Used to read/write binary output header and store information about a file.
 
   @member MagicNumber    File signature, must be equal to @code(0x6C624C54).
   @member TimeOfCreation Time of creation of the file.
@@ -469,7 +469,7 @@ type
   PTelemetryLogBinaryFileHeader = ^TTelemetryLogBinaryFileHeader;
 
 {:
-  Structure used to store informations about telemetry API (versions, ID, ...).
+  Structure used to store information about telemetry API (versions, ID, ...).
 
   @member TelemetryVersion Version of telemetry API.
   @member GameID           ID of game that runs the API.
@@ -486,10 +486,10 @@ type
   PTelemetryLogBinaryAPIInfo = ^TTelemetryLogBinaryAPIInfo;
 
 {:
-  Structure used to store informations about binary log file.
+  Structure used to store information about binary log file.
 
-  @member Header  Informations about a file.
-  @member APIInfo Informations about API used in file generation.
+  @member Header  Information about a file.
+  @member APIInfo Information about API used in file generation.
 }
   TTelemetryLogBinaryFileInfo = record
     Header:   TTelemetryLogBinaryFileHeader;
@@ -501,7 +501,7 @@ type
 {:
   @abstract(Structure corresponding to a block header in output structures 0 and
             1.)
-  Used to read/write block headers and to pass informations between routines.
+  Used to read/write block headers and to pass information between routines.
 
   @member BlockType        Type of block.
   @member BlockFlags       Flags of the block.
@@ -535,7 +535,7 @@ type
   should be used in loggers wery carefully and only if really needed.@br
   Log* methods all have @code(Recipient) parameter. This parameter must contain
   reference to a valid telemetry recipient, as its methods can be used in
-  descendant classes for conversions or to obtain informations required to write
+  descendant classes for conversions or to obtain information required to write
   a log.@br
   All writing is done at current Stream position.
 }
@@ -566,7 +566,7 @@ type
                     information already written in and position must be set
                     directly after them (not at the start of the
                     @noAutoLink(Stream)!).)
-    @param(FileInfo Informations about output file. It must be completely filled
+    @param(FileInfo Information about output file. It must be completely filled
                     by logger that is creating current instance in order for
                     this class to work properly. When not filled, the behavior
                     of this class is not defined.)
@@ -598,7 +598,7 @@ type
   }
     procedure LogStr(Recipient: TTelemetryRecipient; Str: TelemetryString); virtual; abstract;
   {:
-    Method intended to write informations about a write to game log (console).
+    Method intended to write information about a write to game log (console).
 
     @param Recipient Telemetry recipient. Must contain valid object.
     @param LogType   Type of log written into game log (error, warning, ...).
@@ -606,7 +606,7 @@ type
   }
     procedure LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); virtual; abstract;
   {:
-    Method intended to write log containing informations about game event
+    Method intended to write log containing information about game event
     registration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -614,7 +614,7 @@ type
   }
     procedure LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about game event
+    Method intended to write log containing information about game event
     unregistration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -622,7 +622,7 @@ type
   }
     procedure LogEventUnregister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about game event.
+    Method intended to write log containing information about game event.
 
     @param Recipient Telemetry recipient. Must contain valid object.
     @param Event     Event identifier number.
@@ -631,7 +631,7 @@ type
   }
     procedure LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); virtual; abstract;
   {:
-    Method intended to write log containing informations about channel
+    Method intended to write log containing information about channel
     registration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -643,7 +643,7 @@ type
   }
     procedure LogChannelRegister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about channel
+    Method intended to write log containing information about channel
     unregistration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -654,7 +654,7 @@ type
   }
     procedure LogChannelUnregister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about received channel
+    Method intended to write log containing information about received channel
     value.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -665,7 +665,7 @@ type
   }
     procedure LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about received config
+    Method intended to write log containing information about received config
     value.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -722,7 +722,7 @@ type
   TTelemetryLogBinaryWriter_1 = class(TTelemetryLogBinaryWriter)
   protected
   {:
-    Writes block header filled with informations provided in parameters to
+    Writes block header filled with information provided in parameters to
     Stream at current position.
 
     @param BlockType        Type of block.
@@ -856,7 +856,7 @@ type
 {:
   @abstract(Class designed to log all traffic on telemetry API as a binary log
             into provided @noAutoLink(stream).)
-  Only file header and API informations are actually written in this class,
+  Only file header and API information are actually written in this class,
   everything else (log data) is written using instance of appropriate (for
   selected file structure) writer.@br
   *Handler methods all require valid telemetry @noAutoLink(recipient) object. It
@@ -904,7 +904,7 @@ type
   protected
   {:
     Fills passed structure with all information available. Called from the
-    constructor. It sets all field of file header and API informations. API info
+    constructor. It sets all field of file header and API information. API info
     is taken from an object referenced by Recipient property - meaning you must
     pass valid telemetry @noAutoLink(recipient) to the constructor.
 
@@ -912,7 +912,7 @@ type
   }
     procedure PrepareFileInfo(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
   {:
-    Writes passed file header and API informations section into Stream at
+    Writes passed file header and API information section into Stream at
     current position.
 
     @param FileInfo Structure containing information that will be written.
@@ -925,7 +925,7 @@ type
     Creates internal log writer and starts writing.
 
     @param(Recipient     Telemetry @noAutoLink(recipient) that operates on API.
-                         You must provide valid instance as API informations
+                         You must provide valid instance as API information
                          section will be filled usig its properties. Constructor
                          also assigns all handler methods to its event - you can
                          change that (deassign handlers, set Recipient property
@@ -978,7 +978,7 @@ type
   }
     procedure LogStr(Sender: TObject; Str: TelemetryString); virtual;
   {:
-    Method adding informations about a write to game log (console).@br
+    Method adding information about a write to game log (console).@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender  Object calling this method (must be of type
@@ -991,7 +991,7 @@ type
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
   {:
-    Method adding informations about game event registration to the log.@br
+    Method adding information about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object calling this method (must be of type
@@ -1004,7 +1004,7 @@ type
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about game event unregistration to the log.@br
+    Method adding information about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object calling this method (must be of type
@@ -1031,7 +1031,7 @@ type
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about channel registration to the log.@br
+    Method adding information about channel registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type
@@ -1048,7 +1048,7 @@ type
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about channel unregistration to the log.@br
+    Method adding information about channel unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type
@@ -1064,7 +1064,7 @@ type
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about channel to the log.@br
+    Method adding information about channel to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type
@@ -1080,7 +1080,7 @@ type
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about received configuration to the log.@br
+    Method adding information about received configuration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type

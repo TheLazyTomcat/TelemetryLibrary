@@ -227,7 +227,7 @@ type
 
     @param TelemetryVersion Version of telemetry.
     @param(Parameters       Structure containing other necessary game and
-                            version informations.)
+                            version information.)
   }
     constructor Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); overload;
   {:
@@ -299,15 +299,15 @@ type
   }
     property UserManaged: Boolean read fUserManaged;
   {:
-    List containing informations about known telemetry events.
+    List containing information about known telemetry events.
   }
     property KnownEvents: TKnownEventsList read fKnownEvents;
   {:
-    List containing informations about known telemetry channels.
+    List containing information about known telemetry channels.
   }
     property KnownChannels: TKnownChannelsList read fKnownChannels;
   {:
-    List containing informations about known telemetry configs.
+    List containing information about known telemetry configs.
   }
     property KnownConfigs: TKnownConfigsList read fKnownConfigs;
   end;

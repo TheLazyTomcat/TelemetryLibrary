@@ -38,7 +38,7 @@
         some of their fields are only pointers, meaning they cannon be stored
         directly as only pointer and not actual data would be stored.)
   @item(Fourth group consists of functions used to store structures used in
-        telemetry library (mainly structures used to store informations about
+        telemetry library (mainly structures used to store information about
         events, channels and configs).)
 )
 

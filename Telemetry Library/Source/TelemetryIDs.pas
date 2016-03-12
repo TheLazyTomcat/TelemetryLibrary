@@ -43,8 +43,9 @@
                        FullConfigName, renamed parameters.)
     @item(2015-07-14 - Function @code(ConfigRemoveIDFromName) renamed to
                        ExtractConfigAttributeName, renamed parameters.)
-    @item(2015-07-14 - Added new variant of function FullConfigName returning
-                       filled config reference.))
+    @item(2015-07-14 - Added new variant of function FullConfigName taking
+                       config reference as input.)
+    @item(2015-07-14 - Added funtion ConfigReference.))
     
 @html(<hr>)
 
@@ -666,14 +667,26 @@ const
 //------------------------------------------------------------------------------
 
 {:
-  Returns full config reference build from config ID and attribute name.
+  Returns full config name composed from config ID and attribute name separated
+  by ConfigFieldsSeparator.
+
+  @param ConfigReference Reference from which the ID and attribute are taken.
+
+  @returns Full config name.
+}
+  Function FullConfigName(ConfigReference: TConfigReference): TelemetryString; overload;
+
+//------------------------------------------------------------------------------
+
+{:
+  Returns full config reference build from passed config ID and attribute name.
 
   @param ID        ID of configuration.
   @param Attribute Name of attribute.
 
   @returns Full config reference.
 }
-  Function FullConfigName(const ID, Attribute: TelemetryString): TConfigReference; overload;
+  Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
 
 //------------------------------------------------------------------------------
 
@@ -833,9 +846,16 @@ begin
 Result := ID + ConfigFieldsSeparator + Attribute;
 end;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function FullConfigName(ConfigReference: TConfigReference): TelemetryString;
+begin
+Result := ConfigReference.ID + ConfigFieldsSeparator + ConfigReference.Attribute;
+end;
+
 //------------------------------------------------------------------------------
 
-Function FullConfigName(const ID, Attribute: TelemetryString): TConfigReference;
+Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
 begin
 Result.ID := ID;
 Result.Attribute := Attribute;

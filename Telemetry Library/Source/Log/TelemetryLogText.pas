@@ -148,7 +148,7 @@ type
   }
     procedure AddLog(LogText: String); virtual;
   {:
-    Adds informations about write to a game log.@br
+    Adds information about write to a game log.@br
 
     @param(Sender  Object that called this method (should be of type
                    TTelemetryRecipient).)
@@ -157,7 +157,7 @@ type
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
   {:
-    Adds informations about game event registration to the log.@br
+    Adds information about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object that called this method (should be of type
@@ -167,7 +167,7 @@ type
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about game event unregistration to the log.@br
+    Adds information about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object that called this method (should be of type
@@ -177,7 +177,7 @@ type
   }
     procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about game event to the log.@br
+    Adds information about game event to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object that called this method (should be of type
@@ -188,7 +188,7 @@ type
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about channel registration to the log.
+    Adds information about channel registration to the log.
 
     @param(Sender    Object that called this method (should be of type
                      TTelemetryRecipient).)
@@ -201,7 +201,7 @@ type
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about channel unregistration to the log.
+    Adds information about channel unregistration to the log.
 
     @param(Sender    Object that called this method (should be of type
                      TTelemetryRecipient).)
@@ -213,7 +213,7 @@ type
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about channel to the log.@br
+    Adds information about channel to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object that called this method (should be of type
@@ -226,7 +226,7 @@ type
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about received configuration to the log.
+    Adds information about received configuration to the log.
 
     @param(Sender    Object that called this method (should be of type
                      TTelemetryRecipient).)

@@ -557,7 +557,7 @@ type
   {:
     Method used for processing configuration events. It is called from
     EventHandler method when configuration event is received.@br
-    Received data are parsed and configuration informations are extracted and
+    Received data are parsed and configuration information are extracted and
     stored in StoredConfigs list (StoreConfigurations must be @true).
     OnConfig event is called for every extracted config (after it is stored /
     its stored value changed).@br
@@ -647,7 +647,7 @@ type
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
   {:
     @param TelemetryVersion Version of telemetry.
-    @param Parameters       Structure containing other version informations.
+    @param Parameters       Structure containing other version information.
 
     @returns(@True when given telemetry, game and its version are supported,
              otherwise @false.)
@@ -758,11 +758,11 @@ type
   }
     destructor Destroy; override;
   {:
-    Sets API informations (TelemetryVersion, GameID, GameVersion and GameName)
+    Sets API information (TelemetryVersion, GameID, GameVersion and GameName)
     from passed @noAutoLink(parameters).
 
     @param(TelemetryVersion Version of telemetry API.)
-    @param(Parameters       Structure containing other API informations.)
+    @param(Parameters       Structure containing other API information.)
   }
     procedure SetAPIInfo(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); virtual;
   {:
@@ -944,7 +944,7 @@ type
     Function ChannelRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean; virtual;
   {:
     Registers telemetry channel of a given name. Channel of this name must be
-    listed in known channels list as other informations required for
+    listed in known channels list as other information required for
     registration are taken from there.@br
     When channel is marked as indexed then all posible indices of such channel
     are registered.@br

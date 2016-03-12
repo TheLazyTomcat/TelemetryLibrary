@@ -9,7 +9,7 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-07-12)
+@lastmod(2015-07-15)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
@@ -31,7 +31,7 @@
    |- ETLInitFailed
    |- ETLBadData
 )
-  Last change: 2015-07-12
+  Last change: 2015-07-15
 
   Change List:@unorderedList(
     @item(2013-10-04 - First stable version.)
@@ -75,7 +75,11 @@
     @item(2015-07-14 - Added types PConfigReference and PDoubleIndex.)
     @item(2015-07-14 - Added constants InvalidDoubleIndex and
                        EmptyConfigReference.)
-    @item(2015-07-14 - Added function ValidDoubleIndex.))
+    @item(2015-07-14 - Added function ValidDoubleIndex.)
+    @item(2015-07-15 - Added ETLAlreadyExists and ETLNotFound exception
+                       classes.)
+    @item(2015-07-15 - Added function DoubleIndex intended for in-place creation
+                       of TDoubleIndex from two independent indices.))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -156,6 +160,15 @@ type
   Raised when data the library works with are in some way corrupted or invalid.
 }
   ETLBadData          = class(ETLException);
+{:
+  Raised when item that is added to some list or array already exists there.
+}
+  ETLAlreadyExists    = class(ETLException);
+{:
+  Raised when requested item is not found in a list or array.
+}
+  ETLNotfound         = class(ETLException);
+
 
 
 {$IFDEF Documentation}
@@ -245,7 +258,7 @@ const
 
 {$IFDEF DevelopmentHints}
   {$MESSAGE HINT 'Remember to update.'}
-{:
+{
   These constants can change with telemetry development, remember to update them
   if you add support for new telemetry version.
 }
@@ -357,6 +370,9 @@ const
         _padding:         $00000000));
     StringData: '');
 
+{==============================================================================}
+{   Unit functions and procedures // Declaration                               }
+{==============================================================================}
 {:
   Checks whether passed double index is valid (none of the field can be smaller
   than zero).
@@ -365,13 +381,37 @@ const
 
   @returns @True when both internal indices are zero or above, @false otherwise.
 }
-Function ValidDoubleIndex(Idx: TDoubleIndex): Boolean;
+Function ValidDoubleIndex(Indices: TDoubleIndex): Boolean;
+
+//------------------------------------------------------------------------------
+
+{:
+  Creates TDoubleIndex structure filled with passed independent indices.
+
+  @param Index1 First-level index.
+  @param Index2 Second-level index.
+
+  @returns Filled double index structure.
+}
+Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
 
 implementation
 
-Function ValidDoubleIndex(Idx: TDoubleIndex): Boolean;
+{==============================================================================}
+{   Unit functions and procedures // Implementation                            }
+{==============================================================================}
+
+Function ValidDoubleIndex(Indices: TDoubleIndex): Boolean;
 begin
-Result := (Idx.Index1 >= 0) and (Idx.Index2 >= 0);
+Result := (Indices.Index1 >= 0) and (Indices.Index2 >= 0);
+end;
+
+//------------------------------------------------------------------------------
+
+Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
+begin
+Result.Index1 := Index1;
+Result.Index2 := Index2;
 end;
 
 end.

@@ -141,7 +141,7 @@ type
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual; abstract;
   {:
     @param TelemetryVersion Version of telemetry.
-    @param Parameters       Structure containing other version informations.
+    @param Parameters       Structure containing other version information.
 
     @returns(@True when given telemetry, game and its version are supported,
              otherwise @false.)
@@ -328,7 +328,7 @@ type
     @param(TelemetryVersion Version of telemetry for which the object should be
                             prepared.)
     @param(Parameters       Structure containing other necessary game and
-                            version informations.)
+                            version information.)
 
     @returns(@True when preparation for given telemetry version and game and its
              version were done successfully, otherwise @false.)

@@ -563,7 +563,7 @@
 {==============================================================================}
 {:
   Class used to manage multicast event called when reader/parser passes
-  informations about a write to game log with time.
+  information about a write to game log with time.
 }
   TMulticastLogTimeLogEvent = class(TMulticastEvent)
   public
