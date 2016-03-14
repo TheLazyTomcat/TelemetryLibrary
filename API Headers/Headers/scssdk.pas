@@ -35,7 +35,7 @@ type
 {$ELSE}
   {$MESSAGE FATAL 'Cannot declare 32bit integers'}
 {$IFEND}
-  p_scs_s32_t     = ^scs_s32_t;       p_scs_u32_t     = ^scs_u32_t;
+  p_scs_s32_t   = ^scs_s32_t;         p_scs_u32_t     = ^scs_u32_t;
 
   scs_u64_t     = UInt64;             p_scs_u64_t     = ^scs_u64_t;
   scs_float_t   = Single;             p_scs_float_t   = ^scs_float_t;
