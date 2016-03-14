@@ -1,3 +1,4 @@
+(*******************************************************************************
 {.$DEFINE DevelopmentHints}
 {.$DEFINE Documentation}
 {.$DEFINE DocumentMulticastEvents}
@@ -52,4 +53,28 @@
   {$DEFINE DevelopmentHints}
 {$ELSE}
   {$UNDEF DevelopmentHints}
+{$ENDIF}
+*******************************************************************************)
+
+{.$DEFINE DevHints}
+{.$DEFINE Documentation}
+{.$DEFINE CondensedHeaders}
+
+{.$DEFINE ID_TrueConstants}
+{.$DEFINE ID_ManualCompute}
+
+{$IFDEF Documentation}
+  {$DEFINE CondensedHeaders}
+  {$DEFINE ID_TrueConstants}
+{$ELSE}
+{$ENDIF}
+
+{$IFDEF ID_TrueConstants}
+  {$UNDEF ID_ManualCompute}
+{$ENDIF}
+
+{$IFDEF Debug}
+  {$DEFINE DevHints}
+{$ELSE}
+  {$UNDEF DevHints}
 {$ENDIF}

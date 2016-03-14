@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
+@abstract(Types, constants, routines, etc. used troughout the Telemetry Library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
 @lastmod(2015-07-15)
@@ -16,8 +16,9 @@
   ©2013-2015 František Milt, all rights reserved.
 
   This file is intended to provide types, constants, routines, etc. used
-  throughout the Telemetry library (that is, in more than one unit). It also
-  declares internal exception classes, specifically:
+  throughout the Telemetry Library (that is, in more than one unit).
+  It also contains declaration of exception classes used in the library, those
+  are:
 @preformatted(
   ETLException
    |- ETLUnsupportedAPI
@@ -33,54 +34,6 @@
 )
   Last change: 2015-07-15
 
-  Change List:@unorderedList(
-    @item(2013-10-04 - First stable version.)
-    @item(2014-04-06 - TGameSupportInfo.GameID and
-                       scs_value_localized_t.StringData fields type changed to
-                       @code(TelemetryString).)
-    @item(2014-04-18 - cConfigFieldsSeparator constant moved to TelemetryIDs
-                       unit.)
-    @item(2014-04-20 - Added following types:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(scs_named_value_localized_t)
-                         @item(p_scs_named_value_localized_t)
-                         @item(scs_telemetry_configuration_localized_t)
-                         @item(p_scs_telemetry_configuration_localized_t)))                          
-    @item(2014-04-20 - Functions scs_value_localized and scs_value moved to
-                       TelemetryStreaming unit.)
-    @item(2014-05-05 - TMulticastEvent placeholder added.)
-    @item(2014-11-02 - Added types @code(PtrInt) and @code(PtrUInt).)
-    @item(2015-04-20 - Added TMemSize type.)
-    @item(2015-04-20 - Constants @code(cEmptySCSValue) and
-                       @code(cEmptySCSValueLocalized) renamed to
-                       @code(EmptySCSValue) and @code(EmptySCSValueLocalized)
-                       respectively.)
-    @item(2015-06-25 - Removed TMulticastEvent placeholder.)
-    @item(2015-06-25 - Added TStrSize type.)
-    @item(2015-06-25 - TGameSupportInfo changed to TSupportedGame,
-                       PGameSupportInfo changed to PSupportedGame.)
-    @item(2015-06-25 - Added list of supported API versions and list of
-                       supported games (SupportedTelemetryVersions,
-                       SupportedGames).)
-    @item(2015-06-25 - Renamed and completed following constants:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(@code(EmptySCSValue) renamed to scs_value_empty)
-                         @item(@code(EmptySCSValueLocalized) renamed to
-                               scs_value_localized_empty)))
-    @item(2015-06-29 - Returned TMulticastEvent placeholder.)
-    @item(2015-07-10 - Added declaration of internal exception classes.)
-    @item(2015-07-12 - Added documentation for exception classes.)
-    @item(2015-07-14 - Started rework of configs...)
-    @item(2015-07-14 - Added structures TConfigReference and TDoubleIndex.)
-    @item(2015-07-14 - Added types PConfigReference and PDoubleIndex.)
-    @item(2015-07-14 - Added constants InvalidDoubleIndex and
-                       EmptyConfigReference.)
-    @item(2015-07-14 - Added function ValidDoubleIndex.)
-    @item(2015-07-15 - Added ETLAlreadyExists and ETLNotFound exception
-                       classes.)
-    @item(2015-07-15 - Added function DoubleIndex intended for in-place creation
-                       of TDoubleIndex from two independent indices.))
-
 @html(<hr>)}
 unit TelemetryCommon;
 
@@ -92,7 +45,7 @@ uses
 {$IFNDEF Documentation}
   SysUtils,
 {$ENDIF} 
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -107,12 +60,12 @@ type
   @abstract(Common ancestor for all exception classes in the library.)
 
   Can be raised on error that does not fit any of the specific descendant
-  exception classes. All exceptions raised in the Telemetry library are of this
+  exception classes. All exceptions raised in the Telemetry Library are of this
   class or one of its descendant.
 
   Note - exception of other class can be raised within any call, simply because
          it is using RTL functions and other libraries that are not actual part
-         of Telemetry library.
+         of Telemetry Library.
 }
   ETLException        = class(Exception);
 {:
@@ -169,42 +122,7 @@ type
 }
   ETLNotfound         = class(ETLException);
 
-
-
-{$IFDEF Documentation}
-  {$IFDEF IncludeMulticastEventHandlers}
-  {:
-    @abstract(Placeholder intended to complete the classes hierarchy tree in
-    documentation.)
-    Actual class is defined in unit MulticastEvent and is not included in
-    documentation of telemetry library. Refer to mentioned unit located in
-    folder @italic(Source\Libs) for details.
-  }  
-    TMulticastEvent = class(TObject);
-  {$ENDIF}
-{$ENDIF}
-
-  //:Type used to cast pointer to a signed integer for calculation of arbitrary
-  //:address.
-{$IFDEF x64}
-  PtrInt  = Int64;
-{$ELSE}
-  PtrInt  = LongInt;
-{$ENDIF}
-
-  //:Type used to cast pointer to an unsigned integer for calculation of
-  //:arbitrary address.
-{$IFDEF x64}
-  PtrUInt = UInt64;
-{$ELSE}
-  PtrUInt = LongWord;
-{$ENDIF}
-
-  //:Type used to pass or get size of memory, e.g. when allocating memory.
-  TMemSize = PtrUInt;
-
-  //:Type used to pass or get length of a string.
-  TStrSize = PtrInt;
+//------------------------------------------------------------------------------
 
 {:
   Structure used in lists of supported games and their versions.
@@ -219,6 +137,24 @@ type
   end;
   //:Pointer to TGameSupportInfo structure.
   PSupportedGame = ^TSupportedGame;
+
+//------------------------------------------------------------------------------
+
+{:
+  Used where there is need to pass or return two indices to fully define some
+  reference (eg. indices in two-dimensional array).
+
+  @member Index1 First-level index.
+  @member Index2 Second-level index.
+}
+  TDoubleIndex = record
+    Index1: Integer;
+    Index2: Integer;
+  end;
+  //:Pointer to TDoubleIndex structure.
+  PDoubleIndex = ^TDoubleIndex;
+
+//------------------------------------------------------------------------------
 
 {:
   Structure used to reference a specific config (an @noAutoLink(attribute) in a
@@ -235,19 +171,7 @@ type
   //:Pointer to TConfigReference structure.
   PConfigReference = ^TConfigReference;
 
-{:
-  Used where there is need to pass or return two indices to fully define some
-  reference (eg. indices in two-dimensional array).
-
-  @member Index1 First-level index.
-  @member Index2 Second-level index.
-}
-  TDoubleIndex = record
-    Index1: Integer;
-    Index2: Integer;
-  end;
-  //:Pointer to TDoubleIndex structure.
-  PDoubleIndex = ^TDoubleIndex;
+//------------------------------------------------------------------------------
 
 const
   //:Invalid TDoubleIndex value.
@@ -256,11 +180,13 @@ const
   //:Empty config reference.
   EmptyConfigReference: TConfigReference = (Id: ''; Attribute: '');
 
-{$IFDEF DevelopmentHints}
+//------------------------------------------------------------------------------
+
+{$IFDEF DevHints}
   {$MESSAGE HINT 'Remember to update.'}
 {
-  These constants can change with telemetry development, remember to update them
-  if you add support for new telemetry version.
+  These constants can and will change with telemetry development, remember to
+  update them when you add support for new telemetry version.
 }
 {$ENDIF}
 
@@ -281,6 +207,8 @@ const
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 {EUT2 1.8}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {EUT2 1.9}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {EUT2 1.10}));
+
+//------------------------------------------------------------------------------
 
 type
 {:
@@ -346,6 +274,8 @@ type
   //:Pointer to scs_telemetry_configuration_localized_t structure.
   p_scs_telemetry_configuration_localized_t = ^scs_telemetry_configuration_localized_t;
 
+//------------------------------------------------------------------------------
+
 const
   //:Constant containing an empty @code(scs_value_t) structure, or, more
   //:precisely, structure with invalid value type.
@@ -370,6 +300,7 @@ const
         _padding:         $00000000));
     StringData: '');
 
+    
 {==============================================================================}
 {   Unit functions and procedures // Declaration                               }
 {==============================================================================}

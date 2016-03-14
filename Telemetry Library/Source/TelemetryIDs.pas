@@ -6,8 +6,8 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Unit providing constans with precalculated IDs a others stuff around
-          IDs generally.)
+@abstract(Unit providing constans with precalculated channel IDs a others stuff
+          around IDs generally.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-15)
 @lastmod(2015-04-20)
@@ -17,36 +17,11 @@
   ©2013-2015 František Milt, all rights reserved.
 
   This unit contains definitions of identification number types, set of
-  constants containing full configuration names, constants with IDs for
-  individual configs and channel, as well as function used to obtain those IDs.
+  constants containing IDs for individual channels, as well as function used to
+  obtain those IDs and more.
 
   Last change: 2015-04-20
 
-  Change List:@unorderedList(
-    @item(2014-04-15 - First stable version.)
-    @item(2014-04-15 - Function GetItemID was moved to this unit.)
-    @item(2014-04-18 - Constant @code(cConfigFieldsSeparator) was moved to this
-                       unit.)
-    @item(2014-10-23 - Added support for eut2 1.9.)
-    @item(2014-10-23 - Added true constants when precomputed IDs are used
-                       (optional, can be reconfigured to use writeable
-                       constans instead).)
-    @item(2014-11-07 - Added support for eut2 1.10.)
-    @item(2015-04-20 - Constant @code(cConfigFieldsSeparator) renamed to
-                       ConfigFieldsSeparator.)
-    @item(2015-04-20 - Slight implementation changes.)
-    @item(2015-07-14 - Started rework of configs...)
-    @item(2015-07-14 - Removed types @code(TConfigID) and @code(PConfigID).)
-    @item(2015-07-14 - Removed full config names.)
-    @item(2015-07-14 - Removed config ID constants.)
-    @item(2015-07-14 - Function @code(ConfigMergeIDAndAttribute) renamed to
-                       FullConfigName, renamed parameters.)
-    @item(2015-07-14 - Function @code(ConfigRemoveIDFromName) renamed to
-                       ExtractConfigAttributeName, renamed parameters.)
-    @item(2015-07-14 - Added new variant of function FullConfigName taking
-                       config reference as input.)
-    @item(2015-07-14 - Added funtion ConfigReference.))
-    
 @html(<hr>)
 
   Table of precomputed IDs for channel names.@br
@@ -149,7 +124,7 @@
   )
   @code(*) - This constant does not actually exist (it was removed from
   telemetry SDK and replaced by @code(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset)).@br
-  @code(**) - These channels does not work in current SDK.@br
+  @code(**) - These channels does not work in current SDK (eut2 1.10).@br
 
 @html(<hr>)}
 unit TelemetryIDs;
@@ -161,12 +136,12 @@ interface
 uses
   CRC32,
   TelemetryCommon,
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_telemetry_common_configs
-{$IFNDEF PrecomputedItemID},
+{$IFNDEF ID_TrueConstants},
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels;
@@ -179,7 +154,8 @@ uses
 {==============================================================================}
 
 const
-  //:Character used as a separator for config + config_attribute conglomerate.
+  //:Character used as a separator for config + config_attribute conglomerate
+  //:(full config name).
   ConfigFieldsSeparator = '.';
 
 type
@@ -194,7 +170,7 @@ type
   PChannelID = ^TChannelID;
 
 const  
-{$IFDEF TrueIDConstants}
+{$IFDEF ID_TrueConstants}
 // True constants.
 
 {==============================================================================}
@@ -401,7 +377,7 @@ const
   SCS_TELEMETRY_TRUCK_CHANNEL_ID_wheel_lift_offset            = TChannelID($046B7B44);
 
 {$ELSE}
-// Writeable constants.
+// Writeable constants (more-or-less initialized variables).
 
 {$WRITEABLECONST ON}
 {==============================================================================}
@@ -638,18 +614,17 @@ const
 
 //------------------------------------------------------------------------------
 
-{$IFNDEF PrecomputedItemID}
+{$IF not Defined(ID_TrueConstants) or Defined(Documentation)}
 {:
   @abstract(Procedure calculating identification numbers for channels and
   configs.)
   When you call this routine, it recalculates all ID constants. Use it only when
-  you truly need this recalculation.@br
+  you truly need this recalculation (note that IDs are initialized).@br
   It is called automatically in initialization section of this unit when neither
-  of @code(PrecomputedItemID) and @code(ManualItemIDCompute) switches is
-  defined.
+  of switches @code(ID_TrueConstants) and @code(ID_ManualCompute) is defined.
 }
   procedure InitializeItemsIDs;
-{$ENDIF}
+{$IFEND}
 
 //------------------------------------------------------------------------------
 
@@ -670,7 +645,8 @@ const
   Returns full config name composed from config ID and attribute name separated
   by ConfigFieldsSeparator.
 
-  @param ConfigReference Reference from which the ID and attribute are taken.
+  @param(ConfigReference Reference from which the ID and attribute names are
+                         taken.)
 
   @returns Full config name.
 }
@@ -723,7 +699,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-{$IFNDEF PrecomputedItemID}
+{$IFNDEF ID_TrueConstants}
 procedure InitializeItemsIDs;
 begin
 //---   ---   ---   ---   ---   Channels IDs   ---   ---   ---   ---   ---   ---
@@ -872,7 +848,7 @@ end;
 {   Initialization section                                                     }
 {==============================================================================}
 
-{$IF not Defined(PrecomputedItemID) and not Defined(ManualItemIDCompute)}
+{$IF not Defined(ID_TrueConstants) and not Defined(ID_ManualCompute)}
 initialization
   InitializeItemsIDs;
 {$IFEND}
