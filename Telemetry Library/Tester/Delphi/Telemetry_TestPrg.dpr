@@ -10,8 +10,8 @@ uses
   TelemetryCommon           in '..\..\Source\TelemetryCommon.pas',
   TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
   TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
-  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas'
-//  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas'
+  TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
+  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas'
 //  TelemetryLists            in '..\..\Source\TelemetryLists.pas'
 //  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas'
 //  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas'

@@ -20,8 +20,8 @@
   channel. But telemetry is also able to provide value of some channels as
   a secondary type when registered so, eg. as 64bit integer for a channel whose
   native type is a 32bit integer.@br
-  Following is table of secondary types for each existing primary type (/ means
-  this primary type does not allow any secondary type to be used):
+  Following is table of secondary types for each existing primary type ("/"
+  means this primary type does not allow any secondary type to be used):
 @preformatted(
     Primary type             -    Secondary types
  -------------------------------------------------------------------
@@ -44,9 +44,6 @@
 
   Last change: 2015-07-14
 
-  Change List:@unorderedList(
-    @item(2015-07-14 - Documentation created.))
-
 @html(<hr>)}
 unit TelemetryValueTypeUtils;
 
@@ -55,11 +52,12 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+  AuxTypes,
 {$IFDEF Documentation}
   BitOps,
   TelemetryStrings,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk_value;
@@ -104,12 +102,12 @@ const
   TVT_REG_SEC_12  = 2048;
 
   //:Use for parameter @code(@link(SelectSupportedValueTypes
-  //:SecondarySelectionMask)) to select all secondary types.
+  //:SecondarySelectionMask)) to select all possible secondary types.
   TVT_REG_SEC_ALL = $FFFFFFFF;
 
 type
 {:
-  @abstract(Bitmask type used to identify any number value types.)
+  @abstract(Bitmask type used to identify any number of value types.)
   
   Each bit in this bitmask corresponds to exactly one known value type. When a
   particular bit is set, it means such type is used or selected.
@@ -132,7 +130,7 @@ type
   Note that @code(SCS_VALUE_TYPE_INVALID) type is not mapped, hence you cannot
   use or select it.
 }
-  TValueTypeBitmask = LongWord;
+  TValueTypeBitmask = UInt32;
 
 {:
   @abstract(An array type used in the same manner as TValueTypeBitmask, but
@@ -190,7 +188,7 @@ Function ValueTypesArrayToStr(const ValueTypes: TValueTypesArray): String;
   @abstract(Returns a value type bitmask where bit corresponding to type passed
             in the parameter @code(ValueType) will be set.)
 
-  All other bits will not be 0.@br
+  All other bits will be set to 0.@br
   For selecting multiple values, use function ValueTypesBitmask.
 
   @param ValueType Value type that should be selected.
@@ -205,7 +203,7 @@ Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
   @abstract(Returns a value type bitmask where bits corresponding to types
             passed in the parameter @code(ValueTypes) will be set.)
 
-  All other bits will not be 0.
+  All other bits will be set to 0.
 
   @param ValueType Array of value types that should be selected.
 
@@ -218,7 +216,7 @@ Function ValueTypesBitmask(ValueTypes: Array of scs_value_type_t): TValueTypeBit
 
 {:
   @abstract(Returns value type corresponding to first set bit (counting from
-            bit 0) in the @code(Bitmask) parameter.)
+            bit 0 up) in the @code(Bitmask) parameter.)
 
   If no bit is set, @code(SCS_VALUE_TYPE_INVALID) will be returned.@br
   For example, for bitmask 0x0000001A (...00011010), @code(SCS_VALUE_TYPE_s32)
@@ -378,7 +376,7 @@ Function SupportedValueTypes(PrimaryValueType: scs_value_type_t): TValueTypesArr
 //==============================================================================
 
 {:
-  Checks whether slected types in a given bitmask are all secondaries for a
+  Checks whether selected types in a given bitmask are all secondaries for a
   passed primary value type.
   
   @param Bitmask          Bitmask that will be checked.
@@ -393,7 +391,7 @@ Function ValidateSecondaryValueTypesBitmask(Bitmask: TValueTypeBitmask; PrimaryV
 //------------------------------------------------------------------------------
 
 {:
-  Checks whether slected types in a given bitmask are all secondaries for a
+  Checks whether selected types in a given bitmask are all secondaries for a
   passed primary value type, or the primary itself.
 
   @param Bitmask          Bitmask that will be checked.
@@ -496,7 +494,7 @@ procedure MakeValidSupportedValueTypesBitmask(var Bitmask: TValueTypeBitmask; Pr
 
   @returns Array of value types that is build according to passed parameters.
 }
-Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): TValueTypesArray; overload;
 
 //------------------------------------------------------------------------------
 
@@ -521,7 +519,7 @@ Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; Secondary
 
   @returns Array of value types that is build according to passed parameters.
 }
-Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray; overload;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): TValueTypesArray; overload;
 
 //------------------------------------------------------------------------------
 
@@ -541,7 +539,7 @@ Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPri
 
   @returns Array of value types that is build according to passed parameters.
 }
-Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): TValueTypesArray;
+Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: UInt32): TValueTypesArray;
 
 implementation
 
@@ -594,7 +592,7 @@ end;
 Function ValueTypeBitmask(ValueType: scs_value_type_t): TValueTypeBitmask;
 begin
 If (ValueType > 0) and (ValueType <= SCS_VALUE_TYPE_LAST) then
-  Result := ROL(LongWord($80000000),Byte(ValueType))
+  Result := ROL(UInt32($80000000),Byte(ValueType))
 else
   Result := 0;
 end;
@@ -624,9 +622,7 @@ Function BitmaskValueTypes(Bitmask: TValueTypeBitmask): TValueTypesArray;
 var
   i,j:  Integer;
 begin
-{$IFDEF FPC}{$HINTS OFF}{$ENDIF}
-FillChar(Result,SizeOf(Result),0);
-{$IFDEF FPC}{$HINTS ON}{$ENDIF}
+FillChar(Addr(Result)^,SizeOf(Result),0);
 If Bitmask <> 0 then
   begin
     j := Low(Result);
@@ -758,7 +754,7 @@ end;
 
 //==============================================================================
 
-Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: TValueTypeBitmask; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): TValueTypesArray;
 var
   i:  Integer;
 begin
@@ -777,14 +773,14 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): TValueTypesArray;
+Function SelectSupportedValueTypes(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): TValueTypesArray;
 begin
 Result := SelectSupportedValueTypes(PrimaryValueType,SecondaryValueTypesBitmask(PrimaryValueType),SelectPrimary,SecondarySelectionMask);
 end;
 
 //------------------------------------------------------------------------------
 
-Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): TValueTypesArray;
+Function SelectSecondaryValueTypes(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: UInt32): TValueTypesArray;
 begin
 Result := SelectSupportedValueTypes(PrimaryValueType,SecondaryValueTypesBitmask(PrimaryValueType),False,SecondarySelectionMask);
 end;
