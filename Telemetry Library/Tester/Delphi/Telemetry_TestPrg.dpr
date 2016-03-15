@@ -11,8 +11,8 @@ uses
   TelemetryIDs              in '..\..\Source\TelemetryIDs.pas',
   TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
   TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
-  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas'
-//  TelemetryLists            in '..\..\Source\TelemetryLists.pas'
+  TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
+  TelemetryLists            in '..\..\Source\TelemetryLists.pas'
 //  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas'
 //  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas'
 //  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas'
@@ -28,8 +28,21 @@ uses
 //  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas'
 ;
 
+var
+  test: TStoredConfigsList;
 
 begin
+  Test := TStoredConfigsList.Create;
+  try
+    Test.Add('ID','Attr1',2,nil,True);
+    Test.Add('ID','Attr2',0,nil,True);
+    WriteLn(Test.IndexOf('ID','Attr2'));
+    Test.Remove(ConfigReference('ID','Attr1'),2);
+    WriteLn(Test.Count);
+    WriteLn(Test.IndexOf('ID','Attr2'));
+  finally
+    Test.Free;
+  end;
   WriteLn;
   Write('Press enter to end...'); ReadLn;
 end.

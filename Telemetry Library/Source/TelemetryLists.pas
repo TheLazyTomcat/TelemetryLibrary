@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(List classes used in Telemetry library.)
+@abstract(List classes used in Telemetry Library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
 @lastmod(2015-07-09)
@@ -28,156 +28,6 @@
 )
   Last change: 2015-07-09
 
-  Change List:@unorderedList(
-    @item(2013-10-04 - First stable version.)
-    @item(2014-04-07 - Type of parameter @code(Item) in function GetItemID
-                       changed to @code(TelemetryString).)
-    @item(2014-04-07 - Field type changed to @code(TelemetryString) in following
-                       cases:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TKnownEvent.Name)
-                         @item(TKnownChannel.Name)
-                         @item(TKnownChannel.IndexConfig)
-                         @item(TKnownConfig.Name)
-                         @item(TChannelInfo.Name)
-                         @item(TStoredConfig.Name)
-                         @item(TStoredChannel.Name)))
-    @item(2014-04-07 - Type of parameters @code(Name) and @code(IndexConfig)
-                       changed to @code(TelemetryString) in following methods:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TKnownEventsList.IndexOf)
-                         @item(TKnownEventsList.Add)
-                         @item(TKnownEventsList.ReplaceIndex)
-                         @item(TKnownEventsList.Replace)
-                         @item(TKnownEventsList.Insert)
-                         @item(TKnownChannelsList.IndexOf)
-                         @item(TKnownChannelsList.Add)
-                         @item(TKnownChannelsList.ReplaceIndex)
-                         @item(TKnownChannelsList.Replace)
-                         @item(TKnownChannelsList.Insert)
-                         @item(TKnownChannelsList.Remove)
-                         @item(TKnownChannelsList.ChannelIndexConfigID)
-                         @item(TKnownChannelsList.ChannelNameToID)
-                         @item(TKnownConfigsList.IndexOf)
-                         @item(TKnownConfigsList.Add)
-                         @item(TKnownConfigsList.ReplaceIndex)
-                         @item(TKnownConfigsList.Replace)
-                         @item(TKnownConfigsList.Insert)
-                         @item(TKnownConfigsList.Remove)
-                         @item(TKnownConfigsList.IsBinded)
-                         @item(TKnownConfigsList.IsIndexed)
-                         @item(TKnownConfigsList.ConfigNameToID)
-                         @item(TRegisteredChannelsList.IndexOf)
-                         @item(TRegisteredChannelsList.Add)
-                         @item(TRegisteredChannelsList.Remove)
-                         @item(TRegisteredChannelsList.CreateContext)
-                         @item(TStoredConfigsList.IndexOf)
-                         @item(TStoredConfigsList.Add)
-                         @item(TStoredConfigsList.Remove)
-                         @item(TStoredConfigsList.ChangeConfigValue)
-                         @item(TStoredChannelsList.IndexOf)
-                         @item(TStoredChannelsList.StoreChannelValue)))
-    @item(2014-04-07 - Result type changed to @code(TelemetryString) for
-                       following methods:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TKnownChannelsList.ChannelIDToName)
-                         @item(TKnownConfigsList.ConfigIDToName)))
-    @item(2014-04-11 - Added multicast event TCustomTelemetryList.OnChangeMulti.)
-    @item(2014-04-13 - Name of the class @code(TStoredChannelValuesList) changed
-                       to @code(TStoredChannelsValuesList).)
-    @item(2014-04-14 - TKnownConfigsList class now stores fully qualified
-                       configuration value names instead of just attribute
-                       names.)
-    @item(2014-04-15 - Declarations of following types were moved to unit
-                       TelemetryIDs:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TItemID)
-                         @item(PItemID)
-                         @item(TChannelID)
-                         @item(PChannelID)
-                         @item(TConfigID)
-                         @item(PConfigID)))
-    @item(2014-04-15 - Function GetItemID was moved to unit TelemetryIDs.)
-    @item(2014-05-04 - Following callback functions were added:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(GetChannelIDFromName)
-                         @item(GetChannelNameFromID)
-                         @item(GetConfigIDFromName)
-                         @item(GetConfigNameFromID)))
-    @item(2014-06-07 - Added field @code(MaxIndex) to TKnownChannel record.)
-    @item(2014-11-05 - Added field @code(UserData) to TEventContext and
-                       TChannelContext.)
-    @item(2014-11-05 - Added TUserDataFreeEvent event type.)
-    @item(2014-11-05 - Added following fields, methods and properties:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TRegisteredEventsList.fOnUserDataFree)
-                         @item(TRegisteredEventsList.DoOnUserDataFree)
-                         @item(TRegisteredEventsList.OnUserDataFree)
-                         @item(TRegisteredChannelsList.fOnUserDataFree)
-                         @item(TRegisteredChannelsList.DoOnUserDataFree)
-                         @item(TRegisteredChannelsList.OnUserDataFree)))
-    @item(2014-11-05 - Added parameter @code(UserData) to following methods:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TRegisteredEventsList.Add)
-                         @item(TRegisteredEventsList.CreateContext)
-                         @item(TRegisteredChannelsList.Add)
-                         @item(TRegisteredChannelsList.CreateContext)))
-    @item(2014-11-05 - Small implementation changes.)
-    @item(2014-11-24 - Changes due to a new system of storing and passing
-                       secondary types of channel value. These changes include:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(Fields @code(SecondaryType) and @code(TertiaryType)
-                               in structure TKnownChannel replaced by field
-                               @link(TKnownChannel.SecondaryTypes SecondaryTypes))
-                         @item(Added new variants of method TKnownChannelsList.Add)
-                         @item(Added new variants of method TKnownChannelsList.ReplaceIndex)
-                         @item(Added new variants of method TKnownChannelsList.Replace)
-                         @item(Added new variants of method TKnownChannelsList.Insert)))
-    @item(2015-06-26 - Added 64bit ASM code for function GetMasterID.)
-    @item(2015-06-27 - Renamed following constants:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(cEmptyKnownEvent renamed to EmptyKnownEvent)
-                         @item(cEmptyKnownChannel renamed to EmptyKnownChannel)
-                         @item(cEmptyKnownConfig renamed to EmptyKnownConfig)
-                         @item(cEmptyEventInfo renamed to EmptyEventInfo)
-                         @item(cEmptyChannelInfo renamed to EmptyChannelInfo)
-                         @item(cEmptyStoredConfig renamed to EmptyStoredConfig)))
-    @item(2015-06-27 - Small implementation changes.)
-    @item(2015-06-27 - @code(TStoredChannelsValuesList) class renamed to
-                       TStoredChannelsList.)
-    @item(2015-07-09 - Class of all exceptions changed to a proper internal
-                       class.)
-    @item(2015-07-09 - Added exceptions description into documentation.)
-    @item(2015-07-14 - Started rework of configs...)
-    @item(2015-07-14 -
-    Removed field @code(IndexConfigID) from structure TKnownChannel.
-    Field IndexConfig in type TKnownChannel changed to TConfigReference.
-    Removed funtions GetConfigIDFromName and GetConfigNameFromID
-    Type of parameter IndexConfig changed to TConfigReference in all variants of following methods
-      TKnownChannels.Add
-      TKnownChannels.ReplaceIndex
-      TKnownChannels.Replace
-      TKnownChannels.Insert
-
-    /
-    removed fields Name and ID from structure TKnownConfig
-    Adde field Reference to -//-
-
-    Removed variants of TKnownConfigsList.IndexOf method taking ID and name as a
-    parameter, replaced by variants taking config reference and ID + Attribute names
-
-    removed TKnownConfigsList.ConfigNameToID and TKnownConfigsList.ConfigIDToName
-    /
-    reimplemented TKnownConfigsList class
-
-    TCustomTelemetryList.GetCount moved to protected methods and marked virtual
-    
-    ))
-
 @html(<hr>)}
 unit TelemetryLists;
 
@@ -188,7 +38,8 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
-{$ENDIF}  
+{$ENDIF}
+  AuxTypes,
 {$IFDEF MulticastEvents}
   MulticastEvent,
 {$ENDIF}
@@ -199,7 +50,7 @@ uses
   TelemetryConversions,
   TelemetryStrings,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -237,11 +88,11 @@ type
   }
     fMainList:      TList;
   {:
-    When this variable is set to @true, it indicates that the list is updated
-    from outside and OnChange event should not be called.@br
+    When this field has value larger than 0, it indicates that the list is being
+    updated from outside and OnChange event should not be called.@br
     It is set by methods BeginUpdate and EndUpdate.
   }
-    fUpdating:      Boolean;
+    fUpdateCount:   Integer;
   {:
     Holds reference to OnChange event handler.
   }
@@ -348,20 +199,20 @@ type
     Method Clear is called within destructor, so it is not necessary to
     explicitly call it when class instance is freed.
 
-    @bold(Note:) OnChange event is not called.
+    @bold(Note) - OnChange event is not called.
   }
     destructor Destroy; override;
   {:
-    Sets fUpdating to @true.
+    Increases fUpdateCount.
   }
     procedure BeginUpdate; virtual;
   {:
-    Sets fUpdating to @false and calls DoChange method.
+    Decreases fUpdateCount and calls DoChange when it reaches zero or lower.
   }
     procedure EndUpdate; virtual;
   {:
-    Calls handler of OnChange event (if assigned) - but only if fUpdating is set
-    to @false, otherwise the handler is not called and method returns
+    Calls handler of OnChange event (if assigned) - but only if fUpdateCount is
+    zero or lower, otherwise the handler is not called and method returns
     immediately.
   }
     procedure DoChange; virtual;
@@ -379,15 +230,15 @@ type
     property Count: Integer read GetCount;
   {:
     Event called whenever the list is changed. It can also be called manually by
-    calling DoChange method. It is NOT called when fUpdating is set to @true
-    (but can be still called directly if handler is assigned).
+    calling DoChange method. It is NOT called when fUpdateCount is higher than
+    zero (but can be still called directly if handler is assigned).
   }
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
   {$IFDEF MulticastEvents}
   {:
     Multicast event called whenever the list is changed. It can also be called
-    manually by calling DoChange method. It is NOT called when fUpdating is set
-    to @true (but can be still called directly).@br
+    manually by calling DoChange method. It is NOT called when fUpdateCount is
+    higher than zero (but can be still called directly).@br
     Assigning handlers to this event does not interfere with normal OnChange
     event.@br
     Normal OnChange event is called first, handlers of this event are called
@@ -464,6 +315,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetKnownEvent(Index: Integer): TKnownEvent;
   public
@@ -684,6 +537,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetKnownChannel(Index: Integer): TKnownChannel;
   public
@@ -1057,7 +912,7 @@ type
   Used as an item in TKnownConfigsList class.
 
   @member(ID         Identifier of the configuration.)
-  @member(Attributes Array of attributes belonging to a particular
+  @member(Attributes Array of @noAutoLink(attributes) belonging to a particular
                      configuration.)
 }
   TKnownConfiguration = record
@@ -1086,6 +941,9 @@ const
 {:
   List used to store information about known telemetry configurations values.
 }
+{$IFDEF DevHints}
+  {$MESSAGE HINT 'Documentation.'}
+{$ENDIF}
 type
   TKnownConfigsList = class(TCustomTelemetryList)
   private
@@ -1164,6 +1022,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetKnownConfig(Index: Integer): TKnownConfig;
   public
@@ -1313,7 +1173,7 @@ type
   end;
 *)
 
-(*
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                            TRegisteredEventsList                             }
@@ -1395,6 +1255,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetEventInfo(Index: Integer): TEventInfo;
   public
@@ -1564,19 +1426,19 @@ type
 
   @member(Name          @NoAutoLink(Name) of the channel.)
   @member(ID            Identifier of the channel.)
-  @member(Index         @NoAutoLink(Index) of channels value.)
+  @member(Index         @NoAutoLink(Index) of channel value.)
   @member(ValueType     Type of value for current channel.)
   @member(Flags         Registration flags.)
-  @member(IndexConfigID Identifier of config that stores count for this
+  @member(IndexConfig   Reference to config that stores count for this
                         channel.)
 }
   TChannelInfo = record
-    Name:           TelemetryString;
-    ID:             TChannelID;
-    Index:          scs_u32_t;
-    ValueType:      scs_value_type_t;
-    Flags:          scs_u32_t;
-    IndexConfigID:  TItemID;
+    Name:         TelemetryString;
+    ID:           TChannelID;
+    Index:        scs_u32_t;
+    ValueType:    scs_value_type_t;
+    Flags:        scs_u32_t;
+    IndexConfig:  TConfigReference;
   end;
   //:Pointer to TChannelInfo structure.
   PChannelInfo = ^TChannelInfo;
@@ -1584,21 +1446,23 @@ type
 const
   //:Empty TEventInfo structure.
   EmptyChannelInfo: TChannelInfo =
-   (Name:           '';
-    ID:             0;
-    Index:          SCS_U32_NIL;
-    ValueType:      SCS_VALUE_TYPE_INVALID;
-    Flags:          0;
-    IndexConfigID:  0);
+   (Name:       '';
+    ID:         0;
+    Index:      SCS_U32_NIL;
+    ValueType:  SCS_VALUE_TYPE_INVALID;
+    Flags:      0;
+    IndexConfig:(
+      ID:         '';
+      Attribute:  ''));
 
 {:
-  @abstract(Structure used as item in TRegisteredEventsList.)
+  @abstract(Structure used as an item in TRegisteredEventsList.)
   Pointer to this structure is passed as @noAutoLink(context) in telemetry API
   calls when registering telemetry channel.
 
   @member(Recipient   Object that should receive channel callbacks.)
   @member(ChannelInfo Information about registered channel.)
-  @member(UserData  User data stored in the context.)
+  @member(UserData    User data stored in the context.)
 }
 type
   TChannelContext = record
@@ -1647,6 +1511,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetChannelInfo(Index: Integer): TChannelInfo;
   public
@@ -1772,14 +1638,14 @@ type
     @param Index         Index of registered channel.
     @param ValueType     Value type of registered channel.
     @param Flags         Registering flags.
-    @param(IndexConfigID ID of index configuration to which the registered
-                         channel is bound.)
+    @param(IndexConfig   Reference to index configuration to which the
+                         registered channel is bound.)
     @param(UserData      User defined data to be stored inside the channel
                          context.)
 
     @returns Index at which the new context was added, -1 when addition failed.
   }
-    Function Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer; overload; virtual;
+    Function Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; IndexConfig: TConfigReference; UserData: Pointer = nil): Integer; overload; virtual;
   {:
     Creates and adds new context into the list. Created context has
     @code(Recipient) field set to @nil.@br
@@ -1790,14 +1656,14 @@ type
     @param Index         Index of registered channel.
     @param ValueType     Value type of registered channel.
     @param Flags         Registering flags.
-    @param(IndexConfigID ID of index configuration to which the registered
-                         channel is bound.)
+    @param(IndexConfig   Reference to index configuration to which the
+                         registered channel is bound.)
     @param(UserData      User defined data to be stored inside the channel
                          context.)
 
     @returns Index at which the new context was added, -1 when addition failed.
   }
-    Function Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer; overload; virtual;
+    Function Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; IndexConfigID: TConfigReference; UserData: Pointer = nil): Integer; overload; virtual;
   {:
     Removes context created for given channel from the list.@br
     OnChange event is called after successful removal.
@@ -1866,14 +1732,14 @@ type
     @param Index         Index of registered channel.
     @param ValueType     Value type of registered channel.
     @param Flags         Registering flags.
-    @param(IndexConfigID ID of index configuration to which registered channel
-                         is bound.)
+    @param(IndexConfig   Reference to index configuration to which the
+                         registered channel is bound.)
     @param(UserData      User defined data to be stored inside the created
                          channel context.)
 
     @returns Pointer to created channel context.
   }
-    Function CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): PChannelContext; virtual;
+    Function CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; IndexConfig: TConfigReference; UserData: Pointer = nil): PChannelContext; virtual;
   {:
     Frees memory allocated for channel context and sets this pointer to @nil.@br
     Calls OnUserDataFree event before the context is freed.
@@ -1907,6 +1773,7 @@ type
     property OnUserDataFree: TUserDataFreeEvent read fOnUserDataFree write fOnUserDataFree;    
   end;
 
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                              TStoredConfigsList                              }
@@ -1918,18 +1785,17 @@ type
   This structure is used to store configuration @noAutoLink(value) obtained from
   the API call.
 
-  @member(Name   Full @NoAutoLink(name) of the config.)
-  @member(ID     Identifier of the config.)
-  @member(Index  Index of configs @NoAutoLink(value).)
-  @member(Value  Actual @NoAutoLink(value) of the config.)
-  @member(Binded Flag denoting whether this config is @NoAutoLink(binded).)
+  @member(Reference Full @noAutoLink(reference) of specific config
+                    (configuration ID and Attribute name).)
+  @member(Index     @NoAutoLink(Index) of configs @NoAutoLink(value).)
+  @member(Value     Actual @NoAutoLink(value) of the config.)
+  @member(Binded    Flag denoting whether this config is @NoAutoLink(binded).)
 }
   TStoredConfig = record
-    Name:   TelemetryString;
-    ID:     TConfigID;
-    Index:  scs_u32_t;
-    Value:  scs_value_localized_t;
-    Binded: Boolean;
+    Reference:  TConfigReference;
+    Index:      scs_u32_t;
+    Value:      scs_value_localized_t;
+    Binded:     Boolean;
   end;
   //:Pointer to TStoredConfig structure.
   PStoredConfig = ^TStoredConfig;
@@ -1937,9 +1803,10 @@ type
 const
   //:Empty TStoredConfig structure.
   EmptyStoredConfig: TStoredConfig =
-   (Name:   '';
-    ID:     0;
-    Index:  SCS_U32_NIL;
+   (Reference:  (
+      ID:         '';
+      Attribute:  '');
+    Index:      SCS_U32_NIL;
     Value:  (
       ValueType:  SCS_VALUE_TYPE_INVALID;
       BinaryData: (
@@ -1981,6 +1848,8 @@ type
     @param Index Index of requested item.
 
     @returns Requested item.
+
+    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
   }
     Function GetStoredConfig(Index: Integer): TStoredConfig;
   public
@@ -1990,93 +1859,103 @@ type
   }
     procedure Clear; override;
   {:
-    Searches through list for stored config with appropriate name.
+    Searches through list for stored config with appropriate identification.
     When matching config is not found, -1 is returned.
 
-    @param Name  Name of the requested config.
+    @param ID         Configuration ID of the requested config.
+    @param Attribute  Attribute name of the requested config.
 
     @returns Index of requested config, -1 when not found.
   }
-    Function IndexOf(const Name: TelemetryString): Integer; overload; virtual;
+    Function IndexOf(const ID, Attribute: TelemetryString): Integer; overload; virtual;
   {:
-    Searches through list for stored config with appropriate ID.
+    Searches through list for stored config with appropriate reference.
     When matching config is not found, -1 is returned.
 
-    @param ID    ID of the requested config.
+    @param(ConfigReference  Full reference (ID + Attribute) of the requested
+                            config.)
 
     @returns Index of requested config, -1 when not found.
   }
-    Function IndexOf(ID: TConfigID): Integer; overload; virtual;
+    Function IndexOf(ConfigReference: TConfigReference): Integer; overload; virtual;
   {:
-    Searches through list for stored config with appropriate name and index.
+    Searches through list for stored config with appropriate identification and
+    index.
     When matching config is not found, -1 is returned.
 
-    @param Name  Name of the requested config.
-    @param Index Index of the requested config.
+    @param ID         Configuration ID of the requested config.
+    @param Attribute  Attribute name of the requested config.
+    @param Index      Index of the requested config.
 
     @returns Index of requested config, -1 when not found.
   }
-    Function IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;
+    Function IndexOf(const ID, Attribute: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;
   {:
-    Searches through list for stored config with appropriate ID and index.
+    Searches through list for stored config with appropriate reference and
+    index.
     When matching config is not found, -1 is returned.
 
-    @param ID    ID of the requested config.
-    @param Index Index of the requested config.
+    @param(ConfigReference  Full reference (ID + Attribute) of the requested
+                            config.)
+    @param Index            Index of the requested config.
 
     @returns Index of requested config, -1 when not found.
   }
-    Function IndexOf(ID: TConfigID; Index: scs_u32_t): Integer; overload; virtual;
+    Function IndexOf(ConfigReference: TConfigReference; Index: scs_u32_t): Integer; overload; virtual;
   {:
     Stores new config with its value into the list.@br
     OnChange event is called after successful addition.
 
-    @param Name    Name of stored config (ID is calculated from it).
-    @param Index   Index of stored config.
-    @param Value   Localized value (data) this config contains.
-    @param(Binded  Flag denoting whether  this config is binded by some channel
-                   (i.e. some channel has this config as its IndexConfig
-                   property).)
+    @param ID         Configuration ID of the added config.
+    @param Attribute  Attribute name of the added config.
+    @param Index      Index of stored config.
+    @param Value      Localized value (data) this config contains.
+    @param(Binded     Flag denoting whether  this config is binded by some
+                      channel (i.e. some channel has this config as its
+                      IndexConfig property).)
 
     @returns Index at which the new config was stored, -1 when addition failed.
   }
-    Function Add(const Name: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer; overload; virtual;
+    Function Add(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer; overload; virtual;
   {:
     Stores new config with its value into the list.@br
     OnChange event is called after successful addition.
 
-    @param Name    Name of stored config (ID is calculated from it).
-    @param Index   Index of stored config.
-    @param Value   Value (data) this config contains.
-    @param(Binded  Flag denoting whether  this config is binded by some channel
-                   (i.e. some channel has this config as its IndexConfig
-                   property).)
+    @param ID         Configuration ID of the added config.
+    @param Attribute  Attribute name of the added config.
+    @param Index      Index of stored config.
+    @param Value      Value (data) this config contains.
+    @param(Binded     Flag denoting whether  this config is binded by some
+                      channel (i.e. some channel has this config as its
+                      IndexConfig property).)
 
     @returns Index at which the new config was stored, -1 when addition failed.
   }
-    Function Add(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;
+    Function Add(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;
   {:
     Removes stored config from the list.@br
     OnChange event is called after successful removal.
 
-    @param Name  Name of stored config that has to be removed.
-    @param Index Index of stored config.
+    @param ID         Configuration ID of the config that has to be removed.
+    @param Attribute  Attribute name of the config that has to be removed.
+    @param Index      Index of stored config.
 
     @returns(Index of item that was removed, -1 when requested config was not
              found.)
   }
-    Function Remove(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+    Function Remove(const ID, Attribute: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
   {:
     Removes stored config from the list.@br
     OnChange event is called after successful removal.
 
-    @param ID    ID of stored config that has to be removed.
-    @param Index Index of stored config.
+    @param(ConfigReference  Full reference (ID + Attribute) of stored config
+                            that has to be removed.)
+    @param Index            Index of stored config.
 
     @returns(Index of item that was removed, -1 when requested config was not
              found.)
   }
-    Function Remove(ID: TChannelID; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
+    Function Remove(ConfigReference: TConfigReference; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;
   {:
     Deletes stored config at position given by @code(Index) parameter. When
     index falls out of allowed boundary (<0,Count - 1>), an exception is
@@ -2089,27 +1968,31 @@ type
   }
     procedure Delete(Index: Integer); virtual;
   {:
-    Changes stored value in config defined by name and index.
+    Changes stored value in config defined by identification and index.
     OnChange event is called after successful removal.
 
-    @param Name  Name of stored config whose value should be changed.
-    @param Index Index of stored config.
+    @param(ID         Configuration ID of the config whose value should be
+                      changed.)
+    @param(Attribute  Attribute name of the config whose value should be
+                      changed.)
+    @param Index      Index of stored config.
 
     @returns(Index of item whose value has been changed, -1 when requested
              config was not found.)
   }
-    Function ChangeConfigValue(const Name: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
+    Function ChangeConfigValue(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
   {:
-    Changes stored value in config defined by ID and index.
+    Changes stored value in config defined by reference and index.
     OnChange event is called after successful removal.
 
-    @param ID    ID of stored config whose value should be changed.
-    @param Index Index of stored config.
+    @param(ConfigReference  Full reference (ID + Attribute) of config whose
+                            value should be changed.)
+    @param Index            Index of stored config.
 
     @returns(Index of item whose value has been changed, -1 when requested
              config was not found.)
   }
-    Function ChangeConfigValue(ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
+    Function ChangeConfigValue(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t): Integer; overload; virtual;
   {:
     Array property mapped directly to internal list. Use it for direct access to
     individual stored items.@br
@@ -2124,6 +2007,7 @@ type
     property Configs[Index: Integer]: TStoredConfig read GetStoredConfig; default;
   end;
 
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                              TStoredChannelsList                             }
@@ -2131,7 +2015,7 @@ type
 {==============================================================================}
 
   //:Identification number used in TStoredChannelsList for faster searching.
-  TMasterID = LongWord;
+  TMasterID = UInt32;
 
 {:
   @abstract(Function used to calculate master identification number which is
@@ -2257,6 +2141,8 @@ type
     is not yet stored in the list, it is added as new item. Function can, in
     extreme cases, return -1 (when the channel is not already stored and
     addition fails for some reason).@br
+    When @code(Value) parameter is not assigned, then the function returns
+    immediatelly, the list stays unchanged and the funtion will return -1.@br
     OnChange event is called after successful addition or value change.
 
     @param Name  Name of the channel.
@@ -2274,7 +2160,7 @@ type
   }
     property StoredChannelValues[Index: Integer]: TStoredChannel read GetStoredChannelValue; default;
   end;
-*)
+
 {==============================================================================}
 {   Unit functions and procedures // Declaration                               }
 {==============================================================================}
@@ -2316,14 +2202,8 @@ uses
 {==============================================================================}
 {   Unit functions and procedures // Implementation                            }
 {==============================================================================}
-(*
-Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register; {$IFNDEF PurePascal}assembler;{$ENDIF}
-{$IFDEF PurePascal}
-begin
-Result := (ID xor Index) xor not ValueType;
-end;
-{$ELSE}
-{$IFDEF FPC}{$ASMMODE intel}{$ENDIF}
+
+Function GetMasterID(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): TMasterID; register; {$IFNDEF PurePascal}assembler;
 asm
 {$IFDEF x64}
 {******************************************************************************}
@@ -2354,8 +2234,12 @@ asm
       XOR   EAX,  EDX
 {$ENDIF}
 end;
-{$ENDIF}
-*)
+{$ELSE PurePascal}
+begin
+Result := (ID xor Index) xor not ValueType;
+end;
+{$ENDIF PurePascal}
+
 //------------------------------------------------------------------------------
 
 Function GetChannelIDFromName(const Name: TelemetryString; KnownChannels: Pointer): TChannelID;
@@ -2469,7 +2353,7 @@ constructor TCustomTelemetryList.Create;
 begin
 inherited;
 fMainList := TList.Create;
-fUpdating := False;
+fUpdateCount := 0;
 {$IFDEF MulticastEvents}
 fOnChangeMulti := TMulticastNotifyEvent.Create(Self);
 {$ENDIF}
@@ -2493,14 +2377,14 @@ end;
 
 procedure TCustomTelemetryList.BeginUpdate;
 begin
-fUpdating := True;
+Inc(fUpdateCount);
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TCustomTelemetryList.EndUpdate;
 begin
-fUpdating := False;
+Dec(fUpdateCount);
 DoChange;
 end;
 
@@ -2508,7 +2392,7 @@ end;
 
 procedure TCustomTelemetryList.DoChange;
 begin
-If not fUpdating then
+If fUpdateCount <= 0 then
   begin
     If Assigned(fOnChange) then fOnChange(Self);
     {$IFDEF MulticastEvents}
@@ -3103,10 +2987,13 @@ end;
 //------------------------------------------------------------------------------
 
 procedure TKnownConfigsList.RenameConfiguration(Index: Integer; const NewID: TelemetryString);
+var
+  TempIdx:  Integer;
 begin
 If (Index >= 0) and (Index < ConfigurationCount) then
   begin
-    If IndexOfConfiguration(NewID) < 0 then
+    TempIdx := IndexOfConfiguration(NewID);
+    If (TempIdx < 0) and (TempIdx <> Index) then
       PKnownConfiguration(PtrGetItem(Index))^.ID := NewID
     else
       raise ETLAlreadyExists.CreateFmt('TKnownConfigsList.RenameConfiguration: Configuration (%s) already exists in the list.',[NewID]);
@@ -3276,7 +3163,7 @@ var
   ConfigurationIdx: Integer;
 begin
 ConfigurationIdx := IndexOfConfiguration(ID);
-If (ConfigurationIdx >= 0) and (ConfigurationIdx < COnfigurationCount) then
+If (ConfigurationIdx >= 0) and (ConfigurationIdx < ConfigurationCount) then
   Delete(DoubleIndex(ConfigurationIdx,Index))
 else
   raise ETLNotFound.CreateFmt('TKnownConfigsList.Delete: Configuration (%s) not found.',[ID])
@@ -3347,7 +3234,7 @@ Indices := IndexOf(ConfigReference);
 If ValidDoubleIndex(Indices) then Result := Configs[Indices].Indexed;
 end;
 
-(*
+
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                           TRegisteredEventsList                              }
@@ -3495,6 +3382,7 @@ procedure TRegisteredEventsList.DoOnUserDataFree(Sender: TObject; var UserData: 
 begin
 If Assigned(fOnUserDataFree) then fOnUserDataFree(Sender,UserData);
 end;
+
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
@@ -3670,18 +3558,18 @@ end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TRegisteredChannelsList.Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer;
+Function TRegisteredChannelsList.Add(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; IndexConfig: TConfigReference; UserData: Pointer = nil): Integer;
 var
   NewChannel: PChannelContext;
 begin
-NewChannel := CreateContext(Recipient,Name,Index,ValueType,Flags,IndexConfigID,UserData);
+NewChannel := CreateContext(Recipient,Name,Index,ValueType,Flags,IndexConfig,UserData);
 Result := Add(NewChannel);
 If Result < 0 then FreeContext(NewChannel);
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TRegisteredChannelsList.Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): Integer;
+Function TRegisteredChannelsList.Add(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; IndexConfigID: TConfigReference; UserData: Pointer = nil): Integer;
 begin
 Result := Add(nil,Name,Index,ValueType,Flags,IndexConfigID,UserData);
 end;
@@ -3728,7 +3616,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TRegisteredChannelsList.CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t = SCS_TELEMETRY_CHANNEL_FLAG_none; IndexConfigID: TItemID = 0; UserData: Pointer = nil): PChannelContext;
+Function TRegisteredChannelsList.CreateContext(Recipient: TObject; const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; IndexConfig: TConfigReference; UserData: Pointer = nil): PChannelContext;
 begin
 New(Result);
 Result^.Recipient := Recipient;
@@ -3737,7 +3625,7 @@ Result^.ChannelInfo.ID := GetItemID(Name);
 Result^.ChannelInfo.Index := Index;
 Result^.ChannelInfo.ValueType := ValueType;
 Result^.ChannelInfo.Flags := Flags;
-Result^.ChannelInfo.IndexConfigID := IndexConfigID;
+Result^.ChannelInfo.IndexConfig := IndexConfig;
 Result^.UserData := UserData;
 end;
 
@@ -3756,6 +3644,7 @@ procedure TRegisteredChannelsList.DoOnUserDataFree(Sender: TObject; var UserData
 begin
 If Assigned(fOnUserDataFree) then fOnUserDataFree(Sender,UserData);
 end;
+
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
@@ -3801,51 +3690,47 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TStoredConfigsList.IndexOf(const Name: TelemetryString): Integer;
+Function TStoredConfigsList.IndexOf(const ID, Attribute: TelemetryString): Integer;
 begin
 For Result := 0 to (Count - 1) do
-  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Name,Name) then Exit;
+  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.ID,ID) and
+     TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.Attribute,Attribute) then Exit;
 Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredConfigsList.IndexOf(ID: TConfigID): Integer;
+Function TStoredConfigsList.IndexOf(ConfigReference: TConfigReference): Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If (PStoredConfig(PtrGetItem(Result))^.ID = ID) then Exit;
-Result := -1;
+Result := IndexOf(ConfigReference.ID,ConfigReference.Attribute);
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredConfigsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer;
+Function TStoredConfigsList.IndexOf(const ID, Attribute: TelemetryString; Index: scs_u32_t): Integer;
 begin
 For Result := 0 to (Count - 1) do
-  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Name,Name) and
+  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.ID,ID) and
+     TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.Attribute,Attribute) and
     (PStoredConfig(PtrGetItem(Result))^.Index = Index) then Exit;
 Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredConfigsList.IndexOf(ID: TConfigID; Index: scs_u32_t): Integer;
+Function TStoredConfigsList.IndexOf(ConfigReference: TConfigReference; Index: scs_u32_t): Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If (PStoredConfig(PtrGetItem(Result))^.ID = ID) and
-    (PStoredConfig(PtrGetItem(Result))^.Index = Index) then Exit;
-Result := -1;
+Result := IndexOf(ConfigReference.ID,ConfigReference.Attribute,Index);
 end;
 
 //------------------------------------------------------------------------------
 
-Function TStoredConfigsList.Add(const Name: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer;
+Function TStoredConfigsList.Add(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer;
 var
   NewConfig: PStoredConfig;
 begin
 New(NewConfig);
-NewConfig^.Name := Name;
-NewConfig^.ID := GetItemID(Name);
+NewConfig^.Reference := ConfigReference(ID,Attribute);
 NewConfig^.Index := Index;
 NewConfig^.Value := Value;
 NewConfig^.Binded := Binded;
@@ -3855,25 +3740,25 @@ end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredConfigsList.Add(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer;
+Function TStoredConfigsList.Add(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer;
 begin
-If Assigned(Value) then Result := Add(Name,Index,scs_value_localized(Value^),Binded)
-  else Result := Add(Name,Index,scs_value_localized_empty,Binded);
+If Assigned(Value) then Result := Add(ID,Attribute,Index,scs_value_localized(Value^),Binded)
+  else Result := Add(ID,Attribute,Index,scs_value_localized_empty,Binded);
 end;
 
 //------------------------------------------------------------------------------
 
-Function TStoredConfigsList.Remove(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer;
+Function TStoredConfigsList.Remove(const ID, Attribute: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer;
 begin
-Result := IndexOf(Name,Index);
+Result := IndexOf(ID,Attribute,Index);
 If Result >= 0 then Delete(Result);
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredConfigsList.Remove(ID: TChannelID; Index: scs_u32_t = SCS_U32_NIL): Integer;
+Function TStoredConfigsList.Remove(ConfigReference: TConfigReference; Index: scs_u32_t = SCS_U32_NIL): Integer;
 begin
-Result := IndexOf(ID,Index);
+Result := IndexOf(ConfigReference,Index);
 If Result >= 0 then Delete(Result);
 end;
 
@@ -3892,9 +3777,9 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TStoredConfigsList.ChangeConfigValue(const Name: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t): Integer;
+Function TStoredConfigsList.ChangeConfigValue(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: scs_value_localized_t): Integer;
 begin
-Result := IndexOf(Name,Index);
+Result := IndexOf(ID,Attribute,Index);
 If Result >= 0 then
   begin
     PStoredConfig(PtrGetItem(Result))^.Value := Value;
@@ -3904,15 +3789,16 @@ end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
-Function TStoredConfigsList.ChangeConfigValue(ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t): Integer;
+Function TStoredConfigsList.ChangeConfigValue(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t): Integer;
 begin
-Result := IndexOf(ID,Index);
+Result := IndexOf(ConfigReference,Index);
 If Result >= 0 then
   begin
     PStoredConfig(PtrGetItem(Result))^.Value := Value;
     DoChange;
   end;
 end;
+
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
@@ -4054,5 +3940,5 @@ If Assigned(Value) then
       end;
   end;
 end;
-*)
+
 end.
