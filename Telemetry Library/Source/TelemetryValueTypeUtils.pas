@@ -38,7 +38,7 @@
   SCS_VALUE_TYPE_dplacement  -  fplacement, dvector, fvector, euler
   SCS_VALUE_TYPE_string      -  /
 )
-  This unit is designed to provide any material (functios, types, ...) needed
+  This unit is designed to provide any material (functions, types, ...) needed
   for identification and registration of secondary types for any telemetry
   channel.
 

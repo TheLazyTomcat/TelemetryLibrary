@@ -141,8 +141,8 @@ type
 //------------------------------------------------------------------------------
 
 {:
-  Used where there is need to pass or return two indices to fully define some
-  reference (eg. indices in two-dimensional array).
+  @abstract(Used where there is need to pass or return two indices to fully
+  define some reference (eg. indices in two-dimensional array).)
 
   @member Index1 First-level index.
   @member Index2 Second-level index.

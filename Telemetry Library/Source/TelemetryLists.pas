@@ -939,93 +939,118 @@ const
 {   TKnownConfigsList // Class declaration                                     }
 {==============================================================================}
 {:
-  List used to store information about known telemetry configurations values.
+  @abstract(List used to store information about known telemetry
+            @noAutoLink(configurations) values.)
+
+  Known @noAutoLink(configs) (note that a word "config", as used in here, means
+  a specific value, that is, a specific attribute in a specifin configuration
+  group) in this list are stored as two-level (or two-dimensional) arrray. First
+  level consists af configuration groups (e.g. Truck, Trailer, ...), second
+  level is an array of attributes for each of the configuration group.@br
+  It can be visually presented as such:
+@preformatted(
+    KnownConfigsList
+     |
+     |- configuration[0]
+     |     |- attribute[0]
+     |     |- attribute[1]
+     |
+     |- configuration[1]
+     |
+     |- configuration[2]
+     |     |- attribute[0]
+     |
+     |- configuration[3]
+           |- attribute[0]
+           |- attribute[1]
+           |- attribute[2]
+)
 }
-{$IFDEF DevHints}
-  {$MESSAGE HINT 'Documentation.'}
-{$ENDIF}
 type
   TKnownConfigsList = class(TCustomTelemetryList)
   private
+  {:
+    Getter for ConfigurationCount property.
+
+    @returns Number of @noAutoLink(configurations) stored in the list.
+  }
     Function GetConfigurationCount: Integer; virtual;
+  {:
+    Getter for AttributeCount property.@br
+    When index falls out of allowed boundary (<0,ConfigurationCount - 1>),
+    an exception is raised.
+
+    @param(Index Index of configuration for which number of attributes is
+                 requested.)
+
+    @returns(Number of attributes in configuration given by @code(Index)
+             parameter.)                  
+
+    @raises(ETLIndexOfBounds When index is out of the interval
+                             <0,ConfigurationCount@).)
+  }
     Function GetAttributeCount(Index: Integer): Integer; virtual;
+  {:
+    Getter for ConfigurationPointers property.@br
+    When index falls out of allowed boundary (<0,ConfigurationCount - 1>),
+    an exception is raised.
 
+    @param Index Index of requested configuration.
+
+    @returns Pointer to requested configuration.
+
+    @raises(ETLIndexOfBounds When index is out of the interval
+                             <0,ConfigurationCount@).)
+  }
     Function GetKnownConfigurationPointer(Index: Integer): PKnownConfiguration;
+  {:
+    Getter for Configurations property.@br
+    When index falls out of allowed boundary (<0,ConfigurationCount - 1>),
+    an exception is raised.
+
+    @param Index Index of requested configuration.
+
+    @returns Requested configuration.
+
+    @raises(ETLIndexOfBounds When index is out of the interval
+                             <0,ConfigurationCount@).)
+  }
     Function GetKnownConfiguration(Index: Integer): TKnownConfiguration;
-    Function GetKnownConfigPointer(Indices: TDoubleIndex): PKnownAttribute;
-    Function GetKnownConfig(Indices: TDoubleIndex): TKnownAttribute;
-  protected
-    Function GetCount: Integer; override;    
-  public
-    procedure Clear; override;
-    procedure ClearConfiguration(Index: Integer); virtual;
-
-    Function IndexOfConfiguration(ID: TelemetryString): Integer; virtual;
-    Function IndexOf(ID,Attribute: TelemetryString): TDoubleIndex; overload; virtual;
-    Function IndexOf(ConfigReference: TConfigReference): TDoubleIndex; overload; virtual;
-    Function IndexOf(Index: Integer; const Attribute: TelemetryString): Integer; overload; virtual;
-
-    Function AddConfiguration(const ID: TelemetryString): Integer; virtual;
-    procedure RenameConfiguration(Index: Integer; const NewID: TelemetryString); overload; virtual;
-    Function RenameConfiguration(const OldID, NewID: TelemetryString): Integer; overload; virtual;
-    Function InsertConfiguration(Index: Integer; const ID: TelemetryString): Integer; virtual;
-    Function RemoveConfiguration(const ID: TelemetryString): Integer; virtual;
-    procedure DeleteConfiguration(Index: Integer); virtual;
-
-    Function Add(const ID, Attribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; overload; virtual;
-    Function Add(ConfigReference: TConfigReference; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; overload; virtual;
-
-    procedure ReplaceIndex(Indices: TDoubleIndex; const NewAttribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False); overload; virtual;
-
-    Function Replace(const ID, OldAttribute, NewAttribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; virtual;
-
-    Function Insert(const ID: TelemetryString; Index: Integer; const Attribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; virtual;
-
-    Function Remove(const ID, Attribute: TelemetryString): TDoubleIndex; overload; virtual;
-    Function Remove(ConfigReference: TConfigReference): TDoubleIndex; overload; virtual;
-
-    procedure Delete(const ID: TelemetryString; Index: Integer); overload; virtual;
-    procedure Delete(Indices: TDoubleIndex); overload; virtual;
-
-    Function IsBinded(const ID, Attribute: TelemetryString): Boolean; overload; virtual;
-    Function IsBinded(ConfigReference: TConfigReference): Boolean; overload; virtual;
-
-    Function IsIndexed(const ID, Attribute: TelemetryString): Boolean; overload; virtual;
-    Function IsIndexed(ConfigReference: TConfigReference): Boolean; overload; virtual;
-
-    property ConfigurationPointers[Index: Integer]: PKnownConfiguration read GetKnownConfigurationPointer;
-    property Configurations[Index: Integer]: TKnownConfiguration read GetKnownConfiguration;
-    property Pointers[Indices: TDoubleIndex]: PKnownAttribute read GetKnownConfigPointer;
-    property Configs[Indices: TDoubleIndex]: TKnownAttribute read GetKnownConfig; default;
-    property ConfigurationCount: Integer read GetConfigurationCount;
-    property AttributeCount[Index: Integer]: Integer read GetAttributeCount;
-  end;
-(*
-  private
   {:
     Getter for Pointers property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
+    When any index falls out of allowed boundary, an exception is raised.
 
-    @param Index Index of requested item.
+    @param(Indices Indices of requested attribute (index of configuration and
+                   attribute within it).)
 
-    @returns Pointer to requested item.
+    @returns Pointer to requested config attribute.
 
-    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
+    @raises(ETLIndexOfBounds When any index is out of allowed interval
+                             (Index1 - <0,ConfigurationCount - 1>,
+                             Index2 - <0,AttributeCount[Index1] - 1>).)
   }
-    Function GetKnownConfigPointer(Index: Integer): PKnownConfig;
+    Function GetKnownConfigPointer(Indices: TDoubleIndex): PKnownAttribute;
   {:
     Getter for Configs property.@br
-    When index falls out of allowed boundary (<0,Count - 1>), an exception is
-    raised.
+    When any index falls out of allowed boundary, an exception is raised.
 
-    @param Index Index of requested item.
+    @param(Indices Indices of requested attribute (index of configuration and
+                   attribute within it).)
 
-    @returns Requested item.
+    @returns Requested config attribute.
 
-    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
+    @raises(ETLIndexOfBounds When any index is out of allowed interval
+                             (Index1 - <0,ConfigurationCount - 1>,
+                             Index2 - <0,AttributeCount[Index1] - 1>).)
   }
-    Function GetKnownConfig(Index: Integer): TKnownConfig;
+    Function GetKnownConfig(Indices: TDoubleIndex): TKnownAttribute;
+  protected
+  {:
+    Getter for Count propery.
+
+    @returns Total number of all attributes in all @noAutoLink(configurations).
+  }
+    Function GetCount: Integer; override;
   public
   {:
     Deletes all items in the list.@br
@@ -1033,145 +1058,370 @@ type
   }
     procedure Clear; override;
   {:
-    Searches through list for config with given ID and Attribute names
-    (case-sensitive). When the config is not found, -1 is returned.
+    Deletes all atributes in configuration stored at position given by
+    @code(Index) parameter.@br
+    When index falls out of allowed boundary, the function does nothing.
 
-    @param ID        ID of the requested configuration.
-    @param Attribute Name of the requested attribute of given ID.
-
-    @returns Index of config with requested name, -1 when not found.
+    @param Index Index of configuration that should be cleared.
   }
-    Function IndexOf(const ID, Attribute: TelemetryString): Integer; overload; virtual;
+    procedure ClearConfiguration(Index: Integer); virtual;
   {:
-    Searches through list for config with given ID and Attribute names pased in
-    as a config reference (case-sensitive). When the config is not found, -1 is
-    returned.
+    Searches through list for configuration with given ID (case-sensitive).
+    When the config is not found, -1 is returned.
 
-    @param ConfigReference Full config reference used for searching.
+    @param ID   ID of the requested configuration.
 
-    @returns Index of config with requested name, -1 when not found.
+    @returns Index of configuration with requested ID, -1 when not found.
   }
-    Function IndexOf(const ConfigReference: TConfigReference): Integer; overload; virtual;
+    Function IndexOfConfiguration(ID: TelemetryString): Integer; virtual;
   {:
-    Adds new known config into the list.@br
+    Searches through list for configuration with given ID and attribute with
+    given name within it (case-sensitive).
+    When the config is not found, invalid double index is returned.
+
+    @param(ID         ID of the configuration in which to search for requested
+                      attribute.)
+    @param Attribute  Attribute name of the requested config.
+
+    @returns(Indices of config with requested name, invalid double index when
+             not found.)
+  }
+    Function IndexOf(ID,Attribute: TelemetryString): TDoubleIndex; overload; virtual;
+  {:
+    Searches through list for config with given config reference
+    (case-sensitive).
+    When the config is not found, invalid double index is returned.
+
+    @param Reference  Full reference of requested config (ID + Attribute).
+
+    @returns(Indices of config with requested reference, invalid double index
+             when  not found.)
+  }
+    Function IndexOf(ConfigReference: TConfigReference): TDoubleIndex; overload; virtual;
+  {:
+    Searches through configuration given by @code(Index) parameter for config
+    with passed attribute name (case-sensitive).@br
+    When index falls out of allowed boundary (<0,ConfigurationCount - 1>),
+    an exception is raised.@br
+    If the config is not found, invalid double index is returned.
+
+
+    @param Index     Index of configuration where to search for given attribute.
+    @param Attribute Name of the requested attribute.
+
+    @returns(Indices of requested config, invalid double index when not found.)
+
+    @raises(ETLIndexOfBounds When index is out of the interval
+                             <0,ConfigurationCount@).)
+  }
+    Function IndexOf(Index: Integer; const Attribute: TelemetryString): Integer; overload; virtual;
+  {:
+    Adds new empty configuration to the list.@br
+    If configuration of the same name already exists, the function only returns
+    index of existing item.@br
     OnChange event is called after successful addition.
 
-    @param Name          Full name of added config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether added config is indexed.
-    @param(Binded        Flag denoting whether added config is binded by some
-                         channel (i.e. some channel has this config as its
-                         IndexConfig property).)
+    @param ID  Identifier of the added configuration.
 
-    @returns Index at which the new config was added, -1 when addition failed.
+    @returns Index at which the configuretation has been placed.
   }
-    Function Add(const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
+    Function AddConfiguration(const ID: TelemetryString): Integer; virtual;
   {:
-    Replaces config at position given by @code(Index) parameter. When index
-    falls out of allowed boundary (<0,Count - 1>), an exception is raised.@br
-    OnChange event is called after successful replacement.
+    Renames configuration stored at given index.@br
+    When index falls out of allowed boundary (<0,ConfigurationCount - 1>),
+    an exception is raised.@br
+    When there is already configuration with the same name as passed in
+    parameter @code(NewID) and it is stored at different index than is
+    requested, an exception is raised.@br
+    OnChange event is called after successful renaming.
 
-    @param Index         Index of item that has to be replaced.
-    @param Name          Full name of new config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether added config is indexed.
-    @param(Binded        Flag denoting whether added config is binded by some
-                         channel (i.e. some channel has this config as its
-                         IndexConfig property).)
+    @param Index  Index of the configuration that has to be renamed.
+    @param NewID  New identifier of the requested configuration.
 
-    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
+    @raises(ETLIndexOfBounds When index is out of the interval
+                             <0,ConfigurationCount@).)
+    @raises ETLAlreadyExists When requested configuration already exists.
   }
-    procedure ReplaceIndex(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False); virtual;
+    procedure RenameConfiguration(Index: Integer; const NewID: TelemetryString); overload; virtual;
   {:
-    Replaces config with name given by @code(OldConfig) parameter. When this
-    config is not found in the list, nothing happens and the method returns
-    -1.@br
-    OnChange event is called after successful replacement.
+    Renames requested configuration.@br
+    When there is already configuration with the same name as passed in
+    parameter @code(NewID), an exception is raised.@br
+    OnChange event is called after successful renaming.
 
-    @param OldConfig     Full name of the config that has to be replaced.
-    @param Name          Full name of replacment config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether config is indexed.
-    @param(Binded        Flag denoting whether config is binded by some channel
-                         (i.e. some channel has this config as its IndexConfig
-                         property).)
+    @param OldID  Identifier of the configuration to be renamed.
+    @param NewID  New identifier of the requested configuration.
 
-    @returns(Index of config that was replaced, -1 when old config was not
-             found.)
+    @returns(Index of renamed configuration, -1 when configuration with
+             @code(OldID) is not in list.)
+
+    @raises(ETLAlreadyExists When configuration with @code(NewID) identifier
+                             already exists.)
   }
-    Function Replace(const OldConfig, Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
+    Function RenameConfiguration(const OldID, NewID: TelemetryString): Integer; overload; virtual;
   {:
-    Inserts new config at position given by @code(Index) parameter. Count is
-    increased by one and all existing items from given position (included) up
-    are moved higher. When index falls out of allowed boundary (<0,Count> -
-    passed index can be higher than current highest index, if so, item is added
-    at the end of the list), and exception is raised.@br
+    Inserts new configuration at position given by @code(Index) parameter.
+    When index is lower than zero or higher than ConfigurationCount - 1, then
+    new configuration is added instead of inserted.@br
+    When there is already configuration with the same name as passed in
+    parameter @code(ID), an exception is raised.@br
     OnChange event is called after successful insertion.
 
-    @param Index         Position where the new config should be inserted.
-    @param Name          Full name of inserted config.
-    @param ValuetyType   Type of this @noAutoLink(configs) value.
-    @param Indexed       Flag denoting whether config is indexed.
-    @param(Binded        Flag denoting whether config is binded by some channel
-                         (i.e. some channel has this config as its IndexConfig
-                         property).)
+    @param Index  Position at which the new configuration should be inserted.
+    @param ID     Identifier of the new configuration.
 
-    @returns Actual position where the new config was inserted.
+    @returns Index at which the new configuration has been inserted or added.
+
+    @raises(ETLAlreadyExists When configuration with @code(NewID) identifier
+                             already exists.)    
   }
-    Function Insert(Index: Integer; const Name: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): Integer; virtual;
+    Function InsertConfiguration(Index: Integer; const ID: TelemetryString): Integer; virtual;
   {:
-    Removes config with given name from the list. When this config is not found
-    in the list, method returns -1 and nothing is removed.@br
+    Removes configuration of a given name form the list.@br
     OnChange event is called after successful removal.
 
-    @param Name Full name of the config that has to be removed from the list.
+    @param ID Identifier of the configuration to be removed.
 
-    @returns(Index of item that was removed, -1 when requested config was not
-             found.)
+    @returns(Index at which the configuration has been stored prior to its
+             deletion, -1 when it was not found.)
   }
-    Function Remove(const Name: TelemetryString): Integer; virtual;
+    Function RemoveConfiguration(const ID: TelemetryString): Integer; virtual;
   {:
-    Deletes config at position given by @code(Index) parameter. When index falls
-    out of allowed boundary (<0,Count - 1>), an exception is raised.@br
+    Deletes configuration stored at position given by @code(Index) parameter.@br
+    When index falls out of allowed boundary (<0,ConfigurationCount - 1>),
+    an exception is raised.@br
     OnChange event is called after successful deletion.
 
-    @param Index Index of item that has to be deleted.
+    @param Index Index of configuration to be deleted.
 
-    @raises ETLIndexOfBounds When index is out of the interval <0,Count@).
+    @raises(ETLIndexOfBounds When index is out of the interval
+                             <0,ConfigurationCount@).)
   }
-    procedure Delete(Index: Integer); virtual;
+    procedure DeleteConfiguration(Index: Integer); virtual;
+  {:
+    Adds new known config into the list.@br
+    If configuration given by the @code(ID) parameter does not exists, it is
+    automatically created.
+    OnChange event is called after successful addition.
+
+    @param(ID            Identifier of configuration to which to
+                         @noAutoLink(add) the new attribute.)
+    @param Attribute     Name of the new attribute.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether added config is indexed.
+    @param(Binded        Flag denoting whether added config is binded by some
+                         channel (ie. some channel has this config as its
+                         IndexConfig property).)
+
+    @returns(Position at which the new config was added, invalid double index
+             when the addition failed.)
+  }
+    Function Add(const ID, Attribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; overload; virtual;
+  {:
+    Adds new known config into the list.@br
+    If configuration given by the @code(ConfigReference.ID) field does not
+    exists, it is automatically created.
+    OnChange event is called after successful addition.
+
+    @param(Reference     Full reference (ID + Attribute) of the newly created
+                         config.)
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether added config is indexed.
+    @param(Binded        Flag denoting whether added config is binded by some
+                         channel.)
+
+    @returns(Position at which the new config was added, invalid double index
+             when the addition failed.)
+  }
+    Function Add(ConfigReference: TConfigReference; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; overload; virtual;
+  {:
+    Replaces config stored at the position given by @code(Indices) parameter.@br
+    When any index falls out of allowed boundary, an exception is raised.@br
+    OnChange event is called after successful replacement.
+
+    @param(Indices       Position of config that should be replaced (index of
+                         configuration and index of attribute within this
+                         configuration).)
+    @param NewAttribute  Name of the replacement attribute.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether the config is indexed.
+    @param(Binded        Flag denoting whether the config is binded by some
+                         channel.)
+
+    @raises(ETLIndexOfBounds When Index1 is out of interval
+                             <0,ConfigurationCount - 1> or Index2 is out of
+                             interval <0,AttributeCount[Index1] - 1>.)
+  }
+    procedure ReplaceIndex(Indices: TDoubleIndex; const NewAttribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False); overload; virtual;
+  {:
+    Replaces config given by configuration ID and attribute name.@br
+    When either of configuration or attribute does not exists, the function
+    returns immediatelly, returning invalid double index.@br
+    OnChange event is called after successful replacement.
+
+    @param(ID            Identifier of configuration in which the attribute will
+                         be replaced.)
+    @param OldAttribute  Name of the attribute to be replaced.
+    @param NewAttribute  Name of the replacement attribute.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether the config is indexed.
+    @param(Binded        Flag denoting whether the config is binded by some
+                         channel.)
+
+    @returns(Position of the replaced config, invalid double index when the
+             replacement failed.)
+  }
+    Function Replace(const ID, OldAttribute, NewAttribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; virtual;
+  {:
+    Inserts new config into configuration given by @code(ID) parameter at
+    position given by @code(Index) parameter.@br
+    When the requested configuration does not exists, the function fails and
+    will return invalid double index. When the passed index is out of interval
+    <0,AttributeCount - 1> (in given configuration), then it gets normally added
+    at the end of array.@br
+    OnChange event is called after successful insertion.
+
+    @param(ID            Identifier of configuration to which the attribute will
+                         be inserted)
+    @param(Index         Position in the configuration where the new config
+                         should be inserted.)
+    @param Attribute     Name of the new attribute.
+    @param ValuetyType   Type of this @noAutoLink(configs) value.
+    @param Indexed       Flag denoting whether the config is indexed.
+    @param(Binded        Flag denoting whether the config is binded by some
+                         channel.)
+
+    @returns(Position at which the config was placed, invalid double index on
+             fail.)
+  }
+    Function Insert(const ID: TelemetryString; Index: Integer; const Attribute: TelemetryString; ValueType: scs_value_type_t; Indexed: Boolean; Binded: Boolean = False): TDoubleIndex; virtual;
+  {:
+    Removes config given by parameters @code(ID) and @code(Attribute).@br
+    If the config is not found in the list, the function returns invalid double
+    index.@br
+    OnChange event is called after successful removal.
+
+    @param(ID         Identifier of configuration from which to remove the
+                      config.)
+    @param Attribute  Name of the attribute to be removed.
+
+    @returns(Position where the removed config were stored, invalid double index
+             when it was not found in the list.)
+  }
+    Function Remove(const ID, Attribute: TelemetryString): TDoubleIndex; overload; virtual;
+  {:
+    Removes config given by a config reference.@br
+    If the config is not found in the list, the function returns invalid double
+    index.@br
+    OnChange event is called after successful removal.
+
+    @param(Reference Full reference (ID + Attribute) of the config to be
+                     removed.)
+
+    @returns(Position where the removed config were stored, invalid double index
+             when it was not found in the list.)
+  }
+    Function Remove(ConfigReference: TConfigReference): TDoubleIndex; overload; virtual;
+  {:
+    Deletes config from configuration given by parameted @code(ID) at position
+    given by @code(Index).@br
+    When requested configuration does not exists, an exception is raised.@br
+    OnChange event is called after successful deletion.
+
+    @param ID     Identifier of configuration from which to delete the config.
+    @param(Index  Position of attribute to be deleted within the configuration
+                  group.)
+
+    @raises(ETLNotFound      When configuration given by parameter @code(ID)
+                             does not exist.)
+    @raises(ETLIndexOfBounds When Index is out of interval
+                             <0,AttributeCount - 1> (in given configuration).)
+  }
+    procedure Delete(const ID: TelemetryString; Index: Integer); overload; virtual;
+  {:
+    Deletes config stored at position given by @code(Indices) parameter.@br
+    When any index is out of allowed boundary, the function raises an
+    exception.@br
+    OnChange event is called after successful deletion.
+
+    @param(Indices  Position of config to be deleted (index of configuration and
+                    index of attribute within this configuration).)
+
+    @raises(ETLIndexOfBounds When Index1 is out of interval
+                             <0,ConfigurationCount - 1> or Index2 is out of
+                             interval <0,AttributeCount[Index1] - 1>.)
+  }
+    procedure Delete(Indices: TDoubleIndex); overload; virtual;
   {:
     Returns @true when given config is binded, @false when it is not binded or
-    when not found in list.
+    when not found in the list.
 
-    @param Name Full name of the requested config.
+    @param ID         Identifier of configuration in which the config resides.
+    @param Attribute  Attribute name of the checked config.
 
     @returns Binded state of requested config.
   }
-    Function IsBinded(const Name: TelemetryString): Boolean; virtual;
+    Function IsBinded(const ID, Attribute: TelemetryString): Boolean; overload; virtual;
+  {:
+    Returns @true when given config is binded, @false when it is not binded or
+    when not found in the list.
+
+    @param Reference Full reference of the config to be checked.
+
+    @returns Binded state of requested config.
+  }
+    Function IsBinded(ConfigReference: TConfigReference): Boolean; overload; virtual;
   {:
     Returns @true when given config is Indexed, @false when it is not Indexed or
     when not found in list.
 
-    @param Name Full name of the requested config.
+    @param ID         Identifier of configuration in which the config resides.
+    @param Attribute  Attribute name of the checked config.
 
     @returns Indexed state of requested config.
   }
-    Function IsIndexed(const Name: TelemetryString): Boolean; virtual;
+    Function IsIndexed(const ID, Attribute: TelemetryString): Boolean; overload; virtual;
   {:
-    Array property mapped directly to internal list. Use it for direct access to
-    individual stored items.@br
-    Unlike Configs property, you can use returned pointer to change values of
-    stored items.
+    Returns @true when given config is Indexed, @false when it is not Indexed or
+    when not found in list.
+
+    @param Reference Full reference of the config to be checked.
+
+    @returns Indexed state of requested config.
   }
-    property Pointers[Index: Integer]: PKnownConfig read GetKnownConfigPointer;
+    Function IsIndexed(ConfigReference: TConfigReference): Boolean; overload; virtual;
   {:
-    Array property mapped directly to internal list. Use it to obtain values of
-    individual stored items.
+    Array property intended for direct access to individual stored configuration
+    groups.@br
+    Unlike with Configurations property, you can use returned pointer to change
+    stored data.
   }
-    property Configs[Index: Integer]: TKnownConfig read GetKnownConfig; default;
+    property ConfigurationPointers[Index: Integer]: PKnownConfiguration read GetKnownConfigurationPointer;
+  {:
+    Array property giving access to stored configuration groups.
+  }
+    property Configurations[Index: Integer]: TKnownConfiguration read GetKnownConfiguration;
+  {:
+    Array property intended for direct access to individual stored
+    @noAutoLink(configs).@br
+    Unlike with Configs property, you can use returned pointer to change stored
+    data.
+  }
+    property Pointers[Indices: TDoubleIndex]: PKnownAttribute read GetKnownConfigPointer;
+  {:
+    Array property giving access to stored @noAutoLink(configs) (specific
+    attribute in a specific configuration group).
+  }
+    property Configs[Indices: TDoubleIndex]: TKnownAttribute read GetKnownConfig; default;
+  {:
+    Number of @noAutoLink(configurations) stored in the list.
+  }
+    property ConfigurationCount: Integer read GetConfigurationCount;
+  {:
+    Number of attributes within configuration group given by passed index.
+  }
+    property AttributeCount[Index: Integer]: Integer read GetAttributeCount;
   end;
-*)
 
 
 {==============================================================================}
@@ -2994,7 +3244,10 @@ If (Index >= 0) and (Index < ConfigurationCount) then
   begin
     TempIdx := IndexOfConfiguration(NewID);
     If (TempIdx < 0) and (TempIdx <> Index) then
-      PKnownConfiguration(PtrGetItem(Index))^.ID := NewID
+      begin
+        PKnownConfiguration(PtrGetItem(Index))^.ID := NewID;
+        DoChange;
+      end
     else
       raise ETLAlreadyExists.CreateFmt('TKnownConfigsList.RenameConfiguration: Configuration (%s) already exists in the list.',[NewID]);
   end
@@ -3005,28 +3258,45 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownConfigsList.RenameConfiguration(const OldID, NewID: TelemetryString): Integer;
+var
+  TempIdx:  Integer;
 begin
 Result := IndexOfConfiguration(OldID);
 If Result >= 0 then
-  PKnownConfiguration(PtrGetItem(Result))^.ID := NewID
+  begin
+    TempIdx := IndexOfConfiguration(NewID);
+    If (TempIdx < 0) and (TempIdx <> Result) then
+      begin
+        PKnownConfiguration(PtrGetItem(Result))^.ID := NewID;
+        DoChange;
+      end
+    else
+      raise ETLAlreadyExists.CreateFmt('TKnownConfigsList.RenameConfiguration: Configuration (%s) already exists in the list.',[NewID]);
+  end;
 end;
 
 //------------------------------------------------------------------------------
 
 Function TKnownConfigsList.InsertConfiguration(Index: Integer; const ID: TelemetryString): Integer;
 var
+  TempIdx:          Integer;
   NewConfiguration: PKnownConfiguration;
 begin
-If (Index < 0) or (Index >= ConfigurationCount) then
-  Result := AddConfiguration(ID)
-else
+TempIdx := IndexOfConfiguration(ID);
+If TempIdx < 0 then
   begin
-    New(NewConfiguration);
-    NewConfiguration^.ID := ID;
-    SetLength(NewConfiguration^.Attributes,0);
-    Result := Index;
-    PtrInsert(Index,NewConfiguration);
-  end;
+    If (Index < 0) or (Index >= ConfigurationCount) then
+      Result := AddConfiguration(ID)
+    else
+      begin
+        New(NewConfiguration);
+        NewConfiguration^.ID := ID;
+        SetLength(NewConfiguration^.Attributes,0);
+        Result := Index;
+        PtrInsert(Index,NewConfiguration);
+      end;
+  end
+else ETLAlreadyExists.CreateFmt('TKnownConfigsList.InsertConfiguration: Configuration (%s) already exists in the list.',[ID]);
 end;
 
 //------------------------------------------------------------------------------
@@ -3071,6 +3341,7 @@ If Result.Index1 >= 0 then
     Configuration^.Attributes[Result.Index2].ValueType := ValueType;
     Configuration^.Attributes[Result.Index2].Indexed := Indexed;
     Configuration^.Attributes[Result.Index2].Binded := Binded;
+    DoChange;
   end
 else Result := InvalidDoubleIndex;
 end;
@@ -3098,6 +3369,7 @@ If (Indices.Index1 >= 0) and (Indices.Index1 < ConfigurationCount) then
           Attributes[Indices.Index2].ValueType := ValueType;
           Attributes[Indices.Index2].Indexed := Indexed;
           Attributes[Indices.Index2].Binded := Binded;
+          DoChange;
         end
     else raise ETLIndexOfBounds.CreateFmt('TKnownConfigsList.ReplaceIndex: Second-level index (%d) out of bounds.',[Indices.Index2]);
   end
@@ -3134,12 +3406,13 @@ If Result.Index1 >= 0 then
         Configuration^.Attributes[Index].Indexed := Indexed;
         Configuration^.Attributes[Index].Binded := Binded;
         Result.Index2 := Index;
+        DoChange;
       end
     else Result := Add(ID,Attribute,ValueType,Indexed,Binded);
   end
 else Result := InvalidDoubleIndex;
 end;
- 
+
 //------------------------------------------------------------------------------
 
 Function TKnownConfigsList.Remove(const ID, Attribute: TelemetryString): TDoubleIndex;
@@ -3184,6 +3457,7 @@ If (Indices.Index1 >= 0) and (Indices.Index1 < ConfigurationCount) then
         For i := Indices.Index2 to Pred(High(Configuration^.Attributes)) do
           Configuration^.Attributes[i] := Configuration^.Attributes[i + 1];
         SetLength(Configuration^.Attributes,Length(Configuration^.Attributes) - 1);
+        DoChange;
       end
     else raise ETLIndexOfBounds.CreateFmt('TKnownConfigsList.Delete: Second-level index (%d) out of bounds.',[Indices.Index2]);
   end
@@ -3198,7 +3472,8 @@ var
 begin
 Result := False;
 Indices := IndexOf(ID,Attribute);
-If ValidDoubleIndex(Indices) then Result := Configs[Indices].Binded;
+If ValidDoubleIndex(Indices) then
+  Result := Configs[Indices].Binded;
 end;
 
 //------------------------------------------------------------------------------
@@ -3209,7 +3484,8 @@ var
 begin
 Result := False;
 Indices := IndexOf(ConfigReference);
-If ValidDoubleIndex(Indices) then Result := Configs[Indices].Binded;
+If ValidDoubleIndex(Indices) then
+  Result := Configs[Indices].Binded;
 end;
 
 //------------------------------------------------------------------------------
@@ -3220,7 +3496,8 @@ var
 begin
 Result := False;
 Indices := IndexOf(ID,Attribute);
-If ValidDoubleIndex(Indices) then Result := Configs[Indices].Indexed;
+If ValidDoubleIndex(Indices) then
+  Result := Configs[Indices].Indexed;
 end;
 
 //------------------------------------------------------------------------------
@@ -3231,7 +3508,8 @@ var
 begin
 Result := False;
 Indices := IndexOf(ConfigReference);
-If ValidDoubleIndex(Indices) then Result := Configs[Indices].Indexed;
+If ValidDoubleIndex(Indices) then
+  Result := Configs[Indices].Indexed;
 end;
 
 
