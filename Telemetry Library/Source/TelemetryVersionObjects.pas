@@ -25,35 +25,6 @@
 
   Last change:  2015-06-28
 
-  Change List:@unorderedList(
-    @item(2013-10-17 - First stable version.)
-    @item(2014-04-06 - Type of parameters @code(GameName) and @code(GameID) in
-                       method TTelemetryVersionPrepareObject.PrepareForGameVersion
-                       changed to @code(TelemetryString).)
-    @item(2014-04-06 - Added support for eut2 1.8.)
-    @item(2014-05-01 - Added method
-                       TTelemetryAbstractVersionObject.HighestSupportedGameVersion
-                       and its variants in descendant classes.)
-    @item(2014-10-23 - Added support for eut2 1.9.)
-    @item(2014-10-23 - Repaired bug in implementation of method
-                       TTelemetryVersionObject.HighestSupportedGameVersion.)
-    @item(2014-10-23 - Following methods were moved to public section:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryVersionPrepareObject.PrepareForTelemetryVersion)
-                         @item(TTelemetryVersionPrepareObject.PrepareForGameVersion)))
-    @item(2014-10-23 - Added following methods:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryVersionPrepareObject.PrepareFor)
-                         @item(TTelemetryVersionPrepareObject.PrepareForParam)))
-    @item(2014-10-23 - Type of parameter @code(GameID) in following methods
-                       changed to @code(TelemetryString):@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryAbstractVersionObject.HighestSupportedGameVersion)
-                         @item(TTelemetryAbstractVersionObject.SupportsGameVersion)
-                         @item(TTelemetryAbstractVersionObject.SupportsTelemetryAndGameVersion)))
-    @item(2014-11-07 - Added support for eut2 1.10.)
-    @item(2015-06-28 - Small implementation changes.))
-
 @html(<hr>)}
 unit TelemetryVersionObjects;
 
@@ -66,7 +37,7 @@ uses
   TelemetryCommon,
   TelemetryStrings,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -188,19 +159,19 @@ type
 }
   TTelemetryVersionObject = class(TTelemetryAbstractVersionObject)
   public
-    //:HighestSupportedTelemetryVersion See @inherited.
+    //:See @inherited.
     class Function HighestSupportedTelemetryVersion: scs_u32_t; override;
-    //:HighestSupportedGameVersion See @inherited.
+    //:See @inherited.
     class Function HighestSupportedGameVersion(GameID: TelemetryString): scs_u32_t; override;
-    //:SupportsTelemetryVersion See @inherited.
+    //:See @inherited.
     class Function SupportsTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-    //:SupportsTelemetryMajorVersion See @inherited.
+    //:See @inherited.
     class Function SupportsTelemetryMajorVersion(TelemetryVersion: scs_u32_t): Boolean; override;
-    //:SupportsGameVersion See @inherited.
+    //:See @inherited.
     class Function SupportsGameVersion(GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-    //:SupportsTelemetryAndGameVersion See @inherited.
+    //:See @inherited.
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
-    //:SupportsTelemetryAndGameVersionParam See @inherited.
+    //:See @inherited.
     class Function SupportsTelemetryAndGameVersionParam(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; override;
   end;
 
@@ -536,7 +507,7 @@ end;
 
 Function TTelemetryVersionPrepareObject.PrepareForTelemetryVersion(TelemetryVersion: scs_u32_t): Boolean;
 begin
-{$IFDEF DevelopmentHints}
+{$IFDEF DevHints}
   {$MESSAGE HINT 'Remember to update.'}
 {$ENDIF}
 Result := True;
@@ -551,7 +522,7 @@ end;
 
 Function TTelemetryVersionPrepareObject.PrepareForGameVersion(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean;
 begin
-{$IFDEF DevelopmentHints}
+{$IFDEF DevHints}
   {$MESSAGE HINT 'Remember to update.'}
 {$ENDIF}
 Result := True;
