@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(List classes used in Telemetry Library.)
+@abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
 @lastmod(2015-07-09)
@@ -922,6 +922,18 @@ type
   //:Pointer to TKnownConfiguration structure.
   PKnownConfiguration = ^TKnownConfiguration;
 
+{:
+  Used for streaming of individual known configs.
+
+  @member(ID         Identifier of the configuration group to which the config
+                     belongs.)
+  @member(Attribute  @noAutoLink(Attribute) data of the known config.)
+}
+  TKnownConfig = record
+    ID:         TelemetryString;
+    Attribute:  TKnownAttribute;
+  end;
+
 const
   //:Empty TKnownAttribute structure.
   EmptyKnownAttribute: TKnownAttribute = (
@@ -934,6 +946,30 @@ const
   EmptyKnownConfiguration: TKnownConfiguration =(
     ID:         '';
     Attributes: nil);
+
+  //:Empty TKnownConfig structure;
+  EmptyKnownConfig: TKnownConfig = (
+    ID:         '';
+    Attribute:  (
+      Name:       '';
+      ValueType:  SCS_VALUE_TYPE_INVALID;
+      Indexed:    False;
+      Binded:     False));
+
+{==============================================================================}
+{   TKnownConfigsList // Auxiliary functions                                   }
+{==============================================================================}
+
+{:
+  Auxiliary function that can be used to create in-place variable of type
+  TKnownConfig.
+
+  @param ID        Configuration group identifier.
+  @param Attribute Attribute data.
+
+  @returns TKnownConfig structure build from passed data.
+}
+Function KnownConfig(const ID: TelemetryString; Attribute: TKnownAttribute): TKnownConfig;
 
 {==============================================================================}
 {   TKnownConfigsList // Class declaration                                     }
@@ -3068,6 +3104,16 @@ end;
 {                             TKnownConfigsList                                }
 {------------------------------------------------------------------------------}
 {==============================================================================}
+
+{==============================================================================}
+{   TKnownConfigsList // Auxiliary functions                                   }
+{==============================================================================}
+
+Function KnownConfig(const ID: TelemetryString; Attribute: TKnownAttribute): TKnownConfig;
+begin
+Result.ID := ID;
+Result.Attribute := Attribute;
+end;
 
 {==============================================================================}
 {   TKnownConfigsList // Implementation                                        }

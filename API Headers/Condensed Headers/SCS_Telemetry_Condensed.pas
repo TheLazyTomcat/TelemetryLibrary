@@ -2,7 +2,7 @@ unit SCS_Telemetry_Condensed;
 
 {==============================================================================}
 {  SCS Telemetry API headers condenser, version 1.0a                           }
-{  Condensed on: Saturday 2016-03-12 22:26:02                                  }
+{  Condensed on: Thursday 2016-03-17 22:23:11                                  }
 {==============================================================================}
 
 interface
@@ -53,6 +53,12 @@ type
   {$MESSAGE FATAL 'Cannot declare 32bit integers'}
 {$IFEND}
   p_scs_s32_t   = ^scs_s32_t;         p_scs_u32_t     = ^scs_u32_t;
+
+{$IF (defined(DCC) or declared(CompilerVersion)) and not defined(FPC)}
+  {$IF (CompilerVersion <= 17)}
+  UInt64 = Int64;
+  {$IFEND}
+{$IFEND}
 
   scs_u64_t     = UInt64;             p_scs_u64_t     = ^scs_u64_t;
   scs_float_t   = Single;             p_scs_float_t   = ^scs_float_t;

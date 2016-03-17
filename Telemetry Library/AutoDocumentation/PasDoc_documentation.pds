@@ -57,13 +57,14 @@ Item_1=..\Source\SCS
 Item_2=..\Source\Log
 
 [Files]
-Count=6
+Count=7
 Item_0=..\Source\TelemetryCommon.pas
 Item_1=..\Source\TelemetryConversions.pas
 Item_2=..\Source\TelemetryIDs.pas
 Item_3=..\Source\TelemetryLists.pas
-Item_4=..\Source\TelemetryStrings.pas
-Item_5=..\Source\TelemetryValueTypeUtils.pas
+Item_4=..\Source\TelemetryStreaming.pas
+Item_5=..\Source\TelemetryStrings.pas
+Item_6=..\Source\TelemetryValueTypeUtils.pas
 
 [HyphenatedWords]
 Count=0

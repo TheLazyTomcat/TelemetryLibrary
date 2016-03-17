@@ -12,8 +12,8 @@ uses
   TelemetryConversions      in '..\..\Source\TelemetryConversions.pas',
   TelemetryStrings          in '..\..\Source\TelemetryStrings.pas',
   TelemetryValueTypeUtils   in '..\..\Source\TelemetryValueTypeUtils.pas',
-  TelemetryLists            in '..\..\Source\TelemetryLists.pas'
-//  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas'
+  TelemetryLists            in '..\..\Source\TelemetryLists.pas',
+  TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas'
 //  TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas'
 //  TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas'
 //  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas'

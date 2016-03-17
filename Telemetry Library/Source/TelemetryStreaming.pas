@@ -18,64 +18,33 @@
 
   This unit contains routines for storing and loading variables and data
   into/from general memory and streams.@br
-  @br
-  Aside from minor things, there are four main groups of functions in this
+  Aside from minor things, there are three main groups of functions in this
   unit:@br
 @unorderedList(
-  @item(First group (@code(Ptr_*)) consists of functions intended to provide
-        simplified way of writing and reading simple variables to/from general
-        memory location given by pointer. These functions all have boolean
-        paramater called @code(Advance) - when this parameter is set to @true,
-        passed destination/source pointer is increased by number of bytes
-        written/read, otherwise this pointer is not changed. This behavior is
-        there for situations where you are writing data in sequence, so you do
-        not need to manually recalculate pointer after every read/write call.)
-  @item(Second group (@code(Stream_*)) functions are designed to provide
-        simplified way of writing and reading simple variables to/from streams.)
-  @item(Third group are function used to store and read selected SDK types
-        to/from memory and/or streams. Their objective is to provide simple and
-        uniform way of storing structures that have non-localized data, that is,
-        some of their fields are only pointers, meaning they cannon be stored
-        directly as only pointer and not actual data would be stored.)
-  @item(Fourth group consists of functions used to store structures used in
+  @item(First group consists of functions providing an uniform way of storing
+        strings used in telemetry (UTF8-encoded). There are also functions for
+        writing and reading API strings.)
+  @item(Second group are function used to store and read selected SDK types
+        and their localized counterparts to/from memory and streams. Their main
+        objective is to provide simple and uniform way of storing structures
+        that have non-localized data, that is, some of their fields are only
+        pointers, meaning they cannon be stored directly as only pointer and
+        not actual data would be stored.)
+  @item(Third group consists of functions used to store structures used in
         telemetry library (mainly structures used to store information about
         events, channels and configs).)
 )
 
-  Last change: 2015-07-09
+  @bold(Warning) - You have to be cautious when using functions which outputs
+  following types: @code(scs_string_t), @code(scs_value_t),
+  @code(scs_named_value_t) and @code(scs_telemetry_configuration_t).@br
+  Variables, end therefore the returned values, of these types must be manually
+  freed when you are done using them. For this, use function scs_string_free
+  from telemetry headers, scs_value_free, scs_named_value_free and
+  scs_telemetry_configuration_free from unit TelemetryConversions.
 
-  Change List:@unorderedList(
-    @item(2014-05-06 - First stable version.)
-    @item(2014-11-02 - Small implementation changes.)
-    @item(2014-11-05 - Type of result changed from signed to unsigned integer in
-                       functions returning number of written/read bytes or size
-                       of some structure or required memory (there is too many
-                       such functions to list them here).)
-    @item(2014-11-05 - Type of parameters @code(Size) and @code(BytesRead)
-                       changed from signed to unsigned integer in all functions
-                       with those parameters (there is too many such functions
-                       to list them here).)
-    @item(2014-11-24 - Changes due to a new system of storing and passing
-                       secondary types of channel value. Resulting data layout
-                       changed for these functions:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(Ptr_Write_KnownChannel)
-                         @item(Ptr_Read_KnownChannel)
-                         @item(Stream_Write_KnownChannel)
-                         @item(Stream_Read_KnownChannel)))
-    @item(2015-06-27 - All calls to function @code(CopyMemory) replaced by
-                       @code(Move).)
-    @item(2015-06-27 - Added variant of function @code(SizeOfString) that
-                       accepts API string (pointer, type scs_string_t) as
-                       a parameter.)
-    @item(2015-06-27 - Added variant of functions @code(Ptr_WriteString) and
-                       @code(Stream_WriteString) that accepts API string as
-                       an input parameter.)
-    @item(2015-06-28 - Implementation changes.)
-    @item(2015-07-09 - Class of all exceptions changed to a proper internal
-                       class.)
-    @item(2015-07-09 - Added exceptions description into documentation.))
+
+  Last change: 2015-07-09
 
 @html(<hr>)}
 unit TelemetryStreaming;
@@ -87,11 +56,12 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
-{$ENDIF}  
+{$ENDIF}
+  AuxTypes,
   TelemetryCommon,
   TelemetryIDs,
   TelemetryLists,
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -112,7 +82,7 @@ type
   
   @returns Item ID computed from its name.
 }
-  TNameIDFunc = Function(const Name: TelemetryString; UserData: Pointer): TItemID;
+  TNameToIDFunc = Function(const Name: TelemetryString; UserData: Pointer): TItemID;
 
 {:
   Prototype of function used to convert item ID back into its name.
@@ -122,11 +92,13 @@ type
 
   @returns Item name corresponding to passed ID.
 }
-  TIDNameFunc = Function(ID: TItemID; UserData: Pointer): TelemetryString;
+  TIDToNameFunc = Function(ID: TItemID; UserData: Pointer): TelemetryString;
 
+{------------------------------------------------------------------------------}
 {==============================================================================}
 {   Unit functions and procedures declarations                                 }
 {==============================================================================}
+{------------------------------------------------------------------------------}
 
 {:
   @abstract(Returns number of bytes required for a given string to be stored in
@@ -138,7 +110,7 @@ type
 
   @returns Size required for storing passed string in general memory.
 }
-Function SizeOfString(const Str: UTF8String = ''): TMemSize; overload;
+Function TelemetryStringBytes(const Str: TelemetryString = ''): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -152,13 +124,13 @@ Function SizeOfString(const Str: UTF8String = ''): TMemSize; overload;
 
   @returns Size required for storing passed string in general memory.
 }
-Function SizeOfString(Str: scs_string_t): TMemSize; overload;
+Function APIStringBytes(Str: scs_string_t = nil): TMemSize;
 
 {==============================================================================}
-{   Simple varibles storing and loading (memory)                               }
+{   String types storing and loading (memory)                                  }
 {==============================================================================}
 {:
-  @abstract(Writes string to general memory location.)
+  @abstract(Writes telemetry string (UTF8 encoded) to general memory location.)
   Strings are stored as two fields - signed 32bit integer containing length of
   string in bytes (length of following array), followed by an array of bytes
   (the string itself, without terminating #0 character). For exmaple, string
@@ -167,8 +139,7 @@ Function SizeOfString(Str: scs_string_t): TMemSize; overload;
   05 00 00 00 41 42 43 2E 5A
   |- length -|-- string ---|
 )
-  @bold(Note) - stored string is always UTF8 encoded. If you want to store
-  string with different encoding, use conversion functions.
+  @bold(Note) - stored string is always UTF8 encoded.
   
   @param Destination Memory location where to write. Must not be @nil.
   @param Str         String to be written.
@@ -177,28 +148,12 @@ Function SizeOfString(Str: scs_string_t): TMemSize; overload;
 
   @returns Number of bytes written.
 }
-Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): TMemSize; overload;
+Function Ptr_WriteTelemetryString(var Destination: Pointer; const Str: TelemetryString; Advance: Boolean = True): TMemSize; overload;
 
 //------------------------------------------------------------------------------
 
 {:
-  @abstract(Writes string to general memory location.)
-  Resulting memory layour is the same as in case of function that accepts normal
-  string as an input parameter.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Str         String to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteString(var Destination: Pointer; Str: scs_string_t; Advance: Boolean = True): TMemSize; overload;
-
-//------------------------------------------------------------------------------
-
-{:
-  @abstract(Reads string from general memory location.)
+  @abstract(Reads telemetry string from general memory location.)
   Can return an empty string.
 
   @param Source   Memory location where to read. Must not be @nil.
@@ -208,210 +163,14 @@ Function Ptr_WriteString(var Destination: Pointer; Str: scs_string_t; Advance: B
 
   @returns Number of bytes read.
 }
-Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): TMemSize;
+Function Ptr_ReadTelemetryString(var Source: Pointer; out Str: TelemetryString; Advance: Boolean = True): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  Writes 32bit integer value to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Value       Value to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 32bit integer value from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Value    Output variable.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes 64bit integer value to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Value       Value to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit integer value from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Value    Output variable.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes 32bit floating point value to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Value       Value to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 32bit floating point value from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Value    Output variable.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes 64bit floating point value to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Value       Value to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit floating point value from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Value    Output variable.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes Boolean value (1byte) to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Value       Value to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads Boolean value (1byte) from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Value    Output variable.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes one byte to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Value       Value to be written.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads one byte from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Value    Output variable.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes buffer to general memory location.
-
-  @param Destination Memory location where to write. Must not be @nil.
-  @param Buffer      Buffer to be written.
-  @param Size        Size of the buffer in bytes.
-  @param(Advance     Indicating whether destination pointer should be increased
-                     by number of bytes written.)
-
-  @returns Number of bytes written.
-}
-Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: TMemSize; Advance: Boolean = True): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads buffer from general memory location.
-
-  @param Source   Memory location where to read. Must not be @nil.
-  @param Buffer   Output buffer.
-  @param Size     Number of bytes to be read.
-  @param(Advance  Indicating whether source pointer should be increased by
-                  number of bytes read.)
-
-  @returns Number of bytes read.
-}
-Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: TMemSize; Advance: Boolean = True): TMemSize;
-
-//==============================================================================
-
-{:
-  Reads string from general memory location given by pointer.
+  @abstract(Reads telemetry string from general memory location given by
+            a pointer.)
+  Can return an empty string.
 
   @param Source  Memory location where to read. Must not be @nil.
   @param(Advance Indicating whether source pointer should be increased by
@@ -419,377 +178,142 @@ Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: TMemSize; Advance
 
   @returns Read string.
 }
-Function Ptr_ReadoutString(var Source: Pointer; Advance: Boolean = True): UTF8String;
+Function Ptr_ReadoutTelemetryString(var Source: Pointer; Advance: Boolean = True): TelemetryString;
+
+//==============================================================================
+
+{:
+  @abstract(Writes API string to general memory location.)
+  Resulting memory layour is the same as in case of function
+  Ptr_WriteTelemetryString.
+
+  @param Destination Memory location where to write. Must not be @nil.
+  @param Str         String to be written.
+  @param(Advance     Indicating whether destination pointer should be increased
+                     by number of bytes written.)
+
+  @returns Number of bytes written.
+}
+Function Ptr_Write_scs_string(var Destination: Pointer; Str: scs_string_t; Advance: Boolean = True): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  Reads 32bit integer value from general memory location given by pointer.
+  @abstract(Reads API string from general memory location.)
+  Can return nil.
 
-  @param Source  Memory location where to read. Must not be @nil.
-  @param(Advance Indicating whether source pointer should be increased by
-                 number of bytes read.)
+  @param Source   Memory location where to read. Must not be @nil.
+  @param Str      Output string variable.
+  @param(Advance  Indicating whether source pointer should be increased by
+                  number of bytes read.)
 
-  @returns Read integer value.
+  @returns Number of bytes read.
 }
-Function Ptr_ReadoutInteger(var Source: Pointer; Advance: Boolean = True): LongInt;
+Function Ptr_Read_scs_string(var Source: Pointer; out Str: scs_string_t; Advance: Boolean = True): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  Reads 64bit integer value from general memory location given by pointer.
+  @abstract(Reads API string from general memory location.)
+  Can return nil.
 
-  @param Source  Memory location where to read. Must not be @nil.
-  @param(Advance Indicating whether source pointer should be increased by
-                 number of bytes read.)
+  @param Source   Memory location where to read. Must not be @nil.
+  @param(Advance  Indicating whether source pointer should be increased by
+                  number of bytes read.)
 
-  @returns Read integer value.
+  @returns Read string.
 }
-Function Ptr_ReadoutInt64(var Source: Pointer; Advance: Boolean = True): Int64;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 32bit floating point value from general memory location given by
-  pointer.
-
-  @param Source  Memory location where to read. Must not be @nil.
-  @param(Advance Indicating whether source pointer should be increased by
-                 number of bytes read.)
-
-  @returns Read floating point value.
-}
-Function Ptr_ReadoutSingle(var Source: Pointer; Advance: Boolean = True): Single;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit floating point value from general memory location given by
-  pointer.
-
-  @param Source  Memory location where to read. Must not be @nil.
-  @param(Advance Indicating whether source pointer should be increased by
-                 number of bytes read.)
-
-  @returns Read floating point value.
-}
-Function Ptr_ReadoutDouble(var Source: Pointer; Advance: Boolean = True): Double;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads boolean value (one byte) from general memory location given by pointer.
-
-  @param Source  Memory location where to read. Must not be @nil.
-  @param(Advance Indicating whether source pointer should be increased by
-                 number of bytes read.)
-
-  @returns Read boolean value.
-}
-Function Ptr_ReadoutBoolean(var Source: Pointer; Advance: Boolean = True): Boolean;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads one byte from general memory location given by pointer.
-  
-  @param Source  Memory location where to read. Must not be @nil.
-  @param(Advance Indicating whether source pointer should be increased by
-                 number of bytes read.)
-
-  @returns Read byte value.
-}
-Function Ptr_ReadoutByte(var Source: Pointer; Advance: Boolean = True): Byte;
+Function Ptr_Readout_scs_string(var Source: Pointer; Advance: Boolean = True): scs_string_t;
 
 {==============================================================================}
-{   Simple varibles storing and loading (stream)                               }
+{   String types storing and loading (stream)                                  }
 {==============================================================================}
 
 {:
-  @abstract(Writes string into stream.)
-  Strings are writen in the same manner as in Ptr_WriteString function.
+  @abstract(Writes telemetry string into stream.)
+  Strings are writen in the same manner as in Ptr_WriteTelemetryString function.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
   @param Str    Value to be written.
 
   @returns Number of bytes written.
 }
-Function Stream_WriteString(Stream: TStream; const Str: UTF8String): TMemSize; overload;
+Function Stream_WriteTelemetryString(Stream: TStream; const Str: TelemetryString): TMemSize; overload;
 
 //------------------------------------------------------------------------------
 
 {:
-  @abstract(Writes string into stream.)
-  Strings are writen in the same manner as in Ptr_WriteString function.
+  @abstract(Writes API string into stream.)
+  Strings are writen in the same manner as in Ptr_WriteTelemetryString function.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
   @param Str    Value to be written.
 
   @returns Number of bytes written.
 }
-Function Stream_WriteString(Stream: TStream; Str: scs_string_t): TMemSize; overload;
+//Function Stream_WriteAPIString(Stream: TStream; Str: scs_string_t): TMemSize; overload;
 
 //------------------------------------------------------------------------------
 
 {:
-  Reads string from stream.
+  Reads telemetry string from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
   @param Str    Output value.
 
   @returns Number of bytes read.
 }
-Function Stream_ReadString(Stream: TStream; out Str: UTF8String): TMemSize;
+Function Stream_ReadTelemetryString(Stream: TStream; out Str: TelemetryString): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  Reads string from stream.
+  Reads telemetry string from stream.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
 
-  @returns Output value.
+  @returns Read string.
 }
-Function Stream_ReadoutString(Stream: TStream): UTF8String;
+Function Stream_ReadoutTelemetryString(Stream: TStream): TelemetryString;
 
-//------------------------------------------------------------------------------
+//==============================================================================
 
 {:
-  Writes 32bit integer value into stream.
+  @abstract(Writes API string into stream.)
+  Strings are writen in the same manner as in Ptr_WriteTelemetryString function.
 
   @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Value  Value to be written.
+  @param Str    Value to be written.
 
   @returns Number of bytes written.
 }
-Function Stream_WriteInteger(Stream: TStream; Value: LongInt): TMemSize;
+Function Stream_Write_scs_string(Stream: TStream; Str: scs_string_t): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  Reads 32bit integer value from stream.
+  @abstract(Reads API string from stream.)
+  Can return nil.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Str    Output value.
+  @param Str    Output string variable.
 
   @returns Number of bytes read.
 }
-Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): TMemSize;
-
-//------------------------------------------------------------------------------
+Function Stream_Read_scs_string(Stream: TStream; out Str: scs_string_t): TMemSize;
 
 {:
-  Reads 32bit integer value from stream.
+  @abstract(Reads API string from stream.)
+  Can return nil.
 
   @param Stream Stream from which the value will be read. Must not be @nil.
 
-  @returns Output value.
+  @returns Read string.
 }
-Function Stream_ReadoutInteger(Stream: TStream): LongInt;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes 64bit integer value into stream.
-
-  @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Value  Value to be written.
-
-  @returns Number of bytes written.
-}
-Function Stream_WriteInt64(Stream: TStream; Value: Int64): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit integer value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Str    Output value.
-
-  @returns Number of bytes read.
-}
-Function Stream_ReadInt64(Stream: TStream; out Value: Int64): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit integer value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-
-  @returns Output value.
-}
-Function Stream_ReadoutInt64(Stream: TStream): Int64;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes 32bit floating point value into stream.
-
-  @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Value  Value to be written.
-
-  @returns Number of bytes written.
-}
-Function Stream_WriteSingle(Stream: TStream; Value: Single): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 32bit floating point value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Str    Output value.
-
-  @returns Number of bytes read.
-}
-Function Stream_ReadSingle(Stream: TStream; out Value: Single): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 32bit floating point value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-
-  @returns Output value.
-}
-Function Stream_ReadoutSingle(Stream: TStream): Single;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes 64bit floating point value into stream.
-
-  @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Value  Value to be written.
-
-  @returns Number of bytes written.
-}
-Function Stream_WriteDouble(Stream: TStream; Value: Double): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit floating point value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Str    Output value.
-
-  @returns Number of bytes read.
-}
-Function Stream_ReadDouble(Stream: TStream; out Value: Double): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads 64bit floating point value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-
-  @returns Output value.
-}
-Function Stream_ReadoutDouble(Stream: TStream): Double;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes boolean (one byte) value into stream.
-
-  @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Value  Value to be written.
-
-  @returns Number of bytes written.
-}
-Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads boolean (one byte) value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Str    Output value.
-
-  @returns Number of bytes read.
-}
-Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads boolean (one byte) value from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-
-  @returns Output value.
-}
-Function Stream_ReadoutBoolean(Stream: TStream): Boolean;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes one byte into stream.
-
-  @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Value  Value to be written.
-
-  @returns Number of bytes written.
-}
-Function Stream_WriteByte(Stream: TStream; Value: Byte): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads one byte from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Str    Output value.
-
-  @returns Number of bytes read.
-}
-Function Stream_ReadByte(Stream: TStream; out Value: Byte): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads one byte from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-
-  @returns Output value.
-}
-Function Stream_ReadoutByte(Stream: TStream): Byte;
-
-//------------------------------------------------------------------------------
-
-{:
-  Writes buffer into stream.
-
-  @param Stream Stream to which the value will be written. Must not be @nil.
-  @param Buffer Buffer to be written.
-  @param Size   Size of the buffer in bytes.
-
-  @returns Number of bytes written.
-}
-Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: TMemSize): TMemSize;
-
-//------------------------------------------------------------------------------
-
-{:
-  Reads buffer from stream.
-
-  @param Stream Stream from which the value will be read. Must not be @nil.
-  @param Buffer Output buffer.
-  @param Size   Number of bytes to be read.
-
-  @returns Number of bytes read.
-}
-Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: TMemSize): TMemSize;
+Function Stream_Readout_scs_string(Stream: TStream): scs_string_t;
 
 {==============================================================================}
-{   SDK types storing and loading                                              }
+{   Complex SDK types storing and loading                                      }
 {==============================================================================}
 
 {:
@@ -816,8 +340,8 @@ Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize
   type is when value contains string data. When stored as standard, the whole
   structure is stored. When minimized, only used value type (eg. @code(float),
   @code(fvector)) is stored, thus saving space. Strings are stored using
-  function Ptr_WriteString, refer to this functions for details how the string
-  is actually stored.@br
+  function Ptr_WriteAPIString, refer to this functions for details how the
+  string is actually stored.@br
   @br
   Memory layout for different styles of storing:
 @preformatted(
@@ -841,9 +365,7 @@ Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_scs_value), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
   @param(Minimize    Indicating whether value should be saved minimized (valid
@@ -852,7 +374,8 @@ Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize
   @returns Number of bytes written.
 
   @raises ETLUnknownData When parameter @code(Value) is of unknown type.
-  @raises ETLBufferTooSmall When output buffer is too small for a written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_scs_value(var Destination: Pointer; Value: scs_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 
@@ -989,10 +512,7 @@ Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolea
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_scs_value_localized), then nothing is
-                     stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
   @param(Minimize    Indicating whether value should be saved minimized (valid
@@ -1001,7 +521,8 @@ Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolea
   @returns Number of bytes written.
 
   @raises ETLUnknownData When parameter @code(Value) is of unknown type.
-  @raises ETLBufferTooSmall When output buffer is too small for a written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_scs_value_localized(var Destination: Pointer; Value: scs_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 
@@ -1152,9 +673,7 @@ Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = Fals
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_scs_named_value), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
   @param Minimize    Indicating whether value should be saved minimized.
@@ -1169,9 +688,10 @@ Function Size_scs_named_value(Value: scs_named_value_t; Minimize: Boolean = Fals
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
-Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1200,7 +720,7 @@ Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_va
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1225,7 +745,7 @@ Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; M
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1250,7 +770,7 @@ Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_valu
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 
 //------------------------------------------------------------------------------
 
@@ -1275,7 +795,7 @@ Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: TMemSiz
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1297,7 +817,7 @@ Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t;
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1319,7 +839,7 @@ Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value
 
   @returns Output value.
 }
-Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 
 //==============================================================================
 
@@ -1354,10 +874,7 @@ Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Mini
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_scs_named_value_localized), then nothing is
-                     stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
   @param Minimize    Indicating whether value should be saved minimized.
@@ -1372,9 +889,10 @@ Function Size_scs_named_value_localized(Value: scs_named_value_localized_t; Mini
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
-Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1403,7 +921,7 @@ Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: sc
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1428,7 +946,7 @@ Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1453,7 +971,7 @@ Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 
 //------------------------------------------------------------------------------
 
@@ -1479,7 +997,7 @@ Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRea
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1501,7 +1019,7 @@ Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_name
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1523,7 +1041,7 @@ Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_n
 
   @returns Output value.
 }
-Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 
 //==============================================================================
 
@@ -1535,12 +1053,10 @@ Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead
   @param(Minimize   When @true, function returns only minimal size required for
                     storing passed value (see Ptr_Write_scs_value function for
                     details).)
-  @param(ItemIDOnly Indicates whether @code(name) fields of attributes is saved
-                    only as ID (4 bytes), or as full string (4+ bytes).)
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): TMemSize;
+Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1563,42 +1079,21 @@ Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; 
   @bold(Note) - @code(Count) contains number of all items in attributes array,
   including terminating empty value. This field must contain precise value, so
   you can use it for iteration or memory allocation in reading.@br
-  When @code(ItemIdOnly) is set to @false, all strings are saved as usual, but
-  when set to @true, followind process is applied:
-@unorderedList(@itemSpacing(Compact)
-  @item(@code(id) is stored as string)
-  @item(for each attribute, @code(name) is merged with configuration @code(id)
-        using function ConfigMergeIDAndAttribute, ...)
-  @item(...resulting conglomerate is passed to @code(NameIDFunc) function...)
-  @item(...and returned ID is then saved instead of attribute name (see function
-        Ptr_Write_scs_named_value for details.))
-)
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_scs_telemetry_configuration), then nothing is
-                     stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
   @param(Minimize    Indicating whether attributes values should be saved
                      minimized.)
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is not stored as string, but is converted to ID
-                     using callback function passed in parameter
-                     @code(NameIDFunc) and this ID is then stored instead. This
-                     option takes effect only when @code(NameIDFunc) is
-                     assigned.)
-  @param(NameIDFunc  Callback function used to convert attributes @code(name)
-                     fields to ID when @code(ItemIDOnly) is set to @true.)
-  @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
-Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1617,76 +1112,43 @@ Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: 
   @param Value       Value to be stored.
   @param(Minimize    Indicating whether attributes values should be saved
                      minimized.)
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is not stored as string, but is converted to ID
-                     using callback function passed in parameter
-                     @code(NameIDFunc) and this ID is then stored instead. This
-                     option takes effect only when @code(NameIDFunc) is
-                     assigned.)
-  @param(NameIDFunc  Callback function used to convert attributes @code(name)
-                     fields to ID when @code(ItemIDOnly) is set to @true.)
-  @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  @abstract(Reads value of type @code(scs_telemetry_configuration_t) from memory 
-  location given by pointer.)
-  @bold(Note) - when names of individual attributes are stored only as IDs -
-  after conversion back to string, configuration @code(id) is removed from it
-  using function ConfigRemoveIDFromName and what is left is returned in output
-  value.
+  Reads value of type @code(scs_telemetry_configuration_t) from memory location
+  given by pointer.
 
   @param Source      Memory location where to read. Must not be @nil.
   @param Value       Output variable.
   @param(Advance     Indicating whether source pointer should be increased by
                      number of bytes read.)
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  @abstract(Reads value of type @code(scs_telemetry_configuration_t) from memory
-  location given by pointer.)
-  @bold(Note) - when names of individual attributes are stored only as IDs -
-  after conversion back to string, configuration @code(id) is removed from it
-  using function ConfigRemoveIDFromName and what is left is returned in output
-  value.
+  Reads value of type @code(scs_telemetry_configuration_t) from memory location
+  given by pointer.
 
   @param Source      Memory location where to read. Must not be @nil.
   @param BytesRead   Number of bytes read.
   @param(Advance     Indicating whether source pointer should be increased by
                      number of bytes read.)
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False): scs_telemetry_configuration_t;
 
 //------------------------------------------------------------------------------
 
@@ -1701,19 +1163,10 @@ Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesR
   @param Value       Value to be written.
   @param(Minimize    Indicating whether attributes values should be saved
                      minimized.)
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is not stored as string, but is converted to ID
-                     using callback function passed in parameter
-                     @code(NameIDFunc) and this ID is then stored instead. This
-                     option takes effect only when @code(NameIDFunc) is
-                     assigned.)
-  @param(NameIDFunc  Callback function used to convert attributes @code(name)
-                     fields to ID when @code(ItemIDOnly) is set to @true.)
-  @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1726,18 +1179,10 @@ Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_te
   @param Stream      Stream from which the value will be read. Must not be @nil.
   @param Value       Output variable.
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1750,18 +1195,10 @@ Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs
   @param Stream      Stream from which the value will be read. Must not be @nil.
   @param BytesRead   Number of bytes read.
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Output value.
 }
-Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False): scs_telemetry_configuration_t;
 
 //==============================================================================
 
@@ -1773,12 +1210,10 @@ Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRe
   @param(Minimize   When @true, function returns only minimal size required for
                     storing passed value (see Ptr_Write_scs_value_localized
                     function for details).)
-  @param(ItemIDOnly Indicates whether @code(Name) fields of attributes is saved
-                    only as ID (4 bytes), or as full string (4+ bytes).)
 
   @returns Number of bytes required for storing passed value.
 }
-Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): TMemSize;
+Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1796,29 +1231,18 @@ Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configu
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_scs_telemetry_configuration_localized), then
-                     nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
   @param(Minimize    Indicating whether attributes values should be saved
                      minimized.)
-  @param(ItemIDOnly  When set to @true, field @code(Name) of individual
-                     attributes is not stored as string, but is converted to ID
-                     using callback function passed in parameter
-                     @code(NameIDFunc) and this ID is then stored instead. This
-                     option takes effect only when @code(NameIDFunc) is
-                     assigned.)
-  @param(NameIDFunc  Callback function used to convert attributes @code(Name)
-                     fields to ID when @code(ItemIDOnly) is set to @true.)
-  @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
-Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1836,76 +1260,43 @@ Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointe
   @param Value       Value to be stored.
   @param(Minimize    Indicating whether attributes values should be saved
                      minimized.)
-  @param(ItemIDOnly  When set to @true, field @code(Name) of individual
-                     attributes is not stored as string, but is converted to ID
-                     using callback function passed in parameter
-                     @code(NameIDFunc) and this ID is then stored instead. This
-                     option takes effect only when @code(NameIDFunc) is
-                     assigned.)
-  @param(NameIDFunc  Callback function used to convert attributes @code(Name)
-                     fields to ID when @code(ItemIDOnly) is set to @true.)
-  @param UserData    User data passed to @code(NameIDFunc) function.  
 
   @returns(Number of bytes allocated for storing (you can use this value for
            freeing returned pointer).)
 }
-Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  @abstract(Reads value of type scs_telemetry_configuration_localized_t from 
-  memory location given by pointer.)
-  @bold(Note) - when names of individual attributes are stored only as IDs -
-  after conversion back to string, configuration @code(ID) is removed from it
-  using function ConfigRemoveIDFromName and what is left is returned in output
-  value.
+  Reads value of type scs_telemetry_configuration_localized_t from memory
+  location given by pointer.
 
   @param Source      Memory location where to read. Must not be @nil.
   @param Value       Output variable.
   @param(Advance     Indicating whether source pointer should be increased by
                      number of bytes read.)
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(Name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(Name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Number of bytes read.
 }
-Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
 {:
-  @abstract(Reads value of type scs_telemetry_configuration_localized_t from 
-  memory location given by pointer.)
-  @bold(Note) - when names of individual attributes are stored only as IDs -
-  after conversion back to string, configuration @code(ID) is removed from it
-  using function ConfigRemoveIDFromName and what is left is returned in output
-  value.
+  Reads value of type scs_telemetry_configuration_localized_t from memory
+  location given by pointer.
 
   @param Source      Memory location where to read. Must not be @nil.
   @param BytesRead   Number of bytes read.
   @param(Advance     Indicating whether source pointer should be increased by
                      number of bytes read.)
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(Name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(Name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Output value.
 }
-Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False): scs_telemetry_configuration_localized_t;
 
 //------------------------------------------------------------------------------
 
@@ -1915,24 +1306,15 @@ Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; 
   All saving options and resulting memory layout are the same as in function
   Ptr_Write_scs_telemetry_configuration_localized.
 
-  @param(Stream      Stream to which the value will be written. Must not be
-                     @nil.)
-  @param Value       Value to be written.
-  @param(Minimize    Indicating whether attributes values should be saved
-                     minimized.)
-  @param(ItemIDOnly  When set to @true, field @code(Name) of individual
-                     attributes is not stored as string, but is converted to ID
-                     using callback function passed in parameter
-                     @code(NameIDFunc) and this ID is then stored instead. This
-                     option takes effect only when @code(NameIDFunc) is
-                     assigned.)
-  @param(NameIDFunc  Callback function used to convert attributes @code(Name)
-                     fields to ID when @code(ItemIDOnly) is set to @true.)
-  @param UserData    User data passed to @code(NameIDFunc) function.
+  @param(Stream   Stream to which the value will be written. Must not be
+                  @nil.)
+  @param Value    Value to be written.
+  @param(Minimize Indicating whether attributes values should be saved
+                  minimized.)
 
   @returns Number of bytes written.
 }
-Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1945,18 +1327,10 @@ Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Val
   @param Stream      Stream from which the value will be read. Must not be @nil.
   @param Value       Output variable.
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Number of bytes read.
 }
-Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False): TMemSize;
 
 //------------------------------------------------------------------------------
 
@@ -1969,21 +1343,13 @@ Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out 
   @param Stream      Stream from which the value will be read. Must not be @nil.
   @param BytesRead   Number of bytes read.
   @param Minimized   Indicating whether attributes values were saved minimized.
-  @param(ItemIDOnly  When set to @true, field @code(Name) of individual
-                     attributes is expected to be stored only as ID, not as
-                     string. This option takes effect only when
-                     @code(IDNameFunc) is assigned.)
-  @param(IDNameFunc  Callback function used to convert ID back to string for
-                     attributes field @code(Name) when @code(ItemIDOnly) is set
-                     to @true.)
-  @param UserData    User data passed to @code(IDNameFunc) function.
 
   @returns Output value.
 }
-Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False): scs_telemetry_configuration_localized_t;
 
 {==============================================================================}
-{   Telemetry library types storing and loading                                }
+{   Telemetry library complex types storing and loading                        }
 {==============================================================================}
 
 {:
@@ -2014,15 +1380,14 @@ Function Size_KnownEvent(Value: TKnownEvent): TMemSize;
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_KnownEvent), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_KnownEvent(var Destination: Pointer; Value: TKnownEvent; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2138,22 +1503,21 @@ Function Size_KnownChannel(Value: TKnownChannel): TMemSize;
         PrimaryType     4 bytes     scs_value_type_t
         SecondaryTypes  4 bytes     TValueTypeBitmask
         Indexed         1 byte      Boolean
-        IndexConfig     variable    String
-        IndexConfigID   4 bytes     TConfigID
+        IndexConfigID   variable    String
+        IndexConfigAttr variable    String
         MaxIndex        4 bytes     scs_u32_t
 )
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_KnownChannel), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_KnownChannel(var Destination: Pointer; Value: TKnownChannel; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2264,8 +1628,8 @@ Function Size_KnownConfig(Value: TKnownConfig): TMemSize;
 @preformatted(
           value       |   size    |   value type
 
-        Name            variable    String
-        ID              4 bytes     TConfigID
+        ID              variable    String
+        AttrName        variable    String
         ValueType       4 bytes     scs_value_type_t
         Indexed         1 byte      Boolean
         Binded          1 byte      Boolean
@@ -2273,15 +1637,14 @@ Function Size_KnownConfig(Value: TKnownConfig): TMemSize;
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_KnownConfig), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_KnownConfig(var Destination: Pointer; Value: TKnownConfig; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2398,15 +1761,14 @@ Function Size_EventInfo({%H-}Value: TEventInfo): TMemSize;
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_EventInfo), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_EventInfo(var Destination: Pointer; Value: TEventInfo; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2522,20 +1884,20 @@ Function Size_ChannelInfo(Value: TChannelInfo): TMemSize;
         Index           4 bytes     scs_u32_t
         ValueType       4 bytes     scs_value_type_t
         Flags           4 bytes     scs_u32_t
-        IndexConfigID   4 bytes     TItemID
+        IndexConfigID   variable    String
+        IndexConfigAttr variable    String
 )
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_ChannelInfo), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_ChannelInfo(var Destination: Pointer; Value: TChannelInfo; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2649,8 +2011,8 @@ Function Size_StoredConfig(Value: TStoredConfig): TMemSize;
 @preformatted(
          value  |   size    |   value type
 
-        Name      variable    String
-        ID        4 bytes     TConfigID
+        ID        variable    String
+        AttrName  variable    String
         Index     4 bytes     scs_u32_t
         Value     variable    scs_value_localized_t
         Binded    1 byte      Boolean
@@ -2658,15 +2020,14 @@ Function Size_StoredConfig(Value: TStoredConfig): TMemSize;
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_StoredConfig), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_StoredConfig(var Destination: Pointer; Value: TStoredConfig; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2789,15 +2150,14 @@ Function Size_StoredChannel(Value: TStoredChannel): TMemSize;
 
   @param Destination Memory location where to write. Must not be @nil.
   @param Value       Value to be written.
-  @param(Size        Number of bytes available. If this value is smaller than
-                     number of bytes required to store passed value (see
-                     function Size_StoredChannel), then nothing is stored.)
+  @param Size        Number of bytes available in destination buffer.
   @param(Advance     Indicating whether destination pointer should be increased
                      by number of bytes written.)
 
   @returns Number of bytes written.
 
-  @raises ETLBufferTooSmall When output buffer is too small for written data.
+  @raises(ETLBufferTooSmall When destination buffer is too small for a data
+                            being written.)
 }
 Function Ptr_Write_StoredChannel(var Destination: Pointer; Value: TStoredChannel; Size: TMemSize; Advance: Boolean = True): TMemSize;
 
@@ -2889,424 +2249,138 @@ Function Stream_Readout_StoredChannel(Stream: TStream; out BytesRead: TMemSize):
 implementation
 
 uses
-  SysUtils;
+  SysUtils,
+  BinaryStreaming;
 
+{------------------------------------------------------------------------------}
 {==============================================================================}
 {   Unit functions and procedures implementation                               }
 {==============================================================================}
+{------------------------------------------------------------------------------}
 
-Function SizeOfString(const Str: UTF8String = ''): TMemSize;
+Function TelemetryStringBytes(const Str: TelemetryString = ''): TMemSize;
 begin
-Result := SizeOf(Integer){string length} + Length(Str) * SizeOf(TUTF8Char);
+Result := SizeOf(Int32){string length} + Length(Str) * SizeOf(TUTF8Char);
 end;
 
 //------------------------------------------------------------------------------
 
-Function SizeOfString(Str: scs_string_t): TMemSize;
+Function APIStringBytes(Str: scs_string_t): TMemSize;
 begin
 If Assigned(Str) then
-  Result := SizeOf(Integer){string length} + Length(PAnsiChar(Str)) * SizeOf(TUTF8Char)
+  Result := SizeOf(Int32){string length} + Length(PAnsiChar(Str)) * SizeOf(TUTF8Char)
 else
-  Result := SizeOf(Integer){string length};
+  Result := SizeOf(Int32){string length};
 end;
 
 {==============================================================================}
-{   Simple varibles storing and loading (memory)                               }
+{   String types storing and loading (memory)                                  }
 {==============================================================================}
 
-Function Ptr_WriteString(var Destination: Pointer; const Str: UTF8String; Advance: Boolean = True): TMemSize;
+Function Ptr_WriteTelemetryString(var Destination: Pointer; const Str: TelemetryString; Advance: Boolean = True): TMemSize;
 begin
-Integer(Destination^) := Length(Str);
-Move(PUTF8Char(Str)^,{%H-}Pointer({%H-}PtrUInt(Destination) + SizeOf(Integer))^,Length(Str) * SizeOf(TUTF8Char));
-Result := SizeOf(Integer) + (Length(Str) * SizeOf(TUTF8Char));
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
+Result := Ptr_WriteUTF8String(Destination,UTF8String(Str),Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_WriteString(var Destination: Pointer; Str: scs_string_t; Advance: Boolean = True): TMemSize;
+Function Ptr_ReadTelemetryString(var Source: Pointer; out Str: TelemetryString; Advance: Boolean = True): TMemSize;
 begin
-Integer(Destination^) := Length(PAnsiChar(Str));
-Move(Str^,{%H-}Pointer({%H-}PtrUInt(Destination) + SizeOf(Integer))^,Length(PAnsiChar(Str)) * SizeOf(TUTF8Char));
-Result := SizeOf(Integer) + (Length(PAnsiChar(Str)) * SizeOf(TUTF8Char));
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
+Result := Ptr_ReadUTF8String(Source,UTF8String(Str),Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadString(var Source: Pointer; out Str: UTF8String; Advance: Boolean = True): TMemSize;
+Function Ptr_ReadoutTelemetryString(var Source: Pointer; Advance: Boolean = True): TelemetryString;
 begin
-SetLength(Str,Integer(Source^) div SizeOf(TUTF8Char));
-Move({%H-}Pointer({%H-}PtrUInt(Source) + SizeOf(Integer))^,PUTF8Char(Str)^,Length(Str) * SizeOf(TUTF8Char));
-Result := SizeOf(Integer) + (Length(Str) * SizeOf(TUTF8Char));
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteInteger(var Destination: Pointer; Value: LongInt; Advance: Boolean = True): TMemSize;
-begin
-LongInt(Destination^) := Value;
-Result := SizeOf(Value);
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadInteger(var Source: Pointer; out Value: LongInt; Advance: Boolean = True): TMemSize;
-begin
-Value := LongInt(Source^);
-Result := SizeOf(Value);
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteInt64(var Destination: Pointer; Value: Int64; Advance: Boolean = True): TMemSize;
-begin
-Int64(Destination^) := Value;
-Result := SizeOf(Value);
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadInt64(var Source: Pointer; out Value: Int64; Advance: Boolean = True): TMemSize;
-begin
-Value := Int64(Source^);
-Result := SizeOf(Value);
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteSingle(var Destination: Pointer; Value: Single; Advance: Boolean = True): TMemSize;
-begin
-Single(Destination^) := Value;
-Result := SizeOf(Value);
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadSingle(var Source: Pointer; out Value: Single; Advance: Boolean = True): TMemSize;
-begin
-Value := Single(Source^);
-Result := SizeOf(Value);
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteDouble(var Destination: Pointer; Value: Double; Advance: Boolean = True): TMemSize;
-begin
-Double(Destination^) := Value;
-Result := SizeOf(Value);
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadDouble(var Source: Pointer; out Value: Double; Advance: Boolean = True): TMemSize;
-begin
-Value := Double(Source^);
-Result := SizeOf(Value);
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteBoolean(var Destination: Pointer; Value: Boolean; Advance: Boolean = True): TMemSize;
-begin
-Boolean(Destination^) := Value;
-Result := SizeOf(Value);
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadBoolean(var Source: Pointer; out Value: Boolean; Advance: Boolean = True): TMemSize;
-begin
-Value := Boolean(Source^);
-Result := SizeOf(Value);
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteByte(var Destination: Pointer; Value: Byte; Advance: Boolean = True): TMemSize;
-begin
-Byte(Destination^) := Value;
-Result := SizeOf(Value);
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadByte(var Source: Pointer; out Value: Byte; Advance: Boolean = True): TMemSize;
-begin
-Value := Byte(Source^);
-Result := SizeOf(Value);
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_WriteBuffer(var Destination: Pointer; const Buffer; Size: TMemSize; Advance: Boolean = True): TMemSize;
-begin
-Move(Buffer,Destination^,Size);
-Result := Size;
-If Advance then Destination := {%H-}Pointer({%H-}PtrUInt(Destination) + Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadBuffer(var Source: Pointer; var Buffer; Size: TMemSize; Advance: Boolean = True): TMemSize;
-begin
-Move(Source^,Buffer,Size);
-Result := Size;
-If Advance then Source := {%H-}Pointer({%H-}PtrUInt(Source) + Result);
+Result := TelemetryString(Ptr_ReadUTF8String(Source,Advance));
 end;
 
 //==============================================================================
 
-Function Ptr_ReadoutString(var Source: Pointer; Advance: Boolean = True): UTF8String;
+Function Ptr_Write_scs_string(var Destination: Pointer; Str: scs_string_t; Advance: Boolean = True): TMemSize;
+var
+  TempStr:  TelemetryString;
 begin
-Ptr_ReadString(Source,Result,Advance);
+TempStr := APIStringToTelemetryString(Str);
+Result := Ptr_WriteTelemetryString(Destination,TempStr,Advance);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadoutInteger(var Source: Pointer; Advance: Boolean = True): LongInt;
+Function Ptr_Read_scs_string(var Source: Pointer; out Str: scs_string_t; Advance: Boolean = True): TMemSize;
+var
+  TempStr:  TelemetryString;
 begin
-Ptr_ReadInteger(Source,Result,Advance);
+Result := Ptr_ReadTelemetryString(Source,TempStr,Advance);
+Str := TelemetryStringtoAPIString(TempStr);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_ReadoutInt64(var Source: Pointer; Advance: Boolean = True): Int64;
+Function Ptr_Readout_scs_string(var Source: Pointer; Advance: Boolean = True): scs_string_t;
 begin
-Ptr_ReadInt64(Source,Result,Advance);
-end;
-
-Function Ptr_ReadoutSingle(var Source: Pointer; Advance: Boolean = True): Single;
-begin
-Ptr_ReadSingle(Source,Result,Advance);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadoutDouble(var Source: Pointer; Advance: Boolean = True): Double;
-begin
-Ptr_ReadDouble(Source,Result,Advance);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadoutBoolean(var Source: Pointer; Advance: Boolean = True): Boolean;
-begin
-Ptr_ReadBoolean(Source,Result,Advance);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Ptr_ReadoutByte(var Source: Pointer; Advance: Boolean = True): Byte;
-begin
-Ptr_ReadByte(Source,Result,Advance);
+Ptr_Read_scs_string(Source,Result,Advance);
 end;
 
 {==============================================================================}
-{   Simple varibles storing and loading (stream)                               }
+{   String types storing and loading (stream)                                  }
 {==============================================================================}
 
-Function Stream_WriteString(Stream: TStream; const Str: UTF8String): TMemSize;
+Function Stream_WriteTelemetryString(Stream: TStream; const Str: TelemetryString): TMemSize;
+begin
+Result := Stream_WriteUTF8String(Stream,UTF8String(Str));
+end;
+
+//------------------------------------------------------------------------------
+
+Function Stream_ReadTelemetryString(Stream: TStream; out Str: TelemetryString): TMemSize;
+begin
+Result := Stream_ReadUTF8String(Stream,UTF8String(Str));
+end;
+
+//------------------------------------------------------------------------------
+
+Function Stream_ReadoutTelemetryString(Stream: TStream): TelemetryString;
+begin
+Result := TelemetryString(Stream_ReadUTF8String(Stream));
+end;
+
+//==============================================================================
+
+Function Stream_Write_scs_string(Stream: TStream; Str: scs_string_t): TMemSize;
 var
-  StringBytes: Integer;
+  TempStr:  TelemetryString;
 begin
-Result := 0;
-StringBytes := Length(Str) * SizeOf(TUTF8Char);
-Inc(Result,TMemSize(Stream.Write(StringBytes,SizeOf(StringBytes))));
-Inc(Result,TMemSize(Stream.Write(PUTF8Char(Str)^,StringBytes)));
+TempStr := APIStringToTelemetryString(Str);
+Result := Stream_WriteTelemetryString(Stream,TempStr);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_WriteString(Stream: TStream; Str: scs_string_t): TMemSize;
+Function Stream_Read_scs_string(Stream: TStream; out Str: scs_string_t): TMemSize;
 var
-  StringBytes: Integer;
+  TempStr:  TelemetryString;
 begin
-Result := 0;
-StringBytes := Length(PAnsiChar(Str)) * SizeOf(TUTF8Char);
-Inc(Result,TMemSize(Stream.Write(StringBytes,SizeOf(StringBytes))));
-Inc(Result,TMemSize(Stream.Write(Str^,StringBytes)));
+Result := Stream_ReadTelemetryString(Stream,TempStr);
+Str := TelemetryStringToAPIString(TempStr);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_ReadString(Stream: TStream; out Str: UTF8String): TMemSize;
-var
-  StringBytes: Integer;
+Function Stream_Readout_scs_string(Stream: TStream): scs_string_t;
 begin
-Result := 0;
-Inc(Result,TMemSize(Stream.Read({%H-}StringBytes,SizeOf(StringBytes))));
-SetLength(Str,StringBytes div SizeOf(TUTF8Char));
-Inc(Result,TMemSize(Stream.Read(PUTF8Char(Str)^,Length(Str) * SizeOf(TUTF8Char))));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutString(Stream: TStream): UTF8String;
-begin
-Stream_ReadString(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteInteger(Stream: TStream; Value: LongInt): TMemSize;
-begin
-Result := Stream.Write(Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadInteger(Stream: TStream; out Value: LongInt): TMemSize;
-begin
-Result := Stream.Read({%H-}Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutInteger(Stream: TStream): Integer;
-begin
-Stream_ReadInteger(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteInt64(Stream: TStream; Value: Int64): TMemSize;
-begin
-Result := Stream.Write(Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadInt64(Stream: TStream; out Value: Int64): TMemSize;
-begin
-Result := Stream.Read({%H-}Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutInt64(Stream: TStream): Int64;
-begin
-Stream_ReadInt64(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteSingle(Stream: TStream; Value: Single): TMemSize;
-begin
-Result := Stream.Write(Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadSingle(Stream: TStream; out Value: Single): TMemSize;
-begin
-Result := Stream.Read({%H-}Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutSingle(Stream: TStream): Single;
-begin
-Stream_ReadSingle(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteDouble(Stream: TStream; Value: Double): TMemSize;
-begin
-Result := Stream.Write(Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadDouble(Stream: TStream; out Value: Double): TMemSize;
-begin
-Result := Stream.Read({%H-}Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutDouble(Stream: TStream): Double;
-begin
-Stream_ReadDouble(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteBoolean(Stream: TStream; Value: Boolean): TMemSize;
-begin
-Result := Stream.Write(Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadBoolean(Stream: TStream; out Value: Boolean): TMemSize;
-begin
-Result := Stream.Read({%H-}Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutBoolean(Stream: TStream): Boolean;
-begin
-Stream_ReadBoolean(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteByte(Stream: TStream; Value: Byte): TMemSize;
-begin
-Result := Stream.Write(Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadByte(Stream: TStream; out Value: Byte): TMemSize;
-begin
-Result := Stream.Read({%H-}Value,SizeOf(Value));
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadoutByte(Stream: TStream): Byte;
-begin
-Stream_ReadByte(Stream,Result);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_WriteBuffer(Stream: TStream; const Buffer; Size: TMemSize): TMemSize;
-begin
-Result := Stream.Write(Buffer,Size);
-end;
-
-//------------------------------------------------------------------------------
-
-Function Stream_ReadBuffer(Stream: TStream; out Buffer; Size: TMemSize): TMemSize;
-begin
-Result := Stream.Read({%H-}Buffer,Size);
+Stream_Read_scs_string(Stream,Result);
 end;
 
 {==============================================================================}
-{   SDK types storing and loading                                              }
+{   Complex SDK types storing and loading                                      }
 {==============================================================================}
 
 Function Size_scs_value(Value: scs_value_t; Minimize: Boolean = False): TMemSize;
 begin
 If Value._type = SCS_VALUE_TYPE_string then
-  Result := SizeOf(scs_value_type_t) + SizeOfString(Value.value_string.value)
+  Result := SizeOf(scs_value_type_t) + APIStringBytes(Value.value_string.value)
 else
   begin
     If Minimize then
@@ -3324,7 +2398,7 @@ else
           SCS_VALUE_TYPE_fplacement:  Result := SizeOf(scs_value_type_t) + SizeOf(scs_value_fplacement_t);
           SCS_VALUE_TYPE_dplacement:  Result := SizeOf(scs_value_type_t) + SizeOf(scs_value_dplacement_t);
         else
-          raise ETLUnknownData.CreateFmt('Size_scs_value_t: Unknown value type (%d).',[Value._type]);
+          raise ETLUnknownData.CreateFmt('Size_scs_value: Unknown value type (%d).',[Value._type]);
         end;
       end
     else Result := SizeOf(scs_value_t);
@@ -3342,21 +2416,21 @@ If Size >= Size_scs_value(Value,Minimize) then
     WorkPtr := Destination;
     If Value._type = SCS_VALUE_TYPE_string then
       begin
-        Result := Ptr_WriteInteger(WorkPtr,LongInt(Value._type),True);
-        Inc(Result,Ptr_WriteString(WorkPtr,Value.value_string.value,True));
+        Result := Ptr_WriteUInt32(WorkPtr,Value._type,True);
+        Inc(Result,Ptr_Write_scs_string(WorkPtr,Value.value_string.value,True));
       end
     else
       begin
         If Minimize then
           begin
-            Result := Ptr_WriteInteger(WorkPtr,LongInt(Value._type),True);
+            Result := Ptr_WriteUInt32(WorkPtr,Value._type,True);
             case Value._type of
-              SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_WriteByte(WorkPtr,Value.value_bool.value,True));
-              SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_WriteInteger(WorkPtr,Value.value_s32.value,True));
-              SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.value_u32.value),True));
-              SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_WriteInt64(WorkPtr,Int64(Value.value_u64.value),True));
-              SCS_VALUE_TYPE_float:       Inc(Result,Ptr_WriteSingle(WorkPtr,Value.value_float.value,True));
-              SCS_VALUE_TYPE_double:      Inc(Result,Ptr_WriteDouble(WorkPtr,Value.value_double.value,True));
+              SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_WriteUInt8(WorkPtr,Value.value_bool.value,True));
+              SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_WriteInt32(WorkPtr,Value.value_s32.value,True));
+              SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.value_u32.value,True));
+              SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_WriteUInt64(WorkPtr,Value.value_u64.value,True));
+              SCS_VALUE_TYPE_float:       Inc(Result,Ptr_WriteFloat32(WorkPtr,Value.value_float.value,True));
+              SCS_VALUE_TYPE_double:      Inc(Result,Ptr_WriteFloat64(WorkPtr,Value.value_double.value,True));
               SCS_VALUE_TYPE_fvector:     Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.value_fvector,SizeOf(scs_value_fvector_t),True));
               SCS_VALUE_TYPE_dvector:     Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.value_dvector,SizeOf(scs_value_dvector_t),True));
               SCS_VALUE_TYPE_euler:       Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.value_euler,SizeOf(scs_value_euler_t),True));
@@ -3387,26 +2461,24 @@ end;
 Function Ptr_Read_scs_value(var Source: Pointer; out Value: scs_value_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 var
   WorkPtr:  Pointer;
-  TempStr:  TelemetryString;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadInteger(WorkPtr,LongInt(Value._type),True);
+Result := Ptr_ReadUInt32(WorkPtr,Value._type,True);
 If Value._type = SCS_VALUE_TYPE_string then
   begin
-    Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(TempStr),True));
-    Value.value_string.value := TelemetryStringToAPIString(TempStr);
+    Inc(Result,Ptr_Read_scs_string(WorkPtr,Value.value_string.value,True));
   end
 else
   begin
     If Minimized then
       begin
         case Value._type of
-          SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_ReadByte(WorkPtr,Value.value_bool.value,True));
-          SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_ReadInteger(WorkPtr,Value.value_s32.value,True));
-          SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.value_u32.value),True));
-          SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_ReadInt64(WorkPtr,Int64(Value.value_u64.value),True));
-          SCS_VALUE_TYPE_float:       Inc(Result,Ptr_ReadSingle(WorkPtr,Value.value_float.value,True));
-          SCS_VALUE_TYPE_double:      Inc(Result,Ptr_ReadDouble(WorkPtr,Value.value_double.value,True));
+          SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_ReadUInt8(WorkPtr,Value.value_bool.value,True));
+          SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_ReadInt32(WorkPtr,Value.value_s32.value,True));
+          SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.value_u32.value,True));
+          SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_ReadUInt64(WorkPtr,Value.value_u64.value,True));
+          SCS_VALUE_TYPE_float:       Inc(Result,Ptr_ReadFloat32(WorkPtr,Value.value_float.value,True));
+          SCS_VALUE_TYPE_double:      Inc(Result,Ptr_ReadFloat64(WorkPtr,Value.value_double.value,True));
           SCS_VALUE_TYPE_fvector:     Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.value_fvector,SizeOf(scs_value_fvector_t),True));
           SCS_VALUE_TYPE_dvector:     Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.value_dvector,SizeOf(scs_value_dvector_t),True));
           SCS_VALUE_TYPE_euler:       Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.value_euler,SizeOf(scs_value_euler_t),True));
@@ -3438,21 +2510,21 @@ Function Stream_Write_scs_value(Stream: TStream; Value: scs_value_t; Minimize: B
 begin
 If Value._type = SCS_VALUE_TYPE_string then
   begin
-    Result := Stream_WriteInteger(Stream,LongInt(Value._type));
-    Inc(Result,Stream_WriteString(Stream,Value.value_string.value));
+    Result := Stream_WriteUInt32(Stream,Value._type);
+    Inc(Result,Stream_Write_scs_string(Stream,Value.value_string.value));
   end
 else
   begin
     If Minimize then
       begin
-        Result := Stream_WriteInteger(Stream,LongInt(Value._type));
+        Result := Stream_WriteUInt32(Stream,Value._type);
         case Value._type of
-          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_WriteByte(Stream,Value.value_bool.value));
-          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_WriteInteger(Stream,Value.value_s32.value));
-          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.value_u32.value)));
-          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_WriteInt64(Stream,Int64(Value.value_u64.value)));
-          SCS_VALUE_TYPE_float:       Inc(Result,Stream_WriteSingle(Stream,Value.value_float.value));
-          SCS_VALUE_TYPE_double:      Inc(Result,Stream_WriteDouble(Stream,Value.value_double.value));
+          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_WriteUInt8(Stream,Value.value_bool.value));
+          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_WriteInt32(Stream,Value.value_s32.value));
+          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_WriteUInt32(Stream,Value.value_u32.value));
+          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_WriteUInt64(Stream,Value.value_u64.value));
+          SCS_VALUE_TYPE_float:       Inc(Result,Stream_WriteFloat32(Stream,Value.value_float.value));
+          SCS_VALUE_TYPE_double:      Inc(Result,Stream_WriteFloat64(Stream,Value.value_double.value));
           SCS_VALUE_TYPE_fvector:     Inc(Result,Stream_WriteBuffer(Stream,Value.value_fvector,SizeOf(scs_value_fvector_t)));
           SCS_VALUE_TYPE_dvector:     Inc(Result,Stream_WriteBuffer(Stream,Value.value_dvector,SizeOf(scs_value_dvector_t)));
           SCS_VALUE_TYPE_euler:       Inc(Result,Stream_WriteBuffer(Stream,Value.value_euler,SizeOf(scs_value_euler_t)));
@@ -3469,26 +2541,23 @@ end;
 //------------------------------------------------------------------------------
 
 Function Stream_Read_scs_value(Stream: TStream; out Value: scs_value_t; Minimized: Boolean = False): TMemSize;
-var
-  TempStr:  TelemetryString;
 begin
-Result := Stream_ReadInteger(Stream,LongInt(Value._type));
+Result := Stream_ReadUInt32(Stream,Value._type);
 If Value._type = SCS_VALUE_TYPE_string then
   begin
-    Inc(Result,Stream_ReadString(Stream,UTF8String(TempStr)));
-    Value.value_string.value := TelemetryStringToAPIString(TempStr);
+    Inc(Result,Stream_Read_scs_string(Stream,Value.value_string.value));
   end
 else
   begin
     If Minimized then
       begin
         case Value._type of
-          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_ReadByte(Stream,Value.value_bool.value));
-          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_ReadInteger(Stream,Value.value_s32.value));
-          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.value_u32.value)));
-          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_ReadInt64(Stream,Int64(Value.value_u64.value)));
-          SCS_VALUE_TYPE_float:       Inc(Result,Stream_ReadSingle(Stream,Value.value_float.value));
-          SCS_VALUE_TYPE_double:      Inc(Result,Stream_ReadDouble(Stream,Value.value_double.value));
+          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_ReadUInt8(Stream,Value.value_bool.value));
+          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_ReadInt32(Stream,Value.value_s32.value));
+          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_ReadUInt32(Stream,Value.value_u32.value));
+          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_ReadUInt64(Stream,Value.value_u64.value));
+          SCS_VALUE_TYPE_float:       Inc(Result,Stream_ReadFloat32(Stream,Value.value_float.value));
+          SCS_VALUE_TYPE_double:      Inc(Result,Stream_ReadFloat64(Stream,Value.value_double.value));
           SCS_VALUE_TYPE_fvector:     Inc(Result,Stream_ReadBuffer(Stream,Value.value_fvector,SizeOf(scs_value_fvector_t)));
           SCS_VALUE_TYPE_dvector:     Inc(Result,Stream_ReadBuffer(Stream,Value.value_dvector,SizeOf(scs_value_dvector_t)));
           SCS_VALUE_TYPE_euler:       Inc(Result,Stream_ReadBuffer(Stream,Value.value_euler,SizeOf(scs_value_euler_t)));
@@ -3518,7 +2587,7 @@ end;
 Function Size_scs_value_localized(Value: scs_value_localized_t; Minimize: Boolean = False): TMemSize;
 begin
 If Value.ValueType = SCS_VALUE_TYPE_string then
-  Result := SizeOf(scs_value_type_t) + SizeOfString(Value.StringData)
+  Result := SizeOf(scs_value_type_t) + TelemetryStringBytes(Value.StringData)
 else
   begin
     If Minimize then
@@ -3554,21 +2623,21 @@ If Size >= Size_scs_value_localized(Value,Minimize) then
     WorkPtr := Destination;
     If Value.ValueType = SCS_VALUE_TYPE_string then
       begin
-        Result := Ptr_WriteInteger(WorkPtr,LongInt(Value.ValueType),True);
-        Inc(Result,Ptr_WriteString(WorkPtr,Value.StringData,True));
+        Result := Ptr_WriteUInt32(WorkPtr,Value.ValueType,True);
+        Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.StringData,True));
       end
     else
       begin
         If Minimize then
           begin
-            Result := Ptr_WriteInteger(WorkPtr,LongInt(Value.ValueType),True);
+            Result := Ptr_WriteUInt32(WorkPtr,Value.ValueType,True);
             case Value.ValueType of
-              SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_WriteByte(WorkPtr,Value.BinaryData.value_bool.value,True));
-              SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_WriteInteger(WorkPtr,Value.BinaryData.value_s32.value,True));
-              SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.BinaryData.value_u32.value),True));
-              SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_WriteInt64(WorkPtr,Int64(Value.BinaryData.value_u64.value),True));
-              SCS_VALUE_TYPE_float:       Inc(Result,Ptr_WriteSingle(WorkPtr,Value.BinaryData.value_float.value,True));
-              SCS_VALUE_TYPE_double:      Inc(Result,Ptr_WriteDouble(WorkPtr,Value.BinaryData.value_double.value,True));
+              SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_WriteUInt8(WorkPtr,Value.BinaryData.value_bool.value,True));
+              SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_WriteInt32(WorkPtr,Value.BinaryData.value_s32.value,True));
+              SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.BinaryData.value_u32.value,True));
+              SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_WriteUInt64(WorkPtr,Value.BinaryData.value_u64.value,True));
+              SCS_VALUE_TYPE_float:       Inc(Result,Ptr_WriteFloat32(WorkPtr,Value.BinaryData.value_float.value,True));
+              SCS_VALUE_TYPE_double:      Inc(Result,Ptr_WriteFloat64(WorkPtr,Value.BinaryData.value_double.value,True));
               SCS_VALUE_TYPE_fvector:     Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.BinaryData.value_fvector,SizeOf(scs_value_fvector_t),True));
               SCS_VALUE_TYPE_dvector:     Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.BinaryData.value_dvector,SizeOf(scs_value_dvector_t),True));
               SCS_VALUE_TYPE_euler:       Inc(Result,Ptr_WriteBuffer(WorkPtr,Value.BinaryData.value_euler,SizeOf(scs_value_euler_t),True));
@@ -3605,10 +2674,10 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadInteger(WorkPtr,LongInt(Value.ValueType),True);
+Result := Ptr_ReadUInt32(WorkPtr,Value.ValueType,True);
 If Value.ValueType = SCS_VALUE_TYPE_string then
   begin
-    Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(Value.StringData),True));
+    Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.StringData,True));
     Value.BinaryData._type := SCS_VALUE_TYPE_INVALID;
   end
 else
@@ -3617,12 +2686,12 @@ else
     If Minimized then
       begin
         case Value.ValueType of
-          SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_ReadByte(WorkPtr,Value.BinaryData.value_bool.value,True));
-          SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_ReadInteger(WorkPtr,Value.BinaryData.value_s32.value,True));
-          SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.BinaryData.value_u32.value),True));
-          SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_ReadInt64(WorkPtr,Int64(Value.BinaryData.value_u64.value),True));
-          SCS_VALUE_TYPE_float:       Inc(Result,Ptr_ReadSingle(WorkPtr,Value.BinaryData.value_float.value,True));
-          SCS_VALUE_TYPE_double:      Inc(Result,Ptr_ReadDouble(WorkPtr,Value.BinaryData.value_double.value,True));
+          SCS_VALUE_TYPE_bool:        Inc(Result,Ptr_ReadUInt8(WorkPtr,Value.BinaryData.value_bool.value,True));
+          SCS_VALUE_TYPE_s32:         Inc(Result,Ptr_ReadInt32(WorkPtr,Value.BinaryData.value_s32.value,True));
+          SCS_VALUE_TYPE_u32:         Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.BinaryData.value_u32.value,True));
+          SCS_VALUE_TYPE_u64:         Inc(Result,Ptr_ReadUInt64(WorkPtr,Value.BinaryData.value_u64.value,True));
+          SCS_VALUE_TYPE_float:       Inc(Result,Ptr_ReadFloat32(WorkPtr,Value.BinaryData.value_float.value,True));
+          SCS_VALUE_TYPE_double:      Inc(Result,Ptr_ReadFloat64(WorkPtr,Value.BinaryData.value_double.value,True));
           SCS_VALUE_TYPE_fvector:     Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.BinaryData.value_fvector,SizeOf(scs_value_fvector_t),True));
           SCS_VALUE_TYPE_dvector:     Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.BinaryData.value_dvector,SizeOf(scs_value_dvector_t),True));
           SCS_VALUE_TYPE_euler:       Inc(Result,Ptr_ReadBuffer(WorkPtr,Value.BinaryData.value_euler,SizeOf(scs_value_euler_t),True));
@@ -3655,21 +2724,21 @@ Function Stream_Write_scs_value_localized(Stream: TStream; Value: scs_value_loca
 begin
 If Value.ValueType = SCS_VALUE_TYPE_string then
   begin
-    Result := Stream_WriteInteger(Stream,LongInt(Value.ValueType));
-    Inc(result,Stream_WriteString(Stream,Value.StringData));
+    Result := Stream_WriteUInt32(Stream,Value.ValueType);
+    Inc(result,Stream_WriteTelemetryString(Stream,Value.StringData));
   end
 else
   begin
     If Minimize then
       begin
-        Result := Stream_WriteInteger(Stream,LongInt(Value.ValueType));
+        Result := Stream_WriteUInt32(Stream,Value.ValueType);
         case Value.ValueType of
-          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_WriteByte(Stream,Value.BinaryData.value_bool.value));
-          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_WriteInteger(Stream,Value.BinaryData.value_s32.value));
-          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.BinaryData.value_u32.value)));
-          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_WriteInt64(Stream,Int64(Value.BinaryData.value_u64.value)));
-          SCS_VALUE_TYPE_float:       Inc(Result,Stream_WriteSingle(Stream,Value.BinaryData.value_float.value));
-          SCS_VALUE_TYPE_double:      Inc(Result,Stream_WriteDouble(Stream,Value.BinaryData.value_double.value));
+          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_WriteUInt8(Stream,Value.BinaryData.value_bool.value));
+          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_WriteInt32(Stream,Value.BinaryData.value_s32.value));
+          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_WriteUInt32(Stream,Value.BinaryData.value_u32.value));
+          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_WriteUInt64(Stream,Value.BinaryData.value_u64.value));
+          SCS_VALUE_TYPE_float:       Inc(Result,Stream_WriteFloat32(Stream,Value.BinaryData.value_float.value));
+          SCS_VALUE_TYPE_double:      Inc(Result,Stream_WriteFloat64(Stream,Value.BinaryData.value_double.value));
           SCS_VALUE_TYPE_fvector:     Inc(Result,Stream_WriteBuffer(Stream,Value.BinaryData.value_fvector,SizeOf(scs_value_fvector_t)));
           SCS_VALUE_TYPE_dvector:     Inc(Result,Stream_WriteBuffer(Stream,Value.BinaryData.value_dvector,SizeOf(scs_value_dvector_t)));
           SCS_VALUE_TYPE_euler:       Inc(Result,Stream_WriteBuffer(Stream,Value.BinaryData.value_euler,SizeOf(scs_value_euler_t)));
@@ -3691,10 +2760,10 @@ end;
 
 Function Stream_Read_scs_value_localized(Stream: TStream; out Value: scs_value_localized_t; Minimized: Boolean = False): TMemSize;
 begin
-Result := Stream_ReadInteger(Stream,LongInt(Value.ValueType));
+Result := Stream_ReadUInt32(Stream,Value.ValueType);
 If Value.ValueType = SCS_VALUE_TYPE_string then
   begin
-    Inc(Result,Stream_ReadString(Stream,UTF8String(Value.StringData)));
+    Inc(Result,Stream_ReadTelemetryString(Stream,Value.StringData));
     Value.BinaryData._type := SCS_VALUE_TYPE_INVALID;
   end
 else
@@ -3703,12 +2772,12 @@ else
     If Minimized then
       begin
         case Value.ValueType of
-          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_ReadByte(Stream,Value.BinaryData.value_bool.value));
-          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_ReadInteger(Stream,Value.BinaryData.value_s32.value));
-          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.BinaryData.value_u32.value)));
-          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_ReadInt64(Stream,Int64(Value.BinaryData.value_u64.value)));
-          SCS_VALUE_TYPE_float:       Inc(Result,Stream_ReadSingle(Stream,Value.BinaryData.value_float.value));
-          SCS_VALUE_TYPE_double:      Inc(Result,Stream_ReadDouble(Stream,Value.BinaryData.value_double.value));
+          SCS_VALUE_TYPE_bool:        Inc(Result,Stream_ReadUInt8(Stream,Value.BinaryData.value_bool.value));
+          SCS_VALUE_TYPE_s32:         Inc(Result,Stream_ReadInt32(Stream,Value.BinaryData.value_s32.value));
+          SCS_VALUE_TYPE_u32:         Inc(Result,Stream_ReadUInt32(Stream,Value.BinaryData.value_u32.value));
+          SCS_VALUE_TYPE_u64:         Inc(Result,Stream_ReadUInt64(Stream,Value.BinaryData.value_u64.value));
+          SCS_VALUE_TYPE_float:       Inc(Result,Stream_ReadFloat32(Stream,Value.BinaryData.value_float.value));
+          SCS_VALUE_TYPE_double:      Inc(Result,Stream_ReadFloat64(Stream,Value.BinaryData.value_double.value));
           SCS_VALUE_TYPE_fvector:     Inc(Result,Stream_ReadBuffer(Stream,Value.BinaryData.value_fvector,SizeOf(scs_value_fvector_t)));
           SCS_VALUE_TYPE_dvector:     Inc(Result,Stream_ReadBuffer(Stream,Value.BinaryData.value_dvector,SizeOf(scs_value_dvector_t)));
           SCS_VALUE_TYPE_euler:       Inc(Result,Stream_ReadBuffer(Stream,Value.BinaryData.value_euler,SizeOf(scs_value_euler_t)));
@@ -3741,12 +2810,12 @@ begin
 If ItemIDOnly then
   Result := SizeOf(TItemID) + SizeOf(scs_u32_t) + Size_scs_value(Value.value,Minimize)
 else
-  Result := SizeOfString(Value.name) + SizeOf(scs_u32_t) + Size_scs_value(Value.value,Minimize);
+  Result := APIStringBytes(Value.name) + SizeOf(scs_u32_t) + Size_scs_value(Value.value,Minimize);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_named_value(var Destination: Pointer; Value: scs_named_value_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 var
   WorkPtr:  Pointer;
 begin
@@ -3754,10 +2823,10 @@ If Size >= Size_scs_named_value(Value,Minimize,ItemIDOnly) then
   begin
     WorkPtr := Destination;
     If ItemIDOnly and Assigned(NameIDFunc) then
-      Result := Ptr_WriteInteger(WorkPtr,LongInt(NameIDFunc(APIStringToTelemetryString(Value.name),UserData)),True)
+      Result := Ptr_WriteUInt32(WorkPtr,NameIDFunc(APIStringToTelemetryString(Value.name),UserData),True)
     else
-      Result := Ptr_WriteString(WorkPtr,Value.name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.index),True));
+      Result := Ptr_Write_scs_string(WorkPtr,Value.name,True);
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.index,True));
     Inc(Result,Ptr_Write_scs_value(WorkPtr,Value.value,Size - Result,True,Minimize));
     If Advance then Destination := WorkPtr;
   end
@@ -3766,7 +2835,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_named_value(out Ptr: Pointer; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 begin
 Result := Size_scs_named_value(Value,Minimize,ItemIDOnly);
 Ptr := AllocMem(Result);
@@ -3775,71 +2844,61 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_named_value(var Source: Pointer; out Value: scs_named_value_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 var
   WorkPtr:  Pointer;
-  TempStr:  TelemetryString;
   TempID:   TItemID;
 begin
 WorkPtr := Source;
 If ItemIDOnly and Assigned(IDNameFunc) then
   begin
-    Result := Ptr_ReadInteger(WorkPtr,LongInt(TempID),True);
+    Result := Ptr_ReadUInt32(WorkPtr,TempID,True);
     Value.name := TelemetryStringToAPIString(IDNameFunc(TempID,UserData));
   end
-else
-  begin
-    Result := Ptr_ReadString(WorkPtr,UTF8String(TempStr),True);
-    Value.name := TelemetryStringToAPIString(TempStr);
-  end;
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.index),True));
+else Result := Ptr_Read_scs_string(WorkPtr,Value.name,True);
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.index,True));
 Inc(Result,Ptr_Read_scs_value(WorkPtr,Value.value,True,Minimized));
 If Advance then Source := WorkPtr;
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Ptr_Readout_scs_named_value(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 begin
 BytesRead := Ptr_Read_scs_named_value(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_named_value(Stream: TStream; Value: scs_named_value_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 begin
 If ItemIDOnly and Assigned(NameIDFunc) then
-  Result := Stream_WriteInteger(Stream,LongInt(NameIDFunc(APIStringToTelemetryString(Value.name),UserData)))
+  Result := Stream_WriteUInt32(Stream,NameIDFunc(APIStringToTelemetryString(Value.name),UserData))
 else
-  Result := Stream_WriteString(Stream,Value.name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.index)));
+  Result := Stream_Write_scs_string(Stream,Value.name);
+Inc(Result,Stream_WriteUInt32(Stream,Value.index));
 Inc(Result,Stream_Write_scs_value(Stream,Value.value,Minimize));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_named_value(Stream: TStream; out Value: scs_named_value_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 var
-  TempStr:  TelemetryString;
-  TempID:   TItemID;
+  TempID: TItemID;
 begin
 If ItemIDOnly and Assigned(IDNameFunc) then
   begin
-    Result := Stream_ReadInteger(Stream,LongInt(TempID));
+    Result := Stream_ReadUInt32(Stream,TempID);
     Value.name := TelemetryStringToAPIString(IDNameFunc(TempID,UserData));
   end
-else
-  begin
-    Result := Stream_ReadString(Stream,UTF8String(TempStr));
-    Value.name := TelemetryStringToAPIString(TempStr);
-  end;
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.index)));
+else Result := Stream_Read_scs_string(Stream,Value.name);
+Inc(Result,Stream_ReadUInt32(Stream,Value.index));
 Inc(Result,Stream_Read_scs_value(Stream,Value.value,Minimized));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
+Function Stream_Readout_scs_named_value(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_t;
 begin
 BytesRead := Stream_Read_scs_named_value(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
@@ -3851,12 +2910,12 @@ begin
 If ItemIDOnly then
   Result := SizeOf(TItemID) + SizeOf(scs_u32_t) + Size_scs_value_localized(Value.Value,Minimize)
 else
-  Result := SizeOfString(Value.Name) + SizeOf(scs_u32_t) + Size_scs_value_localized(Value.Value,Minimize);
+  Result := TelemetryStringBytes(Value.Name) + SizeOf(scs_u32_t) + Size_scs_value_localized(Value.Value,Minimize);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_named_value_localized(var Destination: Pointer; Value: scs_named_value_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 var
   WorkPtr:  Pointer;
 begin
@@ -3864,10 +2923,10 @@ If Size >= Size_scs_named_value_localized(Value,Minimize,ItemIDOnly) then
   begin
     WorkPtr := Destination;
     If ItemIDOnly and Assigned(NameIDFunc) then
-      Result := Ptr_WriteInteger(WorkPtr,LongInt(NameIDFunc(Value.Name,UserData)),True)
+      Result := Ptr_WriteUInt32(WorkPtr,NameIDFunc(Value.Name,UserData),True)
     else
-      Result := Ptr_WriteString(WorkPtr,Value.Name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.Index),True));
+      Result := Ptr_WriteTelemetryString(WorkPtr,Value.Name,True);
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.Index,True));
     Inc(Result,Ptr_Write_scs_value_localized(WorkPtr,Value.Value,Size - Result,True,Minimize));
     If Advance then Destination := WorkPtr;
   end
@@ -3876,7 +2935,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_named_value_localized(out Ptr: Pointer; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 begin
 Result := Size_scs_named_value_localized(Value,Minimize,ItemIDOnly);
 Ptr := AllocMem(Result);
@@ -3885,7 +2944,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_named_value_localized(var Source: Pointer; out Value: scs_named_value_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 var
   WorkPtr:  Pointer;
   TempID:   TItemID;
@@ -3893,393 +2952,303 @@ begin
 WorkPtr := Source;
 If ItemIDOnly and Assigned(IDNameFunc) then
   begin
-    Result := Ptr_ReadInteger(WorkPtr,LongInt(TempID),True);
+    Result := Ptr_ReadUInt32(WorkPtr,TempID,True);
     Value.Name := IDNameFunc(TempID,UserData);
   end
-else
-  Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.Index),True));
+else Result := Ptr_ReadTelemetryString(WorkPtr,Value.Name,True);
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.Index,True));
 Inc(Result,Ptr_Read_scs_value_localized(WorkPtr,Value.Value,True,Minimized));
 If Advance then Source := WorkPtr;
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Ptr_Readout_scs_named_value_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 begin
 BytesRead := Ptr_Read_scs_named_value_localized(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_named_value_localized(Stream: TStream; Value: scs_named_value_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameToIDFunc = nil; UserData: Pointer = nil): TMemSize;
 begin
 If ItemIDOnly and Assigned(NameIDFunc) then
-  Result := Stream_WriteInteger(Stream,LongInt(NameIDFunc(Value.Name,UserData)))
+  Result := Stream_WriteUInt32(Stream,NameIDFunc(Value.Name,UserData))
 else
-  Result := Stream_WriteString(Stream,Value.Name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.Index)));
+  Result := Stream_WriteTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_WriteUInt32(Stream,Value.Index));
 Inc(Result,Stream_Write_scs_value_localized(Stream,Value.Value,Minimize));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_named_value_localized(Stream: TStream; out Value: scs_named_value_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): TMemSize;
 var
   TempID: TItemID;
 begin
 If ItemIDOnly and Assigned(IDNameFunc) then
   begin
-    Result := Stream_ReadInteger(Stream,LongInt(TempID));
+    Result := Stream_ReadUInt32(Stream,TempID);
     Value.Name := IDNameFunc(TempID,UserData);
   end
-else
-  Result := Stream_ReadString(Stream,UTF8String(Value.Name));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.Index)));
+else Result := Stream_ReadTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_ReadUInt32(Stream,Value.Index));
 Inc(Result,Stream_Read_scs_value_localized(Stream,Value.Value,Minimized));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
+Function Stream_Readout_scs_named_value_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDToNameFunc = nil; UserData: Pointer = nil): scs_named_value_localized_t;
 begin
 BytesRead := Stream_Read_scs_named_value_localized(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,UserData);
 end;
 
 //==============================================================================
 
-Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): TMemSize;
+Function Size_scs_telemetry_configuration(Value: scs_telemetry_configuration_t; Minimize: Boolean = False): TMemSize;
 var
   CurrAttrPtr:  p_scs_named_value_t;
 begin
-Result := SizeOfString(Value.id) + SizeOf(Integer);
+Result := APIStringBytes(Value.id) + SizeOf(Integer);
 CurrAttrPtr := Value.attributes;
 while Assigned(CurrAttrPtr^.name) do
   begin
-    Inc(Result,Size_scs_named_value(CurrAttrPtr^,Minimize,ItemIDOnly));
+    Inc(Result,Size_scs_named_value(CurrAttrPtr^,Minimize));
     Inc(CurrAttrPtr);
   end;
-Inc(Result,SizeOfString);
+Inc(Result,APIStringBytes);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_telemetry_configuration(var Destination: Pointer; Value: scs_telemetry_configuration_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 var
   WorkPtr:      Pointer;
-  ConfigID:     TelemetryString;
   CurrAttrPtr:  p_scs_named_value_t;
   Count:        Integer;
   CountPtr:     PInteger;
-  TempStr:      scs_string_t;
 begin
-If Size >= Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly) then
+If Size >= Size_scs_telemetry_configuration(Value,Minimize) then
   begin
     WorkPtr := Destination;
-    ConfigID := APIStringToTelemetryString(Value.id);
-    Result := Ptr_WriteString(WorkPtr,ConfigID,True);
+    Result := Ptr_Write_scs_string(WorkPtr,Value.id,True);
     CountPtr := WorkPtr;
     Count := 1;
-    Inc(Result,Ptr_WriteInteger(WorkPtr,Count,True));
+    Inc(Result,Ptr_WriteInt32(WorkPtr,Count,True));
     CurrAttrPtr := Value.attributes;
     while Assigned(CurrAttrPtr^.name) do
       begin
-        TempStr := nil;
-        If ItemIDOnly and Assigned(NameIDFunc) then
-          begin
-            TempStr := CurrAttrPtr^.name;
-            CurrAttrPtr^.name := TelemetryStringToAPIString(ConfigMergeIDAndAttribute(ConfigID,APIStringToTelemetryString(CurrAttrPtr^.name)));
-          end;
-        Inc(Result,Ptr_Write_scs_named_value(WorkPtr,CurrAttrPtr^,Size - Result,True,Minimize,ItemIDOnly,NameIDFunc,UserData));
-        If Assigned(TempStr) then
-          begin
-            APIStringFree(CurrAttrPtr^.name);
-            CurrAttrPtr^.name := TempStr;
-          end;
+        Inc(Result,Ptr_Write_scs_named_value(WorkPtr,CurrAttrPtr^,Size - Result,True,Minimize));
         Inc(CurrAttrPtr);
         Inc(Count);
       end;
-    If ItemIDOnly and Assigned(NameIDFunc) then
-      Inc(Result,Ptr_WriteInteger(WorkPtr,0,True))
-    else
-      Inc(Result,Ptr_WriteString(WorkPtr,'',True));
+    Inc(Result,Ptr_Write_scs_string(WorkPtr,nil,True));
     CountPtr^ := Count;
     If Advance then Destination := WorkPtr;
   end
-else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_telemetry_configuration: Output buffer too small (got %d, expected %d).',[Size,Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly)]);
+else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_telemetry_configuration: Output buffer too small (got %d, expected %d).',[Size,Size_scs_telemetry_configuration(Value,Minimize)]);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_telemetry_configuration(out Ptr: Pointer; Value: scs_telemetry_configuration_t; Minimize: Boolean = False): TMemSize;
 begin
-Result := Size_scs_telemetry_configuration(Value,Minimize,ItemIDOnly);
+Result := Size_scs_telemetry_configuration(Value,Minimize);
 Ptr := AllocMem(Result);
-Ptr_Write_scs_telemetry_configuration(Ptr,Value,Result,False,Minimize,ItemIDOnly,NameIDFunc,UserData);
+Ptr_Write_scs_telemetry_configuration(Ptr,Value,Result,False,Minimize);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_telemetry_configuration(var Source: Pointer; out Value: scs_telemetry_configuration_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 var
   WorkPtr:      Pointer;
-  ConfigID:     TelemetryString;
-  TempStr:      TelemetryString;
   i,Count:      Integer;
   CurrAttrPtr:  p_scs_named_value_t;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(ConfigID),True);
-Value.id := TelemetryStringToAPIString(ConfigID);
-Inc(Result,Ptr_ReadInteger(WorkPtr,Count,True));
+Result := Ptr_Read_scs_string(WorkPtr,Value.id,True);
+Inc(Result,Ptr_ReadInt32(WorkPtr,Count,True));
 Value.attributes := AllocMem(Count * SizeOf(scs_named_value_t));
 CurrAttrPtr := Value.attributes;
 For i := 2 to Count do
   begin
-    Inc(Result,Ptr_Read_scs_named_value(WorkPtr,CurrAttrPtr^,True,Minimized,ItemIDOnly,IDNameFunc,UserData));
-    If ItemIDOnly and Assigned(IDNameFunc) then
-      begin
-        TempStr := APIStringToTelemetryString(CurrAttrPtr^.name);
-        APIStringFree(CurrAttrPtr^.name);
-        CurrAttrPtr^.name := TelemetryStringToAPIString(ConfigRemoveIDFromName(TempStr,ConfigID));
-      end;
+    Inc(Result,Ptr_Read_scs_named_value(WorkPtr,CurrAttrPtr^,True,Minimized));
     Inc(CurrAttrPtr);
   end;
-If ItemIDOnly and Assigned(IDNameFunc) then
-  Inc(Result,Ptr_ReadInteger(WorkPtr,i,True))
-else
-  Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(TempStr),True));
-CurrAttrPtr^.name := nil;
+Inc(Result,Ptr_Read_scs_string(WorkPtr,CurrAttrPtr^.name,True));
 If Advance then Source := WorkPtr;
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Ptr_Readout_scs_telemetry_configuration(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False): scs_telemetry_configuration_t;
 begin
-BytesRead := Ptr_Read_scs_telemetry_configuration(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
+BytesRead := Ptr_Read_scs_telemetry_configuration(Source,Result,Advance,Minimized);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_telemetry_configuration(Stream: TStream; Value: scs_telemetry_configuration_t; Minimize: Boolean = False): TMemSize;
 var
-  ConfigID:     TelemetryString;
   Count:        Integer;
   CurrAttrPtr:  p_scs_named_value_t;
   CountPos:     Int64;
   EndPos:       Int64;
-  TempStr:      scs_string_t;
 begin
-ConfigID := APIStringToTelemetryString(Value.id);
-Result := Stream_WriteString(Stream,ConfigID);
+Result := Stream_Write_scs_string(Stream,Value.id);
 CountPos := Stream.Position;
 Count := 1;
-Inc(Result,Stream_WriteInteger(Stream,Count));
+Inc(Result,Stream_WriteInt32(Stream,Count));
 CurrAttrPtr := Value.attributes;
 while Assigned(CurrAttrPtr^.name) do
   begin
-    TempStr := nil;
-    If ItemIDOnly and Assigned(NameIDFunc) then
-      begin
-        TempStr := CurrAttrPtr^.name;
-        CurrAttrPtr^.name := TelemetryStringToAPIString(ConfigMergeIDAndAttribute(ConfigID,APIStringToTelemetryString(CurrAttrPtr^.name)));
-      end;
-    Inc(Result,Stream_Write_scs_named_value(Stream,CurrAttrPtr^,Minimize,ItemIDOnly,NameIDFunc,UserData));
-    If Assigned(TempStr) then
-      begin
-        APIStringFree(CurrAttrPtr^.name);
-        CurrAttrPtr^.name := TempStr;
-      end;
+    Inc(Result,Stream_Write_scs_named_value(Stream,CurrAttrPtr^,Minimize));
     Inc(CurrAttrPtr);
     Inc(Count);
   end;
-If ItemIDOnly and Assigned(NameIDFunc) then
-  Inc(Result,Stream_WriteInteger(Stream,0))
-else
-  Inc(Result,Stream_WriteString(Stream,''));
+Inc(Result,Stream_Write_scs_string(Stream,nil));
 EndPos := Stream.Position;
 Stream.Seek(CountPos,soBeginning);
-Stream_WriteInteger(Stream,Count);
+Stream_WriteInt32(Stream,Count);
 Stream.Seek(EndPos,soBeginning);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_telemetry_configuration(Stream: TStream; out Value: scs_telemetry_configuration_t; Minimized: Boolean = False): TMemSize;
 var
-  ConfigID:     TelemetryString;
-  TempStr:      TelemetryString;
   i,Count:      Integer;
   CurrAttrPtr:  p_scs_named_value_t;
 begin
-Result := Stream_ReadString(Stream,UTF8String(ConfigID));
-Value.id := TelemetryStringToAPIString(ConfigID);
-Inc(Result,Stream_ReadInteger(Stream,Count));
+Result := Stream_Read_scs_string(Stream,Value.id);
+Inc(Result,Stream_ReadInt32(Stream,Count));
 Value.attributes := AllocMem(Count * SizeOf(scs_named_value_t));
 CurrAttrPtr := Value.attributes;
 For i := 2 to Count do
   begin
-    Inc(Result,Stream_Read_scs_named_value(Stream,CurrAttrPtr^,Minimized,ItemIDOnly,IDNameFunc,UserData));
-    If ItemIDOnly and Assigned(IDNameFunc) then
-      begin
-        TempStr := APIStringToTelemetryString(CurrAttrPtr^.name);
-        APIStringFree(CurrAttrPtr^.name);
-        CurrAttrPtr^.name := TelemetryStringToAPIString(ConfigRemoveIDFromName(TempStr,ConfigID));
-      end;
+    Inc(Result,Stream_Read_scs_named_value(Stream,CurrAttrPtr^,Minimized));
     Inc(CurrAttrPtr);
   end;
-If ItemIDOnly and Assigned(IDNameFunc) then
-  Inc(Result,Stream_ReadInteger(Stream,i))
-else
-  Inc(Result,Stream_ReadString(Stream,UTF8String(TempStr)));
-CurrAttrPtr^.name := nil;
+Inc(Result,Stream_Read_scs_string(Stream,CurrAttrPtr^.name));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_t;
+Function Stream_Readout_scs_telemetry_configuration(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False): scs_telemetry_configuration_t;
 begin
-BytesRead := Stream_Read_scs_telemetry_configuration(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,UserData);
+BytesRead := Stream_Read_scs_telemetry_configuration(Stream,Result,Minimized);
 end;
 
 //==============================================================================
 
-Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False): TMemSize;
+Function Size_scs_telemetry_configuration_localized(Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False): TMemSize;
 var
   i: Integer;
 begin
-Result := SizeOfString(Value.ID) + SizeOf(Integer);
+Result := TelemetryStringBytes(Value.ID) + SizeOf(Integer);
 For i := Low(Value.Attributes) to High(Value.Attributes) do
-  Inc(Result,Size_scs_named_value_localized(Value.Attributes[i],Minimize,ItemIDOnly));
-Inc(Result,SizeOfString);
+  Inc(Result,Size_scs_named_value_localized(Value.Attributes[i],Minimize));
+Inc(Result,TelemetryStringBytes);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Write_scs_telemetry_configuration_localized(var Destination: Pointer; Value: scs_telemetry_configuration_localized_t; Size: TMemSize; Advance: Boolean = True; Minimize: Boolean = False): TMemSize;
 var
   WorkPtr:  Pointer;
   i:        Integer;
 begin
-If Size >= Size_scs_telemetry_configuration_localized(Value,Minimize,ItemIDOnly) then
+If Size >= Size_scs_telemetry_configuration_localized(Value,Minimize) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteString(WorkPtr,Value.ID,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,Length(Value.Attributes) + 1,True));
+    Result := Ptr_WriteTelemetryString(WorkPtr,Value.ID,True);
+    Inc(Result,Ptr_WriteInt32(WorkPtr,Length(Value.Attributes) + 1,True));
     For i := Low(Value.Attributes) to High(Value.Attributes) do
-      begin
-        If ItemIDOnly and Assigned(NameIDFunc) then
-          Value.Attributes[i].name := ConfigMergeIDAndAttribute(Value.ID,Value.Attributes[i].Name);
-        Inc(Result,Ptr_Write_scs_named_value_localized(WorkPtr,Value.Attributes[i],Size - Result,True,Minimize,ItemIDOnly,NameIDFunc,UserData));
-      end;
-    If ItemIDOnly and Assigned(NameIDFunc) then
-      Inc(Result,Ptr_WriteInteger(WorkPtr,0,True))
-    else
-      Inc(Result,Ptr_WriteString(WorkPtr,'',True));
+      Inc(Result,Ptr_Write_scs_named_value_localized(WorkPtr,Value.Attributes[i],Size - Result,True,Minimize));
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,'',True));
     If Advance then Destination := WorkPtr;
   end
 else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_scs_telemetry_configuration_localized: Output buffer too small (got %d, expected %d).',
-                               [Size,Size_scs_telemetry_configuration_localized(Value,Minimize,ItemIDOnly)]);
+                               [Size,Size_scs_telemetry_configuration_localized(Value,Minimize)]);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Store_scs_telemetry_configuration_localized(out Ptr: Pointer; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False): TMemSize;
 begin
-Result := Size_scs_telemetry_configuration_localized(Value,Minimize,ItemIDOnly);
+Result := Size_scs_telemetry_configuration_localized(Value,Minimize);
 Ptr := AllocMem(Result);
-Ptr_Write_scs_telemetry_configuration_localized(Ptr,Value,Result,False,Minimize,ItemIDOnly,NameIDFunc,Userdata);
+Ptr_Write_scs_telemetry_configuration_localized(Ptr,Value,Result,False,Minimize);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Ptr_Read_scs_telemetry_configuration_localized(var Source: Pointer; out Value: scs_telemetry_configuration_localized_t; Advance: Boolean = True; Minimized: Boolean = False): TMemSize;
 var
   WorkPtr:  Pointer;
   TempStr:  TelemetryString;
   i,Count:  Integer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(Value.ID),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,Count,True));
+Result := Ptr_ReadTelemetryString(WorkPtr,Value.ID,True);
+Inc(Result,Ptr_ReadInt32(WorkPtr,Count,True));
 SetLength(Value.Attributes,Count - 1);
 For i := Low(Value.Attributes) to High(Value.Attributes) do
-  begin
-    Inc(Result,Ptr_Read_scs_named_value_localized(WorkPtr,Value.Attributes[i],True,Minimized,ItemIDOnly,IDNameFunc,UserData));
-    If ItemIDOnly and Assigned(IDNameFunc) then
-      Value.Attributes[i].Name := ConfigRemoveIDFromName(Value.Attributes[i].Name,Value.ID);
-  end;
-If ItemIDOnly and Assigned(IDNameFunc) then
-  Inc(Result,Ptr_ReadInteger(WorkPtr,i,True))
-else
-  Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(TempStr),True));
+  Inc(Result,Ptr_Read_scs_named_value_localized(WorkPtr,Value.Attributes[i],True,Minimized));
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,TempStr,True));
 If Advance then Source := WorkPtr;
 end;
 
 //------------------------------------------------------------------------------
 
-Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Ptr_Readout_scs_telemetry_configuration_localized(var Source: Pointer; out BytesRead: TMemSize; Advance: Boolean = True; Minimized: Boolean = False): scs_telemetry_configuration_localized_t;
 begin
-BytesRead := Ptr_Read_scs_telemetry_configuration_localized(Source,Result,Advance,Minimized,ItemIDOnly,IDNameFunc,UserData);
+BytesRead := Ptr_Read_scs_telemetry_configuration_localized(Source,Result,Advance,Minimized);
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False; ItemIDOnly: Boolean = False; NameIDFunc: TNameIDFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Write_scs_telemetry_configuration_localized(Stream: TStream; Value: scs_telemetry_configuration_localized_t; Minimize: Boolean = False): TMemSize;
 var
   i:  Integer;
 begin
-Result := Stream_WriteString(Stream,Value.ID);
-Inc(Result,Stream_WriteInteger(Stream,Length(Value.Attributes) + 1));
+Result := Stream_WriteTelemetryString(Stream,Value.ID);
+Inc(Result,Stream_WriteInt32(Stream,Length(Value.Attributes) + 1));
 For i := Low(Value.Attributes) to High(Value.Attributes) do
-  begin
-    If ItemIDOnly and Assigned(NameIDFunc) then
-      Value.Attributes[i].Name := ConfigMergeIDAndAttribute(Value.ID,Value.Attributes[i].Name);
-    Inc(Result,Stream_Write_scs_named_value_localized(Stream,Value.Attributes[i],Minimize,ItemIDOnly,NameIDFunc,UserData));
-  end;
-If ItemIDOnly and Assigned(NameIDFunc) then
-  Inc(Result,Stream_WriteInteger(Stream,0))
-else
-  Inc(Result,Stream_WriteString(Stream,''));
+  Inc(Result,Stream_Write_scs_named_value_localized(Stream,Value.Attributes[i],Minimize));
+Inc(Result,Stream_WriteTelemetryString(Stream,''));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): TMemSize;
+Function Stream_Read_scs_telemetry_configuration_localized(Stream: TStream; out Value: scs_telemetry_configuration_localized_t; Minimized: Boolean = False): TMemSize;
 var
   TempStr:  TelemetryString;
   i,Count:  Integer;
 begin
-Result := Stream_ReadString(Stream,UTF8String(Value.ID));
-Inc(Result,Stream_ReadInteger(Stream,Count));
+Result := Stream_ReadTelemetryString(Stream,Value.ID);
+Inc(Result,Stream_ReadInt32(Stream,Count));
 SetLength(Value.Attributes,Count - 1);
 For i := Low(Value.Attributes) to High(Value.Attributes) do
-  begin
-    Inc(Result,Stream_Read_scs_named_value_localized(Stream,Value.Attributes[i],Minimized,ItemIDOnly,IDNameFunc,UserData));
-    If ItemIDOnly and Assigned(IDNameFunc) then
-      Value.Attributes[i].Name := ConfigRemoveIDFromName(Value.Attributes[i].Name,Value.ID);
-  end;
-If ItemIDOnly and Assigned(IDNameFunc) then
-  Inc(Result,Stream_ReadInteger(Stream,i))
-else
-  Inc(Result,Stream_ReadString(Stream,UTF8String(TempStr)));
+  Inc(Result,Stream_Read_scs_named_value_localized(Stream,Value.Attributes[i],Minimized));
+Inc(Result,Stream_ReadTelemetryString(Stream,TempStr));
 end;
 
 //------------------------------------------------------------------------------
 
-Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False; ItemIDOnly: Boolean = False; IDNameFunc: TIDNameFunc = nil; UserData: Pointer = nil): scs_telemetry_configuration_localized_t;
+Function Stream_Readout_scs_telemetry_configuration_localized(Stream: TStream; out BytesRead: TMemSize; Minimized: Boolean = False): scs_telemetry_configuration_localized_t;
 begin
-BytesRead := Stream_Read_scs_telemetry_configuration_localized(Stream,Result,Minimized,ItemIDOnly,IDNameFunc,Userdata);
+BytesRead := Stream_Read_scs_telemetry_configuration_localized(Stream,Result,Minimized);
 end;
 
 {==============================================================================}
-{   Telemetry library types storing and loading                                }
+{   Telemetry library complex types storing and loading                        }
 {==============================================================================}
 
 Function Size_KnownEvent(Value: TKnownEvent): TMemSize;
 begin
-Result := SizeOf(scs_event_t) + SizeOfString(Value.Name) + 2 * SizeOf(Boolean);
+Result := SizeOf(scs_event_t) + TelemetryStringBytes(Value.Name) + 2 * SizeOf(Boolean);
 end;
 
 //------------------------------------------------------------------------------
@@ -4291,8 +3260,8 @@ begin
 If Size >= Size_KnownEvent(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteInteger(WorkPtr,LongInt(Value.Event),True);
-    Inc(Result,Ptr_WriteString(WorkPtr,Value.Name,True));
+    Result := Ptr_WriteUInt32(WorkPtr,Value.Event,True);
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.Name,True));
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Valid,True));
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Utility,True));
     If Advance then Destination := WorkPtr;
@@ -4316,8 +3285,8 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadInteger(WorkPtr,LongInt(Value.Event),True);
-Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True));
+Result := Ptr_ReadUInt32(WorkPtr,Value.Event,True);
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.Name,True));
 Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Valid,True));
 Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Utility,True));
 If Advance then Source := WorkPtr;
@@ -4334,8 +3303,8 @@ end;
 
 Function Stream_Write_KnownEvent(Stream: TStream; Value: TKnownEvent): TMemSize;
 begin
-Result := Stream_WriteInteger(Stream,LongInt(Value.Event));
-Inc(Result,Stream_WriteString(Stream,Value.Name));
+Result := Stream_WriteUInt32(Stream,Value.Event);
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.Name));
 Inc(Result,Stream_WriteBoolean(Stream,Value.Valid));
 Inc(Result,Stream_WriteBoolean(Stream,Value.Utility));
 end;
@@ -4344,8 +3313,8 @@ end;
 
 Function Stream_Read_KnownEvent(Stream: TStream; out Value: TKnownEvent): TMemSize;
 begin
-Result := Stream_ReadInteger(Stream,LongInt(Value.Event));
-Inc(Result,Stream_ReadString(Stream,UTF8String(Value.Name)));
+Result := Stream_ReadUInt32(Stream,Value.Event);
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.Name));
 Inc(Result,Stream_ReadBoolean(Stream,Value.Valid));
 Inc(Result,Stream_ReadBoolean(Stream,Value.Utility));
 end;
@@ -4361,8 +3330,9 @@ end;
 
 Function Size_KnownChannel(Value: TKnownChannel): TMemSize;
 begin
-Result := SizeOfString(Value.Name) + SizeOf(TChannelID) + 3 * SizeOf(scs_value_type_t) +
-          SizeOf(Boolean) + SizeOf(TConfigID) + SizeOfString(Value.IndexConfig) + SizeOf(scs_u32_t);
+Result := TelemetryStringBytes(Value.Name) + SizeOf(TChannelID) + 3 * SizeOf(scs_value_type_t) +
+          SizeOf(Boolean) + TelemetryStringBytes(Value.IndexConfig.ID) +
+          TelemetryStringBytes(Value.IndexConfig.Attribute) + SizeOf(scs_u32_t);
 end;
 
 //------------------------------------------------------------------------------
@@ -4374,14 +3344,14 @@ begin
 If Size >= Size_KnownChannel(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteString(WorkPtr,Value.Name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ID),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.PrimaryType),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.SecondaryTypes),True));
+    Result := Ptr_WriteTelemetryString(WorkPtr,Value.Name,True);
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.ID,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.PrimaryType,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.SecondaryTypes,True));
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Indexed,True));
-    Inc(Result,Ptr_WriteString(WorkPtr,Value.IndexConfig,True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.IndexConfigID),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.MaxIndex),True));
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.IndexConfig.ID,True));
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.IndexConfig.Attribute,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.MaxIndex,True));
     If Advance then Destination := WorkPtr;
   end
 else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_KnownChannel: Output buffer too small (got %d, expected %d).',[Size,Size_KnownChannel(Value)]);
@@ -4403,14 +3373,14 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ID),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.PrimaryType),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.SecondaryTypes),True));
+Result := Ptr_ReadTelemetryString(WorkPtr,Value.Name,True);
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.ID,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.PrimaryType,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.SecondaryTypes,True));
 Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Indexed,True));
-Inc(Result,Ptr_ReadString(WorkPtr,UTF8String(Value.IndexConfig),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.IndexConfigID),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.MaxIndex),True));
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.IndexConfig.ID,True));
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.IndexConfig.Attribute,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.MaxIndex,True));
 If Advance then Source := WorkPtr;
 end;
 
@@ -4425,28 +3395,28 @@ end;
 
 Function Stream_Write_KnownChannel(Stream: TStream; Value: TKnownChannel): TMemSize;
 begin
-Result := Stream_WriteString(Stream,Value.Name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.PrimaryType)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.SecondaryTypes)));
+Result := Stream_WriteTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_WriteUInt32(Stream,Value.ID));
+Inc(Result,Stream_WriteUInt32(Stream,Value.PrimaryType));
+Inc(Result,Stream_WriteUInt32(Stream,Value.SecondaryTypes));
 Inc(Result,Stream_WriteBoolean(Stream,Value.Indexed));
-Inc(Result,Stream_WriteString(Stream,Value.IndexConfig));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.IndexConfigID)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.MaxIndex)));
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.IndexConfig.ID));
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.IndexConfig.Attribute));
+Inc(Result,Stream_WriteUInt32(Stream,Value.MaxIndex));
 end;
 
 //------------------------------------------------------------------------------
 
 Function Stream_Read_KnownChannel(Stream: TStream; out Value: TKnownChannel): TMemSize;
 begin
-Result := Stream_ReadString(Stream,UTF8String(Value.Name));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.PrimaryType)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.SecondaryTypes)));
+Result := Stream_ReadTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_ReadUInt32(Stream,Value.ID));
+Inc(Result,Stream_ReadUInt32(Stream,Value.PrimaryType));
+Inc(Result,Stream_ReadUInt32(Stream,Value.SecondaryTypes));
 Inc(Result,Stream_ReadBoolean(Stream,Value.Indexed));
-Inc(Result,Stream_ReadString(Stream,UTF8String(Value.IndexConfig)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.IndexConfigID)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.MaxIndex)));
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.IndexConfig.ID));
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.IndexConfig.Attribute));
+Inc(Result,Stream_ReadUInt32(Stream,Value.MaxIndex));
 end;
 
 //------------------------------------------------------------------------------
@@ -4460,7 +3430,8 @@ end;
 
 Function Size_KnownConfig(Value: TKnownConfig): TMemSize;
 begin
-Result := SizeOfString(Value.Name) + SizeOf(TConfigID) + SizeOf(scs_value_type_t) + 2 * SizeOf(Boolean);
+Result := TelemetryStringBytes(Value.ID) + TelemetryStringBytes(Value.Attribute.Name) +
+          SizeOf(scs_value_type_t) + 2 * SizeOf(Boolean);
 end;
 
 //------------------------------------------------------------------------------
@@ -4472,11 +3443,11 @@ begin
 If Size >= Size_KnownConfig(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteString(WorkPtr,Value.Name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ID),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ValueType),True));
-    Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Indexed,True));
-    Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Binded,True));
+    Result := Ptr_WriteTelemetryString(WorkPtr,Value.ID,True);
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.Attribute.Name,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.Attribute.ValueType,True));
+    Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Attribute.Indexed,True));
+    Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Attribute.Binded,True));
     If Advance then Destination := WorkPtr;
   end
 else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_KnownConfig: Output buffer too small (got %d, expected %d).',[Size,Size_KnownConfig(Value)]);
@@ -4498,11 +3469,11 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ID),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ValueType),True));
-Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Indexed,True));
-Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Binded,True));
+Result := Ptr_ReadTelemetryString(WorkPtr,Value.ID,True);
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.Attribute.Name,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.Attribute.ValueType,True));
+Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Attribute.Indexed,True));
+Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Attribute.Binded,True));
 If Advance then Source := WorkPtr;
 end;
 
@@ -4517,22 +3488,22 @@ end;
 
 Function Stream_Write_KnownConfig(Stream: TStream; Value: TKnownConfig): TMemSize;
 begin
-Result := Stream_WriteString(Stream,Value.Name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ValueType)));
-Inc(Result,Stream_WriteBoolean(Stream,Value.Indexed));
-Inc(Result,Stream_WriteBoolean(Stream,Value.Binded));
+Result := Stream_WriteTelemetryString(Stream,Value.ID);
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.Attribute.Name));
+Inc(Result,Stream_WriteUInt32(Stream,Value.Attribute.ValueType));
+Inc(Result,Stream_WriteBoolean(Stream,Value.Attribute.Indexed));
+Inc(Result,Stream_WriteBoolean(Stream,Value.Attribute.Binded));
 end;
 
 //------------------------------------------------------------------------------
 
 Function Stream_Read_KnownConfig(Stream: TStream; out Value: TKnownConfig): TMemSize;
 begin
-Result := Stream_ReadString(Stream,UTF8String(Value.Name));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ValueType)));
-Inc(Result,Stream_ReadBoolean(Stream,Value.Indexed));
-Inc(Result,Stream_ReadBoolean(Stream,Value.Binded));
+Result := Stream_ReadTelemetryString(Stream,Value.ID);
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.Attribute.Name));
+Inc(Result,Stream_ReadUInt32(Stream,Value.Attribute.ValueType));
+Inc(Result,Stream_ReadBoolean(Stream,Value.Attribute.Indexed));
+Inc(Result,Stream_ReadBoolean(Stream,Value.Attribute.Binded));
 end;
 
 //------------------------------------------------------------------------------
@@ -4558,7 +3529,7 @@ begin
 If Size >= Size_EventInfo(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteInteger(WorkPtr,LongInt(Value.Event),True);
+    Result := Ptr_WriteUInt32(WorkPtr,Value.Event,True);
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Utility,True));
     If Advance then Destination := WorkPtr;
   end
@@ -4581,7 +3552,7 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadInteger(WorkPtr,LongInt(Value.Event),True);
+Result := Ptr_ReadUInt32(WorkPtr,Value.Event,True);
 Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Utility,True));
 If Advance then Source := WorkPtr;
 end;
@@ -4597,7 +3568,7 @@ end;
 
 Function Stream_Write_EventInfo(Stream: TStream; Value: TEventInfo): TMemSize;
 begin
-Result := Stream_WriteInteger(Stream,LongInt(Value.Event));
+Result := Stream_WriteUInt32(Stream,Value.Event);
 Inc(Result,Stream_WriteBoolean(Stream,Value.Utility));
 end;
 
@@ -4605,7 +3576,7 @@ end;
 
 Function Stream_Read_EventInfo(Stream: TStream; out Value: TEventInfo): TMemSize;
 begin
-Result := Stream_ReadInteger(Stream,LongInt(Value.Event));
+Result := Stream_ReadUInt32(Stream,Value.Event);
 Inc(Result,Stream_ReadBoolean(Stream,Value.Utility));
 end;
 
@@ -4620,8 +3591,8 @@ end;
 
 Function Size_ChannelInfo(Value: TChannelInfo): TMemSize;
 begin
-Result := SizeOfString(Value.Name) + SizeOf(TChannelID) + SizeOf(scs_u32_t) +
-          SizeOf(scs_value_type_t) + SizeOf(scs_u32_t) + SizeOf(TItemID);
+Result := TelemetryStringBytes(Value.Name) + SizeOf(TChannelID) + SizeOf(scs_u32_t) + SizeOf(scs_value_type_t) +
+          SizeOf(scs_u32_t) + TelemetryStringBytes(Value.IndexConfig.ID) + TelemetryStringBytes(Value.IndexConfig.Attribute);
 end;
 
 //------------------------------------------------------------------------------
@@ -4633,12 +3604,13 @@ begin
 If Size >= Size_ChannelInfo(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteString(WorkPtr,Value.Name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ID),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.Index),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ValueType),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.Flags),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.IndexConfigID),True));
+    Result := Ptr_WriteTelemetryString(WorkPtr,Value.Name,True);
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.ID,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.Index,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.ValueType,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.Flags,True));
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.IndexConfig.ID,True));
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.IndexConfig.Attribute,True));
     If Advance then Destination := WorkPtr;
   end
 else raise ETLBufferTooSmall.CreateFmt('Ptr_Write_ChannelInfo: Output buffer too small (got %d, expected %d).',[Size,Size_ChannelInfo(Value)]);
@@ -4660,12 +3632,13 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ID),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.Index),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ValueType),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.Flags),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.IndexConfigID),True));
+Result := Ptr_ReadTelemetryString(WorkPtr,Value.Name,True);
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.ID,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.Index,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.ValueType,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.Flags,True));
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.IndexConfig.ID,True));
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.IndexConfig.Attribute,True));
 If Advance then Source := WorkPtr;
 end;
 
@@ -4680,24 +3653,26 @@ end;
 
 Function Stream_Write_ChannelInfo(Stream: TStream; Value: TChannelInfo): TMemSize;
 begin
-Result := Stream_WriteString(Stream,Value.Name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.Index)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ValueType)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.Flags)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.IndexConfigID)));
+Result := Stream_WriteTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_WriteUInt32(Stream,Value.ID));
+Inc(Result,Stream_WriteUInt32(Stream,Value.Index));
+Inc(Result,Stream_WriteUInt32(Stream,Value.ValueType));
+Inc(Result,Stream_WriteUInt32(Stream,Value.Flags));
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.IndexConfig.ID));
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.IndexConfig.Attribute));
 end;
 
 //------------------------------------------------------------------------------
 
 Function Stream_Read_ChannelInfo(Stream: TStream; out Value: TChannelInfo): TMemSize;
 begin
-Result := Stream_ReadString(Stream,UTF8String(Value.Name));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.Index)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ValueType)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.Flags)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.IndexConfigID)));
+Result := Stream_ReadTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_ReadUInt32(Stream,Value.ID));
+Inc(Result,Stream_ReadUInt32(Stream,Value.Index));
+Inc(Result,Stream_ReadUInt32(Stream,Value.ValueType));
+Inc(Result,Stream_ReadUInt32(Stream,Value.Flags));
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.IndexConfig.ID));
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.IndexConfig.Attribute));
 end;
 
 //------------------------------------------------------------------------------
@@ -4711,8 +3686,8 @@ end;
 
 Function Size_StoredConfig(Value: TStoredConfig): TMemSize;
 begin
-Result := SizeOfString(Value.Name) + SizeOf(TConfigID) + SizeOf(scs_u32_t) +
-          Size_scs_value_localized(Value.Value,True) + SizeOf(Boolean);
+Result := TelemetryStringBytes(Value.Reference.ID) + TelemetryStringBytes(Value.Reference.Attribute) +
+          SizeOf(scs_u32_t) + Size_scs_value_localized(Value.Value,True) + SizeOf(Boolean);
 end;
 
 //------------------------------------------------------------------------------
@@ -4724,9 +3699,9 @@ begin
 If Size >= Size_StoredConfig(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteString(WorkPtr,Value.Name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ID),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.Index),True));
+    Result := Ptr_WriteTelemetryString(WorkPtr,Value.Reference.ID,True);
+    Inc(Result,Ptr_WriteTelemetryString(WorkPtr,Value.Reference.Attribute,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.Index,True));
     Inc(Result,Ptr_Write_scs_value_localized(WorkPtr,Value.Value,Size - Result,True,True));
     Inc(Result,Ptr_WriteBoolean(WorkPtr,Value.Binded,True));
     If Advance then Destination := WorkPtr;
@@ -4750,9 +3725,9 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ID),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.Index),True));
+Result := Ptr_ReadTelemetryString(WorkPtr,Value.Reference.ID,True);
+Inc(Result,Ptr_ReadTelemetryString(WorkPtr,Value.Reference.Attribute,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.Index,True));
 Inc(Result,Ptr_Read_scs_value_localized(WorkPtr,Value.Value,True,True));
 Inc(Result,Ptr_ReadBoolean(WorkPtr,Value.Binded,True));
 If Advance then Source := WorkPtr;
@@ -4769,9 +3744,9 @@ end;
 
 Function Stream_Write_StoredConfig(Stream: TStream; Value: TStoredConfig): TMemSize;
 begin
-Result := Stream_WriteString(Stream,Value.Name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.Index)));
+Result := Stream_WriteTelemetryString(Stream,Value.Reference.ID);
+Inc(Result,Stream_WriteTelemetryString(Stream,Value.Reference.Attribute));
+Inc(Result,Stream_WriteUInt32(Stream,Value.Index));
 Inc(Result,Stream_Write_scs_value_localized(Stream,Value.Value,True));
 Inc(Result,Stream_WriteBoolean(Stream,Value.Binded));
 end;
@@ -4780,9 +3755,9 @@ end;
 
 Function Stream_Read_StoredConfig(Stream: TStream; out Value: TStoredConfig): TMemSize;
 begin
-Result := Stream_ReadString(Stream,UTF8String(Value.Name));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.Index)));
+Result := Stream_ReadTelemetryString(Stream,Value.Reference.ID);
+Inc(Result,Stream_ReadTelemetryString(Stream,Value.Reference.Attribute));
+Inc(Result,Stream_ReadUInt32(Stream,Value.Index));
 Inc(Result,Stream_Read_scs_value_localized(Stream,Value.Value,True));
 Inc(Result,Stream_ReadBoolean(Stream,Value.Binded));
 end;
@@ -4798,7 +3773,7 @@ end;
 
 Function Size_StoredChannel(Value: TStoredChannel): TMemSize;
 begin
-Result := SizeOfString(Value.Name) + SizeOf(TChannelID) + SizeOf(scs_u32_t) +
+Result := TelemetryStringBytes(Value.Name) + SizeOf(TChannelID) + SizeOf(scs_u32_t) +
           Size_scs_value_localized(Value.Value,True);
 end;
 
@@ -4811,9 +3786,9 @@ begin
 If Size >= Size_StoredChannel(Value) then
   begin
     WorkPtr := Destination;
-    Result := Ptr_WriteString(WorkPtr,Value.Name,True);
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.ID),True));
-    Inc(Result,Ptr_WriteInteger(WorkPtr,LongInt(Value.Index),True));
+    Result := Ptr_WriteTelemetryString(WorkPtr,Value.Name,True);
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.ID,True));
+    Inc(Result,Ptr_WriteUInt32(WorkPtr,Value.Index,True));
     Inc(Result,Ptr_Write_scs_value_localized(WorkPtr,Value.Value,Size - Result,True,True));
     If Advance then Destination := WorkPtr;
   end
@@ -4836,9 +3811,9 @@ var
   WorkPtr:  Pointer;
 begin
 WorkPtr := Source;
-Result := Ptr_ReadString(WorkPtr,UTF8String(Value.Name),True);
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.ID),True));
-Inc(Result,Ptr_ReadInteger(WorkPtr,LongInt(Value.Index),True));
+Result := Ptr_ReadTelemetryString(WorkPtr,Value.Name,True);
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.ID,True));
+Inc(Result,Ptr_ReadUInt32(WorkPtr,Value.Index,True));
 Inc(Result,Ptr_Read_scs_value_localized(WorkPtr,Value.Value,True,True));
 If Advance then Source := WorkPtr;
 end;
@@ -4854,9 +3829,9 @@ end;
 
 Function Stream_Write_StoredChannel(Stream: TStream; Value: TStoredChannel): TMemSize;
 begin
-Result := Stream_WriteString(Stream,Value.Name);
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_WriteInteger(Stream,LongInt(Value.Index)));
+Result := Stream_WriteTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_WriteUInt32(Stream,Value.ID));
+Inc(Result,Stream_WriteUInt32(Stream,Value.Index));
 Inc(Result,Stream_Write_scs_value_localized(Stream,Value.Value,True));
 end;
 
@@ -4864,9 +3839,9 @@ end;
 
 Function Stream_Read_StoredChannel(Stream: TStream; out Value: TStoredChannel): TMemSize;
 begin
-Result := Stream_ReadString(Stream,UTF8String(Value.Name));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.ID)));
-Inc(Result,Stream_ReadInteger(Stream,LongInt(Value.Index)));
+Result := Stream_ReadTelemetryString(Stream,Value.Name);
+Inc(Result,Stream_ReadUInt32(Stream,Value.ID));
+Inc(Result,Stream_ReadUInt32(Stream,Value.Index));
 Inc(Result,Stream_Read_scs_value_localized(Stream,Value.Value,True));
 end;
 

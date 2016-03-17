@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Types, constants, routines, etc. used troughout the Telemetry Library.)
+@abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
 @lastmod(2015-07-15)
@@ -16,7 +16,7 @@
   ©2013-2015 František Milt, all rights reserved.
 
   This file is intended to provide types, constants, routines, etc. used
-  throughout the Telemetry Library (that is, in more than one unit).
+  throughout the Telemetry library (that is, in more than one unit).
   It also contains declaration of exception classes used in the library, those
   are:
 @preformatted(
@@ -60,12 +60,12 @@ type
   @abstract(Common ancestor for all exception classes in the library.)
 
   Can be raised on error that does not fit any of the specific descendant
-  exception classes. All exceptions raised in the Telemetry Library are of this
+  exception classes. All exceptions raised in the Telemetry library are of this
   class or one of its descendant.
 
   Note - exception of other class can be raised within any call, simply because
          it is using RTL functions and other libraries that are not actual part
-         of Telemetry Library.
+         of Telemetry library.
 }
   ETLException        = class(Exception);
 {:

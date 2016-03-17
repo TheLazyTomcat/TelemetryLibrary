@@ -37,6 +37,12 @@ type
 {$IFEND}
   p_scs_s32_t   = ^scs_s32_t;         p_scs_u32_t     = ^scs_u32_t;
 
+{$IF (defined(DCC) or declared(CompilerVersion)) and not defined(FPC)}
+  {$IF (CompilerVersion <= 17)}
+  UInt64 = Int64;
+  {$IFEND}
+{$IFEND}
+
   scs_u64_t     = UInt64;             p_scs_u64_t     = ^scs_u64_t;
   scs_float_t   = Single;             p_scs_float_t   = ^scs_float_t;
   scs_double_t  = Double;             p_scs_double_t  = ^scs_double_t;
