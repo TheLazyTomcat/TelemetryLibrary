@@ -117,6 +117,19 @@ Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
 //==============================================================================
 
 {:
+  @abstract(Compares two config references for equality (case sensitive).)
+  Both @code(ID) and @code(Attribute) fields must match.
+
+  @param Ref1 First reference to compare.
+  @param Ref2 Second reference to compare.
+
+  @returns @True when the references are equal, @false otherwise.
+}
+Function SameConfigReference(Ref1,Ref2: TConfigReference): Boolean;
+
+//==============================================================================
+
+{:
   @abstract(Returns identifier of given SCS value type.)
   Identifiers are not defined by the API, for details about naming individual
   types refer to function implementation.
@@ -722,6 +735,13 @@ Result := AnsiSameText(S1,S2);
 Result := WideSameText(UTF8Decode(S1),UTF8Decode(S2));
 {$ENDIF}
 {$ENDIF}
+end;
+
+//==============================================================================
+
+Function SameConfigReference(Ref1,Ref2: TConfigReference): Boolean;
+begin
+Result := TelemetrySameStr(Ref1.ID,Ref2.ID) and TelemetrySameStr(Ref1.Attribute,Ref2.Attribute)
 end;
 
 //==============================================================================

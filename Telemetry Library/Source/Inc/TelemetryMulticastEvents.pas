@@ -353,7 +353,7 @@
     Calls all stored handler routines with the same parameters as passed to this
     method.
   }
-    procedure Call(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); reintroduce;
+    procedure Call(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); reintroduce;
   end;
 {$ENDIF}
 
@@ -1160,11 +1160,11 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastConfigEvent.Call(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TMulticastConfigEvent.Call(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TConfigEvent(Methods[i])(Sender,Name,ID,Index,Value);
+For i := 0 to Pred(Count) do TConfigEvent(Methods[i])(Sender,ConfigReference,Index,Value);
 end;
 {$ENDIF}
 

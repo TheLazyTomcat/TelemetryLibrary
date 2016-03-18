@@ -138,12 +138,13 @@ Item1=x86;Delphi;Release
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=5
+Count=6
 Item0=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
-Item1=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
-Item2=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Condensed Headers
-Item3=..\,,\,,\Libs\FastMM\Prg;..\,,\,,\API Headers\Headers;..\,,\,,\API Headers\Condensed Headers
-Item4=..\,,\,,\Libs\FastMM\Prg
+Item1=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs;..\..\Source\Inc
+Item2=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
+Item3=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Condensed Headers
+Item4=..\,,\,,\Libs\FastMM\Prg;..\,,\,,\API Headers\Headers;..\,,\,,\API Headers\Condensed Headers
+Item5=..\,,\,,\Libs\FastMM\Prg
 [HistoryLists\hlUnitOutputDirectory]
 Count=1
 Item0=.\DCU

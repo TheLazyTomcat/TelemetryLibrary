@@ -655,18 +655,6 @@ const
 //------------------------------------------------------------------------------
 
 {:
-  Returns full config reference build from passed config ID and attribute name.
-
-  @param ID        ID of configuration.
-  @param Attribute Name of attribute.
-
-  @returns Full config reference.
-}
-  Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
-
-//------------------------------------------------------------------------------
-
-{:
   @abstract(Removes passed config ID from full config name.)
   @bold(Note) - function does not control whether passed name truly starts with
   given config ID. It simply removes number of characters corresponding to
@@ -827,14 +815,6 @@ end;
 Function FullConfigName(ConfigReference: TConfigReference): TelemetryString;
 begin
 Result := ConfigReference.ID + ConfigFieldsSeparator + ConfigReference.Attribute;
-end;
-
-//------------------------------------------------------------------------------
-
-Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
-begin
-Result.ID := ID;
-Result.Attribute := Attribute;
 end;
 
 //------------------------------------------------------------------------------

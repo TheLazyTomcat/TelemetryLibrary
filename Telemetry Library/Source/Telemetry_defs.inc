@@ -82,6 +82,8 @@
 
 {$DEFINE MulticastEvents}
 
+{$DEFINE SmallMaxChannelIndex}
+
 //------------------------------------------------------------------------------
 
 {$IFDEF Documentation}

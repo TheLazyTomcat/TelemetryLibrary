@@ -2219,6 +2219,36 @@ type
   }
     Function Add(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;
   {:
+    Stores new config with its value into the list.@br
+    OnChange event is called after successful addition.
+
+    @param(ConfigReference  Full reference (ID + Attribute) of the added
+                            config.)
+    @param Index            Index of stored config.
+    @param Value            Localized value (data) this config contains.
+    @param(Binded           Flag denoting whether  this config is binded by some
+                            channel (i.e. some channel has this config as its
+                            IndexConfig property).)
+
+    @returns Index at which the new config was stored, -1 when addition failed.
+  }
+    Function Add(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer; overload; virtual;
+  {:
+    Stores new config with its value into the list.@br
+    OnChange event is called after successful addition.
+
+    @param(ConfigReference  Full reference (ID + Attribute) of the added
+                            config.)
+    @param Index            Index of stored config.
+    @param Value            Value (data) this config contains.
+    @param(Binded           Flag denoting whether  this config is binded by some
+                            channel (i.e. some channel has this config as its
+                            IndexConfig property).)
+
+    @returns Index at which the new config was stored, -1 when addition failed.
+  }
+    Function Add(ConfigReference: TConfigReference; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;
+  {:
     Removes stored config from the list.@br
     OnChange event is called after successful removal.
 
@@ -4068,6 +4098,29 @@ Function TStoredConfigsList.Add(const ID, Attribute: TelemetryString; Index: scs
 begin
 If Assigned(Value) then Result := Add(ID,Attribute,Index,scs_value_localized(Value^),Binded)
   else Result := Add(ID,Attribute,Index,scs_value_localized_empty,Binded);
+end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function TStoredConfigsList.Add(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t; Binded: Boolean = False): Integer;
+var
+  NewConfig: PStoredConfig;
+begin
+New(NewConfig);
+NewConfig^.Reference := ConfigReference;
+NewConfig^.Index := Index;
+NewConfig^.Value := Value;
+NewConfig^.Binded := Binded;
+Result := PtrAdd(NewConfig);
+If Result < 0 then Dispose(NewConfig);
+end;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
+Function TStoredConfigsList.Add(ConfigReference: TConfigReference; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer;
+begin
+If Assigned(Value) then Result := Add(ConfigReference,Index,scs_value_localized(Value^),Binded)
+  else Result := Add(ConfigReference,Index,scs_value_localized_empty,Binded);
 end;
 
 //------------------------------------------------------------------------------

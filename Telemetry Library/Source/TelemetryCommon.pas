@@ -326,6 +326,31 @@ Function ValidDoubleIndex(Indices: TDoubleIndex): Boolean;
 }
 Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
 
+//------------------------------------------------------------------------------
+
+{:
+  Returns full config reference build from passed config ID and attribute name.
+
+  @param ID        ID of configuration.
+  @param Attribute Name of attribute.
+
+  @returns Full config reference.
+}
+  Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
+
+//------------------------------------------------------------------------------
+
+{:
+  @abstract(Checks whether passed config reference is valid.)
+  Current implementation only checkes wherhet both fields are not empty.
+
+  @param ConfigReference Reference to be checked for validity.
+
+  @returns @True when passed reference is valid, @false otherwise.
+}
+  Function ValidConfigReference(ConfigReference: TConfigReference): Boolean;
+
+
 implementation
 
 {==============================================================================}
@@ -343,6 +368,21 @@ Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
 begin
 Result.Index1 := Index1;
 Result.Index2 := Index2;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
+begin
+Result.ID := ID;
+Result.Attribute := Attribute;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ValidConfigReference(ConfigReference: TConfigReference): Boolean;
+begin
+Result := (ConfigReference.ID <> '') and (ConfigReference.Attribute <> '');
 end;
 
 end.
