@@ -16,15 +16,12 @@
 
   ©2013-2015 František Milt, all rights reserved.
 
+  Last change: 2015-07-12
+
   This unit contains a class that is designed to imitate behavior of original
   @italic(telemetry_position) example distributed with the Telemetry SDK. Output
   log file created by this reimplementation should be exactly the same as is
   produced by the original C++ implementation.
-
-  Last change: 2015-07-12
-
-  Change List:@unorderedList(
-    @item(2015-07-12 - First documentation added.))
 
 @html(<hr>)}
 unit TelemetrySCSExample_telemetry_position;
@@ -36,14 +33,14 @@ interface
 uses
 {$IFNDEF Documentation}
   SysUtils,
-{$ENDIF}
   SimpleLog,
+{$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
   TelemetryStrings,
   TelemetryRecipient,
   TelemetryRecipientBinder,
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -168,10 +165,10 @@ type
     Manages everything what is necesary at the start of logging (clears fields,
     initializes log, registers events and channels, creates internal objects,
     ...).@br
-    @code(aRecipient) parameter must assigned, otherwise an exception is raised.
-    @code(LogFileName) must not be empty.
+    @code(Recipient) parameter must be assigned, otherwise an exception is
+    raised. @code(LogFileName) must not be empty.
 
-    @param(aRecipient  Must contain valid reference to a TTelemetryRecipient
+    @param(Recipient   Must contain valid reference to a TTelemetryRecipient
                        instance.)
     @param(LogFileName Name of the output log file. File is stored in the same
                        folder where a module containing this code is placed.)
@@ -187,7 +184,7 @@ type
     SCS_TELEMETRY_EVENT_started
     SCS_TELEMETRY_EVENT_configuration))
   }  
-    constructor Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
+    constructor Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
   {:
     Class destructor.@br
 
@@ -236,14 +233,21 @@ type
     Does nothing in this implementation.@br
     For details see @inherited.
   }
-    procedure ConfigHandler(Sender: TObject; const {%H-}Name: TelemetryString; {%H-}ID: TConfigID; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
+    procedure ConfigHandler(Sender: TObject; {%H-}ConfigReference: TConfigReference; {%H-}Index: scs_u32_t; {%H-}Value: scs_value_localized_t); override;
   end;
 
 
 implementation
 
 uses
-  Windows;
+  Windows
+{$IF Defined(FPC) and not Defined(Unicode)}
+  (*
+    If compiler throws error that LazUTF8 unit cannot be found, you have to
+    add LazUtils to required packages (Project > Project Inspector).
+  *)
+  , LazUTF8
+{$IFEND};
 
 {==============================================================================}
 {   TSCSExm_TelemetryPosition // Class implementation                          }
@@ -258,7 +262,11 @@ begin
 try
   fLog.InternalLog := False;
   fLog.StreamFileAccessRights := fmShareDenyNone;
+{$IF Defined(FPC) and not Defined(Unicode)}
+  fLog.StreamFileName := ExtractFilePath(WinCPToUTF8(GetModuleName(hInstance))) + fLogFileName;
+{$ELSE}
   fLog.StreamFileName := ExtractFilePath(GetModuleName(hInstance)) + fLogFileName;
+{$IFEND}
   fLog.StreamToFile := True;
   fLog.AddLogNoTime('Log opened');
   Result := True;
@@ -278,51 +286,51 @@ end;
 {   TSCSExm_TelemetryPosition // Public methods                                }
 {------------------------------------------------------------------------------}
 
-constructor TSCSExm_TelemetryPosition.Create(aRecipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
+constructor TSCSExm_TelemetryPosition.Create(Recipient: TTelemetryRecipient; const LogFileName: String = def_LogFileName);
 begin
-inherited Create(aRecipient);
-If not Assigned(aRecipient) then
+inherited Create(Recipient);
+If not Assigned(Recipient) then
   raise ETLNilReference.Create('TSCSExm_TelemetryPosition.Create: Recipient is not assigned.');
 {$WARN SYMBOL_PLATFORM OFF}
 GetLocaleFormatSettings(LOCALE_USER_DEFAULT,fFormatSettings);
 {$WARN SYMBOL_PLATFORM ON}
 fFormatSettings.DecimalSeparator := '.';
-aRecipient.KeepUtilityEvents := False;
-aRecipient.StoreConfigurations := False;
-aRecipient.EventUnregisterAll;
+Recipient.KeepUtilityEvents := False;
+Recipient.StoreConfigurations := False;
+Recipient.EventUnregisterAll;
 fLogFileName := LogFileName;
 fLog := TSimpleLog.Create;
 If not InitLog then
   begin
-    aRecipient.Log(SCS_LOG_TYPE_error,'Unable to initialize the log file');
+    Recipient.Log(SCS_LOG_TYPE_error,'Unable to initialize the log file');
     raise ETLInitFailed.Create('TSCSExm_TelemetryPosition.Create: Log initialization failed.');
   end;
-fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(aRecipient.GameID) + ''' '
-                            + IntToStr(SCSGetMajorVersion(aRecipient.GameVersion)) + '.'
-                            + IntToStr(SCSGetMinorVersion(aRecipient.GameVersion)));
-If not TelemetrySameStr(aRecipient.GameID, SCS_GAME_ID_EUT2) then
+fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' '
+                            + IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.'
+                            + IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
+If not TelemetrySameStr(Recipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
   end
 else
   begin
-    If aRecipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 then
+    If Recipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 then
       fLog.AddLogNoTime('WARNING: Too old version of the game, some features might behave incorrectly');
-    If SCSGetMajorVersion(aRecipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
+    If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
       fLog.AddLogNoTime('WARNING: Too new major version of the game, some features might behave incorrectly');
   end;
-If not (aRecipient.EventRegister(SCS_TELEMETRY_EVENT_frame_end) and
-        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
-        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_started) and
-        aRecipient.EventRegister(SCS_TELEMETRY_EVENT_configuration)) then
+If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_frame_end) and
+        Recipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
+        Recipient.EventRegister(SCS_TELEMETRY_EVENT_started) and
+        Recipient.EventRegister(SCS_TELEMETRY_EVENT_configuration)) then
   begin
-    aRecipient.Log(SCS_LOG_TYPE_error,'Unable to register event callbacks');
+    Recipient.Log(SCS_LOG_TYPE_error,'Unable to register event callbacks');
     raise ETLRegFailed.Create('TSCSExm_TelemetryPosition.Create: Events registration failed.');
   end;
-aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.TruckPlacement));
-aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.CabinOffset));
-aRecipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.HeadOffset));
-ZeroMemory(@fTelemetry,SizeOf(TSCSExm_TelemetryPositionState));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,SCS_U32_NIL,SCS_VALUE_TYPE_dplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.TruckPlacement));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.CabinOffset));
+Recipient.ChannelRegister(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,SCS_U32_NIL,SCS_VALUE_TYPE_fplacement,SCS_TELEMETRY_CHANNEL_FLAG_none,Addr(fTelemetry.HeadOffset));
+FillChar(fTelemetry,SizeOf(TSCSExm_TelemetryPositionState),0);
 fOutputPaused := True;
 end;
 
@@ -496,7 +504,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TSCSExm_TelemetryPosition.ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TSCSExm_TelemetryPosition.ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
 // nothing to do here
 end;

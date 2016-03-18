@@ -17,11 +17,11 @@ uses
   TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
   TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
   TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
-  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas'
+  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas',
 
-//  TelemetrySCSExample_telemetry          in '..\..\Source\SCS\TelemetrySCSExample_telemetry.pas'
-//  TelemetrySCSExample_telemetry_position in '..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas'
-//  TelemetrySCSExample_telemetry_mem      in '..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas'
+  TelemetrySCSExample_telemetry          in '..\..\Source\SCS\TelemetrySCSExample_telemetry.pas',
+  TelemetrySCSExample_telemetry_position in '..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas',
+  TelemetrySCSExample_telemetry_mem      in '..\..\Source\SCS\TelemetrySCSExample_telemetry_mem.pas'
 
 //  TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas'
 //  TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas'
