@@ -547,7 +547,7 @@ end;
 procedure TSCSExm_TelemetryMem.EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer);
 var
   Config:     p_scs_named_value_t;
-  WheelCount: LongWord;
+  WheelCount: scs_u32_t;
 
   Function FindAttribute(Configuration: p_scs_telemetry_configuration_t; const Name: TelemetryString; Index: scs_u32_t; ExpectedType: scs_value_type_t): p_scs_named_value_t;
   var

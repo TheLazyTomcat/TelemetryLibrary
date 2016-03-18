@@ -891,7 +891,7 @@ type
   {:
     Checks whether given config is stored in StoredConfigs list.
 
-    @param ConfigReference  Full reference of config the is to be checked.
+    @param ConfigReference  Full reference of config that is to be checked.
     @param Index            Index of checked configuration.
 
     @returns @True when given config is found in list, otherwise @false.

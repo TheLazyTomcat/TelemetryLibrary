@@ -405,7 +405,7 @@
     Calls all stored handler routines with the same parameters as passed to this
     method.
   }
-    procedure Call(Sender: TObject; Data: Pointer; Size: Integer); reintroduce;
+    procedure Call(Sender: TObject; Data: Pointer; Size: UInt32); reintroduce;
   end;
 
 {==============================================================================}
@@ -505,7 +505,7 @@
     Calls all stored handler routines with the same parameters as passed to this
     method.
   }
-    procedure Call(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer); reintroduce;
+    procedure Call(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32); reintroduce;
   end;
 
 {==============================================================================}
@@ -906,7 +906,7 @@
     Calls all stored handler routines with the same parameters as passed to this
     method.
   }
-    procedure Call(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); reintroduce;
+    procedure Call(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); reintroduce;
   end;
 {$ENDIF}
 
@@ -1198,7 +1198,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastDataLogEvent.Call(Sender: TObject; Data: Pointer; Size: Integer);
+procedure TMulticastDataLogEvent.Call(Sender: TObject; Data: Pointer; Size: UInt32);
 var
   i:  Integer;
 begin
@@ -1270,7 +1270,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastDataTimeLogEvent.Call(Sender: TObject; Time: TDateTime; Data: Pointer; Size: Integer);
+procedure TMulticastDataTimeLogEvent.Call(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32);
 var
   i:  Integer;
 begin
@@ -1558,11 +1558,11 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TMulticastConfigTimeLogEvent.Call(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TMulticastConfigTimeLogEvent.Call(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 var
   i:  Integer;
 begin
-For i := 0 to Pred(Count) do TConfigTimeLogEvent(Methods[i])(Sender,Time,Name,ID,Index,Value);
+For i := 0 to Pred(Count) do TConfigTimeLogEvent(Methods[i])(Sender,Time,ConfigReference,Index,Value);
 end;
 {$ENDIF}
 

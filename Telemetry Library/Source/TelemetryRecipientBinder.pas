@@ -203,11 +203,10 @@ type
     Method that can be assigned to @noAutoLink(recipent) @link(
     TelemetryRecipient.TTelemetryRecipient.OnConfig OnConfig) event.
 
-    @param Sender    Object that is calling called this method.
-    @param Name      Name of the config.
-    @param ID        ID of the config.
-    @param Index     Index of the config.
-    @param Value     Actual value of the config.
+    @param Sender           Object that is calling called this method.
+    @param ConfigReference  Full config reference (ID + Attribute).
+    @param Index            Index of the config.
+    @param Value            Actual value of the config.
   }
     procedure ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
   published
