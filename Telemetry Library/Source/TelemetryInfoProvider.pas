@@ -15,10 +15,10 @@
 
   ©František Milt, all rights reserved.
 
+  Last change: 2015-07-14
+
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
-
-  Last change: 2015-07-14
 
   ToDo:@unorderedList(
   @item(Add capability for loading information from file (text, ini, resources).))    

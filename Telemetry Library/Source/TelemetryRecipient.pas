@@ -13,7 +13,9 @@
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
+
+  Last change: 2015-07-14
 
   This unit contains TTelemetryRecipient class that used to control the
   telemetry API (see class declaration for details) and few classes used to
@@ -33,8 +35,6 @@
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change: 2015-07-14
-
 @html(<hr>)}
 unit TelemetryRecipient;
 
@@ -47,10 +47,10 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
-{$ENDIF}
   AuxTypes,
 {$IFDEF MulticastEvents}
   MulticastEvent,
+{$ENDIF}   
 {$ENDIF}
   TelemetryCommon,
   TelemetryIDs,

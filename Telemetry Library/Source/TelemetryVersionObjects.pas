@@ -14,7 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryVersionObjects))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
+
+  Last change:  2015-06-28
   
   Classes in this unit (for details, refer to declaration of individual class):
 @preformatted(
@@ -22,8 +24,6 @@
    |- TTelemetryVersionObject
        |- TTelemetryVersionPrepareObject
 )
-
-  Last change:  2015-06-28
 
 @html(<hr>)}
 unit TelemetryVersionObjects;

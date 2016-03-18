@@ -16,6 +16,8 @@
 
   ©2013-2015 František Milt, all rights reserved.
 
+  Last change: 2015-07-14  
+
   Each telemetry channel has a primary type, which is a native type for such
   channel. But telemetry is also able to provide value of some channels as
   a secondary type when registered so, eg. as 64bit integer for a channel whose
@@ -42,8 +44,6 @@
   for identification and registration of secondary types for any telemetry
   channel.
 
-  Last change: 2015-07-14
-
 @html(<hr>)}
 unit TelemetryValueTypeUtils;
 
@@ -52,9 +52,9 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   AuxTypes,
-{$IFDEF Documentation}
-  BitOps,
+{$ELSE}  
   TelemetryStrings,
 {$ENDIF}
 {$IFDEF CondensedHeaders}

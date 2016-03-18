@@ -15,6 +15,8 @@
 
   ©2013-2015 František Milt, all rights reserved.
 
+  Last change: 2015-07-15
+
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).
   It also contains declaration of exception classes used in the library, those
@@ -32,7 +34,6 @@
    |- ETLInitFailed
    |- ETLBadData
 )
-  Last change: 2015-07-15
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -44,7 +45,7 @@ interface
 uses
 {$IFNDEF Documentation}
   SysUtils,
-{$ENDIF} 
+{$ENDIF}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}

@@ -16,12 +16,12 @@
 
   ©2013-2015 František Milt, all rights reserved.
 
+  Last change: 2015-06-28  
+
   This unit is intended to provide some basic routines for manipulation and
   processing of @code(TelemetryString) type (UTF8 encoded string) and also
   routines designed to return human readable (ie. textual) representation of
   binary data stored in variables of selected types.
-
-  Last change: 2015-06-28
 
 @html(<hr>)}
 unit TelemetryStrings;

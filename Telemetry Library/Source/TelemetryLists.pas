@@ -15,6 +15,8 @@
 
   ©František Milt, all rights reserved.
 
+  Last change: 2015-07-09
+
   Classes in this unit (for details, refer to declaration of individual class):
 @preformatted(
   TCustomTelemetryList
@@ -26,7 +28,6 @@
    |- TStoredConfigsList
    |- TStoredChannelsList
 )
-  Last change: 2015-07-09
 
 @html(<hr>)}
 unit TelemetryLists;
@@ -38,10 +39,10 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
-{$ENDIF}
   AuxTypes,
 {$IFDEF MulticastEvents}
   MulticastEvent,
+{$ENDIF}   
 {$ENDIF}
   TelemetryCommon,
   TelemetryValueTypeUtils,

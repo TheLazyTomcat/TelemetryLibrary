@@ -16,11 +16,11 @@
 
   ©2013-2015 František Milt, all rights reserved.
 
+  Last change: 2015-04-20
+
   This unit contains definitions of identification number types, set of
   constants containing IDs for individual channels, as well as function used to
   obtain those IDs and more.
-
-  Last change: 2015-04-20
 
 @html(<hr>)
 
@@ -134,7 +134,9 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   CRC32,
+{$ENDIF}  
   TelemetryCommon,
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;

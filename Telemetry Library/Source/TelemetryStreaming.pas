@@ -14,7 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryStreaming))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015František Milt, all rights reserved.
+
+  Last change: 2015-07-09
 
   This unit contains routines for storing and loading variables and data
   into/from general memory and streams.@br
@@ -43,9 +45,6 @@
   from telemetry headers, scs_value_free, scs_named_value_free and
   scs_telemetry_configuration_free from unit TelemetryConversions.
 
-
-  Last change: 2015-07-09
-
 @html(<hr>)}
 unit TelemetryStreaming;
 
@@ -56,8 +55,8 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
+  AuxTypes,  
 {$ENDIF}
-  AuxTypes,
   TelemetryCommon,
   TelemetryIDs,
   TelemetryLists,

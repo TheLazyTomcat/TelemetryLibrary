@@ -16,8 +16,8 @@ uses
   TelemetryStreaming        in '..\..\Source\TelemetryStreaming.pas',
   TelemetryVersionObjects   in '..\..\Source\TelemetryVersionObjects.pas',
   TelemetryInfoProvider     in '..\..\Source\TelemetryInfoProvider.pas',
-  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas'
-//  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas'
+  TelemetryRecipient        in '..\..\Source\TelemetryRecipient.pas',
+  TelemetryRecipientBinder  in '..\..\Source\TelemetryRecipientBinder.pas'
 
 //  TelemetrySCSExample_telemetry          in '..\..\Source\SCS\TelemetrySCSExample_telemetry.pas'
 //  TelemetrySCSExample_telemetry_position in '..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas'

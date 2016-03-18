@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Provides base class for classes binding itself to telemetry recipient
+@abstract(Provides base for classes binding itself to telemetry recipient
           events.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-03)
@@ -14,31 +14,16 @@
 
   @bold(@NoAutoLink(TelemetryRecipientBinder))
 
-  ©František Milt, all rights reserved.
-
-  This unit provides class TTelemetryRecipientBinder that is designed as a base
-  for classes that are intended to bind itself to telemetry recipient events
-  (eg. loggers, servers, ...).
+  ©2014-2015 František Milt, all rights reserved.
 
   Last change: 2014-11-05
 
-  Change List:@unorderedList(
-    @item(2014-05-03 - First stable version.)
-    @item(2014-11-05 - Added paramter @code(UserData) to following methods:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryRecipientBinder.EventRegisterHandler)
-                         @item(TTelemetryRecipientBinder.EventUnregisterHandler)
-                         @item(TTelemetryRecipientBinder.EventHandler)
-                         @item(TTelemetryRecipientBinder.ChannelRegisterHandler)
-                         @item(TTelemetryRecipientBinder.ChannelUnregisterHandler)
-                         @item(TTelemetryRecipientBinder.ChannelHandler)))
-    @item(2014-11-05 - Small implementation changes.))                         
+  This unit provides TTelemetryRecipientBinder class that is designed as a base
+  for classes that are supposed to bind itself to telemetry recipient events
+  (eg. loggers, servers, ...).
 
 @html(<hr>)}
 unit TelemetryRecipientBinder;
-
-{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
 
 interface
 
@@ -48,7 +33,7 @@ uses
   TelemetryCommon,
   TelemetryIDs,
   TelemetryRecipient,
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -66,7 +51,7 @@ uses
 {   TTelemetryRecipientBinder // Class declaration                             }
 {==============================================================================}
 {:
-  @abstract(Class designed as a base for any class that is intended to bind
+  @abstract(Class designed as a base for any class that is supposed to bind
             itself to telemetry @noAutoLink(recipient) events.)
   It has predefined abstract methods that can be assigned as handlers to
   @noAutoLink(recipient) events one by one (when you want full control over what
@@ -120,7 +105,9 @@ type
   }
     destructor Destroy; override;
   {:
-    Assigns appropriate *Handler methods as handlers of Recipent events.
+    Assigns appropriate *Handler methods as handlers of Recipent events.@br
+    When symbol @code(MulticastEvents) is defined, the handlers are assigned to
+    multicast events, otherwise they are assigned to normal events.
 
     @returns(@True when Recipient is assigned and all handlers were assigned to
              its event, @false otherwise.)
@@ -222,7 +209,7 @@ type
     @param Index     Index of the config.
     @param Value     Actual value of the config.
   }
-    procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
+    procedure ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
   published
   {:
     Reference to @noAutoLink(recipient) that operates on telemetry API. Not
