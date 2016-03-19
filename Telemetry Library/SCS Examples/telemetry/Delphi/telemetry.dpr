@@ -9,50 +9,9 @@ library telemetry;
 
 uses
   FastMM4,
-  SysUtils,
-
-  SCS_Telemetry_Condensed,
-
-  TelemetryRecipient,
-
-  TelemetrySCSExample_telemetry;
+  telemetry_main in '..\telemetry_main.pas';
 
 {$R *.res}
-
-var
-  Recipient:        TTelemetryRecipient = nil;
-  TelemetryLogger:  TSCSExm_Telemetry = nil;
-
-Function TelemetryLibraryInit(version: scs_u32_t; params: p_scs_telemetry_init_params_t): scs_result_t; stdcall;
-begin
-If not TTelemetryRecipient.SupportsTelemetryVersion(version) then
-  begin
-    Result := SCS_RESULT_unsupported;
-  end
-else
-  begin
-    Recipient := TTelemetryRecipient.Create;
-    Recipient.SetGameCallbacks(params^);
-    Recipient.SetAPIInfo(version,params^);
-    try
-      TelemetryLogger := TSCSExm_Telemetry.Create(Recipient);
-      Result := SCS_RESULT_ok;
-    except
-      Result := SCS_RESULT_generic_error;    
-      FreeAndNil(Recipient);
-    end;
-  end;
-end;
-
-procedure TelemetryLibraryFinal; stdcall;
-begin
-FreeAndNil(TelemetryLogger);
-FreeAndNil(Recipient);
-end;
-
-exports
-  TelemetryLibraryInit name 'scs_telemetry_init',
-  TelemetryLibraryFinal name 'scs_telemetry_shutdown';
 
 begin
 end.

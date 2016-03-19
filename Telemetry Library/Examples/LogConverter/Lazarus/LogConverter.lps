@@ -4,14 +4,11 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Debug_win_x86"/>
-    <Units Count="32">
+    <Units Count="33">
       <Unit0>
         <Filename Value="LogConverter.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCSTelemetry_BinaryLogger"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="4"/>
-        <CursorPos Y="14"/>
+        <CursorPos X="26" Y="16"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -82,11 +79,10 @@
       </Unit13>
       <Unit14>
         <Filename Value="..\..\..\Source\Libs\CRC32.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="76"/>
         <CursorPos X="5" Y="89"/>
         <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\Source\Libs\MD5.pas"/>
@@ -174,6 +170,16 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="20"/>
       </Unit31>
+      <Unit32>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="11"/>
+        <CursorPos Y="21"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit32>
     </Units>
     <OtherDefines Count="6">
       <Define0 Value="FPC"/>
@@ -183,7 +189,7 @@
       <Define4 Value="x86"/>
       <Define5 Value="x64"/>
     </OtherDefines>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="LogConverter.lpr"/>
         <Caret Line="115" Column="7" TopLine="91"/>
@@ -193,12 +199,40 @@
         <Caret Line="15" Column="11"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\..\Source\Libs\CRC32.pas"/>
-      </Position3>
-      <Position4>
         <Filename Value="LogConverter.lpr"/>
         <Caret Line="14" Column="3" TopLine="10"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\LogConverter_Main.pas"/>
       </Position4>
+      <Position5>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="18" Column="11" TopLine="4"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="24" Column="43" TopLine="13"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="46" Column="21" TopLine="37"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="49" Column="40" TopLine="37"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="51" Column="30" TopLine="37"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="56" Column="78" TopLine="37"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <Caret Line="50" Column="29"/>
+      </Position11>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

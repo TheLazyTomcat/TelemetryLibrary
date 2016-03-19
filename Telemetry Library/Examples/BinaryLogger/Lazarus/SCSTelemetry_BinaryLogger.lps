@@ -4,12 +4,11 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Debug_win_x86"/>
-    <Units Count="30">
+    <Units Count="31">
       <Unit0>
         <Filename Value="SCSTelemetry_BinaryLogger.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <CursorPos Y="19"/>
+        <CursorPos Y="14"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -161,6 +160,14 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="20"/>
       </Unit29>
+      <Unit30>
+        <Filename Value="..\BinaryLogger_Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit30>
     </Units>
     <OtherDefines Count="6">
       <Define0 Value="FPC"/>

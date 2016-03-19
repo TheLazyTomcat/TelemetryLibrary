@@ -4,13 +4,11 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Debug_win_x86"/>
-    <Units Count="29">
+    <Units Count="30">
       <Unit0>
         <Filename Value="telemetry.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="10"/>
-        <CursorPos X="27" Y="15"/>
+        <CursorPos X="38" Y="16"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -156,6 +154,15 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="20"/>
       </Unit28>
+      <Unit29>
+        <Filename Value="..\telemetry_main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="75" Y="12"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit29>
     </Units>
     <OtherDefines Count="6">
       <Define0 Value="FPC"/>

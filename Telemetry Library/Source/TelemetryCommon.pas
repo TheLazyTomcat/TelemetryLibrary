@@ -343,7 +343,7 @@ Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
 
 {:
   @abstract(Checks whether passed config reference is valid.)
-  Current implementation only checkes wherhet both fields are not empty.
+  Current implementation only checks whether both fields are not empty.
 
   @param ConfigReference Reference to be checked for validity.
 

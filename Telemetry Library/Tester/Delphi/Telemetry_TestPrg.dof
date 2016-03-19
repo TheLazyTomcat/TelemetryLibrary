@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=
+OutputDir=.\win_x86
 UnitOutputDir=.\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -148,3 +148,6 @@ Item5=..\,,\,,\Libs\FastMM\Prg
 [HistoryLists\hlUnitOutputDirectory]
 Count=1
 Item0=.\DCU
+[HistoryLists\hlOutputDirectorry]
+Count=1
+Item0=.\win_x86

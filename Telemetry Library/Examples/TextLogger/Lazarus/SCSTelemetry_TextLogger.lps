@@ -4,12 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Debug_win_x86"/>
-    <Units Count="29">
+    <Units Count="30">
       <Unit0>
         <Filename Value="SCSTelemetry_TextLogger.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="19" Y="12"/>
+        <CursorPos Y="8"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -161,6 +161,13 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="20"/>
       </Unit28>
+      <Unit29>
+        <Filename Value="..\TextLogger_Main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit29>
     </Units>
     <OtherDefines Count="6">
       <Define0 Value="FPC"/>

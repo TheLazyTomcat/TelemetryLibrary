@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log"/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -65,7 +65,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log"/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -106,7 +106,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log"/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -145,12 +145,15 @@
         <PackageName Value="LazUtils"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="LogConverter.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SCSTelemetry_BinaryLogger"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="..\LogConverter_Main.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -161,7 +164,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log"/>
+      <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

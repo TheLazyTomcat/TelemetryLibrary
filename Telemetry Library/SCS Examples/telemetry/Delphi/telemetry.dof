@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=
+OutputDir=.\Release\win_x86
 UnitOutputDir=.\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -143,5 +143,6 @@ Item0=..\..\..\..\Libs\FastMM\Lib;..\..\..\..\API Headers\Headers;..\..\..\..\AP
 Count=1
 Item0=.\DCU
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=S:\Program Files\Euro Truck Simulator 2\bin\win_x86\plugins
+Count=2
+Item0=.\Release\win_x86
+Item1=S:\Program Files\Euro Truck Simulator 2\bin\win_x86\plugins
