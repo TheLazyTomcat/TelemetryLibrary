@@ -1,3 +1,5 @@
+{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
+
 {$IF defined(CPUX86_64) or defined(CPUX64)}
   {$DEFINE x64}
   {$IF not(defined(WINDOWS) or defined(MSWINDOWS))}

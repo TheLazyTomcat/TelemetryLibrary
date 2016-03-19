@@ -56,8 +56,7 @@ uses
 {$ELSE}
   scssdk,
   scssdk_value,
-  scssdk_telemetry_event,
-  scssdk_telemetry_channel;
+  scssdk_telemetry_event;
 {$ENDIF}
 
 type
@@ -2771,19 +2770,31 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownEventsList.IndexOf(Event: scs_event_t): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If PKnownEvent(PtrGetItem(Result))^.Event = Event then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If PKnownEvent(PtrGetItem(i))^.Event = Event then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownEventsList.IndexOf(const Name: TelemetryString): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If TelemetrySameText(PKnownEvent(PtrGetItem(Result))^.Name,Name) then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If TelemetrySameText(PKnownEvent(PtrGetItem(i))^.Name,Name) then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -2938,19 +2949,31 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownChannelsList.IndexOf(const Name: TelemetryString): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If TelemetrySameStr(PKnownChannel(PtrGetItem(Result))^.Name,Name) then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If TelemetrySameStr(PKnownChannel(PtrGetItem(i))^.Name,Name) then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TKnownChannelsList.IndexOf(ID: TChannelID): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If PKnownChannel(PtrGetItem(Result))^.ID = ID then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If PKnownChannel(PtrGetItem(i))^.ID = ID then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -3251,10 +3274,16 @@ end;
 //------------------------------------------------------------------------------
 
 Function TKnownConfigsList.IndexOfConfiguration(ID: TelemetryString): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to Pred(ConfigurationCount) do
-  If TelemetrySameStr(PKnownConfiguration(PtrGetItem(Result))^.ID,ID) then Exit;
 Result := -1;
+For i := 0 to Pred(ConfigurationCount) do
+  If TelemetrySameStr(PKnownConfiguration(PtrGetItem(i))^.ID,ID) then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //------------------------------------------------------------------------------
@@ -3283,13 +3312,18 @@ end;
 Function TKnownConfigsList.IndexOf(Index: Integer; const Attribute: TelemetryString): Integer;
 var
   Configuration:  PKnownConfiguration;
+  i:              Integer;
 begin
 If (Index >= 0) and (Index < ConfigurationCount) then
   begin
     Configuration := GetKnownConfigurationPointer(Index);
-    For Result := Low(Configuration^.Attributes) to High(Configuration^.Attributes) do
-      If TelemetrySameStr(Configuration^.Attributes[Result].Name,Attribute) then Exit;
     Result := -1;
+    For i := Low(Configuration^.Attributes) to High(Configuration^.Attributes) do
+      If TelemetrySameStr(Configuration^.Attributes[i].Name,Attribute) then
+        begin
+          Result := i;
+          Break;
+        end;
   end
 else raise ETLIndexOfBounds.CreateFmt('TKnownConfigsList.IndexOf: Index (%d) out of bounds.',[Index]);
 end;
@@ -3359,6 +3393,7 @@ var
   TempIdx:          Integer;
   NewConfiguration: PKnownConfiguration;
 begin
+Result := -1;
 TempIdx := IndexOfConfiguration(ID);
 If TempIdx < 0 then
   begin
@@ -3639,10 +3674,16 @@ end;
 //------------------------------------------------------------------------------
 
 Function TRegisteredEventsList.IndexOf(Event: scs_event_t): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If PEventContext(PtrGetItem(Result))^.EventInfo.Event = Event then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If PEventContext(PtrGetItem(i))^.EventInfo.Event = Event then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3788,19 +3829,31 @@ end;
 //------------------------------------------------------------------------------
 
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If TelemetrySameStr(PChannelContext(PtrGetItem(Result))^.ChannelInfo.Name,Name) then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If TelemetrySameStr(PChannelContext(PtrGetItem(i))^.ChannelInfo.Name,Name) then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If (PChannelContext(PtrGetItem(Result))^.ChannelInfo.ID = ID) then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If (PChannelContext(PtrGetItem(i))^.ChannelInfo.ID = ID) then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3808,14 +3861,19 @@ end;
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t): Integer;
 var
   TempItem: PChannelContext;
+  i:        Integer;
 begin
-For Result := 0 to (Count - 1) do
-  begin
-    TempItem := PChannelContext(PtrGetItem(Result));
-    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
-      (TempItem^.ChannelInfo.Index = Index) then Exit;
-  end;
 Result := -1;
+For i := 0 to (Count - 1) do
+  begin
+    TempItem := PChannelContext(PtrGetItem(i));
+    If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
+      (TempItem^.ChannelInfo.Index = Index) then
+      begin
+        Result := i;
+        Break;
+      end;
+  end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3823,13 +3881,18 @@ end;
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t): Integer;
 var
   TempItem: PChannelContext;
+  i:        Integer;
 begin
-For Result := 0 to (Count - 1) do
-  begin
-    TempItem := PChannelContext(PtrGetItem(Result));
-    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) then Exit;
-  end;
 Result := -1;
+For i := 0 to (Count - 1) do
+  begin
+    TempItem := PChannelContext(PtrGetItem(i));
+    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) then
+      begin
+        Result := i;
+        Break;
+      end;
+  end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3837,15 +3900,20 @@ end;
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 var
   TempItem: PChannelContext;
+  i:        Integer;
 begin
-For Result := 0 to (Count - 1) do
+Result := -1;
+For i := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(Result));
+    TempItem := PChannelContext(PtrGetItem(i));
     If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
       (TempItem^.ChannelInfo.Index = Index) and
-      (TempItem^.ChannelInfo.ValueType = ValueType) then Exit;
+      (TempItem^.ChannelInfo.ValueType = ValueType) then
+      begin
+        Result := i;
+        Break;
+      end;
   end;
-Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3853,14 +3921,19 @@ end;
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t): Integer;
 var
   TempItem: PChannelContext;
+  i:        Integer;
 begin
-For Result := 0 to (Count - 1) do
-  begin
-    TempItem := PChannelContext(PtrGetItem(Result));
-    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) and
-      (TempItem^.ChannelInfo.ValueType = ValueType) then Exit;
-  end;
 Result := -1;
+For i := 0 to (Count - 1) do
+  begin
+    TempItem := PChannelContext(PtrGetItem(i));
+    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) and
+      (TempItem^.ChannelInfo.ValueType = ValueType) then
+      begin
+        Result := i;
+        Break;
+      end;
+  end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3868,16 +3941,21 @@ end;
 Function TRegisteredChannelsList.IndexOf(const Name: TelemetryString; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer;
 var
   TempItem: PChannelContext;
+  i:        Integer;
 begin
-For Result := 0 to (Count - 1) do
+Result := -1;
+For i := 0 to (Count - 1) do
   begin
-    TempItem := PChannelContext(PtrGetItem(Result));
+    TempItem := PChannelContext(PtrGetItem(i));
     If TelemetrySameStr(TempItem^.ChannelInfo.Name,Name) and
       (TempItem^.ChannelInfo.Index = Index) and
       (TempItem^.ChannelInfo.ValueType = ValueType) and
-      (TempItem^.ChannelInfo.Flags = Flags) then Exit;
+      (TempItem^.ChannelInfo.Flags = Flags) then
+      begin
+        Result := i;
+        Break;
+      end;
   end;
-Result := -1;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -3885,14 +3963,19 @@ end;
 Function TRegisteredChannelsList.IndexOf(ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t): Integer;
 var
   TempItem: PChannelContext;
+  i:        Integer;
 begin
-For Result := 0 to (Count - 1) do
-  begin
-    TempItem := PChannelContext(PtrGetItem(Result));
-    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) and
-      (TempItem^.ChannelInfo.ValueType = ValueType) and (TempItem^.ChannelInfo.Flags = Flags) then Exit;
-  end;
 Result := -1;
+For i := 0 to (Count - 1) do
+  begin
+    TempItem := PChannelContext(PtrGetItem(i));
+    If (TempItem^.ChannelInfo.ID = ID) and (TempItem^.ChannelInfo.Index = Index) and
+      (TempItem^.ChannelInfo.ValueType = ValueType) and (TempItem^.ChannelInfo.Flags = Flags) then
+      begin
+        Result := i;
+        Break;
+      end;
+  end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -4046,11 +4129,17 @@ end;
 //------------------------------------------------------------------------------
 
 Function TStoredConfigsList.IndexOf(const ID, Attribute: TelemetryString): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.ID,ID) and
-     TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.Attribute,Attribute) then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If TelemetrySameStr(PStoredConfig(PtrGetItem(i))^.Reference.ID,ID) and
+     TelemetrySameStr(PStoredConfig(PtrGetItem(i))^.Reference.Attribute,Attribute) then
+     begin
+       Result := i;
+       Break;
+     end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -4063,12 +4152,18 @@ end;
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 Function TStoredConfigsList.IndexOf(const ID, Attribute: TelemetryString; Index: scs_u32_t): Integer;
+var
+  i:  Integer;
 begin
-For Result := 0 to (Count - 1) do
-  If TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.ID,ID) and
-     TelemetrySameStr(PStoredConfig(PtrGetItem(Result))^.Reference.Attribute,Attribute) and
-    (PStoredConfig(PtrGetItem(Result))^.Index = Index) then Exit;
 Result := -1;
+For i := 0 to (Count - 1) do
+  If TelemetrySameStr(PStoredConfig(PtrGetItem(i))^.Reference.ID,ID) and
+     TelemetrySameStr(PStoredConfig(PtrGetItem(i))^.Reference.Attribute,Attribute) and
+    (PStoredConfig(PtrGetItem(Result))^.Index = Index) then
+    begin
+      Result := i;
+      Break;
+    end;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---

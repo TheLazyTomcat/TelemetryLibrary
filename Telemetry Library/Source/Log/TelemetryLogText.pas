@@ -290,7 +290,14 @@ implementation
 
 uses
   SysUtils,
-  TelemetryStrings;
+  TelemetryStrings
+{$IF Defined(FPC) and not Defined(Unicode)}
+  (*
+    If compiler throws error that LazUTF8 unit cannot be found, you have to
+    add LazUtils to required packages (Project > Project Inspector).
+  *)
+  , LazUTF8
+{$IFEND};
 
 {==============================================================================}
 {   TTelemetryLogText // Class implementation                                  }

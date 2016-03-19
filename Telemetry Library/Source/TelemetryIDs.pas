@@ -142,8 +142,7 @@ uses
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
-  scssdk_telemetry_common_configs
-{$IFNDEF ID_TrueConstants},
+{$IFNDEF ID_TrueConstants}
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels;

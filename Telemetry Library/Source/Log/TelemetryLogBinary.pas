@@ -357,8 +357,6 @@
 @html(<hr>)}
 unit TelemetryLogBinary;
 
-{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
-
 interface
 
 {$INCLUDE '..\Telemetry_defs.inc'}
@@ -755,7 +753,7 @@ type
   {:
     See @inherited.
   }
-    procedure LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); override;
+    procedure LogEvent({%H-}Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); override;
   {:
     See @inherited.
   }
@@ -771,7 +769,7 @@ type
   {:
     See @inherited.
   }
-    procedure LogConfig(Recipient: TTelemetryRecipient; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure LogConfig({%H-}Recipient: TTelemetryRecipient; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); override;
   {:
     See @inherited.
   }

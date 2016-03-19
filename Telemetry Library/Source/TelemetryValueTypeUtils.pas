@@ -652,7 +652,9 @@ end;
 Function ValueTypeBitmaskAdd(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
 begin
 If ValueType <> SCS_VALUE_TYPE_INVALID then
-  Result := BTS(Bitmask,Byte(Pred(ValueType)));
+  Result := BTS(Bitmask,Byte(Pred(ValueType)))
+else
+  Result := False;
 end;
 
 //------------------------------------------------------------------------------
@@ -660,7 +662,9 @@ end;
 Function ValueTypeBitmaskRemove(var Bitmask: TValueTypeBitmask; ValueType: scs_value_type_t): Boolean;
 begin
 If ValueType <> SCS_VALUE_TYPE_INVALID then
-  Result := BTR(Bitmask,Byte(Pred(ValueType)));
+  Result := BTR(Bitmask,Byte(Pred(ValueType)))
+else
+  Result := False;
 end;
 
 //==============================================================================
