@@ -10,18 +10,12 @@ unit ImgDraw;
 
 interface
 
-{$INCLUDE '..\..\..\Source\Telemetry_defs.inc'}
-
 uses
   SysUtils,
   Graphics,
-  TelemetrySCSExample_telemetry_mem,
+  SCS_Telemetry_Condensed,
   TelemetryStrings,
-{$IFDEF UseCondensedHeader}
-  SCS_Telemetry_Condensed;
-{$ELSE}
-  scssdk_value;
-{$ENDIF}
+  TelemetrySCSExample_telemetry_mem;
 
 type
 {==============================================================================}

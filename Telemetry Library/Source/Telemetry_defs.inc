@@ -19,7 +19,7 @@
 
 {.$DEFINE DevHints}
 {.$DEFINE Documentation}
-{.$DEFINE CondensedHeaders}
+{$DEFINE CondensedHeaders}
 
 {.$DEFINE ID_TrueConstants}
 {.$DEFINE ID_ManualCompute}
