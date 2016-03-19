@@ -14,9 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryValueTypeUtils))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-07-14  
+  Last change: 2016-03-19  
 
   Each telemetry channel has a primary type, which is a native type for such
   channel. But telemetry is also able to provide value of some channels as

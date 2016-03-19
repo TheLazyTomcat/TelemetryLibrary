@@ -14,9 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryStrings))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-06-28  
+  Last change: 2016-03-19   
 
   This unit is intended to provide some basic routines for manipulation and
   processing of @code(TelemetryString) type (UTF8 encoded string) and also

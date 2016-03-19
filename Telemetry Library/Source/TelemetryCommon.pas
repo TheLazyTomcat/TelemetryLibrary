@@ -13,9 +13,9 @@
 
   @bold(@NoAutoLink(TelemetryCommon))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-07-15
+  Last change: 2016-03-19 
 
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).

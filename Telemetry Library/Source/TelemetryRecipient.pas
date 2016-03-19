@@ -13,9 +13,9 @@
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-07-14
+  Last change: 2016-03-19 
 
   This unit contains TTelemetryRecipient class that used to control the
   telemetry API (see class declaration for details) and few classes used to

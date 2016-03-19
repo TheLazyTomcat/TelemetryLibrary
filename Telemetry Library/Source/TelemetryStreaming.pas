@@ -14,9 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryStreaming))
 
-  ©2013-2015František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-07-09
+  Last change: 2016-03-19 
 
   This unit contains routines for storing and loading variables and data
   into/from general memory and streams.@br

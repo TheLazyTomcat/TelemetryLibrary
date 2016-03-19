@@ -13,9 +13,9 @@
 
   @bold(@NoAutoLink(TelemetryConversions))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-04-20  
+  Last change: 2016-03-19   
 
   This unit contains routines used for conversion between selected
   non-localized SDK types and their no-pointer alternatives.

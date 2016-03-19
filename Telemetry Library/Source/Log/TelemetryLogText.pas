@@ -13,9 +13,9 @@
 
   @bold(@NoAutoLink(TelemetryLogText))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-06-30
+  Last change: 2016-03-19 
 
   This unit contains TTelemetryLogText class (see class declaration for
   details).

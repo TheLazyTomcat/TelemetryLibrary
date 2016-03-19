@@ -13,9 +13,9 @@
 
   @bold(@NoAutoLink(TelemetrySCSExample_telemetry_mem))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-07-13
+  Last change: 2016-03-19
 
   This unit contains a class that is designed to imitate behavior of original
   @italic(telemetry_mem) example distributed with the Telemetry SDK. It also

@@ -14,9 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryRecipientBinder))
 
-  ©2014-2015 František Milt, all rights reserved.
+  ©2014-2016 František Milt, all rights reserved.
 
-  Last change: 2014-11-05
+  Last change: 2016-03-19 
 
   This unit provides TTelemetryRecipientBinder class that is designed as a base
   for classes that are supposed to bind itself to telemetry recipient events

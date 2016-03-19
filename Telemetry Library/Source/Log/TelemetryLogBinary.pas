@@ -14,9 +14,9 @@
 
   @bold(@NoAutoLink(TelemetryLogBinary))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2015-07-10
+  Last change: 2016-03-19
 
   This unit contains classes that are designed to write binary logs, namely:
 @preformatted(
