@@ -13,25 +13,14 @@
 
   @bold(@NoAutoLink(TelemetryLogText))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
+
+  Last change: 2015-06-30
 
   This unit contains TTelemetryLogText class (see class declaration for
   details).
 
   Last change: 2015-06-30
-
-  Change List:@unorderedList(
-    @item(2014-05-18 - First stable version.)
-    @item(2014-11-05 - Added parameter @code(UserData) to following methods:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryLogText.EventRegisterHandler)
-                         @item(TTelemetryLogText.EventUnregisterHandler)
-                         @item(TTelemetryLogText.EventHandler)
-                         @item(TTelemetryLogText.ChannelRegisterHandler)
-                         @item(TTelemetryLogText.ChannelUnregisterHandler)
-                         @item(TTelemetryLogText.ChannelHandler)))
-    @item(2015-06-30 - Small implementation changes.))
 
 @html(<hr>)}
 unit TelemetryLogText;
@@ -41,7 +30,9 @@ interface
 {$INCLUDE '..\Telemetry_defs.inc'}
 
 uses
+{$IFNDEF Documentation}
   SimpleLog,
+{$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
   TelemetryRecipient,
@@ -49,7 +40,7 @@ uses
 {$IFDEF Documentation}
   TelemetryStrings,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -134,7 +125,7 @@ type
                      name of that module (without extension) followed by the
                      time the file was created, and with .log extension.)
   }
-    constructor Create(aRecipient: TTelemetryRecipient = nil; FileName: String = '');
+    constructor Create(Recipient: TTelemetryRecipient = nil; FileName: String = '');
   {:
     Class destructor.
 
@@ -148,7 +139,7 @@ type
   }
     procedure AddLog(LogText: String); virtual;
   {:
-    Adds informations about write to a game log.@br
+    Adds information about write to a game log.@br
 
     @param(Sender  Object that called this method (should be of type
                    TTelemetryRecipient).)
@@ -157,7 +148,7 @@ type
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
   {:
-    Adds informations about game event registration to the log.@br
+    Adds information about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object that called this method (should be of type
@@ -167,7 +158,7 @@ type
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about game event unregistration to the log.@br
+    Adds information about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object that called this method (should be of type
@@ -177,7 +168,7 @@ type
   }
     procedure EventUnregisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about game event to the log.@br
+    Adds information about game event to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object that called this method (should be of type
@@ -188,7 +179,7 @@ type
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about channel registration to the log.
+    Adds information about channel registration to the log.
 
     @param(Sender    Object that called this method (should be of type
                      TTelemetryRecipient).)
@@ -201,7 +192,7 @@ type
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about channel unregistration to the log.
+    Adds information about channel unregistration to the log.
 
     @param(Sender    Object that called this method (should be of type
                      TTelemetryRecipient).)
@@ -213,7 +204,7 @@ type
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about channel to the log.@br
+    Adds information about channel to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object that called this method (should be of type
@@ -226,16 +217,15 @@ type
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
   {:
-    Adds informations about received configuration to the log.
+    Adds information about received configuration to the log.
 
-    @param(Sender    Object that called this method (should be of type
-                     TTelemetryRecipient).)
-    @param Name      Name of the config.
-    @param ID        ID of the config.
-    @param Index     Index of the config.
-    @param Value     Actual value of the config.
+    @param(Sender           Object that called this method (should be of type
+                            TTelemetryRecipient).)
+    @param ConfigReference  Full config reference (ID + Attribute).
+    @param Index            Index of the config.
+    @param Value            Actual value of the config.
   }
-    procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); override;
   {:
     Calls method LogHandler with unchanged parameters and @code(Sender) set to
     @nil. Refer to LogHandler for details.
@@ -275,7 +265,7 @@ type
     Calls method ConfigHandler with unchanged parameters and @code(Sender) set
     to @nil. Refer to ConfigHandler for details.
   }
-    procedure LogConfig(const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
+    procedure LogConfig(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
   published
   {:
     Reference to internally used object that actually performs all writes to
@@ -300,7 +290,14 @@ implementation
 
 uses
   SysUtils,
-  TelemetryStrings;
+  TelemetryStrings
+{$IF Defined(FPC) and not Defined(Unicode)}
+  (*
+    If compiler throws error that LazUTF8 unit cannot be found, you have to
+    add LazUtils to required packages (Project > Project Inspector).
+  *)
+  , LazUTF8
+{$IFEND};
 
 {==============================================================================}
 {   TTelemetryLogText // Class implementation                                  }
@@ -344,8 +341,10 @@ end;
 
 Function TTelemetryLogText.IndexString(Index: scs_u32_t): String;
 begin
-If Index <> SCS_U32_NIL then Result := '[' + IntToStr(Index) + ']'
- else Result := '';
+If Index <> SCS_U32_NIL then
+  Result := '[' + IntToStr(Index) + ']'
+else
+  Result := '';
 end;
 
 
@@ -353,16 +352,22 @@ end;
 {   TTelemetryLogText // Public methods                                        }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogText.Create(aRecipient: TTelemetryRecipient = nil; FileName: String = '');
+constructor TTelemetryLogText.Create(Recipient: TTelemetryRecipient = nil; FileName: String = '');
 begin
-inherited Create(aRecipient);
+inherited Create(Recipient);
 fLogger := TSimpleLog.Create;
 If FileName <> '' then
   fLogger.StreamFileName := FileName
 else
+{$IF Defined(FPC) and not Defined(Unicode)}
+  fLogger.StreamFileName := ExtractFilePath(WinCPToUTF8(GetModuleName(hInstance))) +
+                            ChangeFileExt(ExtractFileName(WinCPToUTF8(GetModuleName(hInstance))),'') +
+                            '_' + FormatDateTime('yyyy-mm-dd-hh-nn-ss',Now) + '.log';
+{$ELSE}
   fLogger.StreamFileName := ExtractFilePath(GetModuleName(hInstance)) +
                             ChangeFileExt(ExtractFileName(GetModuleName(hInstance)),'') +
                             '_' + FormatDateTime('yyyy-mm-dd-hh-nn-ss',Now) + '.log';
+{$IFEND}
 fLogger.InternalLog := def_InMemoryLog;
 fLogger.StreamToFile := def_StreamToFile;
 fLogger.StreamAppend := def_StreamAppend;
@@ -473,9 +478,9 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogText.ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
-AddLog(ls_Config + ItemIDString(ID) + TelemetryStringDecode(Name) + IndexString(Index) + ': ' + SCSValueLocalizedToStr(Value,ShowTypesNames,ShowDescriptors))
+AddLog(ls_Config + TelemetryStringDecode(FullConfigName(ConfigReference)) + IndexString(Index) + ': ' + SCSValueLocalizedToStr(Value,ShowTypesNames,ShowDescriptors));
 end;
 
 //------------------------------------------------------------------------------
@@ -529,9 +534,9 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogText.LogConfig(const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogText.LogConfig(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
-ConfigHandler(nil,Name,ID,Index,Value);
+ConfigHandler(nil,ConfigReference,Index,Value);
 end;
 
 end.

@@ -9,15 +9,18 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-07-12)
+@lastmod(2015-07-15)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
   ©2013-2015 František Milt, all rights reserved.
 
+  Last change: 2015-07-15
+
   This file is intended to provide types, constants, routines, etc. used
-  throughout the Telemetry library (that is, in more than one unit). It also
-  declares internal exception classes, specifically:
+  throughout the Telemetry library (that is, in more than one unit).
+  It also contains declaration of exception classes used in the library, those
+  are:
 @preformatted(
   ETLException
    |- ETLUnsupportedAPI
@@ -31,45 +34,6 @@
    |- ETLInitFailed
    |- ETLBadData
 )
-  Last change: 2015-07-12
-
-  Change List:@unorderedList(
-    @item(2013-10-04 - First stable version.)
-    @item(2014-04-06 - TGameSupportInfo.GameID and
-                       scs_value_localized_t.StringData fields type changed to
-                       @code(TelemetryString).)
-    @item(2014-04-18 - cConfigFieldsSeparator constant moved to TelemetryIDs
-                       unit.)
-    @item(2014-04-20 - Added following types:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(scs_named_value_localized_t)
-                         @item(p_scs_named_value_localized_t)
-                         @item(scs_telemetry_configuration_localized_t)
-                         @item(p_scs_telemetry_configuration_localized_t)))                          
-    @item(2014-04-20 - Functions scs_value_localized and scs_value moved to
-                       TelemetryStreaming unit.)
-    @item(2014-05-05 - TMulticastEvent placeholder added.)
-    @item(2014-11-02 - Added types @code(PtrInt) and @code(PtrUInt).)
-    @item(2015-04-20 - Added TMemSize type.)
-    @item(2015-04-20 - Constants @code(cEmptySCSValue) and
-                       @code(cEmptySCSValueLocalized) renamed to
-                       @code(EmptySCSValue) and @code(EmptySCSValueLocalized)
-                       respectively.)
-    @item(2015-06-25 - Removed TMulticastEvent placeholder.)
-    @item(2015-06-25 - Added TStrSize type.)
-    @item(2015-06-25 - TGameSupportInfo changed to TSupportedGame,
-                       PGameSupportInfo changed to PSupportedGame.)
-    @item(2015-06-25 - Added list of supported API versions and list of
-                       supported games (SupportedTelemetryVersions,
-                       SupportedGames).)
-    @item(2015-06-25 - Renamed and completed following constants:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(@code(EmptySCSValue) renamed to scs_value_empty)
-                         @item(@code(EmptySCSValueLocalized) renamed to
-                               scs_value_localized_empty)))
-    @item(2015-06-29 - Returned TMulticastEvent placeholder.)
-    @item(2015-07-10 - Added declaration of internal exception classes.)
-    @item(2015-07-12 - Added documentation for exception classes.))
 
 @html(<hr>)}
 unit TelemetryCommon;
@@ -81,8 +45,8 @@ interface
 uses
 {$IFNDEF Documentation}
   SysUtils,
-{$ENDIF} 
-{$IFDEF UseCondensedHeader}
+{$ENDIF}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -150,42 +114,16 @@ type
   Raised when data the library works with are in some way corrupted or invalid.
 }
   ETLBadData          = class(ETLException);
+{:
+  Raised when item that is added to some list or array already exists there.
+}
+  ETLAlreadyExists    = class(ETLException);
+{:
+  Raised when requested item is not found in a list or array.
+}
+  ETLNotfound         = class(ETLException);
 
-
-{$IFDEF Documentation}
-  {$IFDEF IncludeMulticastEventHandlers}
-  {:
-    @abstract(Placeholder intended to complete the classes hierarchy tree in
-    documentation.)
-    Actual class is defined in unit MulticastEvent and is not included in
-    documentation of telemetry library. Refer to mentioned unit located in
-    folder @italic(Source\Libs) for details.
-  }  
-    TMulticastEvent = class(TObject);
-  {$ENDIF}
-{$ENDIF}
-
-  //:Type used to cast pointer to a signed integer for calculation of arbitrary
-  //:address.
-{$IFDEF x64}
-  PtrInt  = Int64;
-{$ELSE}
-  PtrInt  = LongInt;
-{$ENDIF}
-
-  //:Type used to cast pointer to an unsigned integer for calculation of
-  //:arbitrary address.
-{$IFDEF x64}
-  PtrUInt = UInt64;
-{$ELSE}
-  PtrUInt = LongWord;
-{$ENDIF}
-
-  //:Type used to pass or get size of memory, e.g. when allocating memory.
-  TMemSize = PtrUInt;
-
-  //:Type used to pass or get length of a string.
-  TStrSize = PtrInt;
+//------------------------------------------------------------------------------
 
 {:
   Structure used in lists of supported games and their versions.
@@ -201,12 +139,55 @@ type
   //:Pointer to TGameSupportInfo structure.
   PSupportedGame = ^TSupportedGame;
 
-const
-{$IFDEF DevelopmentHints}
-  {$MESSAGE HINT 'Remember to update.'}
+//------------------------------------------------------------------------------
+
 {:
-  These constants can change with telemetry development, remember to update them
-  if you add support for new telemetry version.
+  @abstract(Used where there is need to pass or return two indices to fully
+  define some reference (eg. indices in two-dimensional array).)
+
+  @member Index1 First-level index.
+  @member Index2 Second-level index.
+}
+  TDoubleIndex = record
+    Index1: Integer;
+    Index2: Integer;
+  end;
+  //:Pointer to TDoubleIndex structure.
+  PDoubleIndex = ^TDoubleIndex;
+
+//------------------------------------------------------------------------------
+
+{:
+  Structure used to reference a specific config (an @noAutoLink(attribute) in a
+  specified configuration).
+
+  @member ID        Idetifier of the configuration.
+  @member(Attribute Identifier of an @noAutoLink(attribute) in configuration
+                    specified by field @code(ID).)
+}
+  TConfigReference = record
+    ID:         TelemetryString;
+    Attribute:  TelemetryString;
+  end;
+  //:Pointer to TConfigReference structure.
+  PConfigReference = ^TConfigReference;
+
+//------------------------------------------------------------------------------
+
+const
+  //:Invalid TDoubleIndex value.
+  InvalidDoubleIndex: TDoubleIndex = (Index1: -1; Index2: -1);
+
+  //:Empty config reference.
+  EmptyConfigReference: TConfigReference = (Id: ''; Attribute: '');
+
+//------------------------------------------------------------------------------
+
+{$IFDEF DevHints}
+  {$MESSAGE HINT 'Remember to update.'}
+{
+  These constants can and will change with telemetry development, remember to
+  update them when you add support for new telemetry version.
 }
 {$ENDIF}
 
@@ -227,6 +208,8 @@ const
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 {EUT2 1.8}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {EUT2 1.9}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {EUT2 1.10}));
+
+//------------------------------------------------------------------------------
 
 type
 {:
@@ -292,6 +275,8 @@ type
   //:Pointer to scs_telemetry_configuration_localized_t structure.
   p_scs_telemetry_configuration_localized_t = ^scs_telemetry_configuration_localized_t;
 
+//------------------------------------------------------------------------------
+
 const
   //:Constant containing an empty @code(scs_value_t) structure, or, more
   //:precisely, structure with invalid value type.
@@ -316,6 +301,89 @@ const
         _padding:         $00000000));
     StringData: '');
 
+    
+{==============================================================================}
+{   Unit functions and procedures // Declaration                               }
+{==============================================================================}
+{:
+  Checks whether passed double index is valid (none of the field can be smaller
+  than zero).
+
+  @param Idx Double index to be checked for validity.
+
+  @returns @True when both internal indices are zero or above, @false otherwise.
+}
+Function ValidDoubleIndex(Indices: TDoubleIndex): Boolean;
+
+//------------------------------------------------------------------------------
+
+{:
+  Creates TDoubleIndex structure filled with passed independent indices.
+
+  @param Index1 First-level index.
+  @param Index2 Second-level index.
+
+  @returns Filled double index structure.
+}
+Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
+
+//------------------------------------------------------------------------------
+
+{:
+  Returns full config reference build from passed config ID and attribute name.
+
+  @param ID        ID of configuration.
+  @param Attribute Name of attribute.
+
+  @returns Full config reference.
+}
+  Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
+
+//------------------------------------------------------------------------------
+
+{:
+  @abstract(Checks whether passed config reference is valid.)
+  Current implementation only checkes wherhet both fields are not empty.
+
+  @param ConfigReference Reference to be checked for validity.
+
+  @returns @True when passed reference is valid, @false otherwise.
+}
+  Function ValidConfigReference(ConfigReference: TConfigReference): Boolean;
+
+
 implementation
+
+{==============================================================================}
+{   Unit functions and procedures // Implementation                            }
+{==============================================================================}
+
+Function ValidDoubleIndex(Indices: TDoubleIndex): Boolean;
+begin
+Result := (Indices.Index1 >= 0) and (Indices.Index2 >= 0);
+end;
+
+//------------------------------------------------------------------------------
+
+Function DoubleIndex(Index1,Index2: Integer): TDoubleIndex;
+begin
+Result.Index1 := Index1;
+Result.Index2 := Index2;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ConfigReference(const ID, Attribute: TelemetryString): TConfigReference;
+begin
+Result.ID := ID;
+Result.Attribute := Attribute;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ValidConfigReference(ConfigReference: TConfigReference): Boolean;
+begin
+Result := (ConfigReference.ID <> '') and (ConfigReference.Attribute <> '');
+end;
 
 end.

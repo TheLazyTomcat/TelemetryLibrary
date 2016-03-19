@@ -13,11 +13,13 @@
 
   @bold(@NoAutoLink(TelemetryRecipient))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
 
-  This unit contains TTelemetryRecipient class used to control the telmetry API
-  (see class declaration for details) and few classes used to manage multicast
-  events for the recipient, namely:
+  Last change: 2015-07-14
+
+  This unit contains TTelemetryRecipient class that used to control the
+  telemetry API (see class declaration for details) and few classes used to
+  manage multicast events for the recipient, namely:
 @preformatted(
   TMulticastLogEvent
   TMulticastEventRegisterEvent
@@ -27,167 +29,14 @@
   TMulticastChannelEvent
   TMulticastConfigEvent
 )
+  Note that these are not part of the documentation.
+
   Included files:@preformatted(
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
 
-  Last change: 2015-07-14
-
-  Change List:@unorderedList(
-    @item(2013-10-07 - First stable version.)
-    @item(2013-04-18 - Following parameters in event types were changed to
-                       @code(TelemetryString):@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TChannelRegisterEvent - parameter @code(Name))
-                         @item(TChannelUnregisterEvent - parameter @code(Name))
-                         @item(TChannelEvent - parameter @code(Name))
-                         @item(TConfigEvent - parameter @code(Name))))
-    @item(2014-04-18 - Type of parameters @code(Name) changed to
-                       @code(TelemetryString) in following methods:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryRecipient.ChannelHandler)
-                         @item(TTelemetryRecipient.ChannelRegistered)
-                         @item(TTelemetryRecipient.ChannelRegister)
-                         @item(TTelemetryRecipient.ChannelUnregister)
-                         @item(TTelemetryRecipient.ConfigStored)
-                         @item(TTelemetryRecipient.ChannelStored)))
-    @item(2014-04-18 - Type of following fields and properties changed to
-                       @code(TelemetryString):@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryRecipient.fGameName)
-                         @item(TTelemetryRecipient.fGameID)
-                         @item(TTelemetryRecipient.GameName)
-                         @item(TTelemetryRecipient.GameID)))
-    @item(2014-04-19 - Following multicast event classes were added:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TMulticastLogEvent)
-                         @item(TMulticastEventRegisterEvent)
-                         @item(TMulticastEventEvent)
-                         @item(TMulticastChannelRegisterEvent)
-                         @item(TMulticastChannelUnregisterEvent)
-                         @item(TMulticastChannelEvent)
-                         @item(TMulticastConfigEvent)))
-    @item(2014-04-19 - Added following multicast events:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryRecipient.OnDestroyMulti)
-                         @item(TTelemetryRecipient.OnLogMulti)
-                         @item(TTelemetryRecipient.OnEventRegisterMulti)
-                         @item(TTelemetryRecipient.OnEventUnregisterMulti)
-                         @item(TTelemetryRecipient.OnEventMulti)
-                         @item(TTelemetryRecipient.OnChannelRegisterMulti)
-                         @item(TTelemetryRecipient.OnChannelUnregisterMulti)
-                         @item(TTelemetryRecipient.OnChannelMulti)
-                         @item(TTelemetryRecipient.OnConfigMulti)))
-    @item(2014-04-19 - Added following methods:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryRecipient.DoOnDestroy)
-                         @item(TTelemetryRecipient.DoOnLog)
-                         @item(TTelemetryRecipient.DoOnEventRegister)
-                         @item(TTelemetryRecipient.DoOnEventUnregister)
-                         @item(TTelemetryRecipient.DoOnEvent)
-                         @item(TTelemetryRecipient.DoOnChannelRegister)
-                         @item(TTelemetryRecipient.DoOnChannelUnregister)
-                         @item(TTelemetryRecipient.DoOnChannel)
-                         @item(TTelemetryRecipient.DoOnConfig)
-                         @item(TTelemetryRecipient.EventRegisterByIndex)
-                         @item(TTelemetryRecipient.EventUnregisterIndex)
-                         @item(TTelemetryRecipient.EventUnregisterByIndex)
-                         @item(TTelemetryRecipient.ChannelRegisterByIndex)
-                         @item(TTelemetryRecipient.ChannelRegisterByName)
-                         @item(TTelemetryRecipient.ChannelUnregisterIndex)
-                         @item(TTelemetryRecipient.ChannelUnregisterByIndex)
-                         @item(TTelemetryRecipient.ChannelUnregisterByName)))
-    @item(2014-04-27 - Added parameter @code(ShowDescriptors) to methods
-                       TTelemetryRecipient.EventGetDataAsString and
-                       TTelemetryRecipient.ChannelGetValueAsString.)
-    @item(2014-05-01 - Added method
-                       TTelemetryRecipient.HighestSupportedGameVersion.)
-    @item(2014-05-04 - Following callback functions were added:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(RecipientGetChannelIDFromName)
-                         @item(RecipientGetChannelNameFromID)
-                         @item(RecipientGetConfigIDFromName)
-                         @item(RecipientGetConfigNameFromID)))
-    @item(2014-10-23 - Following methods were moved to public section:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryRecipient.PrepareForTelemetryVersion)
-                         @item(TTelemetryRecipient.PrepareForGameVersion)))
-    @item(2014-10-24 - Added new parametrized constructor (with separated game
-                       option parameters) and TTelemetryRecipient.CreateCurrent.)
-    @item(2014-10-24 - Added user managed mode (with appropriate fields,
-                       properties and no-parameter constructor).)
-    @item(2014-10-24 - Added TTelemetryRecipient.AllowAutoRegistration property.)
-    @item(2014-10-24 - Added parameter @code(AllowAutoRegistration) parameter to
-                       one parametrized constructor.)
-    @item(2014-10-24 - Small implementation changes and bugs repairs.)
-    @item(2014-10-26 - Added method TTelemetryRecipient.SetAPIInfo.)
-    @item(2014-11-05 - Added paramter @code(UserData) to following event types
-                       and methods:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TEventRegisterEvent)
-                         @item(TEventEvent)
-                         @item(TChannelRegisterEvent)
-                         @item(TChannelUnregisterEvent)
-                         @item(TChannelEvent)
-                         @item(TMulticastEventRegisterEvent.Call)
-                         @item(TMulticastEventEvent.Call)
-                         @item(TMulticastChannelRegisterEvent.Call)
-                         @item(TMulticastChannelUnregisterEvent.Call)
-                         @item(TMulticastChannelEvent.Call)
-                         @item(TTelemetryRecipient.DoOnEventRegister)
-                         @item(TTelemetryRecipient.DoOnEventUnregister)
-                         @item(TTelemetryRecipient.DoOnEvent)
-                         @item(TTelemetryRecipient.DoOnChannelRegister)
-                         @item(TTelemetryRecipient.DoOnChannelUnregister)
-                         @item(TTelemetryRecipient.DoOnChannel)
-                         @item(TTelemetryRecipient.EventHandler)
-                         @item(TTelemetryRecipient.ChannelHandler)
-                         @item(TTelemetryRecipient.EventRegister)
-                         @item(TTelemetryRecipient.EventRegisterByIndex)
-                         @item(TTelemetryRecipient.ChannelRegister)
-                         @item(TTelemetryRecipient.ChannelRegisterByIndex)
-                         @item(TTelemetryRecipient.ChannelRegisterByName)))
-    @item(2014-11-05 - Small implementation changes.)
-    @item(2014-11-08 - Bugs repairs.)
-    @item(2014-11-25 - Changes due to a new system of storing and passing
-                       secondary types of channel value. These changes include:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(Method TTelemetryRecipiemt.ChannelRegisterAll
-                               completely reimplemented)))
-    @item(2015-06-28 - Constant cMaxChannelIndex renamed to MaxChannelIndex and
-                       its value changed from 7 to 13.)
-    @item(2015-06-28 - Renamed following identifiers:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(Field @code(TTelemetryRecipient.fStoredChannelsValues)
-                               renamed to TTelemetryRecipient.fStoredChannels)
-                         @item(Field @code(TTelemetryRecipient.fStoreChannelsValues)
-                               renamed to TTelemetryRecipient.fStoreChannels)
-                         @item(Method @code(TTelemetryRecipient.SetStoreChannelsValues)
-                               renamed to TTelemetryRecipient.SetStoreChannels)
-                         @item(Property @code(TTelemetryRecipient.StoredChannelsValues)
-                               renamed to TTelemetryRecipient.StoredChannels)
-                         @item(Property @code(TTelemetryRecipient.StoreChannelsValues)
-                               renamed to TTelemetryRecipient.StoreChannels)
-                         @item(Parameter @code(RegPrimaryType) of method
-                               TTelemetryRecipient.ChannelRegisterAll renamed to
-                               @code(RegisterPrimaryType))))
-    @item(2015-06-29 - Removed methods @code(TTelemetryRecipient.EventGetDataAsString)
-                       and @code(TTelemetryRecipient.ChannelGetValueAsString).
-                       Their replacements can now be found in TelemetyStrings
-                       unit (functions EventDataToStr and ChannelValueToStr).)
-    @item(2015-07-09 - Class of all exceptions changed to a proper internal
-                       class.)
-    @item(2015-07-09 - Added exceptions description into documentation.)
-    @item(2015-07-10 - Exceptions do not propagate from API callbacks anymore.)
-    @item(2015-07-14 - Simplified automated registration of indexed channels.))
-
 @html(<hr>)}
 unit TelemetryRecipient;
-
-{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
 
 interface
 
@@ -198,9 +47,10 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
-{$ENDIF}   
+  AuxTypes,
 {$IFDEF MulticastEvents}
   MulticastEvent,
+{$ENDIF}   
 {$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
@@ -212,7 +62,7 @@ uses
   TelemetryConversions,
   TelemetryStrings,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -259,9 +109,9 @@ type
   //:Event type used when telemetery channel callback occurs.
   TChannelEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer) of object;
   //:Event type used when config is parsed from configuration telemetry event.
-  TConfigEvent = procedure(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
+  TConfigEvent = procedure(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
-{$IFDEF IncludeMulticastEventHandlers}
+{$IFNDEF Documentation}
   {$DEFINE DeclarationPart}
     {$INCLUDE '.\Inc\TelemetryMulticastEvents.pas'}
   {$UNDEF DeclarationPart}
@@ -277,8 +127,8 @@ type
 {   TTelemetryRecipient // Class declaration                                   }
 {==============================================================================}
 {:
-  @abstract(@NoAutoLink(TTelemetryRecipient) is used as a main way to control
-  the telemetry API.)
+  @abstract(@NoAutoLink(TTelemetryRecipient) is used as a main mean of
+  controlling the telemetry API.)
 
   It provides methods for events and channels registration, unregistration and
   many others. It also provides object events that wraps API event and channel
@@ -557,8 +407,8 @@ type
   {:
     Method used for processing configuration events. It is called from
     EventHandler method when configuration event is received.@br
-    Received data are parsed and configuration informations are extracted and
-    stored in StoredConfigs list (StoreConfigurations must be @true).
+    Received data are parsed and configuration information are extracted and
+    stored in StoredConfigs list (StoreConfigurations must be @true for this).
     OnConfig event is called for every extracted config (after it is stored /
     its stored value changed).@br
     When ManageIndexedChannels is set to @true, then indexed channels are
@@ -604,7 +454,7 @@ type
   {:
     Calls hanler(s) of OnConfig event.
   }
-    procedure DoOnConfig(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
+    procedure DoOnConfig(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
   {:
     @returns Highest supported telemetry version.
   }
@@ -647,7 +497,7 @@ type
     class Function SupportsTelemetryAndGameVersion(TelemetryVersion: scs_u32_t; GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; override;
   {:
     @param TelemetryVersion Version of telemetry.
-    @param Parameters       Structure containing other version informations.
+    @param Parameters       Structure containing other version information.
 
     @returns(@True when given telemetry, game and its version are supported,
              otherwise @false.)
@@ -755,14 +605,16 @@ type
     Internal objects are automatically cleared in destructor, so it is
     not necessary to free them explicitly.@br
     Also, all registred telemetry events and channels are unregistered.
+    OnDestroy event is called from this method (after unregistrations, before
+    destruction of internal objects).
   }
     destructor Destroy; override;
   {:
-    Sets API informations (TelemetryVersion, GameID, GameVersion and GameName)
+    Sets API information (TelemetryVersion, GameID, GameVersion and GameName)
     from passed @noAutoLink(parameters).
 
     @param(TelemetryVersion Version of telemetry API.)
-    @param(Parameters       Structure containing other API informations.)
+    @param(Parameters       Structure containing other API information.)
   }
     procedure SetAPIInfo(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); virtual;
   {:
@@ -796,7 +648,7 @@ type
     procedure Log(LogType: scs_log_type_t; const LogText: String); overload; virtual;
   {:
     Use this method to write message to game log. Message will be written as
-    normal text (LogType set to SCS_LOG_TYPE_message).@br
+    normal text (LogType set to @code(SCS_LOG_TYPE_message)).@br
     Works only when cbLog callback is assigned.
 
     @param LogText Actual message text.
@@ -819,9 +671,8 @@ type
     When instance was created as automatically managed, a check whether
     requested event is already registered is performed. When it is, function
     returns @true but LastTelemetryResult is set to
-    SCS_RESULT_already_registered. User-managed instance does not perform this
-    check.
-
+    @code(SCS_RESULT_already_registered). User-managed instance does not perform
+    this check.
 
     @param Event    Event to be registered.
     @param(UserData Any user data. Passed pointer will be stored with event
@@ -851,7 +702,8 @@ type
     When instance was created as automatically managed, a check whether
     requested event is really registered is performed. When it is not, function
     returns @true but LastTelemetryResult is set to
-    SCS_RESULT_not_found. User-managed instance does not perform this check.
+    @code(SCS_RESULT_not_found). User-managed instance does not perform this
+    check.
 
     @param Event Event to be unregistered.
 
@@ -912,8 +764,8 @@ type
     When instance was created as automatically managed, a check whether
     requested channel is already registered is performed. When it is, function
     returns @true but LastTelemetryResult is set to
-    SCS_RESULT_already_registered. User-managed instance does not perform this
-    check.
+    @code(SCS_RESULT_already_registered). User-managed instance does not perform
+    this check.
 
     @param Name      Name of registered channel.
     @param Index     Index of registered channel.
@@ -944,7 +796,7 @@ type
     Function ChannelRegisterByIndex(Index: Integer; UserData: Pointer = nil): Boolean; virtual;
   {:
     Registers telemetry channel of a given name. Channel of this name must be
-    listed in known channels list as other informations required for
+    listed in known channels list as other information required for
     registration are taken from there.@br
     When channel is marked as indexed then all posible indices of such channel
     are registered.@br
@@ -967,7 +819,8 @@ type
     When instance was created as automatically managed, a check whether
     requested channel is really registered is performed. When it is not,
     function returns @true but LastTelemetryResult is set to
-    SCS_RESULT_not_found. User-managed instance does not perform this check.
+    @code(SCS_RESULT_not_found). User-managed instance does not perform this
+    check.
 
     @param Name      Name of channel to be unregistered.
     @param Index     Index of channel.
@@ -1013,7 +866,7 @@ type
     aware of for current telemetry and game version.@br
     When channel is marked as indexed, then all channel and index combinations
     are registered (see implementation of this method for details), otherwise
-    only channels with index set to SCS_U32_NIL are registered. When
+    only channels with index set to @code(SCS_U32_NIL) are registered. When
     ManageIndexedChannels property is set to @true, then top index for indexed
     channel registration is taken from appropriate stored configuration value
     (if such exists).@br
@@ -1028,7 +881,7 @@ type
 
     @Returns Number of successfully registered channels.
   }
-    Function ChannelRegisterAll(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;
+    Function ChannelRegisterAll(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: UInt32 = 0): Integer; virtual;
   {:
     Unregisters all channels listed in RegisteredChannels list.
 
@@ -1038,12 +891,12 @@ type
   {:
     Checks whether given config is stored in StoredConfigs list.
 
-    @param Name  Name of checked configuration.
-    @param Index Index of checked configuration.
+    @param ConfigReference  Full reference of config that is to be checked.
+    @param Index            Index of checked configuration.
 
     @returns @True when given config is found in list, otherwise @false.
   }
-    Function ConfigStored(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;
+    Function ConfigStored(ConfigReference: TConfigReference; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;
   {:
     Checks whether given channel is stored in StoredChannels list.
 
@@ -1176,7 +1029,7 @@ type
   {:
     Event called before destruction of instance. It is called AFTER all
     registered channels and events are unregistered and KeepUtilityEvents is set
-    to @false.
+    to @false, but before internal objects are freed.
   }
     property OnDestroy: TNotifyEvent read fOnDestroy write fOnDestroy;
   {:
@@ -1305,41 +1158,13 @@ Function RecipientGetChannelIDFromName(const Name: TelemetryString; Recipient: P
 }
 Function RecipientGetChannelNameFromID(ID: TChannelID; Recipient: Pointer): TelemetryString;
 
-{:
-  @abstract(Function intended as callback for streaming functions, converting
-            config name to ID.)
-  @code(UserData) passed to streaming function along with this callback must
-  contain valid TTelemetryRecipient object.
-
-  @param Name      Config name to be converted to ID.
-  @param(Recipient TTelemetryRecipient object that will be used for actual
-                   conversion.)
-
-  @returns Config ID obtained from passed name.
-}
-Function RecipientGetConfigIDFromName(const Name: TelemetryString; Recipient: Pointer): TConfigID;
-
-{:
-  @abstract(Function intended as callback for streaming functions, converting
-            ID to config name.)
-  @code(UserData) passed to streaming function along with this callback must
-  contain valid TTelemetryRecipient object.
-
-  @param ID        Config ID to be converted to name.
-  @param(Recipient TTelemetryRecipient object that will be used for actual
-                   conversion.)
-
-  @returns Config name obtained from passed ID.  
-}
-Function RecipientGetConfigNameFromID(ID: TConfigID; Recipient: Pointer): TelemetryString;
-
 implementation
 
 uses
   SysUtils, Math,
   TelemetryValueTypeUtils, TelemetryConversions, TelemetryStrings;
 
-{$IFDEF IncludeMulticastEventHandlers}
+{$IFNDEF Documentation}
   {$DEFINE ImplementationPart}
     {$INCLUDE '.\Inc\TelemetryMulticastEvents.pas'}
   {$UNDEF ImplementationPart}
@@ -1359,20 +1184,6 @@ end;
 Function RecipientGetChannelNameFromID(ID: TChannelID; Recipient: Pointer): TelemetryString;
 begin
 Result := TTelemetryRecipient(Recipient).TelemetryInfoProvider.KnownChannels.ChannelIDToName(ID);
-end;
-
-//------------------------------------------------------------------------------
-
-Function RecipientGetConfigIDFromName(const Name: TelemetryString; Recipient: Pointer): TConfigID;
-begin
-Result := TTelemetryRecipient(Recipient).TelemetryInfoProvider.KnownConfigs.ConfigNameToID(Name);
-end;
-
-//------------------------------------------------------------------------------
-
-Function RecipientGetConfigNameFromID(ID: TConfigID; Recipient: Pointer): TelemetryString;
-begin
-Result := TTelemetryRecipient(Recipient).TelemetryInfoProvider.KnownConfigs.ConfigIDToName(ID);
 end;
 
 
@@ -1401,7 +1212,7 @@ try
       {$IFDEF Debug}
         on E: ETLException do
           TTelemetryRecipient(PEventContext(context)^.Recipient).Log(SCS_LOG_TYPE_error,
-            Format('[Telemetry Library](ECB) Exception intercepted: "%s"',[E.Message]));
+            Format('[Telemetry Library](EventReceiver) Exception intercepted: "%s"',[E.Message]));
       {$ENDIF}
       end;
 except
@@ -1424,7 +1235,7 @@ try
       {$IFDEF Debug}
         on E: ETLException do
           TTelemetryRecipient(PEventContext(context)^.Recipient).Log(SCS_LOG_TYPE_error,
-            Format('[Telemetry Library](CCB) Exception intercepted: "%s"',[E.Message]));
+            Format('[Telemetry Library](ChannelReceiver) Exception intercepted: "%s"',[E.Message]));
       {$ENDIF}
       end;
 except
@@ -1516,21 +1327,23 @@ end;
 
 procedure TTelemetryRecipient.ProcessConfigurationEvent(const Data: scs_telemetry_configuration_t);
 var
-  TempName:   TelemetryString;
-  TempAttr:   p_scs_named_value_t;
-  TempValue:  scs_value_localized_t;
+  TempAttr:       p_scs_named_value_t;
+  TempReference:  TConfigReference;
+  TempValue:      scs_value_localized_t;
 
-  procedure ManageBindedChannels(ConfigID: TConfigID; NewMaxIndex: scs_u32_t);
+  procedure ManageBindedChannels(ConfigReference: TConfigReference; NewMaxIndex: scs_u32_t);
   var
-    i,j:          Integer;
+    i,j:  Integer;
   begin
     // Unregister all channels above current max index.
     For i := (fRegisteredChannels.Count - 1) downto 0 do
-      If fRegisteredChannels[i].IndexConfigID = ConfigID then
+      If TelemetrySameText(fRegisteredChannels[i].IndexConfig.ID,ConfigReference.ID) and
+         TelemetrySameText(fRegisteredChannels[i].IndexConfig.Attribute,ConfigReference.Attribute) then
         If fRegisteredChannels[i].Index > NewMaxIndex then ChannelUnregisterIndex(i);
-    // Register new channels up to current max index.      
+    // Register new channels up to current max index.
     For i := 0 to (fInfoProvider.KnownChannels.Count - 1) do
-      If fInfoProvider.KnownChannels[i].IndexConfigID = ConfigID then
+      If TelemetrySameText(fInfoProvider.KnownChannels[i].IndexConfig.ID,ConfigReference.ID) and
+         TelemetrySameText(fInfoProvider.KnownChannels[i].IndexConfig.Attribute,ConfigReference.Attribute) then
         For j := 0 to NewMaxIndex do
           If not ChannelRegistered(fInfoProvider.KnownChannels[i].Name,j,fInfoProvider.KnownChannels[i].PrimaryType) then
             ChannelRegister(fInfoProvider.KnownChannels[i].Name,j,fInfoProvider.KnownChannels[i].PrimaryType,SCS_TELEMETRY_CHANNEL_FLAG_none);
@@ -1540,15 +1353,16 @@ begin
 TempAttr := Data.attributes;
 while Assigned(TempAttr^.name) do
   begin
-    TempName := APIStringToTelemetryString(Data.id) + ConfigFieldsSeparator + APIStringToTelemetryString(TempAttr^.name);
+    TempReference.ID := APIStringToTelemetryString(Data.id);
+    TempReference.Attribute := APIStringToTelemetryString(TempAttr^.name);
     TempValue := scs_value_localized(TempAttr^.value);
     If AllowAutoRegistration and ManageIndexedChannels then
-      If (TempAttr^.value._type = SCS_VALUE_TYPE_u32) and fInfoProvider.KnownConfigs.IsBinded(TempName) then
-        ManageBindedChannels(GetItemID(TempName),TempAttr^.value.value_u32.value - 1);
+      If (TempAttr^.value._type = SCS_VALUE_TYPE_u32) and fInfoProvider.KnownConfigs.IsBinded(TempReference) then
+        ManageBindedChannels(TempReference,TempAttr^.value.value_u32.value - 1);
     If StoreConfigurations then
-      If fStoredConfigs.ChangeConfigValue(TempName,TempAttr^.index,TempValue) < 0 then
-        fStoredConfigs.Add(TempName,TempAttr^.index,TempValue,fInfoProvider.KnownConfigs.IsBinded(TempName));
-    DoOnConfig(Self,TempName,GetItemID(TempName),TempAttr^.index,TempValue);
+      If fStoredConfigs.ChangeConfigValue(TempReference,TempAttr^.index,TempValue) < 0 then
+        fStoredConfigs.Add(TempReference,TempAttr^.index,TempValue,fInfoProvider.KnownConfigs.IsBinded(TempReference));  
+    DoOnConfig(Self,TempReference,TempAttr^.index,TempValue);
     Inc(TempAttr);
   end;
 end;
@@ -1631,7 +1445,8 @@ end;
 
 procedure TTelemetryRecipient.DoOnChannel(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer);
 begin
-If StoreChannels then fStoredChannels.StoreChannelValue(Name,ID,Index,Value);
+If StoreChannels then
+  fStoredChannels.StoreChannelValue(Name,ID,Index,Value);
 If Assigned(fOnChannel) then fOnChannel(Sender,Name,ID,Index,Value,UserData);
 {$IFDEF MulticastEvents}
 fOnChannelMulti.Call(Sender,Name,ID,Index,Value,UserData);
@@ -1640,11 +1455,11 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryRecipient.DoOnConfig(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryRecipient.DoOnConfig(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
-If Assigned(fOnConfig) then fOnConfig(Sender,Name,ID,Index,Value);
+If Assigned(fOnConfig) then fOnConfig(Sender,ConfigReference,Index,Value);
 {$IFDEF MulticastEvents}
-fOnConfigMulti.Call(Sender,Name,ID,Index,Value);
+fOnConfigMulti.Call(Sender,ConfigReference,Index,Value);
 {$ENDIF}
 end;
 
@@ -1731,8 +1546,8 @@ end;
 constructor TTelemetryRecipient.CommonCreate;
 begin
 inherited Create;
-// These fields are filled in preparation routines, so they must be initialized
-// before these routines are called.
+// These fields are not filled in inherited preparation routines, so they must
+// be initialized before these routines are called.
 fTelemetryVersion := SCS_U32_NIL;
 fGameName := '';
 fGameID := '';
@@ -2081,7 +1896,7 @@ else
       begin
         NewChannelContext := fRegisteredChannels.CreateContext(Self,Name,Index,ValueType,Flags,
                                fInfoProvider.KnownChannels.ChannelIndexConfigID(Name),UserData);
-        fLastTelemetryResult := cbRegisterChannel(scs_string_t(Name),Index,ValueType,Flags,ChannelReceiver,NewChannelContext);
+        fLastTelemetryResult := cbRegisterChannel(APIString(Name),Index,ValueType,Flags,ChannelReceiver,NewChannelContext);
         If LastTelemetryResult  = SCS_RESULT_ok then
           begin
             If fRegisteredChannels.Add(NewChannelContext) >= 0 then
@@ -2115,9 +1930,9 @@ If Assigned(cbRegisterChannel) and (Index >= 0) and (Index < fInfoProvider.Known
           MaxIndex := KnownChannelInfo.MaxIndex
         else
           MaxIndex := MaxChannelIndex;
-        If ManageIndexedChannels and (KnownChannelInfo.IndexConfigID <> 0) then
+        If ManageIndexedChannels and ValidConfigReference(KnownChannelInfo.IndexConfig) then
           begin
-            Index := fStoredConfigs.IndexOf(KnownChannelInfo.IndexConfigID);
+            Index := fStoredConfigs.IndexOf(KnownChannelInfo.IndexConfig);
             If Index >= 0 then
               If fStoredConfigs[Index].Value.ValueType = SCS_VALUE_TYPE_u32 then
                 MaxIndex := fStoredConfigs[Index].Value.BinaryData.value_u32.value - 1;
@@ -2214,7 +2029,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.ChannelRegisterAll(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer;
+Function TTelemetryRecipient.ChannelRegisterAll(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: UInt32 = 0): Integer;
 var
   i,j:                Integer;
   KnownChannelInfo:   TKnownChannel;
@@ -2240,13 +2055,13 @@ If Assigned(cbRegisterChannel) then
           // Channel is indexed.
           // If channel is binded to some configuration, and this config is found,
           // then value from config is used as upper index limit, otherwise
-          // MaxIndex for given channel is used (cMaxChannelIndex constant is used
+          // MaxIndex for given channel is used (MaxChannelIndex constant is used
           // if MaxIndex for given channel is not properly set).
           If KnownChannelInfo.MaxIndex <> SCS_U32_NIL then MaxIdx := KnownChannelInfo.MaxIndex
             else MaxIdx := MaxChannelIndex;
-          If ManageIndexedChannels and (KnownChannelInfo.IndexConfigID <> 0) then
+          If ManageIndexedChannels and ValidConfigReference(KnownChannelInfo.IndexConfig) then
             begin
-              j := fStoredConfigs.IndexOf(KnownChannelInfo.IndexConfigID);
+              j := fStoredConfigs.IndexOf(KnownChannelInfo.IndexConfig);
               If j >= 0 then
                 If fStoredConfigs[j].Value.ValueType = SCS_VALUE_TYPE_u32 then
                   MaxIdx := fStoredConfigs[j].Value.BinaryData.value_u32.value - 1;
@@ -2285,9 +2100,9 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryRecipient.ConfigStored(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean;
+Function TTelemetryRecipient.ConfigStored(ConfigReference: TConfigReference; Index: scs_u32_t = SCS_U32_NIL): Boolean;
 begin
-Result := fStoredConfigs.IndexOf(Name,Index) >= 0;
+Result := fStoredConfigs.IndexOf(ConfigReference,Index) >= 0;
 end;
 
 //------------------------------------------------------------------------------

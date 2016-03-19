@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Information provider class (known telemetry events, channels, etc.).)
+@abstract(Information provider class (known telemetry events, channels, ...).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
 @lastmod(2015-07-14)
@@ -15,56 +15,10 @@
 
   ©František Milt, all rights reserved.
 
-  This unit contains TTelemetryInfoProvider class (see class declaration for
-  details).
-
   Last change: 2015-07-14
 
-  Change List:@unorderedList(
-    @item(2013-10-07 - First stable version.)
-    @item(2014-04-15 - Type of parameter @code(Name) in method
-                       TTelemetryInfoProvider.ChannelGetValueType changed to
-                       @code(TelemetryString).)
-    @item(2014-04-18 - Result type of method TTelemetryInfoProvider.EventGetName
-                       changed to @code(TelemetryString).)
-    @item(2014-04-27 - Added constructor mehod
-                       TTelemetryInfoProvider.CreateCurrent.)
-    @item(2014-05-04 - Following callback functions were added:@unorderedList(
-                         @itemSpacing(Compact)
-                         @item(InfoProviderGetChannelIDFromName)
-                         @item(InfoProviderGetChannelNameFromID)
-                         @item(InfoProviderGetConfigIDFromName)
-                         @item(InfoProviderGetConfigNameFromID)))
-    @item(2014-10-23 - Added support for eut2 1.9.)
-    @item(2014-10-24 - Type of paramter @code(GameID) in first parametrized
-                       constructor of class TTelemetryInfoProvider changed to
-                       @code(TelemetryString).)
-    @item(2014-11-07 - Added support for eut2 1.10.)
-    @item(2014-11-07 - Implementation changes (new channels are not inserted to
-                       the lists, they are only added).)
-    @item(2014-11-24 - Changes due to a new system of storing and passing
-                       secondary types of channel value. These changes include:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(Reimplemented method
-                               TTelemetryInfoProvider.ChannelGetValueType)
-                         @item(Added new variant of method
-                               TTelemetryInfoProvider.ChannelGetValueType)
-                         @item(Reimplemented all additions of known channels to
-                               the list)))
-    @item(2015-06-28 - Type TChannelValueTypePriority and method
-                       TTelemetryInfoProvider.ChannelGetValueType that is using
-                       this type in one of its parameters are now both marked as
-                       deprecated.)
-    @item(2015-06-28 - Removed file inclusion, all content moved directly into
-                       this unit.)
-    @item(2015-07-09 - Class of all exceptions changed to a proper internal
-                       class.)
-    @item(2015-07-09 - Added exceptions description into documentation.)
-    @item(2015-07-14 - Attribute @code(id) in configuration @code(substances)
-                       is now indexed.)
-    @item(2015-07-14 - Added constants def_ChannelWheelCount and
-                       def_ChannelSelectorCount.))
+  This unit contains TTelemetryInfoProvider class (see class declaration for
+  details).
 
   ToDo:@unorderedList(
   @item(Add capability for loading information from file (text, ini, resources).))    
@@ -84,13 +38,14 @@ uses
 {$IFDEF Documentation}
   TelemetryCommon,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry,
   scssdk_telemetry_event,
+  scssdk_telemetry_common_configs,
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels;
@@ -101,25 +56,6 @@ uses
 {                            TTelemetryInfoProvider                            }
 {------------------------------------------------------------------------------}
 {==============================================================================}
-
-const
-  //:@abstract(Default number of wheels for appropriate indexed channels.)
-  //:Used to be 8 in the past.
-  def_ChannelWheelCount = 14;
-  //:Defualt number of selectors for indexed channel
-  //:@code(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector).
-  def_ChannelSelectorCount = 2;
-
-type
-{: @deprecated
-  Used to distinguish which value type should method
-  TTelemetryInfoProvider.ChannelGetValueType return for given channel.
-  @value(cvtpPrimary   Basic value type.)
-  @value(cvtpSecondary Second used type (e.g. double for float types, u64 for
-                       u32, ...).)
-  @value(cvtpTertiary  Third type (e.g. euler for [f/d]placement).)
-}
-  TChannelValueTypePriority = (cvtpPrimary, cvtpSecondary, cvtpTertiary){$IFDEF FPC}deprecated{$ENDIF};
 
 {==============================================================================}
 {   TTelemetryInfoProvider // Class declaration                                }
@@ -139,6 +75,7 @@ type
   accordingly to them, if they are not supported, the constructor raises an
   exception.
 }
+type
   TTelemetryInfoProvider = class(TTelemetryVersionPrepareObject)
   private
   {:
@@ -146,19 +83,27 @@ type
     it is managed automatically).@br
     This field is set automatically in constructor(s).
   }
-    fUserManaged:   Boolean;
+    fUserManaged:       Boolean;
   {:
     See KnownEvents property.
   }
-    fKnownEvents:   TKnownEventsList;
+    fKnownEvents:       TKnownEventsList;
   {:
     See KnownChannels property.
   }
-    fKnownChannels: TKnownChannelsList;
+    fKnownChannels:     TKnownChannelsList;
   {:
     See KnownConfigs property.
   }
-    fKnownConfigs:  TKnownConfigsList;
+    fKnownConfigs:      TKnownConfigsList;
+  {:
+    See MaxWheelCount property.
+  }
+    fMaxWheelCount:     scs_u32_t;
+  {:
+    See MaxSelectorCount property.
+  }
+    fMaxSelectorCount:  scs_u32_t;
   protected
   {:
     Preparation for telemetry 1.0.
@@ -227,7 +172,12 @@ type
 
     @param TelemetryVersion Version of telemetry.
     @param(Parameters       Structure containing other necessary game and
-                            version informations.)
+                            version information.)
+
+    @raises(ETLUnsupportedAPI  When telemetry version is not supported by this
+                               class or when preparation for it fails.)
+    @raises(ETLUnsupportedGame When game and/or its version is not supported by
+                               this class or when preparation for it fails.)                            
   }
     constructor Create(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t); overload;
   {:
@@ -264,17 +214,6 @@ type
              known.)
   }
     Function EventGetName(Event: scs_event_t): TelemetryString; virtual;
-  {:@deprecated   
-    Returns type of value for given channel and selected priority.
-
-    @param Name         Name of requested channel.
-    @param TypePriority Priority of value type that should be returned.
-
-    @returns(Type of value for selected channel and priority. When requested
-             channel is not found, @code(SCS_VALUE_TYPE_INVALID) is returned.)
-  }             
-    Function ChannelGetValueType(const Name: TelemetryString; TypePriority: TChannelValueTypePriority = cvtpPrimary): scs_value_type_t; overload; virtual;
-      deprecated {$IFDEF DeprecatedMessage}'Please use other methods with the same name instead of this one.'{$ENDIF};
   {:
     Returns type of value for given channel and selected priority.
 
@@ -299,17 +238,29 @@ type
   }
     property UserManaged: Boolean read fUserManaged;
   {:
-    List containing informations about known telemetry events.
+    List containing information about known telemetry events.
   }
     property KnownEvents: TKnownEventsList read fKnownEvents;
   {:
-    List containing informations about known telemetry channels.
+    List containing information about known telemetry channels.
   }
     property KnownChannels: TKnownChannelsList read fKnownChannels;
   {:
-    List containing informations about known telemetry configs.
+    List containing information about known telemetry configs.
   }
     property KnownConfigs: TKnownConfigsList read fKnownConfigs;
+  {:
+    Maximum number of wheels for appropriate indexed channels.@br
+    Default value 8. Should be set to maximum number of supported wheels
+    in user-managed mode.
+  }
+    property MaxWheelCount: scs_u32_t read fMaxWheelCount write fMaxWheelCount;
+  {:
+    Maximum number of selectors for appropriate indexed channel.@br
+    Default value 2. Should be set to maximum number of supported selectors
+    in user-managed mode.
+  }
+    property MaxSelectorCount: scs_u32_t read fMaxSelectorCount write fMaxSelectorCount;
   end;
 
 {==============================================================================}
@@ -344,34 +295,6 @@ Function InfoProviderGetChannelIDFromName(const Name: TelemetryString; Telemetry
 }
 Function InfoProviderGetChannelNameFromID(ID: TChannelID; TelemetryInfoProvider: Pointer): TelemetryString;
 
-{:
-  @abstract(Function intended as callback for streaming functions, converting
-            config name to ID.)
-  @code(UserData) passed to streaming function along with this callback must
-  contain valid TTelemetryInfoProvider object.
-
-  @param Name                  Config name to be converted to ID.
-  @param(TelemetryInfoProvider TTelemetryInfoProvider object that will be used
-                               for actual conversion.)
-
-  @returns Config ID obtained from passed name.
-}
-Function InfoProviderGetConfigIDFromName(const Name: TelemetryString; TelemetryInfoProvider: Pointer): TConfigID;
-
-{:
-  @abstract(Function intended as callback for streaming functions, converting
-            ID to config name.)
-  @code(UserData) passed to streaming function along with this callback must
-  contain valid TTelemetryInfoProvider object.
-
-  @param ID                    Config ID to be converted to name.
-  @param(TelemetryInfoProvider TTelemetryInfoProvider object that will be used
-                               for actual conversion.)
-
-  @returns Config name obtained from passed ID.
-}
-Function InfoProviderGetConfigNameFromID(ID: TConfigID; TelemetryInfoProvider: Pointer): TelemetryString;
-
 
 implementation
 
@@ -395,20 +318,6 @@ begin
 Result := TTelemetryInfoProvider(TelemetryInfoProvider).KnownChannels.ChannelIDToName(ID);
 end;
 
-//------------------------------------------------------------------------------
-
-Function InfoProviderGetConfigIDFromName(const Name: TelemetryString; TelemetryInfoProvider: Pointer): TConfigID;
-begin
-Result := TTelemetryInfoProvider(TelemetryInfoProvider).KnownConfigs.ConfigNameToID(Name);
-end;
-
-//------------------------------------------------------------------------------
-
-Function InfoProviderGetConfigNameFromID(ID: TConfigID; TelemetryInfoProvider: Pointer): TelemetryString;
-begin
-Result := TTelemetryInfoProvider(TelemetryInfoProvider).KnownConfigs.ConfigIDToName(ID);
-end;
-
 {==============================================================================}
 {------------------------------------------------------------------------------}
 {                            TTelemetryInfoProvider                            }
@@ -426,6 +335,9 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Telemetry_1_0;
 begin
 inherited;
+fMaxWheelCount := 8;
+fMaxSelectorCount := 2;
+
 //=== Adding Events ============================================================
 // Adding known events to internal list.
 
@@ -445,108 +357,108 @@ with fKnownEvents do
 with fKnownChannels do
   begin
     //--- Global ---------------------------------------------------------------
-    Add(SCS_TELEMETRY_CHANNEL_local_scale,                        SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_CHANNEL_local_scale,                        SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
 
     //--- Trailer specific -----------------------------------------------------
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_connected,                  SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_connected,                  SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
     // Movement
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement,            SCS_VALUE_TYPE_dplacement, False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity,      SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity,     SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration,  SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration, SCS_VALUE_TYPE_fvector,    False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_world_placement,            SCS_VALUE_TYPE_dplacement, False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_velocity,      SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_velocity,     SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_linear_acceleration,  SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_local_angular_acceleration, SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
     // Damage
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis,               SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis,               SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Wheels
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection,      SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance,            SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation,             SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_susp_deflection,      SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_trailer,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_on_ground,            SCS_VALUE_TYPE_bool,       True,  ConfigReference(SCS_TELEMETRY_CONFIG_trailer,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_substance,            SCS_VALUE_TYPE_u32,        True,  ConfigReference(SCS_TELEMETRY_CONFIG_trailer,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_velocity,             SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_trailer,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_steering,             SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_trailer,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRAILER_CHANNEL_wheel_rotation,             SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_trailer,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
 
     //--- Truck specific -------------------------------------------------------
     // Movement
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,              SCS_VALUE_TYPE_dplacement, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,        SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,       SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,    SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration,   SCS_VALUE_TYPE_fvector,    False);
-    Add('truck.cabin.orientation',                                SCS_VALUE_TYPE_fplacement, False); // later replaced with cabin_offset
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,       SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration,   SCS_VALUE_TYPE_fvector,    False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,                  SCS_VALUE_TYPE_fplacement, False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                        SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_world_placement,              SCS_VALUE_TYPE_dplacement, False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_velocity,        SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_velocity,       SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_linear_acceleration,    SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_local_angular_acceleration,   SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add('truck.cabin.orientation',                                SCS_VALUE_TYPE_fplacement, False, EmptyConfigReference); // later replaced with cabin_offset
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_velocity,       SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cabin_angular_acceleration,   SCS_VALUE_TYPE_fvector,    False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_head_offset,                  SCS_VALUE_TYPE_fplacement, False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_speed,                        SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Engine
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                   SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                  SCS_VALUE_TYPE_s32,        False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_rpm,                   SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear,                  SCS_VALUE_TYPE_s32,        False, EmptyConfigReference);
     // Driving
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering,               SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle,               SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake,                  SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch,                 SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,           SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,           SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,              SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,             SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control,               SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_steering,               SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_throttle,               SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_brake,                  SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_input_clutch,                 SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_steering,           SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_throttle,           SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_brake,              SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_effective_clutch,             SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_cruise_control,               SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Gearbox
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot,                SCS_VALUE_TYPE_u32,        False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector,            SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,def_ChannelSelectorCount - 2);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_slot,                SCS_VALUE_TYPE_u32,        False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_hshifter_selector,            SCS_VALUE_TYPE_bool,       True,  ConfigReference(SCS_TELEMETRY_CONFIG_hshifter,SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count), MaxSelectorCount - 1);
     // Brakes
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake,                SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake,                  SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level,               SCS_VALUE_TYPE_u32,        False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure,           SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning,   SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature,            SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake,                SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_motor_brake,                  SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_retarder_level,               SCS_VALUE_TYPE_u32,        False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure,           SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_warning,   SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_temperature,            SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Consumables
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel,                         SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning,                 SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption,     SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                       SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,               SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption,   SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel,                         SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning,                 SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption,     SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                       SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,               SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption,   SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Oil
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure,                 SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning,         SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature,              SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure,                 SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning,         SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_temperature,              SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Temperature
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature,            SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning,    SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature,            SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_water_temperature_warning,    SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
     // Battery
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage,              SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning,      SCS_VALUE_TYPE_bool,       False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage,              SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_battery_voltage_warning,      SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
     // Enabled state of various elements
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled,             SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled,               SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker,                     SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker,                     SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking,                SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam,               SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam,              SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front,              SCS_VALUE_TYPE_u32,        False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof,               SCS_VALUE_TYPE_u32,        False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon,                 SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake,                  SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse,                SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wipers,                       SCS_VALUE_TYPE_bool,       False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight,          SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_electric_enabled,             SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_engine_enabled,               SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_lblinker,                     SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_rblinker,                     SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_parking,                SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_low_beam,               SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_high_beam,              SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_front,              SCS_VALUE_TYPE_u32,        False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_aux_roof,               SCS_VALUE_TYPE_u32,        False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_beacon,                 SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_brake,                  SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_reverse,                SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wipers,                       SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight,          SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Wear
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine,                  SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission,            SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin,                   SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis,                 SCS_VALUE_TYPE_float,      False);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels,                  SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_engine,                  SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_transmission,            SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_cabin,                   SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_chassis,                 SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wear_wheels,                  SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Odometer
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_odometer,                     SCS_VALUE_TYPE_float,      False);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_odometer,                     SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     // Wheels
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,        SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground,              SCS_VALUE_TYPE_bool,       True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance,              SCS_VALUE_TYPE_u32,        True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
-    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation,               SCS_VALUE_TYPE_float,      True, SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,def_ChannelWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_susp_deflection,        SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground,              SCS_VALUE_TYPE_bool,       True,  ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_substance,              SCS_VALUE_TYPE_u32,        True,  ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_velocity,               SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_steering,               SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+    Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_rotation,               SCS_VALUE_TYPE_float,      True,  ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
   end;
 
 //=== Adding Configs ===========================================================
@@ -554,43 +466,43 @@ with fKnownChannels do
 
 with fKnownConfigs do
   begin
-    Add(SCS_TELEMETRY_CONFIG_substances_ATTRIBUTE_id,                   SCS_VALUE_TYPE_string,  True);
-    Add(SCS_TELEMETRY_CONFIG_controls_ATTRIBUTE_shifter_type,           SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_selector_count,         SCS_VALUE_TYPE_u32,     False, True);
-    Add(SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_gear,              SCS_VALUE_TYPE_s32,     True);
-    Add(SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_handle_position,   SCS_VALUE_TYPE_u32,     True);
-    Add(SCS_TELEMETRY_CONFIG_hshifter_ATTRIBUTE_slot_selectors,         SCS_VALUE_TYPE_u32,     True);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand_id,                  SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_brand,                     SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_id,                        SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_name,                      SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_capacity,             SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_fuel_warning_factor,       SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_adblue_capacity,           SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_warning,      SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_oil_pressure_warning,      SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_water_temperature_warning, SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_battery_voltage_warning,   SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_rpm_limit,                 SCS_VALUE_TYPE_float,   False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_forward_gear_count,        SCS_VALUE_TYPE_u32,     False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_reverse_gear_count,        SCS_VALUE_TYPE_u32,     False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_retarder_step_count,       SCS_VALUE_TYPE_u32,     False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_cabin_position,            SCS_VALUE_TYPE_fvector, False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_head_position,             SCS_VALUE_TYPE_fvector, False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_hook_position,             SCS_VALUE_TYPE_fvector, False);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,               SCS_VALUE_TYPE_u32,     False, True);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_position,            SCS_VALUE_TYPE_fvector, True);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_steerable,           SCS_VALUE_TYPE_bool,    True);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_simulated,           SCS_VALUE_TYPE_bool,    True);
-    Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_radius,              SCS_VALUE_TYPE_float,   True);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_id,                      SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_cargo_accessory_id,      SCS_VALUE_TYPE_string,  False);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_hook_position,           SCS_VALUE_TYPE_fvector, False);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_count,             SCS_VALUE_TYPE_u32,     False, True);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_position,          SCS_VALUE_TYPE_fvector, True);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_steerable,         SCS_VALUE_TYPE_bool,    True);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_simulated,         SCS_VALUE_TYPE_bool,    True);
-    Add(SCS_TELEMETRY_CONFIG_trailer_ATTRIBUTE_wheel_radius,            SCS_VALUE_TYPE_float,   True);
+    Add(SCS_TELEMETRY_CONFIG_substances,SCS_TELEMETRY_CONFIG_ATTRIBUTE_id,                        SCS_VALUE_TYPE_string,  True);
+    Add(SCS_TELEMETRY_CONFIG_controls,  SCS_TELEMETRY_CONFIG_ATTRIBUTE_shifter_type,              SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_hshifter,  SCS_TELEMETRY_CONFIG_ATTRIBUTE_selector_count,            SCS_VALUE_TYPE_u32,     False, True);
+    Add(SCS_TELEMETRY_CONFIG_hshifter,  SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_gear,                 SCS_VALUE_TYPE_s32,     True);
+    Add(SCS_TELEMETRY_CONFIG_hshifter,  SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_handle_position,      SCS_VALUE_TYPE_u32,     True);
+    Add(SCS_TELEMETRY_CONFIG_hshifter,  SCS_TELEMETRY_CONFIG_ATTRIBUTE_slot_selectors,            SCS_VALUE_TYPE_u32,     True);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand_id,                  SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_brand,                     SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_id,                        SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_name,                      SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity,             SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_warning_factor,       SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity,           SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning,      SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_oil_pressure_warning,      SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning, SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning,   SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_rpm_limit,                 SCS_VALUE_TYPE_float,   False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_gear_count,        SCS_VALUE_TYPE_u32,     False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_gear_count,        SCS_VALUE_TYPE_u32,     False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_retarder_step_count,       SCS_VALUE_TYPE_u32,     False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_cabin_position,            SCS_VALUE_TYPE_fvector, False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_head_position,             SCS_VALUE_TYPE_fvector, False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position,             SCS_VALUE_TYPE_fvector, False);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count,               SCS_VALUE_TYPE_u32,     False, True);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position,            SCS_VALUE_TYPE_fvector, True);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable,           SCS_VALUE_TYPE_bool,    True);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated,           SCS_VALUE_TYPE_bool,    True);
+    Add(SCS_TELEMETRY_CONFIG_truck,     SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius,              SCS_VALUE_TYPE_float,   True);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_id,                        SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id,        SCS_VALUE_TYPE_string,  False);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_hook_position,             SCS_VALUE_TYPE_fvector, False);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count,               SCS_VALUE_TYPE_u32,     False, True);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_position,            SCS_VALUE_TYPE_fvector, True);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_steerable,           SCS_VALUE_TYPE_bool,    True);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_simulated,           SCS_VALUE_TYPE_bool,    True);
+    Add(SCS_TELEMETRY_CONFIG_trailer,   SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_radius,              SCS_VALUE_TYPE_float,   True);
   end;
 end;
 
@@ -609,8 +521,8 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_1;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency,SCS_VALUE_TYPE_bool,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_air_pressure_emergency,SCS_VALUE_TYPE_float,False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_brake_air_pressure_emergency,SCS_VALUE_TYPE_bool,False,EmptyConfigReference);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency,SCS_VALUE_TYPE_float,False);
 end;
 
 //------------------------------------------------------------------------------
@@ -618,7 +530,7 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_2;
 begin
 inherited;
-fKnownChannels.Replace('truck.cabin.orientation',SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_VALUE_TYPE_fplacement,False);
+fKnownChannels.Replace('truck.cabin.orientation',SCS_TELEMETRY_TRUCK_CHANNEL_cabin_offset,SCS_VALUE_TYPE_fplacement,False,EmptyConfigReference);
 end;
 
 //------------------------------------------------------------------------------
@@ -626,8 +538,8 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_4;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker,SCS_VALUE_TYPE_bool,False);
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker,SCS_VALUE_TYPE_bool,False);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_lblinker,SCS_VALUE_TYPE_bool,False,EmptyConfigReference);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_light_rblinker,SCS_VALUE_TYPE_bool,False,EmptyConfigReference);
 end;
 
 //------------------------------------------------------------------------------
@@ -635,21 +547,21 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_9;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_game_time,SCS_VALUE_TYPE_u32,False);
-fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_next_rest_stop,SCS_VALUE_TYPE_s32,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_cargo_mass,SCS_VALUE_TYPE_float,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_city,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_destination_company,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_city,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_source_company,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_income,SCS_VALUE_TYPE_u64,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job_ATTRIBUTE_delivery_time,SCS_VALUE_TYPE_u32,False);
+fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_game_time,SCS_VALUE_TYPE_u32,False,EmptyConfigReference);
+fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_next_rest_stop,SCS_VALUE_TYPE_s32,False,EmptyConfigReference);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass,SCS_VALUE_TYPE_float,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company,SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_income,SCS_VALUE_TYPE_u64,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time,SCS_VALUE_TYPE_u32,False);
 end;
 
 //------------------------------------------------------------------------------
@@ -657,9 +569,9 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_10;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,SCS_VALUE_TYPE_float,True,SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,SCS_VALUE_TYPE_float,True,SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_count,7);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck_ATTRIBUTE_wheel_liftable,SCS_VALUE_TYPE_bool,True);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,SCS_VALUE_TYPE_float,True,ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,SCS_VALUE_TYPE_float,True,ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable,SCS_VALUE_TYPE_bool,True);
 end;
 
 {------------------------------------------------------------------------------}
@@ -675,6 +587,8 @@ fUserManaged := True;
 fKnownEvents := TKnownEventsList.Create;
 fKnownChannels := TKnownChannelsList.Create;
 fKnownConfigs := TKnownConfigsList.Create;
+fMaxWheelCount := 8;
+fMaxSelectorCount := 2;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
@@ -740,28 +654,6 @@ begin
 Index := fKnownEvents.IndexOf(Event);
 If Index >= 0 then Result := fKnownEvents[Index].Name
   else Result := '';
-end;
-
-//------------------------------------------------------------------------------
-
-Function TTelemetryInfoProvider.ChannelGetValueType(const Name: TelemetryString; TypePriority: TChannelValueTypePriority = cvtpPrimary): scs_value_type_t;
-var
-  Index:  Integer;
-  Types:  TValueTypesArray;
-begin
-Index := fKnownChannels.IndexOf(Name);
-If Index >= 0 then
-  begin
-    Types := BitmaskValueTypesAddPrimary(fKnownChannels[Index].SecondaryTypes,fKnownChannels[Index].PrimaryType);
-    case TypePriority of
-      cvtpPrimary:    Result := Types[0];
-      cvtpSecondary:  Result := Types[1];
-      cvtpTertiary:   Result := Types[2];
-    else
-      Result := SCS_VALUE_TYPE_invalid;
-    end;
-  end
-else Result := SCS_VALUE_TYPE_invalid;
 end;
 
 //------------------------------------------------------------------------------

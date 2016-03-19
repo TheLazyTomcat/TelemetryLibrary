@@ -14,55 +14,23 @@
 
   @bold(@NoAutoLink(TelemetryLogBinary))
 
-  ©František Milt, all rights reserved.
+  ©2013-2015 František Milt, all rights reserved.
+
+  Last change: 2015-07-10
 
   This unit contains classes that are designed to write binary logs, namely:
 @preformatted(
   TTelemetryLogBinaryWriter
-   |- TTelemetryLogBinaryWriter_1
-       |- TTelemetryLogBinaryWriter_0
+   |- TTelemetryLogBinaryWriter_0
+       |- TTelemetryLogBinaryWriter_1
 
   TTelemetryLogBinaryStream
    |- TTelemetryLogBinaryFile
 )
 
-  Last change: 2015-07-10
-
-  Change List:@unorderedList(
-    @item(2014-05-18 - First stable version.)
-    @item(2014-10-24 - Small implementation changes.)
-    @item(2014-11-05 - Type of parameter @code(Size) changed from signed to
-                       unsigned integer in following functions:@unorderedList(
-                        @itemSpacing(Compact)
-                        @item(TTelemetryLogBinaryWriter.LogData)
-                        @item(TTelemetryLogBinaryWriter_1.LogData)
-                        @item(TTelemetryLogBinaryStream.LogData)))
-    @item(2014-11-05 - Added parameter @code(UserData) to following methods:
-                       @unorderedList(
-                         @itemSpacing(Compact)
-                         @item(TTelemetryLogBinaryStream.EventRegisterHandler)
-                         @item(TTelemetryLogBinaryStream.EventUnregisterHandler)
-                         @item(TTelemetryLogBinaryStream.EventHandler)
-                         @item(TTelemetryLogBinaryStream.ChannelRegisterHandler)
-                         @item(TTelemetryLogBinaryStream.ChannelUnregisterHandler)
-                         @item(TTelemetryLogBinaryStream.ChannelHandler)))
-    @item(2015-06-30 - Constant @code(cMinimumAPIInfoSectionSize) renamed to
-                       MinimumAPIInfoSectionSize.)
-    @item(2015-06-30 - Constant @code(LB_MAGIC_NUMBER) renamed to LB_SIGNATURE.)
-    @item(2015-06-30 - Class @code(TTelemetryLogBinaryWriter_0_1) renamed to
-                       TTelemetryLogBinaryWriter_1 as it now writes only
-                       structure 1.)
-    @item(2015-06-30 - Added class TTelemetryLogBinaryWriter_0 for writing
-                       structure 0.)
-    @item(2015-07-01 - Small implementation changes.)
-    @item(2015-07-10 - Class of all exceptions changed to a proper internal
-                       class.)
-    @item(2015-07-10 - Added exceptions description into documentation.))
-
   ToDo:@unorderedList(
-    @item(Add 64bit variant of structure 0 (64bit blocks offsets).)
-    @item(Add structure that saves data in some compressed format.)
-    @item(Optimize reallocation and saving of block offset table.))
+    @item(Add 64bit variant of structure 1 (64bit blocks offsets).)
+    @item(Add structure that saves data in some compressed format.))
 
 @html(<hr>)
 
@@ -81,7 +49,7 @@
     Reserved field 1    4 bytes
     Reserved field 2    4 bytes
 )
-  Each file must start with this header and API informations section, if it is
+  Each file must start with this header and API information section, if it is
   smaller (minimum size of API info section is 16 bytes), then it is broken.
   Also, each valid file must start with valid magic number
   (@code(0x6C624C54)).@br
@@ -95,15 +63,15 @@
 )
   ...where Time is number of milliseconds that have elapsed since midnight, and
   Date indicates the number of calendar days since the start of the calendar
-  (the number of days since 1/1/0001 plus one).
+  (the number of days since 1/1/0001 plus one).@br
   Data structure determines how content of the file looks like after the
-  API informations section.@br
+  API information section.@br
   Do not use reserved fields and do not assume nothing about their content!
 
-  After the header, API informations are stored. They are not part of the header
+  After the header, API information are stored. They are not part of the header
   because they have variable size - you have to write or read each field at a
-  time. They are be used when reading the file, for example when there is need
-  to convert item IDs to valid item names. These informations are stored as
+  time. They are used when reading the file, for example when there is need
+  to convert item IDs to valid item names. These information are stored as
   follows:
 @preformatted(
        value          |   size   |  value type
@@ -117,9 +85,8 @@
   After that, actual log data are stored (note - there might be no data at
   all), their actual structure depends on selected data structure.@br
   Right now, two structures are implemented - structure 0 and structure 1.
-  Structure 1 is exactly the same as structure 0, only it does not contain table
-  of block offsets at the end, so it won't be described in detail - you can
-  refer to structure 0 for informations and just ommit blocks offsets info.
+  Only difference between them is, that structure 1 contains table of blocks
+  offsets which can be used for random-access reading of individual blocks.
 
   Strings are stored in the file as following structure:
 @preformatted(
@@ -148,11 +115,29 @@
 )
   Block type denotes structure and kind of data stored inside payload of the
   block (see further).@br
+
   Currently, two block flags are defined, but some new can be added in the
-  future. See further for details about idividual flags.@br
+  future. See further for details about idividual flags.
+
+  Defined block flags:
+@unorderedList(
+  @item(bit 0 (0x01) - Reserved@br
+        Ignore this bit.)
+  @item(bit 1 (0x02) - ID only @code((LB_BLOCK_FLAG_IDONLY))@br
+        Indicating whether channel block is stored with ID instead of full name.
+        Valid only for block types 7 through 9, ignored for other blocks.)
+  @item(bit 2 (0x04) - Minimized @code((LB_BLOCK_FLAG_MINIMIZED))@br
+        Indicating whether @code(scs_value_t) structure or its alternatives are
+        stored minimized. Valid only for block types 6, 9 and 10, ignored for
+        other blocks.)
+  @item(bits 3 through 7 - Reserved@br
+        Ignore these bits.)
+)
+
   Block time stores time when the block was added to the output (for
   technicalities, refer to file header @code(Time of creation) field, as it is
-  stored the same way).@br
+  stored the same way).
+
   Block payload size is size of data this block is holding in bytes. It can be
   zero. When reading the block, position in stream must advance exactly by the
   number of bytes stored in this field, no more, no less. When stored payload
@@ -191,7 +176,7 @@
 @item(Block type 0x03 (dec 003) - Log block
   @code((LB_BLOCK_TYPE_LOG))
 
-  Contains informations about a write to game log (console).
+  Contains information about a write to game log (console).
 
   Structure of payload:
 @preformatted(
@@ -205,7 +190,7 @@
 @item(Block type 0x04 (dec 004) - Event registration block
   @code((LB_BLOCK_TYPE_EVENTREG))
 
-  Informations about registered game event.
+  Information about registered game event.
 
   Structure of payload:
 @preformatted(
@@ -217,7 +202,7 @@
 @item(Block type 0x05 (dec 005) - Event unregistration block
   @code((LB_BLOCK_TYPE_EVENTUNREG))
 
-  Informations about unregistered game event.
+  Information about unregistered game event.
 
   Structure of payload:
 @preformatted(
@@ -228,7 +213,7 @@
 
 @item(Block type 0x06 (dec 006) - Event block @code((LB_BLOCK_TYPE_EVENT))
 
-  Informations about occuring game event.
+  Information about occuring game event.
 
   Structure of payload:
 @preformatted(
@@ -241,17 +226,17 @@
   occured, but as of now, there are only two possible structures that can be
   stored in event data field:
   @unorderedList(
-  @item(For event @code(SCS_TELEMETRY_EVENT_frame_start), one
-  @code(scs_telemetry_frame_start_t) structure is stored.)
+    @item(For event @code(SCS_TELEMETRY_EVENT_frame_start), one
+    @code(scs_telemetry_frame_start_t) structure is stored.)
 
-  @item(For event @code(SCS_TELEMETRY_EVENT_configuration), data are stored
-  using function Stream_Write_scs_telemetry_configuration or its alternatives,
-  refer to this function for information about resulting data layout.)))
+    @item(For event @code(SCS_TELEMETRY_EVENT_configuration), data are stored
+    using function Stream_Write_scs_telemetry_configuration or its alternatives,
+    refer to this function for information about resulting data layout.)))
 
 @item(Block type 0x07 (dec 007) - Channel registration block
   @code((LB_BLOCK_TYPE_CHANNELREG))
 
-  Informations about registered channel.
+  Information about registered channel.
 
   Structure of payload:
 @preformatted(
@@ -275,7 +260,7 @@
 @item(Block type 0x08 (dec 008) - Channel unregistration block
   @code((LB_BLOCK_TYPE_CHANNELUNREG))
 
-  Informations about unregistered channel.
+  Information about unregistered channel.
 
   Structure of payload:
 @preformatted(
@@ -297,19 +282,29 @@
 @item(Block type 0x09 (dec 009) - Channel block
   @code((LB_BLOCK_TYPE_CHANNEL))
 
-  Informations about occuring channel and its value.@br
+  Information about occuring channel and its value.@br
   Data are stored using function Stream_Write_scs_named_value_localized or its
-  alternatives, refer to this function for informations regarding resulting data
+  alternatives, refer to this function for information regarding resulting data
   layout.
 )
 
 @item(Block type 0x0A (dec 010) - Config block
   @code((LB_BLOCK_TYPE_CONFIG))
 
-  Contains informations about stored config including its value.@br
-  Data are stored using function Stream_Write_scs_named_value_localized or its
-  alternatives, refer to this function for informations regarding resulting data
-  layout.
+  Contains information about stored config including its value.
+
+  Structure of payload:
+@preformatted(
+    value      |   size   |  value type
+
+    ID           variable     String
+    AttrName     variable     String
+    Index        4 bytes      scs_u32_t
+    Value        variable     scs_value_localized_t
+)
+
+  Field @code(Value) is stored using function Stream_Write_scs_value_localized,
+  refer to it for information about resulting memory layout.
 )
 
 @item(Block type 0xFF (dec 255) - Termination block
@@ -320,26 +315,19 @@
   directly in front of blocks offsets table.
 ))
 
-  Defined block flags:
-@unorderedList(
-  @item(bit 0 (0x01) - Reserved@br
-        Ignore this bit.)
-  @item(bit 1 (0x02) - ID only @code((LB_BLOCK_FLAG_IDONLY))@br
-        Indicating whether channel or config block is stored with ID instead of
-        full name. Valid only for block types 4 through 8, ignored for other
-        blocks.)
-  @item(bit 2 (0x04) - Minimized @code((LB_BLOCK_FLAG_MINIMIZED))@br
-        Indicating whether @code(scs_value_t) structure or its alternatives are
-        stored minimized. Valid only for block types 4, 7 and 8, ignored for
-        other blocks.)
-  @item(bits 3 through 7 - Reserved@br
-        Ignore these bits.)
-)
+@html(<hr>)
 
-  At the end of the file is stored table of blocks offsets. It contains offsets
-  of all blocks stored in file from the start of the file, in bytes. This table
-  is always directly preceded by a termination block, so the resulting structure
-  is:
+  @bold(Structure 1)
+
+  Data in structure 1 are stored exactly the same as in structure 0. Only
+  difference is, that structure 1 stores table of blocks offsets at the end of
+  file. You can refer to structure 0 definition for information about
+  structure 1 basic layout.
+
+  At the end of the file a table of blocks offsets is stored. It contains
+  offsets of all blocks stored in file from the start of the file, in bytes.
+  This table is always directly preceded by a termination block, so the
+  resulting structure is:
 @preformatted(
           value       |   size   |  value type
 
@@ -356,31 +344,18 @@
   can be 0.@br
   At the end of file, a control number is stored. It must be equal to
   @code(0x616F4C54), if it isn't, you must assume that the file does not
-  actually contain table of block offsets and read it as it were a file of
-  structure 1.
-  Since the table is stored when the file is closed, it might happed that the
-  table is not stored, for example when logger was prematurely terminated by an
-  error or by user intervention.
+  actually contain table of block offsets and read it as if it were a file of
+  structure 0. Since the table is stored when the file is closed, it might
+  happen that the table is not stored, for example when logger was prematurely
+  terminated by an error or by user intervention.
 
-  Structure 0 diagram:
+  Structure 1 diagram:
   @html(<div align="center">)
-  @image(..\..\AutoDocumentation\Docs\tlb_struct_0.png)
+  @image(..\..\AutoDocumentation\Docs\tlb_struct_1.png)
   @html(</div>)
-  
-@html(<hr>)
-
-  @bold(Structure 1)
-
-  Data in structure 1 are stored exactly the same as in structure 0. Only
-  difference is, that structure 1 does not store table of block offsets at the
-  end of file.@br
-  You can refer to structure 0 definition for informations about structure 1
-  resulting layout, just ommit the offsets table. 
 
 @html(<hr>)}
 unit TelemetryLogBinary;
-
-{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
 
 interface
 
@@ -390,6 +365,8 @@ uses
 {$IFNDEF Documentation}
   SysUtils,
   Classes,
+  AuxTypes,
+  BinaryStreaming,
 {$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
@@ -399,7 +376,7 @@ uses
   TelemetryConversions,
   TelemetryStreaming,
 {$ENDIF}
-{$IFDEF UseCondensedHeader}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
@@ -409,9 +386,9 @@ uses
 
 const
   //:Magic number (file signature) for binary log output.
-  LB_SIGNATURE             = $6C624C54;
-  //:Control number for structure 0 table of blocks offsets.
-  LB_STRUCT0_CONTROLNUMBER = $616F4C54;
+  LB_SIGNATURE             = UInt32($6C624C54);
+  //:Control number marking table of blocks offsets in structure 1.
+  LB_STRUCT0_CONTROLNUMBER = UInt32($616F4C54);
 
   //:Identifier number for invalid block.
   LB_BLOCK_TYPE_INVALID       = $00;
@@ -450,7 +427,7 @@ const
 type
 {:
   @abstract(Structure corresponding to a binary log output header.)
-  Used to read/write binary output header and store informations about a file.
+  Used to read/write binary output header and store information about a file.
 
   @member MagicNumber    File signature, must be equal to @code(0x6C624C54).
   @member TimeOfCreation Time of creation of the file.
@@ -459,17 +436,17 @@ type
   @member Reserved2      Not used.
 }
   TTelemetryLogBinaryFileHeader = packed record
-    MagicNumber:    LongWord;
+    MagicNumber:    UInt32;
     TimeOfCreation: TTimeStamp;
-    DataStructure:  Word;
-    Reserved1:      LongWord;
-    Reserved2:      LongWord;
+    DataStructure:  UInt16;
+    Reserved1:      UInt32;
+    Reserved2:      UInt32;
   end;
   //:Pointer to TTelemetryLogBinaryFileHeader structure.
   PTelemetryLogBinaryFileHeader = ^TTelemetryLogBinaryFileHeader;
 
 {:
-  Structure used to store informations about telemetry API (versions, ID, ...).
+  Structure used to store information about telemetry API (versions, ID, ...).
 
   @member TelemetryVersion Version of telemetry API.
   @member GameID           ID of game that runs the API.
@@ -486,10 +463,10 @@ type
   PTelemetryLogBinaryAPIInfo = ^TTelemetryLogBinaryAPIInfo;
 
 {:
-  Structure used to store informations about binary log file.
+  Structure used to store information about binary log file.
 
-  @member Header  Informations about a file.
-  @member APIInfo Informations about API used in file generation.
+  @member Header  Information about a file.
+  @member APIInfo Information about API used in file generation.
 }
   TTelemetryLogBinaryFileInfo = record
     Header:   TTelemetryLogBinaryFileHeader;
@@ -501,7 +478,7 @@ type
 {:
   @abstract(Structure corresponding to a block header in output structures 0 and
             1.)
-  Used to read/write block headers and to pass informations between routines.
+  Used to read/write block headers and to pass information between routines.
 
   @member BlockType        Type of block.
   @member BlockFlags       Flags of the block.
@@ -509,10 +486,10 @@ type
   @member BlockPayloadSize Size of block payload (actual data the block stores).
 }
   TTelemetryLogBinaryBlockHeader = packed record
-    BlockType:        Byte;
-    BlockFlags:       Byte;
+    BlockType:        UInt8;
+    BlockFlags:       UInt8;
     BlockTime:        TTimeStamp;
-    BlockPayloadSize: Word;
+    BlockPayloadSize: UInt16;
   end;
   //:Pointer to TTelemetryLogBinaryBlockHeader structure.
   PTelemetryLogBinaryBlockHeader = ^TTelemetryLogBinaryBlockHeader;  
@@ -531,11 +508,11 @@ type
   This class is intended as sort of template (common ancestor) for all writer
   classes. These classes are used internaly to write different binary log
   structures, and should not be used outside of loggers. All descendants must
-  implement all abstract methods. They also may add some new methods, but they
-  should be used in loggers wery carefully and only if really needed.@br
+  implement all abstract methods. They also may add some new methods, but such
+  methods should be used in loggers wery carefully and only if really needed.@br
   Log* methods all have @code(Recipient) parameter. This parameter must contain
   reference to a valid telemetry recipient, as its methods can be used in
-  descendant classes for conversions or to obtain informations required to write
+  descendant classes for conversions or to obtain information required to write
   a log.@br
   All writing is done at current Stream position.
 }
@@ -566,7 +543,7 @@ type
                     information already written in and position must be set
                     directly after them (not at the start of the
                     @noAutoLink(Stream)!).)
-    @param(FileInfo Informations about output file. It must be completely filled
+    @param(FileInfo Information about output file. It must be completely filled
                     by logger that is creating current instance in order for
                     this class to work properly. When not filled, the behavior
                     of this class is not defined.)
@@ -589,7 +566,7 @@ type
     @param Data      Pointer to data to be written. Must not be @nil.
     @param Size      Size of the data in bytes.
   }
-    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: Word); virtual; abstract;
+    procedure LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: UInt16); virtual; abstract;
   {:
     Method intended to write log containing any text.
 
@@ -598,7 +575,7 @@ type
   }
     procedure LogStr(Recipient: TTelemetryRecipient; Str: TelemetryString); virtual; abstract;
   {:
-    Method intended to write informations about a write to game log (console).
+    Method intended to write information about a write to game log (console).
 
     @param Recipient Telemetry recipient. Must contain valid object.
     @param LogType   Type of log written into game log (error, warning, ...).
@@ -606,7 +583,7 @@ type
   }
     procedure LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String); virtual; abstract;
   {:
-    Method intended to write log containing informations about game event
+    Method intended to write log containing information about game event
     registration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -614,7 +591,7 @@ type
   }
     procedure LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about game event
+    Method intended to write log containing information about game event
     unregistration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -622,7 +599,7 @@ type
   }
     procedure LogEventUnregister(Recipient: TTelemetryRecipient; Event: scs_event_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about game event.
+    Method intended to write log containing information about game event.
 
     @param Recipient Telemetry recipient. Must contain valid object.
     @param Event     Event identifier number.
@@ -631,7 +608,7 @@ type
   }
     procedure LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); virtual; abstract;
   {:
-    Method intended to write log containing informations about channel
+    Method intended to write log containing information about channel
     registration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -643,7 +620,7 @@ type
   }
     procedure LogChannelRegister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about channel
+    Method intended to write log containing information about channel
     unregistration.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -654,7 +631,7 @@ type
   }
     procedure LogChannelUnregister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about received channel
+    Method intended to write log containing information about received channel
     value.
 
     @param Recipient Telemetry recipient. Must contain valid object.
@@ -665,16 +642,15 @@ type
   }
     procedure LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t); virtual; abstract;
   {:
-    Method intended to write log containing informations about received config
+    Method intended to write log containing information about received config
     value.
 
-    @param Recipient Telemetry recipient. Must contain valid object.
-    @param Name      Name of logged config value.
-    @param ID        ID of logged config value.
-    @param Index     Index of logged config value.
-    @param Value     Actual value of logged config value.
+    @param Recipient        Telemetry recipient. Must contain valid object.
+    @param ConfigReference  Full config reference (ID + Attribute).
+    @param Index            Index of logged config value.
+    @param Value            Actual value of logged config value.
   }
-    procedure LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
+    procedure LogConfig(Recipient: TTelemetryRecipient; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual; abstract;
   {:
     Method that must be called before destruction of instance. Its job is to
     free any allocated resources, write any buffered values or simply anything
@@ -709,27 +685,27 @@ type
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryWriter_1                          }
+{                         TTelemetryLogBinaryWriter_0                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryWriter_1 // Class declaration                           }
+{   TTelemetryLogBinaryWriter_0 // Class declaration                           }
 {==============================================================================}
 {:
-  Writer class used to write binary log of structure 1.
+  Writer class used to write binary log of structure 0.
 }
-  TTelemetryLogBinaryWriter_1 = class(TTelemetryLogBinaryWriter)
+  TTelemetryLogBinaryWriter_0 = class(TTelemetryLogBinaryWriter)
   protected
   {:
-    Writes block header filled with informations provided in parameters to
+    Writes block header filled with information provided in parameters to
     Stream at current position.
 
     @param BlockType        Type of block.
     @param BlockFlags       Flags of block.
     @param BlockPayloadSize Size of block payload, in bytes. Can be zero.
   }
-    procedure WriteBlockHeader(BlockType, BlockFlags: Byte; BlockPayloadSize: Word); virtual;
+    procedure WriteBlockHeader(BlockType, BlockFlags: UInt8; BlockPayloadSize: UInt16); virtual;
   {:
     Sets flag determined by @code(FlagMask) in @code(Flags) parameted to
     @code(Value).
@@ -738,7 +714,7 @@ type
     @param FlagMask Number determining which bit has to be changed.
     @param Value    New value for the flag.
   }
-    procedure SetFlagValue(var Flags: Byte; FlagMask: Byte; Value: Boolean); virtual;
+    procedure SetFlagValue(var Flags: UInt8; FlagMask: UInt8; Value: Boolean); virtual;
   public
   {:
     See @inherited.
@@ -757,7 +733,7 @@ type
   {:
     See @inherited.
   }
-    procedure LogData({%H-}Recipient: TTelemetryRecipient; Data: Pointer; Size: Word); override;
+    procedure LogData({%H-}Recipient: TTelemetryRecipient; Data: Pointer; Size: UInt16); override;
   {:
     See @inherited.
   }
@@ -777,7 +753,7 @@ type
   {:
     See @inherited.
   }
-    procedure LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); override;
+    procedure LogEvent({%H-}Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer); override;
   {:
     See @inherited.
   }
@@ -793,7 +769,7 @@ type
   {:
     See @inherited.
   }
-    procedure LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; {%H-}ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure LogConfig({%H-}Recipient: TTelemetryRecipient; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); override;
   {:
     See @inherited.
   }
@@ -802,22 +778,26 @@ type
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryWriter_0                          }
+{                         TTelemetryLogBinaryWriter_1                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{    TTelemetryLogBinaryWriter_0 // Class declaration                          }
+{    TTelemetryLogBinaryWriter_1 // Class declaration                          }
 {==============================================================================}
 {:
-    Writer class used to write binary log of structure 0.
+    Writer class used to write binary log of structure 1.
 }
-  TTelemetryLogBinaryWriter_0 = class(TTelemetryLogBinaryWriter_1)
+  TTelemetryLogBinaryWriter_1 = class(TTelemetryLogBinaryWriter_0)
   private
   {:
     Array used to store table of blocks offsets.
   }
-    fBlocksOffsets: array of LongWord;
+    fBlocksOffsets: array of UInt32;
+  {:
+    Actual number of offsets stored in table of blocks offsets.
+  }
+    fOffsetCount:   Int32;
   protected
   {:
     Adds current Stream position as a new item into blocks offsets table
@@ -829,7 +809,7 @@ type
     Adds new offset to the table of blocks offsets by calling AddBlockOffset
     method.
   }
-    procedure WriteBlockHeader(BlockType, BlockFlags: Byte; BlockPayloadSize: Word); override;
+    procedure WriteBlockHeader(BlockType, BlockFlags: UInt8; BlockPayloadSize: UInt16); override;
   public
   {:
     See @inherited.@br
@@ -856,7 +836,7 @@ type
 {:
   @abstract(Class designed to log all traffic on telemetry API as a binary log
             into provided @noAutoLink(stream).)
-  Only file header and API informations are actually written in this class,
+  Only file header and API information are actually written in this class,
   everything else (log data) is written using instance of appropriate (for
   selected file structure) writer.@br
   *Handler methods all require valid telemetry @noAutoLink(recipient) object. It
@@ -904,7 +884,7 @@ type
   protected
   {:
     Fills passed structure with all information available. Called from the
-    constructor. It sets all field of file header and API informations. API info
+    constructor. It sets all field of file header and API information. API info
     is taken from an object referenced by Recipient property - meaning you must
     pass valid telemetry @noAutoLink(recipient) to the constructor.
 
@@ -912,7 +892,7 @@ type
   }
     procedure PrepareFileInfo(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
   {:
-    Writes passed file header and API informations section into Stream at
+    Writes passed file header and API information section into Stream at
     current position.
 
     @param FileInfo Structure containing information that will be written.
@@ -925,7 +905,7 @@ type
     Creates internal log writer and starts writing.
 
     @param(Recipient     Telemetry @noAutoLink(recipient) that operates on API.
-                         You must provide valid instance as API informations
+                         You must provide valid instance as API information
                          section will be filled usig its properties. Constructor
                          also assigns all handler methods to its event - you can
                          change that (deassign handlers, set Recipient property
@@ -940,12 +920,12 @@ type
                          documentation for details. If you pass unsupported
                          structure, the constructor raises an exception.)
 
-    @raises(ETLNilReference When either of parameters @code(aRecipient) and
+    @raises(ETLNilReference When either of parameters @code(Recipient) or
                             @noAutoLink(@code(Stream)) is not assigned.)
     @raises(ETLUnknownData When number passed in parameter @code(DataStructure)
                            is not known.)
   }
-    constructor Create(aRecipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
+    constructor Create(Recipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
   {:
     Class destructor.
 
@@ -964,7 +944,7 @@ type
     @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
                                 obtained.)
   }
-    procedure LogData(Sender: TObject; Data: Pointer; Size: Word); virtual;
+    procedure LogData(Sender: TObject; Data: Pointer; Size: UInt16); virtual;
   {:
     Method adding a text entry to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
@@ -978,7 +958,7 @@ type
   }
     procedure LogStr(Sender: TObject; Str: TelemetryString); virtual;
   {:
-    Method adding informations about a write to game log (console).@br
+    Method adding information about a write to game log (console).@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender  Object calling this method (must be of type
@@ -991,7 +971,7 @@ type
   }
     procedure LogHandler(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;
   {:
-    Method adding informations about game event registration to the log.@br
+    Method adding information about game event registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object calling this method (must be of type
@@ -1004,7 +984,7 @@ type
   }
     procedure EventRegisterHandler(Sender: TObject; Event: scs_event_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about game event unregistration to the log.@br
+    Method adding information about game event unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender   Object calling this method (must be of type
@@ -1031,7 +1011,7 @@ type
   }
     procedure EventHandler(Sender: TObject; Event: scs_event_t; Data: Pointer; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about channel registration to the log.@br
+    Method adding information about channel registration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type
@@ -1048,7 +1028,7 @@ type
   }
     procedure ChannelRegisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about channel unregistration to the log.@br
+    Method adding information about channel unregistration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type
@@ -1064,7 +1044,7 @@ type
   }
     procedure ChannelUnregisterHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about channel to the log.@br
+    Method adding information about channel to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
     @param(Sender    Object calling this method (must be of type
@@ -1080,20 +1060,19 @@ type
   }
     procedure ChannelHandler(Sender: TObject; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t; {%H-}UserData: Pointer); override;
   {:
-    Method adding informations about received configuration to the log.@br
+    Method adding information about received configuration to the log.@br
     @bold(Note) - requires valid telemetry @noAutoLink(recipient).
 
-    @param(Sender    Object calling this method (must be of type
-                     TTelemetryRecipient).)
-    @param Name      Name of the config.
-    @param ID        ID of the config.
-    @param Index     Index of the config.
-    @param Value     Actual value of the config.
+    @param(Sender           Object calling this method (must be of type
+                            TTelemetryRecipient).)
+    @param ConfigReference  Full config reference (ID + Attribute).
+    @param Index            Index of the config.
+    @param Value            Actual value of the config.
 
     @raises(ETLInvalidReference When no valid @noAutoLink(recipient) can be
                                 obtained.)
   }
-    procedure ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); override;
   {:
     Calls method LogHandler with unchanged parameters and @code(Sender) set to
     @nil. Refer to called method for details.
@@ -1133,7 +1112,7 @@ type
     Calls method ConfigHandler with unchanged parameters and @code(Sender) set
     to @nil. Refer to called method for details.
   }
-    procedure LogConfig(const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
+    procedure LogConfig(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
   {:
     Information about file that is being written. Filled in constructor.
   }
@@ -1146,14 +1125,15 @@ type
     property Stream: TStream read fStream;
   {:
     Determines whether some values are stored minimized. Refer to writer
-    @link(TTelemetryLogBinaryWriter.SaveMinimized property) of the same name for
-    details.
+    @link(TTelemetryLogBinaryWriter.SaveMinimized property) for details.@br
+    Initalized to @True;
   }
     property SaveMinimized: Boolean read fSaveMinimized write SetSaveMinimized;
   {:
     Determines whether item names are stored as full strings or only as IDs.
-    Refer to writer @link(TTelemetryLogBinaryWriter.SaveItemIDOnly property) of
-    the same name for details.
+    Refer to writer @link(TTelemetryLogBinaryWriter.SaveItemIDOnly property)
+    for details.@br
+    Initalized to @False;
   }
     property SaveItemIDOnly: Boolean read fSaveItemIDOnly write SetSaveItemIDOnly;
   end;
@@ -1202,7 +1182,7 @@ type
                           and with .tbl extension.)
     @param DataStructure  Structure of output.
   }
-    constructor Create(aRecipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
+    constructor Create(Recipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
   {:
     Class destructor.
   }
@@ -1218,7 +1198,14 @@ type
 implementation
 
 uses
-  TelemetryConversions, TelemetryStreaming;
+  TelemetryConversions, TelemetryStreaming
+{$IF Defined(FPC) and not Defined(Unicode)}
+  (*
+    If compiler throws error that LazUTF8 unit cannot be found, you have to
+    add LazUtils to required packages (Project > Project Inspector).
+  *)
+  , LazUTF8
+{$IFEND};
 
   
 {==============================================================================}
@@ -1245,19 +1232,19 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryWriter_1                          }
+{                         TTelemetryLogBinaryWriter_0                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryWriter_1 // Class implementation                        }
+{   TTelemetryLogBinaryWriter_0 // Class implementation                        }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryWriter_1 // Protected methods                           }
+{   TTelemetryLogBinaryWriter_0 // Protected methods                           }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryWriter_1.WriteBlockHeader(BlockType, BlockFlags: Byte; BlockPayloadSize: Word);
+procedure TTelemetryLogBinaryWriter_0.WriteBlockHeader(BlockType, BlockFlags: UInt8; BlockPayloadSize: UInt16);
 var
   TempBlockHeader:  TTelemetryLogBinaryBlockHeader;
 begin
@@ -1270,7 +1257,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.SetFlagValue(var Flags: Byte; FlagMask: Byte; Value: Boolean);
+procedure TTelemetryLogBinaryWriter_0.SetFlagValue(var Flags: UInt8; FlagMask: UInt8; Value: Boolean);
 begin
 If Value then
   Flags := Flags or FlagMask
@@ -1279,31 +1266,31 @@ else
 end;
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryWriter_1 // Public methods                              }
+{   TTelemetryLogBinaryWriter_0 // Public methods                              }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryWriter_1.StartWriting;
+procedure TTelemetryLogBinaryWriter_0.StartWriting;
 begin
 // nothing to do here
 end;
  
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogInvalidBlock;
+procedure TTelemetryLogBinaryWriter_0.LogInvalidBlock;
 begin
 WriteBlockHeader(LB_BLOCK_TYPE_INVALID,0,0);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogTerminationBlock;
+procedure TTelemetryLogBinaryWriter_0.LogTerminationBlock;
 begin
 WriteBlockHeader(LB_BLOCK_TYPE_TERMINATE,0,0);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: Word);
+procedure TTelemetryLogBinaryWriter_0.LogData(Recipient: TTelemetryRecipient; Data: Pointer; Size: UInt16);
 begin
 WriteBlockHeader(LB_BLOCK_TYPE_GENERIC,0,Size);
 Stream.WriteBuffer(Data^,Size);
@@ -1311,49 +1298,48 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogStr(Recipient: TTelemetryRecipient; Str: TelemetryString);
+procedure TTelemetryLogBinaryWriter_0.LogStr(Recipient: TTelemetryRecipient; Str: TelemetryString);
 begin
-WriteBlockHeader(LB_BLOCK_TYPE_TEXT,0,SizeOfString(Str));
-Stream_WriteString(Stream,Str);
+WriteBlockHeader(LB_BLOCK_TYPE_TEXT,0,TelemetryStringBytes(Str));
+Stream_WriteTelemetryString(Stream,Str);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String);
+procedure TTelemetryLogBinaryWriter_0.LogLog(Recipient: TTelemetryRecipient; LogType: scs_log_type_t; const LogText: String);
 var
   TempStr:  TelemetryString;
 begin
 TempStr := TelemetryStringEncode(LogText);
-WriteBlockHeader(LB_BLOCK_TYPE_LOG,0,SizeOf(scs_log_type_t) + SizeOfString(TempStr));
-Stream_WriteInteger(Stream,LongInt(LogType));
-Stream_WriteString(Stream,TempStr);
+WriteBlockHeader(LB_BLOCK_TYPE_LOG,0,SizeOf(scs_log_type_t) + TelemetryStringBytes(TempStr));
+Stream_WriteUInt32(Stream,LogType);
+Stream_WriteTelemetryString(Stream,TempStr);
 end;
      
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t);
+procedure TTelemetryLogBinaryWriter_0.LogEventRegister(Recipient: TTelemetryRecipient; Event: scs_event_t);
 begin
 WriteBlockHeader(LB_BLOCK_TYPE_EVENTREG,0,SizeOf(scs_event_t));
-Stream_WriteInteger(Stream,LongInt(Event));
+Stream_WriteUInt32(Stream,Event);
 end;
       
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogEventUnregister(Recipient: TTelemetryRecipient; Event: scs_event_t);
+procedure TTelemetryLogBinaryWriter_0.LogEventUnregister(Recipient: TTelemetryRecipient; Event: scs_event_t);
 begin
 WriteBlockHeader(LB_BLOCK_TYPE_EVENTUNREG,0,SizeOf(scs_event_t));
-Stream_WriteInteger(Stream,LongInt(Event));
+Stream_WriteUInt32(Stream,Event);
 end;
       
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer);
+procedure TTelemetryLogBinaryWriter_0.LogEvent(Recipient: TTelemetryRecipient; Event: scs_event_t; Data: Pointer);
 var
-  DataSize:   Word;
-  BlockFlags: Byte;
+  DataSize:   UInt16;
+  BlockFlags: UInt8;
 begin
 BlockFlags := 0;
-SetFlagValue(BlockFlags,LB_BLOCK_FLAG_IDONLY,SaveItemIDOnly);
 SetFlagValue(BlockFlags,LB_BLOCK_FLAG_MINIMIZED,SaveMinimized);
 If Assigned(Data) then
   begin
@@ -1362,76 +1348,76 @@ If Assigned(Data) then
         begin
           DataSize := SizeOf(scs_telemetry_frame_start_t);
           WriteBlockHeader(LB_BLOCK_TYPE_EVENT,BlockFlags,SizeOf(scs_event_t) + DataSize);
-          Stream_WriteInteger(Stream,LongInt(Event));
+          Stream_WriteUInt32(Stream,Event);
           Stream.WriteBuffer(Data^,DataSize);
         end;
       SCS_TELEMETRY_EVENT_configuration:
         begin
-          DataSize := Size_scs_telemetry_configuration(p_scs_telemetry_configuration_t(Data)^,SaveMinimized,SaveItemIDOnly);
+          DataSize := Size_scs_telemetry_configuration(p_scs_telemetry_configuration_t(Data)^,SaveMinimized);
           WriteBlockHeader(LB_BLOCK_TYPE_EVENT,BlockFlags,SizeOf(scs_event_t) + DataSize);
-          Stream_WriteInteger(Stream,LongInt(Event));
-          Stream_Write_scs_telemetry_configuration(Stream,p_scs_telemetry_configuration_t(Data)^,SaveMinimized,SaveItemIDOnly,RecipientGetConfigIDFromName,Recipient);
+          Stream_WriteUInt32(Stream,Event);
+          Stream_Write_scs_telemetry_configuration(Stream,p_scs_telemetry_configuration_t(Data)^,SaveMinimized);
         end;
     end;
   end
 else
   begin
     WriteBlockHeader(LB_BLOCK_TYPE_EVENT,BlockFlags,SizeOf(scs_event_t));
-    Stream_WriteInteger(Stream,LongInt(Event));
+    Stream_WriteUInt32(Stream,Event);
   end;
 end;
      
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogChannelRegister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
+procedure TTelemetryLogBinaryWriter_0.LogChannelRegister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t);
 var
-  BlockFlags:  Byte;
+  BlockFlags:  UInt8;
 begin
 BlockFlags := 0;
 SetFlagValue(BlockFlags,LB_BLOCK_FLAG_IDONLY,SaveItemIDOnly);
 If SaveItemIDOnly then
   begin
     WriteBlockHeader(LB_BLOCK_TYPE_CHANNELREG,BlockFlags,SizeOf(TItemID) + 2 * SizeOf(scs_u32_t) + SizeOf(scs_value_type_t));
-    Stream_WriteInteger(Stream,LongInt(ID));
+    Stream_WriteUInt32(Stream,ID);
   end
 else
   begin
-    WriteBlockHeader(LB_BLOCK_TYPE_CHANNELREG,BlockFlags,SizeOfString(Name) + 2 * SizeOf(scs_u32_t) + SizeOf(scs_value_type_t));
-    Stream_WriteString(Stream,Name);
+    WriteBlockHeader(LB_BLOCK_TYPE_CHANNELREG,BlockFlags,TelemetryStringBytes(Name) + 2 * SizeOf(scs_u32_t) + SizeOf(scs_value_type_t));
+    Stream_WriteTelemetryString(Stream,Name);
   end;
-Stream_WriteInteger(Stream,LongInt(Index));
-Stream_WriteInteger(Stream,LongInt(ValueType));
-Stream_WriteInteger(Stream,LongInt(Flags));
+Stream_WriteUInt32(Stream,Index);
+Stream_WriteUInt32(Stream,ValueType);
+Stream_WriteUInt32(Stream,Flags);
 end;
      
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogChannelUnregister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
+procedure TTelemetryLogBinaryWriter_0.LogChannelUnregister(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t);
 var
-  BlockFlags:  Byte;
+  BlockFlags:  UInt8;
 begin
 BlockFlags := 0;
 SetFlagValue(BlockFlags,LB_BLOCK_FLAG_IDONLY,SaveItemIDOnly);
 If SaveItemIDOnly then
   begin
     WriteBlockHeader(LB_BLOCK_TYPE_CHANNELUNREG,BlockFlags,SizeOf(TItemID) + SizeOf(scs_u32_t) + SizeOf(scs_value_type_t));
-    Stream_WriteInteger(Stream,LongInt(ID));
+    Stream_WriteUInt32(Stream,ID);
   end
 else
   begin
-    WriteBlockHeader(LB_BLOCK_TYPE_CHANNELUNREG,BlockFlags,SizeOfString(Name) + SizeOf(scs_u32_t) + SizeOf(scs_value_type_t));
-    Stream_WriteString(Stream,Name);
+    WriteBlockHeader(LB_BLOCK_TYPE_CHANNELUNREG,BlockFlags,TelemetryStringBytes(Name) + SizeOf(scs_u32_t) + SizeOf(scs_value_type_t));
+    Stream_WriteTelemetryString(Stream,Name);
   end;
-Stream_WriteInteger(Stream,LongInt(Index));
-Stream_WriteInteger(Stream,LongInt(ValueType));
+Stream_WriteUInt32(Stream,Index);
+Stream_WriteUInt32(Stream,ValueType);
 end;
            
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
+procedure TTelemetryLogBinaryWriter_0.LogChannel(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t);
 var
   TempValue:  scs_named_value_localized_t;
-  BlockFlags: Byte;
+  BlockFlags: UInt8;
 begin
 BlockFlags := 0;
 SetFlagValue(BlockFlags,LB_BLOCK_FLAG_IDONLY,SaveItemIDOnly);
@@ -1448,78 +1434,78 @@ end;
          
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.LogConfig(Recipient: TTelemetryRecipient; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogBinaryWriter_0.LogConfig(Recipient: TTelemetryRecipient; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 var
-  TempValue:  scs_named_value_localized_t;
-  BlockFlags: Byte;
+  BlockFlags: UInt8;
 begin
 BlockFlags := 0;
-SetFlagValue(BlockFlags,LB_BLOCK_FLAG_IDONLY,SaveItemIDOnly);
 SetFlagValue(BlockFlags,LB_BLOCK_FLAG_MINIMIZED,SaveMinimized);
-TempValue.Name := Name;
-TempValue.Index := Index;
-TempValue.Value := Value;
-WriteBlockHeader(LB_BLOCK_TYPE_CONFIG,BlockFlags,Size_scs_named_value_localized(TempValue,SaveMinimized,SaveItemIDOnly));
-Stream_Write_scs_named_value_localized(Stream,TempValue,SaveMinimized,SaveItemIDOnly,RecipientGetConfigIDFromName,Recipient);
+WriteBlockHeader(LB_BLOCK_TYPE_CONFIG,BlockFlags,TelemetryStringBytes(ConfigReference.ID) +
+  TelemetryStringBytes(ConfigReference.Attribute) + SizeOf(scs_u32_t) + Size_scs_value_localized(Value,SaveMinimized));
+Stream_WriteTelemetryString(Stream,ConfigReference.ID);
+Stream_WriteTelemetryString(Stream,ConfigReference.Attribute);
+Stream_WriteUInt32(Stream,Index);
+Stream_Write_scs_value_localized(Stream,Value,SaveMinimized);
 end;
           
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_1.EndWriting;
+procedure TTelemetryLogBinaryWriter_0.EndWriting;
 begin
 // nothing to do here
 end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                          TTelemetryLogBinaryWriter_0                         }
+{                          TTelemetryLogBinaryWriter_1                         }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryWriter_0 // Class implementation                        }
+{   TTelemetryLogBinaryWriter_1 // Class implementation                        }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryWriter_0 // Protected methods                           }
+{   TTelemetryLogBinaryWriter_1 // Protected methods                           }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryWriter_0.AddBlockOffset;
+procedure TTelemetryLogBinaryWriter_1.AddBlockOffset;
 begin
-SetLength(fBlocksOffsets,Length(fBlocksOffsets) + 1);
-fBlocksOffsets[High(fBlocksOffsets)] := Stream.Position;
+Inc(fOffsetCount);
+If Length(fBlocksOffsets) < fOffsetCount then
+  SetLength(fBlocksOffsets,Length(fBlocksOffsets) + $4000);
+fBlocksOffsets[Pred(fOffsetCount)] := UInt32(Stream.Position);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_0.WriteBlockHeader(BlockType, BlockFlags: Byte; BlockPayloadSize: Word);
+procedure TTelemetryLogBinaryWriter_1.WriteBlockHeader(BlockType, BlockFlags: UInt8; BlockPayloadSize: UInt16);
 begin
 AddBlockOffset;
 inherited;
 end;
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryWriter_0 // Public methods                              }
+{   TTelemetryLogBinaryWriter_1 // Public methods                              }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryWriter_0.StartWriting;
+procedure TTelemetryLogBinaryWriter_1.StartWriting;
 begin
 SetLength(fBlocksOffsets,0);
+fOffsetCount := 0;
 inherited;
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryWriter_0.EndWriting;
-var
-  i:  Integer;
+procedure TTelemetryLogBinaryWriter_1.EndWriting;
 begin
 inherited;
 LogTerminationBlock;
-For i := Low(fBlocksOffsets) to High(fBlocksOffsets) do
-  Stream_WriteInteger(Stream,LongInt(fBlocksOffsets[i]));
-Stream_WriteInteger(Stream,Length(fBlocksOffsets));
-Stream_WriteInteger(Stream,LongInt(LB_STRUCT0_CONTROLNUMBER));
+If Length(fBlocksOffsets) > 0 then
+  Stream.WriteBuffer(fBlocksOffsets[0],fOffsetCount * SizeOf(UInt32));
+Stream_WriteInt32(Stream,fOffsetCount);
+Stream_WriteUInt32(Stream,LB_STRUCT0_CONTROLNUMBER);
 end;
 
 {==============================================================================}
@@ -1581,21 +1567,21 @@ end;
 procedure TTelemetryLogBinaryStream.WriteFileHeader(FileInfo: TTelemetryLogBinaryFileInfo);
 begin
 fStream.WriteBuffer(FileInfo.Header,SizeOf(TTelemetryLogBinaryFileHeader));
-Stream_WriteInteger(fStream,LongInt(FileInfo.APIInfo.TelemetryVersion));
-Stream_WriteString(fStream,FileInfo.APIInfo.GameID);
-Stream_WriteInteger(fStream,LongInt(FileInfo.APIInfo.GameVersion));
-Stream_WriteString(fStream,FileInfo.APIInfo.GameName);
+Stream_WriteUInt32(fStream,FileInfo.APIInfo.TelemetryVersion);
+Stream_WriteTelemetryString(fStream,FileInfo.APIInfo.GameID);
+Stream_WriteUInt32(fStream,FileInfo.APIInfo.GameVersion);
+Stream_WriteTelemetryString(fStream,FileInfo.APIInfo.GameName);
 end;
 
 {------------------------------------------------------------------------------}
 {   TTelemetryLogBinaryStream // Public methods                                }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogBinaryStream.Create(aRecipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
+constructor TTelemetryLogBinaryStream.Create(Recipient: TTelemetryRecipient; Stream: TStream; DataStructure: Word = 0);
 begin
-If not Assigned(aRecipient) then
+If not Assigned(Recipient) then
   raise ETLNilReference.Create('TTelemetryLogBinaryStream.Create: Telemetry recipient not assigned.');
-inherited Create(aRecipient);
+inherited Create(Recipient);
 If Assigned(Stream) then fStream := Stream
   else raise ETLNilReference.Create('TTelemetryLogBinaryStream.Create: Stream not assigned.');
 fStream.Size := 0;
@@ -1605,7 +1591,7 @@ case DataStructure of
   0:  fLogWriter := TTelemetryLogBinaryWriter_0.Create(Stream,fFileInfo);
   1:  fLogWriter := TTelemetryLogBinaryWriter_1.Create(Stream,fFileInfo);
 else
-  raise ETLUnknownData.Create('TTelemetryLogBinaryStream.Create: Unknown data structure (' + IntToStr(DataStructure) + ').');
+  raise ETLUnknownData.CreateFmt('TTelemetryLogBinaryStream.Create: Unknown data structure (%d).',[DataStructure]);
 end;
 SaveMinimized := def_SaveMinimized;
 SaveItemIDOnly := def_SaveItemIDOnly;
@@ -1625,7 +1611,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.LogData(Sender: TObject; Data: Pointer; Size: Word);
+procedure TTelemetryLogBinaryStream.LogData(Sender: TObject; Data: Pointer; Size: UInt16);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
@@ -1733,12 +1719,12 @@ end;
     
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.ConfigHandler(Sender: TObject; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogBinaryStream.ConfigHandler(Sender: TObject; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 var
   WorkRecipient: TTelemetryRecipient;
 begin
 If GetWorkingRecipient(Sender,WorkRecipient) then
-  fLogWriter.LogConfig(WorkRecipient,Name,ID,Index,Value)
+  fLogWriter.LogConfig(WorkRecipient,ConfigReference,Index,Value)
 else
   raise Exception.Create('TTelemetryLogBinaryStream.ConfigHandler: No valid recipient.');
 end;
@@ -1794,9 +1780,9 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStream.LogConfig(const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogBinaryStream.LogConfig(ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
-ConfigHandler(nil,Name,ID,Index,Value);
+ConfigHandler(nil,ConfigReference,Index,Value);
 end;
 
 {==============================================================================}
@@ -1813,16 +1799,22 @@ end;
 {   TTelemetryLogBinaryFile // Public methods                                  }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogBinaryFile.Create(aRecipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
+constructor TTelemetryLogBinaryFile.Create(Recipient: TTelemetryRecipient; FileName: String = ''; DataStructure: Word = 0);
 var
   TempStream: TFileStream;
 begin
 If FileName = '' then
+{$IF Defined(FPC) and not Defined(Unicode)}
+  FileName := ExtractFilePath(WinCPToUTF8(GetModuleName(hInstance))) +
+              ChangeFileExt(ExtractFileName(WinCPToUTF8(GetModuleName(hInstance))),'') +
+              '_' + FormatDateTime('yyyy-mm-dd-hh-nn-ss',Now) + '.tbl';
+{$ELSE}
   FileName := ExtractFilePath(GetModuleName(hInstance)) +
               ChangeFileExt(ExtractFileName(GetModuleName(hInstance)),'') +
               '_' + FormatDateTime('yyyy-mm-dd-hh-nn-ss',Now) + '.tbl';
+{$IFEND}
 TempStream := TFileStream.Create(FileName,fmCreate or fmShareDenyWrite);
-inherited Create(aRecipient,TempStream,DataStructure);
+inherited Create(Recipient,TempStream,DataStructure);
 fFileName := FileName;
 end;
 
