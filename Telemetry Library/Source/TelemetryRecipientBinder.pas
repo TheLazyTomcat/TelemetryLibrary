@@ -10,7 +10,7 @@
           events.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-03)
-@lastmod(2014-11-05)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryRecipientBinder))
 

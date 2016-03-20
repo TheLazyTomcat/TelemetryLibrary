@@ -9,7 +9,7 @@
 @abstract(List classes used in Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-07-09)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryLists))
 

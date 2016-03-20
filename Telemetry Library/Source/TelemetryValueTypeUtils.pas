@@ -10,7 +10,7 @@
           value types.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-12-03)
-@lastmod(2015-07-14)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryValueTypeUtils))
 

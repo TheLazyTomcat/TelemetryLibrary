@@ -10,7 +10,7 @@
           or stream.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-06)
-@lastmod(2015-07-09)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryStreaming))
 

@@ -9,7 +9,7 @@
 @abstract(Contains classes designed to parse binary logs.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-10)
-@lastmod(2015-07-10)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryLogBinaryParser))
 

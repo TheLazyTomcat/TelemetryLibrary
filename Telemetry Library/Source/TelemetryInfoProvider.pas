@@ -9,7 +9,7 @@
 @abstract(Information provider class (known telemetry events, channels, ...).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2015-07-14)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
@@ -130,6 +130,14 @@ type
     Preparation for eut2 1.10.
   }
     procedure Prepare_Game_eut2_1_10; override;
+  {:
+    Preparation for eut2 1.11.
+  }
+    procedure Prepare_Game_eut2_1_11; override;
+  {:
+    Preparation for eut2 1.12.
+  }
+    procedure Prepare_Game_eut2_1_12; override;
   public
   {:
     Basic object constructor.@br
@@ -333,8 +341,10 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_0;
 begin
 inherited;
-If fMaxWheelCount <= 0 then fMaxWheelCount := 8;
-If fMaxSelectorCount <= 0 then fMaxSelectorCount := 2;
+If fMaxWheelCount <= 0 then
+  fMaxWheelCount := 8;
+If fMaxSelectorCount <= 0 then
+  fMaxSelectorCount := 2;
 
 //=== Adding Events ============================================================
 // Adding known events to internal list.
@@ -566,6 +576,34 @@ fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,       SCS_VALUE_TYPE_
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,SCS_VALUE_TYPE_float,True,ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
 
 fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable,SCS_VALUE_TYPE_bool,True);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_11;
+begin
+If fMaxWheelCount <= 0 then
+  fMaxWheelCount := 14;
+inherited;
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_displayed_gear,SCS_VALUE_TYPE_s32,False,EmptyConfigReference);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_12;
+begin
+inherited;
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                     SCS_VALUE_TYPE_float, False, EmptyConfigReference);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,             SCS_VALUE_TYPE_bool,  False, EmptyConfigReference);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption, SCS_VALUE_TYPE_float, False, EmptyConfigReference);
+
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_differential_ratio,SCS_VALUE_TYPE_float,False,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_ratio,     SCS_VALUE_TYPE_float,False,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_reverse_ratio,     SCS_VALUE_TYPE_float,False,False);
+
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_distance,   SCS_VALUE_TYPE_float, False, EmptyConfigReference);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_time,       SCS_VALUE_TYPE_float, False, EmptyConfigReference);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_speed_limit,SCS_VALUE_TYPE_float, False, EmptyConfigReference);
 end;
 
 {------------------------------------------------------------------------------}

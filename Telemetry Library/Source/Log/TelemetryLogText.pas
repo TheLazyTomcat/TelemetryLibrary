@@ -9,7 +9,7 @@
 @abstract(Contains class designed to log telemetry API traffic to text file.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-18)
-@lastmod(2015-06-30)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryLogText))
 

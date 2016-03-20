@@ -9,7 +9,7 @@
 @abstract(Types, constants, routines, etc. used troughout the Telemetry library.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-04)
-@lastmod(2015-07-15)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryCommon))
 
@@ -196,7 +196,7 @@ const
    (SCS_TELEMETRY_VERSION_1_00 {1.0});
 
   //:List of games and their versions supported by this library.
-  SupportedGames: Array[0..10] of TSupportedGame =
+  SupportedGames: Array[0..12] of TSupportedGame =
    ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 {EUT2 1.0}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 {EUT2 1.1}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 {EUT2 1.2}),
@@ -207,7 +207,9 @@ const
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 {EUT2 1.7}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 {EUT2 1.8}),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 {EUT2 1.9}),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {EUT2 1.10}));
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 {EUT2 1.10}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_11 {EUT2 1.11}),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_12 {EUT2 1.12}));
 
 //------------------------------------------------------------------------------
 

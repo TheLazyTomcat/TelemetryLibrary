@@ -9,7 +9,7 @@
 @abstract(Reimplementation of telemetry_mem example distributed with the SDK.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2015-07-13)
-@lastmod(2015-07-13)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetrySCSExample_telemetry_mem))
 

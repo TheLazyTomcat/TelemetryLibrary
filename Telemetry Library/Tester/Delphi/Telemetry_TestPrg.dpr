@@ -32,11 +32,27 @@ uses
 
   TelemetryLogText          in '..\..\Source\Log\TelemetryLogText.pas',
   TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
-  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
+  TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas',
+
+  SCS_Telemetry_Condensed;
 
 begin
   with TTelemetryInfoProvider.CreateCurrent('eut2') do
   try
+    WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear)));
+    WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_displayed_gear)));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_displayed_gear));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_ID_displayed_gear));
+
+    WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_distance)));
+    WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_time)));
+    WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_speed_limit)));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_distance));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_ID_navigation_distance));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_time));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_ID_navigation_time));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_speed_limit));
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_ID_navigation_speed_limit));
   finally
     Free;
   end;

@@ -9,7 +9,7 @@
 @abstract(Telemetry recipient class (API control and data receiver).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2015-07-14)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryRecipient))
 

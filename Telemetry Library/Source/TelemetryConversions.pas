@@ -9,7 +9,7 @@
 @abstract(Unit providing routines for variables conversion.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2015-04-20)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryConversions))
 

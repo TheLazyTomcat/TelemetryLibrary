@@ -10,7 +10,7 @@
           routines converting selected binary types to text.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2015-06-28)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryStrings))
 
