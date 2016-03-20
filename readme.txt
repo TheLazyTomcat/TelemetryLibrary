@@ -5,20 +5,17 @@
 Description
 ----------------------------------------
 Telemetry library is a rather simple framework that is intended to ease use of
-telemetry API provided by SCS Software games (at the moment only by Euro Truck
-Simulator 2). It started only as simple translation of SDK header files into
-pascal, but has grown significantly since then. It contains set of functions and
-classes which encapsulates calls to the API and many more. You should refer to
-source files and documentation for details about individual functions and
-classes and their use.
+telemetry API provided by some SCS Software games.
+It started only as simple translation of SDK header files into pascal, but has
+grown significantly since then. It contains set of functions and classes which
+encapsulates calls to the API and many more. You should refer to source files
+and documentation for details about individual functions and classes and their
+use.
 It is developed primarily in Delphi 7 Personal, so it can be compiled in it and
 possibly in newer versions of Delphi as well. Compilation in FPC/Lazarus is
 supported and some parts of the library are written in Lazarus, so you can
 compile them without a need for conversion. It is also possible to compile the
-library in 64bit mode, but please note that it was not tested.
-
-Warning - If you want to compile Telemetry Library for 64bit target, you must
-          define project-wide symbol "x64" (without the quotes).
+library in 64bit mode, but please note that it was not thoroughly tested.
 
 
 
@@ -30,34 +27,39 @@ This section describes nature of content of individual folders in this project.
 
   Root folder of the project, contains licenses and readme file.
 
-./Original source
+./API Headers
 
-  Original source files (headers and examples) of the SDK provided by
-  SCS Software. They can also be downloaded from this page
-  http://www.eurotrucksimulator2.com/mod_tools.php. They are provided alongside
-  this project as a reference for translations and debugging.
+  Translated API headers and other stuff around Telemetry SDK.
 
-./Telemetry API Headers
+  ./API Headers/Original source
 
-  Header files (originally *.h files) translated to pascal.
+    Original source files (headers and examples) of the SDK provided by
+    SCS Software. They can also be downloaded from this page
+    http://www.eurotrucksimulator2.com/mod_tools.php. They are provided
+    alongside this project as a reference for translations and debugging.
 
-./Headers Tester
+  ./API Headers/Headers
 
-  Simple application used for basic check of translated headers (syntax checks).
+    Header files (originally *.h files) translated to pascal.
 
-./Condensed API Headers
+  ./API Headers/Headers Tester
 
-  Contains file that is created by merging all translated header files into one
-  conglomerate. This file is there to simplify units dependency - you can use
-  only one unit in uses clause instead of several individual units.
+    Simple application used for basic check of translated headers (syntax
+    checks, basic debugging, ...).
 
-./Condenser
+  ./API Headers/Condensed Headers
 
-  Application used to merge translated header files into one file.
+    Contains file that is created by merging all translated header files into
+    one conglomerate. This file is there to simplify units dependency - you can
+    use only one unit in uses clause instead of several individual units.
 
-./Condensed Tester
+  ./API Headers/Condenser
 
-  Simple program used for basic control of condensed (merged) headers.
+    Application used to merge translated header files into one file.
+
+  ./API Headers/Condensed Headers Tester
+
+    Simple program used for basic control of condensed (merged) headers.
 
 ./Libs
 
@@ -70,7 +72,7 @@ This section describes nature of content of individual folders in this project.
 
 ./Scripts
 
-  Scripts for batch compilation.
+  Scripts for batch compilation and clearing of the library.
 
 ./Telemetry Library/Source
 
@@ -88,12 +90,9 @@ This section describes nature of content of individual folders in this project.
       (textual and binary loggers).
 
   ./Telemetry Library/Source/SCS
-      Examples provided by SCS Software along with the SDK translated to pascal.
+      Examples provided by SCS Software along the SDK translated into pascal.
       They are not exact translations, rather pascal reimplementation designed
-      to imitate behavior of originals.
-
-  ./Telemetry Library/Source/Comm
-      Communication part - development of this part is currently suspended.
+      to imitate behavior of the originals.
 
 ./Telemetry Library/Tester
 
@@ -123,7 +122,7 @@ This section describes nature of content of individual folders in this project.
   Plugins implementing translated examples provided with the SDK. Folders with
   individual plugins are named the same as folders with corresponding examples
   in SDK.
-  There is also a simple program that is not part of SDK (located in
+  There is also a simple program that is not part of the SDK (located in
   subdirectory telemetry_mem_reader) - it shows a possible way how to utilize
   telemetry_mem example. It should work both with translated and original
   telemetry_mem example plugin.
@@ -136,26 +135,16 @@ This section describes nature of content of individual folders in this project.
 ./Telemetry Library/Documentation
 
   Automatically generated (using PasDoc) documentation of Telemetry Library in
-  form of HTML pages. Note that this documentation is far from complete, but it
-  covers important parts.
+  form of HTML pages. Note that this documentation is far from complete, but
+  should cover important parts.
 
 
 
 Symbols/Defines
 ----------------------------------------
 Following are symbols that can/must be defined project-wide when compiling the
-library. There is number of other symbols used internally, for these, refer to
-appropriate source file for details.
-
-x64
-
-  Must be defined for compilation into 64bit target. 32bit target inferred when
-  not defined.
-
-FPC
-
-  Must be defined when the code is compiled in FPC/Lazarus. Delphi compiler is
-  inferred when not defined.
+library. There is number of other symbols used internally (defined
+automatically), for these, refer to appropriate source file for details.
 
 Debug
 
@@ -175,23 +164,29 @@ exceptions mentioned below, is licensed under Mozilla Public License Version
 page https://www.mozilla.org/MPL/2.0/.
 Exception being following folders and their entire content:
 
-./Original source
+./Documents
+
+  Contains library documents. Everything in this folder is licensed under the
+  terms of Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0) license.
+  You can find full legal code in file CC_BY-SA_4.0.txt or on web page
+  http://creativecommons.org/licenses/by-sa/4.0/legalcode. Short wersion is
+  available on web page http://creativecommons.org/licenses/by-sa/4.0/
+
+./API Headers/Original source
 
   This folder contains original SDK sources which have their own license. See
   individual subdirectories for information about actual license.
 
 ./Telemetry Library/Documentation
 
-  This folder contains documentations for Telemetry Library in form of HTML
-  pages. Everything in this folder is licensed under the terms of Creative
-  Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0) license. You can find full
-  legal code in file CC_BY-SA_4.0.txt or on web page
-  http://creativecommons.org/licenses/by-sa/4.0/legalcode. Short wersion is
-  available on web page http://creativecommons.org/licenses/by-sa/4.0/
+  Contains documentations for Telemetry Library in form of HTML pages.
+  Everything in this folder is licensed under the terms of Creative Commons
+  Attribution-ShareAlike 4.0 (CC BY-SA 4.0) license (see above for details).
 
 ./Telemetry Library/AutoDocumentation/Docs
 
-  Content of this folder is licensed under Creative Commons
+  Contains documents and data (images, texts, ...) used in creation of
+  documentation. Content of this folder is licensed under Creative Commons
   Attribution-ShareAlike 4.0 (CC BY-SA 4.0) license (see above for details).
 
 ./Libs/FastMM
@@ -218,4 +213,4 @@ František Milt, frantisek.milt@gmail.com
 
 Copyright
 ----------------------------------------
-©2013-2015 František Milt, all rights reserved
+©2013-2016 František Milt, all rights reserved
