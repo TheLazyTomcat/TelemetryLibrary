@@ -5,7 +5,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -------------------------------------------------------------------------------}
-program TelemetryMemReader;
+program telemetry_mem_reader;
 
 uses
   FastMM4,

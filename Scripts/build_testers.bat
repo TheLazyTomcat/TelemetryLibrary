@@ -2,7 +2,7 @@
 
 pushd .\
 
-cd "..\Headers Tester\Delphi"
+cd "..\API Headers\Headers Tester\Delphi"
 dcc32.exe -Q -B HT_SCS_TELEMETRY_DEV.dpr
 
 cd "..\Lazarus"
@@ -11,7 +11,7 @@ lazbuild -B --bm=Devel_win_x64 HT_SCS_TELEMETRY_DEV.lpi
 
 
 
-cd "..\..\Condensed Tester\Delphi"
+cd "..\..\Condensed Headers Tester\Delphi"
 dcc32.exe -Q -B Condensed_tester.dpr
 
 cd "..\Lazarus"
@@ -20,7 +20,7 @@ lazbuild -B --bm=Devel_win_x64 Condensed_tester.lpi
 
 
 
-cd "..\..\Telemetry Library\Tester\Delphi"
+cd "..\..\..\Telemetry Library\Tester\Delphi"
 dcc32.exe -Q -B Telemetry_TestPrg.dpr
 
 cd "..\Lazarus"

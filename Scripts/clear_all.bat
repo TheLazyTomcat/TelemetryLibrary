@@ -1,0 +1,2 @@
+call clear_binaries.bat
+call clear_documentation.bat
