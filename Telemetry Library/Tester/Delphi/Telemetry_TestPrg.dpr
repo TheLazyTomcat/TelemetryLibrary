@@ -34,20 +34,11 @@ uses
   TelemetryLogBinary        in '..\..\Source\Log\TelemetryLogBinary.pas',
   TelemetryLogBinaryParser  in '..\..\Source\Log\TelemetryLogBinaryParser.pas';
 
-var
-  test: TStoredConfigsList;
-
 begin
-  Test := TStoredConfigsList.Create;
+  with TTelemetryInfoProvider.CreateCurrent('eut2') do
   try
-    Test.Add('ID','Attr1',2,nil,True);
-    Test.Add('ID','Attr2',0,nil,True);
-    WriteLn(Test.IndexOf('ID','Attr2'));
-    Test.Remove(ConfigReference('ID','Attr1'),2);
-    WriteLn(Test.Count);
-    WriteLn(Test.IndexOf('ID','Attr2'));
   finally
-    Test.Free;
+    Free;
   end;
   WriteLn;
   Write('Press enter to end...'); ReadLn;

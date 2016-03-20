@@ -107,10 +107,6 @@ type
     fMaxSelectorCount:  scs_u32_t;
   protected
   {:
-    Preparation for telemetry 1.0.
-  }
-    procedure Prepare_Telemetry_1_0; override;
-  {:
     Preparation for eut2 1.0.
   }
     procedure Prepare_Game_eut2_1_0; override;
@@ -252,14 +248,15 @@ type
     property KnownConfigs: TKnownConfigsList read fKnownConfigs;
   {:
     Maximum number of wheels for appropriate indexed channels.@br
-    Default value 8. Should be set to maximum number of supported wheels
-    in user-managed mode.
+    Should be set to maximum number of supported wheels in user-managed mode.@br
+    Initialized to 0;
   }
     property MaxWheelCount: scs_u32_t read fMaxWheelCount write fMaxWheelCount;
   {:
     Maximum number of selectors for appropriate indexed channel.@br
-    Default value 2. Should be set to maximum number of supported selectors
-    in user-managed mode.
+    Should be set to maximum number of supported selectors in user-managed
+    mode.@br
+    Initialized to 0;
   }
     property MaxSelectorCount: scs_u32_t read fMaxSelectorCount write fMaxSelectorCount;
   end;
@@ -333,11 +330,11 @@ end;
 {   TTelemetryInfoProvider // Protected methods                                }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryInfoProvider.Prepare_Telemetry_1_0;
+procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_0;
 begin
 inherited;
-fMaxWheelCount := 8;
-fMaxSelectorCount := 2;
+If fMaxWheelCount <= 0 then fMaxWheelCount := 8;
+If fMaxSelectorCount <= 0 then fMaxSelectorCount := 2;
 
 //=== Adding Events ============================================================
 // Adding known events to internal list.
@@ -417,9 +414,13 @@ with fKnownChannels do
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel,                         SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning,                 SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption,     SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+  {
+    Following are not working until eut2 1.12.
+
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                       SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,               SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption,   SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
+  }
     // Oil
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure,                 SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_oil_pressure_warning,         SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
@@ -509,16 +510,6 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_0;
-begin
-inherited;
-fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue);
-fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning);
-fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption);
-end;
-
-//------------------------------------------------------------------------------
-
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_1;
 begin
 inherited;
@@ -550,19 +541,20 @@ begin
 inherited;
 fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_game_time,SCS_VALUE_TYPE_u32,False,EmptyConfigReference);
 fKnownChannels.Add(SCS_TELEMETRY_CHANNEL_next_rest_stop,SCS_VALUE_TYPE_s32,False,EmptyConfigReference);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass,SCS_VALUE_TYPE_float,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company,SCS_VALUE_TYPE_string,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_income,SCS_VALUE_TYPE_u64,False);
-fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time,SCS_VALUE_TYPE_u32,False);
+
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_id,               SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo,                  SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass,             SCS_VALUE_TYPE_float, False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city_id,    SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_city,       SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company_id, SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_destination_company,    SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city_id,         SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_city,            SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company_id,      SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_source_company,         SCS_VALUE_TYPE_string,False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_income,                 SCS_VALUE_TYPE_u64,   False);
+fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_job,SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time,          SCS_VALUE_TYPE_u32,   False);
 end;
 
 //------------------------------------------------------------------------------
@@ -570,8 +562,9 @@ end;
 procedure TTelemetryInfoProvider.Prepare_Game_eut2_1_10;
 begin
 inherited;
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,SCS_VALUE_TYPE_float,True,ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift,       SCS_VALUE_TYPE_float,True,ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_wheel_lift_offset,SCS_VALUE_TYPE_float,True,ConfigReference(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_count), MaxWheelCount - 1);
+
 fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_wheel_liftable,SCS_VALUE_TYPE_bool,True);
 end;
 
@@ -588,8 +581,8 @@ fUserManaged := True;
 fKnownEvents := TKnownEventsList.Create;
 fKnownChannels := TKnownChannelsList.Create;
 fKnownConfigs := TKnownConfigsList.Create;
-fMaxWheelCount := 8;
-fMaxSelectorCount := 2;
+fMaxWheelCount := 0;
+fMaxSelectorCount := 0;
 end;
 
 //   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---

@@ -93,8 +93,21 @@ const
 {$ENDIF}
 
 type
-  //:Enumerated type used in method TTelemetryRecipient.SetGameCallback to set
-  //:one particular game callback.
+{:
+  Enumerated type used in method TTelemetryRecipient.SetGameCallback to set
+  one particular game callback.
+
+  @value(gcbLog           Passed function pointer will be assigned to log
+                          callback.)
+  @value(gcbEventReg      Passed function pointer will be assigned to event
+                          registration callback.)
+  @value(gcbEventUnreg    Passed function pointer will be assigned to event
+                          unregistration callback.)
+  @value(gcbChannelReg    Passed function pointer will be assigned to channel
+                          registration callback.)
+  @value(gcbChannelUnreg  Passed function pointer will be assigned to channel
+                          unregistration callback.)
+}
   TGameCallback = (gcbLog, gcbEventReg, gcbEventUnreg, gcbChannelReg, gcbChannelUnreg);
 
   //:Event type used when recipient writes to game log.
