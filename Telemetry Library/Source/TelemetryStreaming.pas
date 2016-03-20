@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20 
 
   This unit contains routines for storing and loading variables and data
   into/from general memory and streams.@br
@@ -59,13 +59,16 @@ uses
 {$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
-  TelemetryLists,
+  TelemetryLists
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}

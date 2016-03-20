@@ -15,7 +15,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20 
 
   This unit contains TTelemetryRecipient class that used to control the
   telemetry API (see class declaration for details) and few classes used to
@@ -60,8 +60,8 @@ uses
 {$IFDEF Documentation}
   TelemetryValueTypeUtils,
   TelemetryConversions,
-  TelemetryStrings,
-{$ENDIF}
+  TelemetryStrings;
+{$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -70,6 +70,7 @@ uses
   scssdk_telemetry,
   scssdk_telemetry_event,
   scssdk_telemetry_channel;
+{$ENDIF}
 {$ENDIF}
 
 {==============================================================================}

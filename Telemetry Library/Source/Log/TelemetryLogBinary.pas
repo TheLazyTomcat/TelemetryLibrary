@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19
+  Last change: 2016-03-20
 
   This unit contains classes that are designed to write binary logs, namely:
 @preformatted(
@@ -374,14 +374,15 @@ uses
   TelemetryRecipientBinder,
 {$IFDEF Documentation}
   TelemetryConversions,
-  TelemetryStreaming,
-{$ENDIF}
+  TelemetryStreaming;
+{$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
 {$ENDIF}
 
 const

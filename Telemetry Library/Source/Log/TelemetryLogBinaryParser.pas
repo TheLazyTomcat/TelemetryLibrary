@@ -58,8 +58,8 @@ uses
   TelemetryLogBinary,
 {$IFDEF Documentation}
   TelemetryConversions,
-  TelemetryStreaming,
-{$ENDIF}
+  TelemetryStreaming;
+{$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -67,7 +67,7 @@ uses
   scssdk_value,
   scssdk_telemetry_event;
 {$ENDIF}
-
+{$ENDIF}
 type
   //:Event type used when reader/parser passes unprocessed log data.
   TDataLogEvent = procedure(Sender: TObject; Data: Pointer; Size: UInt32) of object;

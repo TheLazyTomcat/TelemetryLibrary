@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20 
 
   This unit contains definitions of identification number types, set of
   constants containing IDs for individual channels, as well as function used to
@@ -136,18 +136,21 @@ interface
 uses
 {$IFNDEF Documentation}
   CRC32,
-{$ENDIF}  
-  TelemetryCommon,
+{$ENDIF}
+  TelemetryCommon
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
-  scssdk,
-{$IFNDEF ID_TrueConstants}
+  scssdk
+{$IFNDEF ID_TrueConstants},
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels;
 {$ELSE};
 {$ENDIF}
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}

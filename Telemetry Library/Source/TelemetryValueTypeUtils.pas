@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19  
+  Last change: 2016-03-20  
 
   Each telemetry channel has a primary type, which is a native type for such
   channel. But telemetry is also able to provide value of some channels as
@@ -53,14 +53,17 @@ interface
 
 uses
 {$IFNDEF Documentation}
-  AuxTypes,
-{$ELSE}  
-  TelemetryStrings,
+  AuxTypes
+{$ELSE}
+  TelemetryStrings
 {$ENDIF}
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk_value;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 const

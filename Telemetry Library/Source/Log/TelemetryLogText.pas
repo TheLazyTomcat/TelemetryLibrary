@@ -15,7 +15,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20 
 
   This unit contains TTelemetryLogText class (see class declaration for
   details).
@@ -38,14 +38,15 @@ uses
   TelemetryRecipient,
   TelemetryRecipientBinder,
 {$IFDEF Documentation}
-  TelemetryStrings,
-{$ENDIF}
+  TelemetryStrings;
+{$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
 {$ENDIF}
 
 {==============================================================================}

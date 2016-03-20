@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19   
+  Last change: 2016-03-20   
 
   This unit is intended to provide some basic routines for manipulation and
   processing of @code(TelemetryString) type (UTF8 encoded string) and also
@@ -34,13 +34,16 @@ uses
 {$IFNDEF Documentation}
   SysUtils,
 {$ENDIF}  
-  TelemetryCommon,
+  TelemetryCommon
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}

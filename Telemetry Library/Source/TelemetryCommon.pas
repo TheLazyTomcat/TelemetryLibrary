@@ -15,7 +15,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20
 
   This file is intended to provide types, constants, routines, etc. used
   throughout the Telemetry library (that is, in more than one unit).
@@ -42,10 +42,9 @@ interface
 
 {$INCLUDE '.\Telemetry_defs.inc'}
 
-uses
 {$IFNDEF Documentation}
+uses
   SysUtils,
-{$ENDIF}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -54,6 +53,7 @@ uses
   scssdk_telemetry,
   scssdk_eut2,
   scssdk_telemetry_eut2;
+{$ENDIF}
 {$ENDIF}
 
 type

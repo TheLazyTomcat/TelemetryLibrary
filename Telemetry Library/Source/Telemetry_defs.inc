@@ -21,7 +21,7 @@
 {.$DEFINE Documentation}
 {$DEFINE CondensedHeaders}
 
-{.$DEFINE ID_TrueConstants}
+{$DEFINE ID_TrueConstants}
 {.$DEFINE ID_ManualCompute}
 
 {$DEFINE MulticastEvents}

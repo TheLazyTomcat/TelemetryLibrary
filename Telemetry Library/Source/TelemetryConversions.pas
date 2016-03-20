@@ -15,7 +15,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19   
+  Last change: 2016-03-20   
 
   This unit contains routines used for conversion between selected
   non-localized SDK types and their no-pointer alternatives.
@@ -28,13 +28,16 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
-  TelemetryCommon,
+  TelemetryCommon
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}

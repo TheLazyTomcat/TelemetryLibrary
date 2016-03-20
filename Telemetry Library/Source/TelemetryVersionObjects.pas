@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20 
   
   Classes in this unit (for details, refer to declaration of individual class):
 @preformatted(
@@ -36,7 +36,7 @@ uses
 {$IFDEF Documentation}
   TelemetryCommon,
   TelemetryStrings,
-{$ENDIF}
+{$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -44,6 +44,7 @@ uses
   scssdk_telemetry,
   scssdk_eut2,
   scssdk_telemetry_eut2;
+{$ENDIF}
 {$ENDIF}
 
 type

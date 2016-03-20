@@ -16,7 +16,7 @@
 
   ©2014-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20
 
   This unit provides TTelemetryRecipientBinder class that is designed as a base
   for classes that are supposed to bind itself to telemetry recipient events
@@ -32,13 +32,16 @@ interface
 uses
   TelemetryCommon,
   TelemetryIDs,
-  TelemetryRecipient,
+  TelemetryRecipient
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}

@@ -16,7 +16,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19
+  Last change: 2016-03-20
 
   This unit contains a class that is designed to imitate behavior of original
   @italic(telemetry_position) example distributed with the Telemetry SDK. Output
@@ -39,7 +39,8 @@ uses
   TelemetryIDs,
   TelemetryStrings,
   TelemetryRecipient,
-  TelemetryRecipientBinder,
+  TelemetryRecipientBinder
+{$IFNDEF Documentation},
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -51,6 +52,8 @@ uses
   scssdk_telemetry_truck_common_channels,
   scssdk_eut2,
   scssdk_telemetry_eut2;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 const

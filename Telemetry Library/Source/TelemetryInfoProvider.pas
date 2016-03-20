@@ -15,7 +15,7 @@
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-19 
+  Last change: 2016-03-20 
 
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
@@ -36,8 +36,8 @@ uses
   TelemetryLists,
   TelemetryVersionObjects,  
 {$IFDEF Documentation}
-  TelemetryCommon,
-{$ENDIF}
+  TelemetryCommon;
+{$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
@@ -49,6 +49,7 @@ uses
   scssdk_telemetry_common_channels,
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels;
+{$ENDIF}
 {$ENDIF}
 
 {==============================================================================}
