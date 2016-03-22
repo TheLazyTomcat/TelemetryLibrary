@@ -9,13 +9,13 @@
 @abstract(Reimplementation of telemetry_mem example distributed with the SDK.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2015-07-13)
-@lastmod(2016-03-20)
+@lastmod(2016-03-22)
 
   @bold(@NoAutoLink(TelemetrySCSExample_telemetry_mem))
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-20
+  Last change: 2016-03-22
 
   This unit contains a class that is designed to imitate behavior of original
   @italic(telemetry_mem) example distributed with the Telemetry SDK. It also
@@ -49,7 +49,9 @@ uses
   scssdk_telemetry_common_configs,
   scssdk_telemetry_truck_common_channels,
   scssdk_eut2,
-  scssdk_telemetry_eut2;
+  scssdk_telemetry_eut2,
+  scssdk_ats,
+  scssdk_telemetry_ats;
 {$ENDIF}
 {$ELSE};
 {$ENDIF}
@@ -471,11 +473,7 @@ fMemoryMapName := MemoryMapName;
 LogLine(SCS_LOG_TYPE_message,'Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' ' +
                              IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.' +
                              IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
-If not TelemetrySameStr(Recipient.GameID,SCS_GAME_ID_EUT2) then
-  begin
-    LogLine(SCS_LOG_TYPE_warning,'Unsupported game, some features or values might behave incorrectly');
-  end
-else
+If TelemetrySameStr(Recipient.GameID,SCS_GAME_ID_EUT2) then
   begin
     If Recipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_03 then
       begin
@@ -486,7 +484,15 @@ else
       LogLine(SCS_LOG_TYPE_warning,'This version of the game has less precise output of angular acceleration of the cabin');
     If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
       LogLine(SCS_LOG_TYPE_warning,'Too new major version of the game, some features might behave incorrectly');
-  end;
+  end
+else If TelemetrySameStr(Recipient.GameID,SCS_GAME_ID_ATS) then
+  begin
+    If Recipient.GameVersion < SCS_TELEMETRY_ATS_GAME_VERSION_1_00 then
+      LogLine(SCS_LOG_TYPE_warning,'WARNING: Too old version of the game, some features might behave incorrectly');
+    If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_ATS_GAME_VERSION_CURRENT) then
+      LogLine(SCS_LOG_TYPE_warning,'WARNING: Too new major version of the game, some features might behave incorrectly');
+  end
+else LogLine(SCS_LOG_TYPE_warning,'Unsupported game, some features or values might behave incorrectly');
 If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
         Recipient.EventRegister(SCS_TELEMETRY_EVENT_started) and
         Recipient.EventRegister(SCS_TELEMETRY_EVENT_configuration)) then

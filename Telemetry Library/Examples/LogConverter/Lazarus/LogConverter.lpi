@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -65,7 +65,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -106,7 +106,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -164,7 +164,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
+      <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log;.."/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

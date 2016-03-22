@@ -10,13 +10,13 @@
           SDK.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2015-07-12)
-@lastmod(2016-03-20)
+@lastmod(2016-03-22)
 
   @bold(@NoAutoLink(TelemetrySCSExample_telemetry_position))
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-20
+  Last change: 2016-03-22
 
   This unit contains a class that is designed to imitate behavior of original
   @italic(telemetry_position) example distributed with the Telemetry SDK. Output
@@ -51,7 +51,9 @@ uses
   scssdk_telemetry_common_configs,
   scssdk_telemetry_truck_common_channels,
   scssdk_eut2,
-  scssdk_telemetry_eut2;
+  scssdk_telemetry_eut2,
+  scssdk_ats,
+  scssdk_telemetry_ats;
 {$ENDIF}
 {$ELSE};
 {$ENDIF}
@@ -311,17 +313,21 @@ If not InitLog then
 fLog.AddLogNoTime('Game ''' + TelemetryStringDecode(Recipient.GameID) + ''' '
                             + IntToStr(SCSGetMajorVersion(Recipient.GameVersion)) + '.'
                             + IntToStr(SCSGetMinorVersion(Recipient.GameVersion)));
-If not TelemetrySameStr(Recipient.GameID, SCS_GAME_ID_EUT2) then
-  begin
-    fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
-  end
-else
+If TelemetrySameStr(Recipient.GameID, SCS_GAME_ID_EUT2) then
   begin
     If Recipient.GameVersion < SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 then
       fLog.AddLogNoTime('WARNING: Too old version of the game, some features might behave incorrectly');
     If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT) then
       fLog.AddLogNoTime('WARNING: Too new major version of the game, some features might behave incorrectly');
-  end;
+  end
+else If TelemetrySameStr(Recipient.GameID, SCS_GAME_ID_ATS) then
+  begin
+    If Recipient.GameVersion < SCS_TELEMETRY_ATS_GAME_VERSION_1_00 then
+      fLog.AddLogNoTime('WARNING: Too old version of the game, some features might behave incorrectly');
+    If SCSGetMajorVersion(Recipient.GameVersion) > SCSGetMajorVersion(SCS_TELEMETRY_ATS_GAME_VERSION_CURRENT) then
+      fLog.AddLogNoTime('WARNING: Too new major version of the game, some features might behave incorrectly');
+  end
+else fLog.AddLogNoTime('WARNING: Unsupported game, some features or values might behave incorrectly');
 If not (Recipient.EventRegister(SCS_TELEMETRY_EVENT_frame_end) and
         Recipient.EventRegister(SCS_TELEMETRY_EVENT_paused) and
         Recipient.EventRegister(SCS_TELEMETRY_EVENT_started) and
