@@ -20,7 +20,9 @@ uses
   scssdk_telemetry_trailer_common_channels,
   scssdk_telemetry_truck_common_channels,
   scssdk_eut2,
-  scssdk_telemetry_eut2;
+  scssdk_telemetry_eut2,
+  scssdk_ats,
+  scssdk_telemetry_ats;
 
 begin
   WriteLn('HT_SCS_TELEMETRY_DEV');

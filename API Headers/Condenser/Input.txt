@@ -9,3 +9,5 @@
 ..\Headers\common\scssdk_telemetry_truck_common_channels.pas
 ..\Headers\eurotrucks2\scssdk_eut2.pas
 ..\Headers\eurotrucks2\scssdk_telemetry_eut2.pas
+..\Headers\amtrucks\scssdk_ats.pas
+..\Headers\amtrucks\scssdk_telemetry_ats.pas

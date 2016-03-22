@@ -4,12 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Devel_win_x86"/>
-    <Units Count="13">
+    <Units Count="15">
       <Unit0>
         <Filename Value="HT_SCS_TELEMETRY_DEV.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="24" Y="16"/>
+        <TopLine Value="5"/>
+        <CursorPos X="3" Y="25"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -95,6 +96,18 @@
         <CursorPos Y="8"/>
         <UsageCount Value="10"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="..\..\Headers\amtrucks\scssdk_ats.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="20"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\Headers\amtrucks\scssdk_telemetry_ats.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="20"/>
+      </Unit14>
     </Units>
     <JumpHistory Count="4" HistoryIndex="3">
       <Position1>

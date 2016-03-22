@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\Headers;..\..\Headers\common;..\..\Headers\eurotrucks2"/>
+            <OtherUnitFiles Value="..\..\Headers;..\..\Headers\common;..\..\Headers\eurotrucks2;..\..\Headers\amtrucks"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -71,7 +71,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="12">
+    <Units Count="14">
       <Unit0>
         <Filename Value="HT_SCS_TELEMETRY_DEV.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -120,6 +120,14 @@
         <Filename Value="..\..\Telemetry API Headers\eurotrucks2\scssdk_telemetry_eut2.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="..\..\Headers\amtrucks\scssdk_ats.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\..\Headers\amtrucks\scssdk_telemetry_ats.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit13>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -130,7 +138,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\Headers;..\..\Headers\common;..\..\Headers\eurotrucks2"/>
+      <OtherUnitFiles Value="..\..\Headers;..\..\Headers\common;..\..\Headers\eurotrucks2;..\..\Headers\amtrucks"/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
