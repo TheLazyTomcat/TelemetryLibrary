@@ -10,13 +10,13 @@
           version support.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-17)
-@lastmod(2016-03-20)
+@lastmod(2016-03-22)
 
   @bold(@NoAutoLink(TelemetryVersionObjects))
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-20 
+  Last change: 2016-03-22
   
   Classes in this unit (for details, refer to declaration of individual class):
 @preformatted(
@@ -43,7 +43,9 @@ uses
   scssdk,
   scssdk_telemetry,
   scssdk_eut2,
-  scssdk_telemetry_eut2;
+  scssdk_telemetry_eut2,
+  scssdk_ats,
+  scssdk_telemetry_ats;
 {$ENDIF}
 {$ENDIF}
 
@@ -141,7 +143,7 @@ type
   check whether the class supports required telemetry  and game version before
   instantiation (creation of class instance).
 
-  Supported versions as of 2016-03-20:
+  Supported versions as of 2016-03-22:
 @unorderedList(
   @itemSpacing(Compact)
   @item(Telemetry 1.0)
@@ -158,6 +160,7 @@ type
   @item(eut2 1.10)
   @item(eut2 1.11)
   @item(eut2 1.12)
+  @item(ats  1.00)
 )
 }
   TTelemetryVersionObject = class(TTelemetryAbstractVersionObject)
@@ -268,7 +271,12 @@ type
   Preparation for eut2 1.12.@br
   Calls Prepare_Game_eut2_1_11.
   }
-    procedure Prepare_Game_eut2_1_12; virtual; 
+    procedure Prepare_Game_eut2_1_12; virtual;
+  {:
+  Preparation for ats 1.0.@br
+  Calls Prepare_Game_eut2_1_12.
+  }
+    procedure Prepare_Game_ats_1_00; virtual;
   public
   {:
     Performs any preparations necessary to support required telemetry version.
@@ -528,6 +536,13 @@ begin
 Prepare_Game_eut2_1_11;
 end;
 
+//------------------------------------------------------------------------------
+
+procedure TTelemetryVersionPrepareObject.Prepare_Game_ats_1_00;
+begin
+Prepare_Game_eut2_1_12;
+end;
+
 {------------------------------------------------------------------------------}
 {   TTelemetryVersionPrepareObject // Public methods                           }
 {------------------------------------------------------------------------------}
@@ -569,6 +584,14 @@ If TelemetrySameStr(GameId,SCS_GAME_ID_EUT2) then  {eut2, Euro Truck Simulator 2
       SCS_TELEMETRY_EUT2_GAME_VERSION_1_10: Prepare_Game_eut2_1_10; {1.10}
       SCS_TELEMETRY_EUT2_GAME_VERSION_1_11: Prepare_Game_eut2_1_11; {1.11}
       SCS_TELEMETRY_EUT2_GAME_VERSION_1_12: Prepare_Game_eut2_1_12; {1.12}
+    else
+      Result := False;
+    end;
+  end
+else If TelemetrySameStr(GameId,SCS_GAME_ID_ATS) then  {ATS, American Truck Simulator}
+  begin
+    case GameVersion of
+      SCS_TELEMETRY_ATS_GAME_VERSION_1_00:  Prepare_Game_ats_1_00;  {1.0}
     else
       Result := False;
     end;

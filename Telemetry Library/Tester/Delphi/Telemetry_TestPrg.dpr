@@ -37,7 +37,7 @@ uses
   SCS_Telemetry_Condensed;
 
 begin
-  with TTelemetryInfoProvider.CreateCurrent('eut2') do
+  with TTelemetryInfoProvider.CreateCurrent('ats') do
   try
     WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_engine_gear)));
     WriteLn(ItemIDToStr(KnownChannels.ChannelNameToID(SCS_TELEMETRY_TRUCK_CHANNEL_displayed_gear)));
@@ -53,6 +53,8 @@ begin
     WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_ID_navigation_time));
     WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_speed_limit));
     WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_ID_navigation_speed_limit));
+
+    WriteLn(KnownChannels.IndexOf(SCS_TELEMETRY_TRUCK_CHANNEL_adblue));
   finally
     Free;
   end;

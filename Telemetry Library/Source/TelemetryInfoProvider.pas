@@ -9,13 +9,13 @@
 @abstract(Information provider class (known telemetry events, channels, ...).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2016-03-20)
+@lastmod(2016-03-22)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-20 
+  Last change: 2016-03-22
 
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
@@ -138,6 +138,10 @@ type
     Preparation for eut2 1.12.
   }
     procedure Prepare_Game_eut2_1_12; override;
+  {:
+    Preparation for ats 1.0.
+  }
+    procedure Prepare_Game_ats_1_00; override;
   public
   {:
     Basic object constructor.@br
@@ -604,6 +608,16 @@ fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_reve
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_distance,   SCS_VALUE_TYPE_float, False, EmptyConfigReference);
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_time,       SCS_VALUE_TYPE_float, False, EmptyConfigReference);
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_navigation_speed_limit,SCS_VALUE_TYPE_float, False, EmptyConfigReference);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TTelemetryInfoProvider.Prepare_Game_ats_1_00;
+begin
+inherited;
+fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue);
+fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning);
+fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption);
 end;
 
 {------------------------------------------------------------------------------}

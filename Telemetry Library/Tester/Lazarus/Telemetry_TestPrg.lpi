@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\API Headers\Condensed Headers;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\Source\Libs;..\..\Source;..\..\Source\SCS;..\..\Source\Log"/>
+            <OtherUnitFiles Value="..\..\..\API Headers\Condensed Headers;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Headers\amtrucks;..\..\Source\Libs;..\..\Source;..\..\Source\SCS;..\..\Source\Log"/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -169,7 +169,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\API Headers\Condensed Headers;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\Source\Libs;..\..\Source;..\..\Source\SCS;..\..\Source\Log"/>
+      <OtherUnitFiles Value="..\..\..\API Headers\Condensed Headers;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Headers\amtrucks;..\..\Source\Libs;..\..\Source;..\..\Source\SCS;..\..\Source\Log"/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -198,15 +198,6 @@
 -dWindows
 -dDebug
 -dx86"/>
-      <OtherDefines Count="7">
-        <Define0 Value="FPC"/>
-        <Define1 Value="Windows"/>
-        <Define2 Value="Debug"/>
-        <Define3 Value="Release"/>
-        <Define4 Value="x86"/>
-        <Define5 Value="x64"/>
-        <Define6 Value="PurePascal"/>
-      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>

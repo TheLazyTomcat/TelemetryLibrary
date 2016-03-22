@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="40" Y="18"/>
         <UsageCount Value="206"/>
         <Loaded Value="True"/>
@@ -24,10 +23,12 @@
       <Unit2>
         <Filename Value="..\..\Source\TelemetryCommon.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="39"/>
-        <CursorPos X="3" Y="52"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="194"/>
+        <CursorPos X="81" Y="215"/>
         <UsageCount Value="206"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\Source\TelemetryConversions.pas"/>
@@ -273,10 +274,10 @@
       </Unit37>
       <Unit38>
         <Filename Value="..\..\Source\Telemetry_defs.inc"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="19" Y="3"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="34"/>
+        <CursorPos X="2" Y="49"/>
         <UsageCount Value="103"/>
-        <Loaded Value="True"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\Source\Inc\TelemetryRecipient_MulticastEvents.pas"/>
@@ -306,7 +307,16 @@
         <UsageCount Value="10"/>
       </Unit42>
     </Units>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <OtherDefines Count="7">
+      <Define0 Value="FPC"/>
+      <Define1 Value="Windows"/>
+      <Define2 Value="Debug"/>
+      <Define3 Value="Release"/>
+      <Define4 Value="x86"/>
+      <Define5 Value="x64"/>
+      <Define6 Value="PurePascal"/>
+    </OtherDefines>
+    <JumpHistory Count="10" HistoryIndex="9">
       <Position1>
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <Caret Line="18" Column="40" TopLine="7"/>
@@ -343,6 +353,10 @@
         <Filename Value="Telemetry_TestPrg.lpr"/>
         <Caret Line="18" Column="40" TopLine="7"/>
       </Position9>
+      <Position10>
+        <Filename Value="..\..\Source\TelemetryCommon.pas"/>
+        <Caret Line="52" Column="3" TopLine="39"/>
+      </Position10>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
