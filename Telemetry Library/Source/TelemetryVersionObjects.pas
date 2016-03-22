@@ -35,7 +35,7 @@ interface
 uses
 {$IFDEF Documentation}
   TelemetryCommon,
-  TelemetryStrings,
+  TelemetryStrings;
 {$ELSE}
 {$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
