@@ -9,13 +9,13 @@
 @abstract(Information provider class (known telemetry events, channels, ...).)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2013-10-07)
-@lastmod(2016-03-22)
+@lastmod(2016-03-23)
 
   @bold(@NoAutoLink(TelemetryInfoProvider))
 
   ©2013-2016 František Milt, all rights reserved.
 
-  Last change: 2016-03-22
+  Last change: 2016-03-23
 
   This unit contains TTelemetryInfoProvider class (see class declaration for
   details).
@@ -429,7 +429,7 @@ with fKnownChannels do
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_warning,                 SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_fuel_average_consumption,     SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
   {
-    Following are not working until eut2 1.12.
+    Following are not working in this version, yet they are declared in the SDK.
 
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                       SCS_VALUE_TYPE_float,      False, EmptyConfigReference);
     Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,               SCS_VALUE_TYPE_bool,       False, EmptyConfigReference);
@@ -599,7 +599,6 @@ begin
 inherited;
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue,                     SCS_VALUE_TYPE_float, False, EmptyConfigReference);
 fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning,             SCS_VALUE_TYPE_bool,  False, EmptyConfigReference);
-fKnownChannels.Add(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption, SCS_VALUE_TYPE_float, False, EmptyConfigReference);
 
 fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_differential_ratio,SCS_VALUE_TYPE_float,False,False);
 fKnownConfigs.Add(SCS_TELEMETRY_CONFIG_truck,SCS_TELEMETRY_CONFIG_ATTRIBUTE_forward_ratio,     SCS_VALUE_TYPE_float,False,False);
@@ -617,7 +616,6 @@ begin
 inherited;
 fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue);
 fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_warning);
-fKnownChannels.Remove(SCS_TELEMETRY_TRUCK_CHANNEL_adblue_average_consumption);
 end;
 
 {------------------------------------------------------------------------------}

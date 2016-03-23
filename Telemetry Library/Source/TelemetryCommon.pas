@@ -130,7 +130,7 @@ type
 {:
   Structure used in lists of supported games and their versions.
 
-  @member GameID       Internal game identificator (not a game name).
+  @member GameID       Internal game identifier (not a game name).
   @member(GameVersion  Internal game version (API-specific value - not equal
                        to actual game version).)
 }

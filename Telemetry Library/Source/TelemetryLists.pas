@@ -982,7 +982,7 @@ Function KnownConfig(const ID: TelemetryString; Attribute: TKnownAttribute): TKn
             @noAutoLink(configurations) values.)
 
   Known @noAutoLink(configs) (note that a word "config", as used in here, means
-  a specific value, that is, a specific attribute in a specifin configuration
+  a specific value, that is, a specific attribute in a specific configuration
   group) in this list are stored as two-level (or two-dimensional) arrray. First
   level consists af configuration groups (e.g. Truck, Trailer, ...), second
   level is an array of attributes for each of the configuration group.@br
