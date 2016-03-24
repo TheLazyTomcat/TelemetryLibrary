@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLists: Class TKnownChannelsList</title>
+<title>Telemetry library: TelemetryLists: Class TKnownChannelsList</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -19,7 +19,7 @@
 <code>type TKnownChannelsList = class(<a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-List used to store informations about known telemetry channels.</p>
+List used to store information about known telemetry channels.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
@@ -48,51 +48,51 @@ List used to store informations about known telemetry channels.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Add">Add</a></b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLists.TKnownChannelsList.html#ReplaceIndex">ReplaceIndex</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Replace">Replace</a></b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#Insert">Insert</a></b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -104,7 +104,7 @@ List used to store informations about known telemetry channels.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#ChannelIndexConfigID">ChannelIndexConfigID</a></b>(const Name: TelemetryString): <a  href="TelemetryIDs.html#TItemID">TItemID</a>; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TKnownChannelsList.html#ChannelIndexConfigID">ChannelIndexConfigID</a></b>(const Name: TelemetryString): <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -139,6 +139,8 @@ Getter for <a class="normal" href="TelemetryLists.TKnownChannelsList.html#Pointe
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -146,7 +148,12 @@ Getter for <a class="normal" href="TelemetryLists.TKnownChannelsList.html#Pointe
 <dd>Index of requested item.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Pointer to requested item.</p></td></tr>
+<p class="return">Pointer to requested item.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -159,6 +166,8 @@ Getter for Events property.<br> When index falls out of allowed boundary (&lt;0,
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -166,7 +175,12 @@ Getter for Events property.<br> When index falls out of allowed boundary (&lt;0,
 <dd>Index of requested item.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Requested item.</p></td></tr>
+<p class="return">Requested item.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -221,7 +235,7 @@ Searches through list for channel with given ID. When channel with that ID is no
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -241,7 +255,7 @@ Adds new known channel into the list.<br> <a class="normal" href="TelemetryLists
 <dt>Indexed</dt>
 <dd>Flag denoting whether added channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index at which the new channel was added, -1 when addition failed.</p></td></tr>
@@ -249,7 +263,7 @@ Adds new known channel into the list.<br> <a class="normal" href="TelemetryLists
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -267,7 +281,7 @@ Adds new known channel into the list.<br> Internally calls variant of this metho
 <dt>Indexed</dt>
 <dd>Flag denoting whether added channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index at which the new channel was added, -1 when addition failed.</p></td></tr>
@@ -275,7 +289,7 @@ Adds new known channel into the list.<br> Internally calls variant of this metho
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -297,7 +311,7 @@ Adds new known channel into the list.<br> Internally calls variant of this metho
 <dt>Indexed</dt>
 <dd>Flag denoting whether added channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index at which the new channel was added, -1 when addition failed.</p></td></tr>
@@ -305,13 +319,15 @@ Adds new known channel into the list.<br> Internally calls variant of this metho
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Replaces channel at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
 
-<p>     </p>
+<p>     
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
@@ -325,14 +341,19 @@ Replaces channel at position given by <code>Index</code> parameter. When index f
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -350,14 +371,14 @@ Replaces channel at position given by <code>Index</code> parameter. When index f
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
+<td class="itemcode"><a name="ReplaceIndex"></a><code>procedure <b>ReplaceIndex</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL); overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -379,14 +400,14 @@ Replaces channel at position given by <code>Index</code> parameter. When index f
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -408,7 +429,7 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index of channel that was replaced, -1 when old channel was not found.</p></td></tr>
@@ -416,7 +437,7 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -436,7 +457,7 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index of channel that was replaced, -1 when old channel was not found.</p></td></tr>
@@ -444,7 +465,7 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Replace"></a><code>Function <b>Replace</b>(const OldChannel, Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -468,7 +489,7 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Index of channel that was replaced, -1 when old channel was not found.</p></td></tr>
@@ -476,7 +497,7 @@ Replaces channel with name given by <code>OldChannel</code> parameter. When this
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; SecondaryTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -498,7 +519,7 @@ Inserts new channel at position given by <code>Index</code> parameter. <a class=
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Actual position where the new channel was inserted.</p></td></tr>
@@ -506,7 +527,7 @@ Inserts new channel at position given by <code>Index</code> parameter. <a class=
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -526,7 +547,7 @@ Inserts new channel at position given by <code>Index</code> parameter. <a class=
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Actual position where the new channel was inserted.</p></td></tr>
@@ -534,7 +555,7 @@ Inserts new channel at position given by <code>Index</code> parameter. <a class=
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; const IndexConfig: TelemetryString = ''; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Insert"></a><code>Function <b>Insert</b>(Index: Integer; const Name: TelemetryString; PrimaryType, SecondaryType, TertiaryType: scs_value_type_t; Indexed: Boolean; IndexConfig: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; MaxIndex: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -558,7 +579,7 @@ Inserts new channel at position given by <code>Index</code> parameter. <a class=
 <dt>Indexed</dt>
 <dd>Flag denoting whether channel is indexed.</dd>
 <dt>IndexConfig</dt>
-<dd>Fully qualified name (id + attribute name) of the configuration containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
+<dd>Full reference of the config containing count for channel indices. Has no meaning when the channel is not indexed.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Actual position where the new channel was inserted.</p></td></tr>
@@ -592,22 +613,29 @@ Removes channel with given name from the list. When this channel is not found in
 <p>
 Deletes channel at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of item that has to be deleted.</dd>
 </dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelIndexConfigID"></a><code>Function <b>ChannelIndexConfigID</b>(const Name: TelemetryString): <a  href="TelemetryIDs.html#TItemID">TItemID</a>; virtual;</code></td>
+<td class="itemcode"><a name="ChannelIndexConfigID"></a><code>Function <b>ChannelIndexConfigID</b>(const Name: TelemetryString): <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns <code>IndexConfigID</code> for channel with name given in <code>Name</code> parameter. When such channel is not found in the list, ID with value 0x00000000 is returned.
+Returns <code>IndexConfig</code> (config reference) for channel with name given in <code>Name</code> parameter. When such channel is not found in the list, an empty reference is returned.
 
 <p>
 
@@ -618,7 +646,7 @@ Returns <code>IndexConfigID</code> for channel with name given in <code>Name</co
 <dd>Name of requested channel.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">ID of index-configuration for requested channel.</p></td></tr>
+<p class="return">Reference of index config for requested channel.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -681,7 +709,7 @@ Array property mapped directly to internal list. Use it for direct access to ind
 Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

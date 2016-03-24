@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryReader</title>
+<title>Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryReader</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -96,7 +96,7 @@ Base class for all internal readers used to write binary logs.</p>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#IncLogCounter">IncLogCounter</a></b>(N: Integer = 1); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#IncLogCounter">IncLogCounter</a></b>(Delta: Integer = 1); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -376,7 +376,7 @@ Stores reference to <a class="normal" href="TelemetryLogBinaryParser.TTelemetryL
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="IncLogCounter"></a><code>procedure <b>IncLogCounter</b>(N: Integer = 1); virtual;</code></td>
+<td class="itemcode"><a name="IncLogCounter"></a><code>procedure <b>IncLogCounter</b>(Delta: Integer = 1); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -385,7 +385,7 @@ Increases <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryRe
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>N</dt>
+<dt>Delta</dt>
 <dd>Number by which the <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#LogCounter">LogCounter</a> will be increased.</dd>
 </dl>
 </td></tr>
@@ -421,13 +421,22 @@ Class constructor.
 
 <p>Creates internal telemetry info provider.
 
+<p> 
+
 <p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Stream</dt>
 <dd>Stream from which the reader will read. Must not be <code>Nil</code>. Position must be set directly behind the file header and API info section, not at the beginning of the Stream itself.</dd>
 <dt>FileInfo</dt>
-<dd>Informations about input file. It must be completely filled by parser that is creating current instance in order for this class to work properly. Provided information are used as parameters when creating telemetry info provider. When not filled, the behavior of this class is not defined.</dd>
+<dd>Information about input file. It must be completely filled by parser that is creating current instance in order for this class to work properly. Provided information are used as parameters when creating telemetry info provider. When not filled, the behavior of this class is not defined.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLNilReference.html">ETLNilReference</a></dt>
+<dd>When <code>Stream</code> is not assigned.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedGame.html">ETLUnsupportedGame</a></dt>
+<dd>When telemetry version, game and/or its version are not supported by this class.</dd>
 </dl>
 </td></tr>
 </table>
@@ -500,7 +509,7 @@ Reads all log entries from current position in <a class="normal" href="Telemetry
 </tr>
 <tr><td colspan="2">
 <p>
-Reads log entry selected by passed index. Works only for structures that supports non-sequential reading (eg. structure 0).<br> Position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> is not changed in this method.
+Reads log entry selected by passed index. Works only for structures that supports non-sequential reading (eg. structure 1).<br> Position in <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html#Stream">Stream</a> is not changed in this method.
 
 <p>
 
@@ -561,7 +570,7 @@ Event called when reader reads text log or log that can be interpreted as a text
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about a write to game log.</p>
+Event called when reader reads log containing information about a write to game log.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -571,7 +580,7 @@ Event called when reader reads log containing informations about a write to game
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about game event registration.</p>
+Event called when reader reads log containing information about game event registration.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -581,7 +590,7 @@ Event called when reader reads log containing informations about game event regi
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about game event unregistration.</p>
+Event called when reader reads log containing information about game event unregistration.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -591,7 +600,7 @@ Event called when reader reads log containing informations about game event unre
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about game event.</p>
+Event called when reader reads log containing information about game event.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -601,7 +610,7 @@ Event called when reader reads log containing informations about game event.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about channel registration.</p>
+Event called when reader reads log containing information about channel registration.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -611,7 +620,7 @@ Event called when reader reads log containing informations about channel registr
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about channel unregistration.</p>
+Event called when reader reads log containing information about channel unregistration.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -621,7 +630,7 @@ Event called when reader reads log containing informations about channel unregis
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about channel.</p>
+Event called when reader reads log containing information about channel.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -631,7 +640,7 @@ Event called when reader reads log containing informations about channel.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Event called when reader reads log containing informations about config.</p>
+Event called when reader reads log containing information about config.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -694,7 +703,7 @@ Contains position property of <a class="normal" href="TelemetryLogBinaryParser.T
 Determines whether sequential reading can or cannot continue (eg. end of stream/file, termination block was read, an error occured, etc.).</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

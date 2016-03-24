@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryStream</title>
+<title>Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryStream</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -21,7 +21,7 @@
 <p>
 Class designed to log all traffic on telemetry API as a binary log into provided stream.</p>
 <p>
- Only file header and API informations are actually written in this class, everything else (log data) is written using instance of appropriate (for selected file structure) writer.<br> *Handler methods all require valid telemetry recipient object. It can be provided in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property (prefered) or in <code>Sender</code> parameter of a method. If you fail to provide it, these methods will raise an exception.</p>
+ Only file header and API information are actually written in this class, everything else (log data) is written using instance of appropriate (for selected file structure) writer.<br> *Handler methods all require valid telemetry recipient object. It can be provided in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property (prefered) or in <code>Sender</code> parameter of a method. If you fail to provide it, these methods will raise an exception.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></li>
@@ -69,7 +69,7 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Create">Create</a></b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Create">Create</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -77,7 +77,7 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">LogData</a></b>(Sender: TObject; Data: Pointer; Size: Word); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">LogData</a></b>(Sender: TObject; Data: Pointer; Size: UInt16); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -113,7 +113,7 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -145,7 +145,7 @@ Class designed to log all traffic on telemetry API as a binary log into provided
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogConfig">LogConfig</a></b>(const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogConfig">LogConfig</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
@@ -261,7 +261,7 @@ Setter for <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.
 </tr>
 <tr><td colspan="2">
 <p>
-Fills passed structure with all information available. Called from the constructor. It sets all field of file header and API informations. API info is taken from an object referenced by <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property - meaning you must pass valid telemetry recipient to the constructor.
+Fills passed structure with all information available. Called from the constructor. It sets all field of file header and API information. API info is taken from an object referenced by <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property - meaning you must pass valid telemetry recipient to the constructor.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -278,7 +278,7 @@ Fills passed structure with all information available. Called from the construct
 </tr>
 <tr><td colspan="2">
 <p>
-Writes passed file header and API informations section into <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Stream">Stream</a> at current position.
+Writes passed file header and API information section into <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Stream">Stream</a> at current position.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -291,7 +291,7 @@ Writes passed file header and API informations section into <a class="normal" hr
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Stream: TStream; DataStructure: Word = 0);</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -299,15 +299,24 @@ Class constructor.
 
 <p>Creates internal log writer and starts writing.
 
-<p>  </p>
+<p>  
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Recipient</dt>
-<dd>Telemetry recipient that operates on API. You must provide valid instance as API informations section will be filled usig its properties. Constructor also assigns all handler methods to its event - you can change that (deassign handlers, set <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property to other instance, etc.) after the constructor returns, but rememeber that handlers require valid recipient instance either in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property or passed in <code>Sender</code> paramater.</dd>
+<dd>Telemetry recipient that operates on API. You must provide valid instance as API information section will be filled usig its properties. Constructor also assigns all handler methods to its event - you can change that (deassign handlers, set <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property to other instance, etc.) after the constructor returns, but rememeber that handlers require valid recipient instance either in <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> property or passed in <code>Sender</code> paramater.</dd>
 <dt>Stream</dt>
 <dd>Stream to which the output will be written.<br> <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#Stream">Stream</a> is cleared before any writing occurs.</dd>
 <dt>DataStructure</dt>
 <dd>Structure of output binary log. See binary log documentation for details. If you pass unsupported structure, the constructor raises an exception.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLNilReference.html">ETLNilReference</a></dt>
+<dd>When either of parameters <code><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a></code> or <code>Stream</code> is not assigned.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLUnknownData.html">ETLUnknownData</a></dt>
+<dd>When number passed in parameter <code>DataStructure</code> is not known.</dd>
 </dl>
 </td></tr>
 </table>
@@ -326,13 +335,15 @@ Class destructor.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Sender: TObject; Data: Pointer; Size: Word); virtual;</code></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Sender: TObject; Data: Pointer; Size: UInt16); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Method adding generic data to output.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>  </p>
+<p>  
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -341,6 +352,11 @@ Method adding generic data to output.<br> <b>Note</b> - requires valid telemetry
 <dd>Pointer to data to be written. Must not be <code>Nil</code>.</dd>
 <dt>Size</dt>
 <dd>Size of the data in bytes.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
 </dl>
 </td></tr>
 </table>
@@ -353,13 +369,20 @@ Method adding generic data to output.<br> <b>Note</b> - requires valid telemetry
 <p>
 Method adding a text entry to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p> </p>
+<p> 
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
 <dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
 <dt>Str</dt>
 <dd>Text to be written. Can be empty.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
 </dl>
 </td></tr>
 </table>
@@ -370,9 +393,11 @@ Method adding a text entry to the log.<br> <b>Note</b> - requires valid telemetr
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about a write to game log (console).<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about a write to game log (console).<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>  </p>
+<p>  
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -381,6 +406,11 @@ Method adding informations about a write to game log (console).<br> <b>Note</b> 
 <dd>Type of log written into game log (error, warning, ...).</dd>
 <dt>LogText</dt>
 <dd>Text written into game log.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
 </dl>
 </td></tr>
 </table>
@@ -391,9 +421,11 @@ Method adding informations about a write to game log (console).<br> <b>Note</b> 
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about game event registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about game event registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>  </p>
+<p>  
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -402,6 +434,11 @@ Method adding informations about game event registration to the log.<br> <b>Note
 <dd>Game event identification number.</dd>
 <dt>UserData</dt>
 <dd>User defined data stored in the event context.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
 </dl>
 </td></tr>
 </table>
@@ -412,9 +449,11 @@ Method adding informations about game event registration to the log.<br> <b>Note
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about game event unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about game event unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>  </p>
+<p>  
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -423,6 +462,11 @@ Method adding informations about game event unregistration to the log.<br> <b>No
 <dd>Game event identification number.</dd>
 <dt>UserData</dt>
 <dd>User defined data stored in the event context.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
 </dl>
 </td></tr>
 </table>
@@ -435,7 +479,9 @@ Method adding informations about game event unregistration to the log.<br> <b>No
 <p>
 Method adding information about game event to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>   </p>
+<p>   
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -447,6 +493,11 @@ Method adding information about game event to the log.<br> <b>Note</b> - require
 <dt>UserData</dt>
 <dd>User defined data stored in the event context.</dd>
 </dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -456,9 +507,11 @@ Method adding information about game event to the log.<br> <b>Note</b> - require
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about channel registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about channel registration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>      </p>
+<p>      
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -476,6 +529,11 @@ Method adding informations about channel registration to the log.<br> <b>Note</b
 <dt>UserData</dt>
 <dd>User defined data stored in the channel context.</dd>
 </dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -485,9 +543,11 @@ Method adding informations about channel registration to the log.<br> <b>Note</b
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about channel unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about channel unregistration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>     </p>
+<p>     
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -503,6 +563,11 @@ Method adding informations about channel unregistration to the log.<br> <b>Note<
 <dt>UserData</dt>
 <dd>User defined data stored in the channel context.</dd>
 </dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -512,9 +577,11 @@ Method adding informations about channel unregistration to the log.<br> <b>Note<
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about channel to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about channel to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>     </p>
+<p>     
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
@@ -530,30 +597,40 @@ Method adding informations about channel to the log.<br> <b>Note</b> - requires 
 <dt>UserData</dt>
 <dd>User defined data stored in the channel context.</dd>
 </dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Method adding informations about received configuration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
+Method adding information about received configuration to the log.<br> <b>Note</b> - requires valid telemetry recipient.
 
-<p>    </p>
+<p>   
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Sender</dt>
 <dd>Object calling this method (must be of type <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>).</dd>
-<dt>Name</dt>
-<dd>Name of the config.</dd>
-<dt>ID</dt>
-<dd>ID of the config.</dd>
+<dt>ConfigReference</dt>
+<dd>Full config reference (ID + Attribute).</dd>
 <dt>Index</dt>
 <dd>Index of the config.</dd>
 <dt>Value</dt>
 <dd>Actual value of the config.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></dt>
+<dd>When no valid recipient can be obtained.</dd>
 </dl>
 </td></tr>
 </table>
@@ -630,7 +707,7 @@ Calls method <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStrea
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogConfig"></a><code>procedure <b>LogConfig</b>(const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
+<td class="itemcode"><a name="LogConfig"></a><code>procedure <b>LogConfig</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -665,7 +742,7 @@ Contains reference to a stream that is used as output for writing the log.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Determines whether some values are stored minimized. Refer to writer <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveMinimized">property</a> of the same name for details.</p>
+Determines whether some values are stored minimized. Refer to writer <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveMinimized">property</a> for details.<br> Initalized to <code>True</code>;</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -675,10 +752,10 @@ Determines whether some values are stored minimized. Refer to writer <a class="n
 </tr>
 <tr><td colspan="2">
 <p>
-Determines whether item names are stored as full strings or only as IDs. Refer to writer <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveItemIDOnly">property</a> of the same name for details.</p>
+Determines whether item names are stored as full strings or only as IDs. Refer to writer <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#SaveItemIDOnly">property</a> for details.<br> Initalized to <code>False</code>;</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

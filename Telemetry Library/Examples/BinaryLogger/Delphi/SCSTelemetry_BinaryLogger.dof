@@ -90,11 +90,11 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=
+OutputDir=.\Release\win_x86
 UnitOutputDir=.\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=
+SearchPath=..\..\..\..\Libs\FastMM\Lib;..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log
 Packages=vcl;rtl;vclx;VclSmp;vclshlctrls;AdvCircularProgressPkgD7;TMSMenusD7;AdvShaperPkgD7;alpb;sulab;butcmps;EZJTexturePanelD6;FormShapePkgD7;GradientLabelPkgD7;ic;l3d;lfr;fw;mmjl;ash;tqpb;shlab;vaf;ish;xib;TPNGButton;wbme;verinf;aled;DelphiX70
 Conditionals=
 DebugSourceDirs=
@@ -133,9 +133,14 @@ Comments=
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlSearchPath]
+Count=2
+Item0=..\..\..\..\Libs\FastMM\Lib;..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log
+Item1=..\..\..\..\Libs\FastMM\Lib;..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\Log
 [HistoryLists\hlUnitOutputDirectory]
 Count=1
 Item0=.\DCU
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=S:\Program Files\Euro Truck Simulator 2\bin\win_x86\plugins
+Count=2
+Item0=.\Release\win_x86
+Item1=S:\Program Files\Euro Truck Simulator 2\bin\win_x86\plugins

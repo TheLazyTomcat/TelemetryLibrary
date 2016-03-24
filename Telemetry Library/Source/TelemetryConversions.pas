@@ -6,24 +6,19 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Unit providing routines for variables conversions.)
+@abstract(Unit providing routines for variables conversion.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2015-04-20)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryConversions))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
 
-  This unit contains routines used for conversions between selected
+  Last change: 2016-03-20   
+
+  This unit contains routines used for conversion between selected
   non-localized SDK types and their no-pointer alternatives.
-
-  Last change:  2015-04-20
-
-  Change List:@unorderedList(
-    @item(2014-04-30 - First stable version.)
-    @item(2014-04-30 - Functions scs_value_localized and scs_value were moved to
-                       this unit.))
 
 @html(<hr>)}
 unit TelemetryConversions;
@@ -33,13 +28,16 @@ interface
 {$INCLUDE '.\Telemetry_defs.inc'}
 
 uses
-  TelemetryCommon,
-{$IFDEF UseCondensedHeader}
+  TelemetryCommon
+{$IFNDEF Documentation},
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}

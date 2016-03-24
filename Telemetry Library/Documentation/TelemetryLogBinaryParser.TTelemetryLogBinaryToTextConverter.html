@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryToTextConverter</title>
+<title>Telemetry library: TelemetryLogBinaryParser: Class TTelemetryLogBinaryToTextConverter</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -46,7 +46,7 @@ Converts given binary log file to a text log file.</p>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnDataLog">DoOnDataLog</a></b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnDataLog">DoOnDataLog</a></b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32); override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -82,11 +82,11 @@ Converts given binary log file to a text log file.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnConfig">DoOnConfig</a></b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnConfig">DoOnConfig</a></b>(Sender: TObject; Time: TDateTime; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#Create">Create</a></b>(aFileName: String; OutFileName: String = '');</code></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#Create">Create</a></b>(FileName: String; OutFileName: String = '');</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -140,7 +140,7 @@ Object used to write text output.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="DoOnDataLog"></a><code>procedure <b>DoOnDataLog</b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); override;</code></td>
+<td class="itemcode"><a name="DoOnDataLog"></a><code>procedure <b>DoOnDataLog</b>(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -230,7 +230,7 @@ Passes received data to approprite text logger method.<br> See <a class="normal"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="DoOnConfig"></a><code>procedure <b>DoOnConfig</b>(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><a name="DoOnConfig"></a><code>procedure <b>DoOnConfig</b>(Sender: TObject; Time: TDateTime; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -240,7 +240,7 @@ Passes received data to approprite text logger method.<br> See <a class="normal"
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aFileName: String; OutFileName: String = '');</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(FileName: String; OutFileName: String = '');</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -248,13 +248,20 @@ Class constructor.
 
 <p>Creates dummy recipient and text logger.
 
-<p> </p>
+<p> 
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>FileName</dt>
 <dd>Name of the input log file. Must contain valid file name, but it is not mandatory to assign full file path.</dd>
 <dt>OutFileName</dt>
 <dd>Name of output text file. When left empty, then name of output file is created by appending <code>.LOG</code> extension to the name of the input file.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedGame.html">ETLUnsupportedGame</a></dt>
+<dd>When telemetry version, game and/or its version are not supported by this class.</dd>
 </dl>
 </td></tr>
 </table>
@@ -291,7 +298,7 @@ Runs the conversions. Calls <a class="normal" href="TelemetryLogBinaryParser.TTe
 Name of the output file, that is a file to which the text log is written.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

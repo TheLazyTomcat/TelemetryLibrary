@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLists: Class TCustomTelemetryList</title>
+<title>Telemetry library: TelemetryLists: Class TCustomTelemetryList</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -35,7 +35,7 @@ Ancestor class for all other list classes in <a class="normal" href="TelemetryLi
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryLists.TCustomTelemetryList.html#fUpdating">fUpdating</a></b>:      Boolean;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TCustomTelemetryList.html#fUpdateCount">fUpdateCount</a></b>:   Integer;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
@@ -49,8 +49,8 @@ Ancestor class for all other list classes in <a class="normal" href="TelemetryLi
 <a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TCustomTelemetryList.html#GetCount">GetCount</a></b>: Integer;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TCustomTelemetryList.html#GetCount">GetCount</a></b>: Integer; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -135,11 +135,11 @@ Internal list used to hold actual items. It is not publicly visible and is there
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fUpdating"></a><code><b>fUpdating</b>:      Boolean;</code></td>
+<td class="itemcode"><a name="fUpdateCount"></a><code><b>fUpdateCount</b>:   Integer;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-When this variable is set to <code>True</code>, it indicates that the list is updated from outside and <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event should not be called.<br> It is set by methods <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#BeginUpdate">BeginUpdate</a> and <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#EndUpdate">EndUpdate</a>.</p>
+When this field has value larger than 0, it indicates that the list is being updated from outside and <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event should not be called.<br> It is set by methods <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#BeginUpdate">BeginUpdate</a> and <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#EndUpdate">EndUpdate</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -165,8 +165,8 @@ Object handling multicast <a class="normal" href="TelemetryLists.TCustomTelemetr
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="GetCount"></a><code>Function <b>GetCount</b>: Integer;</code></td>
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetCount"></a><code>Function <b>GetCount</b>: Integer; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -184,6 +184,8 @@ Returns item (pointer) from internal list on position given by <code>Index</code
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -191,7 +193,12 @@ Returns item (pointer) from internal list on position given by <code>Index</code
 <dd>Index of requested item in list.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Item at position given by <code>Index</code>.</p></td></tr>
+<p class="return">Item at position given by <code>Index</code>.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -242,13 +249,20 @@ Method used to add new item into list. Added item can be <code>Nil</code>.<br> C
 <p>
 Replaces item (change its value) at position given by <code>Index</code> parameter. Item can be <code>Nil</code>. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> Calls method <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> when item is successfully replaced.
 
-<p> </p>
+<p> 
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of item that has to be replaced.</dd>
 <dt>Item</dt>
 <dd>New walue of the replaced item.)</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
 </dl>
 </td></tr>
 </table>
@@ -261,13 +275,20 @@ Replaces item (change its value) at position given by <code>Index</code> paramet
 <p>
 Inserts new item at position given by <code>Index</code>. List <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> is increased by one and all existing items from given position (included) up are moved higher. <code>Item</code> can be <code>Nil</code>. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>&gt; - passed index can be higher than current highest index, if so, item is added at the end of the list), and exception is raised.<br> Calls method <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> when item is successfully inserted.
 
-<p> </p>
+<p> 
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index at which the new item should be added.</dd>
 <dt>Item</dt>
 <dd>Inserted item.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
 </dl>
 </td></tr>
 </table>
@@ -300,11 +321,18 @@ Removes item passed in <code>Item</code> parameter. <code>Item</code> should not
 <p>
 Deletes item at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> Calls method <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> when item is successfully deleted.
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of item that has to be deleted.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
 </dl>
 </td></tr>
 </table>
@@ -327,7 +355,7 @@ Object constructor.</p>
 <p>
 ObjectDestructor.<br> Method <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Clear">Clear</a> is called within destructor, so it is not necessary to explicitly call it when class instance is freed.
 
-<p><b>Note:</b> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is not called.</p>
+<p><b>Note</b> - <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is not called.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -337,7 +365,7 @@ ObjectDestructor.<br> Method <a class="normal" href="TelemetryLists.TCustomTelem
 </tr>
 <tr><td colspan="2">
 <p>
-Sets <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating">fUpdating</a> to <code>True</code>.</p>
+Increases <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdateCount">fUpdateCount</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -347,7 +375,7 @@ Sets <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating"
 </tr>
 <tr><td colspan="2">
 <p>
-Sets <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating">fUpdating</a> to <code>False</code> and calls <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> method.</p>
+Decreases <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdateCount">fUpdateCount</a> and calls <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> when it reaches zero or lower.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -357,7 +385,7 @@ Sets <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating"
 </tr>
 <tr><td colspan="2">
 <p>
-Calls handler of <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event (if assigned) - but only if <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating">fUpdating</a> is set to <code>False</code>, otherwise the handler is not called and method returns immediately.</p>
+Calls handler of <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event (if assigned) - but only if <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdateCount">fUpdateCount</a> is zero or lower, otherwise the handler is not called and method returns immediately.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -388,7 +416,7 @@ Number of items stored in the list.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Event called whenever the list is changed. It can also be called manually by calling <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> method. It is NOT called when <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating">fUpdating</a> is set to <code>True</code> (but can be still called directly if handler is assigned).</p>
+Event called whenever the list is changed. It can also be called manually by calling <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> method. It is NOT called when <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdateCount">fUpdateCount</a> is higher than zero (but can be still called directly if handler is assigned).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -398,10 +426,10 @@ Event called whenever the list is changed. It can also be called manually by cal
 </tr>
 <tr><td colspan="2">
 <p>
-Multicast event called whenever the list is changed. It can also be called manually by calling <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> method. It is NOT called when <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdating">fUpdating</a> is set to <code>True</code> (but can be still called directly).<br> Assigning handlers to this event does not interfere with normal <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event.<br> Normal <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called first, handlers of this event are called afterwards.</p>
+Multicast event called whenever the list is changed. It can also be called manually by calling <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#DoChange">DoChange</a> method. It is NOT called when <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#fUpdateCount">fUpdateCount</a> is higher than zero (but can be still called directly).<br> Assigning handlers to this event does not interfere with normal <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event.<br> Normal <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called first, handlers of this event are called afterwards.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

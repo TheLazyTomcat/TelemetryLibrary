@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: All Classes, Interfaces, Objects and Records</title>
+<title>Telemetry library: All Classes, Interfaces, Objects and Records</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -15,29 +15,99 @@
 <th class="itemdesc">Description</th>
 </tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLAlreadyExists.html">ETLAlreadyExists</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when item that is added to some list or array already exists there.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLBadData.html">ETLBadData</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when data the library works with are in some way corrupted or invalid.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLBufferTooSmall.html">ETLBufferTooSmall</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when a memory block or file is smaler than necessary.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLException.html">ETLException</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Common ancestor for all exception classes in the library.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when passed index is out of allowed boundary (arrays, lists, ...).</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLInitFailed.html">ETLInitFailed</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when an initialization of some part of the code fails.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLInvalidReference.html">ETLInvalidReference</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when passed reference is of wrong type or class, or is generally invalid.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLNilReference.html">ETLNilReference</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when a nil reference (pointer or object) is passed to where a valid reference is required.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLNotfound.html">ETLNotfound</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when requested item is not found in a list or array.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLRegFailed.html">ETLRegFailed</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when registration of telemetry event or channel fails.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLUnknownData.html">ETLUnknownData</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when code needs to work with some data but they are of unknown type or structure.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLUnsupportedAPI.html">ETLUnsupportedAPI</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when there is a need to operate on telemetry API but its version is not supported.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.ETLUnsupportedGame.html">ETLUnsupportedGame</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Raised when there is need to operate on telemetry provided by a game that is not supported.</p></td>
+</tr>
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
 <td class="itemdesc"><p>Structure used to store content of <code>scs_named_value_t</code> variable.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
 <td class="itemdesc"><p>Structure used to store content of <code>scs_telemetry_configuration_t</code> variable.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
 <td class="itemdesc"><p>Structure used to store content of <code>scs_value_t</code> variable.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TChannelContext.html">TChannelContext</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</p></td>
+<td class="itemdesc"><p>Structure used as an item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TChannelInfo.html">TChannelInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>Structure holding informations about registered channel.</p></td>
+<td class="itemdesc"><p>Structure holding information about registered channel.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.TConfigReference.html">TConfigReference</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Structure used to reference a specific config (an attribute in a specified configuration).</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></td>
@@ -45,14 +115,24 @@
 <td class="itemdesc"><p>Ancestor class for all other list classes in <a class="normal" href="TelemetryLists.html">TelemetryLists</a> unit.</p></td>
 </tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
+<td class="itemdesc"><p>Used where there is need to pass or return two indices to fully define some reference (eg. indices in two-dimensional array).</p></td>
+</tr>
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TEventContext.html">TEventContext</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TRegisteredEventsList.html">TRegisteredEventsList</a>.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TEventInfo.html">TEventInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>Structure holding informations about registered event.</p></td>
+<td class="itemdesc"><p>Structure holding information about registered event.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownAttribute.html">TKnownAttribute</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Structure used as a subitem of items in <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownChannel.html">TKnownChannel</a></td>
@@ -62,127 +142,37 @@
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownChannelsList.html">TKnownChannelsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>List used to store informations about known telemetry channels.</p></td>
+<td class="itemdesc"><p>List used to store information about known telemetry channels.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfig.html">TKnownConfig</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>Structure used as item in <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class.</p></td>
+<td class="itemdesc"><p>Used for streaming of individual known configs.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>List used to store informations about known telemetry configurations values.</p></td>
+<td class="itemdesc"><p>List used to store information about known telemetry configurations values.</p></td>
 </tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="TelemetryLists.TKnownConfiguration.html">TKnownConfiguration</a></td>
+<td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
+<td class="itemdesc"><p>Used as an item in <a class="normal" href="TelemetryLists.TKnownConfigsList.html">TKnownConfigsList</a> class.</p></td>
+</tr>
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownEvent.html">TKnownEvent</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
 <td class="itemdesc"><p>Structure used as an item in <a class="normal" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a> class.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TKnownEventsList.html">TKnownEventsList</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLists.html">TelemetryLists</a></td>
-<td class="itemdesc"><p>List used to store informations about known telemetry events.</p></td>
+<td class="itemdesc"><p>List used to store information about known telemetry events.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
 <td class="itemdesc"><p>Structure returned by parser when you access specific log in the stream by its index.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when telemetery channel callback occurs.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when telemetry channel is registered.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html">TMulticastChannelRegisterTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes channel registration log data with time.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html">TMulticastChannelTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes channel log data with time.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when telemetry channel is unregistered.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html">TMulticastChannelUnregisterTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes channel unregistration log data with time.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when config is parsed from configuration telemetry event.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html">TMulticastConfigTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes config log data with time.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html">TMulticastDataLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes unprocessed log data.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html">TMulticastDataTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes unprocessed log data with time.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryCommon.html">TelemetryCommon</a></td>
-<td class="itemdesc"><p>Placeholder intended to complete the classes hierarchy tree in documentation.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when telemetry when telemetery event occurs.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when telemetry event is registered or unregistered.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html">TMulticastEventRegisterTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes event (un)registration log data with time.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html">TMulticastEventTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes event log data with time.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when recipient writes to game log.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html">TMulticastLogTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes informations about a write to game log with time.</p></td>
-</tr>
-<tr class="list">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html">TMulticastTextLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes text log data or any interpreted data.</p></td>
-</tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html">TMulticastTextTimeLogEvent</a></td>
-<td class="itemunit"><a class="bold" href="TelemetryLogBinaryParser.html">TelemetryLogBinaryParser</a></td>
-<td class="itemdesc"><p>Class used to manage multicast event called when reader/parser passes text log data or any interpreted data with time.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLists.TRegisteredChannelsList.html">TRegisteredChannelsList</a></td>
@@ -197,37 +187,37 @@
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html">TSCSExm_Telemetry</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry.html">TelemetrySCSExample_telemetry</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Class designed to imitate behavior of <i>telemetry</i> example distributed with the Telemetry SDK.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html">TSCSExm_TelemetryMem</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry_mem.html">TelemetrySCSExample_telemetry_mem</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Class designed to imitate behavior of <i>telemetry_mem</i> example distributed with the Telemetry SDK.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry_mem.html">TelemetrySCSExample_telemetry_mem</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Structure used when working with shared memory. Directly mapped to the MMF location.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html">TSCSExm_TelemetryMem_Reader</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry_mem.html">TelemetrySCSExample_telemetry_mem</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Simple class created as a reader of shared memory produced by <i>telemetry_mem</i> example.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry_position.TSCSExm_TelemetryPosition.html">TSCSExm_TelemetryPosition</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry_position.html">TelemetrySCSExample_telemetry_position</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Class designed to imitate behavior of <i>telemetry_position</i> example distributed with the Telemetry SDK.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry_position.TSCSExm_TelemetryPositionState.html">TSCSExm_TelemetryPositionState</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry_position.html">TelemetrySCSExample_telemetry_position</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Structure used to hold data produced by the telemetry API and some intermediate values in <a class="normal" href="TelemetrySCSExample_telemetry_position.TSCSExm_TelemetryPosition.html">TSCSExm_TelemetryPosition</a> class.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetrySCSExample_telemetry.TSCSExm_TelemetryState.html">TSCSExm_TelemetryState</a></td>
 <td class="itemunit"><a class="bold" href="TelemetrySCSExample_telemetry.html">TelemetrySCSExample_telemetry</a></td>
-<td class="itemdesc"><p>&nbsp;</p></td>
+<td class="itemdesc"><p>Structure used to hold data produced by the telemetry API in <a class="normal" href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html">TSCSExm_Telemetry</a> class.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLists.TStoredChannel.html">TStoredChannel</a></td>
@@ -272,7 +262,7 @@
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryAPIInfo.html">TTelemetryLogBinaryAPIInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinary.html">TelemetryLogBinary</a></td>
-<td class="itemdesc"><p>Structure used to store informations about telemetry API (versions, ID, ...).</p></td>
+<td class="itemdesc"><p>Structure used to store information about telemetry API (versions, ID, ...).</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html">TTelemetryLogBinaryBlockHeader</a></td>
@@ -292,7 +282,7 @@
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html">TTelemetryLogBinaryFileInfo</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryLogBinary.html">TelemetryLogBinary</a></td>
-<td class="itemdesc"><p>Structure used to store informations about binary log file.</p></td>
+<td class="itemdesc"><p>Structure used to store information about binary log file.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryFileParser.html">TTelemetryLogBinaryFileParser</a></td>
@@ -352,12 +342,12 @@
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipient.html">TelemetryRecipient</a></td>
-<td class="itemdesc"><p>TTelemetryRecipient is used as a main way to control the telemetry API.</p></td>
+<td class="itemdesc"><p>TTelemetryRecipient is used as a main mean of controlling the telemetry API.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></td>
 <td class="itemunit"><a class="bold" href="TelemetryRecipientBinder.html">TelemetryRecipientBinder</a></td>
-<td class="itemdesc"><p>Class designed as a base for any class that is intended to bind itself to telemetry recipient events.</p></td>
+<td class="itemdesc"><p>Class designed as a base for any class that is supposed to bind itself to telemetry recipient events.</p></td>
 </tr>
 <tr class="list2">
 <td class="itemname"><a class="bold" href="TelemetryVersionObjects.TTelemetryVersionObject.html">TTelemetryVersionObject</a></td>
@@ -370,7 +360,7 @@
 <td class="itemdesc"><p>Common ancestor for all classes that needs to be prepared for selected telemetry and/or game version.</p></td>
 </tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:57</em>
 </span>
 
 </body>

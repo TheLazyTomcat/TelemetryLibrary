@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLists: record TChannelInfo</title>
+<title>Telemetry library: TelemetryLists: record TChannelInfo</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -19,36 +19,36 @@
 <code>type TChannelInfo = record</code></p>
 <h2 class="description">Description</h2>
 <p>
-Structure holding informations about registered channel.
+Structure holding information about registered channel.
 
 <p>     </p>
 <h2 class="overview">Overview</h2>
 <a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#Name">Name</a></b>:           TelemetryString;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#Name">Name</a></b>:         TelemetryString;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#ID">ID</a></b>:             <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#ID">ID</a></b>:           <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#Index">Index</a></b>:          scs_u32_t;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#Index">Index</a></b>:        scs_u32_t;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#ValueType">ValueType</a></b>:      scs_value_type_t;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#ValueType">ValueType</a></b>:    scs_value_type_t;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#Flags">Flags</a></b>:          scs_u32_t;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#Flags">Flags</a></b>:        scs_u32_t;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#IndexConfigID">IndexConfigID</a></b>:  <a  href="TelemetryIDs.html#TItemID">TItemID</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLists.TChannelInfo.html#IndexConfig">IndexConfig</a></b>:  <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Fields</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Name"></a><code><b>Name</b>:           TelemetryString;</code></td>
+<td class="itemcode"><a name="Name"></a><code><b>Name</b>:         TelemetryString;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -57,7 +57,7 @@ Name of the channel.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="ID"></a><code><b>ID</b>:             <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>;</code></td>
+<td class="itemcode"><a name="ID"></a><code><b>ID</b>:           <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -66,16 +66,16 @@ Identifier of the channel.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Index"></a><code><b>Index</b>:          scs_u32_t;</code></td>
+<td class="itemcode"><a name="Index"></a><code><b>Index</b>:        scs_u32_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Index of channels value.</p>
+Index of channel value.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="ValueType"></a><code><b>ValueType</b>:      scs_value_type_t;</code></td>
+<td class="itemcode"><a name="ValueType"></a><code><b>ValueType</b>:    scs_value_type_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -84,7 +84,7 @@ Type of value for current channel.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="Flags"></a><code><b>Flags</b>:          scs_u32_t;</code></td>
+<td class="itemcode"><a name="Flags"></a><code><b>Flags</b>:        scs_u32_t;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -93,14 +93,14 @@ Registration <code>flags</code>.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="IndexConfigID"></a><code><b>IndexConfigID</b>:  <a  href="TelemetryIDs.html#TItemID">TItemID</a>;</code></td>
+<td class="itemcode"><a name="IndexConfig"></a><code><b>IndexConfig</b>:  <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Identifier of config that stores count for this channel.</p>
+Reference to config that stores count for this channel.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

@@ -9,18 +9,20 @@
 @abstract(Contains classes designed to parse binary logs.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-05-10)
-@lastmod(2015-07-02)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryLogBinaryParser))
 
-  ©František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
+
+  Last change: 2016-03-19
 
   This unit contains classes that are designed to parse binary logs and/or
   convert them to text logs, namely:
 @preformatted(
   TTelemetryLogBinaryReader
-   |- TTelemetryLogBinaryReader_1
-       |- TTelemetryLogBinaryReader_0
+   |- TTelemetryLogBinaryReader_0
+       |- TTelemetryLogBinaryReader_1
 
   TTelemetryLogBinaryStreamParser
    |- TTelemetryLogBinaryFileParser
@@ -30,36 +32,8 @@
     .\Inc\TelemetryMulticastEvents.pas
       Contains declarations and implementations of multicast event classes.)
       
-  Last change:  2015-07-02
-
-  Change List:@unorderedList(
-    @item(2014-05-10 - First stable version.)
-    @item(2014-10-24 - Small implementation changes.)
-    @item(2014-11-05 - Type of parameter/field @code(Size) changed from signed
-                       to unsigned integer in following cases:@unorderedList(
-                        @itemSpacing(Compact)
-                        @item(event type TDataLogEvent)
-                        @item(event type TDataTimeLogEvent)
-                        @item(fields TLogEntry.Size and TLogEntry.Info)
-                        @item(TTelemetryLogBinaryStreamParser.DoOnDataLog)
-                        @item(TTelemetryLogBinaryToTextConverter.DoOnDataLog)))
-    @item(2014-11-05 - Small implementation changes.)
-    @item(2015-07-01 - Class @code(TTelemetryLogBinaryReader_0_1) renamed to
-                       TTelemetryLogBinaryWriter_1 as it now reads only
-                       structure 1.)
-    @item(2015-07-01 - Added class TTelemetryLogBinaryReader_0 for reading of
-                       structure 0.)
-    @item(2015-07-02 - Implementation changes.)
-    @item(2015-07-02 - Changed @code(Data) field of structure TLogEntry to a
-                       managed type (dynamic array) so it does not need explicit
-                       finalization.)
-    @item(2015-07-02 - Removed function @code(LogEntryFree) as it is no longer
-                       needed.))
-
 @html(<hr>)}
 unit TelemetryLogBinaryParser;
-
-{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
 
 interface
 
@@ -70,9 +44,11 @@ interface
 uses
 {$IFNDEF Documentation}
   Classes,
-{$ENDIF}
+  AuxTypes,
+  BinaryStreaming,
 {$IFDEF MulticastEvents}
   MulticastEvent,
+{$ENDIF}
 {$ENDIF}
   TelemetryCommon,
   TelemetryIDs,
@@ -82,43 +58,43 @@ uses
   TelemetryLogBinary,
 {$IFDEF Documentation}
   TelemetryConversions,
-  TelemetryStreaming,
-{$ENDIF}
-{$IFDEF UseCondensedHeader}
+  TelemetryStreaming;
+{$ELSE}
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
 {$ENDIF}
-
+{$ENDIF}
 type
   //:Event type used when reader/parser passes unprocessed log data.
-  TDataLogEvent = procedure(Sender: TObject; Data: Pointer; Size: LongWord) of object;
+  TDataLogEvent = procedure(Sender: TObject; Data: Pointer; Size: UInt32) of object;
   //:Event type used when reader/parser passes text log data or any interpreted data.
   TTextLogEvent = procedure(Sender: TObject; const Text: String) of object;
 
   //:Event type used when reader/parser passes unprocessed log data with time.
-  TDataTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord) of object;
+  TDataTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32) of object;
   //:Event type used when reader/parser passes text log data or any interpreted data with time.
   TTextTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Text: String) of object;
-  //:Event type used when reader/parser passes informations about a write to game log with time.
+  //:Event type used when reader/parser passes information about a write to game log with time.
   TLogTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; LogType: scs_log_type_t; const LogText: String) of object;
-  //:Event type used when reader/parser passes log data containing informations about game event (un)registration with time.
+  //:Event type used when reader/parser passes log data containing information about game event (un)registration with time.
   TEventRegisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Event: scs_event_t) of object;
-  //:Event type used when reader/parser passes log data containing informations about game event with time.
+  //:Event type used when reader/parser passes log data containing information about game event with time.
   TEventTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; Event: scs_event_t; Data: Pointer) of object;
-  //:Event type used when reader/parser passes log data containing informations about channel registration with time.
+  //:Event type used when reader/parser passes log data containing information about channel registration with time.
   TChannelRegisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t) of Object;
-  //:Event type used when reader/parser passes log data containing informations about channel unregistration with time.
+  //:Event type used when reader/parser passes log data containing information about channel unregistration with time.
   TChannelUnregisterTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; ValueType: scs_value_type_t) of Object;
-  //:Event type used when reader/parser passes log data containing informations about channel value with time.
+  //:Event type used when reader/parser passes log data containing information about channel value with time.
   TChannelTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TChannelID; Index: scs_u32_t; Value: p_scs_value_t) of Object;
-  //:Event type used when reader/parser passes log data containing informations about config value with time.
-  TConfigTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t) of object;
+  //:Event type used when reader/parser passes log data containing information about config value with time.
+  TConfigTimeLogEvent = procedure(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t) of object;
 
 
-{$IFDEF IncludeMulticastEventHandlers}
+{$IFNDEF Documentation}
   {$DEFINE DeclarationPart}
     {$INCLUDE '..\Inc\TelemetryMulticastEvents.pas'}
   {$UNDEF DeclarationPart}
@@ -130,7 +106,7 @@ type
   
   @member Time @noAutoLink(Time) when the log was written.
   @member Data Unprocessed @noAutoLink(data) the accessed log contains.
-  @member(Info Other informations about the log. Content of this field differs
+  @member(Info Other information about the log. Content of this field differs
                for each file structure. Currently, these are implemented:
                @unorderedList(
                  @item(File structure 0 and 1:
@@ -142,7 +118,7 @@ type
   TLogEntry = record
     Time: TDateTime;
     Data: array of Byte;
-    Info: LongWord;
+    Info: UInt32;
   end;
 
 const
@@ -237,9 +213,9 @@ type
   {:
     Increases LogCounter property by a number passed in @code(N) parameter.
 
-    @param N Number by which the LogCounter will be increased.
+    @param Delta Number by which the LogCounter will be increased.
   }
-    procedure IncLogCounter(N: Integer = 1); virtual;
+    procedure IncLogCounter(Delta: Integer = 1); virtual;
   {:
     Getter for LogCount property.
   }
@@ -258,11 +234,15 @@ type
                     not be @nil. Position must be set directly behind the file
                     header and API info section, not at the beginning of the
                     @noAutoLink(Stream) itself.)
-    @param(FileInfo Informations about input file. It must be completely filled
+    @param(FileInfo Information about input file. It must be completely filled
                     by parser that is creating current instance in order for
                     this class to work properly. Provided information are used
                     as parameters when creating telemetry info provider. When
                     not filled, the behavior of this class is not defined.)
+
+    @raises ETLNilReference    When @noAutoLink(@code(Stream)) is not assigned.
+    @raises(ETLUnsupportedGame When telemetry version, game and/or its version
+                               are not supported by this class.)
   }
     constructor Create(Stream: TStream; FileInfo: TTelemetryLogBinaryFileInfo);
   {:
@@ -303,7 +283,7 @@ type
     procedure ReadAllLogEntries; virtual;
   {:
     Reads log entry selected by passed index. Works only for structures that
-    supports non-sequential reading (eg. structure 0).@br
+    supports non-sequential reading (eg. structure 1).@br
     Position in Stream is not changed in this method.
 
     @param Index Index of requested log entry.
@@ -334,41 +314,41 @@ type
   }
     property OnTextLog: TTextTimeLogEvent read fOnTextLog write fOnTextLog;
   {:
-    Event called when reader reads log containing informations about a write to
+    Event called when reader reads log containing information about a write to
     game log.
   }
     property OnLogLog: TLogTimeLogEvent read fOnLogLog write fOnLogLog;
   {:
-    Event called when reader reads log containing informations about game event
+    Event called when reader reads log containing information about game event
     registration.
   }
     property OnEventRegister: TEventRegisterTimeLogEvent read fOnEventRegister write fOnEventRegister;
   {:
-    Event called when reader reads log containing informations about game event
+    Event called when reader reads log containing information about game event
     unregistration.
   }
     property OnEventUnregister: TEventRegisterTimeLogEvent read fOnEventUnregister write fOnEventUnregister;
   {:
-    Event called when reader reads log containing informations about game
+    Event called when reader reads log containing information about game
     event.
   }
     property OnEvent: TEventTimeLogEvent read fOnEvent write fOnEvent;
   {:
-    Event called when reader reads log containing informations about channel
+    Event called when reader reads log containing information about channel
     registration.
   }
     property OnChannelRegister: TChannelRegisterTimeLogEvent read fOnChannelRegister write fOnChannelRegister;
   {:
-    Event called when reader reads log containing informations about channel
+    Event called when reader reads log containing information about channel
     unregistration.
   }
     property OnChannelUnregister: TChannelUnregisterTimeLogEvent read fOnChannelUnregister write fOnChannelUnregister;
   {:
-    Event called when reader reads log containing informations about channel.
+    Event called when reader reads log containing information about channel.
   }
     property OnChannel: TChannelTimeLogEvent read fOnChannel write fOnChannel;
   {:
-    Event called when reader reads log containing informations about config.
+    Event called when reader reads log containing information about config.
   }
     property OnConfig: TConfigTimeLogEvent read fOnConfig write fOnConfig;
   {:
@@ -407,24 +387,24 @@ type
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryReader_1                          }
+{                         TTelemetryLogBinaryReader_0                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryReader_1 // Class declaration                           }
+{   TTelemetryLogBinaryReader_0 // Class declaration                           }
 {==============================================================================}
 {:
-  Internal reader class used to read file of structure 1.
+  Internal reader class used to read file of structure 0.
 }
-  TTelemetryLogBinaryReader_1 = class(TTelemetryLogBinaryReader)
+  TTelemetryLogBinaryReader_0 = class(TTelemetryLogBinaryReader)
   protected
   {:
-    Getter for LogCount property. Returns -1.
+    Getter for LogCount property. Always returns -1.
   }
     Function GetLogCount: Integer; override;
   {:
-    Getter for LogEntries array property. Returns InvalidLogEntry.
+    Getter for LogEntries array property. Always returns InvalidLogEntry.
   }
     Function GetLogEntry({%H-}Index: Integer): TLogEntry; override;
   {:
@@ -436,7 +416,7 @@ type
 
     @returns Value of the selected flag.
   }
-    Function GetFlagValue(Flags, FlagMask: Byte): Boolean; virtual;
+    Function GetFlagValue(Flags, FlagMask: UInt8): Boolean; virtual;
   {:
     Reads block header at current Stream position.
 
@@ -446,7 +426,7 @@ type
   {:
     Does not read any data as payload of invalid block must be empty.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns Always returns @true.
   }
@@ -454,7 +434,7 @@ type
   {:
     Reads payload of generic block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
   }
@@ -462,83 +442,120 @@ type
   {:
     Reads payload of text block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
   }
     Function ReadBlockPayload_Text(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of log block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
   }
     Function ReadBlockPayload_Log(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of game event registration block and passes it to appropriate
     event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBadData When stored payload size does not match size of stored
+                       data.)
   }
     Function ReadBlockPayload_EventReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of game event unregistration block and passes it to
     appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBadData When stored payload size does not match size of stored
+                       data.)
   }
     Function ReadBlockPayload_EventUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of game event block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_Event(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of channel registration block and passes it to appropriate
     event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_ChannelReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of channel unregistration block and passes it to appropriate
     event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)                              
   }
     Function ReadBlockPayload_ChannelUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of channel block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_Channel(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of config block and passes it to appropriate event.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns @True when the payload was read successfuly, @false othewise.
+
+    @raises(ETLBufferTooSmall When block payload is too small to contain any
+                              valid data.)
+    @raises(ETLBadData        When stored payload size does not match size of
+                              stored data.)
   }
     Function ReadBlockPayload_Config(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean; virtual;
   {:
     Reads payload of termination block.
 
-    @param BlockHeader Informations read from header of the block.
+    @param BlockHeader Information read from header of the block.
 
     @returns Always returns @false as reading should terminate at this block.
   }
@@ -547,6 +564,8 @@ type
     Reads block at current Stream position.
 
     @returns(@True when the block was read successfuly, @false othewise.)
+
+    @raises ETLUnknownData When block of unknown type is encountered.
   }
     Function ReadBlock: Boolean; virtual;
   public
@@ -572,31 +591,31 @@ type
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryReader_0                          }
+{                         TTelemetryLogBinaryReader_1                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryReader_0 // Class declaration                           }
+{   TTelemetryLogBinaryReader_1 // Class declaration                           }
 {==============================================================================}
 {:
-  Internal reader class used to read file of structure 0.
+  Internal reader class used to read file of structure 1.
 }
-  TTelemetryLogBinaryReader_0 = class(TTelemetryLogBinaryReader_1)
+  TTelemetryLogBinaryReader_1 = class(TTelemetryLogBinaryReader_0)
   private
   {:
     Array that stores table of blocks offsets.
   }
-    fBlocksOffsets: array of LongWord;
+    fBlocksOffsets: array of UInt32;
   protected
   {:
     Getter for LogCount property. Returns length of fBlocksOffsets array.
   }
     Function GetLogCount: Integer; override;
   {:
-    Getter for LogEntries array property. It find and accesses individual
-    entries by offsets stored in fBlocksOffsets array. See LogEntries property
-    for other informations.
+    Getter for LogEntries array property. It finds and accesses individual
+    entries by offsets stored in fBlocksOffsets array.@br
+    If index falls out of allowed boundaries, an InvalidLogEntry is returned.
   }
     Function GetLogEntry(Index: Integer): TLogEntry; override;
   {:
@@ -614,7 +633,7 @@ type
   }
     procedure EndReading; override;
   {:
-    Reads log entry selected by passed index.
+    Reads log entry selected by passed index.@br
     Position in Stream is not changed in this method.
 
     @param Index Index of requested log entry.
@@ -656,7 +675,7 @@ type
     Internal reader used to read files with different structures. Managed
     automatically. Crated in constructor as an instance of one of the
     TTelemetryLogBinaryReader descendants. Actual class used depends on
-    structure of readed file.
+    structure of read file.
   }
     fLogReader:                       TTelemetryLogBinaryReader;
   {:
@@ -844,12 +863,15 @@ type
     Function GetLogEntry(Index: Integer): TLogEntry;
   protected
   {:
-    Reads file header and API informations from current Stream position and
+    Reads file header and API information from current Stream position and
     returns them in @code(@noAutoLink(FileInfo)) parameter.
 
-    @param FileInfo Variable to which a read informations are stored.
+    @param FileInfo Variable to which a read information are stored.
 
     @param FileInfo Output value containing read data.
+
+    @raises ETLBufferTooSmall When file is too small to contain a valid header.
+    @raises ETLBadData        When file signature does not match.
   }
     procedure ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo); virtual;
   {:
@@ -858,7 +880,7 @@ type
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnDataLog OnDataLog) event.
   }
-    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); virtual;
+    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32); virtual;
   {:
     Method managing OnText* events calling.@br
     Parameters are passed to event(s) calls with no change.@br
@@ -923,7 +945,7 @@ type
     This method is assigned in constructor to internal reader
     @link(TTelemetryLogBinaryReader.OnConfig OnConfig) event.
   }
-    procedure DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
+    procedure DoOnConfig(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); virtual;
   public
   {:
     Class constructor.
@@ -933,6 +955,9 @@ type
 
     @param(Stream @noAutoLink(Stream) from which the parser will read. Must not
                   be @nil.)
+
+    @raises ETLNilReference When @noAutoLink(@code(Stream)) is not assigned.
+    @raises ETLUnknownData  When binary log of unknown data structure is read.
   }
     constructor Create(Stream: TStream);
   {:
@@ -958,7 +983,7 @@ type
     procedure ReadAllLogEntries; virtual;
   {:
     Reads log entry selected by passed index. Works only for structures that
-    supports non-sequential reading (eg. structure 0).@br
+    supports non-sequential reading (eg. structure 1).@br
     Calls internal readers @link(TTelemetryLogBinaryReader.ReadLogEntry
     ReadLogEntry) method.@br
     Position in Stream is not changed in this method.
@@ -972,7 +997,7 @@ type
     Array property mapped to log entries - that is, each item in this array
     corresponds to one log entry.@br
     When you try to access item that is out of allowed boundary or the reading
-    fails, then it returns cInvalidLogEntry.@br
+    fails, then it returns InvalidLogEntry.@br
     Works only for structures that supports non-sequential reading.@br
   }
     property LogEntries[Index: Integer]: TLogEntry read GetLogEntry; default;
@@ -1008,42 +1033,42 @@ type
     property OnTextTimeLog: TTextTimeLogEvent read fOnTextTimeLog write fOnTextTimeLog;
   {:
     Event called to pass read data with time when parser fings log containing
-    informations about a write to game log.
+    information about a write to game log.
   }
     property OnLogTimeLog: TLogTimeLogEvent read fOnLogTimeLog write fOnLogTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about game event registration.
+    information about game event registration.
   }
     property OnEventRegisterTimeLog: TEventRegisterTimeLogEvent read fOnEventRegisterTimeLog write fOnEventRegisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about game event unregistration.
+    information about game event unregistration.
   }
     property OnEventUnregisterTimeLog: TEventRegisterTimeLogEvent read fOnEventUnregisterTimeLog write fOnEventUnregisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about game event.
+    information about game event.
   }
     property OnEventTimeLog: TEventTimeLogEvent read fOnEventTimeLog write fOnEventTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about channel registration.
+    information about channel registration.
   }
     property OnChannelRegisterTimeLog: TChannelRegisterTimeLogEvent read fOnChannelRegisterTimeLog write fOnChannelRegisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about channel unregistration.
+    information about channel unregistration.
   }
     property OnChannelUnregisterTimeLog: TChannelUnregisterTimeLogEvent read fOnChannelUnregisterTimeLog write fOnChannelUnregisterTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about channel value.
+    information about channel value.
   }
     property OnChannelTimeLog: TChannelTimeLogEvent read fOnChannelTimeLog write fOnChannelTimeLog;
   {:
     Event called to pass read data with time when parser finds log containing
-    informations about config value.
+    information about config value.
   }
     property OnConfigTimeLog: TConfigTimeLogEvent read fOnConfigTimeLog write fOnConfigTimeLog;
   {$IFDEF NoTimeLogEvents}
@@ -1058,42 +1083,42 @@ type
   }
     property OnTextLog: TTextLogEvent read fOnTextLog write fOnTextLog;
   {:
-    Event called to pass read data when parser fings log containing informations
+    Event called to pass read data when parser fings log containing information
     about a write to game log.
   }
     property OnLogLog: TLogEvent read fOnLogLog write fOnLogLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about game event registration.
   }
     property OnEventRegisterLog: TEventRegisterEvent read fOnEventRegisterLog write fOnEventRegisterLog;
   {:
-    Event called to pass read time when parser finds log containing informations
+    Event called to pass read time when parser finds log containing information
     about game event unregistration.
   }
     property OnEventUnregisterLog: TEventRegisterEvent read fOnEventUnregisterLog write fOnEventUnregisterLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about game event.
   }
     property OnEventLog: TEventEvent read fOnEventLog write fOnEventLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about channel registration.
   }
     property OnChannelRegisterLog: TChannelRegisterEvent read fOnChannelRegisterLog write fOnChannelRegisterLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about channel unregistration.
   }
     property OnChannelUnregisterLog: TChannelUnregisterEvent read fOnChannelUnregisterLog write fOnChannelUnregisterLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about channel value.
   }
     property OnChannelLog: TChannelEvent read fOnChannelLog write fOnChannelLog;
   {:
-    Event called to pass read data when parser finds log containing informations
+    Event called to pass read data when parser finds log containing information
     about config value.
   }
     property OnConfigLog: TConfigEvent read fOnConfigLog write fOnConfigLog;
@@ -1111,42 +1136,42 @@ type
     property OnTextTimeLogMulti: TMulticastTextTimeLogEvent read fOnTextTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser fings log
-    containing informations about a write to game log.
+    containing information about a write to game log.
   }
     property OnLogTimeLogMulti: TMulticastLogTimeLogEvent read fOnLogTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about game event registration.
+    containing information about game event registration.
   }
     property OnEventRegisterTimeLogMulti: TMulticastEventRegisterTimeLogEvent read fOnEventRegisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about game event unregistration.
+    containing information about game event unregistration.
   }
     property OnEventUnregisterTimeLogMulti: TMulticastEventRegisterTimeLogEvent read fOnEventUnregisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about game event.
+    containing information about game event.
   }
     property OnEventTimeLogMulti: TMulticastEventTimeLogEvent read fOnEventTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about channel registration.
+    containing information about channel registration.
   }
     property OnChannelRegisterTimeLogMulti: TMulticastChannelRegisterTimeLogEvent read fOnChannelRegisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about channel unregistration.
+    containing information about channel unregistration.
   }
     property OnChannelUnregisterTimeLogMulti: TMulticastChannelUnregisterTimeLogEvent read fOnChannelUnregisterTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about channel registration.
+    containing information about channel registration.
   }
     property OnChannelTimeLogMulti: TMulticastChannelTimeLogEvent read fOnChannelTimeLogMulti;
   {:
     Muticast event called to pass read data with time when parser finds log
-    containing informations about config value.
+    containing information about config value.
   }
     property OnConfigTimeLogMulti: TMulticastConfigTimeLogEvent read fOnConfigTimeLogMulti;
   {$IFDEF NoTimeLogEvents}
@@ -1162,42 +1187,42 @@ type
     property OnTextLogMulti: TMulticastTextLogEvent read fOnTextLogMulti;
   {:
     Muticast event called to pass read data with time when parser fings log
-    containing informations about a write to game log.
+    containing information about a write to game log.
   }
     property OnLogLogMulti: TMulticastLogEvent read fOnLogLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about game event registration.
+    information about game event registration.
   }
     property OnEventRegisterLogMulti: TMulticastEventRegisterEvent read fOnEventRegisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about game event unregistration.
+    information about game event unregistration.
   }
     property OnEventUnregisterLogMulti: TMulticastEventRegisterEvent read fOnEventUnregisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about game event.
+    information about game event.
   }
     property OnEventLogMulti: TMulticastEventEvent read fOnEventLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about channel registration.
+    information about channel registration.
   }
     property OnChannelRegisterLogMulti: TMulticastChannelRegisterEvent read fOnChannelRegisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about channel unregistration.
+    information about channel unregistration.
   }
     property OnChannelUnregisterLogMulti: TMulticastChannelUnregisterEvent read fOnChannelUnregisterLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about channel registration.
+    information about channel registration.
   }
     property OnChannelLogMulti: TMulticastChannelEvent read fOnChannelLogMulti;
   {:
     Muticast event called to pass read data when parser finds log containing
-    informations about config value.
+    information about config value.
   }
     property OnConfigLogMulti: TMulticastConfigEvent read fOnConfigLogMulti;
   {$ENDIF}
@@ -1286,7 +1311,7 @@ type
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
-    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord); override;
+    procedure DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32); override;
   {:
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
@@ -1331,7 +1356,7 @@ type
     Passes received data to approprite text logger method.@br
     See @inherited for other functions of this method.
   }
-    procedure DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t); override;
+    procedure DoOnConfig(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t); override;
   public
   {:
     Class constructor.
@@ -1343,8 +1368,11 @@ type
     @param(OutFileName Name of output text file. When left empty, then name
                        of output file is created by appending @code(.LOG)
                        extension to the name of the input file.)
+
+    @raises(ETLUnsupportedGame When telemetry version, game and/or its version
+                               are not supported by this class.)                       
   }
-    constructor Create(aFileName: String; OutFileName: String = '');
+    constructor Create(FileName: String; OutFileName: String = '');
   {:
     Class destructor.
 
@@ -1366,9 +1394,16 @@ implementation
 
 uses
   SysUtils,
-  TelemetryConversions, TelemetryStreaming;
+  TelemetryConversions, TelemetryStreaming
+{$IF Defined(FPC) and not Defined(Unicode)}
+  (*
+    If compiler throws error that LazUTF8 unit cannot be found, you have to
+    add LazUtils to required packages (Project > Project Inspector).
+  *)
+  , LazUTF8
+{$IFEND};
 
-{$IFDEF IncludeMulticastEventHandlers}
+{$IFNDEF Documentation}
   {$DEFINE ImplementationPart}
     {$INCLUDE '..\Inc\TelemetryMulticastEvents.pas'}
   {$UNDEF ImplementationPart}
@@ -1388,9 +1423,9 @@ uses
 {   TTelemetryLogBinaryReader // Protected methods                             }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryReader.IncLogCounter(N: Integer = 1);
+procedure TTelemetryLogBinaryReader.IncLogCounter(Delta: Integer = 1);
 begin
-Inc(fLogCounter,N);
+Inc(fLogCounter,Delta);
 end;
 
 {------------------------------------------------------------------------------}
@@ -1401,19 +1436,19 @@ constructor TTelemetryLogBinaryReader.Create(Stream: TStream; FileInfo: TTelemet
 begin
 inherited Create;
 If Assigned(Stream) then fStream := Stream
-  else raise Exception.Create('TTelemetryLogBinaryReader.Create: Stream not assigned.');
+  else raise ETLNilReference.Create('TTelemetryLogBinaryReader.Create: Stream not assigned.');
 fFileInfo := FileInfo;
 If TTelemetryInfoProvider.SupportsTelemetryAndGameVersion(FileInfo.APIInfo.TelemetryVersion,
-                                                              FileInfo.APIInfo.GameID,
-                                                              FileInfo.APIInfo.GameVersion) then
+                                                          FileInfo.APIInfo.GameID,
+                                                          FileInfo.APIInfo.GameVersion) then
   fTelemetryInfoProvider := TTelemetryInfoProvider.Create(FileInfo.APIInfo.TelemetryVersion,
                                                           FileInfo.APIInfo.GameID,
                                                           FileInfo.APIInfo.GameVersion)
 else
-  raise Exception.CreateFmt('TTelemetryLogBinaryReader.Create: Game version (%s; %s %s) not supported.',
-                            [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
-                             TelemetryStringDecode(FileInfo.APIInfo.GameID),
-                             SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryLogBinaryReader.Create: Game version (%s; %s %s) not supported.',
+                                     [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
+                                     TelemetryStringDecode(FileInfo.APIInfo.GameID),
+                                     SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
 fFirstStreamPosition := Stream.Position;
 end;
 
@@ -1451,65 +1486,65 @@ end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryReader_1                          }
+{                         TTelemetryLogBinaryReader_0                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryReader_1 // Class implementation                        }
+{   TTelemetryLogBinaryReader_0 // Class implementation                        }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryReader_1 // Protected methods                           }
+{   TTelemetryLogBinaryReader_0 // Protected methods                           }
 {------------------------------------------------------------------------------}
 
-Function TTelemetryLogBinaryReader_1.GetLogCount: Integer;
+Function TTelemetryLogBinaryReader_0.GetLogCount: Integer;
 begin
 Result := -1;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.GetLogEntry(Index: Integer): TLogEntry;
+Function TTelemetryLogBinaryReader_0.GetLogEntry(Index: Integer): TLogEntry;
 begin
 Result := InvalidLogEntry;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.GetFlagValue(Flags, FlagMask: Byte): Boolean;
+Function TTelemetryLogBinaryReader_0.GetFlagValue(Flags, FlagMask: UInt8): Boolean;
 begin
 Result := (Flags and FlagMask) <> 0;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockHeader(var BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockHeader(var BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 begin
 Result := Stream.Read(BlockHeader,SizeOf(TTelemetryLogBinaryBlockHeader)) >= SizeOf(TTelemetryLogBinaryBlockHeader);
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Invalid(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Invalid(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 begin
 Result := True;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Generic(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Generic(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 var
   TempPtr:  Pointer;
 begin
 If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
-    If Assigned(OnDataLog) then
+    If Assigned(fOnDataLog) then
       begin
         TempPtr := AllocMem(BlockHeader.BlockPayloadSize);
         try
           Stream.ReadBuffer(TempPtr^,BlockHeader.BlockPayloadSize);
-          OnDataLog(Self,TimeStampToDateTime(BlockHeader.BlockTime),TempPtr,BlockHeader.BlockPayloadSize);
+          fOnDataLog(Self,TimeStampToDateTime(BlockHeader.BlockTime),TempPtr,BlockHeader.BlockPayloadSize);
         finally
           FreeMem(TempPtr,BlockHeader.BlockPayloadSize);
         end;
@@ -1522,97 +1557,93 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Text(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
-var
-  TempStr:  TelemetryString;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Text(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 begin
 If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize >= SizeOf(Integer) then
       begin
-        If Assigned(OnTextLog) then
-          begin
-            TempStr := Stream_ReadoutString(Stream);
-            OnTextLog(Self,TimeStampToDateTime(BlockHeader.BlockTime),TelemetryStringDecode(TempStr));
-          end
-        else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
+        If Assigned(fOnTextLog) then
+          fOnTextLog(Self,TimeStampToDateTime(BlockHeader.BlockTime),TelemetryStringDecode(Stream_ReadoutTelemetryString(Stream)))
+        else
+          Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Text: Payload is too small (got %d, minimum %d).',
-                                   [BlockHeader.BlockPayloadSize,SizeOf(Integer)]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Text: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,SizeOf(Integer)]);
   end
 else Result := False;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Log(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Log(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 var
   LogType:  scs_log_type_t;
   TempStr:  TelemetryString;
 begin
 If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
-    If BlockHeader.BlockPayloadSize >= (SizeOf(scs_log_type_t) + SizeOf(Integer)) then
+    If BlockHeader.BlockPayloadSize >= (SizeOf(scs_log_type_t) + TelemetryStringBytes) then
       begin
-        If Assigned(OnLogLog) then
+        If Assigned(fOnLogLog) then
           begin
-            LogType := scs_log_type_t(Stream_ReadoutInteger(Stream));
-            TempStr := Stream_ReadoutString(Stream);
-            OnLogLog(Self,TimeStampToDateTime(BlockHeader.BlockTime),LogType,TelemetryStringDecode(TempStr));
+            LogType := scs_log_type_t(Stream_ReadUInt32(Stream));
+            TempStr := Stream_ReadoutTelemetryString(Stream);
+            fOnLogLog(Self,TimeStampToDateTime(BlockHeader.BlockTime),LogType,TelemetryStringDecode(TempStr));
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Log: Payload is too small (got %d, minimum %d).',
-                                   [BlockHeader.BlockPayloadSize,SizeOf(scs_log_type_t) + SizeOf(Integer)]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Log: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,SizeOf(scs_log_type_t) + SizeOf(Integer)]);
   end
 else Result := False;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_EventReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_EventReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 begin
 If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize = SizeOf(scs_event_t) then
       begin
-        If Assigned(OnEventRegister) then
-          OnEventRegister(Self,TimeStampToDateTime(BlockHeader.BlockTime),scs_event_t(Stream_ReadoutInteger(Stream)))
+        If Assigned(fOnEventRegister) then
+          fOnEventRegister(Self,TimeStampToDateTime(BlockHeader.BlockTime),scs_event_t(Stream_ReadUInt32(Stream)))
         else
           Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_EventReg: Erroneous block payload size (expected %d, got %d).',
-                                   [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
+    else raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_EventReg: Erroneous block payload size (expected %d, got %d).',
+                                    [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
   end
 else Result := False;
 end;
  
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_EventUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_EventUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 begin
 If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize = SizeOf(scs_event_t) then
       begin
-        If Assigned(OnEventUnregister) then
-          OnEventUnregister(Self,TimeStampToDateTime(BlockHeader.BlockTime),scs_event_t(Stream_ReadoutInteger(Stream)))
+        If Assigned(fOnEventUnregister) then
+          fOnEventUnregister(Self,TimeStampToDateTime(BlockHeader.BlockTime),scs_event_t(Stream_ReadUInt32(Stream)))
         else
           Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_EventUnreg: Erroneous block payload size (expected %d, got %d).',
-                                   [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
+    else raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_EventUnreg: Erroneous block payload size (expected %d, got %d).',
+                                    [SizeOf(scs_event_t),BlockHeader.BlockPayloadSize]);
   end
 else Result := False;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Event(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Event(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 var
   StartPos:   Int64;
   Event:      scs_event_t;
@@ -1624,10 +1655,10 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize >= SizeOf(scs_event_t) then
       begin
-        If Assigned(OnEvent) then
+        If Assigned(fOnEvent) then
           begin
             StartPos := Stream.Position;
-            Event := scs_event_t(Stream_ReadoutInteger(Stream));
+            Event := scs_event_t(Stream_ReadUInt32(Stream));
             case Event of
           {*} SCS_TELEMETRY_EVENT_frame_start:
                 begin
@@ -1636,13 +1667,7 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
                 end;
           {*} SCS_TELEMETRY_EVENT_configuration:
                 begin
-                  Stream_Read_scs_telemetry_configuration(
-                    Stream,
-                    Data_cfg,
-                    GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_MINIMIZED),
-                    GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_IDONLY),
-                    InfoProviderGetConfigNameFromID,
-                    TelemetryInfoProvider);
+                  Stream_Read_scs_telemetry_configuration(Stream,Data_cfg,GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_MINIMIZED));
                   Data := @Data_cfg;
                 end;
             else
@@ -1650,10 +1675,10 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
             end;
             try
               If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
-                OnEvent(Self,TimeStampToDateTime(BlockHeader.BlockTime),Event,Data)
+                fOnEvent(Self,TimeStampToDateTime(BlockHeader.BlockTime),Event,Data)
               else
-                raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Event: Stored payload size does not match (stored %d, reality %d)',
-                                          [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+                raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Event: Stored payload size does not match (stored %d, reality %d)',
+                                           [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
             finally
               If Event = SCS_TELEMETRY_EVENT_configuration then
                 scs_telemetry_configuration_free(Data_cfg,True);
@@ -1662,15 +1687,15 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Event: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,SizeOf(scs_event_t)]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Event: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,SizeOf(scs_event_t)]);
   end
 else Result := False;
 end;
          
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_ChannelReg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 const
   MinPayloadSize = SizeOf(TChannelID) + SizeOf(scs_u32_t) +
                    SizeOf(scs_value_type_t) + SizeOf(scs_u32_t);
@@ -1686,40 +1711,40 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize >= MinPayloadSize then
       begin
-        If Assigned(OnChannelRegister) then
+        If Assigned(fOnChannelRegister) then
           begin
             StartPos := Stream.Position;
             If GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_IDONLY) then
               begin
-                ChannelID := Stream_ReadoutInteger(Stream);
+                ChannelID := Stream_ReadUInt32(Stream);
                 ChannelName := TelemetryInfoProvider.KnownChannels.ChannelIDToName(ChannelID);
               end
             else
               begin
-                ChannelName := Stream_ReadoutString(Stream);
+                ChannelName := Stream_ReadoutTelemetryString(Stream);
                 ChannelID := TelemetryInfoProvider.KnownChannels.ChannelNameToID(ChannelName);
               end;
-            ChannelIndex := Stream_ReadoutInteger(Stream);
-            ChannelValueType := Stream_ReadoutInteger(Stream);
-            ChannelRegFlags := Stream_ReadoutInteger(Stream);
+            ChannelIndex := Stream_ReadUint32(Stream);
+            ChannelValueType := Stream_ReadUInt32(Stream);
+            ChannelRegFlags := Stream_ReadUInt32(Stream);
             If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
-              OnChannelRegister(Self,TimeStampToDateTime(BlockHeader.BlockTime),ChannelName,ChannelID,ChannelIndex,ChannelValueType,ChannelRegFlags)
+              fOnChannelRegister(Self,TimeStampToDateTime(BlockHeader.BlockTime),ChannelName,ChannelID,ChannelIndex,ChannelValueType,ChannelRegFlags)
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_ChannelReg: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelReg: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_ChannelReg: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
          
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_ChannelUnreg(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 const
   MinPayloadSize = SizeOf(TChannelID) + SizeOf(scs_u32_t) + SizeOf(scs_value_type_t);
 var
@@ -1733,39 +1758,39 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize >= MinPayloadSize then
       begin
-        If Assigned(OnChannelUnregister) then
+        If Assigned(fOnChannelUnregister) then
           begin
             StartPos := Stream.Position;
             If GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_IDONLY) then
               begin
-                ChannelID := Stream_ReadoutInteger(Stream);
+                ChannelID := Stream_ReadUInt32(Stream);
                 ChannelName := TelemetryInfoProvider.KnownChannels.ChannelIDToName(ChannelID);
               end
             else
               begin
-                ChannelName := Stream_ReadoutString(Stream);
+                ChannelName := Stream_ReadoutTelemetryString(Stream);
                 ChannelID := TelemetryInfoProvider.KnownChannels.ChannelNameToID(ChannelName);
               end;
-            ChannelIndex := Stream_ReadoutInteger(Stream);
-            ChannelValueType := Stream_ReadoutInteger(Stream);
+            ChannelIndex := Stream_ReadUInt32(Stream);
+            ChannelValueType := Stream_ReadUInt32(Stream);
             If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
-              OnChannelUnregister(Self,TimeStampToDateTime(BlockHeader.BlockTime),ChannelName,ChannelID,ChannelIndex,ChannelValueType)
+              fOnChannelUnregister(Self,TimeStampToDateTime(BlockHeader.BlockTime),ChannelName,ChannelID,ChannelIndex,ChannelValueType)
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_ChannelUnreg: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_ChannelUnreg: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_ChannelUnreg: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
          
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Channel(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 const
   MinPayloadSize = SizeOf(TChannelID) + SizeOf(scs_u32_t);
 var
@@ -1777,7 +1802,7 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize >= MinPayloadSize then
       begin
-        If Assigned(OnChannel) then
+        If Assigned(fOnChannel) then
           begin
             StartPos := Stream.Position;
             Stream_Read_scs_named_value_Localized(
@@ -1791,81 +1816,76 @@ If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
               begin
                 ChannelValue := scs_value(ChannelData.Value);
                 try
-                  OnChannel(Self,
-                            TimeStampToDateTime(BlockHeader.BlockTime),
-                            ChannelData.Name,
-                            TelemetryInfoProvider.KnownChannels.ChannelNameToID(ChannelData.Name),
-                            ChannelData.Index,
-                            @ChannelValue);
+                  fOnChannel(Self,
+                             TimeStampToDateTime(BlockHeader.BlockTime),
+                             ChannelData.Name,
+                             TelemetryInfoProvider.KnownChannels.ChannelNameToID(ChannelData.Name),
+                             ChannelData.Index,
+                             @ChannelValue);
                 finally
                   scs_value_free(ChannelValue);
                 end;
               end
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Channel: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Channel: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Channel: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
          
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Config(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
-const
-  MinPayloadSize = SizeOf(TConfigID) + SizeOf(scs_u32_t);
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Config(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 var
-  StartPos:   Int64;
-  ConfigData: scs_named_value_localized_t;
+  MinPayloadSize:   TMemSize;
+  StartPos:         Int64;
+  ConfigReference:  TConfigReference;
+  ConfigIndex:      scs_u32_t;
+  ConfigData:       scs_value_localized_t;
 begin
+MinPayloadSize := (2 * TelemetryStringBytes) + SizeOf(scs_u32_t);
 If (Stream.Position + BlockHeader.BlockPayloadSize) <= Stream.Size then
   begin
     If BlockHeader.BlockPayloadSize >= MinPayloadSize then
       begin
-        If Assigned(OnConfig) then
+        If Assigned(fOnConfig) then
           begin
             StartPos := Stream.Position;
-            Stream_Read_scs_named_value_Localized(
-              Stream,
-              ConfigData,
-              GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_MINIMIZED),
-              GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_IDONLY),
-              InfoProviderGetConfigNameFromID,
-              TelemetryInfoProvider);
+            ConfigReference.ID := Stream_ReadoutTelemetryString(Stream);
+            ConfigReference.Attribute := Stream_ReadoutTelemetryString(Stream);
+            ConfigIndex := Stream_ReadUInt32(Stream);
+            Stream_Read_scs_value_localized(Stream,ConfigData,GetFlagValue(BlockHeader.BlockFlags,LB_BLOCK_FLAG_MINIMIZED));
             If (Stream.Position - StartPos) = BlockHeader.BlockPayloadSize then
-              begin
-                OnConfig(Self,TimeStampToDateTime(BlockHeader.BlockTime),ConfigData.Name,
-                         TelemetryInfoProvider.KnownConfigs.ConfigNameToID(ConfigData.Name),
-                         ConfigData.Index,ConfigData.Value);
-              end
+              fOnConfig(Self,TimeStampToDateTime(BlockHeader.BlockTime),ConfigReference,ConfigIndex,ConfigData)
             else
-              raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Config: Stored payload size does not match (stored %d, reality %d)',
-                                        [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
+              raise ETLBadData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Config: Stored payload size does not match (stored %d, reality %d)',
+                                         [BlockHeader.BlockPayloadSize,Stream.Position - StartPos]);
           end
         else Stream.Position := Stream.Position + BlockHeader.BlockPayloadSize;
         Result := True;
       end
-    else raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlockPayload_Config: Payload is too small (got %d, minimum %d)..',
-                                   [BlockHeader.BlockPayloadSize,MinPayloadSize]);
+    else raise ETLBufferTooSmall.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlockPayload_Config: Payload is too small (got %d, minimum %d).',
+                                           [BlockHeader.BlockPayloadSize,MinPayloadSize]);
   end
 else Result := False;
 end;
         
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlockPayload_Termination(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlockPayload_Termination(BlockHeader: TTelemetryLogBinaryBlockHeader): Boolean;
 begin
 Result := False;
 end;
        
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadBlock: Boolean;
+Function TTelemetryLogBinaryReader_0.ReadBlock: Boolean;
 var
   BlockHeader:  TTelemetryLogBinaryBlockHeader;
 begin
@@ -1886,31 +1906,31 @@ If not ReadingTerminated and ReadBlockHeader({%H-}BlockHeader) then
       LB_BLOCK_TYPE_CONFIG:       Result := ReadBlockPayload_Config(BlockHeader);
       LB_BLOCK_TYPE_TERMINATE:    Result := ReadBlockPayload_Termination(BlockHeader);
     else
-      raise Exception.CreateFmt('TTelemetryLogBinaryReader_1.ReadBlock: Unknown block type (%d).',[BlockHeader.BlockType]);
+      raise ETLUnknownData.CreateFmt('TTelemetryLogBinaryReader_0.ReadBlock: Unknown block type (%d).',[BlockHeader.BlockType]);
     end;
   end;
 ReadingTerminated := not Result;
 end;
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryReader_1 // Public methods                              }
+{   TTelemetryLogBinaryReader_0 // Public methods                              }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryReader_1.StartReading;
+procedure TTelemetryLogBinaryReader_0.StartReading;
 begin
 inherited;
 end;
              
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryReader_1.EndReading;
+procedure TTelemetryLogBinaryReader_0.EndReading;
 begin
 inherited;
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadNextLogEntry(IncreaseLogCounter: Boolean = True): Boolean;
+Function TTelemetryLogBinaryReader_0.ReadNextLogEntry(IncreaseLogCounter: Boolean = True): Boolean;
 begin
 try
   Result := ReadBlock;
@@ -1922,33 +1942,33 @@ end;
               
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_1.ReadLogEntry(Index: Integer): Boolean; 
+Function TTelemetryLogBinaryReader_0.ReadLogEntry(Index: Integer): Boolean; 
 begin
 Result := False;
 end;
 
 {==============================================================================}
 {------------------------------------------------------------------------------}
-{                         TTelemetryLogBinaryReader_0                          }
+{                         TTelemetryLogBinaryReader_1                          }
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
 {==============================================================================}
-{   TTelemetryLogBinaryReader_0 // Class implementation                        }
+{   TTelemetryLogBinaryReader_1 // Class implementation                        }
 {==============================================================================}
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryReader_0 // Protected methods                           }
+{   TTelemetryLogBinaryReader_1 // Protected methods                           }
 {------------------------------------------------------------------------------}
 
-Function TTelemetryLogBinaryReader_0.GetLogCount: Integer;
+Function TTelemetryLogBinaryReader_1.GetLogCount: Integer;
 begin
 Result := Length(fBlocksOffsets);
 end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_0.GetLogEntry(Index: Integer): TLogEntry;
+Function TTelemetryLogBinaryReader_1.GetLogEntry(Index: Integer): TLogEntry;
 var
   StreamPosition: Int64;
   BlockHeader:    TTelemetryLogBinaryBlockHeader;
@@ -1962,9 +1982,9 @@ If (Index >= Low(fBlocksOffsets)) and (Index <= High(fBlocksOffsets)) then
         begin
           Result.Time := TimeStampToDateTime(BlockHeader.BlockTime);
           SetLength(Result.Data,BlockHeader.BlockPayloadSize);
-          Result.Info := (BlockHeader.BlockFlags shl 8) or BlockHeader.BlockType;
+          Result.Info := (UInt32(BlockHeader.BlockFlags) shl 8) or BlockHeader.BlockType;
           If Length(Result.Data) > 0 then
-            If Stream.Read(Addr(Result.Data[0])^,BlockHeader.BlockPayloadSize) <> BlockHeader.BlockPayloadSize then
+            If Stream.Read(Result.Data[0],BlockHeader.BlockPayloadSize) <> BlockHeader.BlockPayloadSize then
               Result := InvalidLogEntry;
         end;
     finally
@@ -1976,22 +1996,20 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryReader_0.ReadBlocksOffsets;
-var
-  i:  Integer;
+procedure TTelemetryLogBinaryReader_1.ReadBlocksOffsets;
 begin
-Stream.Seek(-(SizeOf(LongWord) + SizeOf(Integer)),soEnd);
-SetLength(fBlocksOffsets,Stream_ReadoutInteger(Stream));
-Stream.Seek(-(SizeOf(LongWord) + SizeOf(Integer) + Length(fBlocksOffsets) * SizeOf(LongWord)),soEnd);
-For i := Low(fBlocksOffsets) to High(fBlocksOffsets) do
-  fBlocksOffsets[i] := LongWord(Stream_ReadoutInteger(Stream));
+Stream.Seek(-(SizeOf(UInt32) + SizeOf(Int32)),soEnd);
+SetLength(fBlocksOffsets,Stream_ReadInt32(Stream));
+Stream.Seek(-(SizeOf(UInt32) + SizeOf(Int32) + Length(fBlocksOffsets) * SizeOf(UInt32)),soEnd);
+If Length(fBlocksOffsets) > 0 then
+  Stream.ReadBuffer(fBlocksOffsets[0],Length(fBlocksOffsets) * SizeOf(UInt32));
 end;
 
 {------------------------------------------------------------------------------}
-{   TTelemetryLogBinaryReader_0 // Public methods                              }
+{   TTelemetryLogBinaryReader_1 // Public methods                              }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryReader_0.StartReading;
+procedure TTelemetryLogBinaryReader_1.StartReading;
 var
   StreamPosition: Int64;
 begin
@@ -2000,11 +2018,11 @@ SetLength(fBlocksOffsets,0);
 StreamPosition := Stream.Position;
 try
   // Check whether the file is large enough to accommodate table of blocks offsets.
-  If (Stream.Size - Stream.Position) >= SizeOf(TTelemetryLogBinaryBlockHeader) + SizeOf(Integer) + SizeOf(LongWord) then
+  If (Stream.Size - Stream.Position) >= SizeOf(TTelemetryLogBinaryBlockHeader) + SizeOf(Int32) + SizeOf(UInt32) then
     begin
       // Check control number and read the table if it matches.
-      Stream.Seek(-SizeOf(LongWord),soEnd);
-      If Stream_ReadoutInteger(Stream) = LB_STRUCT0_CONTROLNUMBER then ReadBlocksOffsets;
+      Stream.Seek(-SizeOf(UInt32),soEnd);
+      If Stream_ReadUInt32(Stream) = LB_STRUCT0_CONTROLNUMBER then ReadBlocksOffsets;
     end;
 finally
   Stream.Position := StreamPosition;
@@ -2013,7 +2031,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryReader_0.EndReading;
+procedure TTelemetryLogBinaryReader_1.EndReading;
 begin
 inherited;
 SetLength(fBlocksOffsets,0);
@@ -2021,7 +2039,7 @@ end;
 
 //------------------------------------------------------------------------------
 
-Function TTelemetryLogBinaryReader_0.ReadLogEntry(Index: Integer): Boolean;
+Function TTelemetryLogBinaryReader_1.ReadLogEntry(Index: Integer): Boolean;
 var
   StreamPosition:   Int64;
   TerminationState: Boolean;
@@ -2085,19 +2103,19 @@ end;
 procedure TTelemetryLogBinaryStreamParser.ReadFileHeader(var FileInfo: TTelemetryLogBinaryFileInfo);
 begin
 If (Stream.Size - Stream.Position) < (SizeOf(TTelemetryLogBinaryFileHeader) + MinimumAPIInfoSectionSize) then
-  raise Exception.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: File is too small.');
+  raise ETLBufferTooSmall.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: File is too small.');
 fStream.ReadBuffer(FileInfo.Header,SizeOf(TTelemetryLogBinaryFileHeader));
 If FileInfo.Header.MagicNumber <> LB_SIGNATURE then
-  raise Exception.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: Bad file signature.');
-FileInfo.APIInfo.TelemetryVersion := Stream_ReadoutInteger(fStream);
-FileInfo.APIInfo.GameID := Stream_ReadoutString(fStream);
-FileInfo.APIInfo.GameVersion := Stream_ReadoutInteger(fStream);
-FileInfo.APIInfo.GameName := Stream_ReadoutString(fStream);
+  raise ETLBadData.Create('TTelemetryLogBinaryStreamParser.ReadFileHeader: Bad file signature.');
+FileInfo.APIInfo.TelemetryVersion := Stream_ReadUInt32(fStream);
+FileInfo.APIInfo.GameID := Stream_ReadoutTelemetryString(fStream);
+FileInfo.APIInfo.GameVersion := Stream_ReadUInt32(fStream);
+FileInfo.APIInfo.GameName := Stream_ReadoutTelemetryString(fStream);
 end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStreamParser.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord);
+procedure TTelemetryLogBinaryStreamParser.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32);
 begin
 If Assigned(fOnDataTimeLog) then fOnDataTimeLog(Self,Time,Data,Size);
 {$IFDEF NoTimeLogEvents}
@@ -2241,16 +2259,16 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryStreamParser.DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogBinaryStreamParser.DoOnConfig(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
-If Assigned(fOnConfigTimeLog) then fOnConfigTimeLog(Self,Time,Name,ID,Index,Value);
+If Assigned(fOnConfigTimeLog) then fOnConfigTimeLog(Self,Time,ConfigReference,Index,Value);
 {$IFDEF NoTimeLogEvents}
-If Assigned(fOnConfigLog) then fOnConfigLog(Self,Name,ID,Index,Value);
+If Assigned(fOnConfigLog) then fOnConfigLog(Self,ConfigReference,Index,Value);
 {$ENDIF}
 {$IFDEF MulticastEvents}
-fOnConfigTimeLogMulti.Call(Self,Time,Name,ID,Index,Value);
+fOnConfigTimeLogMulti.Call(Self,Time,ConfigReference,Index,Value);
 {$IFDEF NoTimeLogEvents}
-fOnConfigLogMulti.Call(Self,Name,ID,Index,Value);
+fOnConfigLogMulti.Call(Self,ConfigReference,Index,Value);
 {$ENDIF}
 {$ENDIF}
 end;
@@ -2263,14 +2281,14 @@ constructor TTelemetryLogBinaryStreamParser.Create(Stream: TStream);
 begin
 inherited Create;
 If Assigned(Stream) then fStream := Stream
-  else raise Exception.Create('TTelemetryLogBinaryStreamParser.Create: Telemetry Recipient not assigned.');
+  else raise ETLNilReference.Create('TTelemetryLogBinaryStreamParser.Create: Telemetry Recipient not assigned.');
 fStream.Position := 0;
 ReadFileHeader(fFileInfo);
 case fFileInfo.Header.DataStructure of
   0:  fLogReader := TTelemetryLogBinaryReader_0.Create(Stream,fFileInfo);
   1:  fLogReader := TTelemetryLogBinaryReader_1.Create(Stream,fFileInfo);
 else
-  raise Exception.CreateFmt('TTelemetryLogBinaryStreamParser.Create: Unknown data structure (%d).',[fFileInfo.Header.DataStructure]);
+  raise ETLUnknownData.CreateFmt('TTelemetryLogBinaryStreamParser.Create: Unknown data structure (%d).',[fFileInfo.Header.DataStructure]);
 end;
 {$IFDEF MulticastEvents}
 fOnDataTimeLogMulti := TMulticastDataTimeLogEvent.Create(Self);
@@ -2379,7 +2397,11 @@ end;
 
 constructor TTelemetryLogBinaryFileParser.Create(FileName: String);
 begin
+{$IF Defined(FPC) and not Defined(Unicode)}
+inherited Create(TFileStream.Create(UTF8ToSys(FileName),fmOpenRead or fmShareDenyWrite));
+{$ELSE}
 inherited Create(TFileStream.Create(FileName,fmOpenRead or fmShareDenyWrite));
+{$IFEND}
 fFileName := FileName;
 end;
 
@@ -2408,10 +2430,9 @@ end;
 {   TTelemetryLogBinaryToTextConverter // Protected methods                    }
 {------------------------------------------------------------------------------}
 
-procedure TTelemetryLogBinaryToTextConverter.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord);
+procedure TTelemetryLogBinaryToTextConverter.DoOnDataLog(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32);
 begin
-fTextLogger.Logger.ForceTimeSet(Time);
-fTextLogger.AddLog(IntToStr(Size) + 'bytes of unknown data.');
+fTextLogger.Logger.AddLogTime(IntToStr(Size) + 'bytes of unknown data.',Time);
 inherited;
 end;
 
@@ -2419,8 +2440,7 @@ end;
 
 procedure TTelemetryLogBinaryToTextConverter.DoOnTextLog(Sender: TObject; Time: TDateTime; const Text: String);
 begin
-fTextLogger.Logger.ForceTimeSet(Time);
-fTextLogger.AddLog(Text);
+fTextLogger.Logger.AddLogTime(Text,Time);
 inherited;
 end;
 
@@ -2489,10 +2509,10 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TTelemetryLogBinaryToTextConverter.DoOnConfig(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: TConfigID; Index: scs_u32_t; Value: scs_value_localized_t);
+procedure TTelemetryLogBinaryToTextConverter.DoOnConfig(Sender: TObject; Time: TDateTime; ConfigReference: TConfigReference; Index: scs_u32_t; Value: scs_value_localized_t);
 begin
 fTextLogger.Logger.ForceTimeSet(Time);
-fTextLogger.LogConfig(Name,ID,Index,Value);
+fTextLogger.LogConfig(ConfigReference,Index,Value);
 inherited;
 end;
 
@@ -2500,9 +2520,9 @@ end;
 {   TTelemetryLogBinaryToTextConverter // Public methods                       }
 {------------------------------------------------------------------------------}
 
-constructor TTelemetryLogBinaryToTextConverter.Create(aFileName: String; OutFileName: String = '');
+constructor TTelemetryLogBinaryToTextConverter.Create(FileName: String; OutFileName: String = '');
 begin
-inherited Create(aFileName);
+inherited Create(FileName);
 If OutFileName <> '' then
   fOutFileName := OutFileName
 else
@@ -2516,10 +2536,10 @@ If TTelemetryRecipient.SupportsTelemetryAndGameVersion(FileInfo.APIInfo.Telemetr
                                                 FileInfo.APIInfo.GameVersion,
                                                 FileInfo.APIInfo.GameName)
 else
-  raise Exception.CreateFmt('TTelemetryLogBinaryToTextConverter.Create: Game version (%s; %s %s) not supported.',
-                            [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
-                            TelemetryStringDecode(FileInfo.APIInfo.GameID),
-                            SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
+  raise ETLUnsupportedGame.CreateFmt('TTelemetryLogBinaryToTextConverter.Create: Game version (%s; %s %s) not supported.',
+                                     [SCSGetVersionAsString(FileInfo.APIInfo.TelemetryVersion),
+                                     TelemetryStringDecode(FileInfo.APIInfo.GameID),
+                                     SCSGetVersionAsString(FileInfo.APIInfo.GameVersion)]);
 fTextLogger := TTelemetryLogText.Create(nil,fOutFileName);
 fTextLogger.Recipient := fDummyRecipient;
 end;

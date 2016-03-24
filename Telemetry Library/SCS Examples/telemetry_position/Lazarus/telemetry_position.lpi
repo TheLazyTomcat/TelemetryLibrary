@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\SCS;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -69,7 +69,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\SCS;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -114,7 +114,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+            <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\SCS;.."/>
             <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -152,124 +152,20 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="29">
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LazUtils"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="2">
       <Unit0>
         <Filename Value="telemetry_position.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\..\..\..\Condensed API Headers\SCS_Telemetry_Condensed.pas"/>
+        <Filename Value="..\telemetry_position_main.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
-      <Unit2>
-        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_telemetry.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_telemetry_event.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_telemetry_channel.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="..\..\..\..\Telemetry API Headers\scssdk_value.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="..\..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_configs.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="..\..\..\..\Telemetry API Headers\common\scssdk_telemetry_common_channels.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="..\..\..\..\Telemetry API Headers\common\scssdk_telemetry_trailer_common_channels.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="..\..\..\..\Telemetry API Headers\common\scssdk_telemetry_truck_common_channels.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="..\..\..\..\Telemetry API Headers\eurotrucks2\scssdk_eut2.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="..\..\..\..\Telemetry API Headers\eurotrucks2\scssdk_telemetry_eut2.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="..\..\..\Source\Libs\BitOps.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit13>
-      <Unit14>
-        <Filename Value="..\..\..\Source\Libs\CRC32.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="..\..\..\Source\Libs\MD5.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="..\..\..\Source\Libs\MulticastEvent.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="..\..\..\Source\Libs\SimpleLog.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="..\..\..\Source\TelemetryRecipientBinder.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="..\..\..\Source\TelemetryStrings.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="..\..\..\Source\TelemetryValueTypeUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="..\..\..\Source\TelemetryVersionObjects.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="..\..\..\Source\TelemetryCommon.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="..\..\..\Source\TelemetryConversions.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="..\..\..\Source\TelemetryIDs.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="..\..\..\Source\TelemetryInfoProvider.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="..\..\..\Source\TelemetryLists.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="..\..\..\Source\TelemetryRecipient.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="..\..\..\Source\SCS\TelemetrySCSExample_telemetry_position.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="TelemetrySCSExample_telemetry_position"/>
-      </Unit28>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -280,7 +176,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\..\Condensed API Headers;..\..\..\..\Telemetry API Headers\eurotrucks2;..\..\..\..\Telemetry API Headers\common;..\..\..\..\Telemetry API Headers;..\..\..\Source\Libs;..\..\..\Source;..\..\..\Source\SCS"/>
+      <OtherUnitFiles Value="..\..\..\..\API Headers\Headers;..\..\..\..\API Headers\Headers\common;..\..\..\..\API Headers\Headers\eurotrucks2;..\..\..\..\API Headers\Headers\amtrucks;..\..\..\..\API Headers\Condensed Headers;..\..\..\Source;..\..\..\Source\Libs;..\..\..\Source\SCS;.."/>
       <UnitOutputDirectory Value="out_temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -313,6 +209,14 @@
 -dWindows
 -dDebug
 -dx86"/>
+      <OtherDefines Count="6">
+        <Define0 Value="FPC"/>
+        <Define1 Value="Windows"/>
+        <Define2 Value="Debug"/>
+        <Define3 Value="Release"/>
+        <Define4 Value="x86"/>
+        <Define5 Value="x64"/>
+      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>

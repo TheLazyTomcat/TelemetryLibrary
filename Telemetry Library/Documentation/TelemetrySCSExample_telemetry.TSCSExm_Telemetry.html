@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetrySCSExample_telemetry: Class TSCSExm_Telemetry</title>
+<title>Telemetry library: TelemetrySCSExample_telemetry: Class TSCSExm_Telemetry</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -18,10 +18,128 @@
 <p class="declaration">
 <code>type TSCSExm_Telemetry = class(<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a>)</code></p>
 <h2 class="description">Description</h2>
-<div class="nodescription">no description available, TTelemetryRecipientBinder description follows</div><p>
-Class designed as a base for any class that is intended to bind itself to telemetry recipient events.</p>
 <p>
- It has predefined abstract methods that can be assigned as handlers to recipient events one by one (when you want full control over what and when is called), or at once using <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> method (<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> must be assigned for this to work).</p>
+Class designed to imitate behavior of <i>telemetry</i> example distributed with the Telemetry SDK.</p>
+<p>
+ It writes data to a textual log file the same way as mentioned example, so parsers intended to read such log should have no problem reading log produced by this class.<br> Note that there may be slight behavioral differences as a consequence of use of different language and programming style (object instead of functions), but they should not pose any problem.
+
+<p>It writes complete configurations data when they are received and also following values on per-frame basis: </p>
+
+<ul class="paragraph_spacing">
+  <li><p>Timestamp [&#181s]</p></li>
+  <li><p>Raw rendering timestamp [&#181s]</p></li>
+  <li><p>Raw simulation timestamp [&#181s]</p></li>
+  <li><p>Raw paused simulation timestamp [&#181s]</p></li>
+  <li><p>Vehicle heading [degrees]</p></li>
+  <li><p>Vehicle pitch [degrees]</p></li>
+  <li><p>Vehicle roll [degrees]</p></li>
+  <li><p>Speed of the vehicle [m/s]</p></li>
+  <li><p>Engine revolutions [min<sup>-1</sup>]</p></li>
+  <li><p>Engaged gead</p></li>
+</ul>
+
+<p>
+
+<p>Resulting file can then look like this (<code>&lt;...&gt;</code> means a part of the text is removed): </p>
+
+<pre class="preformatted">
+  Log opened
+  Game 'eut2' 1.12
+
+  &lt;...&gt;
+
+  Configuration: truck
+    brand_id : string = volvo
+    brand : string = Volvo
+    id : string = vehicle.volvo.fh16_2012
+    name : string = FH
+    fuel.capacity : float = 800.000000
+    adblue.capacity : float = 80.000000
+    rpm.limit : float = 2500.000000
+    gears.forward : u32 = 12
+    gears.reverse : u32 = 1
+    differential.ratio : float = 3.080000
+    retarder.steps : u32 = 3
+    forward.ratio[0] : float = 11.730000
+    forward.ratio[1] : float = 9.210000
+    forward.ratio[2] : float = 7.090000
+    forward.ratio[3] : float = 5.570000
+    forward.ratio[4] : float = 4.350000
+    forward.ratio[5] : float = 3.410000
+    forward.ratio[6] : float = 2.700000
+    forward.ratio[7] : float = 2.120000
+    forward.ratio[8] : float = 1.630000
+    forward.ratio[9] : float = 1.280000
+    forward.ratio[10] : float = 1.000000
+    forward.ratio[11] : float = 0.780000
+    reverse.ratio[0] : float = -10.780000
+    cabin.position : fvector = (0.000000,1.288755,-1.445675)
+    head.position : fvector = (-0.717515,1.403714,-0.448380)
+    hook.position : fvector = (0.000000,1.000000,1.504521)
+    fuel.warning.factor : float = 0.150000
+    adblue.warning.factor : float = 0.150000
+    brake.air.pressure.warning : float = 65.000000
+    brake.air.pressure.emergency : float = 30.000000
+    oil.pressure.warning : float = 10.000000
+    water.temperature.warning : float = 105.000000
+    battery.voltage.warning : float = 22.000000
+    wheels.count : u32 = 6
+    wheel.position[0] : fvector = (-1.088030,0.501832,-1.757469)
+    wheel.steerable[0] : bool = True
+    wheel.simulated[0] : bool = True
+    wheel.radius[0] : float = 0.512435
+    wheel.powered[0] : bool = False
+    wheel.position[1] : fvector = (1.088030,0.501832,-1.757469)
+    wheel.steerable[1] : bool = True
+    wheel.simulated[1] : bool = True
+    wheel.radius[1] : float = 0.512435
+    wheel.powered[1] : bool = False
+    wheel.position[2] : fvector = (-0.951700,0.501832,2.504161)
+    wheel.steerable[2] : bool = False
+    wheel.simulated[2] : bool = True
+    wheel.radius[2] : float = 0.512435
+    wheel.powered[2] : bool = True
+    wheel.position[3] : fvector = (0.951700,0.501832,2.504161)
+    wheel.steerable[3] : bool = False
+    wheel.simulated[3] : bool = True
+    wheel.radius[3] : float = 0.512435
+    wheel.powered[3] : bool = True
+    wheel.position[4] : fvector = (-0.951700,0.501832,1.184254)
+    wheel.steerable[4] : bool = False
+    wheel.simulated[4] : bool = True
+    wheel.radius[4] : float = 0.512435
+    wheel.powered[4] : bool = True
+    wheel.position[5] : fvector = (0.951700,0.501832,1.184254)
+    wheel.steerable[5] : bool = False
+    wheel.simulated[5] : bool = True
+    wheel.radius[5] : float = 0.512435
+    wheel.powered[5] : bool = True
+  Configuration: trailer
+  Telemetry unpaused
+  timestamp[us];raw rendering timestamp[us];raw simulation timestamp[us];raw paused simulation timestamp[us];&lt;...&gt;
+  16666;4130731;4149834;16666;23.735498;-0.012581;0.000137;0.000000;0.000000;0
+  33332;4130731;4166500;33332;23.735533;-0.010737;0.000205;0.000053;0.000000;0
+  49998;4130731;4183166;49998;23.735512;0.074886;0.000382;0.001186;0.000000;0
+  66664;4130731;4199832;66664;23.735493;0.137273;0.000451;0.001307;0.000000;0
+  83330;4130731;4216498;83330;23.735472;0.188103;0.000437;0.000425;0.000000;0
+  99996;4130731;4233164;99996;23.735458;0.226516;0.000328;-0.000958;0.000000;0
+
+  &lt;...&gt;
+
+  14682746;18766034;18815914;14682746;333.018005;-0.048385;-0.038235;7.095694;1073.287476;7
+  14699412;18766034;18832580;14699412;333.103394;-0.048453;-0.035927;7.079689;1070.869019;7
+  Telemetry paused
+  Telemetry unpaused
+  timestamp[us];raw rendering timestamp[us];raw simulation timestamp[us];raw paused simulation timestamp[us];&lt;...&gt;
+  14716078;21770552;21799128;14716078;333.188049;-0.048453;-0.034479;7.063697;1068.457886;7
+
+  &lt;...&gt;
+
+  19115902;26140004;26198952;19115902;36.438198;-0.054396;-0.056363;8.529539;1289.598755;7
+  Telemetry paused
+  Log ended</pre>
+
+<p></p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></li>
@@ -69,7 +187,7 @@ Class designed as a base for any class that is intended to bind itself to teleme
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html#Create">Create</a></b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const LogFileName: String = <a  href="TelemetrySCSExample_telemetry.html#def_LogFileName">def_LogFileName</a>);</code></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html#Create">Create</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const LogFileName: String = <a  href="TelemetrySCSExample_telemetry.html#def_LogFileName">def_LogFileName</a>);</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -105,7 +223,7 @@ Class designed as a base for any class that is intended to bind itself to teleme
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -116,7 +234,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fFormatSettings"></a><code><b>fFormatSettings</b>:  TFormatSettings;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Holds format settings used when converting floating point values to text.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -124,7 +244,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fLog"></a><code><b>fLog</b>:             TSimpleLog;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Object doing actual write into the output file.<br> Managed internally.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -132,7 +254,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fLogFileName"></a><code><b>fLogFileName</b>:     String;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Name of the output log file.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -140,7 +264,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fOutputPaused"></a><code><b>fOutputPaused</b>:    Boolean;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+When <code>True</code>, output is paused and nothing is written to it (eg. when game is paused).</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -148,7 +274,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fPrintHeader"></a><code><b>fPrintHeader</b>:     Boolean;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+When <code>True</code>, a header should be written into the output in next <code>SCS_TELEMETRY_EVENT_frame_end</code> event.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -156,7 +284,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fLastTimestamp"></a><code><b>fLastTimestamp</b>:   scs_timestamp_t;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Timestamp of the last frame (<code>SCS_TELEMETRY_EVENT_frame_start</code> event).<br> Initialized to -1.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -164,7 +294,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="fTelemetry"></a><code><b>fTelemetry</b>:       <a  href="TelemetrySCSExample_telemetry.TSCSExm_TelemetryState.html">TSCSExm_TelemetryState</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Structure holding data obtained from the telemetry.</p>
+</td></tr>
 </table>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
@@ -173,7 +305,12 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="InitLog"></a><code>Function <b>InitLog</b>: Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Initialializes log.<br> Called at the class instantiation.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when the log was initialized sucessfully, <code>False</code> otherwise.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -181,15 +318,49 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="FinishLog"></a><code>procedure <b>FinishLog</b>; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Finalizes log.<br> Called on object destruction.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const LogFileName: String = <a  href="TelemetrySCSExample_telemetry.html#def_LogFileName">def_LogFileName</a>);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const LogFileName: String = <a  href="TelemetrySCSExample_telemetry.html#def_LogFileName">def_LogFileName</a>);</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Class constructor.
+
+<p>Manages everything what is necesary at the start of logging (clears fields, initializes log, registers events and channels, creates internal objects, ...).<br> <code><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a></code> parameter must be assigned, otherwise an exception is raised. <code>LogFileName</code> must not be empty.
+
+<p> 
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Must contain valid reference to a <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> instance.</dd>
+<dt>LogFileName</dt>
+<dd>Name of the output log file. File is stored in the same folder where a module containing this code is placed.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLNilReference.html">ETLNilReference</a></dt>
+<dd>When <code>aRecipient</code> is not assigned.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLInitFailed.html">ETLInitFailed</a></dt>
+<dd>When log initialization fails (when method <a class="normal" href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html#InitLog">InitLog</a> returns <code>False</code>).</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLRegFailed.html">ETLRegFailed</a></dt>
+<dd>When registration of any of the following telemetry events fails: </p>
+
+<pre class="preformatted">
+    SCS_TELEMETRY_EVENT_frame_start
+    SCS_TELEMETRY_EVENT_frame_end
+    SCS_TELEMETRY_EVENT_paused
+    SCS_TELEMETRY_EVENT_started</pre>
+
+<p></dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -197,7 +368,11 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Class destructor.<br>
+
+<p>Frees all internal objects and other used resources.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -205,7 +380,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="LogHandler"></a><code>procedure <b>LogHandler</b>(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#LogHandler">TTelemetryRecipientBinder.LogHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -213,7 +390,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="EventRegisterHandler"></a><code>procedure <b>EventRegisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventRegisterHandler">TTelemetryRecipientBinder.EventRegisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -221,7 +400,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="EventUnregisterHandler"></a><code>procedure <b>EventUnregisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventUnregisterHandler">TTelemetryRecipientBinder.EventUnregisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -229,7 +410,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Processes all events passed from the API. All writing to the output log is done inside this method. For details see method implementation.<br> For details on parameters, see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventHandler">TTelemetryRecipientBinder.EventHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -237,7 +420,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="ChannelRegisterHandler"></a><code>procedure <b>ChannelRegisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelRegisterHandler">TTelemetryRecipientBinder.ChannelRegisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -245,7 +430,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="ChannelUnregisterHandler"></a><code>procedure <b>ChannelUnregisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelUnregisterHandler">TTelemetryRecipientBinder.ChannelUnregisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -253,17 +440,21 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Processes all channels passed from the API. Stores channel value to appropriate field (see <a class="normal" href="TelemetrySCSExample_telemetry.TSCSExm_Telemetry.html#fTelemetry">fTelemetry</a> fields) for further processing.<br> For details on parameters, see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelHandler">TTelemetryRecipientBinder.ChannelHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ConfigHandler">TTelemetryRecipientBinder.ConfigHandler</a>.</p>
+</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

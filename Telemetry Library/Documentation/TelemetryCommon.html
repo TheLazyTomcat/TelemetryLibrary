@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryCommon</title>
+<title>Telemetry library: TelemetryCommon</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -10,7 +10,7 @@
 <h1 class="unit">Unit TelemetryCommon</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td>Functions and Procedures</td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td>Uses</td><td><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
 <a name="PasDoc-Description"></a><h2 class="description">Description</h2>
 <p>
 Types, constants, routines, etc. used troughout the Telemetry library.</p>
@@ -19,53 +19,30 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 
 <p><b>TelemetryCommon</b>
 
-<p>©2013-2015 František Milt, all rights reserved.
+<p>©2013-2016 František Milt, all rights reserved.
 
-<p>This file is intended to provide types, constants, routines, etc. used throughout the Telemetry library (that is, in more than one unit).
+<p>Last change: 2016-03-22
 
-<p>Last change: 2015-06-25
+<p>This file is intended to provide types, constants, routines, etc. used throughout the Telemetry library (that is, in more than one unit). It also contains declaration of exception classes used in the library, those are: </p>
 
-<p>Change List:</p>
-
-<ul class="paragraph_spacing">
-  <li><p>2013-10-04 - First stable version.</p></li>
-  <li><p>2014-04-06 - TGameSupportInfo.GameID and <a class="normal" href="TelemetryCommon.scs_value_localized_t.html#StringData">scs_value_localized_t.StringData</a> fields type changed to <code>TelemetryString</code>.</p></li>
-  <li><p>2014-04-18 - cConfigFieldsSeparator constant moved to <a class="normal" href="TelemetryIDs.html">TelemetryIDs</a> unit.</p></li>
-  <li><p>2014-04-20 - Added following types:</p>
-
-<ul class="compact_spacing">
-  <li><p><a class="normal" href="TelemetryCommon.scs_named_value_localized_t.html">scs_named_value_localized_t</a></p></li>
-  <li><p><a class="normal" href="TelemetryCommon.html#p_scs_named_value_localized_t">p_scs_named_value_localized_t</a></p></li>
-  <li><p><a class="normal" href="TelemetryCommon.scs_telemetry_configuration_localized_t.html">scs_telemetry_configuration_localized_t</a></p></li>
-  <li><p><a class="normal" href="TelemetryCommon.html#p_scs_telemetry_configuration_localized_t">p_scs_telemetry_configuration_localized_t</a></p></li>
-</ul>
-
-<p></p></li>
-  <li><p>2014-04-20 - Functions <a class="normal" href="TelemetryConversions.html#scs_value_localized">scs_value_localized</a> and <a class="normal" href="TelemetryConversions.html#scs_value">scs_value</a> moved to <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> unit.</p></li>
-  <li><p>2014-05-05 - <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder added.</p></li>
-  <li><p>2014-11-02 - Added types <code><a class="normal" href="TelemetryCommon.html#PtrInt">PtrInt</a></code> and <code><a class="normal" href="TelemetryCommon.html#PtrUInt">PtrUInt</a></code>.</p></li>
-  <li><p>2015-04-20 - Added <a class="normal" href="TelemetryCommon.html#TMemSize">TMemSize</a> type.</p></li>
-  <li><p>2015-04-20 - Constants <code>cEmptySCSValue</code> and <code>cEmptySCSValueLocalized</code> renamed to <code>EmptySCSValue</code> and <code>EmptySCSValueLocalized</code> respectively.</p></li>
-  <li><p>2015-06-25 - Removed <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder.</p></li>
-  <li><p>2015-06-25 - Added <a class="normal" href="TelemetryCommon.html#TStrSize">TStrSize</a> type.</p></li>
-  <li><p>2015-06-25 - TGameSupportInfo changed to <a class="normal" href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a>, PGameSupportInfo changed to <a class="normal" href="TelemetryCommon.html#PSupportedGame">PSupportedGame</a>.</p></li>
-  <li><p>2015-06-25 - Added list of supported API versions and list of supported games (<a class="normal" href="TelemetryCommon.html#SupportedTelemetryVersions">SupportedTelemetryVersions</a>, <a class="normal" href="TelemetryCommon.html#SupportedGames">SupportedGames</a>).</p></li>
-  <li><p>2015-06-25 - Renamed and completed following constants:</p>
-
-<ul class="compact_spacing">
-  <li><p><code>EmptySCSValue</code> renamed to <a class="normal" href="TelemetryCommon.html#scs_value_empty">scs_value_empty</a></p></li>
-  <li><p><code>EmptySCSValueLocalized</code> renamed to <a class="normal" href="TelemetryCommon.html#scs_value_localized_empty">scs_value_localized_empty</a></p></li>
-</ul>
-
-<p></p></li>
-  <li><p>2015-06-29 - Returned <a class="normal" href="TelemetryCommon.TMulticastEvent.html">TMulticastEvent</a> placeholder.</p></li>
-</ul>
+<pre class="preformatted">
+  ETLException
+   |- ETLUnsupportedAPI
+   |- ETLUnsupportedGame
+   |- ETLIndexOfBounds
+   |- ETLNilReference
+   |- ETLInvalidReference
+   |- ETLUnknownData
+   |- ETLBufferTooSmall
+   |- ETLRegFailed
+   |- ETLInitFailed
+   |- ETLBadData
+</pre>
 
 <p>
 
 <p><hr></p>
-<a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Uses"></a><h2 class="overview">Overview</h2>
 <a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -73,12 +50,68 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 <th class="itemdesc">Description</th>
 </tr>
 <tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.TMulticastEvent.html"><code>TMulticastEvent</code></a></td>
-<td class="itemdesc">Placeholder intended to complete the classes hierarchy tree in documentation.</td>
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLException.html"><code>ETLException</code></a></td>
+<td class="itemdesc">Common ancestor for all exception classes in the library.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLUnsupportedAPI.html"><code>ETLUnsupportedAPI</code></a></td>
+<td class="itemdesc">Raised when there is a need to operate on telemetry API but its version is not supported.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLUnsupportedGame.html"><code>ETLUnsupportedGame</code></a></td>
+<td class="itemdesc">Raised when there is need to operate on telemetry provided by a game that is not supported.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLIndexOfBounds.html"><code>ETLIndexOfBounds</code></a></td>
+<td class="itemdesc">Raised when passed index is out of allowed boundary (arrays, lists, ...).</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLNilReference.html"><code>ETLNilReference</code></a></td>
+<td class="itemdesc">Raised when a nil reference (pointer or object) is passed to where a valid reference is required.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLInvalidReference.html"><code>ETLInvalidReference</code></a></td>
+<td class="itemdesc">Raised when passed reference is of wrong type or class, or is generally invalid.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLUnknownData.html"><code>ETLUnknownData</code></a></td>
+<td class="itemdesc">Raised when code needs to work with some data but they are of unknown type or structure.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLBufferTooSmall.html"><code>ETLBufferTooSmall</code></a></td>
+<td class="itemdesc">Raised when a memory block or file is smaler than necessary.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLRegFailed.html"><code>ETLRegFailed</code></a></td>
+<td class="itemdesc">Raised when registration of telemetry event or channel fails.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLInitFailed.html"><code>ETLInitFailed</code></a></td>
+<td class="itemdesc">Raised when an initialization of some part of the code fails.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLBadData.html"><code>ETLBadData</code></a></td>
+<td class="itemdesc">Raised when data the library works with are in some way corrupted or invalid.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLAlreadyExists.html"><code>ETLAlreadyExists</code></a></td>
+<td class="itemdesc">Raised when item that is added to some list or array already exists there.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryCommon.ETLNotfound.html"><code>ETLNotfound</code></a></td>
+<td class="itemdesc">Raised when requested item is not found in a list or array.</td>
 </tr>
 <tr class="list2">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.TSupportedGame.html"><code>TSupportedGame</code></a></td>
 <td class="itemdesc">Structure used in lists of supported games and their versions.</td>
+</tr>
+<tr class="list">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.TDoubleIndex.html"><code>TDoubleIndex</code></a></td>
+<td class="itemdesc">Used where there is need to pass or return two indices to fully define some reference (eg. indices in two-dimensional array).</td>
+</tr>
+<tr class="list2">
+<td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.TConfigReference.html"><code>TConfigReference</code></a></td>
+<td class="itemdesc">Structure used to reference a specific config (an attribute in a specified configuration).</td>
 </tr>
 <tr class="list">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryCommon.scs_value_localized_t.html"><code>scs_value_localized_t</code></a></td>
@@ -93,22 +126,31 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 <td class="itemdesc">Structure used to store content of <code>scs_telemetry_configuration_t</code> variable.</td>
 </tr>
 </table>
+<a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryCommon.html#ValidDoubleIndex">ValidDoubleIndex</a></b>(Indices: <a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a>): Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryCommon.html#DoubleIndex">DoubleIndex</a></b>(Index1,Index2: Integer): <a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code>Function <b><a  href="TelemetryCommon.html#ConfigReference">ConfigReference</a></b>(const ID, Attribute: TelemetryString): <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>Function <b><a  href="TelemetryCommon.html#ValidConfigReference">ValidConfigReference</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>): Boolean;</code></td>
+</tr>
+</table>
 <a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PtrInt">PtrInt</a></b>  = LongInt;</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PtrUInt">PtrUInt</a></b> = LongWord;</code></td>
-</tr>
-<tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#TMemSize">TMemSize</a></b> = <a  href="TelemetryCommon.html#PtrUInt">PtrUInt</a>;</code></td>
-</tr>
-<tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#TStrSize">TStrSize</a></b> = <a  href="TelemetryCommon.html#PtrInt">PtrInt</a>;</code></td>
-</tr>
-<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryCommon.html#PSupportedGame">PSupportedGame</a></b> = &circ;<a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PDoubleIndex">PDoubleIndex</a></b> = &circ;<a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a>;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#PConfigReference">PConfigReference</a></b> = &circ;<a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryCommon.html#p_scs_value_localized_t">p_scs_value_localized_t</a></b> = &circ;<a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>;</code></td>
@@ -123,11 +165,17 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#InvalidDoubleIndex">InvalidDoubleIndex</a></b>: <a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a> = (Index1: -1; Index2: -1);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#EmptyConfigReference">EmptyConfigReference</a></b>: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a> = (Id: ''; Attribute: '');</code></td>
+</tr>
+<tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryCommon.html#SupportedTelemetryVersions">SupportedTelemetryVersions</a></b>: Array[0..0] of scs_u32_t =
    (SCS_TELEMETRY_VERSION_1_00 );</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryCommon.html#SupportedGames">SupportedGames</a></b>: Array[0..10] of <a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a> =
+<td class="itemcode"><code><b><a  href="TelemetryCommon.html#SupportedGames">SupportedGames</a></b>: Array[0..13] of <a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a> =
    ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 ),
@@ -138,7 +186,10 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 ),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 ));</code></td>
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_11 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_12 ),
+    (GameID: SCS_GAME_ID_ATS;  GameVersion: SCS_TELEMETRY_ATS_GAME_VERSION_1_00  ));</code></td>
 </tr>
 <tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryCommon.html#scs_value_empty">scs_value_empty</a></b>: scs_value_t = (
@@ -163,43 +214,90 @@ Types, constants, routines, etc. used troughout the Telemetry library.</p>
 </tr>
 </table>
 <h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ValidDoubleIndex"></a><code>Function <b>ValidDoubleIndex</b>(Indices: <a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Checks whether passed double index is valid (none of the field can be smaller than zero).
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Idx</dt>
+<dd>Double index to be checked for validity.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when both internal indices are zero or above, <code>False</code> otherwise.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="DoubleIndex"></a><code>Function <b>DoubleIndex</b>(Index1,Index2: Integer): <a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Creates <a class="normal" href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a> structure filled with passed independent indices.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index1</dt>
+<dd>First-level index.</dd>
+<dt>Index2</dt>
+<dd>Second-level index.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Filled double index structure.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ConfigReference"></a><code>Function <b>ConfigReference</b>(const ID, Attribute: TelemetryString): <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Returns full config reference build from passed config ID and attribute name.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>ID of configuration.</dd>
+<dt>Attribute</dt>
+<dd>Name of attribute.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Full config reference.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="ValidConfigReference"></a><code>Function <b>ValidConfigReference</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Checks whether passed config reference is valid.</p>
+<p>
+ Current implementation only checks whether both fields are not empty.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ConfigReference</dt>
+<dd>Reference to be checked for validity.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when passed reference is valid, <code>False</code> otherwise.</p></td></tr>
+</table>
 <h3 class="detail">Types</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="PtrInt"></a><code><b>PtrInt</b>  = LongInt;</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Type used to cast pointer to a signed integer for calculation of arbitrary address.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="PtrUInt"></a><code><b>PtrUInt</b> = LongWord;</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Type used to cast pointer to an unsigned integer for calculation of arbitrary address.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="TMemSize"></a><code><b>TMemSize</b> = <a  href="TelemetryCommon.html#PtrUInt">PtrUInt</a>;</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Type used to pass or get size of memory, e.g. when allocating memory.</p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="itemcode"><a name="TStrSize"></a><code><b>TStrSize</b> = <a  href="TelemetryCommon.html#PtrInt">PtrInt</a>;</code></td>
-</tr>
-<tr><td colspan="1">
-<p>
-Type used to pass or get length of a string.</p>
-</td></tr>
-</table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="PSupportedGame"></a><code><b>PSupportedGame</b> = &circ;<a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a>;</code></td>
@@ -207,6 +305,24 @@ Type used to pass or get length of a string.</p>
 <tr><td colspan="1">
 <p>
 Pointer to TGameSupportInfo structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PDoubleIndex"></a><code><b>PDoubleIndex</b> = &circ;<a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a> structure.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="PConfigReference"></a><code><b>PConfigReference</b> = &circ;<a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Pointer to <a class="normal" href="TelemetryCommon.TConfigReference.html">TConfigReference</a> structure.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -239,6 +355,24 @@ Pointer to <a class="normal" href="TelemetryCommon.scs_telemetry_configuration_l
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
+<td class="itemcode"><a name="InvalidDoubleIndex"></a><code><b>InvalidDoubleIndex</b>: <a  href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a> = (Index1: -1; Index2: -1);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Invalid <a class="normal" href="TelemetryCommon.TDoubleIndex.html">TDoubleIndex</a> value.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><a name="EmptyConfigReference"></a><code><b>EmptyConfigReference</b>: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a> = (Id: ''; Attribute: '');</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Empty config reference.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
 <td class="itemcode"><a name="SupportedTelemetryVersions"></a><code><b>SupportedTelemetryVersions</b>: Array[0..0] of scs_u32_t =
    (SCS_TELEMETRY_VERSION_1_00 );</code></td>
 </tr>
@@ -249,7 +383,7 @@ List of Telemetry API versions supported by this library.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SupportedGames"></a><code><b>SupportedGames</b>: Array[0..10] of <a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a> =
+<td class="itemcode"><a name="SupportedGames"></a><code><b>SupportedGames</b>: Array[0..13] of <a  href="TelemetryCommon.TSupportedGame.html">TSupportedGame</a> =
    ((GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_00 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_01 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_02 ),
@@ -260,7 +394,10 @@ List of Telemetry API versions supported by this library.</p>
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_07 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_08 ),
     (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_09 ),
-    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 ));</code></td>
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_10 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_11 ),
+    (GameID: SCS_GAME_ID_EUT2; GameVersion: SCS_TELEMETRY_EUT2_GAME_VERSION_1_12 ),
+    (GameID: SCS_GAME_ID_ATS;  GameVersion: SCS_TELEMETRY_ATS_GAME_VERSION_1_00  ));</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -310,9 +447,9 @@ Constant containing an empty <a class="normal" href="TelemetryCommon.scs_value_l
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2015-06-25
+2016-03-22
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

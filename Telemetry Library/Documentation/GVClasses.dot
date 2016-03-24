@@ -1,5 +1,32 @@
 DiGraph Classes {
 rankdir="LR"
+  Exception -> TObject
+  ETLException -> Exception
+  ETLException [href="TelemetryCommon.ETLException.html"]
+  ETLAlreadyExists -> ETLException
+  ETLAlreadyExists [href="TelemetryCommon.ETLAlreadyExists.html"]
+  ETLBadData -> ETLException
+  ETLBadData [href="TelemetryCommon.ETLBadData.html"]
+  ETLBufferTooSmall -> ETLException
+  ETLBufferTooSmall [href="TelemetryCommon.ETLBufferTooSmall.html"]
+  ETLIndexOfBounds -> ETLException
+  ETLIndexOfBounds [href="TelemetryCommon.ETLIndexOfBounds.html"]
+  ETLInitFailed -> ETLException
+  ETLInitFailed [href="TelemetryCommon.ETLInitFailed.html"]
+  ETLInvalidReference -> ETLException
+  ETLInvalidReference [href="TelemetryCommon.ETLInvalidReference.html"]
+  ETLNilReference -> ETLException
+  ETLNilReference [href="TelemetryCommon.ETLNilReference.html"]
+  ETLNotfound -> ETLException
+  ETLNotfound [href="TelemetryCommon.ETLNotfound.html"]
+  ETLRegFailed -> ETLException
+  ETLRegFailed [href="TelemetryCommon.ETLRegFailed.html"]
+  ETLUnknownData -> ETLException
+  ETLUnknownData [href="TelemetryCommon.ETLUnknownData.html"]
+  ETLUnsupportedAPI -> ETLException
+  ETLUnsupportedAPI [href="TelemetryCommon.ETLUnsupportedAPI.html"]
+  ETLUnsupportedGame -> ETLException
+  ETLUnsupportedGame [href="TelemetryCommon.ETLUnsupportedGame.html"]
   TCustomTelemetryList -> TObject
   TCustomTelemetryList [href="TelemetryLists.TCustomTelemetryList.html"]
   TKnownChannelsList -> TCustomTelemetryList
@@ -16,44 +43,6 @@ rankdir="LR"
   TStoredChannelsList [href="TelemetryLists.TStoredChannelsList.html"]
   TStoredConfigsList -> TCustomTelemetryList
   TStoredConfigsList [href="TelemetryLists.TStoredConfigsList.html"]
-  TMulticastEvent -> TObject
-  TMulticastEvent [href="TelemetryCommon.TMulticastEvent.html"]
-  TMulticastChannelEvent -> TMulticastEvent
-  TMulticastChannelEvent [href="TelemetryRecipient.TMulticastChannelEvent.html"]
-  TMulticastChannelRegisterEvent -> TMulticastEvent
-  TMulticastChannelRegisterEvent [href="TelemetryRecipient.TMulticastChannelRegisterEvent.html"]
-  TMulticastChannelRegisterTimeLogEvent -> TMulticastEvent
-  TMulticastChannelRegisterTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html"]
-  TMulticastChannelTimeLogEvent -> TMulticastEvent
-  TMulticastChannelTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html"]
-  TMulticastChannelUnregisterEvent -> TMulticastEvent
-  TMulticastChannelUnregisterEvent [href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html"]
-  TMulticastChannelUnregisterTimeLogEvent -> TMulticastEvent
-  TMulticastChannelUnregisterTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html"]
-  TMulticastConfigEvent -> TMulticastEvent
-  TMulticastConfigEvent [href="TelemetryRecipient.TMulticastConfigEvent.html"]
-  TMulticastConfigTimeLogEvent -> TMulticastEvent
-  TMulticastConfigTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html"]
-  TMulticastDataLogEvent -> TMulticastEvent
-  TMulticastDataLogEvent [href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html"]
-  TMulticastDataTimeLogEvent -> TMulticastEvent
-  TMulticastDataTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html"]
-  TMulticastEventEvent -> TMulticastEvent
-  TMulticastEventEvent [href="TelemetryRecipient.TMulticastEventEvent.html"]
-  TMulticastEventRegisterEvent -> TMulticastEvent
-  TMulticastEventRegisterEvent [href="TelemetryRecipient.TMulticastEventRegisterEvent.html"]
-  TMulticastEventRegisterTimeLogEvent -> TMulticastEvent
-  TMulticastEventRegisterTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html"]
-  TMulticastEventTimeLogEvent -> TMulticastEvent
-  TMulticastEventTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html"]
-  TMulticastLogEvent -> TMulticastEvent
-  TMulticastLogEvent [href="TelemetryRecipient.TMulticastLogEvent.html"]
-  TMulticastLogTimeLogEvent -> TMulticastEvent
-  TMulticastLogTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html"]
-  TMulticastTextLogEvent -> TMulticastEvent
-  TMulticastTextLogEvent [href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html"]
-  TMulticastTextTimeLogEvent -> TMulticastEvent
-  TMulticastTextTimeLogEvent [href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html"]
   TSCSExm_TelemetryMem_Reader -> TObject
   TSCSExm_TelemetryMem_Reader [href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html"]
   TTelemetryAbstractVersionObject -> TObject
@@ -68,10 +57,10 @@ rankdir="LR"
   TTelemetryRecipient [href="TelemetryRecipient.TTelemetryRecipient.html"]
   TTelemetryLogBinaryReader -> TObject
   TTelemetryLogBinaryReader [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html"]
-  TTelemetryLogBinaryReader_1 -> TTelemetryLogBinaryReader
-  TTelemetryLogBinaryReader_1 [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_1.html"]
-  TTelemetryLogBinaryReader_0 -> TTelemetryLogBinaryReader_1
+  TTelemetryLogBinaryReader_0 -> TTelemetryLogBinaryReader
   TTelemetryLogBinaryReader_0 [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0.html"]
+  TTelemetryLogBinaryReader_1 -> TTelemetryLogBinaryReader_0
+  TTelemetryLogBinaryReader_1 [href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_1.html"]
   TTelemetryLogBinaryStreamParser -> TObject
   TTelemetryLogBinaryStreamParser [href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html"]
   TTelemetryLogBinaryFileParser -> TTelemetryLogBinaryStreamParser
@@ -80,10 +69,10 @@ rankdir="LR"
   TTelemetryLogBinaryToTextConverter [href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html"]
   TTelemetryLogBinaryWriter -> TObject
   TTelemetryLogBinaryWriter [href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html"]
-  TTelemetryLogBinaryWriter_1 -> TTelemetryLogBinaryWriter
-  TTelemetryLogBinaryWriter_1 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html"]
-  TTelemetryLogBinaryWriter_0 -> TTelemetryLogBinaryWriter_1
+  TTelemetryLogBinaryWriter_0 -> TTelemetryLogBinaryWriter
   TTelemetryLogBinaryWriter_0 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html"]
+  TTelemetryLogBinaryWriter_1 -> TTelemetryLogBinaryWriter_0
+  TTelemetryLogBinaryWriter_1 [href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html"]
   TTelemetryRecipientBinder -> TObject
   TTelemetryRecipientBinder [href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html"]
   TSCSExm_Telemetry -> TTelemetryRecipientBinder

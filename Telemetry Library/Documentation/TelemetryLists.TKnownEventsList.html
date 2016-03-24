@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLists: Class TKnownEventsList</title>
+<title>Telemetry library: TelemetryLists: Class TKnownEventsList</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -19,7 +19,7 @@
 <code>type TKnownEventsList = class(<a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-List used to store informations about known telemetry events.</p>
+List used to store information about known telemetry events.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryLists.TCustomTelemetryList.html">TCustomTelemetryList</a></li>
@@ -103,6 +103,8 @@ Getter for <a class="normal" href="TelemetryLists.TKnownEventsList.html#Pointers
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -110,7 +112,12 @@ Getter for <a class="normal" href="TelemetryLists.TKnownEventsList.html#Pointers
 <dd>Index of requested item.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Pointer to requested item.</p></td></tr>
+<p class="return">Pointer to requested item.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -123,6 +130,8 @@ Getter for <a class="normal" href="TelemetryLists.TKnownEventsList.html#Events">
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -130,7 +139,12 @@ Getter for <a class="normal" href="TelemetryLists.TKnownEventsList.html#Events">
 <dd>Index of requested item.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Requested item.</p></td></tr>
+<p class="return">Requested item.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -217,7 +231,9 @@ Adds new known game event into the list.<br> <a class="normal" href="TelemetryLi
 <p>
 Replaces event at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful replacement.
 
-<p>    </p>
+<p>    
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
@@ -230,6 +246,11 @@ Replaces event at position given by <code>Index</code> parameter. When index fal
 <dd>Flag denoting whether replacement event is marked as valid.</dd>
 <dt>Utility</dt>
 <dd>Flag denoting whether replacement event is marked as utility.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
 </dl>
 </td></tr>
 </table>
@@ -318,11 +339,18 @@ Removes given event from the list. When this event is not found in the list, met
 <p>
 Deletes event at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of item that has to be deleted.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
 </dl>
 </td></tr>
 </table>
@@ -387,7 +415,7 @@ Array property mapped directly to internal list. Use it for direct access to ind
 Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

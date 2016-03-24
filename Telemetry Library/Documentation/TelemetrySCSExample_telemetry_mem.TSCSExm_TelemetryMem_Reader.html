@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetrySCSExample_telemetry_mem: Class TSCSExm_TelemetryMem_Reader</title>
+<title>Telemetry library: TelemetrySCSExample_telemetry_mem: Class TSCSExm_TelemetryMem_Reader</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -18,6 +18,10 @@
 <p class="declaration">
 <code>type TSCSExm_TelemetryMem_Reader = class(TObject)</code></p>
 <h2 class="description">Description</h2>
+<p>
+Simple class created as a reader of shared memory produced by <i>telemetry_mem</i> example.</p>
+<p>
+ When using this class, do not read directly from the shared memory, as there is no synchronization and data consistency protection whatsoever. Instead, call <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#RetrieveCurrentState">RetrieveCurrentState</a> method and then access <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#StoredState">StoredState</a> property. But note that even this process does not guarantee data consistency.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">TSCSExm_TelemetryMem_Reader</li></ul><h2 class="overview">Overview</h2>
@@ -98,7 +102,9 @@
 <td class="itemcode"><a name="fMemoryMapName"></a><code><b>fMemoryMapName</b>: AnsiString;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+See <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#MemoryMapName">MemoryMapName</a> property.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -106,7 +112,9 @@
 <td class="itemcode"><a name="fMemoryMapping"></a><code><b>fMemoryMapping</b>: THandle;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+See <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#MemoryMapping">MemoryMapping</a> property.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -114,7 +122,9 @@
 <td class="itemcode"><a name="fSharedMemory"></a><code><b>fSharedMemory</b>:  <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+See <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#SharedMemory">SharedMemory</a> property.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -122,7 +132,9 @@
 <td class="itemcode"><a name="fStoredState"></a><code><b>fStoredState</b>:   <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+See <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#StoredState">StoredState</a> property.</p>
+</td></tr>
 </table>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
@@ -131,7 +143,12 @@
 <td class="itemcode"><a name="GetInitialized"></a><code>Function <b>GetInitialized</b>: Boolean;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Getter for property <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Initialized">Initialized</a>.<br>
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapping">fMemoryMapping</a> is non null and <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fSharedMemory">fSharedMemory</a> is assigned.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -139,7 +156,18 @@
 <td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Class constructor.
+
+<p>Calls <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Initialize">Initialize</a> method.<br> <code>MemoryMapName</code> must not be empty and must not contain backslashes (\), also, in order for this class to work as expected, it must be the same as name passes in the plugin (so the same MMF os opened).
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>MemoryMapName</dt>
+<dd>Name of the memory mapped file object.</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -147,7 +175,11 @@
 <td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Class destructor.
+
+<p>Calls <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#Deinitialize">Deinitialize</a> method.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -155,7 +187,12 @@
 <td class="itemcode"><a name="Initialize"></a><code>Function <b>Initialize</b>: Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Shared memory initialization.<br> Calls <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#RetrieveCurrentState">RetrieveCurrentState</a> when successful.<br> Note that file mapping is opened only for reading.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when MMF is opened and view of file is successfully mapped, <code>False</code> otherwise.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -163,7 +200,9 @@
 <td class="itemcode"><a name="Deinitialize"></a><code>procedure <b>Deinitialize</b>; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Shared memory deinitialization. Unmaps view of file and closes handle of the MMF object.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -171,7 +210,12 @@
 <td class="itemcode"><a name="RetrieveCurrentState"></a><code>Function <b>RetrieveCurrentState</b>: Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Retrieves data from the shared memory and stores them in <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fStoredState">fStoredState</a> snapshot.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when successful, false otherwise (eg. when file view is not mapped).</p></td></tr>
 </table>
 <h3 class="detail">Properties</h3>
 <table class="detail wide_list">
@@ -180,7 +224,9 @@
 <td class="itemcode"><a name="SharedMemory"></a><code>property <b>SharedMemory</b>: <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a> read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fSharedMemory">fSharedMemory</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Pointer to the shared memory (MMF).</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -188,7 +234,9 @@
 <td class="itemcode"><a name="StoredState"></a><code>property <b>StoredState</b>: <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a> read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fStoredState">fStoredState</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Stored snapshot of the shared memory.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -196,7 +244,9 @@
 <td class="itemcode"><a name="Initialized"></a><code>property <b>Initialized</b>: Boolean read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#GetInitialized">GetInitialized</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+<code>True</code> when <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapping">fMemoryMapping</a> is not null and <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fSharedMemory">fSharedMemory</a> is assigned, <code>False</code> otherwise.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -204,7 +254,9 @@
 <td class="itemcode"><a name="MemoryMapName"></a><code>property <b>MemoryMapName</b>: AnsiString read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapName">fMemoryMapName</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Full name of the shared memory (memory mapped file object).</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -212,9 +264,11 @@
 <td class="itemcode"><a name="MemoryMapping"></a><code>property <b>MemoryMapping</b>: THandle read <a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem_Reader.html#fMemoryMapping">fMemoryMapping</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Handle of the memory mapped file object.</p>
+</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

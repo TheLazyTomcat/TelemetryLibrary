@@ -1,0 +1,13 @@
+..\Headers\scssdk.pas
+..\Headers\scssdk_value.pas
+..\Headers\scssdk_telemetry_event.pas
+..\Headers\scssdk_telemetry_channel.pas
+..\Headers\scssdk_telemetry.pas
+..\Headers\common\scssdk_telemetry_common_configs.pas
+..\Headers\common\scssdk_telemetry_common_channels.pas
+..\Headers\common\scssdk_telemetry_trailer_common_channels.pas
+..\Headers\common\scssdk_telemetry_truck_common_channels.pas
+..\Headers\eurotrucks2\scssdk_eut2.pas
+..\Headers\eurotrucks2\scssdk_telemetry_eut2.pas
+..\Headers\amtrucks\scssdk_ats.pas
+..\Headers\amtrucks\scssdk_telemetry_ats.pas

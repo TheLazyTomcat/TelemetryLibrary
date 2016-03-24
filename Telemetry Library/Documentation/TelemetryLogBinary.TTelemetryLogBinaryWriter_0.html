@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryWriter_0</title>
+<title>Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryWriter_0</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -10,37 +10,29 @@
 <a name="TTelemetryLogBinaryWriter_0"></a><h1 class="cio">Class TTelemetryLogBinaryWriter_0</h1>
 <table class="sections wide_list">
 <tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td><a class="section" href="#PasDoc-Fields">Fields</a></td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
 <a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a  href="TelemetryLogBinary.html">TelemetryLogBinary</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type TTelemetryLogBinaryWriter_0 = class(<a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a>)</code></p>
+<code>type TTelemetryLogBinaryWriter_0 = class(<a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html">TTelemetryLogBinaryWriter</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
 Writer class used to write binary log of structure 0.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html">TTelemetryLogBinaryWriter</a></li>
-<li class="ancestor"><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a></li>
 <li class="thisitem">TTelemetryLogBinaryWriter_0</li></ul><h2 class="overview">Overview</h2>
-<a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
-<table class="summary wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#fBlocksOffsets">fBlocksOffsets</a></b>: array of LongWord;</code></td>
-</tr>
-</table>
 <a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#AddBlockOffset">AddBlockOffset</a></b>; virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#WriteBlockHeader">WriteBlockHeader</a></b>(BlockType, BlockFlags: UInt8; BlockPayloadSize: UInt16); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#WriteBlockHeader">WriteBlockHeader</a></b>(BlockType, BlockFlags: Byte; BlockPayloadSize: Word); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#SetFlagValue">SetFlagValue</a></b>(var Flags: UInt8; FlagMask: UInt8; Value: Boolean); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -48,40 +40,99 @@ Writer class used to write binary log of structure 0.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogInvalidBlock">LogInvalidBlock</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogTerminationBlock">LogTerminationBlock</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogData">LogData</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: UInt16); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogStr">LogStr</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Str: TelemetryString); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogLog">LogLog</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; LogType: scs_log_type_t; const LogText: String); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogEventRegister">LogEventRegister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogEventUnregister">LogEventUnregister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogEvent">LogEvent</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t; Data: Pointer); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogChannelRegister">LogChannelRegister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogChannelUnregister">LogChannelUnregister</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogChannel">LogChannel</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#LogConfig">LogConfig</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#EndWriting">EndWriting</a></b>; override;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
-<h3 class="detail">Fields</h3>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fBlocksOffsets"></a><code><b>fBlocksOffsets</b>: array of LongWord;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Array used to store table of blocks offsets.</p>
-</td></tr>
-</table>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="AddBlockOffset"></a><code>procedure <b>AddBlockOffset</b>; virtual;</code></td>
+<td class="itemcode"><a name="WriteBlockHeader"></a><code>procedure <b>WriteBlockHeader</b>(BlockType, BlockFlags: UInt8; BlockPayloadSize: UInt16); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Adds current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position as a new item into blocks offsets table (<a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#fBlocksOffsets">fBlocksOffsets</a> array).</p>
+Writes block header filled with information provided in parameters to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> at current position.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>BlockType</dt>
+<dd>Type of block.</dd>
+<dt>BlockFlags</dt>
+<dd>Flags of block.</dd>
+<dt>BlockPayloadSize</dt>
+<dd>Size of block payload, in bytes. Can be zero.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><a name="WriteBlockHeader"></a><code>procedure <b>WriteBlockHeader</b>(BlockType, BlockFlags: Byte; BlockPayloadSize: Word); override;</code></td>
+<td class="itemcode"><a name="SetFlagValue"></a><code>procedure <b>SetFlagValue</b>(var Flags: UInt8; FlagMask: UInt8; Value: Boolean); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#WriteBlockHeader">TTelemetryLogBinaryWriter_1.WriteBlockHeader</a>. Adds new offset to the table of blocks offsets by calling <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html#AddBlockOffset">AddBlockOffset</a> method.</p>
+Sets flag determined by <code>FlagMask</code> in <code>Flags</code> parameted to <code>Value</code>.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Flags</dt>
+<dd>Set of flags that has to be changed.</dd>
+<dt>FlagMask</dt>
+<dd>Number determining which bit has to be changed.</dd>
+<dt>Value</dt>
+<dd>New value for the flag.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -91,7 +142,127 @@ See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#StartWriting">TTelemetryLogBinaryWriter_1.StartWriting</a>.<br> Empties table of blocks offsets.</p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#StartWriting">TTelemetryLogBinaryWriter.StartWriting</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogInvalidBlock"></a><code>procedure <b>LogInvalidBlock</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Writes an invalod block into output.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogTerminationBlock"></a><code>procedure <b>LogTerminationBlock</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Writes termination block into output.<br> You can continue to write new blocks, but they will be ignored when the file is read sequentially.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: UInt16); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">TTelemetryLogBinaryWriter.LogData</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogStr"></a><code>procedure <b>LogStr</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Str: TelemetryString); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogStr">TTelemetryLogBinaryWriter.LogStr</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogLog"></a><code>procedure <b>LogLog</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; LogType: scs_log_type_t; const LogText: String); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogLog">TTelemetryLogBinaryWriter.LogLog</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEventRegister"></a><code>procedure <b>LogEventRegister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogEventRegister">TTelemetryLogBinaryWriter.LogEventRegister</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEventUnregister"></a><code>procedure <b>LogEventUnregister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogEventUnregister">TTelemetryLogBinaryWriter.LogEventUnregister</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogEvent"></a><code>procedure <b>LogEvent</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Event: scs_event_t; Data: Pointer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogEvent">TTelemetryLogBinaryWriter.LogEvent</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogChannelRegister"></a><code>procedure <b>LogChannelRegister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogChannelRegister">TTelemetryLogBinaryWriter.LogChannelRegister</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogChannelUnregister"></a><code>procedure <b>LogChannelUnregister</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogChannelUnregister">TTelemetryLogBinaryWriter.LogChannelUnregister</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogChannel"></a><code>procedure <b>LogChannel</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogChannel">TTelemetryLogBinaryWriter.LogChannel</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LogConfig"></a><code>procedure <b>LogConfig</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogConfig">TTelemetryLogBinaryWriter.LogConfig</a>.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -101,10 +272,10 @@ See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#
 </tr>
 <tr><td colspan="2">
 <p>
-See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#EndWriting">TTelemetryLogBinaryWriter_1.EndWriting</a>.<br> Writes table of block offsets into output.</p>
+See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#EndWriting">TTelemetryLogBinaryWriter.EndWriting</a>.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

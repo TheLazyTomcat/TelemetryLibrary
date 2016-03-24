@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryWriter</title>
+<title>Telemetry library: TelemetryLogBinary: Class TTelemetryLogBinaryWriter</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -21,7 +21,7 @@
 <p>
 Base class for all writers used to write binary logs.</p>
 <p>
- This class is intended as sort of template (common ancestor) for all writer classes. These classes are used internaly to write different binary log structures, and should not be used outside of loggers. All descendants must implement all abstract methods. They also may add some new methods, but they should be used in loggers wery carefully and only if really needed.<br> Log* methods all have <code>Recipient</code> parameter. This parameter must contain reference to a valid telemetry recipient, as its methods can be used in descendant classes for conversions or to obtain informations required to write a log.<br> All writing is done at current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position.</p>
+ This class is intended as sort of template (common ancestor) for all writer classes. These classes are used internaly to write different binary log structures, and should not be used outside of loggers. All descendants must implement all abstract methods. They also may add some new methods, but such methods should be used in loggers wery carefully and only if really needed.<br> Log* methods all have <code>Recipient</code> parameter. This parameter must contain reference to a valid telemetry recipient, as its methods can be used in descendant classes for conversions or to obtain information required to write a log.<br> All writing is done at current <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Stream">Stream</a> position.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="thisitem">TTelemetryLogBinaryWriter</li></ul><h2 class="overview">Overview</h2>
@@ -56,7 +56,7 @@ Base class for all writers used to write binary logs.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">LogData</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: Word); virtual; abstract;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">LogData</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: UInt16); virtual; abstract;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -92,7 +92,7 @@ Base class for all writers used to write binary logs.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogConfig">LogConfig</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogConfig">LogConfig</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -170,13 +170,20 @@ See <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#Sa
 <p>
 Class constructor.
 
-<p> </p>
+<p> 
+
+<p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Stream</dt>
 <dd>Stream to which the writer will write the log. Must not be <code>Nil</code>. It must have file header and API information already written in and position must be set directly after them (not at the start of the Stream!).</dd>
 <dt>FileInfo</dt>
-<dd>Informations about output file. It must be completely filled by logger that is creating current instance in order for this class to work properly. When not filled, the behavior of this class is not defined.</dd>
+<dd>Information about output file. It must be completely filled by logger that is creating current instance in order for this class to work properly. When not filled, the behavior of this class is not defined.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLNilReference.html">ETLNilReference</a></dt>
+<dd>When parameter <code>Stream</code> is not assigned.</dd>
 </dl>
 </td></tr>
 </table>
@@ -193,7 +200,7 @@ Method that must be called before any log is written. Its job is to prepare anyt
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: Word); virtual; abstract;</code></td>
+<td class="itemcode"><a name="LogData"></a><code>procedure <b>LogData</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; Data: Pointer; Size: UInt16); virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -237,7 +244,7 @@ Method intended to write log containing any text.
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write informations about a write to game log (console).
+Method intended to write information about a write to game log (console).
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -258,7 +265,7 @@ Method intended to write informations about a write to game log (console).
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about game event registration.
+Method intended to write log containing information about game event registration.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -277,7 +284,7 @@ Method intended to write log containing informations about game event registrati
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about game event unregistration.
+Method intended to write log containing information about game event unregistration.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -296,7 +303,7 @@ Method intended to write log containing informations about game event unregistra
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about game event.
+Method intended to write log containing information about game event.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -317,7 +324,7 @@ Method intended to write log containing informations about game event.
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about channel registration.
+Method intended to write log containing information about channel registration.
 
 <p>     </p>
 <h6 class="description_section">Parameters</h6>
@@ -344,7 +351,7 @@ Method intended to write log containing informations about channel registration.
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about channel unregistration.
+Method intended to write log containing information about channel unregistration.
 
 <p>    </p>
 <h6 class="description_section">Parameters</h6>
@@ -369,7 +376,7 @@ Method intended to write log containing informations about channel unregistratio
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about received channel value.
+Method intended to write log containing information about received channel value.
 
 <p>    </p>
 <h6 class="description_section">Parameters</h6>
@@ -390,21 +397,19 @@ Method intended to write log containing informations about received channel valu
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="LogConfig"></a><code>procedure <b>LogConfig</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
+<td class="itemcode"><a name="LogConfig"></a><code>procedure <b>LogConfig</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Method intended to write log containing informations about received config value.
+Method intended to write log containing information about received config value.
 
-<p>    </p>
+<p>   </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Recipient</dt>
 <dd>Telemetry recipient. Must contain valid object.</dd>
-<dt>Name</dt>
-<dd>Name of logged config value.</dd>
-<dt>ID</dt>
-<dd>ID of logged config value.</dd>
+<dt>ConfigReference</dt>
+<dd>Full config reference (ID + Attribute).</dd>
 <dt>Index</dt>
 <dd>Index of logged config value.</dd>
 <dt>Value</dt>
@@ -463,7 +468,7 @@ Determines whether some values are stored minimized. Refer to functions with par
 Determines whether item names are stored as full strings or only as IDs. Refer to functions with parameter <code>ItemIDOnly</code> in unit <a class="normal" href="TelemetryStreaming.html">TelemetryStreaming</a> (eg. <a class="normal" href="TelemetryStreaming.html#Ptr_Write_scs_named_value">Ptr_Write_scs_named_value</a>) and to binary output documentation for details.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

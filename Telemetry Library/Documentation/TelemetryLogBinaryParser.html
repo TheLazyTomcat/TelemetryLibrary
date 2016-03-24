@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinaryParser</title>
+<title>Telemetry library: TelemetryLogBinaryParser</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -19,14 +19,16 @@ Contains classes designed to parse binary logs.</p>
 
 <p><b>TelemetryLogBinaryParser</b>
 
-<p>©František Milt, all rights reserved.
+<p>©2013-2016 František Milt, all rights reserved.
+
+<p>Last change: 2016-03-19
 
 <p>This unit contains classes that are designed to parse binary logs and/or convert them to text logs, namely: </p>
 
 <pre class="preformatted">
   TTelemetryLogBinaryReader
-   |- TTelemetryLogBinaryReader_1
-       |- TTelemetryLogBinaryReader_0
+   |- TTelemetryLogBinaryReader_0
+       |- TTelemetryLogBinaryReader_1
 
   TTelemetryLogBinaryStreamParser
    |- TTelemetryLogBinaryFileParser
@@ -41,37 +43,9 @@ Contains classes designed to parse binary logs.</p>
 
 <p>
 
-<p>Last change: 2015-07-02
-
-<p>Change List:</p>
-
-<ul class="paragraph_spacing">
-  <li><p>2014-05-10 - First stable version.</p></li>
-  <li><p>2014-10-24 - Small implementation changes.</p></li>
-  <li><p>2014-11-05 - Type of parameter/field <code>Size</code> changed from signed to unsigned integer in following cases:</p>
-
-<ul class="compact_spacing">
-  <li><p>event type <a class="normal" href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a></p></li>
-  <li><p>event type <a class="normal" href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a></p></li>
-  <li><p>fields TLogEntry.Size and <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html#Info">TLogEntry.Info</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html#DoOnDataLog">TTelemetryLogBinaryStreamParser.DoOnDataLog</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html#DoOnDataLog">TTelemetryLogBinaryToTextConverter.DoOnDataLog</a></p></li>
-</ul>
-
-<p></p></li>
-  <li><p>2014-11-05 - Small implementation changes.</p></li>
-  <li><p>2015-07-01 - Class <code>TTelemetryLogBinaryReader_0_1</code> renamed to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a> as it now reads only structure 1.</p></li>
-  <li><p>2015-07-01 - Added class <a class="normal" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0.html">TTelemetryLogBinaryReader_0</a> for reading of structure 0.</p></li>
-  <li><p>2015-07-02 - Implementation changes.</p></li>
-  <li><p>2015-07-02 - Changed <code>Data</code> field of structure <a class="normal" href="TelemetryLogBinaryParser.TLogEntry.html">TLogEntry</a> to a managed type (dynamic array) so it does not need explicit finalization.</p></li>
-  <li><p>2015-07-02 - Removed function <code>LogEntryFree</code> as it is no longer needed.</p></li>
-</ul>
-
-<p>
-
 <p><hr></p>
 <a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>MulticastEvent</li><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryIDs.html">TelemetryIDs</a></li><li><a  href="TelemetryInfoProvider.html">TelemetryInfoProvider</a></li><li><a  href="TelemetryRecipient.html">TelemetryRecipient</a></li><li><a  href="TelemetryLogText.html">TelemetryLogText</a></li><li><a  href="TelemetryLogBinary.html">TelemetryLogBinary</a></li><li><a  href="TelemetryConversions.html">TelemetryConversions</a></li><li><a  href="TelemetryStreaming.html">TelemetryStreaming</a></li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryIDs.html">TelemetryIDs</a></li><li><a  href="TelemetryInfoProvider.html">TelemetryInfoProvider</a></li><li><a  href="TelemetryRecipient.html">TelemetryRecipient</a></li><li><a  href="TelemetryLogText.html">TelemetryLogText</a></li><li><a  href="TelemetryLogBinary.html">TelemetryLogBinary</a></li><li><a  href="TelemetryConversions.html">TelemetryConversions</a></li><li><a  href="TelemetryStreaming.html">TelemetryStreaming</a></li></ul><h2 class="overview">Overview</h2>
 <a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -79,74 +53,30 @@ Contains classes designed to parse binary logs.</p>
 <th class="itemdesc">Description</th>
 </tr>
 <tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastDataLogEvent.html"><code>TMulticastDataLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes unprocessed log data.</td>
-</tr>
-<tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastTextLogEvent.html"><code>TMulticastTextLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes text log data or any interpreted data.</td>
-</tr>
-<tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastDataTimeLogEvent.html"><code>TMulticastDataTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes unprocessed log data with time.</td>
-</tr>
-<tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastTextTimeLogEvent.html"><code>TMulticastTextTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes text log data or any interpreted data with time.</td>
-</tr>
-<tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastLogTimeLogEvent.html"><code>TMulticastLogTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes informations about a write to game log with time.</td>
-</tr>
-<tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastEventRegisterTimeLogEvent.html"><code>TMulticastEventRegisterTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes event (un)registration log data with time.</td>
-</tr>
-<tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastEventTimeLogEvent.html"><code>TMulticastEventTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes event log data with time.</td>
-</tr>
-<tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelRegisterTimeLogEvent.html"><code>TMulticastChannelRegisterTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes channel registration log data with time.</td>
-</tr>
-<tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelUnregisterTimeLogEvent.html"><code>TMulticastChannelUnregisterTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes channel unregistration log data with time.</td>
-</tr>
-<tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastChannelTimeLogEvent.html"><code>TMulticastChannelTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes channel log data with time.</td>
-</tr>
-<tr class="list">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TMulticastConfigTimeLogEvent.html"><code>TMulticastConfigTimeLogEvent</code></a></td>
-<td class="itemdesc">Class used to manage multicast event called when reader/parser passes config log data with time.</td>
-</tr>
-<tr class="list2">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TLogEntry.html"><code>TLogEntry</code></a></td>
 <td class="itemdesc">Structure returned by parser when you access specific log in the stream by its index.</td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader.html"><code>TTelemetryLogBinaryReader</code></a></td>
 <td class="itemdesc">Base class for all internal readers used to write binary logs.</td>
-</tr>
-<tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_1.html"><code>TTelemetryLogBinaryReader_1</code></a></td>
-<td class="itemdesc">Internal reader class used to read file of structure 1.</td>
 </tr>
 <tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_0.html"><code>TTelemetryLogBinaryReader_0</code></a></td>
 <td class="itemdesc">Internal reader class used to read file of structure 0.</td>
 </tr>
 <tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryReader_1.html"><code>TTelemetryLogBinaryReader_1</code></a></td>
+<td class="itemdesc">Internal reader class used to read file of structure 1.</td>
+</tr>
+<tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryStreamParser.html"><code>TTelemetryLogBinaryStreamParser</code></a></td>
 <td class="itemdesc">Class designed to parse a stream containing binary log.</td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryFileParser.html"><code>TTelemetryLogBinaryFileParser</code></a></td>
 <td class="itemdesc">Class designed to parse a file containing binary log.</td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinaryParser.TTelemetryLogBinaryToTextConverter.html"><code>TTelemetryLogBinaryToTextConverter</code></a></td>
 <td class="itemdesc">Converts given binary log file to a text log file.</td>
 </tr>
@@ -154,13 +84,13 @@ Contains classes designed to parse binary logs.</p>
 <a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a></b> = procedure(Sender: TObject; Data: Pointer; Size: LongWord) of object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TDataLogEvent">TDataLogEvent</a></b> = procedure(Sender: TObject; Data: Pointer; Size: UInt32) of object;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TTextLogEvent">TTextLogEvent</a></b> = procedure(Sender: TObject; const Text: String) of object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a></b> = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord) of object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TDataTimeLogEvent">TDataTimeLogEvent</a></b> = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32) of object;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TTextTimeLogEvent">TTextTimeLogEvent</a></b> = procedure(Sender: TObject; Time: TDateTime; const Text: String) of object;</code></td>
@@ -184,7 +114,7 @@ Contains classes designed to parse binary logs.</p>
 <td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TChannelTimeLogEvent">TChannelTimeLogEvent</a></b> = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t) of Object;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a></b> = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>) of object;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinaryParser.html#TConfigTimeLogEvent">TConfigTimeLogEvent</a></b> = procedure(Sender: TObject; Time: TDateTime; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>) of object;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
@@ -197,7 +127,7 @@ Contains classes designed to parse binary logs.</p>
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TDataLogEvent"></a><code><b>TDataLogEvent</b> = procedure(Sender: TObject; Data: Pointer; Size: LongWord) of object;</code></td>
+<td class="itemcode"><a name="TDataLogEvent"></a><code><b>TDataLogEvent</b> = procedure(Sender: TObject; Data: Pointer; Size: UInt32) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -215,7 +145,7 @@ Event type used when reader/parser passes text log data or any interpreted data.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TDataTimeLogEvent"></a><code><b>TDataTimeLogEvent</b> = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: LongWord) of object;</code></td>
+<td class="itemcode"><a name="TDataTimeLogEvent"></a><code><b>TDataTimeLogEvent</b> = procedure(Sender: TObject; Time: TDateTime; Data: Pointer; Size: UInt32) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -237,7 +167,7 @@ Event type used when reader/parser passes text log data or any interpreted data 
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes informations about a write to game log with time.</p>
+Event type used when reader/parser passes information about a write to game log with time.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -246,7 +176,7 @@ Event type used when reader/parser passes informations about a write to game log
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes log data containing informations about game event (un)registration with time.</p>
+Event type used when reader/parser passes log data containing information about game event (un)registration with time.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -255,7 +185,7 @@ Event type used when reader/parser passes log data containing informations about
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes log data containing informations about game event with time.</p>
+Event type used when reader/parser passes log data containing information about game event with time.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -264,7 +194,7 @@ Event type used when reader/parser passes log data containing informations about
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes log data containing informations about channel registration with time.</p>
+Event type used when reader/parser passes log data containing information about channel registration with time.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -273,7 +203,7 @@ Event type used when reader/parser passes log data containing informations about
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes log data containing informations about channel unregistration with time.</p>
+Event type used when reader/parser passes log data containing information about channel unregistration with time.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -282,16 +212,16 @@ Event type used when reader/parser passes log data containing informations about
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes log data containing informations about channel value with time.</p>
+Event type used when reader/parser passes log data containing information about channel value with time.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TConfigTimeLogEvent"></a><code><b>TConfigTimeLogEvent</b> = procedure(Sender: TObject; Time: TDateTime; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>) of object;</code></td>
+<td class="itemcode"><a name="TConfigTimeLogEvent"></a><code><b>TConfigTimeLogEvent</b> = procedure(Sender: TObject; Time: TDateTime; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Event type used when reader/parser passes log data containing informations about config value with time.</p>
+Event type used when reader/parser passes log data containing information about config value with time.</p>
 </td></tr>
 </table>
 <h3 class="detail">Constants</h3>
@@ -314,9 +244,9 @@ Contains empty/invalid value of type <a class="normal" href="TelemetryLogBinaryP
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2015-07-02
+2016-03-20
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

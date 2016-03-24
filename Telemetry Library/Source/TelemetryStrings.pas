@@ -6,52 +6,22 @@
 
 -------------------------------------------------------------------------------}
 {:@html(<hr>)
-@abstract(Unit providing routines operating on @code(TelemetryString) type and
+@abstract(Provides routines operating on @code(TelemetryString) type and
           routines converting selected binary types to text.)
 @author(František Milt <fmilt@seznam.cz>)
 @created(2014-04-30)
-@lastmod(2015-06-28)
+@lastmod(2016-03-20)
 
   @bold(@NoAutoLink(TelemetryStrings))
 
-  ©2013-2015 František Milt, all rights reserved.
+  ©2013-2016 František Milt, all rights reserved.
+
+  Last change: 2016-03-20   
 
   This unit is intended to provide some basic routines for manipulation and
   processing of @code(TelemetryString) type (UTF8 encoded string) and also
-  routines designed to return human readable (i.e. textual) representation of
+  routines designed to return human readable (ie. textual) representation of
   binary data stored in variables of selected types.
-
-  Last change:  2015-06-28
-
-  Change List:@unorderedList(
-    @item(2014-04-30 - First stable version.)
-    @item(2014-04-30 - Unit @code(TelemetryRecipientAux) was completely merged
-                       into this unit.)
-    @item(2014-11-04 - Added following functions:@unorderedList(
-                        @itemSpacing(Compact)
-                        @item(TelemetrySameStrSwitch)
-                        @item(TelemetrySameTextSwitch)
-                        @item(ValueToStr (multiple overloaded variants))
-                        @item(new variants of SCSValueToStr)
-                        @item(new variants of SCSValueLocalizedToStr)
-                        @item(new variants of SCSNamedValueToStr)
-                        @item(new variants of SCSNamedValueLocalizedToStr)
-                        @item(new variants of TelemetryEventConfigurationToStr)
-                        @item(new variants of
-                              TelemetryEventConfigurationLocalizedToStr)))
-    @item(2014-11-04 - Small implementation changes.)
-    @item(2015-06-25 - Following functions were renamed:@unorderedList(
-                        @itemSpacing(Compact)
-                        @item(@noAutoLink(TelemetrySameStr) renamed to
-                              TelemetrySameStrConv)
-                        @item(@noAutoLink(TelemetrySameText) renamed to
-                              TelemetrySameTextConv)
-                        @item(TelemetrySameStrSwitch renamed to
-                              TelemetrySameStr)
-                        @item(TelemetrySameTextSwitch renamed to
-                              TelemetrySameText)))
-    @item(2015-06-25 - Implementation changes.)
-    @item(2015-06-28 - Added functions EventDataToStr and ChannelValueToStr.))
 
 @html(<hr>)}
 unit TelemetryStrings;
@@ -64,13 +34,16 @@ uses
 {$IFNDEF Documentation}
   SysUtils,
 {$ENDIF}  
-  TelemetryCommon,
-{$IFDEF UseCondensedHeader}
+  TelemetryCommon
+{$IFNDEF Documentation},
+{$IFDEF CondensedHeaders}
   SCS_Telemetry_Condensed;
 {$ELSE}
   scssdk,
   scssdk_value,
   scssdk_telemetry_event;
+{$ENDIF}
+{$ELSE};
 {$ENDIF}
 
 {==============================================================================}
@@ -80,8 +53,9 @@ var
 {:
   @abstract(Used for thread safety in conversions dependent on LocaleID.)
   Initialized in Initialization section of this unit (with id set to
-  LOCALE_USER_DEFAULT).@br
-  But note that this variable is NOT thread safe by itself. If you want to
+  @code(LOCALE_USER_DEFAULT)).
+  
+  @bold(Warning) - this variable is NOT thread safe by itself. If you want to
   access it from multiple threads, then thread safety is your responsibility.
 }
   TelemetryStringsFormatSettings: TFormatSettings;
@@ -92,72 +66,21 @@ var
 
 {:
   @abstract(Compares strings based on the current locale with case sensitivity.)
-  Since the @code(TelemetryString) is UTF8-encoded and there is no function
-  for comparison of such strings, both strings are converted to WideString
-  before actual comparison takes place.@br
-  This function can be slow, so if performance is important, consider using
-  TelemetrySameStrNoConv instead.
+  Implementation and behavior of this function depends on used compiler and
+  whether symbol @code(Unicode) is defined. Currently it is as follows:
+@preformatted(
+    Delphi (Unicode)
+        Strings are converted to UTF16 and compared using function AnsiSameStr
 
-  @param S1 First string to compare.
-  @param S2 Second string to compare.
+    Delphi (non-Unicode)
+        Strings are converted to UTF16 and compared using function WideSameStr
 
-  @returns @True when the strings have the same value, @false otherwise.
-}
-Function TelemetrySameStrConv(const S1, S2: TelemetryString): Boolean;
+    FPC (Unicode)
+        Same as Delphi (Unicode)
 
-{:
-  @abstract(Compares strings based on the current locale without case
-  sensitivity.)
-  Since the @code(TelemetryString) is UTF8-encoded and there is no function
-  for comparison of such strings, both strings are converted to WideString
-  before actual comparison takes place.@br
-  This function can be slow, so if performance is important, consider using
-  TelemetrySameTextNoConv instead.
-
-  @param S1 First string to compare.
-  @param S2 Second string to compare.
-
-  @returns @True when the strings have the same value, @false otherwise.
-}
-Function TelemetrySameTextConv(const S1, S2: TelemetryString): Boolean;
-
-{:
-  @abstract(Compares strings based on the current locale with case sensitivity
-  and without internal conversions.)
-  Unlike TelemetrySameStrConv, this function does not convert input strings to
-  WideString before comparison. Instead, both strings are treated as normal
-  AnsiString. This requires that both strings contains only ASCII characters
-  (that is, up to #126), otherwise the function can, and probably will, return
-  wrong result.
-
-  @param S1 First string to compare.
-  @param S2 Second string to compare.
-
-  @returns @True when the strings have the same value, @false otherwise.
-}
-Function TelemetrySameStrNoConv(const S1, S2: TelemetryString): Boolean;
-
-{:
-  @abstract(Compares strings based on the current locale without case
-  sensitivity and without internal conversions.)
-  Unlike TelemetrySameTextConv, this function does not convert input strings to
-  WideString before comparison. Instead, both strings are treated as normal
-  AnsiString. This requires that both strings contains only ASCII characters
-  (that is, up to #126), otherwise the function can, and probably will, return
-  wrong result.
-
-  @param S1 First string to compare.
-  @param S2 Second string to compare.
-
-  @returns @True when the strings have the same value, @false otherwise.
-}
-Function TelemetrySameTextNoConv(const S1, S2: TelemetryString): Boolean;
-
-{:
-  @abstract(Compares strings based on the current locale with case sensitivity.)
-  This function internally calls TelemetrySameStrNoConv when switch
-  @code(AssumeASCIIString) is defined. When it is not defined, it calls
-  TelemetrySameStrConv.
+    FPC (non-Unicode)
+        Strings are NOT converted and are compared using function AnsiSameStr
+)
 
   @param S1 First string to compare.
   @param S2 Second string to compare.
@@ -166,12 +89,26 @@ Function TelemetrySameTextNoConv(const S1, S2: TelemetryString): Boolean;
 }
 Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
 
+//------------------------------------------------------------------------------
+
 {:
   @abstract(Compares strings based on the current locale without case
   sensitivity.)
-  This function internally calls TelemetrySameTextNoConv when switch
-  @code(AssumeASCIIString) is defined. When it is not defined, it calls
-  TelemetrySameTextConv.
+  Implementation and behavior of this function depends on used compiler and
+  whether symbol @code(Unicode) is defined. Currently it is as follows:
+@preformatted(
+    Delphi (Unicode)
+        Strings are converted to UTF16 and compared using function AnsiSameText
+
+    Delphi (non-Unicode)
+        Strings are converted to UTF16 and compared using function WideSameText
+
+    FPC (Unicode)
+        Same as Delphi (Unicode)
+
+    FPC (non-Unicode)
+        Strings are NOT converted and are compared using function AnsiSameText
+)
 
   @param S1 First string to compare.
   @param S2 Second string to compare.
@@ -179,6 +116,19 @@ Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
   @returns @True when the strings have the same value, @false otherwise.
 }
 Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
+
+//==============================================================================
+
+{:
+  @abstract(Compares two config references for equality (case sensitive).)
+  Both @code(ID) and @code(Attribute) fields must match.
+
+  @param Ref1 First reference to compare.
+  @param Ref2 Second reference to compare.
+
+  @returns @True when the references are equal, @false otherwise.
+}
+Function SameConfigReference(Ref1,Ref2: TConfigReference): Boolean;
 
 //==============================================================================
 
@@ -220,12 +170,14 @@ Function SCSValueTypeFromStr(const Str: String): scs_value_type_t;
   @param ValueType       Type of the value passed in general buffer.
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function ValueToStr(const Value; ValueType: scs_value_type_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   @abstract(Returns textual representation of value passed in general buffer.)
@@ -238,12 +190,14 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; TypeName: Boolean 
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function ValueToStr(const Value; ValueType: scs_value_type_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   @abstract(Returns textual representation of value passed in general buffer.)
@@ -262,7 +216,7 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; const FormatSettin
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
@@ -278,12 +232,14 @@ Function ValueToStr(const Value; ValueType: scs_value_type_t; Format: TFloatForm
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSValueToStr(const Value: scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   @abstract(Returns textual representation of @code(scs_value_t) structure.)
@@ -294,12 +250,14 @@ Function SCSValueToStr(const Value: scs_value_t; TypeName: Boolean = False; Show
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSValueToStr(const Value: scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   @abstract(Returns textual representation of @code(scs_value_t) structure.)
@@ -316,7 +274,7 @@ Function SCSValueToStr(const Value: scs_value_t; const FormatSettings: TFormatSe
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
@@ -331,12 +289,14 @@ Function SCSValueToStr(const Value: scs_value_t; Format: TFloatFormat; Precision
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSValueLocalizedToStr(Value: scs_value_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of scs_value_localized_t structure.
@@ -346,12 +306,14 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; TypeName: Boolean 
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSValueLocalizedToStr(Value: scs_value_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of scs_value_localized_t structure.
@@ -367,7 +329,7 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; const FormatSettin
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
@@ -382,12 +344,14 @@ Function SCSValueLocalizedToStr(Value: scs_value_localized_t; Format: TFloatForm
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSNamedValueToStr(const Value: scs_named_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of @code(scs_named_value_t) structure.
@@ -397,12 +361,14 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; TypeName: Boolean = 
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSNamedValueToStr(const Value: scs_named_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of @code(scs_named_value_t) structure.
@@ -418,7 +384,7 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; const FormatSettings
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
@@ -433,12 +399,14 @@ Function SCSNamedValueToStr(const Value: scs_named_value_t; Format: TFloatFormat
   @param Value           Actual value to be converted to text.
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of scs_named_value_localized_t structure.
@@ -448,12 +416,14 @@ Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; T
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
 }
 Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of scs_named_value_localized_t structure.
@@ -469,7 +439,7 @@ Function SCSNamedValueLocalizedToStr(const Value: scs_named_value_localized_t; c
                          floating point number is converted to text.)
   @param(TypeName        When set, value type identifier is added to output
                          string.)
-  @param(ShowDescriptors When set, fileds descriptors are shown for composite
+  @param(ShowDescriptors When set, fields descriptors are shown for composite
                          values.)
 
   @returns Textual representation of given value.
@@ -504,6 +474,8 @@ Function TelemetryEventFrameStartToStr(const Data: scs_telemetry_frame_start_t; 
 }
 Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuration_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 {:
   Returns textual representation of @code(scs_telemetry_configuration_t) structure.
 
@@ -518,6 +490,8 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
   @returns Textual representation of given structure.
 }
 Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuration_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of @code(scs_telemetry_configuration_t) structure.
@@ -556,6 +530,8 @@ Function TelemetryEventConfigurationToStr(const Data: scs_telemetry_configuratio
 }
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 {:
   Returns textual representation of scs_telemetry_configuration_localized_t
   structure.
@@ -571,6 +547,8 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
   @returns Textual representation of given structure.
 }
 Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_configuration_localized_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   Returns textual representation of scs_telemetry_configuration_localized_t
@@ -611,6 +589,8 @@ Function TelemetryEventConfigurationLocalizedToStr(const Data: scs_telemetry_con
 }
 Function EventDataToStr(Event: scs_event_t; Data: Pointer; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 {:
   @abstract(Returns textual representation of event data.)
   If there are no data to bo converted, then an empty string is returned.
@@ -627,6 +607,8 @@ Function EventDataToStr(Event: scs_event_t; Data: Pointer; TypeName: Boolean = F
   @returns Textual representation of event data.
 }
 Function EventDataToStr(Event: scs_event_t; Data: Pointer; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   @abstract(Returns textual representation of event data.)
@@ -667,6 +649,8 @@ Function EventDataToStr(Event: scs_event_t; Data: Pointer; Format: TFloatFormat;
 }
 Function ChannelValueToStr(Value: p_scs_value_t; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
 
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
+
 {:
   @abstract(Returns textual representation of channel value passed as a pointer.)
   When the pointer is not assigned, this function will return an empty string.
@@ -682,6 +666,8 @@ Function ChannelValueToStr(Value: p_scs_value_t; TypeName: Boolean = False; Show
   @returns Textual representation of channel value.
 }
 Function ChannelValueToStr(Value: p_scs_value_t; const FormatSettings: TFormatSettings; TypeName: Boolean = False; ShowDescriptors: Boolean = False): String; overload;
+
+//   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---
 
 {:
   @abstract(Returns textual representation of channel value passed as a pointer.)
@@ -726,48 +712,16 @@ const
 {   Unit functions and procedures implementation                               }
 {==============================================================================}
 
-Function TelemetrySameStrConv(const S1, S2: TelemetryString): Boolean;
+Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
 begin
 {$IFDEF Unicode}
 Result := AnsiSameStr(UTF8Decode(S1),UTF8Decode(S2));
 {$ELSE}
+{$IFDEF FPC}
+Result := AnsiSameStr(S1,S2);
+{$ELSE}
 Result := WideSameStr(UTF8Decode(S1),UTF8Decode(S2));
 {$ENDIF}
-end;
-
-//------------------------------------------------------------------------------
-
-Function TelemetrySameTextConv(const S1, S2: TelemetryString): Boolean;
-begin
-{$IFDEF Unicode}
-Result := AnsiSameText(UTF8Decode(S1),UTF8Decode(S2));
-{$ELSE}
-Result := WideSameText(UTF8Decode(S1),UTF8Decode(S2));
-{$ENDIF}
-end;
-
-//------------------------------------------------------------------------------
-
-Function TelemetrySameStrNoConv(const S1, S2: TelemetryString): Boolean;
-begin
-Result := AnsiSameStr(S1,S2);
-end;
-
-//------------------------------------------------------------------------------
-
-Function TelemetrySameTextNoConv(const S1, S2: TelemetryString): Boolean;
-begin
-Result := AnsiSameText(S1,S2);
-end;
-
-//------------------------------------------------------------------------------
-
-Function TelemetrySameStr(const S1, S2: TelemetryString): Boolean;
-begin
-{$IFDEF AssumeASCIIString}
-Result := TelemetrySameStrNoConv(S1,S2);
-{$ELSE}
-Result := TelemetrySameStrConv(S1,S2);
 {$ENDIF}
 end;
 
@@ -775,11 +729,22 @@ end;
 
 Function TelemetrySameText(const S1, S2: TelemetryString): Boolean;
 begin
-{$IFDEF AssumeASCIIString}
-Result := TelemetrySameTextNoConv(S1,S2);
+{$IFDEF Unicode}
+Result := AnsiSameText(UTF8Decode(S1),UTF8Decode(S2));
 {$ELSE}
-Result := TelemetrySameTextConv(S1,S2);
+{$IFDEF FPC}
+Result := AnsiSameText(S1,S2);
+{$ELSE}
+Result := WideSameText(UTF8Decode(S1),UTF8Decode(S2));
 {$ENDIF}
+{$ENDIF}
+end;
+
+//==============================================================================
+
+Function SameConfigReference(Ref1,Ref2: TConfigReference): Boolean;
+begin
+Result := TelemetrySameStr(Ref1.ID,Ref2.ID) and TelemetrySameStr(Ref1.Attribute,Ref2.Attribute)
 end;
 
 //==============================================================================

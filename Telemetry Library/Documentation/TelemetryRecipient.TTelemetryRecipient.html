@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryRecipient: Class TTelemetryRecipient</title>
+<title>Telemetry library: TelemetryRecipient: Class TTelemetryRecipient</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -19,7 +19,7 @@
 <code>type TTelemetryRecipient = class(<a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html">TTelemetryVersionPrepareObject</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-TTelemetryRecipient is used as a main way to control the telemetry API.</p>
+TTelemetryRecipient is used as a main mean of controlling the telemetry API.</p>
 <p>
 
 
@@ -43,7 +43,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 
 <p>
 
-<p>User-manager mode (created using no-parameter constructor):</p>
+<p>User-managed mode (created using no-parameter constructor):</p>
 
 <ul class="compact_spacing">
   <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#TelemetryInfoProvider">TelemetryInfoProvider</a> is created as user-managed</p></li>
@@ -52,7 +52,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
   <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#KeepUtilityEvents">KeepUtilityEvents</a> property is set to <code>False</code> - utility events are NOT automatically registered in constructor</p></li>
   <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreConfigurations">StoreConfigurations</a> property is set to <code>False</code> - configuration event is NOT automatically registered in constructor</p></li>
   <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#AllowAutoRegistration">AllowAutoRegistration</a> property is set to <code>False</code> (value of this property can be changed later)</p></li>
-  <li><p>(Un)Registration methods does NOT check whether requested item is already registered or not before actual (un)registration</p></li>
+  <li><p>(Un)Registration methods do NOT check whether requested item is already registered or not before actual (un)registration</p></li>
 </ul>
 
 <p>
@@ -61,10 +61,12 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 
 <pre class="preformatted">
     HighestSupportedTelemetryVersion
+    HighestSupportedGameVersion
     SupportsTelemetryVersion
     SupportsTelemetryMajorVersion
     SupportsGameVersion
-    SupportsTelemetryAndGameVersion</pre>
+    SupportsTelemetryAndGameVersion
+    SupportsTelemetryAndGameVersionParam</pre>
 
 <p> ...can and actually must be called directly on class. They should be used to check whether both this class and <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class supports required telemetry and game version before instantiation (creation of class instance).</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
@@ -201,35 +203,35 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnLogMulti">fOnLogMulti</a></b>:                <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnLogMulti">fOnLogMulti</a></b>:                TMulticastLogEvent;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventRegisterMulti">fOnEventRegisterMulti</a></b>:      <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventRegisterMulti">fOnEventRegisterMulti</a></b>:      TMulticastEventRegisterEvent;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventUnregisterMulti">fOnEventUnregisterMulti</a></b>:    <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventUnregisterMulti">fOnEventUnregisterMulti</a></b>:    TMulticastEventRegisterEvent;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventMulti">fOnEventMulti</a></b>:              <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventMulti">fOnEventMulti</a></b>:              TMulticastEventEvent;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelRegisterMulti">fOnChannelRegisterMulti</a></b>:    <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelRegisterMulti">fOnChannelRegisterMulti</a></b>:    TMulticastChannelRegisterEvent;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelUnregisterMulti">fOnChannelUnregisterMulti</a></b>:  <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelUnregisterMulti">fOnChannelUnregisterMulti</a></b>:  TMulticastChannelUnregisterEvent;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelMulti">fOnChannelMulti</a></b>:            <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelMulti">fOnChannelMulti</a></b>:            TMulticastChannelEvent;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnConfigMulti">fOnConfigMulti</a></b>:             <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnConfigMulti">fOnConfigMulti</a></b>:             TMulticastConfigEvent;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
@@ -292,7 +294,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnConfig">DoOnConfig</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#DoOnConfig">DoOnConfig</a></b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -440,7 +442,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a></b>(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: UInt32 = 0): Integer; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -448,7 +450,7 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ConfigStored">ConfigStored</a></b>(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#ConfigStored">ConfigStored</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -563,35 +565,35 @@ TTelemetryRecipient is used as a main way to control the telemetry API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnLogMulti">OnLogMulti</a></b>: <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnLogMulti">fOnLogMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnLogMulti">OnLogMulti</a></b>: TMulticastLogEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnLogMulti">fOnLogMulti</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnEventRegisterMulti">OnEventRegisterMulti</a></b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventRegisterMulti">fOnEventRegisterMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnEventRegisterMulti">OnEventRegisterMulti</a></b>: TMulticastEventRegisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventRegisterMulti">fOnEventRegisterMulti</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnEventUnregisterMulti">OnEventUnregisterMulti</a></b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventUnregisterMulti">fOnEventUnregisterMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnEventUnregisterMulti">OnEventUnregisterMulti</a></b>: TMulticastEventRegisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventUnregisterMulti">fOnEventUnregisterMulti</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnEventMulti">OnEventMulti</a></b>: <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventMulti">fOnEventMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnEventMulti">OnEventMulti</a></b>: TMulticastEventEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventMulti">fOnEventMulti</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelRegisterMulti">OnChannelRegisterMulti</a></b>: <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelRegisterMulti">fOnChannelRegisterMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelRegisterMulti">OnChannelRegisterMulti</a></b>: TMulticastChannelRegisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelRegisterMulti">fOnChannelRegisterMulti</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelUnregisterMulti">OnChannelUnregisterMulti</a></b>: <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelUnregisterMulti">fOnChannelUnregisterMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelUnregisterMulti">OnChannelUnregisterMulti</a></b>: TMulticastChannelUnregisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelUnregisterMulti">fOnChannelUnregisterMulti</a>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelMulti">OnChannelMulti</a></b>: <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelMulti">fOnChannelMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnChannelMulti">OnChannelMulti</a></b>: TMulticastChannelEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelMulti">fOnChannelMulti</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnConfigMulti">OnConfigMulti</a></b>: <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnConfigMulti">fOnConfigMulti</a>;</code></td>
+<td class="itemcode"><code>property <b><a  href="TelemetryRecipient.TTelemetryRecipient.html#OnConfigMulti">OnConfigMulti</a></b>: TMulticastConfigEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnConfigMulti">fOnConfigMulti</a>;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -909,7 +911,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnLogMulti"></a><code><b>fOnLogMulti</b>:                <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnLogMulti"></a><code><b>fOnLogMulti</b>:                TMulticastLogEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -919,7 +921,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnEventRegisterMulti"></a><code><b>fOnEventRegisterMulti</b>:      <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnEventRegisterMulti"></a><code><b>fOnEventRegisterMulti</b>:      TMulticastEventRegisterEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -929,7 +931,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnEventUnregisterMulti"></a><code><b>fOnEventUnregisterMulti</b>:    <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnEventUnregisterMulti"></a><code><b>fOnEventUnregisterMulti</b>:    TMulticastEventRegisterEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -939,7 +941,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnEventMulti"></a><code><b>fOnEventMulti</b>:              <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnEventMulti"></a><code><b>fOnEventMulti</b>:              TMulticastEventEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -949,7 +951,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnChannelRegisterMulti"></a><code><b>fOnChannelRegisterMulti</b>:    <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnChannelRegisterMulti"></a><code><b>fOnChannelRegisterMulti</b>:    TMulticastChannelRegisterEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -959,7 +961,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnChannelUnregisterMulti"></a><code><b>fOnChannelUnregisterMulti</b>:  <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnChannelUnregisterMulti"></a><code><b>fOnChannelUnregisterMulti</b>:  TMulticastChannelUnregisterEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -969,7 +971,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnChannelMulti"></a><code><b>fOnChannelMulti</b>:            <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnChannelMulti"></a><code><b>fOnChannelMulti</b>:            TMulticastChannelEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -979,7 +981,7 @@ Object managing multicast <a class="normal" href="TelemetryRecipient.TTelemetryR
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fOnConfigMulti"></a><code><b>fOnConfigMulti</b>:             <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a>;</code></td>
+<td class="itemcode"><a name="fOnConfigMulti"></a><code><b>fOnConfigMulti</b>:             TMulticastConfigEvent;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1087,7 +1089,7 @@ Method called by plugin callback routine set to receive telemetry channels.<br>
 </tr>
 <tr><td colspan="2">
 <p>
-Method used for processing configuration events. It is called from <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#EventHandler">EventHandler</a> method when configuration event is received.<br> Received data are parsed and configuration informations are extracted and stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredConfigs">StoredConfigs</a> list (<a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreConfigurations">StoreConfigurations</a> must be <code>True</code>). <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnConfig">OnConfig</a> event is called for every extracted config (after it is stored / its stored value changed).<br> When <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIndexedChannels">ManageIndexedChannels</a> is set to <code>True</code>, then indexed channels are too managed in this method (refer to source code for details).
+Method used for processing configuration events. It is called from <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#EventHandler">EventHandler</a> method when configuration event is received.<br> Received data are parsed and configuration information are extracted and stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoredConfigs">StoredConfigs</a> list (<a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#StoreConfigurations">StoreConfigurations</a> must be <code>True</code> for this). <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnConfig">OnConfig</a> event is called for every extracted config (after it is stored / its stored value changed).<br> When <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIndexedChannels">ManageIndexedChannels</a> is set to <code>True</code>, then indexed channels are automatically (un)registered in this method (refer to source code for details).
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -1180,7 +1182,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="DoOnConfig"></a><code>procedure <b>DoOnConfig</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
+<td class="itemcode"><a name="DoOnConfig"></a><code>procedure <b>DoOnConfig</b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1307,7 +1309,7 @@ Calls hanler(s) of <a class="normal" href="TelemetryRecipient.TTelemetryRecipien
 <dt>TelemetryVersion</dt>
 <dd>Version of telemetry.</dd>
 <dt>Parameters</dt>
-<dd>Structure containing other version informations.</dd>
+<dd>Structure containing other version information.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when given telemetry, game and its version are supported, otherwise <code>False</code>.</p></td></tr>
@@ -1385,7 +1387,9 @@ No parameter object constructor.<br> Creates an user-managed instance.<br></p>
 <p>
 Parametrized object constructor.<br> Creates automatically managed instance, but does not assign callbacks since they are not passed in paramters - you have to assign them manually after object creation.<br> If passed telemetry/game versions are not supported then an exception is raised.
 
-<p>   </p>
+<p>   
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>TelemetryVersion</dt>
@@ -1396,6 +1400,13 @@ Parametrized object constructor.<br> Creates automatically managed instance, but
 <dd>Version of game.</dd>
 <dt>GameName</dt>
 <dd>Name of the game (optional parameter).</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedAPI.html">ETLUnsupportedAPI</a></dt>
+<dd>When telemetry version is not supported by this class or when preparation for it fails.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedGame.html">ETLUnsupportedGame</a></dt>
+<dd>When game and/or its version is not supported by this class or when preparation for it fails.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1408,7 +1419,9 @@ Parametrized object constructor.<br> Creates automatically managed instance, but
 <p>
 Parametrized object constructor.<br> Creates automatically managed instance and automatically assigns API callbacks.<br> If passed telemetry/game versions are not supported then an exception is raised.
 
-<p>  </p>
+<p>  
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>TelemetryVersion</dt>
@@ -1417,6 +1430,13 @@ Parametrized object constructor.<br> Creates automatically managed instance and 
 <dd>Structure containing other parameters used in constructor (callbacks pointers, game version, etc.).</dd>
 <dt>AllowAutoRegistration</dt>
 <dd>Value of this parameter is immediately stored in <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#AllowAutoRegistration">AllowAutoRegistration</a> property - telling appropriate functions (called from this constructor) whether they can automatically register game events or not.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedAPI.html">ETLUnsupportedAPI</a></dt>
+<dd>When telemetry version is not supported by this class or when preparation for it fails.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedGame.html">ETLUnsupportedGame</a></dt>
+<dd>When game and/or its version is not supported by this class or when preparation for it fails.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1448,7 +1468,7 @@ Specialized object constructor.<br>
 </tr>
 <tr><td colspan="2">
 <p>
-Object destructor.<br> Internal objects are automatically cleared in destructor, so it is not necessary to free them explicitly.<br> Also, all registred telemetry events and channels are unregistered.</p>
+Object destructor.<br> Internal objects are automatically cleared in destructor, so it is not necessary to free them explicitly.<br> Also, all registred telemetry events and channels are unregistered. <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#OnDestroy">OnDestroy</a> event is called from this method (after unregistrations, before destruction of internal objects).</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -1458,7 +1478,7 @@ Object destructor.<br> Internal objects are automatically cleared in destructor,
 </tr>
 <tr><td colspan="2">
 <p>
-Sets API informations (<a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#TelemetryVersion">TelemetryVersion</a>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameID">GameID</a>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameVersion">GameVersion</a> and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameName">GameName</a>) from passed parameters.
+Sets API information (<a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#TelemetryVersion">TelemetryVersion</a>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameID">GameID</a>, <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameVersion">GameVersion</a> and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#GameName">GameName</a>) from passed parameters.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -1466,7 +1486,7 @@ Sets API informations (<a class="normal" href="TelemetryRecipient.TTelemetryReci
 <dt>TelemetryVersion</dt>
 <dd>Version of telemetry API.</dd>
 <dt>Parameters</dt>
-<dd>Structure containing other API informations.</dd>
+<dd>Structure containing other API information.</dd>
 </dl>
 </td></tr>
 </table>
@@ -1534,7 +1554,7 @@ Use this method to write typed message to game <a class="normal" href="Telemetry
 </tr>
 <tr><td colspan="2">
 <p>
-Use this method to write message to game <code>log</code>. Message will be written as normal text (LogType set to SCS_LOG_TYPE_message).<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbLog">cbLog</a> callback is assigned.
+Use this method to write message to game <code>log</code>. Message will be written as normal text (LogType set to <code>SCS_LOG_TYPE_message</code>).<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbLog">cbLog</a> callback is assigned.
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
@@ -1571,7 +1591,7 @@ Checks whether given event is present in <a class="normal" href="TelemetryRecipi
 </tr>
 <tr><td colspan="2">
 <p>
-Registers specified telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterEvent">cbRegisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_already_registered. User-managed instance does not perform this check.
+Registers specified telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterEvent">cbRegisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_already_registered</code>. User-managed instance does not perform this check.
 
 <p> 
 
@@ -1615,7 +1635,7 @@ Registers telemetry event that is listed in known events list at position given 
 </tr>
 <tr><td colspan="2">
 <p>
-Unregisters specified telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterEvent">cbUnregisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_not_found. User-managed instance does not perform this check.
+Unregisters specified telemetry event.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterEvent">cbUnregisterEvent</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested event is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_not_found</code>. User-managed instance does not perform this check.
 
 <p>
 
@@ -1725,7 +1745,7 @@ Checks whether given channel is present in <a class="normal" href="TelemetryReci
 </tr>
 <tr><td colspan="2">
 <p>
-Registers specified telemetry channel.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterChannel">cbRegisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_already_registered. User-managed instance does not perform this check.
+Registers specified telemetry channel.<br> Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbRegisterChannel">cbRegisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is already registered is performed. When it is, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_already_registered</code>. User-managed instance does not perform this check.
 
 <p>    
 
@@ -1775,7 +1795,7 @@ Registers telemetry channel that is listed in known channels list at position gi
 </tr>
 <tr><td colspan="2">
 <p>
-Registers telemetry channel of a given name. Channel of this name must be listed in known channels list as other informations required for registration are taken from there.<br> When channel is marked as indexed then all posible indices of such channel are registered.<br> Channel is registered only for its primary value type.<br> When channel of given name is not listed between known channels, then no channel is registered and function returns <code>False</code>.
+Registers telemetry channel of a given name. Channel of this name must be listed in known channels list as other information required for registration are taken from there.<br> When channel is marked as indexed then all posible indices of such channel are registered.<br> Channel is registered only for its primary value type.<br> When channel of given name is not listed between known channels, then no channel is registered and function returns <code>False</code>.
 
 <p> 
 
@@ -1797,7 +1817,7 @@ Registers telemetry channel of a given name. Channel of this name must be listed
 </tr>
 <tr><td colspan="2">
 <p>
-Unregisters specified telemetry channel. Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterChannel">cbUnregisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to SCS_RESULT_not_found. User-managed instance does not perform this check.
+Unregisters specified telemetry channel. Works only when <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#cbUnregisterChannel">cbUnregisterChannel</a> callback is assigned, when it is not, function returns false and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_generic_error</code>. When instance was created as automatically managed, a check whether requested channel is really registered is performed. When it is not, function returns <code>True</code> but <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#LastTelemetryResult">LastTelemetryResult</a> is set to <code>SCS_RESULT_not_found</code>. User-managed instance does not perform this check.
 
 <p>  
 
@@ -1877,11 +1897,11 @@ Unregisters all registered telemetry channels with the given name.<br>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChannelRegisterAll"></a><code>Function <b>ChannelRegisterAll</b>(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: LongWord = 0): Integer; virtual;</code></td>
+<td class="itemcode"><a name="ChannelRegisterAll"></a><code>Function <b>ChannelRegisterAll</b>(RegisterPrimaryType: Boolean = True; SecondarySelectionMask: UInt32 = 0): Integer; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-This method registers all channels that the <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class is aware of for current telemetry and game version.<br> When channel is marked as indexed, then all channel and index combinations are registered (see implementation of this method for details), otherwise only channels with index set to SCS_U32_NIL are registered. When <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIndexedChannels">ManageIndexedChannels</a> property is set to <code>True</code>, then top index for indexed channel registration is taken from appropriate stored configuration value (if such exixts).<br>
+This method registers all channels that the <a class="normal" href="TelemetryInfoProvider.TTelemetryInfoProvider.html">TTelemetryInfoProvider</a> class is aware of for current telemetry and game version.<br> When channel is marked as indexed, then all channel and index combinations are registered (see implementation of this method for details), otherwise only channels with index set to <code>SCS_U32_NIL</code> are registered. When <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ManageIndexedChannels">ManageIndexedChannels</a> property is set to <code>True</code>, then top index for indexed channel registration is taken from appropriate stored configuration value (if such exists).<br>
 
 <p> 
 
@@ -1912,7 +1932,7 @@ Unregisters all channels listed in <a class="normal" href="TelemetryRecipient.TT
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ConfigStored"></a><code>Function <b>ConfigStored</b>(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;</code></td>
+<td class="itemcode"><a name="ConfigStored"></a><code>Function <b>ConfigStored</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t = SCS_U32_NIL): Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -1923,8 +1943,8 @@ Checks whether given config is stored in <a class="normal" href="TelemetryRecipi
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>Name</dt>
-<dd>Name of checked configuration.</dd>
+<dt>ConfigReference</dt>
+<dd>Full reference of config that is to be checked.</dd>
 <dt>Index</dt>
 <dd>Index of checked configuration.</dd>
 </dl>
@@ -2106,8 +2126,15 @@ If <code>True</code>, any configuration data passed from the game are parsed and
 When <code>True</code>, registration and unregistration of indexed channels that are index-binded to some configuration is automatically managed.<br> Affected methods: </p>
 
 <ul class="paragraph_spacing">
-  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a> - binded channels are registered up to index (count - 1) stored in appropriate config. If such config is not stored, they are registered in the same way as not binded channels.</p></li>
-  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ProcessConfigurationEvent">ProcessConfigurationEvent</a> - when binded config is parsed, all registered channels are scanned and those binded to this config are proccessed in following way:<br> New config value is greater than old value: channels with indices above new config value are unregistered.<br> New config value is smaller than old value: when channels with all indices from old config value are registered, then new channels with indices up to the new value are registered.<br> Property <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#AllowAutoRegistration">AllowAutoRegistration</a> must be also <code>True</code> for this feature to work in this method</p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ChannelRegisterAll">ChannelRegisterAll</a> - indexed channels are registered up to index (count - 1) stored in config a channel is binded to. If such config is not stored or channel is not binded to any config, then indices are taken from one of default values (<a class="normal" href="TelemetryLists.TKnownChannel.html#MaxIndex">per-channel value</a> or constant <a class="normal" href="TelemetryRecipient.html#MaxChannelIndex">MaxChannelIndex</a>).</p></li>
+  <li><p><a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#ProcessConfigurationEvent">ProcessConfigurationEvent</a> - when binded config is parsed, all registered channels are scanned and those binded to this config are proccessed in the following way:</p>
+
+<ul class="compact_spacing">
+  <li><p>Channels with index above or equal to value stored in the config are unregistered.</p></li>
+  <li><p>All channels with indices below value from the config are registered, but only if they are not already.</p></li>
+</ul>
+
+<p> For example, when channels with indices 0 and 2 are registred, and binded config is received containing 2, then channel with index 2 is unregistered and channel with index 1 is regitered.<br> Property <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#AllowAutoRegistration">AllowAutoRegistration</a> must be also <code>True</code> for this feature to work in this method</p></li>
 </ul>
 
 <p> Initialized to <code>False</code>.</p>
@@ -2130,7 +2157,7 @@ When <code>True</code>, all incoming channels along with their values are stored
 </tr>
 <tr><td colspan="2">
 <p>
-Event called before destruction of instance. It is called AFTER all registered channels and events are unregistered and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#KeepUtilityEvents">KeepUtilityEvents</a> is set to <code>False</code>.</p>
+Event called before destruction of instance. It is called AFTER all registered channels and events are unregistered and <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html#KeepUtilityEvents">KeepUtilityEvents</a> is set to <code>False</code>, but before internal objects are freed.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -2228,7 +2255,7 @@ Multicast event called before destruction of instance. It is called AFTER all re
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnLogMulti"></a><code>property <b>OnLogMulti</b>: <a  href="TelemetryRecipient.TMulticastLogEvent.html">TMulticastLogEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnLogMulti">fOnLogMulti</a>;</code></td>
+<td class="itemcode"><a name="OnLogMulti"></a><code>property <b>OnLogMulti</b>: TMulticastLogEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnLogMulti">fOnLogMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2238,7 +2265,7 @@ Multicast event called when recipient attempts to write to game <a class="normal
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnEventRegisterMulti"></a><code>property <b>OnEventRegisterMulti</b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventRegisterMulti">fOnEventRegisterMulti</a>;</code></td>
+<td class="itemcode"><a name="OnEventRegisterMulti"></a><code>property <b>OnEventRegisterMulti</b>: TMulticastEventRegisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventRegisterMulti">fOnEventRegisterMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2248,7 +2275,7 @@ Multicast event called on every <b>successful</b> event registration.<br> It can
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnEventUnregisterMulti"></a><code>property <b>OnEventUnregisterMulti</b>: <a  href="TelemetryRecipient.TMulticastEventRegisterEvent.html">TMulticastEventRegisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventUnregisterMulti">fOnEventUnregisterMulti</a>;</code></td>
+<td class="itemcode"><a name="OnEventUnregisterMulti"></a><code>property <b>OnEventUnregisterMulti</b>: TMulticastEventRegisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventUnregisterMulti">fOnEventUnregisterMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2258,7 +2285,7 @@ Multicast event called on every <b>successful</b> event unregistration.<br> It c
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnEventMulti"></a><code>property <b>OnEventMulti</b>: <a  href="TelemetryRecipient.TMulticastEventEvent.html">TMulticastEventEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventMulti">fOnEventMulti</a>;</code></td>
+<td class="itemcode"><a name="OnEventMulti"></a><code>property <b>OnEventMulti</b>: TMulticastEventEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnEventMulti">fOnEventMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2268,7 +2295,7 @@ Multicast event called whenever the recipient receives any event from telemetry 
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnChannelRegisterMulti"></a><code>property <b>OnChannelRegisterMulti</b>: <a  href="TelemetryRecipient.TMulticastChannelRegisterEvent.html">TMulticastChannelRegisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelRegisterMulti">fOnChannelRegisterMulti</a>;</code></td>
+<td class="itemcode"><a name="OnChannelRegisterMulti"></a><code>property <b>OnChannelRegisterMulti</b>: TMulticastChannelRegisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelRegisterMulti">fOnChannelRegisterMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2278,7 +2305,7 @@ Multicast event called on every <b>successful</b> channel registration.<br> It c
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnChannelUnregisterMulti"></a><code>property <b>OnChannelUnregisterMulti</b>: <a  href="TelemetryRecipient.TMulticastChannelUnregisterEvent.html">TMulticastChannelUnregisterEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelUnregisterMulti">fOnChannelUnregisterMulti</a>;</code></td>
+<td class="itemcode"><a name="OnChannelUnregisterMulti"></a><code>property <b>OnChannelUnregisterMulti</b>: TMulticastChannelUnregisterEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelUnregisterMulti">fOnChannelUnregisterMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2288,7 +2315,7 @@ Multicast event called on every <b>successful</b> channel unregistration.<br> It
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnChannelMulti"></a><code>property <b>OnChannelMulti</b>: <a  href="TelemetryRecipient.TMulticastChannelEvent.html">TMulticastChannelEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelMulti">fOnChannelMulti</a>;</code></td>
+<td class="itemcode"><a name="OnChannelMulti"></a><code>property <b>OnChannelMulti</b>: TMulticastChannelEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnChannelMulti">fOnChannelMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -2300,14 +2327,14 @@ Multicast event called whenever the recipient receives any channel call from tel
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><a name="OnConfigMulti"></a><code>property <b>OnConfigMulti</b>: <a  href="TelemetryRecipient.TMulticastConfigEvent.html">TMulticastConfigEvent</a> read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnConfigMulti">fOnConfigMulti</a>;</code></td>
+<td class="itemcode"><a name="OnConfigMulti"></a><code>property <b>OnConfigMulti</b>: TMulticastConfigEvent read <a  href="TelemetryRecipient.TTelemetryRecipient.html#fOnConfigMulti">fOnConfigMulti</a>;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Multicast event called when config is parsed from configuration telemetry event data.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

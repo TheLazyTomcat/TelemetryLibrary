@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryVersionObjects: Class TTelemetryVersionPrepareObject</title>
+<title>Telemetry library: TelemetryVersionObjects: Class TTelemetryVersionPrepareObject</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -80,18 +80,30 @@ Common ancestor for all classes that needs to be prepared for selected telemetry
 <td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_10">Prepare_Game_eut2_1_10</a></b>; virtual;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_11">Prepare_Game_eut2_1_11</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_12">Prepare_Game_eut2_1_12</a></b>; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_ats_1_00">Prepare_Game_ats_1_00</a></b>; virtual;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForTelemetryVersion">PrepareForTelemetryVersion</a></b>(TelemetryVersion: scs_u32_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForGameVersion">PrepareForGameVersion</a></b>(const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareFor">PrepareFor</a></b>(TelemetryVersion: scs_u32_t; const GameName, GameID: TelemetryString; GameVersion: scs_u32_t): Boolean; virtual;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>Function <b><a  href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#PrepareForParam">PrepareForParam</a></b>(TelemetryVersion: scs_u32_t; Parameters: scs_telemetry_init_params_t): Boolean; virtual;</code></td>
 </tr>
@@ -220,6 +232,36 @@ Preparation for eut2 1.10.<br> Calls <a class="normal" href="TelemetryVersionObj
 </table>
 <table class="detail wide_list">
 <tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_11"></a><code>procedure <b>Prepare_Game_eut2_1_11</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.11.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_10">Prepare_Game_eut2_1_10</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_eut2_1_12"></a><code>procedure <b>Prepare_Game_eut2_1_12</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for eut2 1.12.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_11">Prepare_Game_eut2_1_11</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Prepare_Game_ats_1_00"></a><code>procedure <b>Prepare_Game_ats_1_00</b>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Preparation for ats 1.0.<br> Calls <a class="normal" href="TelemetryVersionObjects.TTelemetryVersionPrepareObject.html#Prepare_Game_eut2_1_12">Prepare_Game_eut2_1_12</a>.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><a name="PrepareForTelemetryVersion"></a><code>Function <b>PrepareForTelemetryVersion</b>(TelemetryVersion: scs_u32_t): Boolean; virtual;</code></td>
 </tr>
@@ -305,12 +347,12 @@ Performs preparations necessary to support required telemetry version and game a
 <dt>TelemetryVersion</dt>
 <dd>Version of telemetry for which the object should be prepared.</dd>
 <dt>Parameters</dt>
-<dd>Structure containing other necessary game and version informations.</dd>
+<dd>Structure containing other necessary game and version information.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> when preparation for given telemetry version and game and its version were done successfully, otherwise <code>False</code>.</p></td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:57</em>
 </span>
 
 </body>

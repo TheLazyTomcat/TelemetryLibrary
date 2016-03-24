@@ -90,11 +90,11 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=
+OutputDir=.\win_x86
 UnitOutputDir=.\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=
+SearchPath=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Headers\amtrucks;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
 Packages=vcl;rtl;vclx;VclSmp;vclshlctrls;AdvCircularProgressPkgD7;TMSMenusD7;AdvShaperPkgD7;alpb;sulab;butcmps;EZJTexturePanelD6;FormShapePkgD7;GradientLabelPkgD7;ic;l3d;lfr;fw;mmjl;ash;tqpb;shlab;vaf;ish;xib;TPNGButton;wbme;verinf;aled;DelphiX70
 Conditionals=Debug;x86;Delphi
 DebugSourceDirs=
@@ -137,6 +137,18 @@ Item1=x86;Delphi;Release
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlSearchPath]
+Count=7
+Item0=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Headers\amtrucks;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
+Item1=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
+Item2=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Headers\common;..\..\..\API Headers\Headers\eurotrucks2;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs;..\..\Source\Inc
+Item3=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Condensed Headers;..\..\Source\Libs
+Item4=..\..\..\Libs\FastMM\Prg;..\..\..\API Headers\Headers;..\..\..\API Headers\Condensed Headers
+Item5=..\,,\,,\Libs\FastMM\Prg;..\,,\,,\API Headers\Headers;..\,,\,,\API Headers\Condensed Headers
+Item6=..\,,\,,\Libs\FastMM\Prg
 [HistoryLists\hlUnitOutputDirectory]
 Count=1
 Item0=.\DCU
+[HistoryLists\hlOutputDirectorry]
+Count=1
+Item0=.\win_x86

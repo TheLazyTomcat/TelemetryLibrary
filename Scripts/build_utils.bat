@@ -2,10 +2,10 @@
 
 pushd .\
 
-cd "..\Condenser"
+cd "..\API Headers\Condenser"
 dcc32.exe -Q -B Condenser.dpr
 
-cd "..\Telemetry Library\AutoDocumentation\PostProcessor"
+cd "..\..\Telemetry Library\AutoDocumentation\PostProcessor"
 dcc32.exe -Q -B PostProcessor.dpr
 
 popd

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetrySCSExample_telemetry_mem: packed record TSCSExm_TelemetryMemState</title>
+<title>Telemetry library: TelemetrySCSExample_telemetry_mem: packed record TSCSExm_TelemetryMemState</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -18,7 +18,13 @@
 <p class="declaration">
 <code>type TSCSExm_TelemetryMemState = packed record</code></p>
 <h2 class="description">Description</h2>
-&nbsp;<h2 class="overview">Overview</h2>
+<p>
+Structure used when working with shared memory. Directly mapped to the MMF location.</p>
+<p>
+ It is binary compatible with structure declared in original SDK example, meaning you can use plugin compiled from C++ code and access the shared memory using this structure, and vice-versa.
+
+<p>                </p>
+<h2 class="overview">Overview</h2>
 <a name="PasDoc-Fields"></a><h3 class="summary">Fields</h3>
 <table class="summary wide_list">
 <tr class="list">
@@ -80,121 +86,155 @@
 <td class="itemcode"><a name="Running"></a><code><b>Running</b>:                  scs_u8_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+<code>True</code> when the game is running, <code>False</code> when it is not (paused, terminated, ...).</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="WSTruckPlacement"></a><code><b>WSTruckPlacement</b>:         scs_value_dplacement_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+World-space coordinates of vehicle position and orientation.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SpeedometerSpeed"></a><code><b>SpeedometerSpeed</b>:         scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Speed of the vehicle [m/s].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="RPM"></a><code><b>RPM</b>:                      scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Engine revolutions [min<sup>-1</sup>].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="Gear"></a><code><b>Gear</b>:                     scs_s32_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Engaged gear.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="Steering"></a><code><b>Steering</b>:                 scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Effective steering position &lt;-1,1&gt;.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="Throttle"></a><code><b>Throttle</b>:                 scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Effective throttle &lt;0,1&gt;.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="Brake"></a><code><b>Brake</b>:                    scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Effective brake &lt;0,1&gt;.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="Clutch"></a><code><b>Clutch</b>:                   scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Effective clutch &lt;0,1&gt;.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="LinearVelocity"></a><code><b>LinearVelocity</b>:           scs_value_fvector_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Linear velocity (vector) of the vehicle [m/s].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="AngularVelocity"></a><code><b>AngularVelocity</b>:          scs_value_fvector_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Angular velocity of the vehicle [s<sup>-1</sup>].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="LinearAcceleration"></a><code><b>LinearAcceleration</b>:       scs_value_fvector_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Linear acceleration of the vehicle [m.s<sup>-2</sup>].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="AngularAcceleration"></a><code><b>AngularAcceleration</b>:      scs_value_fvector_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Angular acceleration of the vehicle [s<sup>-2</sup>].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="CabinAngularVelocity"></a><code><b>CabinAngularVelocity</b>:     scs_value_fvector_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Angular velocity of the vehicle's cabin [s<sup>-1</sup>].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="CabinAngularAcceleration"></a><code><b>CabinAngularAcceleration</b>: scs_value_fvector_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Angular acceleration of the vehicle's cabin [s<sup>-2</sup>].</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="WheelCount"></a><code><b>WheelCount</b>:               scs_u32_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Number of wheels the vehicle have. Limited to <a class="normal" href="TelemetrySCSExample_telemetry_mem.html#MAX_SUPPORTED_WHEEL_COUNT">MAX_SUPPORTED_WHEEL_COUNT</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="WheelDeflections"></a><code><b>WheelDeflections</b>:         Array[0..<a  href="TelemetrySCSExample_telemetry_mem.html#MAX_SUPPORTED_WHEEL_COUNT">MAX_SUPPORTED_WHEEL_COUNT</a> - 1] of scs_float_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Deflection of the individual wheels. Only items up to <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html#WheelCount">WheelCount</a> - 1 are valid.</p>
+</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

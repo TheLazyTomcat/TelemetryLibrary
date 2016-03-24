@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLists: Class TStoredConfigsList</title>
+<title>Telemetry library: TelemetryLists: Class TStoredConfigsList</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -40,35 +40,43 @@ List used to store configuration values obtained from API calls.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(const Name: TelemetryString): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(const ID, Attribute: TelemetryString): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(const Name: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(const ID, Attribute: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#IndexOf">IndexOf</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Add">Add</a></b>(const Name: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Add">Add</a></b>(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Binded: Boolean = False): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Add">Add</a></b>(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Add">Add</a></b>(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Remove">Remove</a></b>(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Add">Add</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Binded: Boolean = False): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Remove">Remove</a></b>(ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Add">Add</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Remove">Remove</a></b>(const ID, Attribute: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#Remove">Remove</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -76,11 +84,11 @@ List used to store configuration values obtained from API calls.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#ChangeConfigValue">ChangeConfigValue</a></b>(const Name: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#ChangeConfigValue">ChangeConfigValue</a></b>(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#ChangeConfigValue">ChangeConfigValue</a></b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryLists.TStoredConfigsList.html#ChangeConfigValue">ChangeConfigValue</a></b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
@@ -107,6 +115,8 @@ Getter for <a class="normal" href="TelemetryLists.TStoredConfigsList.html#Pointe
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -114,7 +124,12 @@ Getter for <a class="normal" href="TelemetryLists.TStoredConfigsList.html#Pointe
 <dd>Index of requested item.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Pointer to requested item.</p></td></tr>
+<p class="return">Pointer to requested item.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -127,6 +142,8 @@ Getter for <a class="normal" href="TelemetryLists.TStoredConfigsList.html#Config
 
 <p>
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
@@ -134,7 +151,12 @@ Getter for <a class="normal" href="TelemetryLists.TStoredConfigsList.html#Config
 <dd>Index of requested item.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">Requested item.</p></td></tr>
+<p class="return">Requested item.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -149,59 +171,63 @@ Deletes all items in the list.<br> <a class="normal" href="TelemetryLists.TCusto
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(const Name: TelemetryString): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(const ID, Attribute: TelemetryString): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Searches through list for stored config with appropriate name. When matching config is not found, -1 is returned.
-
-<p>
-
-<p></p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Name</dt>
-<dd>Name of the requested config.</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">Index of requested config, -1 when not found.</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>): Integer; overload; virtual;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Searches through list for stored config with appropriate ID. When matching config is not found, -1 is returned.
-
-<p>
-
-<p></p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>ID</dt>
-<dd>ID of the requested config.</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">Index of requested config, -1 when not found.</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(const Name: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Searches through list for stored config with appropriate name and index. When matching config is not found, -1 is returned.
+Searches through list for stored config with appropriate identification. When matching config is not found, -1 is returned.
 
 <p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>Name</dt>
-<dd>Name of the requested config.</dd>
+<dt>ID</dt>
+<dd>Configuration ID of the requested config.</dd>
+<dt>Attribute</dt>
+<dd>Attribute name of the requested config.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of requested config, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for stored config with appropriate reference. When matching config is not found, -1 is returned.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ConfigReference</dt>
+<dd>Full reference (ID + Attribute) of the requested config.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index of requested config, -1 when not found.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(const ID, Attribute: TelemetryString; Index: scs_u32_t): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Searches through list for stored config with appropriate identification and index. When matching config is not found, -1 is returned.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ID</dt>
+<dd>Configuration ID of the requested config.</dd>
+<dt>Attribute</dt>
+<dd>Attribute name of the requested config.</dd>
 <dt>Index</dt>
 <dd>Index of the requested config.</dd>
 </dl>
@@ -211,19 +237,19 @@ Searches through list for stored config with appropriate name and index. When ma
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="IndexOf"></a><code>Function <b>IndexOf</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Searches through list for stored config with appropriate ID and index. When matching config is not found, -1 is returned.
+Searches through list for stored config with appropriate reference and index. When matching config is not found, -1 is returned.
 
 <p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>ID</dt>
-<dd>ID of the requested config.</dd>
+<dt>ConfigReference</dt>
+<dd>Full reference (ID + Attribute) of the requested config.</dd>
 <dt>Index</dt>
 <dd>Index of the requested config.</dd>
 </dl>
@@ -233,19 +259,21 @@ Searches through list for stored config with appropriate ID and index. When matc
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Binded: Boolean = False): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Stores new config with its value into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
 
-<p>   
+<p>    
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>Name</dt>
-<dd>Name of stored config (ID is calculated from it).</dd>
+<dt>ID</dt>
+<dd>Configuration ID of the added config.</dd>
+<dt>Attribute</dt>
+<dd>Attribute name of the added config.</dd>
 <dt>Index</dt>
 <dd>Index of stored config.</dd>
 <dt>Value</dt>
@@ -259,19 +287,21 @@ Stores new config with its value into the list.<br> <a class="normal" href="Tele
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const Name: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Stores new config with its value into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
 
-<p>   
+<p>    
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>Name</dt>
-<dd>Name of stored config (ID is calculated from it).</dd>
+<dt>ID</dt>
+<dd>Configuration ID of the added config.</dd>
+<dt>Attribute</dt>
+<dd>Attribute name of the added config.</dd>
 <dt>Index</dt>
 <dd>Index of stored config.</dd>
 <dt>Value</dt>
@@ -285,19 +315,73 @@ Stores new config with its value into the list.<br> <a class="normal" href="Tele
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(const Name: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores new config with its value into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ConfigReference</dt>
+<dd>Full reference (ID + Attribute) of the added config.</dd>
+<dt>Index</dt>
+<dd>Index of stored config.</dd>
+<dt>Value</dt>
+<dd>Localized value (data) this config contains.</dd>
+<dt>Binded</dt>
+<dd>Flag denoting whether this config is binded by some channel (i.e. some channel has this config as its IndexConfig property).</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new config was stored, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Add"></a><code>Function <b>Add</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: p_scs_value_t; Binded: Boolean = False): Integer; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Stores new config with its value into the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful addition.
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ConfigReference</dt>
+<dd>Full reference (ID + Attribute) of the added config.</dd>
+<dt>Index</dt>
+<dd>Index of stored config.</dd>
+<dt>Value</dt>
+<dd>Value (data) this config contains.</dd>
+<dt>Binded</dt>
+<dd>Flag denoting whether this config is binded by some channel (i.e. some channel has this config as its IndexConfig property).</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Index at which the new config was stored, -1 when addition failed.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(const ID, Attribute: TelemetryString; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
 Removes stored config from the list.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
 
-<p> 
+<p>  
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>Name</dt>
-<dd>Name of stored config that has to be removed.</dd>
+<dt>ID</dt>
+<dd>Configuration ID of the config that has to be removed.</dd>
+<dt>Attribute</dt>
+<dd>Attribute name of the config that has to be removed.</dd>
 <dt>Index</dt>
 <dd>Index of stored config.</dd>
 </dl>
@@ -307,7 +391,7 @@ Removes stored config from the list.<br> <a class="normal" href="TelemetryLists.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="Remove"></a><code>Function <b>Remove</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t = SCS_U32_NIL): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -318,8 +402,8 @@ Removes stored config from the list.<br> <a class="normal" href="TelemetryLists.
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>ID</dt>
-<dd>ID of stored config that has to be removed.</dd>
+<dt>ConfigReference</dt>
+<dd>Full reference (ID + Attribute) of stored config that has to be removed.</dd>
 <dt>Index</dt>
 <dd>Index of stored config.</dd>
 </dl>
@@ -335,30 +419,39 @@ Removes stored config from the list.<br> <a class="normal" href="TelemetryLists.
 <p>
 Deletes stored config at position given by <code>Index</code> parameter. When index falls out of allowed boundary (&lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a> - 1&gt;), an exception is raised.<br> <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful deletion.
 
+<p>
+
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Index</dt>
 <dd>Index of item that has to be deleted.</dd>
 </dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLIndexOfBounds.html">ETLIndexOfBounds</a></dt>
+<dd>When index is out of the interval &lt;0,<a class="normal" href="TelemetryLists.TCustomTelemetryList.html#Count">Count</a>).</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChangeConfigValue"></a><code>Function <b>ChangeConfigValue</b>(const Name: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="ChangeConfigValue"></a><code>Function <b>ChangeConfigValue</b>(const ID, Attribute: TelemetryString; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Changes stored value in config defined by name and index. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+Changes stored value in config defined by identification and index. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
 
-<p> 
+<p>  
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>Name</dt>
-<dd>Name of stored config whose value should be changed.</dd>
+<dt>ID</dt>
+<dd>Configuration ID of the config whose value should be changed.</dd>
+<dt>Attribute</dt>
+<dd>Attribute name of the config whose value should be changed.</dd>
 <dt>Index</dt>
 <dd>Index of stored config.</dd>
 </dl>
@@ -368,19 +461,19 @@ Changes stored value in config defined by name and index. <a class="normal" href
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ChangeConfigValue"></a><code>Function <b>ChangeConfigValue</b>(ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
+<td class="itemcode"><a name="ChangeConfigValue"></a><code>Function <b>ChangeConfigValue</b>(ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>): Integer; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Changes stored value in config defined by ID and index. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
+Changes stored value in config defined by reference and index. <a class="normal" href="TelemetryLists.TCustomTelemetryList.html#OnChange">OnChange</a> event is called after successful removal.
 
 <p> 
 
 <p></p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>ID</dt>
-<dd>ID of stored config whose value should be changed.</dd>
+<dt>ConfigReference</dt>
+<dd>Full reference (ID + Attribute) of config whose value should be changed.</dd>
 <dt>Index</dt>
 <dd>Index of stored config.</dd>
 </dl>
@@ -408,7 +501,7 @@ Array property mapped directly to internal list. Use it for direct access to ind
 Array property mapped directly to internal list. Use it to obtain values of individual stored items.</p>
 </td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

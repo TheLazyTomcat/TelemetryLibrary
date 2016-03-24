@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetrySCSExample_telemetry_mem: Class TSCSExm_TelemetryMem</title>
+<title>Telemetry library: TelemetrySCSExample_telemetry_mem: Class TSCSExm_TelemetryMem</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -18,10 +18,12 @@
 <p class="declaration">
 <code>type TSCSExm_TelemetryMem = class(<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a>)</code></p>
 <h2 class="description">Description</h2>
-<div class="nodescription">no description available, TTelemetryRecipientBinder description follows</div><p>
-Class designed as a base for any class that is intended to bind itself to telemetry recipient events.</p>
 <p>
- It has predefined abstract methods that can be assigned as handlers to recipient events one by one (when you want full control over what and when is called), or at once using <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#AssignHandlers">AssignHandlers</a> method (<a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a> must be assigned for this to work).</p>
+Class designed to imitate behavior of <i>telemetry_mem</i> example distributed with the Telemetry SDK.</p>
+<p>
+ It writes values obtained from the telemetry channels into the shared memory (memory mapped file object). Also manages automatic registration of wheel channels based on configuration data.<br> Shared memory is binary compatible with that produced by original C++ example.
+
+<p><b>WARNING</b> - creation of MMF object fails if it already exists. If you want to access the shared memory for reading, you have to first create instance of this class and only then you can open MMF in some other program for reading.</p>
 <a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor"><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html">TTelemetryRecipientBinder</a></li>
@@ -30,19 +32,15 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fFormatSettings">fFormatSettings</a></b>:  TFormatSettings;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fMemoryMapName">fMemoryMapName</a></b>: AnsiString;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fMemoryMapName">fMemoryMapName</a></b>:   AnsiString;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fMemoryMapping">fMemoryMapping</a></b>: THandle;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fMemoryMapping">fMemoryMapping</a></b>:   THandle;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fSharedMemory">fSharedMemory</a></b>:    <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#fSharedMemory">fSharedMemory</a></b>:  <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
@@ -61,7 +59,7 @@ Class designed as a base for any class that is intended to bind itself to teleme
 </tr>
 <tr class="list2">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#Create">Create</a></b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
+<td class="itemcode"><code>constructor <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#Create">Create</a></b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -97,7 +95,7 @@ Class designed as a base for any class that is intended to bind itself to teleme
 </tr>
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><code>procedure <b><a  href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#ConfigHandler">ConfigHandler</a></b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -105,34 +103,32 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fFormatSettings"></a><code><b>fFormatSettings</b>:  TFormatSettings;</code></td>
+<td class="itemcode"><a name="fMemoryMapName"></a><code><b>fMemoryMapName</b>: AnsiString;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Full name of the shared memory (MMF).</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fMemoryMapName"></a><code><b>fMemoryMapName</b>:   AnsiString;</code></td>
+<td class="itemcode"><a name="fMemoryMapping"></a><code><b>fMemoryMapping</b>: THandle;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Handle of the memory mapped file object.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fMemoryMapping"></a><code><b>fMemoryMapping</b>:   THandle;</code></td>
+<td class="itemcode"><a name="fSharedMemory"></a><code><b>fSharedMemory</b>:  <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a  href="legend.html"><img  src="private.gif" alt="Private" title="Private"></a></td>
-<td class="itemcode"><a name="fSharedMemory"></a><code><b>fSharedMemory</b>:    <a  href="TelemetrySCSExample_telemetry_mem.html#PSCSExm_TelemetryMemState">PSCSExm_TelemetryMemState</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Pointer to the shared memory (MMF).</p>
+</td></tr>
 </table>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
@@ -141,7 +137,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="LogLine"></a><code>procedure <b>LogLine</b>(LogType: scs_log_type_t; const Text: String); virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Writes a new entry to the game log using telemetry API.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -149,7 +147,14 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="InitializeSharedMemory"></a><code>Function <b>InitializeSharedMemory</b>: Boolean; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Initializes shared memory - creates MMF object, opens view of file and fills the shared memory with zeroes.
+
+<p><b>WARNING</b> - this function will fail if the mapping already exists. This behaviour is intentional as it is present in the original example.
+
+<p> or when the object already exists.</p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> on successful creation of MMF object, <code>False</code> when it fails</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -157,15 +162,50 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="DeinitializeSharedMemory"></a><code>procedure <b>DeinitializeSharedMemory</b>; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Deinitializes shared memory - unmaps view of file and closes the MMF object handle.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(aRecipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Recipient: <a  href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a>; const MemoryMapName: AnsiString = <a  href="TelemetrySCSExample_telemetry_mem.html#def_MemoryMapName">def_MemoryMapName</a>);</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Class constructor.
+
+<p>Creates a shared memory (memory mapped file object) by calling <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#InitializeSharedMemory">InitializeSharedMemory</a> method.<br> <code><a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#Recipient">Recipient</a></code> parameter must be assigned, otherwise an exception is raised. <code>MemoryMapName</code> must not be empty and must not contain backslashes (\).
+
+<p> 
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Recipient</dt>
+<dd>Must contain valid reference to a <a class="normal" href="TelemetryRecipient.TTelemetryRecipient.html">TTelemetryRecipient</a> instance.</dd>
+<dt>MemoryMapName</dt>
+<dd>Name of the memory mapped file object.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="TelemetryCommon.ETLNilReference.html">ETLNilReference</a></dt>
+<dd>When <code>aRecipient</code> is not assigned.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLUnsupportedGame.html">ETLUnsupportedGame</a></dt>
+<dd>When game version for which this object is prepared is lower than 0x00010003.</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLInitFailed.html">ETLInitFailed</a></dt>
+<dd>When initialization fails (method <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMem.html#InitializeSharedMemory">InitializeSharedMemory</a> returns <code>False</code>).</dd>
+<dt><a class="normal" href="TelemetryCommon.ETLRegFailed.html">ETLRegFailed</a></dt>
+<dd>When registration of any of the following telemetry events fails: </p>
+
+<pre class="preformatted">
+    SCS_TELEMETRY_EVENT_paused
+    SCS_TELEMETRY_EVENT_started
+    SCS_TELEMETRY_EVENT_configuration</pre>
+
+<p></dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -173,7 +213,11 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Class destructor.<br>
+
+<p>Deinitializes memory.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -181,7 +225,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="LogHandler"></a><code>procedure <b>LogHandler</b>(Sender: TObject; LogType: scs_log_type_t; const LogText: String); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#LogHandler">TTelemetryRecipientBinder.LogHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -189,7 +235,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="EventRegisterHandler"></a><code>procedure <b>EventRegisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventRegisterHandler">TTelemetryRecipientBinder.EventRegisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -197,7 +245,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="EventUnregisterHandler"></a><code>procedure <b>EventUnregisterHandler</b>(Sender: TObject; Event: scs_event_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventUnregisterHandler">TTelemetryRecipientBinder.EventUnregisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -205,7 +255,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="EventHandler"></a><code>procedure <b>EventHandler</b>(Sender: TObject; Event: scs_event_t; Data: Pointer; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Processes all events passed from the API. Automated (un)registration of the wheel channels is done within this method (number of registered wheel channels is given by the truck configuration parsed in this method). For details see method implementation.<br> For details on parameters, see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#EventHandler">TTelemetryRecipientBinder.EventHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -213,7 +265,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="ChannelRegisterHandler"></a><code>procedure <b>ChannelRegisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; Flags: scs_u32_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelRegisterHandler">TTelemetryRecipientBinder.ChannelRegisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -221,7 +275,9 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="ChannelUnregisterHandler"></a><code>procedure <b>ChannelUnregisterHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; ValueType: scs_value_type_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelUnregisterHandler">TTelemetryRecipientBinder.ChannelUnregisterHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -229,17 +285,21 @@ Class designed as a base for any class that is intended to bind itself to teleme
 <td class="itemcode"><a name="ChannelHandler"></a><code>procedure <b>ChannelHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TChannelID">TChannelID</a>; Index: scs_u32_t; Value: p_scs_value_t; UserData: Pointer); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Processes all channels passed from the API. Stores channel value to appropriate location in shared memory (see structure <a class="normal" href="TelemetrySCSExample_telemetry_mem.TSCSExm_TelemetryMemState.html">TSCSExm_TelemetryMemState</a>).<br> Actual location where to store the value is passed in parameter <code>UserData</code>. When <code>Value</code> parameter is not assigned, zero is stored. <br> For details on parameters, see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ChannelHandler">TTelemetryRecipientBinder.ChannelHandler</a>.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; const Name: TelemetryString; ID: <a  href="TelemetryIDs.html#TConfigID">TConfigID</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
+<td class="itemcode"><a name="ConfigHandler"></a><code>procedure <b>ConfigHandler</b>(Sender: TObject; ConfigReference: <a  href="TelemetryCommon.TConfigReference.html">TConfigReference</a>; Index: scs_u32_t; Value: <a  href="TelemetryCommon.scs_value_localized_t.html">scs_value_localized_t</a>); override;</code></td>
 </tr>
 <tr><td colspan="2">
-&nbsp;</td></tr>
+<p>
+Does nothing in this implementation.<br> For details see <a class="normal" href="TelemetryRecipientBinder.TTelemetryRecipientBinder.html#ConfigHandler">TTelemetryRecipientBinder.ConfigHandler</a>.</p>
+</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

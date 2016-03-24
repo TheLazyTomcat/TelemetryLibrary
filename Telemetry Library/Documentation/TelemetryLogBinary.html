@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryLogBinary</title>
+<title>Telemetry library: TelemetryLogBinary</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -19,14 +19,16 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <p><b>TelemetryLogBinary</b>
 
-<p>©František Milt, all rights reserved.
+<p>©2013-2016 František Milt, all rights reserved.
+
+<p>Last change: 2016-03-20
 
 <p>This unit contains classes that are designed to write binary logs, namely: </p>
 
 <pre class="preformatted">
   TTelemetryLogBinaryWriter
-   |- TTelemetryLogBinaryWriter_1
-       |- TTelemetryLogBinaryWriter_0
+   |- TTelemetryLogBinaryWriter_0
+       |- TTelemetryLogBinaryWriter_1
 
   TTelemetryLogBinaryStream
    |- TTelemetryLogBinaryFile
@@ -34,49 +36,11 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <p>
 
-<p>Last change: 2015-07-01
-
-<p>Change List:</p>
-
-<ul class="paragraph_spacing">
-  <li><p>2014-05-18 - First stable version.</p></li>
-  <li><p>2014-10-24 - Small implementation changes.</p></li>
-  <li><p>2014-11-05 - Type of parameter <code>Size</code> changed from signed to unsigned integer in following functions:</p>
-
-<ul class="compact_spacing">
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter.html#LogData">TTelemetryLogBinaryWriter.LogData</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html#LogData">TTelemetryLogBinaryWriter_1.LogData</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#LogData">TTelemetryLogBinaryStream.LogData</a></p></li>
-</ul>
-
-<p></p></li>
-  <li><p>2014-11-05 - Added parameter <code>UserData</code> to following methods: </p>
-
-<ul class="compact_spacing">
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventRegisterHandler">TTelemetryLogBinaryStream.EventRegisterHandler</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventUnregisterHandler">TTelemetryLogBinaryStream.EventUnregisterHandler</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#EventHandler">TTelemetryLogBinaryStream.EventHandler</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelRegisterHandler">TTelemetryLogBinaryStream.ChannelRegisterHandler</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelUnregisterHandler">TTelemetryLogBinaryStream.ChannelUnregisterHandler</a></p></li>
-  <li><p><a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html#ChannelHandler">TTelemetryLogBinaryStream.ChannelHandler</a></p></li>
-</ul>
-
-<p></p></li>
-  <li><p>2015-06-30 - Constant <code>cMinimumAPIInfoSectionSize</code> renamed to <a class="normal" href="TelemetryLogBinary.html#MinimumAPIInfoSectionSize">MinimumAPIInfoSectionSize</a>.</p></li>
-  <li><p>2015-06-30 - Constant <code>LB_MAGIC_NUMBER</code> renamed to <a class="normal" href="TelemetryLogBinary.html#LB_SIGNATURE">LB_SIGNATURE</a>.</p></li>
-  <li><p>2015-06-30 - Class <code>TTelemetryLogBinaryWriter_0_1</code> renamed to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html">TTelemetryLogBinaryWriter_1</a> as it now writes only structure 1.</p></li>
-  <li><p>2015-06-30 - Added class <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html">TTelemetryLogBinaryWriter_0</a> for writing structure 0.</p></li>
-  <li><p>2015-07-01 - Small implementation changes.</p></li>
-</ul>
-
-<p>
-
 <p>ToDo:</p>
 
 <ul class="paragraph_spacing">
-  <li><p>Add 64bit variant of structure 0 (64bit blocks offsets).</p></li>
+  <li><p>Add 64bit variant of structure 1 (64bit blocks offsets).</p></li>
   <li><p>Add structure that saves data in some compressed format.</p></li>
-  <li><p>Optimize reallocation and saving of block offset table.</p></li>
 </ul>
 
 <p>
@@ -99,7 +63,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
     Reserved field 2    4 bytes
 </pre>
 
-<p> Each file must start with this header and API informations section, if it is smaller (minimum size of API info section is 16 bytes), then it is broken. Also, each valid file must start with valid magic number (<code>0x6C624C54</code>).<br> Time of creation is the local system time when the header was saved. It is stored as TTimeStamp structure which is declared as follows: </p>
+<p> Each file must start with this header and API information section, if it is smaller (minimum size of API info section is 16 bytes), then it is broken. Also, each valid file must start with valid magic number (<code>0x6C624C54</code>).<br> Time of creation is the local system time when the header was saved. It is stored as TTimeStamp structure which is declared as follows: </p>
 
 <pre class="preformatted">
     value |   size   | value type
@@ -108,9 +72,9 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
     Date    4 bytes     32b int
 </pre>
 
-<p> ...where Time is number of milliseconds that have elapsed since midnight, and Date indicates the number of calendar days since the start of the calendar (the number of days since 1/1/0001 plus one). Data structure determines how content of the file looks like after the API informations section.<br> Do not use reserved fields and do not assume nothing about their content!
+<p> ...where Time is number of milliseconds that have elapsed since midnight, and Date indicates the number of calendar days since the start of the calendar (the number of days since 1/1/0001 plus one).<br> Data structure determines how content of the file looks like after the API information section.<br> Do not use reserved fields and do not assume nothing about their content!
 
-<p>After the header, API informations are stored. They are not part of the header because they have variable size - you have to write or read each field at a time. They are be used when reading the file, for example when there is need to convert item IDs to valid item names. These informations are stored as follows: </p>
+<p>After the header, API information are stored. They are not part of the header because they have variable size - you have to write or read each field at a time. They are used when reading the file, for example when there is need to convert item IDs to valid item names. These information are stored as follows: </p>
 
 <pre class="preformatted">
        value          |   size   |  value type
@@ -123,7 +87,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <p>
 
-<p>After that, actual log data are stored (note - there might be no data at all), their actual structure depends on selected data structure.<br> Right now, two structures are implemented - structure 0 and structure 1. Structure 1 is exactly the same as structure 0, only it does not contain table of block offsets at the end, so it won't be described in detail - you can refer to structure 0 for informations and just ommit blocks offsets info.
+<p>After that, actual log data are stored (note - there might be no data at all), their actual structure depends on selected data structure.<br> Right now, two structures are implemented - structure 0 and structure 1. Only difference between them is, that structure 1 contains table of blocks offsets which can be used for random-access reading of individual blocks.
 
 <p>Strings are stored in the file as following structure: </p>
 
@@ -153,7 +117,24 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
     Block payload size   2 bytes    16b uint
 </pre>
 
-<p> Block type denotes structure and kind of data stored inside payload of the block (see further).<br> Currently, two block flags are defined, but some new can be added in the future. See further for details about idividual flags.<br> Block time stores time when the block was added to the output (for technicalities, refer to file header <code>Time of creation</code> field, as it is stored the same way).<br> Block payload size is size of data this block is holding in bytes. It can be zero. When reading the block, position in stream must advance exactly by the number of bytes stored in this field, no more, no less. When stored payload size indicates that reading should go beyond end of file, you have to stop reading and assume the file is corrupted from current block onwards. Also, when stored payload size does not correspond to actual data that should be stored (eg. size is smaller than space required for expected structure), you must stop reading.
+<p> Block type denotes structure and kind of data stored inside payload of the block (see further).<br>
+
+<p>Currently, two block flags are defined, but some new can be added in the future. See further for details about idividual flags.
+
+<p>Defined block flags: </p>
+
+<ul class="paragraph_spacing">
+  <li><p>bit 0 (0x01) - Reserved<br> Ignore this bit.</p></li>
+  <li><p>bit 1 (0x02) - ID only <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_FLAG_IDONLY">LB_BLOCK_FLAG_IDONLY</a>)</code><br> Indicating whether channel block is stored with ID instead of full name. Valid only for block types 7 through 9, ignored for other blocks.</p></li>
+  <li><p>bit 2 (0x04) - Minimized <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_FLAG_MINIMIZED">LB_BLOCK_FLAG_MINIMIZED</a>)</code><br> Indicating whether <code>scs_value_t</code> structure or its alternatives are stored minimized. Valid only for block types 6, 9 and 10, ignored for other blocks.</p></li>
+  <li><p>bits 3 through 7 - Reserved<br> Ignore these bits.</p></li>
+</ul>
+
+<p>
+
+<p>Block time stores time when the block was added to the output (for technicalities, refer to file header <code>Time of creation</code> field, as it is stored the same way).
+
+<p>Block payload size is size of data this block is holding in bytes. It can be zero. When reading the block, position in stream must advance exactly by the number of bytes stored in this field, no more, no less. When stored payload size indicates that reading should go beyond end of file, you have to stop reading and assume the file is corrupted from current block onwards. Also, when stored payload size does not correspond to actual data that should be stored (eg. size is smaller than space required for expected structure), you must stop reading.
 
 <p>Each block type can be present any number of times in the output stream, or not present at all. All blocks must be saved in consecutive order, it is not allowed that any block is time-stamped earlier than block preceding it in the stream.
 
@@ -171,7 +152,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p>Contains one string. Nothing more.</p></li>
   <li><p>Block type 0x03 (dec 003) - Log block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_LOG">LB_BLOCK_TYPE_LOG</a>)</code>
 
-<p>Contains informations about a write to game log (console).
+<p>Contains information about a write to game log (console).
 
 <p>Structure of payload: </p>
 
@@ -185,7 +166,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p></p></li>
   <li><p>Block type 0x04 (dec 004) - Event registration block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_EVENTREG">LB_BLOCK_TYPE_EVENTREG</a>)</code>
 
-<p>Informations about registered game event.
+<p>Information about registered game event.
 
 <p>Structure of payload: </p>
 
@@ -198,7 +179,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p></p></li>
   <li><p>Block type 0x05 (dec 005) - Event unregistration block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_EVENTUNREG">LB_BLOCK_TYPE_EVENTUNREG</a>)</code>
 
-<p>Informations about unregistered game event.
+<p>Information about unregistered game event.
 
 <p>Structure of payload: </p>
 
@@ -211,7 +192,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p></p></li>
   <li><p>Block type 0x06 (dec 006) - Event block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_EVENT">LB_BLOCK_TYPE_EVENT</a>)</code>
 
-<p>Informations about occuring game event.
+<p>Information about occuring game event.
 
 <p>Structure of payload: </p>
 
@@ -232,7 +213,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p></p></li>
   <li><p>Block type 0x07 (dec 007) - Channel registration block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_CHANNELREG">LB_BLOCK_TYPE_CHANNELREG</a>)</code>
 
-<p>Informations about registered channel.
+<p>Information about registered channel.
 
 <p>Structure of payload: </p>
 
@@ -257,7 +238,7 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p></p></li>
   <li><p>Block type 0x08 (dec 008) - Channel unregistration block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_CHANNELUNREG">LB_BLOCK_TYPE_CHANNELUNREG</a>)</code>
 
-<p>Informations about unregistered channel.
+<p>Information about unregistered channel.
 
 <p>Structure of payload: </p>
 
@@ -280,10 +261,25 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <p></p></li>
   <li><p>Block type 0x09 (dec 009) - Channel block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_CHANNEL">LB_BLOCK_TYPE_CHANNEL</a>)</code>
 
-<p>Informations about occuring channel and its value.<br> Data are stored using function <a class="normal" href="TelemetryStreaming.html#Stream_Write_scs_named_value_localized">Stream_Write_scs_named_value_localized</a> or its alternatives, refer to this function for informations regarding resulting data layout. </p></li>
+<p>Information about occuring channel and its value.<br> Data are stored using function <a class="normal" href="TelemetryStreaming.html#Stream_Write_scs_named_value_localized">Stream_Write_scs_named_value_localized</a> or its alternatives, refer to this function for information regarding resulting data layout. </p></li>
   <li><p>Block type 0x0A (dec 010) - Config block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_CONFIG">LB_BLOCK_TYPE_CONFIG</a>)</code>
 
-<p>Contains informations about stored config including its value.<br> Data are stored using function <a class="normal" href="TelemetryStreaming.html#Stream_Write_scs_named_value_localized">Stream_Write_scs_named_value_localized</a> or its alternatives, refer to this function for informations regarding resulting data layout. </p></li>
+<p>Contains information about stored config including its value.
+
+<p>Structure of payload: </p>
+
+<pre class="preformatted">
+    value      |   size   |  value type
+
+    ID           variable     String
+    AttrName     variable     String
+    Index        4 bytes      scs_u32_t
+    Value        variable     scs_value_localized_t
+</pre>
+
+<p>
+
+<p>Field <code>Value</code> is stored using function <a class="normal" href="TelemetryStreaming.html#Stream_Write_scs_value_localized">Stream_Write_scs_value_localized</a>, refer to it for information about resulting memory layout. </p></li>
   <li><p>Block type 0xFF (dec 255) - Termination block <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_TYPE_TERMINATE">LB_BLOCK_TYPE_TERMINATE</a>)</code>
 
 <p>Should not contain any data. When the file is read sequentially, reading must stop on this block, even when not at the end of the file. This block is put directly in front of blocks offsets table. </p></li>
@@ -291,18 +287,13 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 
 <p>
 
-<p>Defined block flags: </p>
+<p><hr>
 
-<ul class="paragraph_spacing">
-  <li><p>bit 0 (0x01) - Reserved<br> Ignore this bit.</p></li>
-  <li><p>bit 1 (0x02) - ID only <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_FLAG_IDONLY">LB_BLOCK_FLAG_IDONLY</a>)</code><br> Indicating whether channel or config block is stored with ID instead of full name. Valid only for block types 4 through 8, ignored for other blocks.</p></li>
-  <li><p>bit 2 (0x04) - Minimized <code>(<a class="normal" href="TelemetryLogBinary.html#LB_BLOCK_FLAG_MINIMIZED">LB_BLOCK_FLAG_MINIMIZED</a>)</code><br> Indicating whether <code>scs_value_t</code> structure or its alternatives are stored minimized. Valid only for block types 4, 7 and 8, ignored for other blocks.</p></li>
-  <li><p>bits 3 through 7 - Reserved<br> Ignore these bits.</p></li>
-</ul>
+<p><b>Structure 1</b>
 
-<p>
+<p>Data in structure 1 are stored exactly the same as in structure 0. Only difference is, that structure 1 stores table of blocks offsets at the end of file. You can refer to structure 0 definition for information about structure 1 basic layout.
 
-<p>At the end of the file is stored table of blocks offsets. It contains offsets of all blocks stored in file from the start of the file, in bytes. This table is always directly preceded by a termination block, so the resulting structure is: </p>
+<p>At the end of the file a table of blocks offsets is stored. It contains offsets of all blocks stored in file from the start of the file, in bytes. This table is always directly preceded by a termination block, so the resulting structure is: </p>
 
 <pre class="preformatted">
           value       |   size   |  value type
@@ -313,19 +304,13 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
     Control number      4 bytes     32b uint (must be equal to 0x616F4C54)
 </pre>
 
-<p> Termination block is there for cases when the file is read sequentially, so the reading does not continue into the table and data in it are not processed as blocks.<br> Count contains number of items in offsets array. Items in this array are 32bit unsigned integers, so actual size of array in bytes is 4 * Count. This count can be 0.<br> At the end of file, a control number is stored. It must be equal to <code>0x616F4C54</code>, if it isn't, you must assume that the file does not actually contain table of block offsets and read it as it were a file of structure 1. Since the table is stored when the file is closed, it might happed that the table is not stored, for example when logger was prematurely terminated by an error or by user intervention.
+<p> Termination block is there for cases when the file is read sequentially, so the reading does not continue into the table and data in it are not processed as blocks.<br> Count contains number of items in offsets array. Items in this array are 32bit unsigned integers, so actual size of array in bytes is 4 * Count. This count can be 0.<br> At the end of file, a control number is stored. It must be equal to <code>0x616F4C54</code>, if it isn't, you must assume that the file does not actually contain table of block offsets and read it as if it were a file of structure 0. Since the table is stored when the file is closed, it might happen that the table is not stored, for example when logger was prematurely terminated by an error or by user intervention.
 
-<p>Structure 0 diagram: <div align="center"> <img src="image_0.png" alt="tlb_struct_0" /> </div>
-
-<p><hr>
-
-<p><b>Structure 1</b>
-
-<p>Data in structure 1 are stored exactly the same as in structure 0. Only difference is, that structure 1 does not store table of block offsets at the end of file.<br> You can refer to structure 0 definition for informations about structure 1 resulting layout, just ommit the offsets table.
+<p>Structure 1 diagram: <div align="center"> <img src="image_0.png" alt="tlb_struct_1" /> </div>
 
 <p><hr></p>
 <a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryIDs.html">TelemetryIDs</a></li><li><a  href="TelemetryRecipient.html">TelemetryRecipient</a></li><li><a  href="TelemetryRecipientBinder.html">TelemetryRecipientBinder</a></li><li><a  href="TelemetryConversions.html">TelemetryConversions</a></li><li><a  href="TelemetryStreaming.html">TelemetryStreaming</a></li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li><a  href="TelemetryCommon.html">TelemetryCommon</a></li><li><a  href="TelemetryIDs.html">TelemetryIDs</a></li><li><a  href="TelemetryRecipient.html">TelemetryRecipient</a></li><li><a  href="TelemetryRecipientBinder.html">TelemetryRecipientBinder</a></li><li><a  href="TelemetryConversions.html">TelemetryConversions</a></li><li><a  href="TelemetryStreaming.html">TelemetryStreaming</a></li></ul><h2 class="overview">Overview</h2>
 <a name="PasDoc-Classes"></a><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
 <table class="classestable wide_list">
 <tr class="listheader">
@@ -338,11 +323,11 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 </tr>
 <tr class="list2">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryAPIInfo.html"><code>TTelemetryLogBinaryAPIInfo</code></a></td>
-<td class="itemdesc">Structure used to store informations about telemetry API (versions, ID, ...).</td>
+<td class="itemdesc">Structure used to store information about telemetry API (versions, ID, ...).</td>
 </tr>
 <tr class="list">
 <td class="itemname">record&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryFileInfo.html"><code>TTelemetryLogBinaryFileInfo</code></a></td>
-<td class="itemdesc">Structure used to store informations about binary log file.</td>
+<td class="itemdesc">Structure used to store information about binary log file.</td>
 </tr>
 <tr class="list2">
 <td class="itemname">packed record&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryBlockHeader.html"><code>TTelemetryLogBinaryBlockHeader</code></a></td>
@@ -353,12 +338,12 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <td class="itemdesc">Base class for all writers used to write binary logs.</td>
 </tr>
 <tr class="list2">
-<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html"><code>TTelemetryLogBinaryWriter_1</code></a></td>
-<td class="itemdesc">Writer class used to write binary log of structure 1.</td>
-</tr>
-<tr class="list">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_0.html"><code>TTelemetryLogBinaryWriter_0</code></a></td>
 <td class="itemdesc">Writer class used to write binary log of structure 0.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryWriter_1.html"><code>TTelemetryLogBinaryWriter_1</code></a></td>
+<td class="itemdesc">Writer class used to write binary log of structure 1.</td>
 </tr>
 <tr class="list2">
 <td class="itemname">Class&nbsp;<a class="bold" href="TelemetryLogBinary.TTelemetryLogBinaryStream.html"><code>TTelemetryLogBinaryStream</code></a></td>
@@ -387,10 +372,10 @@ Contains classes designed to log telemetry API traffic to a binary output.</p>
 <a name="PasDoc-Constants"></a><h3 class="summary">Constants</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_SIGNATURE">LB_SIGNATURE</a></b>             = $6C624C54;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_SIGNATURE">LB_SIGNATURE</a></b>             = UInt32($6C624C54);</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_STRUCT0_CONTROLNUMBER">LB_STRUCT0_CONTROLNUMBER</a></b> = $616F4C54;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_STRUCT0_CONTROLNUMBER">LB_STRUCT0_CONTROLNUMBER</a></b> = UInt32($616F4C54);</code></td>
 </tr>
 <tr class="list">
 <td class="itemcode"><code><b><a  href="TelemetryLogBinary.html#LB_BLOCK_TYPE_INVALID">LB_BLOCK_TYPE_INVALID</a></b>       = $00;</code></td>
@@ -479,7 +464,7 @@ Pointer to <a class="normal" href="TelemetryLogBinary.TTelemetryLogBinaryBlockHe
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="LB_SIGNATURE"></a><code><b>LB_SIGNATURE</b>             = $6C624C54;</code></td>
+<td class="itemcode"><a name="LB_SIGNATURE"></a><code><b>LB_SIGNATURE</b>             = UInt32($6C624C54);</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -488,11 +473,11 @@ Magic number (file signature) for binary log output.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="LB_STRUCT0_CONTROLNUMBER"></a><code><b>LB_STRUCT0_CONTROLNUMBER</b> = $616F4C54;</code></td>
+<td class="itemcode"><a name="LB_STRUCT0_CONTROLNUMBER"></a><code><b>LB_STRUCT0_CONTROLNUMBER</b> = UInt32($616F4C54);</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
-Control number for structure 0 table of blocks offsets.</p>
+Control number marking table of blocks offsets in structure 1.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -640,9 +625,9 @@ Minimum number of bytes required to store API information section.</p>
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-2015-07-01
+2016-03-20
 </p>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:56</em>
 </span>
 
 </body>

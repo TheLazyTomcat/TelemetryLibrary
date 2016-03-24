@@ -36,7 +36,7 @@ lazbuild -B --bm=Debug_win_x64 telemetry_mem.lpi
 
 
 cd "..\..\telemetry_mem_reader\Delphi" 
-dcc32.exe -Q -B TelemetryMemReader.dpr
+dcc32.exe -Q -B telemetry_mem_reader.dpr
 
 cd "..\Lazarus"
 lazbuild -B --bm=Release_win_x86 telemetry_mem_reader.lpi

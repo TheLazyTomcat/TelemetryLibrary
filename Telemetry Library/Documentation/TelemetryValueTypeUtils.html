@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
-<title>SCS Telemetry library: TelemetryValueTypeUtils</title>
+<title>Telemetry library: TelemetryValueTypeUtils</title>
 <meta name="generator" content="PasDoc 0.13.0">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
@@ -13,32 +13,40 @@
 <td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Uses">Uses</a></td><td>Classes, Interfaces, Objects and Records</td><td><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></td><td><a class="section" href="#PasDoc-Types">Types</a></td><td><a class="section" href="#PasDoc-Constants">Constants</a></td><td>Variables</td></tr></table>
 <a name="PasDoc-Description"></a><h2 class="description">Description</h2>
 <p>
-todo: documentation</p>
+Provides types, constants and routines used for manipulation with value types.</p>
 <p>
+<hr>    
 
+<p><b>TelemetryValueTypeUtils</b>
 
-<p></p>
+<p>©2013-2016 František Milt, all rights reserved.
+
+<p>Last change: 2016-03-20
+
+<p>Each telemetry channel has a primary type, which is a native type for such channel. But telemetry is also able to provide value of some channels as a secondary type when registered so, eg. as 64bit integer for a channel whose native type is a 32bit integer.<br> Following is table of secondary types for each existing primary type (&quot;/&quot; means this primary type does not allow any secondary type to be used): </p>
 
 <pre class="preformatted">
-    primary type                  secondary types
-
-  SCS_VALUE_TYPE_bool       -&gt;  /
-  SCS_VALUE_TYPE_s32        -&gt;  /
-  SCS_VALUE_TYPE_u32        -&gt;  u64
-  SCS_VALUE_TYPE_u64        -&gt;  /
-  SCS_VALUE_TYPE_float      -&gt;  double
-  SCS_VALUE_TYPE_double     -&gt;  float
-  SCS_VALUE_TYPE_fvector    -&gt;  dvector
-  SCS_VALUE_TYPE_dvector    -&gt;  fvector
-  SCS_VALUE_TYPE_euler      -&gt;  /
-  SCS_VALUE_TYPE_fplacement -&gt;  dplacement, fvector, dvector, euler
-  SCS_VALUE_TYPE_dplacement -&gt;  fplacement, dvector, fvector, euler
-  SCS_VALUE_TYPE_string     -&gt;  /
+    Primary type             -    Secondary types
+ -------------------------------------------------------------------
+  SCS_VALUE_TYPE_bool        -  /
+  SCS_VALUE_TYPE_s32         -  /
+  SCS_VALUE_TYPE_u32         -  u64
+  SCS_VALUE_TYPE_u64         -  /
+  SCS_VALUE_TYPE_float       -  double
+  SCS_VALUE_TYPE_double      -  float
+  SCS_VALUE_TYPE_fvector     -  dvector
+  SCS_VALUE_TYPE_dvector     -  fvector
+  SCS_VALUE_TYPE_euler       -  /
+  SCS_VALUE_TYPE_fplacement  -  dplacement, fvector, dvector, euler
+  SCS_VALUE_TYPE_dplacement  -  fplacement, dvector, fvector, euler
+  SCS_VALUE_TYPE_string      -  /
 </pre>
 
-<p></p>
+<p> This unit is designed to provide any material (functions, types, ...) needed for identification and registration of secondary types for any telemetry channel.
+
+<p><hr></p>
 <a name="PasDoc-Uses"></a><h2 class="uses">Uses</h2>
-<ul class="useslist"><li>BitOps</li><li><a  href="TelemetryStrings.html">TelemetryStrings</a></li><li>SCS_Telemetry_Condensed</li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li><a  href="TelemetryStrings.html">TelemetryStrings</a></li></ul><h2 class="overview">Overview</h2>
 <a name="PasDoc-FuncsProcs"></a><h3 class="summary">Functions and Procedures</h3>
 <table class="summary wide_list">
 <tr class="list">
@@ -96,19 +104,19 @@ todo: documentation</p>
 <td class="itemcode"><code>procedure <b><a  href="TelemetryValueTypeUtils.html#MakeValidSupportedValueTypesBitmask">MakeValidSupportedValueTypesBitmask</a></b>(var Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; PrimaryValueType: scs_value_type_t);</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SelectSupportedValueTypes</a></b>(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SelectSupportedValueTypes</a></b>(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>Function <b><a  href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SelectSupportedValueTypes</a></b>(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SelectSupportedValueTypes</a></b>(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>Function <b><a  href="TelemetryValueTypeUtils.html#SelectSecondaryValueTypes">SelectSecondaryValueTypes</a></b>(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
+<td class="itemcode"><code>Function <b><a  href="TelemetryValueTypeUtils.html#SelectSecondaryValueTypes">SelectSecondaryValueTypes</a></b>(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: UInt32): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
 </tr>
 </table>
 <a name="PasDoc-Types"></a><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a></b> = LongWord;</code></td>
+<td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a></b> = UInt32;</code></td>
 </tr>
 <tr class="list2">
 <td class="itemcode"><code><b><a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a></b>  = Array[0..SizeOf(<a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>) * 8] of scs_value_type_t;</code></td>
@@ -166,162 +174,603 @@ todo: documentation</p>
 <td class="itemcode"><a name="CompressValueTypesArray"></a><code>procedure <b>CompressValueTypesArray</b>(var ValueTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>);</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Compresses value types array, that is, it moves all valid value types to the start of the array so there are no invalid types between valid ones.</p>
+<p>
+
+
+<p>For example, following array: </p>
+
+<pre class="preformatted">
+  s32, s64, invalid, float, invalid, invalid, double</pre>
+
+<p> will look like this after the compression: </p>
+
+<pre class="preformatted">
+  s32, s64, float, double</pre>
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ValueTypes</dt>
+<dd>Array that has to be comressed.</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValueTypesArrayToStr"></a><code>Function <b>ValueTypesArrayToStr</b>(const ValueTypes: <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>): String;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Produces string listing of all valid types stored in the array.</p>
+<p>
+
+
+<p>It calls <a class="normal" href="TelemetryStrings.html#SCSValueTypeToStr">SCSValueTypeToStr</a> function to get string representation of individual value types.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ValueTypes</dt>
+<dd>Array of types that will be listed.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Listing of valid value types, an enpty string when there is no valid type in the array.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValueTypeBitmask"></a><code>Function <b>ValueTypeBitmask</b>(ValueType: scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns a value type bitmask where bit corresponding to type passed in the parameter <code>ValueType</code> will be set.</p>
+<p>
+
+
+<p>All other bits will be set to 0.<br> For selecting multiple values, use function <a class="normal" href="TelemetryValueTypeUtils.html#ValueTypesBitmask">ValueTypesBitmask</a>.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ValueType</dt>
+<dd>Value type that should be selected.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Value type bitmask where bit corresponding to a desired type is set.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValueTypesBitmask"></a><code>Function <b>ValueTypesBitmask</b>(ValueTypes: Array of scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns a value type bitmask where bits corresponding to types passed in the parameter <code>ValueTypes</code> will be set.</p>
+<p>
+
+
+<p>All other bits will be set to 0.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>ValueType</dt>
+<dd>Array of value types that should be selected.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Value type bitmask where bits corresponding to a desired types are set.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="BitmaskValueType"></a><code>Function <b>BitmaskValueType</b>(Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>): scs_value_type_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns value type corresponding to first set bit (counting from bit 0 up) in the <code>Bitmask</code> parameter.</p>
+<p>
+
+
+<p>If no bit is set, <code>SCS_VALUE_TYPE_INVALID</code> will be returned.<br> For example, for bitmask 0x0000001A (...00011010), <code>SCS_VALUE_TYPE_s32</code> will be returned as it corresponds to bit 1.<br> To obtain all selected types, use function <a class="normal" href="TelemetryValueTypeUtils.html#BitmaskValueTypes">BitmaskValueTypes</a>.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask containing selected type(s).</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">First selected value type from the bitmask.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="BitmaskValueTypes"></a><code>Function <b>BitmaskValueTypes</b>(Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array of all value types selected in the passed bitmask.</p>
+<p>
+
+
+<p>For Example, for bitmask 0x00000009 (...00001001), following array will be returned: </p>
+
+<pre class="preformatted">
+  bool, u64</pre>
+
+<p>
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask containing selected types.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of all selected value types.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="BitmaskValueTypesAddPrimary"></a><code>Function <b>BitmaskValueTypesAddPrimary</b>(Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; PrimaryValueType: scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array of all value types selected in the passed bitmask including passed primary value type.</p>
+<p>
+
+
+<p>Primary value type will be always in the first item, which also means the resulting array will newer be empty if you pass valid primary type. If you pass an invalid type as primary, the array will be empty as the first item will be set to invalid.<br> For Example, for bitmask 0x00000009 (...00001101) and primary type of <code>SCS_VALUE_TYPE_double</code>, following array will be returned: </p>
+
+<pre class="preformatted">
+  double, bool, u32, u64</pre>
+
+<p>
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask containing selected types.</dd>
+<dt>PrimaryValueType</dt>
+<dd>Primary value type added to the result.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of all selected value types with primary value type as the first item.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValueTypeBitmaskAdd"></a><code>Function <b>ValueTypeBitmaskAdd</b>(var Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; ValueType: scs_value_type_t): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Marks value type passed in parameter <code>ValueType</code> as selected (sets the appropriate bit) in a bitmask passed in parameter <code>Bitmask</code>.</p>
+<p>
+
+
+<p>If the requsted type is already selected, then nothing will change.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Value type bitmask in which the value type will be selected.</dd>
+<dt>ValueType</dt>
+<dd>Value type to be selected.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Old selection state of the requested value type.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValueTypeBitmaskRemove"></a><code>Function <b>ValueTypeBitmaskRemove</b>(var Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; ValueType: scs_value_type_t): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Marks value type passed in parameter <code>ValueType</code> as not selected (resets the appropriate bit) in a bitmask passed in parameter <code>Bitmask</code>.</p>
+<p>
+
+
+<p>If the requsted type is not already selected, then nothing will change.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Value type bitmask in which the value type will be unselected.</dd>
+<dt>ValueType</dt>
+<dd>Value type to be unselected.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Old selection state of the requested value type.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SecondaryValueTypesBitmask"></a><code>Function <b>SecondaryValueTypesBitmask</b>(PrimaryValueType: scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns a bitmask where all possible secondary value types for a given primary type are selected (their bits are set).</p>
+<p>
+
+
+<p>For details about which secondary types are bound to any primary type, refer to unit documentation.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Type for which bitmask of all secondary types will be returned.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Bitmask of all secondary value types for a given primary type.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SecondaryValueTypes"></a><code>Function <b>SecondaryValueTypes</b>(PrimaryValueType: scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array of all possible secondary value types for a given primary type.</p>
+<p>
+
+
+<p>For details about which secondary types are bound to any primary type, refer to unit documentation.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Type for which array of all secondary types will be returned.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of all secondary value types for a given primary type.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SecondaryValueTypesCount"></a><code>Function <b>SecondaryValueTypesCount</b>(PrimaryValueType: scs_value_type_t): Integer;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns number of secondary value types for a given primary type.</p>
+<p>
+
+
+<p>Will return 0 if selected primary type does not have any secondary type.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Primary value type for which to return number of secondary types.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Number of secondary value types for selected primary value type.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SupportedValueTypesBitmask"></a><code>Function <b>SupportedValueTypesBitmask</b>(PrimaryValueType: scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns a bitmask where all possible secondary value types for a given primary type and the primary type itself are selected (their bits are set).
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Type for which secondary types will be selected.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Bitmask of all secondary value types plus the primary type itself.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="SupportedValueTypes"></a><code>Function <b>SupportedValueTypes</b>(PrimaryValueType: scs_value_type_t): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array that contains all possible secondary value types for a given primary type and the primary type itself.</p>
+<p>
+
+
+<p>Primary type is always stored in the first item.
+
+<p>
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Type for which secondary types will be selected.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of all secondary value types plus the primary type itself.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValidateSecondaryValueTypesBitmask"></a><code>Function <b>ValidateSecondaryValueTypesBitmask</b>(Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; PrimaryValueType: scs_value_type_t): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Checks whether selected types in a given bitmask are all secondaries for a passed primary value type.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask that will be checked.</dd>
+<dt>PrimaryValueType</dt>
+<dd>Type for which the selected secondary types are checked.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when all selected types are secondary types for a given primary type, <code>False</code> otherwise.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="ValidateSupportedValueTypesBitmask"></a><code>Function <b>ValidateSupportedValueTypesBitmask</b>(Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; PrimaryValueType: scs_value_type_t): Boolean;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Checks whether selected types in a given bitmask are all secondaries for a passed primary value type, or the primary itself.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask that will be checked.</dd>
+<dt>PrimaryValueType</dt>
+<dd>Type for which the selected types are checked.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> when all selected types are secondary types or the primary itself, <code>False</code> otherwise.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="MakeValidSecondaryValueTypesBitmask"></a><code>procedure <b>MakeValidSecondaryValueTypesBitmask</b>(var Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; PrimaryValueType: scs_value_type_t);</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Unselects all selected types that does not belong between secondaries of the selected primary type.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask where the types are checked an unselected.</dd>
+<dt>PrimaryValueType</dt>
+<dd>Type for which the selected types are checked.</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="MakeValidSupportedValueTypesBitmask"></a><code>procedure <b>MakeValidSupportedValueTypesBitmask</b>(var Bitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; PrimaryValueType: scs_value_type_t);</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Unselects all selected types that either does not belong between secondaries of the selected primary type, or are not the primary itself.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Bitmask</dt>
+<dd>Bitmask where the types are checked an unselected.</dd>
+<dt>PrimaryValueType</dt>
+<dd>Type for which the selected types are checked.</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SelectSupportedValueTypes"></a><code>Function <b>SelectSupportedValueTypes</b>(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
+<td class="itemcode"><a name="SelectSupportedValueTypes"></a><code>Function <b>SelectSupportedValueTypes</b>(PrimaryValueType: scs_value_type_t; SecondaryValueTypesBitmask: <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array of value types supported by a selected primary type according to a selection mask.</p>
+<p>
+
+
+<p>Array is constructed in the following way:</p>
+
+<ul class="paragraph_spacing">
+  <li><p>The array is emptied (all items are set to <code>SCS_VALUE_TYPE_INVALID</code>)</p></li>
+  <li><p>If <code>SelectPrimary</code> is <code>True</code>, then first item is set to a passed primary value type</p></li>
+  <li><p>Other items are filled from parameter <code>SecondaryValueTypesBitmask</code></p></li>
+  <li><p>All items in the array (excluding the primary if it is selected) are checked against corresponding bit in the selection mask, when the bit is not set, they are removed from the array</p></li>
+  <li><p>The array is compressed</p></li>
+</ul>
+
+<p>
+
+<p>Let's explain more it on some examples:</p>
+
+<ul class="paragraph_spacing">
+  <li><p><b>Example 1</b>
+
+<p><code>PrimaryValueType</code> = <code>SCS_VALUE_TYPE_fplacement</code><br> <code>SecondaryValueTypesBitmask</code> = 0x000005C0 (...0000010111000000)<br> <code>SelectPrimary</code> = <code>True</code><br> <code>SecondarySelectionMask</code> = 0x00000005 (...00000101)
+
+<p>Intermediate array will look like so: </p>
+
+<pre class="preformatted">
+  fplacement, fvector, dvector, euler, dplacement</pre>
+
+<p>
+
+<p>Then a selection mask is applied (remember that primary type is selected and it cannot be removed, so the selection mask is applied from second item) with this result: </p>
+
+<pre class="preformatted">
+  fplacement, fvector, invalid, euler, invalid</pre>
+
+<p>
+
+<p>And finally, after compression, the result is: </p>
+
+<pre class="preformatted">
+  fplacement, fvector, euler</pre>
+
+<p></p></li>
+  <li><p><b>Example 2</b>
+
+<p><code>PrimaryValueType</code> = <code>SCS_VALUE_TYPE_dplacement</code><br> <code>SecondaryValueTypesBitmask</code> = 0x000002C0 (...0000001011000000)<br> <code>SelectPrimary</code> = <code>False</code><br> <code>SecondarySelectionMask</code> = 0x00000001 (...0000001)
+
+<p>Intermediate array: </p>
+
+<pre class="preformatted">
+  fvector, dvector, dplacement</pre>
+
+<p>
+
+<p>After selection mask is applied, final result is: </p>
+
+<pre class="preformatted">
+  fvector</pre>
+
+<p></p></li>
+</ul>
+
+<p>
+
+<p>   
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Primary value type. Can be set to <code>SCS_VALUE_TYPE_INVALID</code> if <code>SelectPrimary</code> is set to <code>False</code>.</dd>
+<dt>SecondaryValueTypesBitmask</dt>
+<dd>Bitmask selecting secondary types to be included in the result.</dd>
+<dt>SelectPrimary</dt>
+<dd>When se to <code>True</code>, the type passed as primary will be included in the result.</dd>
+<dt>SecondarySelectionMask</dt>
+<dd>Bitmask selecting secondary value types. Note that primary type is not affected by this mask.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of value types that is build according to passed parameters.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SelectSupportedValueTypes"></a><code>Function <b>SelectSupportedValueTypes</b>(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: LongWord): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
+<td class="itemcode"><a name="SelectSupportedValueTypes"></a><code>Function <b>SelectSupportedValueTypes</b>(PrimaryValueType: scs_value_type_t; SelectPrimary: Boolean; SecondarySelectionMask: UInt32): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>; overload;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array of value types supported by a selected primary type according to a selection mask.</p>
+<p>
+
+
+<p>Calls previous variant of this function, with the parameter <code>SecondaryValueTypesBitmask</code> filled by a function <a class="normal" href="TelemetryValueTypeUtils.html#SecondaryValueTypesBitmask">SecondaryValueTypesBitmask</a> called with its parameter <code>PrimaryValueType</code> set to a value from local parameter of the same name.<br> For more details, refer to mentioned function.
+
+<p>  
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Primary value type. Can be set to <code>SCS_VALUE_TYPE_INVALID</code> if <code>SelectPrimary</code> is set to <code>False</code>.</dd>
+<dt>SelectPrimary</dt>
+<dd>When se to <code>True</code>, the type passed as primary will be included in the result.</dd>
+<dt>SecondarySelectionMask</dt>
+<dd>Bitmask selecting secondary value types. Note that primary type is not affected by this mask.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of value types that is build according to passed parameters.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="SelectSecondaryValueTypes"></a><code>Function <b>SelectSecondaryValueTypes</b>(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: LongWord): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
+<td class="itemcode"><a name="SelectSecondaryValueTypes"></a><code>Function <b>SelectSecondaryValueTypes</b>(PrimaryValueType: scs_value_type_t; SecondarySelectionMask: UInt32): <a  href="TelemetryValueTypeUtils.html#TValueTypesArray">TValueTypesArray</a>;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Returns an array of secondary value types of a selected primary type according to a selection mask.</p>
+<p>
+
+
+<p>Calls first variant of this function, with the parameter <code>SecondaryValueTypesBitmask</code> filled by a function <a class="normal" href="TelemetryValueTypeUtils.html#SecondaryValueTypesBitmask">SecondaryValueTypesBitmask</a> called with its parameter <code>PrimaryValueType</code> set to a value from local parameter of the same name, and parameter <code>SelectPrimary</code> set to <code>False</code>.<br> For more details, refer to mentioned function.
+
+<p> 
+
+<p></p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>PrimaryValueType</dt>
+<dd>Primary value type for required secondaries.</dd>
+<dt>SecondarySelectionMask</dt>
+<dd>Bitmask selecting secondary value types.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Array of value types that is build according to passed parameters.</p></td></tr>
 </table>
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="TValueTypeBitmask"></a><code><b>TValueTypeBitmask</b> = LongWord;</code></td>
+<td class="itemcode"><a name="TValueTypeBitmask"></a><code><b>TValueTypeBitmask</b> = UInt32;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Bitmask type used to identify any number of value types.</p>
+<p>
+
+
+<p>Each bit in this bitmask corresponds to exactly one known value type. When a particular bit is set, it means such type is used or selected. Currently, individual bits are mapped as follows: </p>
+
+<pre class="preformatted">
+    bit 0   - SCS_VALUE_TYPE_bool
+    bit 1   - SCS_VALUE_TYPE_s32
+    bit 2   - SCS_VALUE_TYPE_u32
+    bit 3   - SCS_VALUE_TYPE_u64
+    bit 4   - SCS_VALUE_TYPE_float
+    bit 5   - SCS_VALUE_TYPE_double
+    bit 6   - SCS_VALUE_TYPE_fvector
+    bit 7   - SCS_VALUE_TYPE_dvector
+    bit 8   - SCS_VALUE_TYPE_euler
+    bit 9   - SCS_VALUE_TYPE_fplacement
+    bit 10  - SCS_VALUE_TYPE_dplacement
+    bit 11  - SCS_VALUE_TYPE_string
+    bit 12+ - unused
+  </pre>
+
+<p> Note that <code>SCS_VALUE_TYPE_INVALID</code> type is not mapped, hence you cannot use or select it.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TValueTypesArray"></a><code><b>TValueTypesArray</b>  = Array[0..SizeOf(<a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>) * 8] of scs_value_type_t;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+An array type used in the same manner as <a class="normal" href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>, but individual types does not have its hardcoded placement.</p>
+<p>
+
+
+<p>All valid items (types) must be placed at the start of the array, and first item that contains an <code>SCS_VALUE_TYPE_INVALID</code> type marks the end of the array. If the first item in this array is invalid, then whole array should be considered empty.</p>
+</td></tr>
 </table>
 <h3 class="detail">Constants</h3>
 <table class="detail wide_list">
@@ -329,100 +778,140 @@ todo: documentation</p>
 <td class="itemcode"><a name="TVT_REG_SEC_1"></a><code><b>TVT_REG_SEC_1</b>   = 1;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #1.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_2"></a><code><b>TVT_REG_SEC_2</b>   = 2;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #2.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_3"></a><code><b>TVT_REG_SEC_3</b>   = 4;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #3.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_4"></a><code><b>TVT_REG_SEC_4</b>   = 8;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #4.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_5"></a><code><b>TVT_REG_SEC_5</b>   = 16;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #5.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_6"></a><code><b>TVT_REG_SEC_6</b>   = 32;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #6.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_7"></a><code><b>TVT_REG_SEC_7</b>   = 64;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #7.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_8"></a><code><b>TVT_REG_SEC_8</b>   = 128;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #8.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_9"></a><code><b>TVT_REG_SEC_9</b>   = 256;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #9.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_10"></a><code><b>TVT_REG_SEC_10</b>  = 512;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #10.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_11"></a><code><b>TVT_REG_SEC_11</b>  = 1024;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #11.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_12"></a><code><b>TVT_REG_SEC_12</b>  = 2048;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select secondary type #12.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="TVT_REG_SEC_ALL"></a><code><b>TVT_REG_SEC_ALL</b> = $FFFFFFFF;</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Use for parameter <code><a class="normal" href="TelemetryValueTypeUtils.html#SelectSupportedValueTypes">SecondarySelectionMask</a></code> to select all possible secondary types.</p>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="itemcode"><a name="NoValueType"></a><code><b>NoValueType</b> = <a  href="TelemetryValueTypeUtils.html#TValueTypeBitmask">TValueTypeBitmask</a>(0);</code></td>
 </tr>
 <tr><td colspan="1">
-&nbsp;</td></tr>
+<p>
+Empty value type bitmask (ie. no value type is marked as used/selected).</p>
+</td></tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2015-07-09 17:26:53</em>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>František Milt &lt;<a  href="mailto:fmilt@seznam.cz">fmilt@seznam.cz</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+2014-12-03
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+2016-03-20
+</p>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/" target="_blank">PasDoc 0.13.0</a> on 2016-03-24 13:47:57</em>
 </span>
 
 </body>
