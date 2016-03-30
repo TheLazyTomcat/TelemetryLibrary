@@ -175,7 +175,7 @@ Exception being following folders and their entire content:
 ./API Headers/Original source
 
   This folder contains original SDK sources which have their own license. See
-  individual subdirectories for information about actual license.
+  individual archives for information about actual license.
 
 ./Telemetry Library/Documentation
 
