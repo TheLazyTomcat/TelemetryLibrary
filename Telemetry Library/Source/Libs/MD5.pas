@@ -9,29 +9,18 @@
 
   MD5 Hash Calculation
 
-  ©František Milt 2016-03-01
+  ©František Milt 2016-07-10
 
-  Version 1.5.5
+  Version 1.5.6
+
+  Dependencies:
+    AuxTypes - github.com/ncs-sniper/Lib.AuxTypes
+    BitOps   - github.com/ncs-sniper/Lib.BitOps
 
 ===============================================================================}
 unit MD5;
 
 {$DEFINE LargeBuffer}
-
-{$IF defined(CPUX86_64) or defined(CPUX64)}
-  {$DEFINE x64}
-  {$IF not(defined(WINDOWS) or defined(MSWINDOWS))}
-    {$DEFINE PurePascal}
-  {$IFEND}
-{$ELSEIF defined(CPU386)}
-  {$DEFINE x86}
-{$ELSE}
-  {$DEFINE PurePascal}
-{$IFEND}
-
-{$IF defined(FPC) and not defined(PurePascal)}
-  {$ASMMODE Intel}
-{$IFEND}
 
 {$IFDEF ENDIAN_BIG}
   {$MESSAGE FATAL 'Big-endian system not supported'}
@@ -39,6 +28,12 @@ unit MD5;
 
 {$IFOPT Q+}
   {$DEFINE OverflowCheck}
+{$ENDIF}
+
+{$IFDEF FPC}
+  {$MODE ObjFPC}{$H+}
+  // Activate symbol BARE_FPC if you want to compile this unit outside of Lazarus.
+  {.$DEFINE BARE_FPC}
 {$ENDIF}
 
 interface
@@ -69,6 +64,7 @@ Function StrToMD5(Str: String): TMD5Hash;
 Function TryStrToMD5(const Str: String; out Hash: TMD5Hash): Boolean;
 Function StrToMD5Def(const Str: String; Default: TMD5Hash): TMD5Hash;
 Function SameMD5(A,B: TMD5Hash): Boolean;
+Function BinaryCorrectMD5(Hash: TMD5Hash): TMD5Hash;
 
 procedure BufferMD5(var Hash: TMD5Hash; const Buffer; Size: TMemSize); overload;
 Function LastBufferMD5(Hash: TMD5Hash; const Buffer; Size: TMemSize; MessageLength: UInt64): TMD5Hash; overload;
@@ -98,8 +94,8 @@ Function MD5_Hash(const Buffer; Size: TMemSize): TMD5Hash;
 implementation
 
 uses
-  SysUtils, Math
-  {$IF Defined(FPC) and not Defined(Unicode)}
+  SysUtils, Math, BitOps
+  {$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
   (*
     If compiler throws error that LazUTF8 unit cannot be found, you have to
     add LazUtils to required packages (Project > Project Inspector).
@@ -152,23 +148,6 @@ type
 
 //==============================================================================
 
-Function LeftRotate(Value: UInt32; Shift: Byte): UInt32; register; {$IFNDEF PurePascal}assembler;
-asm
-{$IFDEF x64}
-    MOV   EAX,  ECX
-{$ENDIF}
-    MOV   CL,   DL
-    ROL   EAX,  CL
-end;
-{$ELSE}
-begin
-Shift := Shift and $1F;
-Result := UInt32((Value shl Shift) or (Value shr (32 - Shift)));
-end;
-{$ENDIF}
-
-//------------------------------------------------------------------------------
-
 Function ChunkHash(Hash: TMD5Hash; const Chunk): TMD5Hash;
 var
   i:          Integer;
@@ -190,7 +169,7 @@ For i := 0 to 63 do
     Hash.PartD := Hash.PartC;
     Hash.PartC := Hash.PartB;
     {$IFDEF OverflowCheck}{$Q-}{$ENDIF}
-    Hash.PartB := UInt32(Hash.PartB + LeftRotate(UInt32(Hash.PartA + FuncResult + SinusCoefs[i] + ChunkWords[ModuloCoefs[i]]), ShiftCoefs[i]));
+    Hash.PartB := UInt32(Hash.PartB + ROL(UInt32(Hash.PartA + FuncResult + SinusCoefs[i] + ChunkWords[ModuloCoefs[i]]), ShiftCoefs[i]));
     {$IFDEF OverflowCheck}{$Q+}{$ENDIF}
     Hash.PartA := Temp;
   end;
@@ -259,6 +238,13 @@ Function SameMD5(A,B: TMD5Hash): Boolean;
 begin
 Result := (A.PartA = B.PartA) and (A.PartB = B.PartB) and
           (A.PartC = B.PartC) and (A.PartD = B.PartD);
+end;
+
+//------------------------------------------------------------------------------
+
+Function BinaryCorrectMD5(Hash: TMD5Hash): TMD5Hash;
+begin
+Result := Hash;
 end;
 
 //==============================================================================
@@ -385,7 +371,7 @@ Function FileMD5(const FileName: String): TMD5Hash;
 var
   FileStream: TFileStream;
 begin
-{$IF Defined(FPC) and not Defined(Unicode)}
+{$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
 FileStream := TFileStream.Create(UTF8ToSys(FileName), fmOpenRead or fmShareDenyWrite);
 {$ELSE}
 FileStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);

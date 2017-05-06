@@ -7,11 +7,11 @@
 -------------------------------------------------------------------------------}
 {===============================================================================
 
-SimpleLog
+  SimpleLog
 
-©František Milt 2016-03-25
+  ©František Milt 2016-07-12
 
-Version 1.3.5
+  Version 1.3.7
 
 ===============================================================================}
 {$IFNDEF SimpleLog_Include}
@@ -21,6 +21,12 @@ unit SimpleLog;
 {$IF not(defined(MSWINDOWS) or defined(WINDOWS))}
   {$MESSAGE FATAL 'Unsupported operating system.'}
 {$IFEND}
+
+{$IFDEF FPC}
+  {$MODE ObjFPC}{$H+}
+  // Activate symbol BARE_FPC if you want to compile this unit outside of Lazarus.
+  {.$DEFINE BARE_FPC}
+{$ENDIF}
 
 interface
 
@@ -40,7 +46,11 @@ type
     fTimeSeparator:           String;
     fTimeOfCreation:          TDateTime;
     fBreaker:                 String;
-    fHeaderText:              String;
+    fTimeStamp:               String;
+    fStartStamp:              String;
+    fEndStamp:                String;
+    fAppendStamp:             String;
+    fHeader:                  String;
     fIndentNewLines:          Boolean;
     fThreadLocked:            Boolean;
     fInternalLog:             Boolean;
@@ -106,7 +116,11 @@ type
     property TimeSeparator: String read fTimeSeparator write fTimeSeparator;
     property TimeOfCreation: TDateTime read fTimeOfCreation;
     property Breaker: String read fBreaker write fBreaker;
-    property HeaderText: String read fHeaderText write fHeaderText;
+    property TimeStamp: String read fTimeStamp write fTimeStamp;
+    property StartStamp: String read fStartStamp write fStartStamp;
+    property EndStamp: String read fEndStamp write fEndStamp;
+    property AppendStamp: String read fAppendStamp write fAppendStamp;
+    property Header: String read fHeader write fHeader;
     property IndentNewLines: Boolean read fIndentNewLines write fIndentNewLines;
     property ThreadLocked: Boolean read fThreadLocked write fThreadLocked;
     property InternalLog: Boolean read fInternalLog write fInternalLog;
@@ -119,7 +133,7 @@ type
     property ForceTime: Boolean read fForceTime write fForceTime;
     property ForcedTime: TDateTIme read fForcedTime write fForcedTime;
     property LogCounter: Integer read fLogCounter;
-    property InMemoryLogCount: Integer read GetInternalLogCount;
+    property InternalLogCount: Integer read GetInternalLogCount;
     property ExternalLogsCount: Integer read GetExternalLogsCount;
     property OnLog: TLogEvent read fOnLog write fOnLog;
   end;
@@ -144,7 +158,7 @@ implementation
 
 uses
   Windows, StrUtils
-  {$IF Defined(FPC) and not Defined(Unicode)}
+  {$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
   (*
     If compiler throws error that LazUTF8 unit cannot be found, you have to
     add LazUtils to required packages (Project > Project Inspector).
@@ -295,13 +309,18 @@ end;
 
 const
   HeaderLines = '================================================================================';
-  LineLength  = 80;
 
 //--- default settings ---
   def_TimeFormat             = 'yyyy-mm-dd hh:nn:ss.zzz';
   def_TimeSeparator          = ' //: ';
   def_Breaker                = '--------------------------------------------------------------------------------';
-  def_HeaderText             = 'Created by SimpleLog 1.3, (c)2015 Frantisek Milt';
+  def_TimeStamp              = def_Breaker + sLineBreak +  'TimeStamp: %s' + sLineBreak + def_Breaker;
+  def_StartStamp             = def_Breaker + sLineBreak +  '%s - Starting log' + sLineBreak + def_Breaker;
+  def_EndStamp               = def_Breaker + sLineBreak +  '%s - Ending log' + sLineBreak + def_Breaker;
+  def_AppendStamp            = def_Breaker + sLineBreak +  '%s - Appending log' + sLineBreak + def_Breaker;
+  def_Header                 = HeaderLines + sLineBreak +
+                               '              Created by SimpleLog 1.3, (c)2015-2016 Frantisek Milt' +
+                               sLineBreak + HeaderLines;
   def_IndentNewLines         = False;
   def_ThreadLocked           = False;
   def_InternalLog            = True;
@@ -333,12 +352,12 @@ If fStreamToFile <> Value then
     end
   else
     begin
-    {$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701)}
+    {$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701) and not Defined(BARE_FPC)}
       If FileExistsUTF8(fStreamFileName) then
     {$ELSE}
       If FileExists(fStreamFileName) then
     {$IFEND}
-    {$IF Defined(FPC) and not Defined(Unicode)}
+    {$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
         fStreamFile := TFileStream.Create(UTF8ToSys(fStreamFileName),fmOpenReadWrite or fStreamFileAccessRights)
       else
         fStreamFile := TFileStream.Create(UTF8ToSys(fStreamFileName),fmCreate or fStreamFileAccessRights);
@@ -364,12 +383,12 @@ If not AnsiSameText(fStreamFileName,Value) then
       begin
         fStreamFileName := Value;
         FreeAndNil(fStreamFile);
-      {$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701)}
+      {$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701) and not Defined(BARE_FPC)}
         If FileExistsUTF8(fStreamFileName) then
       {$ELSE}
         If FileExists(fStreamFileName) then
       {$IFEND}
-      {$IF Defined(FPC) and not Defined(Unicode)}
+      {$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
           fStreamFile := TFileStream.Create(UTF8ToSys(fStreamFileName),fmOpenReadWrite or fStreamFileAccessRights)
         else
           fStreamFile := TFileStream.Create(UTF8ToSys(fStreamFileName),fmCreate or fStreamFileAccessRights);
@@ -430,7 +449,7 @@ end;
 
 Function TSimpleLog.GetDefaultStreamFileName: String;
 begin
-{$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701)}
+{$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
 Result := SysToUTF8(ParamStr(0)) + '[' + GetTimeAsStr(fTimeOfCreation,'YYYY-MM-DD-HH-NN-SS') + '].log';
 {$ELSE}
 Result := ParamStr(0) + '[' + GetTimeAsStr(fTimeOfCreation,'YYYY-MM-DD-HH-NN-SS') + '].log';
@@ -489,7 +508,11 @@ fTimeFormat := def_TimeFormat;
 fTimeSeparator := def_TimeSeparator;
 fTimeOfCreation := Now;
 fBreaker := def_Breaker;
-fHeaderText := def_HeaderText;
+fTimeStamp := def_TimeStamp;
+fStartStamp := def_StartStamp;
+fEndStamp := def_EndStamp;
+fAppendStamp := def_AppendStamp;
+fHeader := def_Header;
 fIndentNewLines := def_IndentNewLines;
 fThreadLocked := def_ThreadLocked;
 fInternalLog := def_InternalLog;
@@ -594,47 +617,35 @@ end;
 
 procedure TSimpleLog.AddTimeStamp;
 begin
-AddLogNoTime(fBreaker + sLineBreak + 'TimeStamp: ' + GetTimeAsStr(GetCurrentTime) + sLineBreak + fBreaker);
+AddLogNoTime(Format(fTimeStamp,[GetTimeAsStr(GetCurrentTime)]));
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TSimpleLog.AddStartStamp;
 begin
-AddLogNoTime(fBreaker + sLineBreak + GetTimeAsStr(GetCurrentTime) + ' - Starting log...' + sLineBreak + fBreaker);
+AddLogNoTime(Format(fStartStamp,[GetTimeAsStr(GetCurrentTime)]));
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TSimpleLog.AddEndStamp;
 begin
-AddLogNoTime(fBreaker + sLineBreak + GetTimeAsStr(GetCurrentTime) + ' - Ending log.' + sLineBreak + fBreaker);
+AddLogNoTime(Format(fEndStamp,[GetTimeAsStr(GetCurrentTime)]));
 end;
 
 //------------------------------------------------------------------------------
 
 procedure TSimpleLog.AddAppendStamp;
 begin
-AddLogNoTime(fBreaker + sLineBreak + GetTimeAsStr(GetCurrentTime) + ' - Appending log...' + sLineBreak + fBreaker);
+AddLogNoTime(Format(fAppendStamp,[GetTimeAsStr(GetCurrentTime)]));
 end;
  
 //------------------------------------------------------------------------------
 
 procedure TSimpleLog.AddHeader;
-var
-  TempStrings:  TStringList;
-  i:            Integer;
 begin
-TempStrings := TStringList.Create;
-try
-  TempStrings.Text := HeaderText;
-  For i := 0 to (TempStrings.Count - 1) do
-    If Length(TempStrings[i]) < LineLength then
-      TempStrings[i] := StringOfChar(' ', (LineLength - Length(TempStrings[i])) div 2) + TempStrings[i];
-  AddLogNoTime(HeaderLines + sLineBreak + TempStrings.Text + HeaderLines);
-finally
-  TempStrings.Free;
-end;
+AddLogNoTime(fHeader);
 end;
 
 //------------------------------------------------------------------------------
@@ -677,12 +688,12 @@ var
   StringBuffer: String;
 begin
 try
-{$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701)}
+{$IF Defined(FPC) and not Defined(Unicode) and (FPC_FULLVERSION < 20701) and not Defined(BARE_FPC)}
   If FileExistsUTF8(FileName) then
 {$ELSE}
   If FileExists(FileName) then
 {$IFEND}
-{$IF Defined(FPC) and not Defined(Unicode)}
+{$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
     FileStream := TFileStream.Create(UTF8ToSys(FileName),fmOpenReadWrite or fmShareDenyWrite)
   else
     FileStream := TFileStream.Create(UTF8ToSys(FileName),fmCreate or fmShareDenyWrite);
@@ -713,7 +724,7 @@ var
   StringBuffer: String;
 begin
 try
-{$IF Defined(FPC) and not Defined(Unicode)}
+{$IF Defined(FPC) and not Defined(Unicode) and not Defined(BARE_FPC)}
   FileStream := TFileStream.Create(UTF8ToSys(FileName),fmOpenRead or fmShareDenyWrite);
 {$ELSE}
   FileStream := TFileStream.Create(FileName,fmOpenRead or fmShareDenyWrite);

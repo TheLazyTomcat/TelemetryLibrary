@@ -9,12 +9,23 @@
 
   BitOps - Binary operations
 
-  ©František Milt 2016-03-01
+  ©František Milt 2016-12-18
 
-  Version 1.2.6
+  Version 1.5.1
+
+  Dependencies:
+    AuxTypes - github.com/ncs-sniper/Lib.AuxTypes
 
 ===============================================================================}
 unit BitOps;
+
+{$IF defined(CPU64) or defined(CPU64BITS)}
+  {$DEFINE 64bit}
+{$ELSEIF defined(CPU16)}
+  {$MESSAGE FATAL '16bit CPU not supported'}
+{$ELSE}
+  {$DEFINE 32bit}
+{$IFEND}
 
 {$IF defined(CPUX86_64) or defined(CPUX64)}
   {$DEFINE x64}
@@ -30,6 +41,16 @@ unit BitOps;
 {$IF defined(FPC) and not defined(PurePascal)}
   {$ASMMODE Intel}
 {$IFEND}
+
+{
+  When defined, PopCount functions will use lookup table instead of testing each
+  bit in a passed value.
+}
+{$DEFINE UseLookupTable}
+
+{$IFDEF FPC}
+  {$MODE ObjFPC}{$H+}
+{$ENDIF}
 
 interface
 
@@ -263,12 +284,171 @@ Function BSR(Value: UInt64): Integer; overload;
 {                               Population count                               }
 {==============================================================================}
 {------------------------------------------------------------------------------}
-
+{
+  There is a posibility of using POPCNT instruction on x86, but it was added
+  very late and therefore is not supported in many still used CPUs.
+  I have decided to not use it.
+}
 Function PopCount(Value: UInt8): Integer; overload;
 Function PopCount(Value: UInt16): Integer; overload;
 Function PopCount(Value: UInt32): Integer; overload;
 Function PopCount(Value: UInt64): Integer; overload;
 
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                              Nibble manipulation                             }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function GetHighNibble(Value: UInt8): TNibble;
+Function GetLowNibble(Value: UInt8): TNibble;
+
+Function SetHighNibble(Value: UInt8; SetTo: TNibble): UInt8;
+Function SetLowNibble(Value: UInt8; SetTo: TNibble): UInt8;
+
+procedure SetHighNibbleValue(var Value: UInt8; SetTo: TNibble);
+procedure SetLowNibbleValue(var Value: UInt8; SetTo: TNibble);
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                Get flag state                                }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function GetFlagState(Value,FlagBitmask: UInt8; ExactMatch: Boolean = False): Boolean; overload;
+Function GetFlagState(Value,FlagBitmask: UInt16; ExactMatch: Boolean = False): Boolean; overload;
+Function GetFlagState(Value,FlagBitmask: UInt32; ExactMatch: Boolean = False): Boolean; overload;
+Function GetFlagState(Value,FlagBitmask: UInt64; ExactMatch: Boolean = False): Boolean; overload;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                   Set flag                                   }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+{
+  Functions with bits noted in name (*_8, *_16, ...) are there mainly for older
+  versions of Delphi (up to Delphi 2007), because they are not able distinguish
+  what overloaded function to call (problem with open array parameter parsing).
+}
+
+Function SetFlag(Value,FlagBitmask: UInt8): UInt8; overload;
+Function SetFlag(Value,FlagBitmask: UInt16): UInt16; overload;
+Function SetFlag(Value,FlagBitmask: UInt32): UInt32; overload;
+Function SetFlag(Value,FlagBitmask: UInt64): UInt64; overload;
+
+procedure SetFlagValue(var Value: UInt8; FlagBitmask: UInt8); overload;
+procedure SetFlagValue(var Value: UInt16; FlagBitmask: UInt16); overload;
+procedure SetFlagValue(var Value: UInt32; FlagBitmask: UInt32); overload;
+procedure SetFlagValue(var Value: UInt64; FlagBitmask: UInt64); overload;
+
+Function SetFlags_8(Value: UInt8; Flags: array of UInt8): UInt8;
+Function SetFlags_16(Value: UInt16; Flags: array of UInt16): UInt16;
+Function SetFlags_32(Value: UInt32; Flags: array of UInt32): UInt32;
+Function SetFlags_64(Value: UInt64; Flags: array of UInt64): UInt64;
+
+Function SetFlags(Value: UInt8; Flags: array of UInt8): UInt8; overload;
+Function SetFlags(Value: UInt16; Flags: array of UInt16): UInt16; overload;
+Function SetFlags(Value: UInt32; Flags: array of UInt32): UInt32; overload;
+Function SetFlags(Value: UInt64; Flags: array of UInt64): UInt64; overload;
+
+procedure SetFlagsValue_8(var Value: UInt8; Flags: array of UInt8);
+procedure SetFlagsValue_16(var Value: UInt16; Flags: array of UInt16);
+procedure SetFlagsValue_32(var Value: UInt32; Flags: array of UInt32);
+procedure SetFlagsValue_64(var Value: UInt64; Flags: array of UInt64);
+
+procedure SetFlagsValue(var Value: UInt8; Flags: array of UInt8); overload;
+procedure SetFlagsValue(var Value: UInt16; Flags: array of UInt16); overload;
+procedure SetFlagsValue(var Value: UInt32; Flags: array of UInt32); overload;
+procedure SetFlagsValue(var Value: UInt64; Flags: array of UInt64); overload;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                  Reset flag                                  }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+{
+  Functions with bits noted in name (*_8, *_16, ...) are there mainly for older
+  versions of Delphi (up to Delphi 2007), because they are not able distinguish
+  what overloaded function to call (problem with open array parameter parsing).
+}
+
+Function ResetFlag(Value,FlagBitmask: UInt8): UInt8; overload;
+Function ResetFlag(Value,FlagBitmask: UInt16): UInt16; overload;
+Function ResetFlag(Value,FlagBitmask: UInt32): UInt32; overload;
+Function ResetFlag(Value,FlagBitmask: UInt64): UInt64; overload;
+
+procedure ResetFlagValue(var Value: UInt8; FlagBitmask: UInt8); overload;
+procedure ResetFlagValue(var Value: UInt16; FlagBitmask: UInt16); overload;
+procedure ResetFlagValue(var Value: UInt32; FlagBitmask: UInt32); overload;
+procedure ResetFlagValue(var Value: UInt64; FlagBitmask: UInt64); overload;
+
+Function ResetFlags_8(Value: UInt8; Flags: array of UInt8): UInt8;
+Function ResetFlags_16(Value: UInt16; Flags: array of UInt16): UInt16;
+Function ResetFlags_32(Value: UInt32; Flags: array of UInt32): UInt32;
+Function ResetFlags_64(Value: UInt64; Flags: array of UInt64): UInt64;
+
+Function ResetFlags(Value: UInt8; Flags: array of UInt8): UInt8; overload;
+Function ResetFlags(Value: UInt16; Flags: array of UInt16): UInt16; overload;
+Function ResetFlags(Value: UInt32; Flags: array of UInt32): UInt32; overload;
+Function ResetFlags(Value: UInt64; Flags: array of UInt64): UInt64; overload;
+
+procedure ResetFlagsValue_8(var Value: UInt8; Flags: array of UInt8);
+procedure ResetFlagsValue_16(var Value: UInt16; Flags: array of UInt16);
+procedure ResetFlagsValue_32(var Value: UInt32; Flags: array of UInt32);
+procedure ResetFlagsValue_64(var Value: UInt64; Flags: array of UInt64);
+
+procedure ResetFlagsValue(var Value: UInt8; Flags: array of UInt8); overload;
+procedure ResetFlagsValue(var Value: UInt16; Flags: array of UInt16); overload;
+procedure ResetFlagsValue(var Value: UInt32; Flags: array of UInt32); overload;
+procedure ResetFlagsValue(var Value: UInt64; Flags: array of UInt64); overload;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                Set flag state                                }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function SetFlagState(Value,FlagBitmask: UInt8; NewState: Boolean): UInt8; overload;
+Function SetFlagState(Value,FlagBitmask: UInt16; NewState: Boolean): UInt16; overload;
+Function SetFlagState(Value,FlagBitmask: UInt32; NewState: Boolean): UInt32; overload;
+Function SetFlagState(Value,FlagBitmask: UInt64; NewState: Boolean): UInt64; overload;
+
+procedure SetFlagStateValue(var Value: UInt8; FlagBitmask: UInt8; NewState: Boolean); overload;
+procedure SetFlagStateValue(var Value: UInt16; FlagBitmask: UInt16; NewState: Boolean); overload;
+procedure SetFlagStateValue(var Value: UInt32; FlagBitmask: UInt32; NewState: Boolean); overload;
+procedure SetFlagStateValue(var Value: UInt64; FlagBitmask: UInt64; NewState: Boolean); overload;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                   Get bits                                   }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+{
+  Returns contiguous segment of bits from passed Value, selected by a bit range.
+}
+Function GetBits(Value: UInt8; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt8; overload;
+Function GetBits(Value: UInt16; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt16; overload;
+Function GetBits(Value: UInt32; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt32; overload;
+Function GetBits(Value: UInt64; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt64; overload;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                   Set bits                                   }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+{
+  Replaces contiguous segment of bits in Value by corresponding bits from
+  NewBits.
+}
+Function SetBits(Value,NewBits: UInt8; FromBit,ToBit: Integer): UInt8; overload;
+Function SetBits(Value,NewBits: UInt16; FromBit,ToBit: Integer): UInt16; overload;
+Function SetBits(Value,NewBits: UInt32; FromBit,ToBit: Integer): UInt32; overload;
+Function SetBits(Value,NewBits: UInt64; FromBit,ToBit: Integer): UInt64; overload;
+
+procedure SetBitsValue(var Value: UInt8; NewBits: UInt8; FromBit,ToBit: Integer); overload;
+procedure SetBitsValue(var Value: UInt16; NewBits: UInt16; FromBit,ToBit: Integer); overload;
+procedure SetBitsValue(var Value: UInt32; NewBits: UInt32; FromBit,ToBit: Integer); overload;
+procedure SetBitsValue(var Value: UInt64; NewBits: UInt64; FromBit,ToBit: Integer); overload;
 
 implementation
 
@@ -1548,8 +1728,8 @@ asm
 end;
 {$ELSE}
 begin
-Result := UInt32((Value and $000000FF shl 24) or (Value and $0000FF00 shl 8) or
-                 (Value and $00FF0000 shr 8) or (Value and $FF000000 shr 24));
+Result := UInt32(((Value and $000000FF) shl 24) or ((Value and $0000FF00) shl 8) or
+                 ((Value and $00FF0000) shr 8) or ((Value and $FF000000) shr 24));
 end;
 {$ENDIF}
       
@@ -1614,7 +1794,9 @@ asm
     MOV   byte ptr [RDX], R9B
     INC   RDX
     DEC   RAX
-    LOOP  @LoopStart
+
+    DEC   RCX
+    JNZ   @LoopStart
 
   @RoutineEnd:
 {$ELSE}
@@ -1635,7 +1817,9 @@ asm
     MOV   byte ptr [ESI], DL
     INC   ESI
     DEC   EDI
-    LOOP  @LoopStart
+
+    DEC   ECX
+    JNZ   @LoopStart
 
     POP   EDI
     POP   ESI
@@ -2348,7 +2532,25 @@ end;
 {==============================================================================}
 {------------------------------------------------------------------------------}
 
+{$IFDEF UseLookupTable}
+const
+  PopCountTable: array[Byte] of UInt8 = (
+    0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,
+    1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,
+    1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,
+    2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,
+    1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,
+    2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,
+    2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,
+    3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,4,5,5,6,5,6,6,7,5,6,6,7,6,7,7,8);
+{$ENDIF}
+
 Function PopCount(Value: UInt8): Integer;
+{$IFDEF UseLookupTable}
+begin
+Result := PopCountTable[Value];
+end;
+{$ELSE}
 var
   i:  Integer;
 begin
@@ -2359,10 +2561,16 @@ For i := 1 to 8 do
     Value := UInt8(Value shr 1);
   end;
 end;
+{$ENDIF}
 
 //------------------------------------------------------------------------------
 
 Function PopCount(Value: UInt16): Integer;
+{$IFDEF UseLookupTable}
+begin
+Result := PopCountTable[Byte(Value)] + PopCountTable[Byte(Value shr 8)];
+end;
+{$ELSE}
 var
   i:  Integer;
 begin
@@ -2373,10 +2581,17 @@ For i := 1 to 16 do
     Value := UInt16(Value shr 1);
   end;
 end;
+{$ENDIF}
 
 //------------------------------------------------------------------------------
 
 Function PopCount(Value: UInt32): Integer;
+{$IFDEF UseLookupTable}
+begin
+Result := PopCountTable[Byte(Value)] + PopCountTable[Byte(Value shr 8)] +
+  PopCountTable[Byte(Value shr 16)] + PopCountTable[Byte(Value shr 24)];
+end;
+{$ELSE}
 var
   i:  Integer;
 begin
@@ -2387,10 +2602,23 @@ For i := 1 to 32 do
     Value := UInt32(Value shr 1);
   end;
 end;
+{$ENDIF}
 
 //------------------------------------------------------------------------------
 
 Function PopCount(Value: UInt64): Integer;
+{$IFDEF UseLookupTable}
+begin
+{$IFDEF 64bit}
+Result := PopCountTable[Byte(Value)] + PopCountTable[Byte(Value shr 8)] +
+  PopCountTable[Byte(Value shr 16)] + PopCountTable[Byte(Value shr 24)] +
+  PopCountTable[Byte(Value shr 32)] + PopCountTable[Byte(Value shr 40)] +
+  PopCountTable[Byte(Value shr 48)] + PopCountTable[Byte(Value shr 56)];
+{$ELSE}
+Result := PopCount(Int64Rec(Value).Lo) + PopCount(Int64Rec(Value).Hi);
+{$ENDIF}
+end;
+{$ELSE}
 var
   i:  Integer;
 begin
@@ -2400,6 +2628,672 @@ For i := 1 to 64 do
     If (Value and 1) <> 0 then Inc(Result);
     Value := UInt64(Value shr 1);
   end;
+end;
+{$ENDIF}
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                              Nibble manipulation                             }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function GetHighNibble(Value: UInt8): TNibble;
+begin
+Result := (Value shr 4) and $0F;
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetLowNibble(Value: UInt8): TNibble;
+begin
+Result := Value and $0F;
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetHighNibble(Value: UInt8; SetTo: TNibble): UInt8;
+begin
+Result := (Value and $0F) or UInt8((SetTo and $0F) shl 4);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetLowNibble(Value: UInt8; SetTo: TNibble): UInt8;
+begin
+Result := (Value and $F0) or UInt8(SetTo and $0F);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetHighNibbleValue(var Value: UInt8; SetTo: TNibble);
+begin
+Value := SetHighNibble(Value,SetTo);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetLowNibbleValue(var Value: UInt8; SetTo: TNibble);
+begin
+Value := SetLowNibble(Value,SetTo);
+end;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                Get flag state                                }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function GetFlagState(Value,FlagBitmask: UInt8; ExactMatch: Boolean = False): Boolean;
+begin
+If ExactMatch then
+  Result := (Value and FlagBitmask) = FlagBitmask
+else
+  Result := (Value and FlagBitmask) <> 0;
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetFlagState(Value,FlagBitmask: UInt16; ExactMatch: Boolean = False): Boolean;
+begin
+If ExactMatch then
+  Result := (Value and FlagBitmask) = FlagBitmask
+else
+  Result := (Value and FlagBitmask) <> 0;
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetFlagState(Value,FlagBitmask: UInt32; ExactMatch: Boolean = False): Boolean;
+begin
+If ExactMatch then
+  Result := (Value and FlagBitmask) = FlagBitmask
+else
+  Result := (Value and FlagBitmask) <> 0;
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetFlagState(Value,FlagBitmask: UInt64; ExactMatch: Boolean = False): Boolean;
+begin
+If ExactMatch then
+  Result := (Value and FlagBitmask) = FlagBitmask
+else
+  Result := (Value and FlagBitmask) <> 0;
+end;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                   Set flag                                   }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function SetFlag(Value,FlagBitmask: UInt8): UInt8;
+begin
+Result := Value or FlagBitmask;
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlag(Value,FlagBitmask: UInt16): UInt16;
+begin
+Result := Value or FlagBitmask;
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlag(Value,FlagBitmask: UInt32): UInt32;
+begin
+Result := Value or FlagBitmask;
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlag(Value,FlagBitmask: UInt64): UInt64;
+begin
+Result := Value or FlagBitmask;
+end;
+
+//==============================================================================
+
+procedure SetFlagValue(var Value: UInt8; FlagBitmask: UInt8);
+begin
+Value := SetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagValue(var Value: UInt16; FlagBitmask: UInt16);
+begin
+Value := SetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagValue(var Value: UInt32; FlagBitmask: UInt32);
+begin
+Value := SetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagValue(var Value: UInt64; FlagBitmask: UInt64);
+begin
+Value := SetFlag(Value,FlagBitmask);
+end;
+
+//==============================================================================
+
+Function SetFlags_8(Value: UInt8; Flags: array of UInt8): UInt8;
+var
+  TempBitmask:  UInt8;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := SetFlag(Value,TempBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlags_16(Value: UInt16; Flags: array of UInt16): UInt16;
+var
+  TempBitmask:  UInt16;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := SetFlag(Value,TempBitmask);
+end;
+ 
+//------------------------------------------------------------------------------
+
+Function SetFlags_32(Value: UInt32; Flags: array of UInt32): UInt32;
+var
+  TempBitmask:  UInt32;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := SetFlag(Value,TempBitmask);
+end;
+ 
+//------------------------------------------------------------------------------
+
+Function SetFlags_64(Value: UInt64; Flags: array of UInt64): UInt64;
+var
+  TempBitmask:  UInt64;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := SetFlag(Value,TempBitmask);
+end;
+
+//==============================================================================
+
+Function SetFlags(Value: UInt8; Flags: array of UInt8): UInt8;
+begin
+Result := SetFlags_8(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlags(Value: UInt16; Flags: array of UInt16): UInt16;
+begin
+Result := SetFlags_16(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlags(Value: UInt32; Flags: array of UInt32): UInt32;
+begin
+Result := SetFlags_32(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlags(Value: UInt64; Flags: array of UInt64): UInt64;
+begin
+Result := SetFlags_64(Value,Flags);
+end;
+
+//==============================================================================
+
+procedure SetFlagsValue_8(var Value: UInt8; Flags: array of UInt8);
+begin
+Value := SetFlags_8(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagsValue_16(var Value: UInt16; Flags: array of UInt16);
+begin
+Value := SetFlags_16(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagsValue_32(var Value: UInt32; Flags: array of UInt32);
+begin
+Value := SetFlags_32(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagsValue_64(var Value: UInt64; Flags: array of UInt64);
+begin
+Value := SetFlags_64(Value,Flags);
+end;
+
+//==============================================================================
+
+procedure SetFlagsValue(var Value: UInt8; Flags: array of UInt8);
+begin
+SetFlagsValue_8(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagsValue(var Value: UInt16; Flags: array of UInt16);
+begin
+SetFlagsValue_16(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagsValue(var Value: UInt32; Flags: array of UInt32);
+begin
+SetFlagsValue_32(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+ 
+procedure SetFlagsValue(var Value: UInt64; Flags: array of UInt64);
+begin
+SetFlagsValue_64(Value,Flags);
+end;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                  Reset flag                                  }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function ResetFlag(Value,FlagBitmask: UInt8): UInt8;
+begin
+Result := Value and not FlagBitmask;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlag(Value,FlagBitmask: UInt16): UInt16;
+begin
+Result := Value and not FlagBitmask;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlag(Value,FlagBitmask: UInt32): UInt32;
+begin
+Result := Value and not FlagBitmask;
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlag(Value,FlagBitmask: UInt64): UInt64;
+begin
+Result := Value and not FlagBitmask;
+end;
+
+//==============================================================================
+
+procedure ResetFlagValue(var Value: UInt8; FlagBitmask: UInt8);
+begin
+Value := ResetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagValue(var Value: UInt16; FlagBitmask: UInt16);
+begin
+Value := ResetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagValue(var Value: UInt32; FlagBitmask: UInt32);
+begin
+Value := ResetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagValue(var Value: UInt64; FlagBitmask: UInt64);
+begin
+Value := ResetFlag(Value,FlagBitmask);
+end;
+
+//==============================================================================
+
+Function ResetFlags_8(Value: UInt8; Flags: array of UInt8): UInt8;
+var
+  TempBitmask:  UInt8;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := ResetFlag(Value,TempBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlags_16(Value: UInt16; Flags: array of UInt16): UInt16;
+var
+  TempBitmask:  UInt16;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := ResetFlag(Value,TempBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlags_32(Value: UInt32; Flags: array of UInt32): UInt32;
+var
+  TempBitmask:  UInt32;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := ResetFlag(Value,TempBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlags_64(Value: UInt64; Flags: array of UInt64): UInt64;
+var
+  TempBitmask:  UInt64;
+  i:            Integer;
+begin
+TempBitmask := 0;
+For i := Low(Flags) to High(flags) do
+  TempBitmask := TempBitmask or Flags[i];
+Result := ResetFlag(Value,TempBitmask);
+end;
+
+//==============================================================================
+
+Function ResetFlags(Value: UInt8; Flags: array of UInt8): UInt8;
+begin
+Result := ResetFlags_8(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlags(Value: UInt16; Flags: array of UInt16): UInt16;
+begin
+Result := ResetFlags_16(Value,Flags);
+end;
+//------------------------------------------------------------------------------
+
+Function ResetFlags(Value: UInt32; Flags: array of UInt32): UInt32;
+begin
+Result := ResetFlags_32(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+Function ResetFlags(Value: UInt64; Flags: array of UInt64): UInt64;
+begin
+Result := ResetFlags_64(Value,Flags);
+end;
+
+//==============================================================================
+
+procedure ResetFlagsValue_8(var Value: UInt8; Flags: array of UInt8);
+begin
+Value := ResetFlags_8(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagsValue_16(var Value: UInt16; Flags: array of UInt16);
+begin
+Value := ResetFlags_16(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagsValue_32(var Value: UInt32; Flags: array of UInt32);
+begin
+Value := ResetFlags_32(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagsValue_64(var Value: UInt64; Flags: array of UInt64);
+begin
+Value := ResetFlags_64(Value,Flags);
+end;
+
+//==============================================================================
+
+procedure ResetFlagsValue(var Value: UInt8; Flags: array of UInt8);
+begin
+ResetFlagsValue_8(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagsValue(var Value: UInt16; Flags: array of UInt16);
+begin
+ResetFlagsValue_16(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagsValue(var Value: UInt32; Flags: array of UInt32);
+begin
+ResetFlagsValue_32(Value,Flags);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure ResetFlagsValue(var Value: UInt64; Flags: array of UInt64);
+begin
+ResetFlagsValue_64(Value,Flags);
+end;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                Set flag state                                }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function SetFlagState(Value,FlagBitmask: UInt8; NewState: Boolean): UInt8;
+begin
+If NewState then
+  Result := SetFlag(Value,FlagBitmask)
+else
+  Result := ResetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlagState(Value,FlagBitmask: UInt16; NewState: Boolean): UInt16;
+begin
+If NewState then
+  Result := SetFlag(Value,FlagBitmask)
+else
+  Result := ResetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlagState(Value,FlagBitmask: UInt32; NewState: Boolean): UInt32;
+begin
+If NewState then
+  Result := SetFlag(Value,FlagBitmask)
+else
+  Result := ResetFlag(Value,FlagBitmask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetFlagState(Value,FlagBitmask: UInt64; NewState: Boolean): UInt64;
+begin
+If NewState then
+  Result := SetFlag(Value,FlagBitmask)
+else
+  Result := ResetFlag(Value,FlagBitmask);
+end;
+
+//==============================================================================
+
+procedure SetFlagStateValue(var Value: UInt8; FlagBitmask: UInt8; NewState: Boolean);
+begin
+Value := SetFlagState(Value,FlagBitmask,NewState);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagStateValue(var Value: UInt16; FlagBitmask: UInt16; NewState: Boolean);
+begin
+Value := SetFlagState(Value,FlagBitmask,NewState);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagStateValue(var Value: UInt32; FlagBitmask: UInt32; NewState: Boolean);
+begin
+Value := SetFlagState(Value,FlagBitmask,NewState);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetFlagStateValue(var Value: UInt64; FlagBitmask: UInt64; NewState: Boolean);
+begin
+Value := SetFlagState(Value,FlagBitmask,NewState);
+end;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                   Get bits                                   }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function GetBits(Value: UInt8; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt8;
+begin
+Result := Value and UInt8(($FF shl (FromBit and 7)) and ($FF shr (7 - (ToBit and 7))));
+If ShiftDown then
+  Result := Result shr (FromBit and 7);
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetBits(Value: UInt16; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt16;
+begin
+Result := Value and UInt16(($FFFF shl (FromBit and 15)) and ($FFFF shr (15 - (ToBit and 15))));
+If ShiftDown then
+  Result := Result shr (FromBit and 15);
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetBits(Value: UInt32; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt32;
+begin
+Result := Value and UInt32(($FFFFFFFF shl (FromBit and 31)) and ($FFFFFFFF shr (31 - (ToBit and 31))));
+If ShiftDown then
+  Result := Result shr (FromBit and 31);
+end;
+
+//------------------------------------------------------------------------------
+
+Function GetBits(Value: UInt64; FromBit,ToBit: Integer; ShiftDown: Boolean = True): UInt64;
+begin
+Result := Value and UInt64((UInt64($FFFFFFFFFFFFFFFF) shl (FromBit and 63)) and (UInt64($FFFFFFFFFFFFFFFF) shr (63 - (ToBit and 63))));
+If ShiftDown then
+  Result := Result shr (FromBit and 63);
+end;
+
+{------------------------------------------------------------------------------}
+{==============================================================================}
+{                                   Set bits                                   }
+{==============================================================================}
+{------------------------------------------------------------------------------}
+
+Function SetBits(Value,NewBits: UInt8; FromBit,ToBit: Integer): UInt8;
+var
+  Mask: UInt8;
+begin
+Mask := UInt8(($FF shl (FromBit and 7)) and ($FF shr (7 - (ToBit and 7))));
+Result := (Value and not Mask) or (NewBits and Mask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetBits(Value,NewBits: UInt16; FromBit,ToBit: Integer): UInt16;
+var
+  Mask: UInt16;
+begin
+Mask := UInt16(($FFFF shl (FromBit and 15)) and ($FFFF shr (15 - (ToBit and 15))));
+Result := (Value and not Mask) or (NewBits and Mask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetBits(Value,NewBits: UInt32; FromBit,ToBit: Integer): UInt32;
+var
+  Mask: UInt32;
+begin
+Mask := UInt32(($FFFFFFFF shl (FromBit and 31)) and ($FFFFFFFF shr (31 - (ToBit and 31))));
+Result := (Value and not Mask) or (NewBits and Mask);
+end;
+
+//------------------------------------------------------------------------------
+
+Function SetBits(Value,NewBits: UInt64; FromBit,ToBit: Integer): UInt64;
+var
+  Mask: UInt64;
+begin
+Mask := UInt64((UInt64($FFFFFFFFFFFFFFFF) shl (FromBit and 63)) and (UInt64($FFFFFFFFFFFFFFFF) shr (63 - (ToBit and 63))));
+Result := (Value and not Mask) or (NewBits and Mask);
+end;
+
+//==============================================================================
+
+procedure SetBitsValue(var Value: UInt8; NewBits: UInt8; FromBit,ToBit: Integer);
+begin
+Value := SetBits(Value,NewBits,FromBit,ToBit);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetBitsValue(var Value: UInt16; NewBits: UInt16; FromBit,ToBit: Integer);
+begin
+Value := SetBits(Value,NewBits,FromBit,ToBit);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetBitsValue(var Value: UInt32; NewBits: UInt32; FromBit,ToBit: Integer);
+begin
+Value := SetBits(Value,NewBits,FromBit,ToBit);
+end;
+
+//------------------------------------------------------------------------------
+
+procedure SetBitsValue(var Value: UInt64; NewBits: UInt64; FromBit,ToBit: Integer);
+begin
+Value := SetBits(Value,NewBits,FromBit,ToBit);
 end;
 
 end.
